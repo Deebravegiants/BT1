@@ -1,1 +1,0 @@
-[File: 'contracts/bridges/LineaMessenger.sol -> Scope: Medium. Unbounded gas consumption'] [Function: sendETHToL1ViaBridge] Can an unprivileged attacker supply an arbitrary `target` address on L1 that has an expensive `receive()` or fallback function under the precondition that `sendETHToL1ViaBridge` accepts any non-zero `target` and passes `bytes(\
