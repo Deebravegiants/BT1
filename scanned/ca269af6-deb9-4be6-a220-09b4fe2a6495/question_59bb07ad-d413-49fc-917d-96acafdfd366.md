@@ -1,0 +1,1 @@
+[File: 'contracts/bridges/LineaMessenger.sol -> Scope: Medium. Unbounded gas consumption'] [Function: sendETHToL1ViaBridge / Recoverable.recoverETH] Can an unprivileged depositor cause the `recoverETH` admin path to consume unbounded gas under the precondition that `Recoverable.recoverETH` uses `payable(recipient).call{ value: amount }(\

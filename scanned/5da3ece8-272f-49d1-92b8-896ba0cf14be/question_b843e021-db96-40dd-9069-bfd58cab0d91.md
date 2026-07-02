@@ -1,0 +1,1 @@
+[File: 'contracts/interfaces/L2/ILineaMessageService.sol -> Scope: Medium. Unbounded gas consumption'] [Function: LineaMessenger.sendETHToL1ViaBridge / ILineaMessageService.sendMessage] Can an attacker supply an arbitrarily large `_calldata` bytes blob to a future or forked caller of ILineaMessageService.sendMessage under the precondition that LineaMessenger's hardcoded `bytes(\

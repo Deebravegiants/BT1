@@ -1,0 +1,372 @@
+workflow:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $RUN_JOB =~ /^(setup|1_split_scope|2_run_question_generator|3_run_question_generator_questions|7_run_scanner|8_run_validator_report|setup_validation)$/ && ($CI_PIPELINE_SOURCE == "web" || $CI_PIPELINE_SOURCE == "api" || $CI_PIPELINE_SOURCE == "trigger" || $CI_PIPELINE_SOURCE == "pipeline" || $CI_PIPELINE_SOURCE == "schedule")'
+    - if: '$CI_COMMIT_BRANCH == "main" && $RUN_JOB == null && ($CI_PIPELINE_SOURCE == "web" || $CI_PIPELINE_SOURCE == "api" || $CI_PIPELINE_SOURCE == "schedule")'
+    - when: never
+
+stages:
+  - launch
+  - setup
+  - split_scope
+  - question_generator
+  - question_generator_questions
+  - scanner
+  - validator_report
+  - setup_validation
+
+variables:
+  GIT_DEPTH: "0"
+  GIT_STRATEGY: clone
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+.launcher_job:
+  stage: launch
+  image: curlimages/curl:8.8.0
+  when: manual
+  allow_failure: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $RUN_JOB == null'
+  script:
+    - |
+      set -e
+
+      if [ -n "${PIPELINE_TRIGGER_TOKEN:-}" ]; then
+        curl --silent --show-error --fail --request POST \
+          --form "token=${PIPELINE_TRIGGER_TOKEN}" \
+          --form "ref=${CI_COMMIT_REF_NAME}" \
+          --form "variables[RUN_JOB]=${TARGET_JOB}" \
+          "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/trigger/pipeline"
+      elif [ -n "${PAT_TOKEN:-}" ]; then
+        curl --silent --show-error --fail --request POST \
+          --header "PRIVATE-TOKEN: ${PAT_TOKEN}" \
+          --header "Content-Type: application/json" \
+          --data "{\"variables\":[{\"key\":\"RUN_JOB\",\"value\":\"${TARGET_JOB}\"}]}" \
+          "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/pipeline?ref=${CI_COMMIT_REF_NAME}"
+      else
+        echo "PIPELINE_TRIGGER_TOKEN or PAT_TOKEN is required to trigger worker pipelines"
+        exit 1
+      fi
+
+.worker_job:
+  image: python:3.11-bookworm
+  cache:
+    key: pip-cache
+    paths:
+      - .cache/pip
+  before_script:
+    - |
+      set -e
+
+      export DEBIAN_FRONTEND=noninteractive
+      apt-get update
+      apt-get install -y --no-install-recommends git ca-certificates curl chromium xvfb xclip xauth
+
+      # The repo uses webdriver-manager with the default "google-chrome" lookup,
+      # but the GitLab image installs Chromium. Point the expected chrome names at
+      # the Chromium binary and clear the cached mismatched driver.
+      ln -sf /usr/bin/chromium /usr/local/bin/google-chrome
+      ln -sf /usr/bin/chromium /usr/local/bin/google-chrome-stable
+      ln -sf /usr/bin/chromium /usr/local/bin/google-chrome-beta
+      ln -sf /usr/bin/chromium /usr/local/bin/google-chrome-dev
+      rm -rf /root/.wdm
+
+      python -m pip install --upgrade pip
+      pip install selenium webdriver-manager
+      pip install -r requirements.txt || echo "No requirements.txt found, skipping"
+
+      python3 - <<'PY'
+      import base64
+      import binascii
+      import json
+      import os
+      import sys
+      from pathlib import Path
+
+      raw = os.environ.get("KEY_JSON_B64", "").strip()
+      if not raw:
+          print("KEY_JSON_B64 secret is empty")
+          sys.exit(1)
+
+      try:
+          decoded = base64.b64decode(raw, validate=True).decode("utf-8")
+      except (binascii.Error, UnicodeDecodeError) as exc:
+          print(f"KEY_JSON_B64 is not valid base64-encoded UTF-8 JSON: {exc}")
+          sys.exit(1)
+
+      try:
+          payload = json.loads(decoded)
+      except json.JSONDecodeError as exc:
+          print(f"Decoded KEY_JSON_B64 is not valid JSON: {exc}")
+          sys.exit(1)
+
+      if not isinstance(payload, dict) or not payload:
+          print("Decoded KEY_JSON_B64 must be a non-empty JSON object")
+          sys.exit(1)
+
+      Path("key.json").write_text(
+          json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+          encoding="utf-8",
+      )
+      print(f"key.json created with {len(payload)} account entries")
+      PY
+
+      git config --global user.email "${GITLAB_BOT_EMAIL:-gitlab-ci[bot]@users.noreply.gitlab.com}"
+      git config --global user.name "${GITLAB_BOT_NAME:-gitlab-ci[bot]}"
+
+      if [ -n "${PAT_TOKEN:-}" ]; then
+        git remote set-url origin "https://oauth2:${PAT_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+      elif [ -n "${GITLAB_PUSH_TOKEN:-}" ]; then
+        git remote set-url origin "https://oauth2:${GITLAB_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+      elif [ -n "${CI_JOB_TOKEN:-}" ]; then
+        git remote set-url origin "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+      fi
+
+      git switch -C "${CI_COMMIT_REF_NAME}"
+
+      commit_and_push() {
+        message="${1:-Auto-update: collections and reports}"
+        stash_name="ci-runtime-$(date +%s)-$$"
+
+        git add -A
+        git reset -q HEAD -- .cache 2>/dev/null || true
+        if git diff --cached --quiet; then
+          echo "No changes to commit"
+          return 0
+        fi
+
+        git commit -m "${message}"
+
+        stash_args=""
+        for path in key.json .env .cache __pycache__ automation_pending question_pending validated_questions_pending validation_pending scope_pending scope_questions_pending; do
+          if [ -e "${path}" ]; then
+            stash_args="${stash_args} ${path}"
+          fi
+        done
+
+        if [ -n "${stash_args}" ]; then
+          # shellcheck disable=SC2086
+          git stash push -a -m "${stash_name}" -- ${stash_args} >/dev/null 2>&1 || true
+        fi
+
+        n=0
+        until [ "${n}" -ge 3 ]; do
+          git fetch origin "${CI_COMMIT_REF_NAME}"
+          git pull --rebase origin "${CI_COMMIT_REF_NAME}"
+          if git push -o ci.skip origin "HEAD:${CI_COMMIT_REF_NAME}"; then
+            if git stash list | grep -q "${stash_name}"; then
+              git stash pop --index >/dev/null 2>&1 || git stash pop >/dev/null 2>&1 || true
+            fi
+            echo "Push succeeded"
+            return 0
+          fi
+
+          n=$((n + 1))
+          echo "Push failed, retrying in 5 seconds..."
+          sleep 5
+        done
+
+        if git stash list | grep -q "${stash_name}"; then
+          git stash pop --index >/dev/null 2>&1 || git stash pop >/dev/null 2>&1 || true
+        fi
+        echo "Failed to push after 3 attempts"
+        return 1
+      }
+
+      trigger_self() {
+        next_job="${1:?job name required}"
+
+        if [ -n "${PIPELINE_TRIGGER_TOKEN:-}" ]; then
+          curl --silent --show-error --fail --request POST \
+            --form "token=${PIPELINE_TRIGGER_TOKEN}" \
+            --form "ref=${CI_COMMIT_REF_NAME}" \
+            --form "variables[RUN_JOB]=${next_job}" \
+            "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/trigger/pipeline"
+        elif [ -n "${PAT_TOKEN:-}" ]; then
+          curl --silent --show-error --fail --request POST \
+            --header "PRIVATE-TOKEN: ${PAT_TOKEN}" \
+            --header "Content-Type: application/json" \
+            --data "{\"variables\":[{\"key\":\"RUN_JOB\",\"value\":\"${next_job}\"}]}" \
+            "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/pipeline?ref=${CI_COMMIT_REF_NAME}"
+        else
+          echo "PIPELINE_TRIGGER_TOKEN or PAT_TOKEN is required to self-trigger the next pipeline"
+          return 1
+        fi
+      }
+
+setup:
+  extends: .launcher_job
+  variables:
+    TARGET_JOB: setup
+
+1_split_scope:
+  extends: .launcher_job
+  variables:
+    TARGET_JOB: 1_split_scope
+
+2_run_question_generator:
+  extends: .launcher_job
+  variables:
+    TARGET_JOB: 2_run_question_generator
+
+3_run_question_generator_questions:
+  extends: .launcher_job
+  variables:
+    TARGET_JOB: 3_run_question_generator_questions
+
+7_run_scanner:
+  extends: .launcher_job
+  variables:
+    TARGET_JOB: 7_run_scanner
+
+8_run_validator_report:
+  extends: .launcher_job
+  variables:
+    TARGET_JOB: 8_run_validator_report
+
+setup_validation:
+  extends: .launcher_job
+  variables:
+    TARGET_JOB: setup_validation
+
+setup_worker:
+  extends: .worker_job
+  stage: setup
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $RUN_JOB == "setup"'
+  script:
+    - python setup/setup.py
+    - 'commit_and_push "Setup"'
+
+split_scope_worker:
+  extends: .worker_job
+  stage: split_scope
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $RUN_JOB == "1_split_scope"'
+  script:
+    - python run_split_all_scope_questions.py
+    - 'commit_and_push "Auto-update: collections and reports"'
+
+question_generator_worker:
+  extends: .worker_job
+  stage: question_generator
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $RUN_JOB == "2_run_question_generator"'
+  script:
+    - |
+      set -e
+
+      has_scope_files() {
+        find scope -maxdepth 1 -type f -name '*.json' -print -quit 2>/dev/null | grep -q .
+      }
+
+      if ! has_scope_files; then
+        echo "No scope files found, skipping workflow"
+        exit 0
+      fi
+
+      python run_questions_generator_generate.py
+      commit_and_push 'Auto-update: collections and reports'
+
+      if has_scope_files; then
+        trigger_self '2_run_question_generator'
+      fi
+
+      python run_questions_generator.py
+      commit_and_push 'Auto-update: collections and reports'
+
+question_generator_questions_worker:
+  extends: .worker_job
+  stage: question_generator_questions
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $RUN_JOB == "3_run_question_generator_questions"'
+  script:
+    - |
+      set -e
+
+      has_scope_question_files() {
+        find scope_questions -maxdepth 1 -type f -name '*.json' -print -quit 2>/dev/null | grep -q .
+      }
+
+      if ! has_scope_question_files; then
+        echo "No scope question files found, skipping workflow"
+        exit 0
+      fi
+
+      python run_questions_generator_report_generate.py
+      commit_and_push 'Auto-update: collections and reports'
+
+      if has_scope_question_files; then
+        trigger_self '3_run_question_generator_questions'
+      fi
+
+      xvfb-run --auto-servernum python run_questions_generator_report.py
+      commit_and_push 'Auto-update: collections and reports'
+
+scanner_worker:
+  extends: .worker_job
+  stage: scanner
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $RUN_JOB == "7_run_scanner"'
+  script:
+    - |
+      set -e
+
+      has_scanned_files() {
+        find scanned -mindepth 2 -type f -name '*.md' -print -quit 2>/dev/null | grep -q .
+      }
+
+      if ! has_scanned_files; then
+        echo "No scanned markdown files found, skipping workflow"
+        exit 0
+      fi
+
+      python run_generate_scanned_questions_pending.py
+      commit_and_push 'Auto-update: collections and reports'
+
+      if has_scanned_files; then
+        trigger_self '7_run_scanner'
+      fi
+
+      python run_scanner.py
+      commit_and_push 'Auto-update: collections and reports'
+
+validator_report_worker:
+  extends: .worker_job
+  stage: validator_report
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $RUN_JOB == "8_run_validator_report"'
+  script:
+    - |
+      set -e
+
+      has_validated_question_files() {
+        find validated_questions -maxdepth 1 -type f -name '*.json' -print -quit 2>/dev/null | grep -q .
+      }
+
+      echo "validator_report_worker HEAD=$(git rev-parse --short HEAD)"
+      find validated_questions -maxdepth 1 -type f -name '*.json' | sed -n '1,5p' || true
+
+      if ! has_validated_question_files; then
+        echo "No validated question files found, skipping workflow"
+        exit 0
+      fi
+
+      python run_validator_report_generate.py
+      commit_and_push 'Auto-update: collections and reports'
+
+      if has_validated_question_files; then
+        trigger_self '8_run_validator_report'
+      fi
+
+      xvfb-run --auto-servernum python run_validator_report.py
+      commit_and_push 'Auto-update: collections and reports'
+
+setup_validation_worker:
+  extends: .worker_job
+  stage: setup_validation
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $RUN_JOB == "setup_validation"'
+  script:
+    - python rename_validated_to_scanned.py
+    - python merge_scanner.py
+    - 'commit_and_push "Auto-update: collections and reports"'

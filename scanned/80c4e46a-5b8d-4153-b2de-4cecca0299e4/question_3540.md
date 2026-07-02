@@ -1,0 +1,13 @@
+# Q3540: updateRSETHPrice Rebasing Balance Drift Pause Race Swell P3540
+
+## Question
+Can an unprivileged public caller enter through `public updateRSETHPrice()` while controlling call timing after deposits, withdrawals, reward sends, donations, or external balance changes and let a supported rebasing LST balance change between request creation and final settlement, causing `contracts/LRTOracle.sol::updateRSETHPrice` to break the invariant that rebases cannot create unbacked rsETH or freeze queued withdrawals; specifically, pause race must not violate backing, queue, yield, or liquidity accounting for updateRSETHPrice, leading to theft of unclaimed yield? Probe condition: Swell swETH legacy route; amount case available liquidity exactly; timing immediately after reward sendFunds; caller model EOA caller.
+
+## Target
+- File/function: contracts/LRTOracle.sol::updateRSETHPrice
+- Entrypoint: public updateRSETHPrice()
+- Attacker controls: call timing after deposits, withdrawals, reward sends, donations, or external balance changes; scenario: let a supported rebasing LST balance change between request creation and final settlement; validation style: attacker-created state followed by an honest operator action; probe condition: Swell swETH legacy route; amount case available liquidity exactly; timing immediately after reward sendFunds; caller model EOA caller
+- Exploit idea: Use operator-normalization follow-up to exercise the rebasing balance drift path against updateRSETHPrice and look for pause race breaking value conservation or liveness.
+- Invariant to test: rebases cannot create unbacked rsETH or freeze queued withdrawals; specifically, pause race must not violate backing, queue, yield, or liquidity accounting for updateRSETHPrice
+- Expected Immunefi impact: High. Theft of unclaimed yield
+- Fast validation: roll state around pause/updateRSETHPrice and assert no burned/committed assets remain unpaid Use probe condition: Swell swETH legacy route; amount case available liquidity exactly; timing immediately after reward sendFunds; caller model EOA caller.
