@@ -1,1 +1,0 @@
-Let me look at the KERNEL contracts and other remaining contracts for the analog pattern.
