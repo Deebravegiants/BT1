@@ -1,1 +1,0 @@
-Let me check the L1Vault contracts and any remaining pool contracts for ERC4626-like patterns.
