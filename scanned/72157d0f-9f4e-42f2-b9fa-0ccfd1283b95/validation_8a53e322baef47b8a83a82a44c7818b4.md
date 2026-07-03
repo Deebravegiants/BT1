@@ -1,1 +1,0 @@
-Let me look at the `LRTOracle.sol` and the `NodeDelegator.getAssetUnstaking` function more carefully to find potential revert paths.
