@@ -1,1 +1,0 @@
-Looking at the `RSETH::checkDailyMintLimit` modifier and the `LRTOracle::_checkAndUpdateDailyFeeMintLimit` function, I need to check whether the `maxMintAmountPerDay == 0` / `maxFeeMintAmountPerDay == 0` state creates any bypass or freeze analogous to the reference vulnerability.
