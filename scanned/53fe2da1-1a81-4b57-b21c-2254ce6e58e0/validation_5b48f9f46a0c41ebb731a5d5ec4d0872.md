@@ -1,1 +1,0 @@
-Let me trace the full exploit path carefully before rendering a verdict.
