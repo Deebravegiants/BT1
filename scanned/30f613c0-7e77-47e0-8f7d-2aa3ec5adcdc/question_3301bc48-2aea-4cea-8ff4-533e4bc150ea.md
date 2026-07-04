@@ -1,0 +1,1 @@
+[File: 'libs/cardano-ledger-core/src/Cardano/Ledger/Compactible.hs'] [Function: HasSimpleRep (CompactForm a) / fromSimpleRep (Constrained/Conway/Instances/Ledger.hs)] Can an attacker who controls constraint-solver-generated transactions (via the constrained-generators framework) trigger the `error` call in fromSimpleRep for CompactForm a (line: `err = error $ \
