@@ -1,0 +1,8 @@
+[
+  "'File Name: libs/small-steps/src/Control/Provenance.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+  "'File Name: libs/small-steps/src/Control/State/Transition.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+  "'File Name: libs/small-steps/src/Control/State/Transition/Extended.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+  "'File Name: libs/small-steps/src/Control/State/Transition/Simple.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+  "'File Name: libs/vector-map/src/Data/VMap.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+  "'File Name: libs/vector-map/src/Data/VMap/KVVector.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'"
+]
