@@ -1,0 +1,1 @@
+[File: 'libs/cardano-ledger-canonical-state/src/Cardano/Ledger/CanonicalState/Namespace/UTxO/V0.hs -> Scope: Critical. Honest nodes accept an invalid block or transaction causing permanent ledger divergence requiring a hard fork'] [Function: FromCanonicalCBOR \
