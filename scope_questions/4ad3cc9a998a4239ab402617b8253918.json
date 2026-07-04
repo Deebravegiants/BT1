@@ -1,0 +1,127 @@
+[
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/Scripts.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8d180adb-7a99-4e9e-adb6-7847b4eb19ec?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/State.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fe682c2c-5fcb-49b8-b432-d977a8b3722e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/State/Account.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d2fe78c7-7ba4-4d73-b4ea-cee166132d98?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/State/CertState.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_450bfaa7-266d-4bb4-985d-9bd77b88d9a1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/State/Stake.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a2078c2d-5c03-4aa7-b7a9-8af084022bd0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/State/VState.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d9837af8-e9b1-4d06-9040-5f32ca79befd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/Transition.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_124b204d-a1fb-4983-997c-00a7710a7caa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/Translation.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6ce0cb5f-e9eb-4c73-9a36-820bacd15a9d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/Tx.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9e0e565e-682b-4e98-a18f-d31377368ab1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/TxAuxData.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d3ceda83-1e7d-48e0-ac79-bf3ef748ef5e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/TxBody.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6196587d-592a-42e4-ab14-ceec247e6c4a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/TxCert.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9b403f6a-3163-44b9-8f40-f3f24e435b3b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/TxInfo.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3139d6f9-a380-4546-b1b5-a2c15ff7114b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/TxOut.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2fd56e62-cfcc-4a49-bf93-d57a156c57af?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/TxWits.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a5e0633b-13de-4a96-87fb-17db06cfe84c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/conway/impl/src/Cardano/Ledger/Conway/UTxO.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_07f5cbd8-9488-4643-937e-85323083f69c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9f172431-cc97-4062-8eb3-8d9838fd84aa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra/BlockBody.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3a2c62a4-67d1-4adb-8d2c-1c7d1fc6f476?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra/BlockBody/Internal.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8865a238-da8a-4efb-b4db-5068b794bbfc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra/Core.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e53ebad1-7365-4104-8925-4e815c932127?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra/Era.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_77f72b43-8132-40cd-9ea3-37a33e3d882b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra/Forecast.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f353c9ed-d108-4741-a8e8-261dc75441ae?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra/Genesis.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e5f891aa-cd15-4bbe-bcb2-245453b3236c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra/Governance.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1f27a3f7-728d-4cb8-af6c-dcad8817bf1d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra/PParams.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_11fcde4a-75d6-4013-a642-ce948d326e92?mode=deep",
+    "questions_generated": false
+  }
+]
