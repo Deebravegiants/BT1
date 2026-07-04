@@ -1,1 +1,0 @@
-[File: 'libs/cardano-protocol-tpraos/src/Cardano/Protocol/TPraos/Rules/Tickn.hs'] [Function: tickTransition / cross-era extraEntropy removal] Can an unprivileged block producer, under preconditions where `ppExtraEntropyL` is constrained to `AtMostEra \
