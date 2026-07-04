@@ -1,1 +1,0 @@
-[File: 'eras/byron/ledger/impl/src/Cardano/Chain/Update/SystemTag.hs -> Scope: Critical. Honest nodes accept an invalid block or transaction causing permanent ledger divergence requiring a hard fork'] [Function: checkSystemTag / empty SystemTag] Can an unprivileged genesis-delegate submit an update proposal with an empty-string SystemTag (SystemTag \
