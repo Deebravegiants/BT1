@@ -1,1 +1,0 @@
-[File: 'eras/conway/impl/src/Cardano/Ledger/Conway/Rules/Mempool.hs -> Scope: High. Permanent freezing of funds, deposits, rewards, or withdrawals where recovery requires a hard fork'] [Function: defaultReapplyValidatedTx @\
