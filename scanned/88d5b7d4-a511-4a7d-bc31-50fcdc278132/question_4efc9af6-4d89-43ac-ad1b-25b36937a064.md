@@ -1,1 +1,0 @@
-[File: 'libs/cardano-ledger-core/src/Cardano/Ledger/Keys.hs -> Scope: Critical. Direct loss, creation, or destruction of ADA or native assets through an invalid ledger state transition'] [Function: unpackByronVKey / DSIGN.rawDeserialiseVerKeyDSIGN / error call] Can an unprivileged transaction author, under the precondition that unpackByronVKey calls error \
