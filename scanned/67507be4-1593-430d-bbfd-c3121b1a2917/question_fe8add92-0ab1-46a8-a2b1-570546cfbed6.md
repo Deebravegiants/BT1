@@ -1,1 +1,0 @@
-[File: 'eras/alonzo/impl/src/Cardano/Ledger/Alonzo/BlockBody.hs'] [Function: alonzoBbodyTransition / validateExUnits] Can an unprivileged block producer, under the precondition that `alonzoBbodyTransition` calls `trans @(EraRule \
