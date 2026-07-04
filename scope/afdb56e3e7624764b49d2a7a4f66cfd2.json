@@ -1,8 +1,0 @@
-[
-  "'File Name: libs/small-steps/src/Control/Provenance.hs -> Scope: High. Deterministic disagreement between honest nodes from ledger rule evaluation, era transition, serialization, or script/witness validation'",
-  "'File Name: libs/small-steps/src/Control/State/Transition.hs -> Scope: High. Deterministic disagreement between honest nodes from ledger rule evaluation, era transition, serialization, or script/witness validation'",
-  "'File Name: libs/small-steps/src/Control/State/Transition/Extended.hs -> Scope: High. Deterministic disagreement between honest nodes from ledger rule evaluation, era transition, serialization, or script/witness validation'",
-  "'File Name: libs/small-steps/src/Control/State/Transition/Simple.hs -> Scope: High. Deterministic disagreement between honest nodes from ledger rule evaluation, era transition, serialization, or script/witness validation'",
-  "'File Name: libs/vector-map/src/Data/VMap.hs -> Scope: High. Deterministic disagreement between honest nodes from ledger rule evaluation, era transition, serialization, or script/witness validation'",
-  "'File Name: libs/vector-map/src/Data/VMap/KVVector.hs -> Scope: High. Deterministic disagreement between honest nodes from ledger rule evaluation, era transition, serialization, or script/witness validation'"
-]
