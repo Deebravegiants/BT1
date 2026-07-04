@@ -1,8 +1,0 @@
-[
-  "'File Name: libs/small-steps/src/Control/Provenance.hs -> Scope: Critical. Direct loss, creation, or destruction of ADA or native assets through an invalid ledger state transition'",
-  "'File Name: libs/small-steps/src/Control/State/Transition.hs -> Scope: Critical. Direct loss, creation, or destruction of ADA or native assets through an invalid ledger state transition'",
-  "'File Name: libs/small-steps/src/Control/State/Transition/Extended.hs -> Scope: Critical. Direct loss, creation, or destruction of ADA or native assets through an invalid ledger state transition'",
-  "'File Name: libs/small-steps/src/Control/State/Transition/Simple.hs -> Scope: Critical. Direct loss, creation, or destruction of ADA or native assets through an invalid ledger state transition'",
-  "'File Name: libs/vector-map/src/Data/VMap.hs -> Scope: Critical. Direct loss, creation, or destruction of ADA or native assets through an invalid ledger state transition'",
-  "'File Name: libs/vector-map/src/Data/VMap/KVVector.hs -> Scope: Critical. Direct loss, creation, or destruction of ADA or native assets through an invalid ledger state transition'"
-]
