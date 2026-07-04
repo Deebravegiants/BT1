@@ -627,7 +627,7 @@ def question_generator(target_file: str) -> str:
     * Do not ask for code or say anything is missing.
     * Attacker is unprivileged: transaction sender, block producer below consensus threshold, certificate/vote/proposal author, script author, witness provider, or serialized ledger/input producer.
     * Do not rely on governance majority, malicious supermajority, validator/operator compromise, leaked keys, third-party dependency compromise, Sybil/51% attacks, phishing, spam-only DoS, public-mainnet testing, or out-of-scope websites/dapps.
-    * Generate 20 to 30 high-signal questions.
+    * Generate 10 to 20 high-signal questions.
     * At least 70% must be multi-step flow, invariant, fuzz, accounting, state-transition, consensus, serialization, governance, or cross-module questions.
     * Every question must be testable by PoC, unit test, fuzz test, invariant test, model comparison, or differential test.
     * Avoid generic checklist questions and repeated root causes.
