@@ -1,0 +1,1 @@
+[File: 'eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra/BlockBody.hs -> Scope: Critical. Unauthorized governance, treasury, protocol-parameter, committee, constitution, or hard-fork action is enacted'] [Function: DecCBOR (DijkstraBbodyPredFailure era) / Summands \
