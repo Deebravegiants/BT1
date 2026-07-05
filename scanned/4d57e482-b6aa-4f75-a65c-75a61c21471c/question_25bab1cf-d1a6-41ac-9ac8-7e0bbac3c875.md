@@ -1,1 +1,0 @@
-[File: 'eras/conway/impl/src/Cardano/Ledger/Conway/Rules/Bbody.hs -> Scope: High. Deterministic disagreement between honest nodes from ledger rule evaluation, era transition, serialization, or script/witness validation'] [Function: conwayToDijkstraBbodyPredFailure in Dijkstra/Rules/Bbody.hs] Can an unprivileged block producer trigger the `error \
