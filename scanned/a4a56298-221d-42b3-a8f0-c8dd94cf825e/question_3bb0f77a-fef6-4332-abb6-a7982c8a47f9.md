@@ -1,1 +1,0 @@
-[File: 'eras/alonzo/impl/src/Cardano/Ledger/Alonzo/BlockBody/Internal.hs -> Scope: Critical. Honest nodes accept an invalid block or transaction causing permanent ledger divergence requiring a hard fork'] [Function: alonzoBbodyTransition / validateExUnits] Can an unprivileged block producer craft a block where `validateExUnits` is called AFTER `trans @(EraRule \
