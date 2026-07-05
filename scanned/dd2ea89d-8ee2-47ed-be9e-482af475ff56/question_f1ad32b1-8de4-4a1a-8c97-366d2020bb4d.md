@@ -1,1 +1,0 @@
-[File: 'eras/byron/ledger/impl/src/Cardano/Chain/Block/Header.hs -> Scope: High. Deterministic disagreement between honest nodes from ledger rule evaluation, era transition, serialization, or script/witness validation'] [Function: encCBORBlockVersions / hashRaw] Can an unprivileged block producer craft a header where the hardcoded extra body data hash (hashRaw \
