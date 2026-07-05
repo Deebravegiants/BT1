@@ -1,0 +1,1 @@
+Let me look at the Dijkstra top-level LEDGER rule to understand the full execution order.
