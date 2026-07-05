@@ -1,0 +1,1 @@
+Looking at the exact code path for this claim requires examining both the `poolTransition` guard and the `poolReapTransition` refund logic.
