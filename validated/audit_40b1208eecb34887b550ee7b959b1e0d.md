@@ -1,0 +1,1 @@
+Let me look at the Epoch rule to understand how RATIFY is invoked and what `ensTreasury` is initialized to.
