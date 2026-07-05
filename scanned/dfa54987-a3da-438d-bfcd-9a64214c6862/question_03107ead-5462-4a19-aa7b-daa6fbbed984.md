@@ -1,1 +1,0 @@
-[File: 'eras/dijkstra/impl/src/Cardano/Ledger/Dijkstra/Rules/SubCert.hs -> Scope: High. Deterministic disagreement between honest nodes from ledger rule evaluation, era transition, serialization, or script/witness validation'] [Function: conwayToDijkstraSubCertsPredFailure (SubCerts.hs) / error call] Can an unprivileged attacker trigger the 'error \
