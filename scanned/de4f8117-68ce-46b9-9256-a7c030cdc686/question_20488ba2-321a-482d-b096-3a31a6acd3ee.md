@@ -1,1 +1,0 @@
-[File: 'crates/chain-gateway/src/state_viewer.rs -> crates/chain-gateway/src/state_viewer/traits.rs'] [Function: SubscribeToContractMethod::subscribe_to_contract_method] Can an unprivileged attacker who observes that subscribe_to_contract_method always passes hardcoded b\
