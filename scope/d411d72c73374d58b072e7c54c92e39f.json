@@ -1,0 +1,12 @@
+[
+  "'File Name: crates/threshold-signatures/src/frost/redjubjub/sign.rs -> Scope: Critical. Unauthorized transaction execution, threshold signature issuance, or confidential key derivation output without the required participant authorization.'",
+  "'File Name: crates/threshold-signatures/src/frost/sign_utils.rs -> Scope: Critical. Unauthorized transaction execution, threshold signature issuance, or confidential key derivation output without the required participant authorization.'",
+  "'File Name: crates/threshold-signatures/src/lib.rs -> Scope: Critical. Unauthorized transaction execution, threshold signature issuance, or confidential key derivation output without the required participant authorization.'",
+  "'File Name: crates/threshold-signatures/src/macros.rs -> Scope: Critical. Unauthorized transaction execution, threshold signature issuance, or confidential key derivation output without the required participant authorization.'",
+  "'File Name: crates/threshold-signatures/src/participants.rs -> Scope: Critical. Unauthorized transaction execution, threshold signature issuance, or confidential key derivation output without the required participant authorization.'",
+  "'File Name: crates/threshold-signatures/src/protocol.rs -> Scope: Critical. Unauthorized transaction execution, threshold signature issuance, or confidential key derivation output without the required participant authorization.'",
+  "'File Name: crates/threshold-signatures/src/protocol/echo_broadcast.rs -> Scope: Critical. Unauthorized transaction execution, threshold signature issuance, or confidential key derivation output without the required participant authorization.'",
+  "'File Name: crates/threshold-signatures/src/protocol/helpers.rs -> Scope: Critical. Unauthorized transaction execution, threshold signature issuance, or confidential key derivation output without the required participant authorization.'",
+  "'File Name: crates/threshold-signatures/src/protocol/internal.rs -> Scope: Critical. Unauthorized transaction execution, threshold signature issuance, or confidential key derivation output without the required participant authorization.'",
+  "'File Name: crates/threshold-signatures/src/thresholds.rs -> Scope: Critical. Unauthorized transaction execution, threshold signature issuance, or confidential key derivation output without the required participant authorization.'"
+]
