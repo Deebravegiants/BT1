@@ -1,0 +1,1 @@
+Looking at the external report's vulnerability class — **stale/pre-update value used in a count/ratio calculation, where a pending state change hasn't been applied, causing the denominator/numerator to be incorrect and bypassing a safety check** — I need to find an analog in the NEAR MPC codebase.
