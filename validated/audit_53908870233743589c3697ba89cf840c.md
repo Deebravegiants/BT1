@@ -1,0 +1,1 @@
+Looking at the codebase, I need to find an analog to the "different-valued assets treated as equivalent" vulnerability class. Let me examine the `respond_ckd` function and the CKD request handling more carefully.
