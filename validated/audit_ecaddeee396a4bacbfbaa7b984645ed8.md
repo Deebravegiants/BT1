@@ -1,0 +1,1 @@
+Let me look at the `ThresholdParametersVotes` implementation to understand how votes are counted.
