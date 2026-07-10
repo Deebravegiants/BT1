@@ -1,0 +1,1 @@
+Looking at the vulnerability class from the external report — **stale state not cleared when a condition changes, leading to incorrect behavior in subsequent operations** — I need to find an analog in the NEAR MPC codebase where participant-state flags or votes are not properly cleared after a participant set change.
