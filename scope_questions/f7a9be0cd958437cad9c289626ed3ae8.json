@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/core/convert.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7d558e2c-bc1b-4708-b899-ccf6e42952e5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/core/extended_uint.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2b2b604d-331f-467b-a7da-aa076b1e80e8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/core/log.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cd3c5124-6665-4fff-86f2-c87519a994d0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/core/strext.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5adb09ae-3ceb-47ab-aeb0-7d41c8a44f01?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/core/utils.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9b9566ee-378b-4fc3-9bd5-b604817a1ebe?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_64e15f99-4bbf-482c-83d7-c566a7d409d4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_bn.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9c5a764e-b879-4b11-b6a1-59c5dc6a0587?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_bn256.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0b9a18cd-dd0c-4447-b6f2-4854d71ce136?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_ec_core.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e8d3e024-8d25-4b37-9bf9-c4614c7ef470?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_ecc.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1596fce3-fe10-49b6-ad82-4ba871961f96?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_ecc_secp256k1.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_91570398-5667-4873-aef4-2631c57d9c63?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_eddsa.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_42a25a4b-4367-4488-b201-ec6225655e4a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_hash.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a3f9e189-cd64-4f8a-8860-23c74c058665?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_mod.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_65abda95-4727-4f8d-8cbe-4a14f8f4142f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_paillier.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d4a0e932-bc23-4009-94f8-d62a1041bc8b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_pki.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6110052a-5073-4acc-86d8-130a0cfd9f30?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_rsa.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e88fec4b-e50c-4399-8565-a8769ddbffa8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/commitment.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c10dfc44-f47d-43d3-9aec-cb828517f130?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/ec25519_core.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_80ac73d0-21dd-40e1-bf2a-4acc18972e76?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/elgamal.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e6440860-e7e6-4c36-8479-06da1dd174fc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/lagrange.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8ca377ab-4567-48a9-a1a7-849086bc7ac6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/mlkem768.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_85ef6c02-22a5-4753-b738-594b065b7aba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/ro.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4efd5d25-61e4-4cb9-a9c8-362902141116?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/scope.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ecbfe7fd-93c1-42a3-a253-bcb47172e670?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/secret_sharing.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_295528c6-e683-46c7-8692-5a3e91199202?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/tdh2.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7a9a6a0d-15bf-4c6f-8548-2f285e6fdd2b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/protocol/agree_random.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_454f5861-e874-4fdc-bf9c-a4cc352375c4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/protocol/committed_broadcast.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_80d9e7ff-a143-4842-adb6-79636d7b1e15?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/protocol/ec_dkg.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_778e20d7-91c6-427d-b041-aa70e9f0235f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/protocol/ecdsa_2p.h -> Scope: High. Public API reachable validation bypass in DKG, refresh, signing, PVE, TDH2, ZK proofs, commitments, OT, Paillier, ElGamal, or access-structure reconstruction creates accepted invalid cryptographic output.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_952003b9-eefc-48d5-84d8-0c1600c99f41?mode=deep",
+    "questions_generated": false
+  }
+]
