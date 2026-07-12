@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/core/convert.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aafd012b-71f2-40e1-ac74-9cb443986d3a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/core/extended_uint.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f31ff09b-fda8-483c-a8c5-dab2b910625d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/core/log.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2ab5a50d-9ac6-481f-a12c-606fdee19596?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/core/strext.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c9cbdc17-f6e2-4233-abcc-d331af565f08?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/core/utils.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d3e22411-92eb-4335-a1ec-3211d52d4027?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d65deb65-c7e2-4531-ba85-7bfe888678a4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_bn.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4a144152-21d2-45b0-b5ac-8f1a2018093d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_bn256.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_08ea5b82-efbf-4aa1-abc1-e7885b73b7a7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_ec_core.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_231edab2-1370-4e41-a156-e110b1d35dd1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_ecc.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e520b42b-de8e-4532-9377-f7acd6a1ba1b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_ecc_secp256k1.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cbe4b69a-95de-439f-8bcf-66013bbfae48?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_eddsa.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_10028097-316a-4ace-ba18-91f315187ae5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_hash.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6f067981-0b78-4718-8756-31248add5b8a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_mod.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8f8ad60a-bb36-4761-9676-130806595616?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_paillier.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fdcf82d9-433f-47b9-83d4-6d47e4bec367?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_pki.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1d86a65e-3299-40da-89d7-ae5902ad7b06?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/base_rsa.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e8a6fc2e-6439-494f-a953-4aeb17e03fc3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/commitment.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2e94f7ca-1c86-4e79-8e73-25051d16a2fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/ec25519_core.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5a5d3dd0-8586-42db-9785-6b1d9729b829?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/elgamal.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_263a5b0b-8f67-4388-8c02-8b1b30fd5f22?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/lagrange.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f641a93a-8354-4ee3-aacb-a6a39e1e2f98?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/mlkem768.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cc1a9af9-8fbd-4ce7-aee5-e39da4b1094f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/ro.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_80356713-ef77-432f-a6e2-c553964202e6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/scope.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bdffe1f0-1291-473d-81ee-6a365e4d1143?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/secret_sharing.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0056387e-0bc1-44ab-ba5b-9be37e906fab?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/crypto/tdh2.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fa941a16-df51-4c6b-8e72-391ef48e8871?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/protocol/agree_random.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dd3a8d84-3d07-4fe9-883e-9042da0120e1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/protocol/committed_broadcast.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d1bdc248-31cb-4e89-b3d9-998a882b9431?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/protocol/ec_dkg.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8be8947b-465e-449a-a7b7-f323994fa98e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: include-internal/cbmpc/internal/protocol/ecdsa_2p.h -> Scope: Medium. Public API reachable parsing, serialization, memory, quorum, or transport-message invariant break causes honest-party divergence, unsafe state acceptance, or invalid cryptographic output with security impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5c44ec0c-db89-4bec-aa7f-0cf4c2bad307?mode=deep",
+    "questions_generated": false
+  }
+]
