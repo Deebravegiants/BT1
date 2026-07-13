@@ -1,0 +1,1 @@
+Let me look at the parameter definitions for the ZK proofs and the `check_open_range` function.
