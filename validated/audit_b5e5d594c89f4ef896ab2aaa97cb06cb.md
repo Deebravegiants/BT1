@@ -1,0 +1,1 @@
+Let me check the `SUM` macro and how `ecc_point_t::operator+=` handles cross-curve addition.
