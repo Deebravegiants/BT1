@@ -1,0 +1,1 @@
+I'll search the cb-mpc codebase for hardcoded parameters that could conflict with configurable constraints, analogous to the hardcoded `callbackGasLimit` bug.
