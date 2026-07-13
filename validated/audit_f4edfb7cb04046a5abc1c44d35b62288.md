@@ -1,0 +1,1 @@
+Let me look at the `group_message` function and the `sign_ac` function more carefully to check for wrong party/role checks.
