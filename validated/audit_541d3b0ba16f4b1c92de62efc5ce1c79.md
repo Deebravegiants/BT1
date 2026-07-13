@@ -1,0 +1,1 @@
+Let me check the public API for ecdsa_2p and the `sign_with_global_abort` exposure:
