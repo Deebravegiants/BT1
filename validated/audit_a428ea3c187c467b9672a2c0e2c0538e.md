@@ -1,0 +1,1 @@
+Let me look at the `to_additive_share` implementation and the `Q` field handling in AC key blobs.
