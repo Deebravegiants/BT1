@@ -1,0 +1,1 @@
+Looking at the M-20 bug class — a **fixed parameter applied uniformly regardless of actual state, causing a mathematical invariant to be violated in edge cases** — I need to find an analog in cb-mpc where a fixed scalar/bound/threshold causes a cryptographic invariant to break.
