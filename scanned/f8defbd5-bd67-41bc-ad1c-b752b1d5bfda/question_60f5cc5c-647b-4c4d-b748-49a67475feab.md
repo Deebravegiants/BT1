@@ -1,1 +1,0 @@
-[File: 'chia/seeder/peer_record.py -> Scope: High'] [Function: PeerRecord.update_version] Can an attacker send the exact string 'undefined' as their version during handshake, causing update_version() to skip the version field update ('if version != \
