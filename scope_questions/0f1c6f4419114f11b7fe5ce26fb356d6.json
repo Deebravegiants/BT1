@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: chia/consensus/augmented_chain.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c6ba4328-31eb-4162-82ea-d25794054059?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/block_body_validation.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c9b17b72-62f9-4369-b7d0-c6fe89962928?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/block_creation.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1fcc5206-b2cc-42d4-9ee9-a70c24323a5e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/block_header_validation.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_43006a0f-d0ae-406e-990f-0abef0917e67?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/block_height_map.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3c2f6599-8368-4c67-bf12-2dcf09f6eb5c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/block_height_map_protocol.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9ccd33c1-5dfa-4ed1-8973-487381a52317?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/block_record.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_09fb7aee-bb57-4965-8383-225cca85f1ad?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/block_rewards.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_74fb049b-6bf3-4058-ae92-eca68a09c9be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/blockchain.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f5b059d1-5e47-4b49-a742-dec35bc88a2f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/blockchain_interface.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3e21b42d-2773-452e-b290-a60875a7e524?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/blockchain_mmr.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f673544a-62f9-4638-bbdd-cb8990610587?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/challenge_tree.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_be29d8e3-dc03-412f-8900-9a323d990ba6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/coin_store_protocol.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_418f1097-4df1-42d1-93f9-fe002845f42b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/coinbase.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ad785db2-3f44-4214-8a13-ee777a0798f6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/condition_costs.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1e0228b7-b35f-448f-ba06-e001de8e3c5d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/condition_tools.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4a4079b1-29de-4835-b27c-2e3b8e319d64?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/constants.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_21f32b6a-a3f5-4d60-89da-fbc857837354?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/default_constants.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aecd68df-bd66-443e-a269-eea8c5a96cf7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/deficit.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2f3050bf-0444-4c88-98a4-d1e34a89c5cc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/difficulty_adjustment.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_21a38294-4bc9-4732-b070-253e3887ce9f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/find_fork_point.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_519350f3-03e4-4bd9-9b93-0e116d948180?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/full_block_to_block_record.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a033f977-bdbb-4fd4-b2ee-af3c47a580fd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/generator_tools.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7890ccfc-1142-4f3a-bc4c-8a9917945d65?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/get_block_challenge.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c67e1386-5e30-4013-a909-43d47231c409?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/get_block_generator.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b23d0ccf-1b90-44b5-a3c6-7d5f4f00989b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/make_sub_epoch_summary.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_772e38dd-f94c-4dc4-bc56-279d362c5eb1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/mmr.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_23fecc57-cb89-456a-8890-8330b36c68c5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/multiprocess_validation.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_483a7503-1c69-4a45-af88-0929b5b4f858?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/pos_quality.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ed92e1d6-8d85-49c4-99df-d6fbff7a92b1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chia/consensus/pot_iterations.py -> Scope: Critical: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_81cebe19-dd40-4960-80e0-e75ede8c0c00?mode=deep",
+    "questions_generated": false
+  }
+]
