@@ -1,1 +1,0 @@
-[File: chia/wallet/nft_wallet/nft_info.py] [Function: NFTCoinInfo / WalletNftStore.get_nft_list SQL injection] Can an unprivileged RPC caller supply a did_id value that, when hex-encoded and interpolated into the get_nft_list SQL query (sql += f\
