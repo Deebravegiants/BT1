@@ -1,1 +1,0 @@
-[File: 'chia/util/db_synchronous.py'] [Function: db_synchronous_on / DBWrapper2.managed] Can an unprivileged attacker exploit the fact that the synchronous pragma is applied via f-string interpolation (f\
