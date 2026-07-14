@@ -1,0 +1,13 @@
+# Q1785: create_new_pool_wallet_transaction replays attacker-controlled spends across cache or reorg boundaries
+
+## Question
+Can an unprivileged attacker reach pool wallet or singleton spend flow reaching `create_new_pool_wallet_transaction` and control replayed bundles, reordered peer deliveries, and reorg timing so that `PoolWallet.create_new_pool_wallet_transaction` in `chia/pools/pool_wallet.py` executes a path where use replay or rollback ordering so `create_new_pool_wallet_transaction` resurrects attacker-chosen spend state after it should be dead, violating the invariant that once a spend path is invalidated by confirmation, rollback, or conflict resolution, it must not silently become active again and leading to Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction?
+
+## Target
+- File/function: chia/pools/pool_wallet.py:391 `PoolWallet.create_new_pool_wallet_transaction`
+- Entrypoint: pool wallet or singleton spend flow reaching `create_new_pool_wallet_transaction`
+- Attacker controls: replayed bundles, reordered peer deliveries, and reorg timing
+- Exploit idea: use replay or rollback ordering so `create_new_pool_wallet_transaction` resurrects attacker-chosen spend state after it should be dead
+- Invariant to test: once a spend path is invalidated by confirmation, rollback, or conflict resolution, it must not silently become active again
+- Expected Immunefi impact: Consensus divergence, deterministic validation mismatch, invalid block or spend acceptance, forged weight proof trust, or chain halt caused by an unprivileged block, spend bundle, protocol message, sync path, or mempool interaction
+- Fast validation: replay the same attacker-crafted spend or wallet state across rollback/reorg test steps and assert `create_new_pool_wallet_transaction` never reactivates stale state
