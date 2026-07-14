@@ -1,0 +1,1 @@
+[File: 'chia/util/db_synchronous.py'] [Function: db_synchronous_on / DBWrapper2.managed] Can an unprivileged attacker who controls the db_sync config value set it to a string containing SQLite comment syntax (e.g., 'NORMAL; DROP TABLE full_blocks; --') which, when interpolated into f\
