@@ -1,0 +1,1 @@
+Let me look at the exact exception handling and the call site for `handle_cat`.
