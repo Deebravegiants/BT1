@@ -1,0 +1,1 @@
+Let me look at how FF items are indexed in the `spends` table when added to the pool.
