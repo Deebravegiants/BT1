@@ -6,9 +6,9 @@ from decouple import config
 # todo: if scope_files is: 500 > 50, 300 > 30 , 100 > 10
 MAX_REPO = 25
 # todo: the path from https://github.com/Chia-Network/chia-blockchain
-SOURCE_REPO = "Chia-Network/chia-blockchain"
+SOURCE_REPO = "near/nearcore"
 # todo: the name of the repository
-REPO_NAME = "chia-blockchain"
+REPO_NAME = "nearcore"
 run_number = os.environ.get('GITHUB_RUN_NUMBER') or os.environ.get('CI_PIPELINE_IID', '0')
 
 
