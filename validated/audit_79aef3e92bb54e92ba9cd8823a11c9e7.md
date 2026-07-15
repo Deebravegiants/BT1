@@ -1,0 +1,1 @@
+Let me read the critical `_manage_chains` section of timelord.py to check for exception handling around `set_state`.
