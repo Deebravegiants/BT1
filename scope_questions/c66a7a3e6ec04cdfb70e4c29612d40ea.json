@@ -1,0 +1,127 @@
+[
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/instrument_v3.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_532c7878-4ba8-46da-a7fe-1a4556aea838?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/prepare_v2.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0c836b3f-d5a3-4d27-b437-df478d09ecb7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/prepare_v3.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4e85aa54-1c56-46a2-aeeb-e237a3f79126?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/runner.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fec3ac76-b273-4c11-8138-fd0246bb8035?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/wasmtime_runner/logic.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8ed97922-f440-463a-bb69-76e2df264306?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/wasmtime_runner/mod.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_18e2fecb-68bb-4ecd-ba44-1bb527500288?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/access_keys.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bc3151f6-09a5-4774-980a-e41eed397ef9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/action_validation.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5b58b3e8-cf0b-48fb-8566-b10cd45f8fa1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/actions.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d4ab6981-7beb-43a0-9f3e-67a843e85cdb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/adapter.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8a22c95c-eb11-40e1-b213-18c234c9553f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/distribute_remaining.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6150746f-80cd-4ef4-ad89-62b8687a0088?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/scheduler.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_90f97969-8f01-4706-a561-23bea9361e29?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/cache_warming.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0536bcef-8707-45d2-8d70-fe88e73be37f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/congestion_control.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2121eb9b-ccba-4254-b2e7-75dccc7bea67?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/contract_code.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_15574e08-9a47-4263-ab3a-39fd7f9217ee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/conversions.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3ad93551-bcd4-44b0-934d-38252882e0d6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/deterministic_account_id.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ae4593ae-dfa9-4f94-b331-9dac135fc900?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/ext.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3fad38eb-4fee-4e6e-bb24-37c1c0183ec3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/function_call.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_66f728b6-0fa7-47ed-8cbe-85965ba115c1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/global_contracts.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_25911bd6-d027-4ac9-9729-3b93dc781499?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/pipelining.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_700dae6b-e3d5-4373-9d62-198276a3f3ac?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/prefetch.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2675864e-8e2f-41f0-b2fc-af1f8d29dec0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/receipt_manager.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_80a94351-2316-4ebf-9b06-20ea4ae20630?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/types.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3943946c-9142-41d5-bc81-43e9928456e0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/verifier.rs -> Scope: Critical. Unprivileged-user-triggered Signature, account key, validator signer, approval, endorsement, VRF, light client, epoch sync proof, or hash-domain bug verifies an invalid proof/signature or rejects a valid one in consensus code.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8a99cdd8-0e92-4576-96ea-d7ef09709b6c?mode=deep",
+    "questions_generated": false
+  }
+]
