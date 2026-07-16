@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: core/primitives/src/state_sync.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_65edf56b-d970-4835-acec-c4d98a71360b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/stateless_validation/chunk_endorsement.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_09f7ce62-58c0-4ed8-8b2a-41eabfa86b14?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/stateless_validation/chunk_endorsements_bitmap.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b2a665b2-6a8c-4445-ac26-bc5edfc9b23a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/stateless_validation/contract_distribution.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1a5248f1-e355-4be8-8be5-6448fb8695de?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/stateless_validation/partial_witness.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e74da44e-8082-406a-bf05-ffa5f0d1f764?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/stateless_validation/state_witness.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a9f5fd0a-dbcf-410a-a4a6-1b7ef47c02c8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/stateless_validation/stored_chunk_state_transition_data.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5fee1924-bcf7-4a24-9cdd-fdce001e5e4a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/stateless_validation/validator_assignment.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a6f3814e-2956-4c84-ae9a-abd3455b443e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/transaction.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_78d3183d-8ec2-46a3-9bab-038fa8086e03?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/trie_key.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b8d785e9-1e43-4bcb-85b0-0958326fd502?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/trie_split.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f6f725df-4e36-4a99-aa14-533ac1ecad08?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/types.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a745ba37-62bd-4b82-9228-bb55069cd7ef?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/upgrade_schedule.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f4e56b10-bedc-4291-a5bc-1814e8dc6437?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/validator_mandates/compute_price.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_76afc379-9453-49dc-9852-4fc450cbd4d8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/validator_signer.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0ecc7c92-36bf-482e-b641-174ebb19ea29?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/adapter/chain_store.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_54ab7f02-71b0-4fb5-a877-ecfc9ac318ce?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/adapter/chunk_store.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2f8e19d6-08f7-440f-97ec-5abc539cf5f8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/adapter/epoch_store.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f0aa6893-aa73-4a47-9f3b-8a6846bb23e9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/adapter/flat_store.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3748055a-8c4b-439b-84f8-5fe132ae17ad?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/adapter/trie_store.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_586222cf-6599-4ee2-a89f-c4a7f0553912?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/flat/delta.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5cec3dc6-85bc-4b18-b66f-8d1de72ed418?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/flat/manager.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b7bb9766-e988-4325-99dd-15562a8e5a3c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/flat/storage.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_46e65502-fa33-4aec-a19b-384f0965d37b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/flat/types.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_98f832c5-0f5b-4841-bf15-5e67750ee02b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/merkle_proof.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0d3a4196-e43f-4382-8d68-dce44a12c393?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/from_flat.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_61282ed6-0e2c-476d-8a47-f3b9a821dd26?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/iterator.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_be4e863e-2fa7-4b3e-9cf9-36b4a4ce7d75?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mem/loading.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4d7869a7-00c0-484f-a36e-1703477c0566?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mem/memtries.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_edfefac5-45fa-481b-98df-068dbb154a1b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mem/memtrie_update.rs -> Scope: Critical. Unprivileged-user-triggered State trie, flat storage, state parts, Merkle proofs, state witness, stateless validation, or chunk endorsement logic accepts forged state/chunks or rejects valid state in a consensus path.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f1f73796-33bd-4605-9804-fc4744436f73?mode=deep",
+    "questions_generated": false
+  }
+]
