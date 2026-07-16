@@ -2,7 +2,7 @@ import json
 import os
 
 # todo: if scope_files is: 500 > 50, 300 > 30 , 100 > 10
-MAX_REPO = 25
+MAX_REPO = 50
 SOURCE_REPO = "near/nearcore"
 REPO_NAME = "nearcore"
 run_number = os.environ.get("GITHUB_RUN_NUMBER") or os.environ.get(
