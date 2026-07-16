@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: core/store/src/trie/ops/insert_delete.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e4a8fbfa-9725-43d4-b584-346954e7269f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/ops/interface.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_87fc60f0-a40a-4f02-b4ca-8865a2883ea9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/ops/iter.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_19f75d8d-5559-4ac3-8dcf-5186aa473ff6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/ops/resharding.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5f27d7da-ffdf-4579-920b-ada7195fa6da?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/ops/squash.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cdcf24c0-bd02-44d7-aa22-af1de74da80f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/raw_node.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5f712568-837c-46bd-99d2-48b2ce462ed1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/receipts_column_helper.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_91a65d12-ef9b-4fb9-ad2a-fde932e2cf46?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/shard_tries.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8cb3d50d-4b59-4d40-862a-c509f172393a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/split.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e0437bea-bff6-4bd0-9310-1346b839b852?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/state_parts.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b20621a9-1db1-4136-98c5-c7055ae95097?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/state_snapshot.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8e3acf43-bafc-48b2-9afd-9464c88c85df?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/trie_recording.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e2f2f9fe-856f-451c-8c5b-8c3a6bf72a19?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/trie_storage.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_197993b1-cc0e-4731-b1c8-cb0b19b8d8be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/trie_storage_update.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b75d8008-2687-412d-a878-d38f3528b86c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/update.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aaeefc6b-5156-4a79-8138-feb6b681a0cd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: nearcore/src/config_validate.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_28d90bde-a123-4926-94bc-67f04c247f0e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: nearcore/src/state_sync.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_59f58d03-1f6a-44a1-b6f9-47b5f82f0c23?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: neard/src/cli.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4af638db-152c-4a17-900a-da51d54bbbbc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: neard/src/main.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b028977e-f3d7-4468-b5b7-c5d1f3be23db?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/cache.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0ef33f21-facf-4b8e-a310-4fb999404aee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/features.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c6fb8aa2-e3be-4e34-a2a9-7a78483236b3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/imports.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b82f66f8-5c71-4262-b8bd-f18d16d2eefb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/alt_bn128.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dbe6aa56-98e0-4369-ba8c-aea108d0b318?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/bls12381.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8f9abd5c-c97d-4781-a3b1-24cfec6fdcb4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/context.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_935921b0-4a47-4a19-a027-2a9536ee5314?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/gas_counter.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2a8e6893-0ad5-4700-b456-c30c18a440c6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/logic.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_55f511bc-0dd4-4bea-8eac-45ae990ef275?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/recorded_storage_counter.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_554ae60c-09e8-4166-82dd-5567bf75131d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/vmstate.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3588c474-6523-4f3c-89cf-c53c353f8066?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare.rs -> Scope: High. Unprivileged-user-triggered Congestion control, bandwidth scheduler, delayed/buffered/postponed receipts, outgoing limits, or cross-shard routing loses, duplicates, reorders, or over-admits work with state-transition impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ffa6d81e-b3ce-46e0-abd4-80a78346a89f?mode=deep",
+    "questions_generated": false
+  }
+]
