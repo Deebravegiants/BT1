@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: chain/chain/src/approval_verification.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_49b46931-5ae4-4df3-9f7f-f466c92bf251?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/block_processing_utils.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_069a1928-3e1d-4a57-887b-221540e293c4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/chain.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_34f79050-6e96-46fc-9a96-aec12d98b7b5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/chain_update.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_57c70aeb-d55e-4da3-b7da-7a89f4e950f5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/doomslug.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_803ab515-2c30-45e4-9c40-40770f3c3bb6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/lightclient.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9e201e35-6196-4d2d-aeb3-0932bc787fc7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/missing_chunks.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6ea6367d-4b36-437c-b4ef-2aff3b3f0576?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/orphan.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8f3d325c-a2b3-4830-9aa3-2214fdc6f5a9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/pending.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_58729a66-0a83-49fe-a086-a8ec7926d41a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/resharding/flat_storage_resharder.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_86ded8fe-ca8c-4644-9c6e-e32b5751bd44?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/resharding/manager.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0e54485c-4192-41cb-b65f-8cc52f28ac92?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/resharding/migrations.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0a5bdac1-4cde-4d1c-b329-3528ef01e949?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/resharding/resharding_actor.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_37f9dfdd-974f-4dc0-b3ad-f6887f7d9f2f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/resharding/trie_state_resharder.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cb43b484-8b61-4ab4-b8b8-ea7eea8638c8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/runtime/mod.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ef429073-830a-4e86-a537-73336cdbb8cf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/runtime/signer_overlay.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f5584afa-336c-4c44-a319-03fd80e86708?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/runtime/trie_update_wrapper.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5e40730a-5548-42cc-a094-92425e6ecff5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/sharding.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8ff343a8-bf9c-4fcc-ab74-4540a2061d0f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/signature_verification.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bdf25c24-6e71-45b7-990d-5483498720c0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/spice/block_application.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f490b783-95d1-448e-b711-f2f01794f7f1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/spice/chain.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b6018fc6-fdc5-418a-a2a6-1ec6b7155f1f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/spice/chunk_application.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3bcaa645-8339-4447-bf61-0a54eec17831?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/spice/chunk_validation.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_67cd73f8-3a16-4b4e-8c86-bbda0d0107fd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/spice/core.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b6f235c3-6419-4b74-9ecd-9f1bd9a8d4ae?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/state_sync/adapter.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e96bddce-b14d-41cc-8787-488e644c9e00?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/state_sync/mod.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a9fad66c-82e8-4625-a824-ec0be15aeef1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/state_sync/state_request_tracker.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e61d1bbe-32eb-493f-9bd6-3f314ae42dd9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/state_sync/utils.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2402796f-7d2f-4256-85aa-e6ddc602dc66?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/stateless_validation/chunk_endorsement.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d5b9c2f3-6509-411b-9d1a-ff7ed6a2c153?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/chain/src/stateless_validation/chunk_validation.rs -> Scope: High. Unprivileged-user-triggered Sync, epoch sync, header sync, block sync, state sync, orphan handling, or missing-chunk logic can make a node follow invalid data, skip required validation, or fail to recover canonical state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f0e745c3-a58d-4e06-90b4-111e1d12b96b?mode=deep",
+    "questions_generated": false
+  }
+]
