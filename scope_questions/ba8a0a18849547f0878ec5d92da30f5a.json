@@ -1,0 +1,127 @@
+[
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/instrument_v3.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f7286c5a-a188-4fe7-8cec-561e71f63856?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/prepare_v2.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5223e75b-bc5c-4fd1-814e-327afa98ebee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/prepare_v3.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1b6e71fe-3c90-4ece-aeb6-8b1567fbfd9a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/runner.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_648f4531-3901-4ddc-bd0d-e214018fd76f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/wasmtime_runner/logic.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cbeb49ae-64fc-49e2-bf46-db8bfa995d09?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/wasmtime_runner/mod.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bbf177e0-f048-4964-9b59-2b2fa3ef5f97?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/access_keys.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f2f7265b-c267-454a-b113-23d7514003a4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/action_validation.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_79527f2d-605c-4a93-a412-6b75f007c331?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/actions.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9cca2c30-c1e1-4a8d-a0ec-5e4120faf456?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/adapter.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_16d1031f-1107-44af-84dd-6f526d901c10?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/distribute_remaining.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_17a4ee79-d4c0-4165-98a1-a47de33849a1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/scheduler.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5967794e-4228-4977-9002-8d38b3eced8a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/cache_warming.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1df0ac63-3eb1-4109-a3fe-7544685446f1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/congestion_control.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f531ee06-d011-4b9c-8996-8dbce5324e7d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/contract_code.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_460efcc8-11ee-44b8-881e-fe3046c7f65c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/conversions.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e0695ea5-7244-4a19-9654-0714827697ce?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/deterministic_account_id.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c86e9b0c-aa30-491a-be3d-3b5c2ec71376?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/ext.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6cc41dbf-df64-4edf-b48a-6a4910a908aa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/function_call.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_923b4b14-06e6-4fc6-94f4-24c272bf6b64?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/global_contracts.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_440a604f-7073-4078-9a1b-bf1393b79318?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/pipelining.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c78c7334-6b10-4f5f-83f3-9bbf49d23fa4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/prefetch.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_805501e5-6771-43f7-b7ad-0b56b4535782?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/receipt_manager.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e3e2a372-0e0e-485d-b80b-9a8b3ce48184?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/types.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b42f37e6-8972-44bb-bee0-664feabd10c1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/verifier.rs -> Scope: Critical. Unprivileged-user-triggered Consensus divergence in block, chunk, header, approval, finality, epoch, or shard-layout validation lets honest nearcore nodes accept different canonical chains or finalized blocks.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7621bec2-a80c-4e07-8e40-e54c3a0f0731?mode=deep",
+    "questions_generated": false
+  }
+]
