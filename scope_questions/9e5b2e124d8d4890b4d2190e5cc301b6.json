@@ -1,0 +1,127 @@
+[
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/instrument_v3.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a531a6dd-f464-4448-9120-479922cfdf9c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/prepare_v2.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2328b963-6cbb-430e-a176-100216df815f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/prepare_v3.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_facec5c7-19b6-49e6-9871-a0ae3e355d73?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/runner.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4fe633c6-81c2-446f-93aa-207749ccf2aa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/wasmtime_runner/logic.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f69925bb-9cdc-4790-abe5-db75d0ef157d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/wasmtime_runner/mod.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d81b07e2-bb7f-49a6-adb8-135250f67507?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/access_keys.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_23256fe1-11d9-4560-816f-19bcedc3e866?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/action_validation.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b2153857-508e-4f67-812e-45e1716e6f89?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/actions.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bada689a-af6c-4f52-991c-01aaa67c9152?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/adapter.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5dbb4284-4e32-4532-9837-381a7673c0b3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/distribute_remaining.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3f0e3133-d0d7-4da4-a32d-d09e5a950691?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/scheduler.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4f19f7f2-8744-4d7e-976a-85b1392e79b2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/cache_warming.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4a4545f0-61ed-4919-936e-aef63edf62c6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/congestion_control.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_52a18065-af79-4810-be79-4fe8e73ffd7a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/contract_code.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3b4bc9f7-105f-403c-9cdd-6672c1d15ca3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/conversions.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9e7a395f-9738-42f3-b0b3-23f7fd6f3413?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/deterministic_account_id.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5af663aa-4288-4f62-bc48-8827f6e3492e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/ext.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4adf1232-f64f-4391-b4cf-6f15756d6a10?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/function_call.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ec89859d-59fe-4d2d-9aa5-146dca7bd2b0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/global_contracts.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5012f066-7f37-4efd-840d-52e8f63a01e4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/pipelining.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_98fe46c8-3634-4e7c-8143-90fdca559a4f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/prefetch.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e8ae2c53-eac3-4122-9b9c-746915bd22b1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/receipt_manager.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e1bbafb8-b1a7-4be2-8736-d6f3ca2e910e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/types.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e68218e4-6fa1-4724-9618-e840a54b0d1b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/verifier.rs -> Scope: High. Unprivileged-user-triggered Network protocol, peer routing, chunk/state witness distribution, partial witness encoding, Reed-Solomon reconstruction, or state sync messages can be forged, replayed, misrouted, or misattributed with chain safety impact.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_68a00cf1-ea2e-429e-9f84-7c4f72a79258?mode=deep",
+    "questions_generated": false
+  }
+]
