@@ -1,0 +1,3 @@
+Looking at the external report's vulnerability class — **a committed party can revoke and re-commit to reset a time-based lock, allowing indefinite blocking** — I need to find an analog in nearcore where a similar pattern exists.
+
+The most structurally analogous mechanism in nearcore is the **Doomslug approval system**, where validators send approvals for block production and a timer starts when the 2/3 stake threshold is crossed.
