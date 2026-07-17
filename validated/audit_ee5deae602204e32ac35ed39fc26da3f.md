@@ -1,0 +1,1 @@
+Based on my research, I have found a valid analog. Let me now look at the `MAX_BALANCE_TO_BURN` constant to confirm the exact value before writing the final answer.
