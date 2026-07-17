@@ -1,1 +1,0 @@
-Let me search for more specific patterns that could match the vulnerability class in nearcore.

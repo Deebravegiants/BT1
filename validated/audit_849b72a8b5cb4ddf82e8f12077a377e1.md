@@ -1,3 +1,0 @@
-Let me analyze the vulnerability class from the report and search for analogs in nearcore.
-
-The bug class is: **a two-phase operation where an intermediate state mutation (balance burn/reduction) between phase 1 (request/reservation) and phase 2 (finalization/delivery) causes an underflow check to revert the finalization**. In nearcore terms, this maps to gas prepayment, receipt execution, or balance reservation patterns.

@@ -1,1 +1,0 @@
-I'll analyze the vulnerability class from the report (arithmetic underflow due to state inconsistency between a "preview/max" calculation and actual execution in asset accounting) and search for analogous patterns in nearcore.

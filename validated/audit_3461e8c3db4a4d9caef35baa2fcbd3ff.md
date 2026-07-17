@@ -1,1 +1,0 @@
-Looking at the code I've found, let me check the delegate action `max_block_height` validation and the `validate_add_key_action` boundary more carefully before concluding.

@@ -1,1 +1,0 @@
-Looking at the vulnerability class — **deletion of an entity without checking or clearing dependent state** — I need to find where nearcore deletes an on-chain entity without verifying or cleaning up associated pending state.
