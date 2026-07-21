@@ -1,1 +1,0 @@
-[File: 'crates/starknet_api/src/data_availability.rs -> Scope: High'] [Symbol: DataAvailabilityMode::TryFrom<Deserializer> / is_proposal_init_valid] Can an unprivileged RPC client submit a V3 InvokeTransaction with nonce_data_availability_mode serialized as the numeric string '\

@@ -1,1 +1,0 @@
-[File: 'crates/starknet_api/src/data_availability.rs -> Scope: High'] [Symbol: DataAvailabilityMode serde / RpcTransaction / stateless_transaction_validator] Can an unprivileged RPC client send a JSON transaction where nonce_data_availability_mode is the string '\
