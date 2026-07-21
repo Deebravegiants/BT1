@@ -1,0 +1,1 @@
+Let me look at `FinishedProposalInfo` and how `l2_gas_used` flows from `BlockExecutionArtifacts` to the fee market calculation.
