@@ -1,0 +1,1 @@
+[File: 'crates/starknet_api/src/transaction.rs -> Scope: High'] [Symbol: get_concat_resource / L1_GAS / L2_GAS / L1_DATA_GAS resource name bytes] Can an unprivileged user craft a V3 transaction where the resource_name byte encoding in get_concat_resource at transaction_hash.rs:216-226 produces a collision between L1_GAS (b\
