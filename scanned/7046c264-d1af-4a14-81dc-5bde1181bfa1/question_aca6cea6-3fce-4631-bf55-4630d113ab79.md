@@ -1,0 +1,1 @@
+[File: 'crates/starknet_api/src/transaction_hash.rs -> Scope: Critical'] [Symbol: PartialBlockHashComponents::new / gas_prices_to_hash version gate] Can an unprivileged user (acting as a block proposer on a network where the starknet_version is at the V0_13_2/V0_13_4 boundary) submit a proposal with `starknet_version = \

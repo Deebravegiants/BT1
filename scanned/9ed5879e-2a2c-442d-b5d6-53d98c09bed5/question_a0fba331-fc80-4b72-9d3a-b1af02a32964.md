@@ -1,0 +1,1 @@
+[File: 'crates/apollo_protobuf/src/mempool.rs -> Scope: Critical. Unprivileged-user-triggered L1 provider, central sync, state sync, or p2p sync path causes a node to anchor to the wrong L1 event, block number, state diff, class, transaction, or finality view.'] [Symbol: InvokeV3.nonce (optional Felt252, tag 10) / missing(\

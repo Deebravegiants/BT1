@@ -1,0 +1,1 @@
+[File: 'crates/apollo_network/src/gossipsub_impl.rs -> Scope: High'] [Symbol: handle_gossipsub_behaviour_event / broadcasted_messages_senders.get_mut panic / topic_hash] In `handle_gossipsub_behaviour_event`, if a message arrives for a `topic_hash` not in `broadcasted_messages_senders`, the code panics: `panic!(\

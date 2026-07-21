@@ -1,0 +1,1 @@
+[File: 'crates/apollo_http_server/src/deprecated_gateway_transaction.rs -> Scope: High.'] [Symbol: DeprecatedGatewayTransactionV3 / validate_supported_tx_version_str] Can an attacker craft a deprecated-gateway JSON payload where the string 'version\

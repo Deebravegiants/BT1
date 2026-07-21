@@ -1,0 +1,1 @@
+[File: 'crates/apollo_http_server/src/http_server.rs -> Scope: Critical'] [Symbol: validate_supported_tx_version_str] Can an attacker POST to /gateway/add_transaction with a JSON body containing a duplicate 'version' key (e.g., {\

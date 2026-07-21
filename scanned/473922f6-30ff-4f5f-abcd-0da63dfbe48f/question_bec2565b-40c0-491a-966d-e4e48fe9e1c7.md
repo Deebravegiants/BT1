@@ -1,0 +1,1 @@
+[File: 'crates/apollo_consensus/src/votes_threshold.rs -> Scope: Critical'] [Symbol: VotesThreshold::is_met / checked_mul / u128] VotesThreshold::is_met computes amount.checked_mul(self.denominator).expect(\

@@ -1,0 +1,1 @@
+[File: 'crates/starknet_api/src/transaction_hash.rs -> Scope: Critical'] [Symbol: get_concat_resource / L1_DATA_GAS resource name packing] Can an unprivileged user craft two distinct `ResourceBounds` pairs — one for `L2_GAS` with name `b\
