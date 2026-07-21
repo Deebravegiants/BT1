@@ -1,0 +1,1 @@
+Let me look at one more critical area — the `CommitmentParts` in `ProposalFinPayload` and whether those fields are validated against the locally-computed values.
