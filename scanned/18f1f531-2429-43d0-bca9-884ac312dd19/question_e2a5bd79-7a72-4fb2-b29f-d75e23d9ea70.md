@@ -1,1 +1,0 @@
-[File: 'crates/apollo_consensus_orchestrator/src/cende/mod.rs -> Scope: High'] [Symbol: write_prev_height_blob / previous_height_exists_at_cende_recorder / GetLatestReceivedBlockResponse] Can an unprivileged network actor (or a misconfigured recorder) cause fetch_latest_received_block to return a block_number value of u64::MAX (via a crafted JSON response {\
