@@ -1,0 +1,1 @@
+Let me look more carefully at the `rewind_txs` function and the `try_make_space` eviction logic.
