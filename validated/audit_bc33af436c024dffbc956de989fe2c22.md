@@ -1,0 +1,1 @@
+Let me look at the `build_proposal.rs` and the `ProposalFin` construction to check the `l2_gas_used` value sent to validators.
