@@ -1,0 +1,97 @@
+[
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/AnchoredProviderFactory.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_9fd7c86c-a7c9-494d-9cc9-dc0012bb6bad?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/interfaces/IAnchoredProviderFactory.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_d884da8e-f6f6-4e12-8e6e-bfe4006a1fa6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/interfaces/IAnchorSource.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_0e21e5ec-1755-42bd-860f-a0589988ccbc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/interfaces/ICompressedOracleV1.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_30d1a815-83c0-4f40-9dce-ef5a71b97d51?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/compressed/CompressedOracle.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_f4e98f15-2b17-4ef1-bef3-cdee95ad7451?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/compressed/OracleBase.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_f5185c71-244f-4da1-9db6-72e9f4833afe?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/ChainlinkOracle.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_0f29fb99-f236-416a-a365-b46a3f666d51?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/docs/en/abuse-protection-integration.md -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_a146e940-4ec9-4ad7-a453-35c7f5a6bcc3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/docs/ru/abuse-protection-integration.md -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_893c7298-6e92-45f6-bff7-9ee49396e74a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/OracleBase.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_b462c8ef-e0ed-4774-89a2-eacbcc2e9681?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/PythOracle.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_d648adb4-717d-40a5-a7b2-e9e77c168b32?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/Codebook256.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_f0a5da6d-ee37-41e4-9bce-fe324434af33?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/LazerConsumer.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_7eeb79ab-ccd3-47f7-a6c0-a8e67623ac37?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/TimeMs.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_3de3df8c-b240-4fa1-9751-48623d28652f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/U64x32.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_a8b3aea0-6c0d-404b-b4b7-f84d0cd4a189?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/PriceProviderFactory.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_e53f93ad-f32a-4e78-b44f-9499e42069f1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/PriceProvider.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_cd43acac-5f27-49e9-a752-f503757f7035?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/ProtectedPriceProviderL2.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_bfb24a45-db97-4c79-951a-e077ba2b6e3d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/ProtectedPriceProvider.sol -> Scope: Medium. EXTSLOAD/state-view mismatch makes integrators or pool logic rely on wrong packed slot, bin, fee, or provider state with fund-impacting consequences.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_07003974-1431-4ea9-9e42-be56faa3ec2c?mode=deep",
+    "questions_generated": false
+  }
+]
