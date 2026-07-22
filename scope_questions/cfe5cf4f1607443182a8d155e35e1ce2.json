@@ -1,0 +1,97 @@
+[
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/AnchoredProviderFactory.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_1368c130-89b3-4ad4-af92-859cb16e1db3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/interfaces/IAnchoredProviderFactory.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_6a38c932-7ae0-4850-9d4a-10be733d7850?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/interfaces/IAnchorSource.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_83be7db2-a499-4155-9f63-40194a7fd91e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/interfaces/ICompressedOracleV1.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_d2ef784d-81ea-4405-94cb-a5ecce02b4f9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/compressed/CompressedOracle.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_38ee8c21-cc79-4fbd-b080-640d05043684?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/compressed/OracleBase.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_600af994-a04c-461b-8094-18f49d3dea0a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/ChainlinkOracle.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_e6a0c0e4-511b-4de7-9514-e1e6ae35b2a0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/docs/en/abuse-protection-integration.md -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_2c441122-b7fc-4b39-99bb-7722ae9be11b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/docs/ru/abuse-protection-integration.md -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_2dcd53df-103c-408a-a61f-4e23115c8804?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/OracleBase.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_6379ee12-488e-4f9e-b57e-38e6864c228e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/PythOracle.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_9f7c5e4a-3b4c-46d5-beda-ac55d3a2decb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/Codebook256.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_43b11234-06f0-48d4-a2d3-85764981107c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/LazerConsumer.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_86c5f245-8428-40fd-aac2-7cc6ea66b011?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/TimeMs.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_54b4dc1d-0944-4605-8ec0-69d86dfb4e10?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/U64x32.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_67a66552-f50f-4120-ac46-71afc2f5b2fc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/PriceProviderFactory.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_4bf8b4fd-f233-4272-8882-9bc36b606017?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/PriceProvider.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_db9558be-f994-41a9-8b38-8fd931bc8b7b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/ProtectedPriceProviderL2.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_def4792e-527b-4248-a3e7-2ce6a52e8f62?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/ProtectedPriceProvider.sol -> Scope: High. Pause, remove-liquidity, collect-fee, or per-bin share accounting blocks legitimate LP exits or misallocates principal/fees.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_77a90e38-c2da-4bb6-9dee-ea99761bec9d?mode=deep",
+    "questions_generated": false
+  }
+]
