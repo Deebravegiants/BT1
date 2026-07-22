@@ -1,0 +1,1 @@
+Let me look at the full `decision_reached` function in the batcher to understand how `CentralObjects.parent_proposal_commitment` is set.
