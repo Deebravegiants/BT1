@@ -1,0 +1,1 @@
+I need to trace the exact code path for `_clampInt256ToInt24`, the bin traversal loop, and the constraints on `curBinDistFromProvidedPriceE6` to determine if the clamping can be triggered and cause real harm.
