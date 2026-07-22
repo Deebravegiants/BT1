@@ -1,0 +1,97 @@
+[
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/AnchoredProviderFactory.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_a231a174-975a-49ab-8411-b89c93d0a931?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/interfaces/IAnchoredProviderFactory.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_18fb905a-682a-4363-870b-2b02b9307a2d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/interfaces/IAnchorSource.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_11703460-e1d2-467c-a58e-3511a46fb9d1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/interfaces/ICompressedOracleV1.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_7ec049bb-555c-4aa1-b7eb-8e8ca7a7422b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/compressed/CompressedOracle.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_7f04fcb5-e83b-47fb-9f5c-9234c297c394?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/compressed/OracleBase.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_68bf1db9-c4b8-4e38-8385-5bee2d01ec71?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/ChainlinkOracle.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_e2cd193e-a6e9-4d8c-9aab-5b77818d55e7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/docs/en/abuse-protection-integration.md -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_b4aa241b-1524-411f-8b95-4dd4f8406362?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/docs/ru/abuse-protection-integration.md -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_faf5be4a-3e0b-4cd4-94d4-2063b56685c0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/OracleBase.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_60b54771-e2f7-4305-a863-25f33f7b44c1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/providers/PythOracle.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_6f92c476-ecd8-475e-a72e-50dadde6f5e6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/Codebook256.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_cc756a9c-79db-4cf6-9879-8267f6234bd5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/LazerConsumer.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_2aeaa9da-f866-420c-8163-7ebd5b06ca74?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/TimeMs.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_896dfb06-b397-4587-a243-c315ea105726?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/oracles/utils/U64x32.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_fa534d8c-371a-4f50-b6e4-caab577a356a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/PriceProviderFactory.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_b1357813-3a91-4abd-828b-2be884a92bf6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/PriceProvider.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_911f0644-9261-40f2-a022-7782e9b8493b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/ProtectedPriceProviderL2.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_dbb17805-507f-4c79-9633-aa57333e2893?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: smart-contracts-poc/contracts/ProtectedPriceProvider.sol -> Scope: Medium. Bid/ask, price-limit, spread/notional fee, or scaling edge case causes wrong exact-input/exact-output amounts above Sherlock thresholds.'",
+    "url": "https://deepwiki.com/search/-generate-pool-swapliquidity-s_22fde3e1-2d30-4557-a5c5-e3aa2ce964fc?mode=deep",
+    "questions_generated": false
+  }
+]
