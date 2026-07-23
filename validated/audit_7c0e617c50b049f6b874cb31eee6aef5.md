@@ -1,0 +1,1 @@
+Let me look at the full `addLiquidity` loop logic and the `SignedMath.ceilDiv` implementation to complete the analysis.
