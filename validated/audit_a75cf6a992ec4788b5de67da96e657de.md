@@ -1,0 +1,1 @@
+Looking at the codebase, I need to trace the full swap and liquidity paths to find a truncation-based analog. Let me examine the `_scaleWeightsToShares` function in the periphery and the `addLiquidityWeighted` probe/pay flow more carefully.
