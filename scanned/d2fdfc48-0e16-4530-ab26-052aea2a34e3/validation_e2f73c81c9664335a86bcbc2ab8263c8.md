@@ -1,1 +1,0 @@
-I need to systematically trace the analog of an inverted conditional through the Metric OMM swap path, focusing on `_getInitialStateForSwap`, `posRounding`, and the four swap dispatch functions.
