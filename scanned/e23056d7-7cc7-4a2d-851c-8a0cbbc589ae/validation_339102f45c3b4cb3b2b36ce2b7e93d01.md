@@ -1,1 +1,0 @@
-Let me read the PoolStateLibrary and Slot0Library to check for storage packing issues.
