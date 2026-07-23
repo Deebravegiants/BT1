@@ -1,1 +1,0 @@
-I need to deeply examine the `_fillBids` function in the periphery lens and compare it to the `_fillAsks` counterpart to find the analog to the wrong-index bug.

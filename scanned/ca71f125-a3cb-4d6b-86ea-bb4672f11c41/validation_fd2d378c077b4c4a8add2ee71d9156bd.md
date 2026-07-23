@@ -1,1 +1,0 @@
-I need to trace the full swap path and verify whether the alleged state-view divergence is real. Let me examine the key components.
