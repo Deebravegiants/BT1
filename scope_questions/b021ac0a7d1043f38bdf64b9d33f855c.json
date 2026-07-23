@@ -1,0 +1,82 @@
+[
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/wormhole_cpi.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1338b107-1bec-4616-8b4c-6a8660618052?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/lib.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7701eb1a-f853-4ae7-9098-65a022da9c19?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/config.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_25eecd9e-3dbb-4e50-9d4b-4d18be076a66?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/message/deploy_token.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2782f434-1b4b-485e-9f9a-fbc8878e832a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/message/finalize_transfer.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_82c17399-58f7-41d8-9be5-807236ab3dde?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/message/init_transfer.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1ce8f682-95b5-4e18-96c1-4af955e4ecb5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/message/log_metadata.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_572a7df8-726c-4c7b-b7ff-495852e301ae?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/message/mod.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_99091b79-6025-4a6d-be14-bea61b917eb3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/mod.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4bfcb2a1-cbbb-45e2-adad-fd50d0df324d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/used_nonces.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_571f91a0-fa63-4e6b-8cd8-edadcb276e4a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/bridge_token.cairo -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a8674be1-86c3-4d70-868f-af4c904c4fe1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/bridge_types.cairo -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6fc396ba-fc2c-46c3-a98e-1052a1a8bd2f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/lib.cairo -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dbd97626-4dfb-449e-8e01-d06449f5fa6b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/omni_bridge.cairo -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3db5e9c9-9d9b-42db-8b54-5621d3673132?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/utils/borsh.cairo -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1ddc8bfa-4a92-41e0-8596-d019e64779e7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/utils.cairo -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b29daca5-9f69-488d-ad3e-e1133988ae4e?mode=deep",
+    "questions_generated": false
+  }
+]
