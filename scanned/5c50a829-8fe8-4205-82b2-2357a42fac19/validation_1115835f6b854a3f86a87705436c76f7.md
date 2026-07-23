@@ -1,1 +1,0 @@
-Let me look at the downward swap loop and the `_swapToken0ForToken1` functions more carefully.
