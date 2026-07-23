@@ -1,0 +1,1 @@
+Let me look at the `LiquidityLib.addLiquidity` implementation and the `deltasScaledToExternal` function to understand the exact flow.
