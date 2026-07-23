@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: near/omni-types/src/utils.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7c3b22c2-f9c0-45c2-a505-f3056a3b2652?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: near/token-deployer/src/lib.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a66aa3ce-6898-42f0-b3bd-d44508561728?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: near/token-deployer/src/migrate.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fda23791-259f-4e89-917a-a835ceb86d5e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/common/Borsh.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a54e4903-9340-4aec-a06f-f119a7b3d2e6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/common/IBridgeToken.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_95a879a6-dfce-4b2b-a676-03f81f64f015?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/common/ICustomMinter.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5fa9ba8d-b837-4c3e-838b-b44aba2b4b4b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/eNear/contracts/ENearProxy.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_45806a79-e98a-4ceb-ae36-da351dbd24fe?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/eNear/contracts/IENear.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d245a454-a6f8-47aa-ab5e-082107de8f1c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/omni-bridge/contracts/BridgeToken.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2c4ddb2f-6549-4f5b-88f1-6d1f96980b49?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/omni-bridge/contracts/BridgeTypes.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e7cd0a88-1c53-4691-9011-d27cc791d15a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/omni-bridge/contracts/HlBridgeToken.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bce239b4-3612-47c6-85ba-4c9d043b4516?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/omni-bridge/contracts/OmniBridge.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_89c9cdc5-9431-4fab-85fe-a6445cad218b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/omni-bridge/contracts/OmniBridgeWormhole.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2b3979eb-ad12-4da1-b1eb-477418f8af5c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: evm/src/omni-bridge/contracts/SelectivePausableUpgradable.sol -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8f7563d2-9aa7-4ada-b751-ffad77b08db7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/constants.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4a291719-c008-46ca-8ee0-9c77efd2d9ad?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/error.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_46c93daa-0558-48ff-900a-7014375b047f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/admin/change_config.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ccdadc26-e7cd-466a-ba1e-03766fa37f2a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/admin/initialize.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0d55ee0e-ca0e-4b3f-bde8-3a3bf43c77fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/admin/mod.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dc75cf41-ff37-4337-9f70-af5afa673bc4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/admin/pause.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a6bccc3b-e68f-466d-b648-949fb015a891?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/admin/update_metadata.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7cc835bd-0179-4549-88ec-07f602be1fa8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/mod.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4d357b81-0683-445a-bab9-ec524644ef80?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/user/deploy_token.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0d866dba-098b-4b90-93e4-b54b85051714?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/user/finalize_transfer.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_17fe3701-0e0e-49ab-893f-45b603fcc587?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/user/finalize_transfer_sol.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_048e639f-ab8c-4a0b-9241-1945f483d977?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/user/get_version.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_075ef96b-8fc7-415e-9605-14fd2b8b5e19?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/user/init_transfer.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9217e037-5a77-4edc-ab29-c2b7181981f1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/user/init_transfer_sol.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_adfddfad-e8f9-44cc-9d54-4b7dada7d32e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/user/log_metadata.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0abe1519-d006-47c2-8bf1-a46b19fa2e4e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/user/mod.rs -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5d9a7d51-10e3-4f43-9763-dce503df210a?mode=deep",
+    "questions_generated": false
+  }
+]
