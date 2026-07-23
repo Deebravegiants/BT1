@@ -1,0 +1,82 @@
+[
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/instructions/wormhole_cpi.rs -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9393eb91-8fbf-489f-8608-379b60ace79d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/lib.rs -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_479b5e31-0400-40c9-8acf-af1209cdd0ee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/config.rs -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_042fdcc5-2771-46f6-a7d2-9bde7b84a807?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/message/deploy_token.rs -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d211a9c9-106e-416c-ad47-9ce49aa2b53c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/message/finalize_transfer.rs -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e073dc7e-9851-46eb-bf23-3cb2c4355518?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/message/init_transfer.rs -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f1aa4893-3e3c-449f-ba39-58d9442b828e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/message/log_metadata.rs -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e6072c6d-6f22-4126-8ba3-c70cc3ee6c7c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/message/mod.rs -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fa15c56f-caba-4190-b100-83913cf779bf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/mod.rs -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7dc5d072-0973-4b30-89c2-6272aca284aa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: solana/programs/bridge_token_factory/src/state/used_nonces.rs -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_030d3b42-dca4-44a8-b65d-70a53c9494c5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/bridge_token.cairo -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_731293af-9ce8-43f4-8490-675aa934354e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/bridge_types.cairo -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dea46c4a-8a57-4a95-b238-2ce753f98875?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/lib.cairo -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dafb4c77-a6b7-4d8a-b18d-9953ac7fbb3d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/omni_bridge.cairo -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ef39351e-43a0-487d-b8ad-cb9c2c882a5b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/utils/borsh.cairo -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fe9f7d81-3eeb-48e6-8062-9821ae7b0351?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: starknet/src/utils.cairo -> Scope: High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fbfcfe4c-67d2-4b23-96e6-5d11386102d7?mode=deep",
+    "questions_generated": false
+  }
+]
