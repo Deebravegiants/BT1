@@ -1,1 +1,0 @@
-Looking at the codebase, I need to trace the analog of the ERC1400 whitelist bypass (checking only one actor, allowing the unchecked actor to bypass restrictions) through the Metric OMM swap, liquidity, and extension paths.
