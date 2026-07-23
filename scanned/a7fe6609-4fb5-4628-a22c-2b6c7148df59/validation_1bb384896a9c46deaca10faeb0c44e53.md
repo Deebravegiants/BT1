@@ -1,1 +1,0 @@
-Let me read the full `removeLiquidity` in `LiquidityLib.sol` and the swap execution to check for CEI violations.

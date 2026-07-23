@@ -1,1 +1,0 @@
-Let me look at the `LiquidityDelta` type definition and check for any bounds on shares.

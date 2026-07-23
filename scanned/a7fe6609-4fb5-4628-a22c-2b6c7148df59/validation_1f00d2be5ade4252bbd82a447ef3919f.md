@@ -1,1 +1,0 @@
-Let me look at how `curBinDistFromProvidedPriceE6` is updated when the oracle price changes, and examine the full swap flow more carefully.

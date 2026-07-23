@@ -1,1 +1,0 @@
-Let me look at the `collectFees` function and the `MetricOmmPoolLiquidityAdder` more carefully to understand the fee accounting.

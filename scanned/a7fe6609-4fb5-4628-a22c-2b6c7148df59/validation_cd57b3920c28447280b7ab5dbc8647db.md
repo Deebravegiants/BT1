@@ -1,1 +1,0 @@
-I need to trace the full swap path carefully to determine if the claimed cross-bin overstatement is real.
