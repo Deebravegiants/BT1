@@ -1,1 +1,0 @@
-Looking at the `allowPushers` function and its comment, I can see the exact analog. Let me check the `_ensureDeadline` helper and the `OracleBase` to confirm there's no used-signature tracking.

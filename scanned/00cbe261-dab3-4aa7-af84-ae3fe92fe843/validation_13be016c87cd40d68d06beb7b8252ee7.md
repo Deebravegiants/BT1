@@ -1,1 +1,0 @@
-Let me look more carefully at the extension system and the `collectFees` overallocation issue that the test explicitly documents.
