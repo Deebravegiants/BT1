@@ -1,1 +1,0 @@
-Based on my thorough investigation of the Metric OMM codebase, I need to check the `_liquidityContext` function and the `collectFees` surplus calculation more carefully before concluding.
