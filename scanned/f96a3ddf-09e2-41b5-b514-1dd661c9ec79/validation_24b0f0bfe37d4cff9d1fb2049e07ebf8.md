@@ -1,1 +1,0 @@
-Let me look at the `collectFees` function and the notional fee reset logic more carefully.
