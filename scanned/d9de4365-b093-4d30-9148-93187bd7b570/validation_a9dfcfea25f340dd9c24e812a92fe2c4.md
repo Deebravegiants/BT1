@@ -1,1 +1,0 @@
-Based on my analysis of `LiquidityLib.sol` and `MetricOmmPool.sol`, I need to trace the full swap path to determine whether bin balances accumulate spread fees that new LPs could unfairly claim. Let me check the swap execution logic.
