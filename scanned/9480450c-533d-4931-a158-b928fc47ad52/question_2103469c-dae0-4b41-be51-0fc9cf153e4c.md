@@ -1,0 +1,1 @@
+[File: 'near/token-deployer/src/migrate.rs -> Scope: High. Acceptance of forged, stale, cross-domain, malformed, differently-encoded, or insufficiently-bound proofs, signatures, VAAs, or prover outputs that bypass execution gates'] [Function: migrate] The `migrate` function reads state via `env::storage_read(STATE_KEY)` where `STATE_KEY = b\

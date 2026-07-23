@@ -1,0 +1,1 @@
+[File: 'near/omni-token/src/migrate.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence'] [Function: migrate_from_poa] Can the FungibleToken storage key mismatch between NearIntentsState (which uses the Near Intents storage key, likely b\

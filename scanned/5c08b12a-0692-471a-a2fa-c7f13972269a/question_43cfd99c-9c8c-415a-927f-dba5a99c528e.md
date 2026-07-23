@@ -1,0 +1,1 @@
+[File: 'starknet/src/bridge_types.cairo -> Scope: Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value'] [Function: MetadataPayloadTrait::to_borsh / deploy_token / is_bridge_token] Can an unprivileged attacker call deploy_token with a MetadataPayload where payload.token is an empty ByteArray (\
