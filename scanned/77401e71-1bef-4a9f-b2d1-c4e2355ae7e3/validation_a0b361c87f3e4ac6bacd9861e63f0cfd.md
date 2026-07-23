@@ -1,1 +1,0 @@
-Let me look at the BinState struct and the swap execution more carefully.

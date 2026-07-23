@@ -1,1 +1,0 @@
-Let me look at the swap math and the bin execution logic more carefully to find the analog.

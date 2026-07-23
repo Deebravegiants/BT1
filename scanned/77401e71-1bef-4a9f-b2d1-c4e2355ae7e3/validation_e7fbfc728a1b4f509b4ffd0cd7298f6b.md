@@ -1,1 +1,0 @@
-Let me look at the `deltasScaledToExternal` function and the rounding behavior for negative deltas.
