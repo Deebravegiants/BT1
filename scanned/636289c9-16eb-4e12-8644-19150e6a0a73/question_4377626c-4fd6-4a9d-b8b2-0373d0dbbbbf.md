@@ -1,1 +1,0 @@
-[File: 'near/omni-token/src/lib.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence'] [Function: ft_transfer_call (via mint with msg)] Can an unprivileged ATTACKER who is the controller call mint(account_id=bridge_contract, amount=X, msg=Some('{\
