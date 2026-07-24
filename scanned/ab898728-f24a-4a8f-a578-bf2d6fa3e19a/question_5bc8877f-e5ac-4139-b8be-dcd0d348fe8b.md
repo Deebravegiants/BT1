@@ -1,1 +1,0 @@
-[File: 'near/omni-token/src/migrate.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence'] [Function: migrate_from_poa] Can the OWNABLE_KEY removal create a non-retryable broken state under the precondition that env::storage_remove(OWNABLE_KEY) succeeds (removing b\
