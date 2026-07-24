@@ -1,0 +1,1 @@
+Let me check the MPC prover and how the `nearBridgeDerivedAddress` is derived across chains.
