@@ -1,1 +1,0 @@
-[File: 'near/omni-types/src/lib.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party'] [Function: OmniAddress::is_zero / OmniAddress::new_zero for BTC/Zcash] Can an unprivileged user initiate a transfer with recipient OmniAddress::Btc(\
