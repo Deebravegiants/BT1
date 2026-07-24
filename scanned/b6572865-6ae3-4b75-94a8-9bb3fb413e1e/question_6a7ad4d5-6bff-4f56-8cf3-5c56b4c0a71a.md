@@ -1,1 +1,0 @@
-[File: 'near/omni-token/src/migrate.rs -> Scope: High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence'] [Function: migrate / upgrade_and_migrate] Can the migrate() function silently accept a state where the metadata LazyOption key b\
