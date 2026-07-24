@@ -1,0 +1,1 @@
+Let me read the `claim_fee` implementation to complete the analysis.
