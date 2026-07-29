@@ -1,0 +1,77 @@
+[
+  {
+    "question": "'File Name: lockup/src/foundation.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ccbab4f7-40b4-4cf2-9a00-6e9823f5041b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/foundation_callbacks.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_809ef487-e2dc-442e-8fcb-5669823e5057?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/gas.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_145addf5-e385-4574-8cca-467596f0af69?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/getters.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_613a8745-f95f-40ec-9120-1ecbb2f17275?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/internal.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4aa7f452-7771-4166-862f-e2452d01caff?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/lib.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c089db07-ea4e-42bc-a7bb-6901b163f291?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0dea8e32-75e6-41cd-856a-84650e9a9063?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner_callbacks.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4bda10a5-cb4e-4c24-b4ee-12c1c28a9afa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/types.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_63be771c-c560-4e8b-824c-60f2f4d40491?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/internal.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_61ac7e62-919a-444d-8509-12e81f55cbb4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/lib.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b84e763e-911d-4225-a89b-a96b53d65848?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/lib.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c977bbb0-612c-48b9-a14e-f4c363be34d7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/utils.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ec9881f4-3f3b-4042-9958-8a5674320b13?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: whitelist/src/lib.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_daed505f-ea54-4408-baee-3eceb3b6e7bd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: multisig/src/lib.rs -> Scope: High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d4329a1c-e96d-443e-9a8f-337f33280699?mode=deep",
+    "questions_generated": false
+  }
+]
