@@ -1,0 +1,1 @@
+[File: 'staking-pool-factory/src/lib.rs'] [Function: create_staking_pool] Can an attacker exploit the absence of any check that `staking_pool_id` is non-empty to call `create_staking_pool(staking_pool_id=\
