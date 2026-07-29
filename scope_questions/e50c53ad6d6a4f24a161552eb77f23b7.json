@@ -1,0 +1,77 @@
+[
+  {
+    "question": "'File Name: lockup/src/foundation.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2dd50199-2991-4e24-9b01-c0cf440f11f3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/foundation_callbacks.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c58dfc9c-beef-415a-b203-63e6357e124a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/gas.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_19b32dae-2ba1-4db5-b108-d44e4e73e2b6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/getters.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_df03e4d7-4592-4ff6-9d11-ba44338f2faf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/internal.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aaf0bdfe-abc5-42fb-9a34-67c57e387338?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/lib.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7bf493c2-db71-45b3-881f-ee207b5e57e0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_08f73fe6-cf42-494b-87be-115a95f8059d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner_callbacks.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7dc29602-5e44-4f99-9ff7-ec1ce3e62f0b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/types.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_03f559d9-313c-459b-85bb-52564a9db6e4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/internal.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b043d507-e221-4bed-8394-90dc34e5a534?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/lib.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4c97cf7d-5b87-4f79-a80b-c38e83130c44?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/lib.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_afe1dba9-f300-49cb-b31c-d32aea57e67d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/utils.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3184d6fb-80f3-46ae-a946-61635f6f25ce?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: whitelist/src/lib.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e433f57a-233b-433d-8f54-097a73ddf09a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: multisig/src/lib.rs -> Scope: Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a71ccb16-d21a-47f1-82ef-318ba67fee53?mode=deep",
+    "questions_generated": false
+  }
+]
