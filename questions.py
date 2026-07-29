@@ -6,9 +6,9 @@ from decouple import config
 # todo: if scope_files is: 500 > 50, 300 > 30 , 100 > 10
 MAX_REPO = 20
 # todo: the path from https:///github.com/dfinity/ICRC-1
-SOURCE_REPO = "Near-One/omni-bridge"
+SOURCE_REPO = "near/core-contracts"
 # todo: the name of the repository
-REPO_NAME = "omni-bridge"
+REPO_NAME = "core-contracts"
 run_number = os.environ.get('GITHUB_RUN_NUMBER') or os.environ.get('CI_PIPELINE_IID', '0')
 
 
@@ -46,123 +46,66 @@ else:
         BASE_URL = f"https://deepwiki.com/{SOURCE_REPO}"
 
 scope_files = [
-    "near/omni-bridge/src/btc.rs",
-    "near/omni-bridge/src/lib.rs",
-    "near/omni-bridge/src/migrate.rs",
-    "near/omni-bridge/src/storage.rs",
-    "near/omni-bridge/src/token_lock.rs",
-    "near/omni-prover/evm-prover/src/lib.rs",
-    "near/omni-prover/mpc-omni-prover/src/lib.rs",
-    "near/omni-prover/wormhole-omni-prover-proxy/src/byte_utils.rs",
-    "near/omni-prover/wormhole-omni-prover-proxy/src/lib.rs",
-    "near/omni-prover/wormhole-omni-prover-proxy/src/parsed_vaa.rs",
-    "near/omni-token/src/lib.rs",
-    "near/omni-token/src/migrate.rs",
-    "near/omni-token/src/omni_ft.rs",
-    "near/omni-types/src/bounded_string.rs",
-    "near/omni-types/src/btc.rs",
-    "near/omni-types/src/errors.rs",
-    "near/omni-types/src/evm/events.rs",
-    "near/omni-types/src/evm/header.rs",
-    "near/omni-types/src/evm/mod.rs",
-    "near/omni-types/src/evm/receipt.rs",
-    "near/omni-types/src/hex_types.rs",
-    "near/omni-types/src/lib.rs",
-    "near/omni-types/src/locker_args.rs",
-    "near/omni-types/src/mpc_types.rs",
-    "near/omni-types/src/near_events.rs",
-    "near/omni-types/src/prover_args.rs",
-    "near/omni-types/src/prover_result.rs",
-    "near/omni-types/src/sol_address.rs",
-    "near/omni-types/src/starknet/events.rs",
-    "near/omni-types/src/starknet/mod.rs",
-    "near/omni-types/src/utils.rs",
-    "near/token-deployer/src/lib.rs",
-    "near/token-deployer/src/migrate.rs",
-    "evm/src/common/Borsh.sol",
-    "evm/src/common/IBridgeToken.sol",
-    "evm/src/common/ICustomMinter.sol",
-    "evm/src/eNear/contracts/ENearProxy.sol",
-    "evm/src/eNear/contracts/IENear.sol",
-    "evm/src/omni-bridge/contracts/BridgeToken.sol",
-    "evm/src/omni-bridge/contracts/BridgeTypes.sol",
-    "evm/src/omni-bridge/contracts/HlBridgeToken.sol",
-    "evm/src/omni-bridge/contracts/OmniBridge.sol",
-    "evm/src/omni-bridge/contracts/OmniBridgeWormhole.sol",
-    "evm/src/omni-bridge/contracts/SelectivePausableUpgradable.sol",
-    "solana/programs/bridge_token_factory/src/constants.rs",
-    "solana/programs/bridge_token_factory/src/error.rs",
-    "solana/programs/bridge_token_factory/src/instructions/admin/change_config.rs",
-    "solana/programs/bridge_token_factory/src/instructions/admin/initialize.rs",
-    "solana/programs/bridge_token_factory/src/instructions/admin/mod.rs",
-    "solana/programs/bridge_token_factory/src/instructions/admin/pause.rs",
-    "solana/programs/bridge_token_factory/src/instructions/admin/update_metadata.rs",
-    "solana/programs/bridge_token_factory/src/instructions/mod.rs",
-    "solana/programs/bridge_token_factory/src/instructions/user/deploy_token.rs",
-    "solana/programs/bridge_token_factory/src/instructions/user/finalize_transfer.rs",
-    "solana/programs/bridge_token_factory/src/instructions/user/finalize_transfer_sol.rs",
-    "solana/programs/bridge_token_factory/src/instructions/user/get_version.rs",
-    "solana/programs/bridge_token_factory/src/instructions/user/init_transfer.rs",
-    "solana/programs/bridge_token_factory/src/instructions/user/init_transfer_sol.rs",
-    "solana/programs/bridge_token_factory/src/instructions/user/log_metadata.rs",
-    "solana/programs/bridge_token_factory/src/instructions/user/mod.rs",
-    "solana/programs/bridge_token_factory/src/instructions/wormhole_cpi.rs",
-    "solana/programs/bridge_token_factory/src/lib.rs",
-    "solana/programs/bridge_token_factory/src/state/config.rs",
-    "solana/programs/bridge_token_factory/src/state/message/deploy_token.rs",
-    "solana/programs/bridge_token_factory/src/state/message/finalize_transfer.rs",
-    "solana/programs/bridge_token_factory/src/state/message/init_transfer.rs",
-    "solana/programs/bridge_token_factory/src/state/message/log_metadata.rs",
-    "solana/programs/bridge_token_factory/src/state/message/mod.rs",
-    "solana/programs/bridge_token_factory/src/state/mod.rs",
-    "solana/programs/bridge_token_factory/src/state/used_nonces.rs",
-    "starknet/src/bridge_token.cairo",
-    "starknet/src/bridge_types.cairo",
-    "starknet/src/lib.cairo",
-    "starknet/src/omni_bridge.cairo",
-    "starknet/src/utils/borsh.cairo",
-    "starknet/src/utils.cairo",
+    "lockup/src/foundation.rs",
+    "lockup/src/foundation_callbacks.rs",
+    "lockup/src/gas.rs",
+    "lockup/src/getters.rs",
+    "lockup/src/internal.rs",
+    "lockup/src/lib.rs",
+    "lockup/src/owner.rs",
+    "lockup/src/owner_callbacks.rs",
+    "lockup/src/types.rs",
+    "staking-pool/src/internal.rs",
+    "staking-pool/src/lib.rs",
+    "staking-pool-factory/src/lib.rs",
+    "staking-pool-factory/src/utils.rs",
+    "whitelist/src/lib.rs",
+    "multisig/src/lib.rs",
 ]
 
 target_scopes = [
-    "Critical. Unauthorized creation, release, withdrawal, or custody escape of native, locked, or wrapped bridge assets through settlement, deployment, or verification failure",
-    "Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows",
-    "High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply",
-    "High. Acceptance of forged, stale, cross-domain, malformed, differently-encoded, or insufficiently-bound proofs, signatures, VAAs, or prover outputs that bypass execution gates",
-    "High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party",
+    "Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user",
+    "Critical. Permanent freezing, unrecoverable lock, or irrevocable loss of user or protocol funds in lockup release, vesting termination, unstake-withdraw, factory refund, or multisig request execution flows",
+    "High. Unauthorized execution, confirmation bypass, or state-transition bypass in multisig, lockup, staking-pool, staking-pool-factory, or whitelist flows that lets an unprivileged user perform actions beyond intended authority",
+    "High. Share, reward, vesting, refund, whitelist, or balance-accounting divergence that lets an unprivileged user over-credit value, bypass fees or limits, or withdraw more than fair entitlement",
+    "High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees",
+    "Critical. Unauthorized extraction of funds from lockup custody, including vested or released balances, by abusing public owner-path assumptions, callback state, or staking-pool integration without privileged access",
+    "Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption",
+    "High. Multisig request lifecycle flaws that let an unprivileged attacker cause unintended execution, deletion, confirmation side effects, request corruption, or durable denial of rightful request completion",
+    "High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances",
+    "High. Factory, whitelist, account-id, or callback-binding flaws that let an unprivileged user create, whitelist, refund, or bind staking-pool state in a way that violates intended custody, authorization, or redemption guarantees",
 ]
 
 
 
 def question_generator(target_file: str) -> str:
     """
-    Generate exploit-focused audit + fuzzing questions for one Omni Bridge production target.
+    Generate exploit-focused audit + fuzzing questions for one core-contracts production target.
 
     ```
     target_file format:
-    "'File Name: near/omni-bridge/src/lib.rs -> Scope: Critical. Unauthorized creation, release, withdrawal, or custody escape of native, locked, or wrapped bridge assets through settlement, deployment, or verification failure'"
+    "'File Name: lockup/src/lib.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'"
     ```
     """
 
     prompt = f"""
     ```
 
-    Generate exploit-focused security audit and fuzzing questions for this exact Omni Bridge target:
+    Generate exploit-focused security audit and fuzzing questions for this exact NEAR core-contracts target:
 
     {target_file}
 
-    Use live context from the project if available: NEAR omni-bridge settlement, fee, fast-transfer, BTC/UTXO, token-lock, and migration flows; omni-token mint/burn logic; token-deployer flows; omni-types payload serialization/parsing; EVM OmniBridge/OmniBridgeWormhole/BridgeToken/eNear contracts; Solana bridge_token_factory instruction/state/message flows; StarkNet omni_bridge and bridge_token flows; EVM/Wormhole/MPC prover verification; nonce tracking; finalised-transfer bookkeeping; decimal normalization; metadata logging; cross-chain token mapping; and cryptographic signature/proof validation.
+    Use live context from the project if available: lockup owner/foundation methods, vesting and release math, transfer-enable checks, staking-pool selection and callbacks, staking-pool deposit/stake/unstake/withdraw/share-price logic, staking-pool-factory create/whitelist/refund callbacks, whitelist foundation/factory authorization, and multisig request/confirm/delete/execute/key-management flows.
 
     Protocol focus:
-    This repository implements a multi-chain bridge between NEAR and foreign chains using MPC-signed outbound transfers and proof- or signature-verified inbound transfers. The audit focus is whether an unprivileged attacker can cause unauthorized transfer finalization, duplicate settlement, proof/signature replay, token deployment abuse, accounting drift, collateral mismatch, or permanent fund lock across NEAR, EVM, Solana, StarkNet, Wormhole-backed chains, and supported UTXO flows.
+    This repository implements core NEAR custody and control contracts: token lockups with vesting and staking integrations, staking pools and factory deployment, whitelist-based pool admission, and multisig request execution. The audit focus is whether a strictly unprivileged external user can reach unauthorized fund movement, unauthorized action execution, excess value extraction, or permanent fund lock through public methods, callback sequencing, accounting edge cases, request lifecycle bugs, or account-binding mistakes.
 
     Core invariants:
 
-    * Transfers must settle at most once per legitimate origin event, nonce, or signed payload across every supported chain and prover path.
-    * Funds locked, burned, minted, unlocked, or fee-routed on one chain must stay fully backed and correctly accounted for on the destination chain.
-    * Proof verification, Wormhole/VAA parsing, MPC/ECDSA/eth-signature checks, and message serialization must reject forged, replayed, malformed, stale, cross-domain, or differently-encoded payloads.
-    * Token deployment, metadata propagation, token mapping, and controller/locker interactions must not let attackers hijack canonical asset identity or mint unbacked representations.
-    * Decimal normalization, fee handling, refunds, native-token wrapping, and fast-transfer or UTXO settlement logic must not leak value, strand funds, or create accounting drift outside documented behavior.
+    * Locked, vested, staked, unstaked, refunded, or multisig-controlled balances must never become withdrawable or spendable by the wrong account.
+    * Every sensitive state transition must stay bound to the intended predecessor, signer key, owner/foundation role, request, pool, and callback result.
+    * Share, reward, vesting, release, refund, and withdrawal accounting must remain monotonic and must not over-credit an attacker.
+    * Request execution, unstake/withdraw windows, pool creation, and callback chains must not be replayable, duplicated, or left in a fund-locking bad state.
 
     Rules:
 
@@ -170,12 +113,12 @@ def question_generator(target_file: str) -> str:
     * Treat `Scope:` as the ONLY impact to target.
     * Assume full repo context is accessible.
     * Do not ask for code or say anything is missing.
-    * Attacker is strictly unprivileged: bridge user, token holder, contract caller, relayer submitting public proofs/messages, token deployer candidate, recipient string controller, or user controlling public cross-chain inputs.
-    * Do not rely on malicious operators, guardians, colluding MPC threshold signers, leaked keys, privileged addresses, governance abuse, social engineering, front-run-only paths, network-level DoS, chain reorg assumptions, oracle-only failures, or public-mainnet testing.
-    * Do not generate questions that depend only on known out-of-scope classes from SECURITY.md such as unbounded gas/storage consumption, griefing without asset/security impact, Wormhole guardian compromise, NEAR base-chain attacks, decimal dust from normalization, or intentional rejected-relayer stake forfeiture.
-    * Do not generate self-harm or user-mistake-only scenarios: wrong recipient chosen by the sender, voluntary self-loss, bad configuration by the attacker against themselves, or flows where the user can only hurt their own funds without breaking protocol guarantees.
+    * Attacker is strictly unprivileged: a normal external account or contract caller with no owner, foundation, factory, whitelist, multisig signer, validator, or protocol-level privileges.
+    * Do not rely on malicious owners, foundation, validators, multisig key holders, privileged accounts, leaked keys, governance abuse, malicious peers or nodes, social engineering, front-run-only paths, network-level DoS, chain-level attacks, or public-mainnet testing.
+    * Do not generate questions that depend only on gas griefing, storage bloat, harmless reverts, logging noise, best-practice commentary, or self-loss without protocol break.
+    * Do not generate self-harm or user-mistake-only scenarios.
     * Generate 20 to 30 high-signal questions.
-    * At least 70% must be multi-step flow, invariant, fuzz, accounting, replay, verifier, settlement, or cross-module questions.
+    * At least 70% must be multi-step flow, invariant, fuzz, accounting, callback, replay, or cross-module questions.
     * Every question must be testable by PoC, unit test, fuzz test, invariant test, or differential test.
     * Avoid generic checklist questions and repeated root causes.
     * Every question must target a plausible valid issue.
@@ -184,35 +127,35 @@ def question_generator(target_file: str) -> str:
 
     * Anchor on the exact target file/module, its public entrypoints, trust boundaries, and downstream state changes.
     * Generate questions from five distinct lenses so the audit path differs from a generic sweep:
-      - uniqueness/finality failures;
-      - verifier/binding failures;
-      - asset/accounting failures;
+      - authorization/binding failures;
+      - accounting/share/vesting failures;
       - state-machine/callback failures;
-      - parsing/serialization failures.
+      - replay/duplicate-effect failures;
+      - parsing/account-id/input-shaping failures.
     * Prefer questions that need at least two steps, two modules, or one valid-looking check that binds the wrong thing.
     * Remove paraphrases and keep only distinct root causes.
     * Bias toward counterexamples where an unprivileged attacker passes visible checks but still reaches an invalid state transition.
 
     High-value attack surfaces:
 
-    * Settlement flows: `init_transfer`, `fin_transfer`, `deploy_token`, `log_metadata`, fee claim, fast transfer, native-token transfer, BTC/Zcash/UTXO settlement, and token lock/unlock paths.
-    * Verification and replay boundaries: MPC signature validation, ECDSA recovery, Wormhole/VAA parsing, light-client or prover result handling, nonce/finalization bitmaps, chain-id/domain separation, and stale-proof handling.
-    * Asset identity and accounting: token mappings, wrapped-token deployment, metadata propagation, decimals normalization, fee/native fee accounting, storage/refund accounting, and bridge-token mint/burn/unlock symmetry.
-    * Cross-chain parsing and serialization: Borsh/ABI/Cairo/Anchor payload encoding, proof args/results, event/header parsing, receipt decoding, ByteArray/string/account/address conversion, and signer/recipient binding.
-    * Upgrade, migration, and cross-module state: migration paths, token/controller updates, pause-gated flows, bridge factory state, used-nonce tracking, and inter-contract callbacks that can desynchronize custody or authorization.
+    * Lockup flows: release/vesting math, transfer availability, staking pool selection, owner withdrawals, foundation termination, and termination callbacks.
+    * Staking pool flows: deposit, deposit_and_stake, unstake, withdraw, ping reward distribution, share conversions, and pause/restake behavior.
+    * Factory and whitelist flows: pool account creation, whitelist callback success/failure, refund path, factory delegation, and account-id validation/binding.
+    * Multisig flows: add_request, confirm, delete_request, execute_request, key changes, request limits, cooldown, and self-call assumptions.
+    * Cross-module state: predecessor/signer binding, promise-result handling, callback ordering, and one-time execution assumptions.
 
     Impact mapping:
 
-    * Critical: Unauthorized creation, release, withdrawal, or custody escape of native, locked, or wrapped bridge assets through settlement, deployment, or verification failure.
-    * Critical: Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows.
-    * High: Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply.
-    * High: Acceptance of forged, stale, cross-domain, malformed, differently-encoded, or insufficiently-bound proofs, signatures, VAAs, or prover outputs that bypass execution gates.
-    * High: Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party.
+    * Critical: Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user.
+    * Critical: Permanent freezing, unrecoverable lock, or irrevocable loss of user or protocol funds in lockup release, vesting termination, unstake-withdraw, factory refund, or multisig request execution flows.
+    * High: Unauthorized execution, confirmation bypass, or state-transition bypass in multisig, lockup, staking-pool, staking-pool-factory, or whitelist flows that lets an unprivileged user perform actions beyond intended authority.
+    * High: Share, reward, vesting, refund, whitelist, or balance-accounting divergence that lets an unprivileged user over-credit value, bypass fees or limits, or withdraw more than fair entitlement.
+    * High: Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees.
 
     Coverage requirements:
 
-    * At least half of the questions must explicitly mention one of: nonce/finality uniqueness, proof binding, signer binding, token identity, decimals/fees, callback ordering, migration state, or parser ambiguity.
-    * Prefer invariant tests, stateful fuzzing, differential parsing tests, or multi-call PoCs over one-call revert checks.
+    * At least half of the questions must explicitly mention one of: signer/predecessor binding, callback ordering, share or reward math, vesting/release state, request lifecycle, refund path, or account-id validation.
+    * Prefer invariant tests, stateful fuzzing, and multi-call PoCs over one-call revert checks.
 
     Each question must include:
 
@@ -235,54 +178,49 @@ def question_generator(target_file: str) -> str:
 
 def audit_format(question: str) -> str:
     """
-    Generate a focused Omni Bridge exploit-question validation prompt.
+    Generate a focused core-contracts exploit-question validation prompt.
     """
     return f"""# QUESTION SCAN PROMPT
 
 ## Exploit Question
 {question}
 
-Focus only on production Omni Bridge code in `scope_files`, mainly:
-- near/omni-bridge/src
-- near/omni-prover/*/src
-- near/omni-token/src
-- near/omni-types/src
-- near/token-deployer/src
-- evm/src/common
-- evm/src/eNear/contracts
-- evm/src/omni-bridge/contracts
-- solana/programs/bridge_token_factory/src
-- starknet/src
+Focus only on production NEAR core-contracts code in `scope_files`, mainly:
+- lockup/src
+- staking-pool/src
+- staking-pool-factory/src
+- whitelist/src
+- multisig/src
 Anything outside those production files is out of scope unless needed as direct supporting context.
 
 ## Rules
-- Audit only production Omni Bridge code.
+- Audit only production NEAR core-contracts code.
 - Treat repo context as accessible. Do not ask for files or claim they are missing.
 - Ignore tests, docs, mocks, e2e assets, scripts, configs, build files, IDE files, package metadata, vendored libraries, and local-only fixtures.
-- The attacker must be strictly unprivileged and must enter through public bridge calls, token callbacks, proof/message submission, deploy/metadata flows, recipient-controlled inputs, or other public cross-chain inputs.
+- The attacker must be strictly unprivileged and must enter through public contract methods, public callbacks reachable from those methods, attached deposits, account IDs, request submission, or other normal external inputs.
 - Reject self-harm or user-mistake-only paths: wrong recipient chosen by the sender, voluntary self-loss, or cases where the attacker can only damage their own funds without violating protocol guarantees.
 - Prefer #NoVulnerability unless the path is concrete, locally testable, and bounty-grade.
 
 ## Allowed Impact Scope
 Only these impacts are valid:
-- Critical. Unauthorized creation, release, withdrawal, or custody escape of native, locked, or wrapped bridge assets through settlement, deployment, or verification failure.
-- Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows.
-- High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply.
-- High. Acceptance of forged, stale, cross-domain, malformed, differently-encoded, or insufficiently-bound proofs, signatures, VAAs, or prover outputs that bypass execution gates.
-- High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party.
+- Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user.
+- Critical. Permanent freezing, unrecoverable lock, or irrevocable loss of user or protocol funds in lockup release, vesting termination, unstake-withdraw, factory refund, or multisig request execution flows.
+- High. Unauthorized execution, confirmation bypass, or state-transition bypass in multisig, lockup, staking-pool, staking-pool-factory, or whitelist flows that lets an unprivileged user perform actions beyond intended authority.
+- High. Share, reward, vesting, refund, whitelist, or balance-accounting divergence that lets an unprivileged user over-credit value, bypass fees or limits, or withdraw more than fair entitlement.
+- High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees.
 
 ## Method
 1. Trace the attacker-controlled entrypoint and exact production functions touched.
-2. Check the binding or invariant being challenged: uniqueness/finality, verifier binding, token identity, accounting, callback order, or parsing.
+2. Check the binding or invariant being challenged: authorization, signer/predecessor binding, accounting, callback order, request lifecycle, or input validation.
 3. Decide whether the exploit still works under current checks.
 4. Prove root cause with exact file/function/line references.
 5. Confirm exact scoped impact and realistic likelihood.
 
 ## Reject Immediately
-- Requires a trusted role, leaked key, malicious operator behavior, colluding MPC threshold signers, compromised Wormhole guardians, privileged access, or external dependency compromise.
-- Requires phishing, chain attacks, reorg assumptions, network-level DoS only, or public-mainnet testing.
+- Requires a trusted role, privileged account, foundation/owner/factory authority, multisig signer privilege, validator control, leaked key, or external dependency compromise.
+- Requires phishing, malicious peers or nodes, chain attacks, network-level DoS only, or public-mainnet testing.
 - Only affects tests, docs, configs, scripts, mocks, fixtures, vendored code, or local deployment choices.
-- Is self-harm-only, local misconfiguration, logging/observability noise, harmless revert, stale read, decimal dust, rejected relayer stake forfeiture, griefing without security impact, or theory without a concrete exploit path.
+- Is self-harm-only, local misconfiguration, logging/observability noise, harmless revert, stale read, gas griefing, or theory without a concrete exploit path.
 
 ## Output
 If valid:
@@ -304,54 +242,49 @@ If invalid, output exactly:
 
 def scan_format(report: str) -> str:
     """
-    Generate a short cross-project analog scan prompt for Omni Bridge.
+    Generate a short cross-project analog scan prompt for core-contracts.
     """
     prompt = f"""# ANALOG SCAN PROMPT
 
 ## External Report
 {report}
 
-Focus only on production Omni Bridge code in `scope_files`, mainly:
-- near/omni-bridge/src
-- near/omni-prover/*/src
-- near/omni-token/src
-- near/omni-types/src
-- near/token-deployer/src
-- evm/src/common
-- evm/src/eNear/contracts
-- evm/src/omni-bridge/contracts
-- solana/programs/bridge_token_factory/src
-- starknet/src
+Focus only on production NEAR core-contracts code in `scope_files`, mainly:
+- lockup/src
+- staking-pool/src
+- staking-pool-factory/src
+- whitelist/src
+- multisig/src
 Anything outside those production files is out of scope unless needed as direct supporting context.
 
 ## Rules
-- Treat production Omni Bridge files as accessible context. Do not claim files are missing or inaccessible.
+- Treat production NEAR core-contracts files as accessible context. Do not claim files are missing or inaccessible.
 - Do not ask for repository contents.
 - Do not scan tests, docs, build files, IDE files, configs, resources, local fixtures, vendored libraries, package metadata, or e2e assets as audited targets.
-- Use the external report only as a hint. Report an analog only if Omni Bridge has its own reachable root cause.
+- Use the external report only as a hint. Report an analog only if core-contracts has its own reachable root cause.
 - The attacker must be strictly unprivileged and must enter through public protocol inputs.
 - Reject self-harm or user-mistake-only paths.
 
 ## Allowed Impact Scope
 Only these impacts are valid:
-- Critical. Unauthorized creation, release, withdrawal, or custody escape of native, locked, or wrapped bridge assets through settlement, deployment, or verification failure.
-- Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows.
-- High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply.
-- High. Acceptance of forged, stale, cross-domain, malformed, differently-encoded, or insufficiently-bound proofs, signatures, VAAs, or prover outputs that bypass execution gates.
-- High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party.
+- Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user.
+- Critical. Permanent freezing, unrecoverable lock, or irrevocable loss of user or protocol funds in lockup release, vesting termination, unstake-withdraw, factory refund, or multisig request execution flows.
+- High. Unauthorized execution, confirmation bypass, or state-transition bypass in multisig, lockup, staking-pool, staking-pool-factory, or whitelist flows that lets an unprivileged user perform actions beyond intended authority.
+- High. Share, reward, vesting, refund, whitelist, or balance-accounting divergence that lets an unprivileged user over-credit value, bypass fees or limits, or withdraw more than fair entitlement.
+- High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees.
 
 ## Method
-1. Classify the external bug class: uniqueness/finality, verifier binding, asset/accounting, state machine, or parsing.
-2. Map that class to exact Omni Bridge production files and attacker-controlled entrypoints.
-3. Prove Omni Bridge has its own root cause with exact file/function/line references.
+1. Classify the external bug class: authorization, accounting, state machine, replay, or input binding.
+2. Map that class to exact core-contracts production files and attacker-controlled entrypoints.
+3. Prove core-contracts has its own root cause with exact file/function/line references.
 4. Confirm exact scoped impact and realistic likelihood.
 
 ## Disqualify Immediately
 - No reachable attacker-controlled entry path.
-- Requires trusted role, leaked key, malicious operator behavior, colluding MPC threshold signers, compromised Wormhole guardians, privileged access, or external dependency compromise.
-- Requires phishing, public-mainnet testing, chain attack assumptions, or network-level DoS only.
+- Requires trusted role, privileged account, owner/foundation/factory authority, multisig signer privilege, validator control, leaked key, or external dependency compromise.
+- Requires phishing, public-mainnet testing, malicious peer/node assumptions, chain attack assumptions, or network-level DoS only.
 - Is test/docs/config/build-only, self-harm-only, theoretical-only, or has no matching in-scope impact.
-- Impact is only local misconfiguration, observability/logging noise, harmless revert, stale read, decimal dust, rejected relayer stake forfeiture, or non-security correctness.
+- Impact is only local misconfiguration, observability/logging noise, harmless revert, stale read, gas griefing, or non-security correctness.
 
 ## Output (Strict)
 If valid analog exists, output:
@@ -377,24 +310,19 @@ No extra text.
 
 def validation_format(report: str) -> str:
     """
-    Generate a strict Omni Bridge bounty-style validation prompt for security claims.
+    Generate a strict core-contracts bounty-style validation prompt for security claims.
     """
     prompt = f"""# VALIDATION PROMPT
 
 ## Security Claim
 {report}
 
-Focus only on production Omni Bridge code in `scope_files`, mainly:
-- near/omni-bridge/src
-- near/omni-prover/*/src
-- near/omni-token/src
-- near/omni-types/src
-- near/token-deployer/src
-- evm/src/common
-- evm/src/eNear/contracts
-- evm/src/omni-bridge/contracts
-- solana/programs/bridge_token_factory/src
-- starknet/src
+Focus only on production NEAR core-contracts code in `scope_files`, mainly:
+- lockup/src
+- staking-pool/src
+- staking-pool-factory/src
+- whitelist/src
+- multisig/src
 Anything outside those production files is out of scope unless needed as direct supporting context.
 
 ## Rules
@@ -402,27 +330,27 @@ Anything outside those production files is out of scope unless needed as direct 
 - Check SECURITY.md, Researcher.md if present, and the bounty scope for exclusions and valid impact classes.
 - Do not create a new issue if the claim is weak.
 - Do not upgrade severity unless the evidence proves it.
-- The exploit must be triggerable by a strictly unprivileged user through public bridge/proof/message/deploy/metadata/token-callback flows, unless the claim proves privilege escalation from such a path.
+- The exploit must be triggerable by a strictly unprivileged user through public lockup, staking, factory, whitelist, or multisig-call flows, unless the claim proves privilege escalation from such a path.
 - Reject self-harm or user-mistake-only scenarios.
-- Reject malicious-operator-only, privileged-only, leaked-key, colluding-threshold, Wormhole-guardian-compromise, host-compromise, best-practice, docs/style, config/test-only, gas-only, front-run-only, network-level-DoS-only, and purely theoretical claims.
+- Reject malicious-owner-only, malicious-foundation-only, privileged-only, leaked-key, malicious-validator-only, malicious-peer/node-only, host-compromise, best-practice, docs/style, config/test-only, gas-only, front-run-only, network-level-DoS-only, and purely theoretical claims.
 - Reject assumptions that require phishing, governance/51% control, third-party compromise, unsupported protocol behavior, or NEAR base-chain attacks.
 - Prefer #NoVulnerability over speculation.
 
 ## In-Scope Areas
-- NEAR bridge flows: settlement, fee, fast-transfer, token lock, BTC/UTXO, migration, and callbacks.
-- Prover/verifier flows: EVM prover, Wormhole proxy, MPC prover, signature recovery, domain separation, proof result handling.
-- Token/asset flows: omni-token, bridge-token deployment, token-deployer, metadata propagation, token mapping, wrapped/native custody, decimals, mint/burn/unlock symmetry.
-- Foreign-chain bridge logic: EVM OmniBridge/OmniBridgeWormhole/eNear, Solana `bridge_token_factory`, StarkNet `omni_bridge`, including nonce/finalization/deploy/init/finalize handlers.
-- Shared parsing/types: omni-types, payload shaping, event/header/receipt parsing, and address/string conversion used in production settlement paths.
-- Reject third-party dapps, websites, tests, docs, examples, mocks, generated files, local deployment helpers, vendored libraries, e2e tooling, and local developer tooling unless the claim proves direct in-scope protocol impact.
+- Lockup flows: initialization, release/vesting math, transfer-enable gating, staking-pool selection, owner withdrawals, foundation termination, and callbacks.
+- Staking pool flows: deposit, deposit_and_stake, unstake, withdraw, ping reward distribution, share math, pause/resume, and owner-controlled validator settings.
+- Factory and whitelist flows: pool creation, account-id derivation, callback refund handling, whitelist admission, and factory delegation checks.
+- Multisig flows: request creation, confirmation, deletion cooldown, execution, key management, and self-call assumptions.
+- Shared production helpers and types used directly by those in-scope contracts.
+- Reject other contracts in this repo, tests, docs, examples, mocks, generated files, local deployment helpers, vendored libraries, e2e tooling, and local developer tooling unless the claim proves direct impact on the in-scope contracts above.
 
 ## Allowed Impact Scope
 Only these impacts are valid:
-- Critical. Unauthorized creation, release, withdrawal, or custody escape of native, locked, or wrapped bridge assets through settlement, deployment, or verification failure.
-- Critical. Irreversible fund lock, frozen redemption path, or permanently unclaimable user or protocol value in bridge, token, fee, vault, fast-transfer, or UTXO flows.
-- High. Replayable, non-unique, or duplicate cross-chain settlement across proof, event, nonce, message, or finalization domains that produces double-credit or unbacked supply.
-- High. Acceptance of forged, stale, cross-domain, malformed, differently-encoded, or insufficiently-bound proofs, signatures, VAAs, or prover outputs that bypass execution gates.
-- High. Asset-identity, token-mapping, decimals, fee-routing, refund, or balance-accounting divergence that breaks backing guarantees or sends value to the wrong party.
+- Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user.
+- Critical. Permanent freezing, unrecoverable lock, or irrevocable loss of user or protocol funds in lockup release, vesting termination, unstake-withdraw, factory refund, or multisig request execution flows.
+- High. Unauthorized execution, confirmation bypass, or state-transition bypass in multisig, lockup, staking-pool, staking-pool-factory, or whitelist flows that lets an unprivileged user perform actions beyond intended authority.
+- High. Share, reward, vesting, refund, whitelist, or balance-accounting divergence that lets an unprivileged user over-credit value, bypass fees or limits, or withdraw more than fair entitlement.
+- High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees.
 
 Anything limited to observability, non-security correctness, harmless revert/reject, stale read, local misconfiguration, self-loss without protocol break, or non-demonstrable exploitation is invalid.
 
@@ -438,9 +366,9 @@ All must pass:
 
 ## Silent Triage Questions
 Before output, internally answer:
-- Can a normal unprivileged external user trigger this through a public Omni Bridge path?
+- Can a normal unprivileged external user trigger this through a public core-contracts path?
 - Does the code actually behave as claimed?
-- Is the impact caused by Omni Bridge production code, not an external dependency alone?
+- Is the impact caused by core-contracts production code, not an external dependency alone?
 - Is the impact concrete, in-scope, and not just self-loss or theory?
 - Would a bounty triager accept the proof, and what exact test proves it?
 
@@ -459,7 +387,7 @@ Audit Report
 [Exact code path, root cause, exploit flow, and why existing checks fail]
 
 ## Impact Explanation
-[Concrete allowed Omni Bridge bounty impact and severity rationale]
+[Concrete allowed core-contracts bounty impact and severity rationale]
 
 ## Likelihood Explanation
 [Attacker capability, required conditions, feasibility, repeatability]
