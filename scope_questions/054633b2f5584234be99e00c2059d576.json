@@ -1,0 +1,77 @@
+[
+  {
+    "question": "'File Name: lockup/src/foundation.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_53468eeb-5e5f-4952-b31f-0448de1e0767?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/foundation_callbacks.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5ac977d8-717e-4f6f-9041-855548546920?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/gas.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f43b3589-ddca-4bad-89fd-4c3ba48111cd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/getters.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_281bc53f-4fba-479e-932a-a8e49f4763ac?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/internal.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4f27e39a-de0a-4b8a-95f4-3f138febe908?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/lib.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_94258ead-acad-4763-b97e-79eec5860d9c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d40a64c9-473d-4b19-b4ea-1077aed5c7df?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner_callbacks.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e9d0c05f-f214-424d-80cd-44032a12f20e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/types.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1d195dfc-5f2b-4fb5-b5ef-8300238ad77c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/internal.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7282fe53-1095-4632-80d6-e14f84336f92?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/lib.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4a6b447d-1f1f-46e0-bda7-b2c36bc494d8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/lib.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ece0366e-6103-4b18-a3bf-922f12b1a422?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/utils.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6236a9af-0b3e-46c9-8e54-99dd2724680f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: whitelist/src/lib.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_96b07ee9-b535-41a8-8db6-71b7aa4d9589?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: multisig/src/lib.rs -> Scope: Critical. Permanent inability for a legitimate user to recover locked, unstaked, refunded, or multisig-scheduled funds because of reachable state-machine deadlock, callback desynchronization, or irreversible accounting corruption'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_66414118-964e-46ec-a851-eea3d34cc4b1?mode=deep",
+    "questions_generated": false
+  }
+]
