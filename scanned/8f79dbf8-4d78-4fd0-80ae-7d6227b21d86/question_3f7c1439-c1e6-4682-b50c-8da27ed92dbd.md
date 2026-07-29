@@ -1,1 +1,0 @@
-[File: lockup/src/internal.rs -> Scope: High] [Function: staking-pool-factory create_staking_pool staking_pool_id parsing] Can an unprivileged attacker choose staking_pool_id containing characters that, when concatenated as format!(\
