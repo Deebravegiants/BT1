@@ -1,1 +1,0 @@
-[File: 'staking-pool-factory/src/lib.rs -> create_staking_pool'] [Function: create_staking_pool account-id construction] Can an attacker craft a `staking_pool_id` containing characters that, when concatenated as `format!(\
