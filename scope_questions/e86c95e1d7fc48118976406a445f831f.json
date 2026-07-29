@@ -1,0 +1,77 @@
+[
+  {
+    "question": "'File Name: lockup/src/foundation.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_01aff19a-24bc-408e-83c1-35e3c043e319?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/foundation_callbacks.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b9153286-0051-4587-a0c7-3ef24ecb2b07?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/gas.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_190066e2-fb14-4cb0-8185-00bea3d333b5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/getters.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1eaff9d4-9618-43a6-ad87-761a4c48c7be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/internal.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1dcdf0ac-771c-4e29-b888-8fd3436cf94e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/lib.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e9ef1a90-60ef-41d7-8ba3-87441b97cb59?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aef1c157-ffc1-4c9d-82a8-0342a445ce2a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner_callbacks.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_52993e26-d6c9-4084-b8fb-196ef6000142?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/types.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5284ca23-3254-4152-89bf-2b6913b92860?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/internal.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_773bc4cc-4259-4496-ad77-9de0e134a515?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/lib.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ed16b721-6b8d-433f-883a-5d16a0708d93?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/lib.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_82f5184b-a7df-4318-bc41-4dbd3b1bb6b9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/utils.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_56335c83-25d6-4d9c-8df2-4f73956f7c88?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: whitelist/src/lib.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ebd0c8b6-3eb2-4da4-9c9e-45cf0192f555?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: multisig/src/lib.rs -> Scope: Critical. Unauthorized transfer, withdrawal, spending, or release of locked, vested, pooled, or multisig-controlled NEAR through public-call, callback, approval, or accounting failure reachable by an unprivileged user'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_da6ae9e5-b9bc-4b6f-aae5-40bffc780e68?mode=deep",
+    "questions_generated": false
+  }
+]
