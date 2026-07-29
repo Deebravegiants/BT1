@@ -1,0 +1,77 @@
+[
+  {
+    "question": "'File Name: lockup/src/foundation.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_48b4821e-f879-4b04-b481-d06aa4d11be0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/foundation_callbacks.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0e8b77eb-c648-410e-ac70-c49f87b98e94?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/gas.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_efb2c6ea-0966-4bbb-b069-99ad3e48ad59?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/getters.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f817f054-df76-4a33-8557-072bcf1af343?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/internal.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7d8e95d1-85db-4a08-9984-b94a63d88ed9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/lib.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b1804a6a-437d-445e-b0de-71681dc116fc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d1fbeac8-edc3-4784-bc96-19d3431bb913?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner_callbacks.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ca451e8e-fd3c-45ff-a468-8405db83ad1c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/types.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_077f175f-5d30-406e-8aee-4f3ff9c8382a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/internal.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c7586d78-47c4-443d-886c-2e171eb14205?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/lib.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_feb3da17-6c97-4fb0-8028-c881fa78a59f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/lib.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_41e9c2ba-3896-4710-9294-83b3b8bab86a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/utils.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f0d43f7c-bb58-4762-9473-1a52c767368a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: whitelist/src/lib.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d32f62bd-5b06-4d27-a1dc-5bc5fe947b1f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: multisig/src/lib.rs -> Scope: High. Staking share-price, reward distribution, rounding, or unstake-window edge cases that let an unprivileged user obtain excess stake value, withdraw against incomplete backing, or strand other users' balances'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_08b0129f-49cd-4e64-b57e-bdfa4eeb8515?mode=deep",
+    "questions_generated": false
+  }
+]
