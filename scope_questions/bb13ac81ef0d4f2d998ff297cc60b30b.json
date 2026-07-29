@@ -1,0 +1,77 @@
+[
+  {
+    "question": "'File Name: lockup/src/foundation.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b0efaf83-9596-4dbd-bb09-285000254371?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/foundation_callbacks.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ba4429a6-00ee-4f3b-9b95-20d5250f63fd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/gas.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a0c0b13b-e9f2-4937-97d8-2533d054bda0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/getters.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2b72d414-bb99-477c-9c64-3c3191386d05?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/internal.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3718b526-ab66-449b-85ac-f1d49ff47079?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/lib.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9b96ca56-feb5-4570-a107-948bd3340cb8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f0b57e04-1ae7-40b9-ab53-94352337e564?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/owner_callbacks.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_555c4578-a32d-4fe9-b317-fb389de1e91d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lockup/src/types.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b8f8f6b6-149c-4500-a75c-bfa472734bba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/internal.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2577ad3c-c3d3-4aed-811b-c32360b3538d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool/src/lib.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3e9440b4-4ce0-493b-a3b9-6baf06eb033f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/lib.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0d757a6d-c8af-44da-98fd-a5f66cd14d1f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staking-pool-factory/src/utils.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d57e726e-ff55-476b-a51f-0b7a2d9e8fc3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: whitelist/src/lib.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d1394076-212f-4499-ad56-d95078fa7064?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: multisig/src/lib.rs -> Scope: High. Replay, duplicate-effect, callback-ordering, cooldown, nonce, or account-binding failure in request, pool-creation, transfer-availability, staking, or withdrawal flows that breaks single-execution or rightful redemption guarantees'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3fdccd34-f512-49b3-8bb2-ff0c8391c115?mode=deep",
+    "questions_generated": false
+  }
+]
