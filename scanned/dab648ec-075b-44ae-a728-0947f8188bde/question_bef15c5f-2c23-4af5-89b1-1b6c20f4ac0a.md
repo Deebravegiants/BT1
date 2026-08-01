@@ -1,0 +1,1 @@
+[File: ... sigma_protocol_transfer.move -> Scope: Critical ...] [Symbol: assert_verifies / PROTOCOL_ID reuse] Can an attacker take a valid `Proof` for the `sigma_protocol_transfer` relation and, because `PROTOCOL_ID = b\

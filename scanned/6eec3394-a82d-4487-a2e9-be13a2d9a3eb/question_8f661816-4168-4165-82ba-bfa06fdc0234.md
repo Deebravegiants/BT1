@@ -1,0 +1,1 @@
+[File: value_exchange.rs -> Scope: Critical] [Symbol: TemporaryValueToIdentifierMapping::identifier_to_value] Can an attacker who crafts a transaction referencing a stale or attacker-chosen `DelayedFieldID` (not produced by `generate_delayed_field_id`) reach `identifier_to_value` (value_exchange.rs:86-107) via `ViewState::Unsync::read_delayed_field` such that the `.expect(\
