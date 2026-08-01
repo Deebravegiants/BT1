@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: aptos-move/aptos-native-interface/src/rayon_pool.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_b6fab6ea-1a9b-4264-bceb-8b42dd49ebbb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-native-interface/src/reexports.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_1915d6de-f7b3-4fef-9559-76fe4ed9d63a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-environment/src/environment.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_ea645535-785d-496e-bf79-c26a3a34560f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-environment/src/gas.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_afc39d1a-3399-4f61-aeae-009d4ed5eec7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-environment/src/natives.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_8318d077-b967-4d45-a851-c108193010b0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-environment/src/prod_configs.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_05f8ee6b-345c-464c-9c23-f7c94d4bd671?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/abstract_write_op.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_5fcc2f92-bf31-4b4a-84b8-bdd2f3f397a9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/change_set.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_edfe264a-5e7b-440f-bd63-e6fc9c73c054?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/module_and_script_storage/code_storage.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_f584342b-3125-423d-b112-728a0362e11e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/module_and_script_storage/module_storage.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_f00796e9-0aea-44c9-b2ca-e4e0d9d0ab92?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/module_and_script_storage/read_recording.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_4516960b-dd83-4b2f-83f1-d4edb691f319?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/module_and_script_storage/state_view_adapter.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_39ab6cac-141a-440c-b507-7561b07c7b02?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/module_write_set.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_c8bdfe22-0c88-409c-bce9-6bfed57cdcae?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/output.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_3835c213-f7e9-449b-8406-85c8640f0a44?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/resolver.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_8b37130b-727d-47b1-a054-538024415eb1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/resource_group_adapter.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_e94ba503-7f71-4696-8489-a6f758bcecd3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/storage/change_set_configs.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_9aa17713-323e-47af-90ba-10c1e1435fdc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/storage/io_pricing.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_70993dae-287a-4cb1-97c8-fdc24c55859c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm-types/src/storage/space_pricing.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_8d360deb-892b-4c8a-b605-90521a3ea4ac?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/aptos_vm.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_6c2fb7cf-3a1a-407f-a3d7-a473e91d5969?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/block_executor/vm_wrapper.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_22a6fa45-ef0b-456f-8941-fb9282eddfa0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/data_cache.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_e9db3ae8-f2e2-410e-bcfc-e142496c0286?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/errors.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_7b8f72f7-7d31-41ce-a22b-9ecea53986f7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/gas.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_99d9bed5-51f2-43d4-834c-d44ffbc5641c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/move_vm_ext/resolver.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_d20d55d7-12b0-4b26-bd22-0b9b26dffd08?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/move_vm_ext/session/respawned_session.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_13d61a92-ef42-46e4-9b76-2f2b8afaac08?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/move_vm_ext/session/session_id.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_9d140610-e000-4fa6-a79f-cb84bc655b3a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/move_vm_ext/session/user_transaction_sessions/abort_hook.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_db918df2-134c-4df8-98b1-289302ca3668?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/move_vm_ext/session/user_transaction_sessions/epilogue.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_685e5573-def5-4237-bfa9-2a622074cb5a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: aptos-move/aptos-vm/src/move_vm_ext/session/user_transaction_sessions/prologue.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_60a9062b-e9d8-4877-b296-20ea5a29fda0?mode=deep",
+    "questions_generated": false
+  }
+]
