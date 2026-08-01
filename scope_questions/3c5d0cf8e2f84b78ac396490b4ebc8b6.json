@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: execution/executor/src/chunk_executor/chunk_commit_queue.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_e110e20b-c2e8-4c78-be1c-281292487f4e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/chunk_executor/chunk_result_verifier.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_306b6c3b-108c-42f9-af67-2941d982b33f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/chunk_executor/transaction_chunk.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_76d05b4c-8830-4d7e-a57b-abec9178925d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/logging.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_b8f6b286-556b-4605-813c-053472c91cd2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/types/executed_chunk.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_9e88fc27-3d3a-4985-a285-f177f60d0817?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/types/partial_state_compute_result.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_408578db-5d19-4e25-b02d-71d553d9fb89?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/workflow/do_get_execution_output.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_a472692a-a3b2-4985-89ab-83f652dd646f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/workflow/do_ledger_update.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_1d826ebb-9649-4335-a47a-5f705ba1e391?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/workflow/do_state_checkpoint.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_a3a3be40-d510-49fc-b92d-21e099614ce9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/core_mempool/index.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_fbf944ad-adef-4ec7-9a0a-d7ed8b32f389?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/core_mempool/mempool.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_ac549658-d54c-4d78-a002-ac8d66ed4a34?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/core_mempool/transaction.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_5b7b7099-2515-44b0-902d-addc5e4f7f1b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/core_mempool/transaction_store.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_20d4a46b-0434-43d9-9501-751df852bfb3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/logging.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_6aa97acd-4afb-4e71-a87b-f1d4346c9131?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/coordinator.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_61770fea-e118-4ff4-a2e2-489ca9eebe9f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/network.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_4f3b0f43-b0ae-4068-a6b7-31c3a4ba2d99?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/priority.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_a60e5c71-400e-40e7-9d72-2af60bd20341?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/runtime.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_ee9b01bd-e645-4ce3-9841-4cc12828f7a4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/tasks.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_49fc3cf4-c673-4150-869c-db8c389d72f2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/types.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_ba6fe11d-e03d-4414-b120-aa7b5dd39e17?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/use_case_history.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_bdae6c87-86d1-44f5-9c80-d33e3d600953?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/common.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_44dbb5d7-0631-460e-a452-919e83331da9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/db/aptosdb_internal.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_1266fd61-dc35-4d5a-a859-f706c9a35657?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/db/aptosdb_native_position.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_9f891f32-2fc0-414e-81b2-c94dc557037d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/db/aptosdb_reader.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_6e9d95a1-5dab-4c74-ae4e-93713dd8a707?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/db/aptosdb_writer.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_47d5a578-ce0b-4b95-8454-27d961d95af3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/db_options.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_06cf4034-efcf-42ed-842a-474be48d3451?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/fast_sync_storage_wrapper.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_1d92e016-b3d5-4f30-adcb-89f971e263b4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/get_restore_handler.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_9d367283-7fed-4986-8120-f110f593020c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/ledger_db/event_db.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_0359c5c1-b9f9-4e8b-bf26-cbab61862f1e?mode=deep",
+    "questions_generated": false
+  }
+]
