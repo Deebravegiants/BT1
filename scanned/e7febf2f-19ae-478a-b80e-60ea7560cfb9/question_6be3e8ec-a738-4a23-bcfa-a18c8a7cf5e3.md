@@ -1,1 +1,0 @@
-[File: 'File Name: storage/schemadb/src/schema.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'] [Symbol: ValueCodec::decode_value panic safety] Given the same `assert_no_panic_decoding` fuzz helper is gated behind `#[cfg(feature = \
