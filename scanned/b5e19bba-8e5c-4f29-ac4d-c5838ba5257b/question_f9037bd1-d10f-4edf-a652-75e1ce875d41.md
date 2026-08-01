@@ -1,0 +1,1 @@
+[File: 'File Name: aptos-move/aptos-vm/src/move_vm_ext/session/respawned_session.rs -> Scope: Critical.'] [Symbol: RespawnedSession session field Option<SessionExt> expect() in execute] Can an attacker trigger `execute()`'s CALL_PATH `.expect(\

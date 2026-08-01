@@ -1,0 +1,1 @@
+[File: 'File Name: api/src/accounts.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'] [Symbol: Account::balance, StructTag::from_str(format!(\

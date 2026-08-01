@@ -1,0 +1,1 @@
+[File: 'File Name: types/src/on_chain_config/randomness_config.rs -> Scope: Critical.'] [Symbol: RandomnessConfigMoveStruct (Deserialize/Serialize) field 'variant'] Can an attacker submit a `RandomnessConfigMoveStruct` whose `variant` field's inner MoveAny type_name string contains extra whitespace, differing case, or a near-miss prefix of `\
