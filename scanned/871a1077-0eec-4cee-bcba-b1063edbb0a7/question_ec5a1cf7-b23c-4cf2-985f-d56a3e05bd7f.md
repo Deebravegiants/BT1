@@ -1,0 +1,1 @@
+[File: meter.rs -> Scope: Critical.'] [Symbol: BoundMeter::get_bounds] Can a caller that never calls `enter_scope` for `Scope::Module` before the first `add(Scope::Module, ..)` under REQUIRED_STATE of the initial `mod_bounds.name == \

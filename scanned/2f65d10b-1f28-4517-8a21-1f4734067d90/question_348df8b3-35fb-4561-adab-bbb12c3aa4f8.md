@@ -1,0 +1,1 @@
+[File: 'File Name: aptos-move/block-executor/src/errors.rs -> Scope: Critical.'] [Symbol: SequentialBlockExecutionError::from(PanicError) / code_invariant_error] Can an attacker trigger `code_invariant_error(\
