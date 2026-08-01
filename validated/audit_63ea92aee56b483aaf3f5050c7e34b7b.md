@@ -1,1 +1,0 @@
-Only `staking-pool` has any pause-related state (`self.paused`), and it already exposes owner-only `pause_staking`/`resume_staking` methods, so the Tapioca "no method to modify `_paused`" bug class does not reproduce there.
