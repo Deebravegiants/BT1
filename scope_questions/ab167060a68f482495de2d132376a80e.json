@@ -148,5 +148,155 @@
     "question": "'File Name: storage/aptosdb/src/ledger_db/event_db.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
     "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_b449ccc4-a439-45cc-8c60-f825126c1b67?mode=deep",
     "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/chunk_executor/chunk_commit_queue.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_abb99aaa-b867-402a-a9a7-8b3cdca3ecc9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/chunk_executor/chunk_result_verifier.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_4c184de6-ba2a-4972-b65e-fe2babeb67fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/chunk_executor/transaction_chunk.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_84a9c4ee-5392-4e52-b602-b20caf5c0245?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/logging.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_f9ca5752-b1ac-48e0-a562-d5a381930370?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/types/executed_chunk.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_421f49b0-693b-4947-98dc-d3da287090fc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/types/partial_state_compute_result.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_bd77712e-6d4c-4e87-a0a3-8d27c219a4cd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/workflow/do_get_execution_output.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_170adfbd-09e6-4a0d-9d2f-d002ff968404?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/workflow/do_ledger_update.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_dff0406a-10fb-42a0-86c7-f89172d7e867?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: execution/executor/src/workflow/do_state_checkpoint.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_64adb3df-218b-4bd0-a4a5-794d32a8f6b3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/core_mempool/index.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_1e1c0ef9-a315-44a1-abab-842aebcc38f8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/core_mempool/mempool.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_907bbf0c-9f43-4f0e-97ba-1c669db85921?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/core_mempool/transaction.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_10a819e1-cf7b-4f14-b3d8-55e0a25b377a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/core_mempool/transaction_store.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_c251d42d-cec0-48ce-9367-2b629bf2d8d4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/logging.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_eee1586e-a808-40bd-b298-9b0bc22aaa8d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/coordinator.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_20a53690-e5d2-476e-ac45-331638c3ccf6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/network.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_a59171e8-33b0-4ad4-8cf3-cdc902bf73ff?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/priority.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_35d15115-5d8c-46a1-b887-62b30dc4ae0d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/runtime.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_c1a8edf1-383f-40df-84be-b19e27e78d8d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/tasks.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_d8669802-7a0f-41e8-b80c-6af281bb9e7a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/types.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_b5db8388-2216-49ef-a00b-19e80e1e8001?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mempool/src/shared_mempool/use_case_history.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_e33ad7c1-d403-4b2c-81a1-3688311f470a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/common.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_b466d3da-2e0d-4e4c-96e1-86c575c9b881?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/db/aptosdb_internal.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_df30f7f6-6732-4b1b-b2b8-724e3a986d4c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/db/aptosdb_native_position.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_562ec005-e10e-4b21-b92e-7213ae2ba3cc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/db/aptosdb_reader.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_c45dd003-277f-4081-844c-59336ef3ac02?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/db/aptosdb_writer.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_17bc0de3-6501-49bc-86ec-caa58b640355?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/db_options.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_a37f4480-01b5-44b3-b46b-7b0cb3e1e687?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/fast_sync_storage_wrapper.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_8959b49a-accd-4e5a-a346-31f87f9c8f08?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/get_restore_handler.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_991d89f0-eead-4f70-91c0-d0e2cc9d90e7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/ledger_db/event_db.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_6aff0cc1-8e79-4e18-a676-ec76af637ae2?mode=deep",
+    "questions_generated": false
   }
 ]
