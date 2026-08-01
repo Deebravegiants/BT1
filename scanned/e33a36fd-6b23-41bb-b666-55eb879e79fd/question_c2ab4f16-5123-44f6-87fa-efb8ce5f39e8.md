@@ -1,0 +1,1 @@
+[File: 'File Name: types/src/error.rs -> Scope: High...'] [Symbol: PartialVMError::with_message content for PanicOr::Or] Since From<PanicOr<T>> for PartialVMError (types/src/error.rs lines 90-100) serializes the Or(T) variant via format!(\

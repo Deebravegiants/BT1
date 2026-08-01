@@ -1,0 +1,1 @@
+[File: 'File Name: aptos-move/aptos-vm/src/system_module_names.rs -> Scope: Critical.'] [Symbol: TransactionValidation::is_account_module_abort] Can an attacker craft a transaction that aborts inside a user-defined module at an AbortLocation matching ModuleId::new(CORE_CODE_ADDRESS, \
