@@ -1,0 +1,1 @@
+[File: 'File Name: api/types/src/address.rs -> Scope: High.'] [Symbol: Address::from_str length/padding handling] Does `AccountAddress::from_str` (invoked by `Address::from_str`) permissively accept addresses shorter than 32 bytes by zero-padding, and can an attacker exploit this padding behavior to submit a short numeric string (e.g.
