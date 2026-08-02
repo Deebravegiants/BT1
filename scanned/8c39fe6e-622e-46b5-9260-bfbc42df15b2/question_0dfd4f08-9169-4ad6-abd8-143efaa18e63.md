@@ -1,1 +1,0 @@
-[File: 'File Name: storage/storage-interface/src/state_store/leaf_entry.rs -> Scope: Critical'] [Symbol: LeafEntry::state_key (impl for StateSlot)] When a StateSlot is constructed via `StateSlot::new_without_state_key` (hot-KV-DB load path) and later routed through `leaf_entry_to_jmt_update`, does the `.expect(\
