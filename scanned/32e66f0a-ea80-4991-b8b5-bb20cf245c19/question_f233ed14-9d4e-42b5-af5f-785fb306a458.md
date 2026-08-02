@@ -1,1 +1,0 @@
-[File: 'File Name: api/types/src/move_types.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'] [Symbol: `MoveStructValue::try_from` (Option handling)] Can an attacker publish a custom Move enum whose variants are literally named \
