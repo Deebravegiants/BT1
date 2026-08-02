@@ -1,1 +1,0 @@
-[File: 'types/src/on_chain_config/transaction_fee.rs -> Scope: Critical'] [Symbol: OnChainConfig::struct_tag via CONFIG_ID] Can an attacker who controls a Move module deployed under a namespace that resolves to the same (ADDRESS, MODULE_IDENTIFIER, TYPE_IDENTIFIER) tuple as TransactionFeeBurnCap (
