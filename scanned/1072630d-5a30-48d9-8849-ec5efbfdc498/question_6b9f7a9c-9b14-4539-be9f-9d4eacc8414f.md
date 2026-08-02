@@ -1,1 +1,0 @@
-[File: value_exchange.rs -> Scope: Critical] [Symbol: LatestView::does_value_need_exchange] Can an attacker structure a transaction so that `value.bytes()` at value_exchange.rs:163 is Some for a resource that is logically a deletion of an FA store/Object (e.g., via a write pattern not classified as `is_deletion()`), bypassing the `Err(code_invariant_error(\
