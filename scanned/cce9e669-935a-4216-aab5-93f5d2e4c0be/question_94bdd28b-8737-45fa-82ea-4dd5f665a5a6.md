@@ -1,1 +1,0 @@
-[File: 'File Name: third_party/move/move-vm/types/src/code/cache/module_cache.rs -> Scope: Critical.'] [Symbol: SyncModuleCache::get_module_version / UnsyncModuleCache::get_module_version cfg(test) asymmetry] Can the asymmetric availability of `get_module_version` (public on SyncModuleCache but `#[cfg(any(test, feature = \
