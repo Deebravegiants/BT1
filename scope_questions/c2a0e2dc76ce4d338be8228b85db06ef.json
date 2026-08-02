@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: storage/aptosdb/src/pruner/pruner_worker.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_bb454509-598d-401f-81ec-868e61f26888?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/pruner/state_kv_pruner/generics.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_363c48b4-e687-4d80-9d40-46fd3938d9b2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/pruner/state_kv_pruner/state_kv_metadata_pruner.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_6297711b-0d73-4729-91a6-e42f48c462af?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/pruner/state_kv_pruner/state_kv_pruner_manager.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_387430fe-6c9c-4ccd-8c22-f51f7b205d0f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/pruner/state_kv_pruner/state_kv_shard_pruner.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_de9b6f53-ea2f-44b5-8031-5896824c2d52?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/pruner/state_merkle_pruner/generics.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_785bb952-e3f8-406b-a438-7d8d09835923?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/pruner/state_merkle_pruner/leaked_stale_node_cleaner.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_50a3b427-4549-4c24-adf0-95b118745781?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/pruner/state_merkle_pruner/state_merkle_metadata_pruner.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_5a9d23cf-b5a1-459e-a71f-2427ad356a48?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/pruner/state_merkle_pruner/state_merkle_pruner_manager.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_9e9c777d-6ad1-4f21-8a0a-46605108dddc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/pruner/state_merkle_pruner/state_merkle_shard_pruner.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_84fdd052-6e83-4acf-97ca-06df1495304d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/rocksdb_property_reporter.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_93bc8da4-c6e6-442f-a51a-c1081aabec25?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/sharded_jmt_merkle_db.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_157be4f6-9c7d-4104-b5f9-86fb03fc8219?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/sharded_kv_db.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_fb5225f2-8ab4-48eb-884c-8531b582312c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/state_kv_db.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_ec0cb9e2-3fcf-4010-b422-fdb1cd837320?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/state_merkle_db.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_aeb4d7d0-da58-42d0-9c00-570177464b4b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/state_store/buffered_state.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_26f439cf-27a8-4757-99eb-26b011490170?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/state_store/hot_state.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_da29fcbb-e15c-49fb-9d1b-8b37a9f0be0e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/state_store/persisted_state.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_2f9bf92f-9817-4be2-b630-2a7a1be2a5ce?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/state_store/state_merkle_batch_committer.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_b3895030-5dfe-4491-8b28-91c2d6614ce5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/state_store/state_snapshot_committer.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_786417e9-1dae-4878-a4df-4ea7e640a869?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/state_value_chunk.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_e6d6dcab-b024-46dc-95ef-f21efc45ef59?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/trading_native.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_405ebdd3-87e5-4647-ac13-9f10501ae031?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/utils/iterators.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_36260d14-4837-4d3f-b680-d2ae20ce6099?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/utils/truncation_helper.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_090663a1-8b8b-403b-a269-f76318b45f32?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/aptosdb/src/versioned_node_cache.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_51fbf6f3-f40e-4072-bd7f-b686607a72da?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/schemadb/src/batch.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_1d6436af-df6c-4d09-9dae-3ba686240cb4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/schemadb/src/iterator.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_e199dd8d-1549-4392-ab43-9aaa6ed6e943?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/schemadb/src/schema.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_de011a8d-9ae0-4645-9ce1-af5e19bf54bd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/scratchpad/src/sparse_merkle/dropper.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_e007e2ed-d17d-4334-a91e-8091ad63e514?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: storage/scratchpad/src/sparse_merkle/node.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_164722af-177f-49f5-89a1-e1c3e1694880?mode=deep",
+    "questions_generated": false
+  }
+]
