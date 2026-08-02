@@ -952,18 +952,14 @@ target_scopes = [
 ]
 
 APTOS_ALLOWED_IMPACT_SCOPE = """## Custody Impact Gate
-Accept only custody-grade, mainnet-relevant impacts tied to asset and ownership control:
-- Theft, mint, burn, freeze, or owner reassignment of APT, fungible assets, token objects, or other object-held value.
-- Unauthorized takeover of metadata ownership, freeze control, dispatch hooks, multisig control, resource-account control, or code-object ownership tied to live assets.
-- Permanent lock or non-recoverable loss of object-held, multisig-held, or resource-account-held value.
-- Supply or custody accounting corruption that moves value to the wrong holder or destroys recovery rights.
-Never count: malicious peer or node behavior, generic network DoS, Consensus Observer-only impact, `consensus/src/dag`, `experimental`, `keyless/pepper`, AIP-103 Permissioned Signer, AIP-104 Account Abstraction, leaked keys, privileged governance or admin assumptions, social engineering, third-party oracle errors, tests, mocks, fixtures, benches, examples, docs, readmes, generated or build files, `.toml`, event-only mismatches, minor rounding or style, and dependency-only claims without a repo root cause."""
+Accept only custody-grade, mainnet-relevant impacts tied to asset and ownership control."""
 
 APTOS_AUDIT_PIVOTS = """## Custody Pivots
 - Object creation, transfer, burn, extensibility, and ownership refs must preserve the intended controller.
 - Fungible asset metadata, primary and secondary stores, dispatchable hooks, and freeze state must preserve supply and holder identity.
 - Multisig-owned assets, resource accounts, and code objects must not leak upgrade, freeze, or transfer authority to unprivileged callers.
 - Custody invariants should hold across deposit, withdraw, transfer, split, merge, burn, and store-creation paths."""
+
 
 def question_generator(target_file: str) -> str:
     """
@@ -996,9 +992,11 @@ def question_generator(target_file: str) -> str:
     Each question must include target symbol, attacker input, required state, call path, broken invariant, corrupted value, scoped impact, and proof idea.
 
     Return Python only.
+    
+    Note u must follow the qwuestion format 
 
     questions = [
-    "[File: {target_file}] [Symbol: symbol_or_module] Can attacker-controlled INPUT under REQUIRED_STATE cross a custody boundary in CALL_PATH and break MAINNET_CUSTODY_INVARIANT, corrupting EXACT_VALUE with scoped impact SCOPE_IMPACT? Proof idea: write a focused repo test that drives ENTRYPOINT and asserts EXPECTED_OWNERSHIP_OR_BALANCE_PROPERTY.",
+    "[File: {target_file}]  Can attacker-controlled INPUT under REQUIRED_STATE cross a custody boundary in CALL_PATH and break MAINNET_CUSTODY_INVARIANT, corrupting EXACT_VALUE with scoped impact SCOPE_IMPACT? Proof idea: write a focused repo test that drives ENTRYPOINT and asserts EXPECTED_OWNERSHIP_OR_BALANCE_PROPERTY.",
     ]
     """
     return prompt
@@ -1093,6 +1091,7 @@ If not, output exactly:
 #NoVulnerability found for this question.
 """
     return prompt
+
 
 def validation_format(report: str) -> str:
     """
