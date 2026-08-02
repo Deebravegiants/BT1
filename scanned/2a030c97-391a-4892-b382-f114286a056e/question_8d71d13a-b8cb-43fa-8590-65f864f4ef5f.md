@@ -1,1 +1,0 @@
-[File: state_slot.rs] [Symbol: THotStateSlot::set_prev/set_next on cold slot panic branch] Can an attacker force a StateSlot representing a resource account to transition to a cold kind while a stale reference in the LRU chain still calls set_prev/set_next on it (race between to_cold() and lingering LRU cleanup), hitting the `panic!(\

@@ -1,1 +1,0 @@
-[File: state_slot.rs] [Symbol: StateSlot::with_lru_info] Can an attacker manipulate the hot-state LRU chain (via bursts of reads/writes on many object keys) to call with_lru_info on a ColdOccupied/ColdVacant slot representing a resource-account, hitting `panic!(\
