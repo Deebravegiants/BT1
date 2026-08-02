@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: third_party/move/move-vm/runtime/src/tracing.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_962d15e6-d76f-44fc-8b6d-85635c8d27d2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/code/cache/module_cache.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_7522e1b9-f504-47b7-b49e-ee0baa5d8465?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/code/cache/script_cache.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_e16e211a-ec58-4096-bc08-b9d01b5249c7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/code/cache/test_types.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_a35e31fa-d94c-437c-bb52-d2d3b7061e7c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/code/cache/types.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_bcc8a2f6-92a7-4756-8c6b-d15cfe19d262?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/code/errors.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_a1723f3a-099d-4e62-937c-ffbcc6a85d46?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/code/storage.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_3e942850-7c20-4c1b-b49a-a8ca793104b1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/delayed_values/delayed_field_id.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_6e9caca6-540b-4021-bc12-8102cc251e83?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/delayed_values/derived_string_snapshot.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_52e8ce89-5182-48d1-81ba-f77a2d7763b2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/delayed_values/error.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_b94e06ac-8b13-420b-bf07-05deb1851238?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/gas.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_9d685ddb-50af-435f-83a0-76e710bedb57?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/instr.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_31a0930a-e0d0-4eff-819f-0aeec213f6f2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/interner.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_4f7119ae-3118-4f06-8c99-e5f6f99a6400?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/limits.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_65366e79-54ea-4e4a-aa8e-329cfaf60ce9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/loaded_data/runtime_types.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_5fdd29f2-9bd6-48cb-9848-3b41a5f5bc88?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/loaded_data/struct_name_indexing.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_85fa6fef-f381-413e-bf2b-e0af15fd52c9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/module_id_interner.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_50e18e84-c5c5-4098-bcf9-64a77f749b1f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/natives/function.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_b5fb9e80-72db-406b-ac95-ac73e8e55f01?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/resolver.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_608efab5-8164-4613-8bc7-e5b8096a793b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/ty_interner.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_0ae9c9f4-10a6-4d26-8bae-48d5e7a4db44?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/value_serde.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_e2171df9-817f-4697-a0b4-7846f5e24cef?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/value_traversal.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_57df4ac8-2fa3-4cdf-a3c0-49243c6fc137?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/values/function_values_impl.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_166f6363-3128-44b3-bfe6-9bc733ff3c45?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/values/values_impl.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_b2fa56f4-7fa0-4e35-87be-83b331b73397?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: third_party/move/move-vm/types/src/views.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_96f97da1-b240-4104-b671-b0921a0a2884?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: types/src/access_path.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_0ba7c3a9-8a2c-442f-8ecc-6c661d72d2d0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: types/src/account_address.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_2eda3bc8-6430-4391-84a3-4a63980ad57b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: types/src/account_config/constants/account.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_7644906d-8f96-4258-921c-438ebaecb2c4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: types/src/account_config/constants/addresses.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_ac30db3d-dd6b-4514-b428-b9bd83060e35?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: types/src/account_config/events/burn.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.'",
+    "url": "https://deepwiki.com/search/-build-18-to-24-aptos-custody_385fea30-7184-488c-a30a-e4310dbce302?mode=deep",
+    "questions_generated": false
+  }
+]
