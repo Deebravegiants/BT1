@@ -1,1 +1,0 @@
-The code makes this hypothesis moot: `sig_to_ty` explicitly maps `SignatureToken::Struct(_)` and `SignatureToken::StructInstantiation(_, _)` to `None`, and `is_valid_for_constant` (used in `verify_constant_type`) rejects any composite/struct type before `deserialize_constant` is ever invoked.
