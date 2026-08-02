@@ -1,1 +1,0 @@
-[File: 'File Name: vm-validator/src/vm_validator.rs -> Scope: High.'] [Symbol: validate_transaction error path] Can an attacker craft a transaction that reliably triggers the `catch_unwind` panic branch, causing `error!(\
