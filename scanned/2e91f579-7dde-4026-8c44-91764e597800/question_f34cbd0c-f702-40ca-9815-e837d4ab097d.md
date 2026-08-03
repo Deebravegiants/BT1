@@ -1,1 +1,0 @@
-[File: 'File Name: third_party/move/move-vm/runtime/src/execution_tracing/trace.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.']  Can the `#[cfg(any(test, feature = \
