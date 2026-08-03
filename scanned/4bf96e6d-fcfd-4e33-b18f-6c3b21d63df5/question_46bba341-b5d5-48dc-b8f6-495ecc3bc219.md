@@ -1,1 +1,0 @@
-[File: 'File Name: aptos-move/framework/natives/src/string_utils.rs -> Scope: High.'] Can attacker-supplied Move struct data whose annotated layout is `0x1::string::String` but whose single byte vector field is non-UTF8, reach native_format_impl's String branch and trigger the `PartialVMError::new_invariant_violation(\

@@ -1,1 +1,0 @@
-[File: 'File Name: aptos-move/framework/natives/src/string_utils.rs -> Scope: High.'] Can an attacker submit a deeply nested struct (e.g., a nested Object<T> wrapper struct) that exceeds `context.max_depth` in native_format_impl, causing format_vector's `write!(out, \

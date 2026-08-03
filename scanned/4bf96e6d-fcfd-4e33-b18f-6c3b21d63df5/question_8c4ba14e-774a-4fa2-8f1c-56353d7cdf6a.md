@@ -1,1 +1,0 @@
-[File: 'File Name: aptos-move/framework/natives/src/string_utils.rs -> Scope: High.'] Can native_format_list's `match_list_ty` check, which validates only `struct_tag.address/module/name == (0x1, string_utils, \
