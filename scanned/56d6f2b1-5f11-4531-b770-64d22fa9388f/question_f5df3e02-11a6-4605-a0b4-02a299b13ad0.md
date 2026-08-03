@@ -1,0 +1,1 @@
+[File: 'File Name: types/src/transaction/change_set.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'] Can an attacker exploit WriteOp::squash's unreachable!(\

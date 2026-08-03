@@ -1,0 +1,1 @@
+[File: 'File Name: third_party/move/move-core/types/src/function.rs -> Scope: Critical.'] Can the `format_arguments_impl` fallback path in `ClosureMask::format_arguments` (function.rs, lines 175-206), which returns `vec![\
