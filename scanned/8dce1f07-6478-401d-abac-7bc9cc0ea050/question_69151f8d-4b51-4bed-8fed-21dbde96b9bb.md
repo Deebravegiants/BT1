@@ -1,1 +1,0 @@
-[File: 'File Name: aptos-move/block-executor/src/errors.rs -> Scope: High.'] Can two consecutive `ResourceGroupSerializationError` occurrences (first from dynamic change set materialization, second from the bcs-fallback re-run) as handled in `execute_block` (aptos-move/block-executor/src/executor.rs:2526-2557) cause the second failure's `code_invariant_error(\
