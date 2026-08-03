@@ -1,1 +1,0 @@
-[File: 'File Name: crates/aptos-dkg/src/pvss/schnorr.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.']  Can an attacker exploit the fact that `pok_batch_verify`'s error path only produces a generic `bail!(\
