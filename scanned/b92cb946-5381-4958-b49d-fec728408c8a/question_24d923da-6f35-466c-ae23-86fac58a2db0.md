@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/account_config/resources/fungible_asset_metadata.rs -> Scope: Critical.']  Can a token-object collection's own `ConcurrentSupply` struct (defined in `aptos-token-objects/sources/collection.move`, sharing the identical struct name as `fungible_asset::ConcurrentSupply`) be misresolved by a Rust reader using `ConcurrentSupplyResource`'s `MODULE_NAME=\
