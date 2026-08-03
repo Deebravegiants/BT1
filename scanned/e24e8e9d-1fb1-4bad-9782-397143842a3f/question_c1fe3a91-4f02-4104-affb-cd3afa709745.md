@@ -1,1 +1,0 @@
-[File: 'File Name: third_party/move/move-core/types/src/effects.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.']
