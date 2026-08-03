@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/account_address.rs -> Scope: Critical.'] Can the token-address seed builder in `create_token_address` (types/src/account_address.rs:152-162) be abused by an attacker-chosen `name` string that itself contains the literal `\
