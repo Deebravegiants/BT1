@@ -1,0 +1,13 @@
+# Q0483: cancel_item_attributes_approval can leave approvals live after state changes
+
+## Question
+Can an unprivileged attacker use `cancel_item_attributes_approval` so a transfer, burn, swap, or metadata mutation occurs but an old delegate or approval in `PendingSwapOf` remains usable afterward?
+
+## Target
+- File/function: substrate/frame/nfts/src/lib.rs::cancel_item_attributes_approval
+- Entrypoint: signed extrinsic `cancel_item_attributes_approval`
+- Attacker controls: IDs, hashes, nonces, or location fields, beneficiary, delegate, or target accounts
+- Exploit idea: Probe whether approval cleanup lags behind owner, swap, or lifecycle changes.
+- Invariant to test: Approval state must expire exactly when the item lifecycle or owner state that justified it changes.
+- Expected Immunefi impact: Unauthorized NFT or fractional-asset transfer / unbacked mint
+- Fast validation: Move the item through every public lifecycle transition and immediately test whether prior approvals still work.

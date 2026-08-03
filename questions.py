@@ -1,29 +1,31 @@
 import json
 import os
 
-MAX_REPO = 25
-SOURCE_REPO = 'aptos-labs/aptos-core'
-REPO_NAME = 'aptos-core'
-run_number = os.environ.get("GITHUB_RUN_NUMBER") or os.environ.get(
-    "CI_PIPELINE_IID", "0"
-)
+from decouple import config
+
+# todo: if scope_files is: 500 > 50, 300 > 30 , 100 > 10
+MAX_REPO = 20
+# todo: the GitLab namespace/project path, for example group/project
+SOURCE_REPO = "paritytech/polkadot-sdk"
+# todo: the name of the repository
+REPO_NAME = "polkadot-sdk"
+
+run_number = os.environ.get('GITHUB_RUN_NUMBER', '0')
 
 
 def get_cyclic_index(run_number, max_index=100):
-    """Convert run number to a cyclic index between 1 and max_index."""
+    """Convert run number to a cyclic index between 1 and max_index"""
     return (int(run_number) - 1) % max_index + 1
 
 
 def load_repository_urls():
     """Load repository URLs from repositories.json."""
-    repo_file = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "repositories.json"
-    )
+    repo_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "repositories.json")
     if not os.path.exists(repo_file):
         return []
 
     try:
-        with open(repo_file, "r", encoding="utf-8") as f:
+        with open(repo_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
     except (json.JSONDecodeError, OSError):
         return []
@@ -45,1083 +47,491 @@ else:
         BASE_URL = f"https://deepwiki.com/{SOURCE_REPO}"
 
 scope_files = [
-    'api/src/accept_type.rs',
-    'api/src/accounts.rs',
-    'api/src/basic.rs',
-    'api/src/bcs_payload.rs',
-    'api/src/blocks.rs',
-    'api/src/check_size.rs',
-    'api/src/context.rs',
-    'api/src/error_converter.rs',
-    'api/src/events.rs',
-    'api/src/headers_sanity_check.rs',
-    'api/src/index.rs',
-    'api/src/page.rs',
-    'api/src/response.rs',
-    'api/src/runtime.rs',
-    'api/src/state.rs',
-    'api/src/transactions.rs',
-    'api/src/view_function.rs',
-    'api/types/src/account.rs',
-    'api/types/src/address.rs',
-    'api/types/src/block.rs',
-    'api/types/src/bytecode.rs',
-    'api/types/src/convert.rs',
-    'api/types/src/error.rs',
-    'api/types/src/hash.rs',
-    'api/types/src/headers.rs',
-    'api/types/src/index.rs',
-    'api/types/src/ledger_info.rs',
-    'api/types/src/move_types.rs',
-    'api/types/src/state.rs',
-    'api/types/src/table.rs',
-    'api/types/src/transaction.rs',
-    'api/types/src/view.rs',
-    'api/types/src/wrappers.rs',
-    'aptos-move/aptos-aggregator/src/aggregator_v1_extension.rs',
-    'aptos-move/aptos-aggregator/src/bounded_math.rs',
-    'aptos-move/aptos-aggregator/src/delayed_change.rs',
-    'aptos-move/aptos-aggregator/src/delayed_field_extension.rs',
-    'aptos-move/aptos-aggregator/src/delta_change_set.rs',
-    'aptos-move/aptos-aggregator/src/delta_math.rs',
-    'aptos-move/aptos-aggregator/src/resolver.rs',
-    'aptos-move/aptos-aggregator/src/types.rs',
-    'aptos-move/aptos-gas-algebra/src/abstract_algebra.rs',
-    'aptos-move/aptos-gas-algebra/src/algebra.rs',
-    'aptos-move/aptos-gas-meter/src/algebra.rs',
-    'aptos-move/aptos-gas-meter/src/meter.rs',
-    'aptos-move/aptos-gas-meter/src/traits.rs',
-    'aptos-move/aptos-gas-schedule/src/gas_schedule/aptos_framework.rs',
-    'aptos-move/aptos-gas-schedule/src/gas_schedule/instr.rs',
-    'aptos-move/aptos-gas-schedule/src/gas_schedule/macros.rs',
-    'aptos-move/aptos-gas-schedule/src/gas_schedule/misc.rs',
-    'aptos-move/aptos-gas-schedule/src/gas_schedule/move_stdlib.rs',
-    'aptos-move/aptos-gas-schedule/src/gas_schedule/table.rs',
-    'aptos-move/aptos-gas-schedule/src/gas_schedule/transaction.rs',
-    'aptos-move/aptos-gas-schedule/src/traits.rs',
-    'aptos-move/aptos-gas-schedule/src/ver.rs',
-    'aptos-move/aptos-native-interface/src/builder.rs',
-    'aptos-move/aptos-native-interface/src/context.rs',
-    'aptos-move/aptos-native-interface/src/errors.rs',
-    'aptos-move/aptos-native-interface/src/helpers.rs',
-    'aptos-move/aptos-native-interface/src/native.rs',
-    'aptos-move/aptos-native-interface/src/rayon_pool.rs',
-    'aptos-move/aptos-native-interface/src/reexports.rs',
-    'aptos-move/aptos-vm-environment/src/environment.rs',
-    'aptos-move/aptos-vm-environment/src/gas.rs',
-    'aptos-move/aptos-vm-environment/src/natives.rs',
-    'aptos-move/aptos-vm-environment/src/prod_configs.rs',
-    'aptos-move/aptos-vm-types/src/abstract_write_op.rs',
-    'aptos-move/aptos-vm-types/src/change_set.rs',
-    'aptos-move/aptos-vm-types/src/module_and_script_storage/code_storage.rs',
-    'aptos-move/aptos-vm-types/src/module_and_script_storage/module_storage.rs',
-    'aptos-move/aptos-vm-types/src/module_and_script_storage/read_recording.rs',
-    'aptos-move/aptos-vm-types/src/module_and_script_storage/state_view_adapter.rs',
-    'aptos-move/aptos-vm-types/src/module_write_set.rs',
-    'aptos-move/aptos-vm-types/src/output.rs',
-    'aptos-move/aptos-vm-types/src/resolver.rs',
-    'aptos-move/aptos-vm-types/src/resource_group_adapter.rs',
-    'aptos-move/aptos-vm-types/src/storage/change_set_configs.rs',
-    'aptos-move/aptos-vm-types/src/storage/io_pricing.rs',
-    'aptos-move/aptos-vm-types/src/storage/space_pricing.rs',
-    'aptos-move/aptos-vm/src/aptos_vm.rs',
-    'aptos-move/aptos-vm/src/block_executor/vm_wrapper.rs',
-    'aptos-move/aptos-vm/src/data_cache.rs',
-    'aptos-move/aptos-vm/src/errors.rs',
-    'aptos-move/aptos-vm/src/gas.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/resolver.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/session/respawned_session.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/session/session_id.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/session/user_transaction_sessions/abort_hook.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/session/user_transaction_sessions/epilogue.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/session/user_transaction_sessions/prologue.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/session/user_transaction_sessions/session_change_sets.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/session/user_transaction_sessions/user.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/session/view_with_change_set.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/vm.rs',
-    'aptos-move/aptos-vm/src/move_vm_ext/write_op_converter.rs',
-    'aptos-move/aptos-vm/src/natives.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/aggr_overridden_state_view.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/coordinator_client.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/cross_shard_client.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/cross_shard_state_view.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/executor_client.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/global_executor.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/local_executor_shard.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/messages.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/remote_state_value.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/sharded_aggregator_service.rs',
-    'aptos-move/aptos-vm/src/sharded_block_executor/sharded_executor_service.rs',
-    'aptos-move/aptos-vm/src/system_module_names.rs',
-    'aptos-move/aptos-vm/src/transaction_metadata.rs',
-    'aptos-move/aptos-vm/src/transaction_validation.rs',
-    'aptos-move/aptos-vm/src/transaction_validation_versioned.rs',
-    'aptos-move/aptos-vm/src/validator_txns/chunky_dkg.rs',
-    'aptos-move/aptos-vm/src/validator_txns/dkg.rs',
-    'aptos-move/aptos-vm/src/validator_txns/jwk.rs',
-    'aptos-move/aptos-vm/src/verifier/event_validation.rs',
-    'aptos-move/aptos-vm/src/verifier/module_init.rs',
-    'aptos-move/aptos-vm/src/verifier/native_validation.rs',
-    'aptos-move/aptos-vm/src/verifier/resource_groups.rs',
-    'aptos-move/aptos-vm/src/verifier/transaction_arg_validation.rs',
-    'aptos-move/aptos-vm/src/verifier/view_function.rs',
-    'aptos-move/block-executor/src/captured_reads.rs',
-    'aptos-move/block-executor/src/code_cache.rs',
-    'aptos-move/block-executor/src/code_cache_global.rs',
-    'aptos-move/block-executor/src/code_cache_global_manager.rs',
-    'aptos-move/block-executor/src/cold_validation.rs',
-    'aptos-move/block-executor/src/errors.rs',
-    'aptos-move/block-executor/src/executor.rs',
-    'aptos-move/block-executor/src/executor_utilities.rs',
-    'aptos-move/block-executor/src/explicit_sync_wrapper.rs',
-    'aptos-move/block-executor/src/hot_state_op_accumulator.rs',
-    'aptos-move/block-executor/src/limit_processor.rs',
-    'aptos-move/block-executor/src/scheduler.rs',
-    'aptos-move/block-executor/src/scheduler_status.rs',
-    'aptos-move/block-executor/src/scheduler_v2.rs',
-    'aptos-move/block-executor/src/scheduler_wrapper.rs',
-    'aptos-move/block-executor/src/task.rs',
-    'aptos-move/block-executor/src/txn_commit_hook.rs',
-    'aptos-move/block-executor/src/txn_last_input_output.rs',
-    'aptos-move/block-executor/src/txn_provider/blocking_txns_provider.rs',
-    'aptos-move/block-executor/src/txn_provider/default.rs',
-    'aptos-move/block-executor/src/types.rs',
-    'aptos-move/block-executor/src/value_exchange.rs',
-    'aptos-move/block-executor/src/view.rs',
-    'aptos-move/block-executor/src/worker_pool.rs',
-    'aptos-move/framework/aptos-framework/sources/account/account.move',
-    'aptos-move/framework/aptos-framework/sources/account/auth_data.move',
-    'aptos-move/framework/aptos-framework/sources/account/rate_limiter.move',
-    'aptos-move/framework/aptos-framework/sources/aggregator/aggregator.move',
-    'aptos-move/framework/aptos-framework/sources/aggregator/aggregator_factory.move',
-    'aptos-move/framework/aptos-framework/sources/aggregator/optional_aggregator.move',
-    'aptos-move/framework/aptos-framework/sources/aggregator_v2/aggregator_v2.move',
-    'aptos-move/framework/aptos-framework/sources/aptos_account.move',
-    'aptos-move/framework/aptos-framework/sources/aptos_coin.move',
-    'aptos-move/framework/aptos-framework/sources/aptos_governance.move',
-    'aptos-move/framework/aptos-framework/sources/block.move',
-    'aptos-move/framework/aptos-framework/sources/chain_id.move',
-    'aptos-move/framework/aptos-framework/sources/chain_status.move',
-    'aptos-move/framework/aptos-framework/sources/chunky_dkg.move',
-    'aptos-move/framework/aptos-framework/sources/code.move',
-    'aptos-move/framework/aptos-framework/sources/coin.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/confidential_amount.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/confidential_asset.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/confidential_balance.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/confidential_range_proofs.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/proofs/sigma_protocol_key_rotation.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/proofs/sigma_protocol_registration.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/proofs/sigma_protocol_transfer.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/proofs/sigma_protocol_withdraw.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/sigma_protocol.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/sigma_protocol_fiat_shamir.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/sigma_protocol_homomorphism.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/sigma_protocol_proof.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/sigma_protocol_representation.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/sigma_protocol_representation_vec.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/sigma_protocol_statement.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/sigma_protocol_statement_builder.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/sigma_protocol_utils.move',
-    'aptos-move/framework/aptos-framework/sources/confidential_asset/sigma_protocols/sigma_protocol_witness.move',
-    'aptos-move/framework/aptos-framework/sources/configs/chunky_dkg_config.move',
-    'aptos-move/framework/aptos-framework/sources/configs/chunky_dkg_config_seqnum.move',
-    'aptos-move/framework/aptos-framework/sources/configs/config_buffer.move',
-    'aptos-move/framework/aptos-framework/sources/configs/consensus_config.move',
-    'aptos-move/framework/aptos-framework/sources/configs/epoch_timeout_config.move',
-    'aptos-move/framework/aptos-framework/sources/configs/execution_config.move',
-    'aptos-move/framework/aptos-framework/sources/configs/gas_schedule.move',
-    'aptos-move/framework/aptos-framework/sources/configs/jwk_consensus_config.move',
-    'aptos-move/framework/aptos-framework/sources/configs/randomness_api_v0_config.move',
-    'aptos-move/framework/aptos-framework/sources/configs/randomness_config.move',
-    'aptos-move/framework/aptos-framework/sources/configs/randomness_config_seqnum.move',
-    'aptos-move/framework/aptos-framework/sources/configs/staking_config.move',
-    'aptos-move/framework/aptos-framework/sources/configs/version.move',
-    'aptos-move/framework/aptos-framework/sources/create_signer.move',
-    'aptos-move/framework/aptos-framework/sources/datastructures/big_ordered_map.move',
-    'aptos-move/framework/aptos-framework/sources/datastructures/ordered_map.move',
-    'aptos-move/framework/aptos-framework/sources/datastructures/storage_slot.move',
-    'aptos-move/framework/aptos-framework/sources/datastructures/storage_slot_or_inline.move',
-    'aptos-move/framework/aptos-framework/sources/decryption.move',
-    'aptos-move/framework/aptos-framework/sources/delegation_pool.move',
-    'aptos-move/framework/aptos-framework/sources/dispatchable_fungible_asset.move',
-    'aptos-move/framework/aptos-framework/sources/dkg.move',
-    'aptos-move/framework/aptos-framework/sources/event.move',
-    'aptos-move/framework/aptos-framework/sources/function_info.move',
-    'aptos-move/framework/aptos-framework/sources/fungible_asset.move',
-    'aptos-move/framework/aptos-framework/sources/genesis.move',
-    'aptos-move/framework/aptos-framework/sources/governance_proposal.move',
-    'aptos-move/framework/aptos-framework/sources/guid.move',
-    'aptos-move/framework/aptos-framework/sources/jwks.move',
-    'aptos-move/framework/aptos-framework/sources/managed_coin.move',
-    'aptos-move/framework/aptos-framework/sources/multisig_account.move',
-    'aptos-move/framework/aptos-framework/sources/nonce_validation.move',
-    'aptos-move/framework/aptos-framework/sources/object.move',
-    'aptos-move/framework/aptos-framework/sources/object_code_deployment.move',
-    'aptos-move/framework/aptos-framework/sources/primary_fungible_store.move',
-    'aptos-move/framework/aptos-framework/sources/randomness.move',
-    'aptos-move/framework/aptos-framework/sources/reconfiguration.move',
-    'aptos-move/framework/aptos-framework/sources/reconfiguration_state.move',
-    'aptos-move/framework/aptos-framework/sources/reconfiguration_with_dkg.move',
-    'aptos-move/framework/aptos-framework/sources/resource_account.move',
-    'aptos-move/framework/aptos-framework/sources/stake.move',
-    'aptos-move/framework/aptos-framework/sources/staking_contract.move',
-    'aptos-move/framework/aptos-framework/sources/staking_proxy.move',
-    'aptos-move/framework/aptos-framework/sources/state_storage.move',
-    'aptos-move/framework/aptos-framework/sources/storage_gas.move',
-    'aptos-move/framework/aptos-framework/sources/system_addresses.move',
-    'aptos-move/framework/aptos-framework/sources/timestamp.move',
-    'aptos-move/framework/aptos-framework/sources/transaction_context.move',
-    'aptos-move/framework/aptos-framework/sources/transaction_fee.move',
-    'aptos-move/framework/aptos-framework/sources/transaction_limits.move',
-    'aptos-move/framework/aptos-framework/sources/transaction_validation.move',
-    'aptos-move/framework/aptos-framework/sources/util.move',
-    'aptos-move/framework/aptos-framework/sources/validator_consensus_info.move',
-    'aptos-move/framework/aptos-framework/sources/vesting.move',
-    'aptos-move/framework/aptos-framework/sources/voting.move',
-    'aptos-move/framework/aptos-stdlib/sources/any.move',
-    'aptos-move/framework/aptos-stdlib/sources/bcs_stream.move',
-    'aptos-move/framework/aptos-stdlib/sources/capability.move',
-    'aptos-move/framework/aptos-stdlib/sources/comparator.move',
-    'aptos-move/framework/aptos-stdlib/sources/copyable_any.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/bls12381_algebra.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/bn254_algebra.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/crypto_algebra.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/ed25519.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/multi_ed25519.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/multi_key.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255_bulletproofs.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255_elgamal.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/ristretto255_pedersen.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/secp256k1.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/secp256r1.move',
-    'aptos-move/framework/aptos-stdlib/sources/cryptography/single_key.move',
-    'aptos-move/framework/aptos-stdlib/sources/data_structures/big_vector.move',
-    'aptos-move/framework/aptos-stdlib/sources/data_structures/smart_table.move',
-    'aptos-move/framework/aptos-stdlib/sources/data_structures/smart_vector.move',
-    'aptos-move/framework/aptos-stdlib/sources/data_structures/storage_slots_allocator.move',
-    'aptos-move/framework/aptos-stdlib/sources/debug.move',
-    'aptos-move/framework/aptos-stdlib/sources/fixed_point64.move',
-    'aptos-move/framework/aptos-stdlib/sources/from_bcs.move',
-    'aptos-move/framework/aptos-stdlib/sources/hash.move',
-    'aptos-move/framework/aptos-stdlib/sources/math128.move',
-    'aptos-move/framework/aptos-stdlib/sources/math64.move',
-    'aptos-move/framework/aptos-stdlib/sources/math_fixed.move',
-    'aptos-move/framework/aptos-stdlib/sources/math_fixed64.move',
-    'aptos-move/framework/aptos-stdlib/sources/pool_u64.move',
-    'aptos-move/framework/aptos-stdlib/sources/pool_u64_unbound.move',
-    'aptos-move/framework/aptos-stdlib/sources/simple_map.move',
-    'aptos-move/framework/aptos-stdlib/sources/string_utils.move',
-    'aptos-move/framework/aptos-stdlib/sources/table.move',
-    'aptos-move/framework/aptos-stdlib/sources/table_with_length.move',
-    'aptos-move/framework/aptos-stdlib/sources/type_info.move',
-    'aptos-move/framework/aptos-token-objects/sources/aptos_token.move',
-    'aptos-move/framework/aptos-token-objects/sources/collection.move',
-    'aptos-move/framework/aptos-token-objects/sources/property_map.move',
-    'aptos-move/framework/aptos-token-objects/sources/royalty.move',
-    'aptos-move/framework/aptos-token-objects/sources/token.move',
-    'aptos-move/framework/aptos-token/sources/property_map.move',
-    'aptos-move/framework/aptos-token/sources/token.move',
-    'aptos-move/framework/aptos-token/sources/token_coin_swap.move',
-    'aptos-move/framework/aptos-token/sources/token_event_store.move',
-    'aptos-move/framework/aptos-token/sources/token_transfers.move',
-    'aptos-move/framework/move-stdlib/sources/acl.move',
-    'aptos-move/framework/move-stdlib/sources/bcs.move',
-    'aptos-move/framework/move-stdlib/sources/bit_vector.move',
-    'aptos-move/framework/move-stdlib/sources/cmp.move',
-    'aptos-move/framework/move-stdlib/sources/configs/features.move',
-    'aptos-move/framework/move-stdlib/sources/error.move',
-    'aptos-move/framework/move-stdlib/sources/fixed_point32.move',
-    'aptos-move/framework/move-stdlib/sources/hash.move',
-    'aptos-move/framework/move-stdlib/sources/mem.move',
-    'aptos-move/framework/move-stdlib/sources/option.move',
-    'aptos-move/framework/move-stdlib/sources/reflect.move',
-    'aptos-move/framework/move-stdlib/sources/result.move',
-    'aptos-move/framework/move-stdlib/sources/signer.move',
-    'aptos-move/framework/move-stdlib/sources/string.move',
-    'aptos-move/framework/move-stdlib/sources/vector.move',
-    'aptos-move/framework/natives/src/account.rs',
-    'aptos-move/framework/natives/src/aggregator_natives/aggregator.rs',
-    'aptos-move/framework/natives/src/aggregator_natives/aggregator_factory.rs',
-    'aptos-move/framework/natives/src/aggregator_natives/aggregator_v2.rs',
-    'aptos-move/framework/natives/src/aggregator_natives/context.rs',
-    'aptos-move/framework/natives/src/aggregator_natives/helpers_v1.rs',
-    'aptos-move/framework/natives/src/aggregator_natives/helpers_v2.rs',
-    'aptos-move/framework/natives/src/code.rs',
-    'aptos-move/framework/natives/src/consensus_config.rs',
-    'aptos-move/framework/natives/src/create_signer.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/arithmetics/add.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/arithmetics/div.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/arithmetics/double.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/arithmetics/inv.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/arithmetics/mul.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/arithmetics/neg.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/arithmetics/scalar_mul.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/arithmetics/sqr.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/arithmetics/sub.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/casting.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/constants.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/eq.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/hash_to_structure.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/new.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/pairing.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/rand.rs',
-    'aptos-move/framework/natives/src/cryptography/algebra/serialization.rs',
-    'aptos-move/framework/natives/src/cryptography/bls12381.rs',
-    'aptos-move/framework/natives/src/cryptography/bulletproofs.rs',
-    'aptos-move/framework/natives/src/cryptography/ed25519.rs',
-    'aptos-move/framework/natives/src/cryptography/helpers.rs',
-    'aptos-move/framework/natives/src/cryptography/multi_ed25519.rs',
-    'aptos-move/framework/natives/src/cryptography/ristretto255.rs',
-    'aptos-move/framework/natives/src/cryptography/ristretto255_point.rs',
-    'aptos-move/framework/natives/src/cryptography/ristretto255_scalar.rs',
-    'aptos-move/framework/natives/src/cryptography/secp256k1.rs',
-    'aptos-move/framework/natives/src/debug.rs',
-    'aptos-move/framework/natives/src/dispatchable_fungible_asset.rs',
-    'aptos-move/framework/natives/src/event.rs',
-    'aptos-move/framework/natives/src/function_info.rs',
-    'aptos-move/framework/natives/src/hash.rs',
-    'aptos-move/framework/natives/src/object.rs',
-    'aptos-move/framework/natives/src/object_code_deployment.rs',
-    'aptos-move/framework/natives/src/randomness.rs',
-    'aptos-move/framework/natives/src/state_storage.rs',
-    'aptos-move/framework/natives/src/storage_slot.rs',
-    'aptos-move/framework/natives/src/string_utils.rs',
-    'aptos-move/framework/natives/src/transaction_context.rs',
-    'aptos-move/framework/natives/src/type_info.rs',
-    'aptos-move/framework/natives/src/util.rs',
-    'aptos-move/mvhashmap/src/registered_dependencies.rs',
-    'aptos-move/mvhashmap/src/types.rs',
-    'aptos-move/mvhashmap/src/unsync_map.rs',
-    'aptos-move/mvhashmap/src/versioned_data.rs',
-    'aptos-move/mvhashmap/src/versioned_delayed_fields.rs',
-    'aptos-move/mvhashmap/src/versioned_group_data.rs',
-    'aptos-move/vm-genesis/src/genesis_context.rs',
-    'crates/aptos-crypto-derive/src/hasher.rs',
-    'crates/aptos-crypto-derive/src/unions.rs',
-    'crates/aptos-crypto/src/arkworks/differentiate.rs',
-    'crates/aptos-crypto/src/arkworks/hashing.rs',
-    'crates/aptos-crypto/src/arkworks/msm.rs',
-    'crates/aptos-crypto/src/arkworks/random.rs',
-    'crates/aptos-crypto/src/arkworks/scrape.rs',
-    'crates/aptos-crypto/src/arkworks/serialization.rs',
-    'crates/aptos-crypto/src/arkworks/shamir.rs',
-    'crates/aptos-crypto/src/arkworks/srs.rs',
-    'crates/aptos-crypto/src/arkworks/vanishing_poly.rs',
-    'crates/aptos-crypto/src/arkworks/weighted_sum.rs',
-    'crates/aptos-crypto/src/asymmetric_encryption/elgamal_curve25519_aes256_gcm.rs',
-    'crates/aptos-crypto/src/bls12381/bls12381_keys.rs',
-    'crates/aptos-crypto/src/bls12381/bls12381_pop.rs',
-    'crates/aptos-crypto/src/bls12381/bls12381_sigs.rs',
-    'crates/aptos-crypto/src/bls12381/bls12381_validatable.rs',
-    'crates/aptos-crypto/src/blstrs/evaluation_domain.rs',
-    'crates/aptos-crypto/src/blstrs/fft.rs',
-    'crates/aptos-crypto/src/blstrs/lagrange.rs',
-    'crates/aptos-crypto/src/blstrs/polynomials.rs',
-    'crates/aptos-crypto/src/blstrs/random.rs',
-    'crates/aptos-crypto/src/blstrs/scalar_secret_key.rs',
-    'crates/aptos-crypto/src/blstrs/threshold_config.rs',
-    'crates/aptos-crypto/src/compat.rs',
-    'crates/aptos-crypto/src/constant_time/blstrs_scalar_mul.rs',
-    'crates/aptos-crypto/src/constant_time/zkcrypto_scalar_mul.rs',
-    'crates/aptos-crypto/src/ed25519/ed25519_keys.rs',
-    'crates/aptos-crypto/src/ed25519/ed25519_sigs.rs',
-    'crates/aptos-crypto/src/elgamal/curve25519.rs',
-    'crates/aptos-crypto/src/encoding_type.rs',
-    'crates/aptos-crypto/src/hash.rs',
-    'crates/aptos-crypto/src/hkdf.rs',
-    'crates/aptos-crypto/src/input_secret.rs',
-    'crates/aptos-crypto/src/multi_ed25519.rs',
-    'crates/aptos-crypto/src/noise.rs',
-    'crates/aptos-crypto/src/player.rs',
-    'crates/aptos-crypto/src/poseidon_bn254/alt_fr.rs',
-    'crates/aptos-crypto/src/poseidon_bn254/constants.rs',
-    'crates/aptos-crypto/src/secp256k1_ecdsa.rs',
-    'crates/aptos-crypto/src/secp256r1_ecdsa/secp256r1_ecdsa_keys.rs',
-    'crates/aptos-crypto/src/secp256r1_ecdsa/secp256r1_ecdsa_sigs.rs',
-    'crates/aptos-crypto/src/slh_dsa_sha2_128s/slh_dsa_keys.rs',
-    'crates/aptos-crypto/src/slh_dsa_sha2_128s/slh_dsa_sigs.rs',
-    'crates/aptos-crypto/src/utils.rs',
-    'crates/aptos-crypto/src/validatable.rs',
-    'crates/aptos-crypto/src/weighted_config.rs',
-    'crates/aptos-crypto/src/x25519.rs',
-    'crates/aptos-dkg/src/dlog/bsgs.rs',
-    'crates/aptos-dkg/src/dlog/table.rs',
-    'crates/aptos-dkg/src/fiat_shamir.rs',
-    'crates/aptos-dkg/src/pcs/shplonked.rs',
-    'crates/aptos-dkg/src/pcs/shplonked_sigma.rs',
-    'crates/aptos-dkg/src/pcs/traits.rs',
-    'crates/aptos-dkg/src/pcs/univariate_hiding_kzg.rs',
-    'crates/aptos-dkg/src/pcs/univariate_kzg.rs',
-    'crates/aptos-dkg/src/pcs/zeromorph.rs',
-    'crates/aptos-dkg/src/pvss/chunky/chunked_elgamal.rs',
-    'crates/aptos-dkg/src/pvss/chunky/chunked_elgamal_pp.rs',
-    'crates/aptos-dkg/src/pvss/chunky/chunked_scalar_mul.rs',
-    'crates/aptos-dkg/src/pvss/chunky/chunks.rs',
-    'crates/aptos-dkg/src/pvss/chunky/hkzg_chunked_elgamal.rs',
-    'crates/aptos-dkg/src/pvss/chunky/hkzg_chunked_elgamal_commit.rs',
-    'crates/aptos-dkg/src/pvss/chunky/input_secret.rs',
-    'crates/aptos-dkg/src/pvss/chunky/keys.rs',
-    'crates/aptos-dkg/src/pvss/chunky/public_parameters.rs',
-    'crates/aptos-dkg/src/pvss/chunky/subtranscript.rs',
-    'crates/aptos-dkg/src/pvss/chunky/verify_common.rs',
-    'crates/aptos-dkg/src/pvss/chunky/weighted_transcript.rs',
-    'crates/aptos-dkg/src/pvss/chunky/weighted_transcript_v2.rs',
-    'crates/aptos-dkg/src/pvss/contribution.rs',
-    'crates/aptos-dkg/src/pvss/das/enc.rs',
-    'crates/aptos-dkg/src/pvss/das/input_secret.rs',
-    'crates/aptos-dkg/src/pvss/das/public_parameters.rs',
-    'crates/aptos-dkg/src/pvss/das/unweighted_protocol.rs',
-    'crates/aptos-dkg/src/pvss/das/weighted_protocol.rs',
-    'crates/aptos-dkg/src/pvss/dealt_pub_key.rs',
-    'crates/aptos-dkg/src/pvss/dealt_pub_key_share.rs',
-    'crates/aptos-dkg/src/pvss/dealt_secret_key.rs',
-    'crates/aptos-dkg/src/pvss/dealt_secret_key_share.rs',
-    'crates/aptos-dkg/src/pvss/encryption_dlog.rs',
-    'crates/aptos-dkg/src/pvss/encryption_elgamal.rs',
-    'crates/aptos-dkg/src/pvss/insecure_field/transcript.rs',
-    'crates/aptos-dkg/src/pvss/schnorr.rs',
-    'crates/aptos-dkg/src/pvss/signed/generic_signing.rs',
-    'crates/aptos-dkg/src/pvss/traits/transcript.rs',
-    'crates/aptos-dkg/src/pvss/weighted/generic_weighting.rs',
-    'crates/aptos-dkg/src/range_proofs/dekart_univariate_v2.rs',
-    'crates/aptos-dkg/src/range_proofs/scalars_to_bits.rs',
-    'crates/aptos-dkg/src/range_proofs/traits.rs',
-    'crates/aptos-dkg/src/sigma_protocol/homomorphism/fixed_base_msms.rs',
-    'crates/aptos-dkg/src/sigma_protocol/homomorphism/tuple.rs',
-    'crates/aptos-dkg/src/sigma_protocol/proof.rs',
-    'crates/aptos-dkg/src/sigma_protocol/traits.rs',
-    'crates/aptos-dkg/src/utils/parallel_multi_pairing.rs',
-    'crates/aptos-dkg/src/utils/random.rs',
-    'crates/aptos-dkg/src/weighted_vuf/traits.rs',
-    'dkg/src/agg_trx_producer.rs',
-    'dkg/src/chunky/agg_subtrx_producer.rs',
-    'dkg/src/chunky/common.rs',
-    'dkg/src/chunky/missing_transcript_fetcher.rs',
-    'dkg/src/chunky/subtrx_cert_producer.rs',
-    'dkg/src/chunky/types.rs',
-    'dkg/src/epoch_manager.rs',
-    'dkg/src/network.rs',
-    'dkg/src/network_interface.rs',
-    'dkg/src/types.rs',
-    'execution/block-partitioner/src/main.rs',
-    'execution/block-partitioner/src/pre_partition/connected_component/config.rs',
-    'execution/block-partitioner/src/pre_partition/uniform_partitioner/config.rs',
-    'execution/block-partitioner/src/sharded_block_partitioner/config.rs',
-    'execution/block-partitioner/src/v2/build_edge.rs',
-    'execution/block-partitioner/src/v2/config.rs',
-    'execution/block-partitioner/src/v2/conflicting_txn_tracker.rs',
-    'execution/block-partitioner/src/v2/init.rs',
-    'execution/block-partitioner/src/v2/load_balance.rs',
-    'execution/block-partitioner/src/v2/partition_to_matrix.rs',
-    'execution/block-partitioner/src/v2/state.rs',
-    'execution/block-partitioner/src/v2/types.rs',
-    'execution/block-partitioner/src/v2/union_find.rs',
-    'execution/executor-types/src/error.rs',
-    'execution/executor-types/src/execution_output.rs',
-    'execution/executor-types/src/ledger_update_output.rs',
-    'execution/executor-types/src/planned.rs',
-    'execution/executor-types/src/state_checkpoint_output.rs',
-    'execution/executor-types/src/state_compute_result.rs',
-    'execution/executor-types/src/transactions_with_output.rs',
-    'execution/executor/src/chunk_executor/chunk_commit_queue.rs',
-    'execution/executor/src/chunk_executor/chunk_result_verifier.rs',
-    'execution/executor/src/chunk_executor/transaction_chunk.rs',
-    'execution/executor/src/logging.rs',
-    'execution/executor/src/types/executed_chunk.rs',
-    'execution/executor/src/types/partial_state_compute_result.rs',
-    'execution/executor/src/workflow/do_get_execution_output.rs',
-    'execution/executor/src/workflow/do_ledger_update.rs',
-    'execution/executor/src/workflow/do_state_checkpoint.rs',
-    'mempool/src/core_mempool/index.rs',
-    'mempool/src/core_mempool/mempool.rs',
-    'mempool/src/core_mempool/transaction.rs',
-    'mempool/src/core_mempool/transaction_store.rs',
-    'mempool/src/logging.rs',
-    'mempool/src/shared_mempool/coordinator.rs',
-    'mempool/src/shared_mempool/network.rs',
-    'mempool/src/shared_mempool/priority.rs',
-    'mempool/src/shared_mempool/runtime.rs',
-    'mempool/src/shared_mempool/tasks.rs',
-    'mempool/src/shared_mempool/types.rs',
-    'mempool/src/shared_mempool/use_case_history.rs',
-    'storage/aptosdb/src/common.rs',
-    'storage/aptosdb/src/db/aptosdb_internal.rs',
-    'storage/aptosdb/src/db/aptosdb_native_position.rs',
-    'storage/aptosdb/src/db/aptosdb_reader.rs',
-    'storage/aptosdb/src/db/aptosdb_writer.rs',
-    'storage/aptosdb/src/db_options.rs',
-    'storage/aptosdb/src/fast_sync_storage_wrapper.rs',
-    'storage/aptosdb/src/get_restore_handler.rs',
-    'storage/aptosdb/src/ledger_db/event_db.rs',
-    'storage/aptosdb/src/ledger_db/ledger_metadata_db.rs',
-    'storage/aptosdb/src/ledger_db/persisted_auxiliary_info_db.rs',
-    'storage/aptosdb/src/ledger_db/transaction_accumulator_db.rs',
-    'storage/aptosdb/src/ledger_db/transaction_auxiliary_data_db.rs',
-    'storage/aptosdb/src/ledger_db/transaction_db.rs',
-    'storage/aptosdb/src/ledger_db/transaction_info_db.rs',
-    'storage/aptosdb/src/ledger_db/write_set_db.rs',
-    'storage/aptosdb/src/lru_node_cache.rs',
-    'storage/aptosdb/src/native_state_committer.rs',
-    'storage/aptosdb/src/position_buffered_state.rs',
-    'storage/aptosdb/src/position_db.rs',
-    'storage/aptosdb/src/position_merkle_batch_committer.rs',
-    'storage/aptosdb/src/position_merkle_db.rs',
-    'storage/aptosdb/src/position_pruner.rs',
-    'storage/aptosdb/src/position_snapshot_committer.rs',
-    'storage/aptosdb/src/position_state_store.rs',
-    'storage/aptosdb/src/position_state_sync.rs',
-    'storage/aptosdb/src/pruner/db_pruner.rs',
-    'storage/aptosdb/src/pruner/db_sub_pruner.rs',
-    'storage/aptosdb/src/pruner/ledger_pruner/event_store_pruner.rs',
-    'storage/aptosdb/src/pruner/ledger_pruner/ledger_metadata_pruner.rs',
-    'storage/aptosdb/src/pruner/ledger_pruner/ledger_pruner_manager.rs',
-    'storage/aptosdb/src/pruner/ledger_pruner/persisted_auxiliary_info_pruner.rs',
-    'storage/aptosdb/src/pruner/ledger_pruner/transaction_accumulator_pruner.rs',
-    'storage/aptosdb/src/pruner/ledger_pruner/transaction_auxiliary_data_pruner.rs',
-    'storage/aptosdb/src/pruner/ledger_pruner/transaction_info_pruner.rs',
-    'storage/aptosdb/src/pruner/ledger_pruner/transaction_pruner.rs',
-    'storage/aptosdb/src/pruner/ledger_pruner/write_set_pruner.rs',
-    'storage/aptosdb/src/pruner/pruner_manager.rs',
-    'storage/aptosdb/src/pruner/pruner_utils.rs',
-    'storage/aptosdb/src/pruner/pruner_worker.rs',
-    'storage/aptosdb/src/pruner/state_kv_pruner/generics.rs',
-    'storage/aptosdb/src/pruner/state_kv_pruner/state_kv_metadata_pruner.rs',
-    'storage/aptosdb/src/pruner/state_kv_pruner/state_kv_pruner_manager.rs',
-    'storage/aptosdb/src/pruner/state_kv_pruner/state_kv_shard_pruner.rs',
-    'storage/aptosdb/src/pruner/state_merkle_pruner/generics.rs',
-    'storage/aptosdb/src/pruner/state_merkle_pruner/leaked_stale_node_cleaner.rs',
-    'storage/aptosdb/src/pruner/state_merkle_pruner/state_merkle_metadata_pruner.rs',
-    'storage/aptosdb/src/pruner/state_merkle_pruner/state_merkle_pruner_manager.rs',
-    'storage/aptosdb/src/pruner/state_merkle_pruner/state_merkle_shard_pruner.rs',
-    'storage/aptosdb/src/rocksdb_property_reporter.rs',
-    'storage/aptosdb/src/sharded_jmt_merkle_db.rs',
-    'storage/aptosdb/src/sharded_kv_db.rs',
-    'storage/aptosdb/src/state_kv_db.rs',
-    'storage/aptosdb/src/state_merkle_db.rs',
-    'storage/aptosdb/src/state_store/buffered_state.rs',
-    'storage/aptosdb/src/state_store/hot_state.rs',
-    'storage/aptosdb/src/state_store/persisted_state.rs',
-    'storage/aptosdb/src/state_store/state_merkle_batch_committer.rs',
-    'storage/aptosdb/src/state_store/state_snapshot_committer.rs',
-    'storage/aptosdb/src/state_value_chunk.rs',
-    'storage/aptosdb/src/trading_native.rs',
-    'storage/aptosdb/src/utils/iterators.rs',
-    'storage/aptosdb/src/utils/truncation_helper.rs',
-    'storage/aptosdb/src/versioned_node_cache.rs',
-    'storage/schemadb/src/batch.rs',
-    'storage/schemadb/src/iterator.rs',
-    'storage/schemadb/src/schema.rs',
-    'storage/scratchpad/src/sparse_merkle/dropper.rs',
-    'storage/scratchpad/src/sparse_merkle/node.rs',
-    'storage/scratchpad/src/sparse_merkle/updater.rs',
-    'storage/scratchpad/src/sparse_merkle/utils.rs',
-    'storage/storage-interface/src/block_info.rs',
-    'storage/storage-interface/src/chunk_to_commit.rs',
-    'storage/storage-interface/src/errors.rs',
-    'storage/storage-interface/src/ledger_summary.rs',
-    'storage/storage-interface/src/state_store/hot_state.rs',
-    'storage/storage-interface/src/state_store/leaf_entry.rs',
-    'storage/storage-interface/src/state_store/sharded_jmt_state.rs',
-    'storage/storage-interface/src/state_store/state.rs',
-    'storage/storage-interface/src/state_store/state_delta.rs',
-    'storage/storage-interface/src/state_store/state_summary.rs',
-    'storage/storage-interface/src/state_store/state_update_refs.rs',
-    'storage/storage-interface/src/state_store/state_view/cached_state_view.rs',
-    'storage/storage-interface/src/state_store/state_view/db_state_view.rs',
-    'storage/storage-interface/src/state_store/state_view/hot_state_view.rs',
-    'storage/storage-interface/src/state_store/state_with_summary.rs',
-    'storage/storage-interface/src/state_store/versioned_state_value.rs',
-    'third_party/move/move-binary-format/src/access.rs',
-    'third_party/move/move-binary-format/src/binary_views.rs',
-    'third_party/move/move-binary-format/src/builders.rs',
-    'third_party/move/move-binary-format/src/check_bounds.rs',
-    'third_party/move/move-binary-format/src/check_complexity.rs',
-    'third_party/move/move-binary-format/src/compatibility.rs',
-    'third_party/move/move-binary-format/src/constant.rs',
-    'third_party/move/move-binary-format/src/control_flow_graph.rs',
-    'third_party/move/move-binary-format/src/deserializer.rs',
-    'third_party/move/move-binary-format/src/errors.rs',
-    'third_party/move/move-binary-format/src/file_format.rs',
-    'third_party/move/move-binary-format/src/file_format_common.rs',
-    'third_party/move/move-binary-format/src/internals.rs',
-    'third_party/move/move-binary-format/src/module_script_conversion.rs',
-    'third_party/move/move-binary-format/src/serializer.rs',
-    'third_party/move/move-binary-format/src/views.rs',
-    'third_party/move/move-bytecode-verifier/src/absint.rs',
-    'third_party/move/move-bytecode-verifier/src/acquires_list_verifier.rs',
-    'third_party/move/move-bytecode-verifier/src/check_duplication.rs',
-    'third_party/move/move-bytecode-verifier/src/code_unit_verifier.rs',
-    'third_party/move/move-bytecode-verifier/src/constants.rs',
-    'third_party/move/move-bytecode-verifier/src/control_flow.rs',
-    'third_party/move/move-bytecode-verifier/src/control_flow_v5.rs',
-    'third_party/move/move-bytecode-verifier/src/dependencies.rs',
-    'third_party/move/move-bytecode-verifier/src/features.rs',
-    'third_party/move/move-bytecode-verifier/src/friends.rs',
-    'third_party/move/move-bytecode-verifier/src/instantiation_loops.rs',
-    'third_party/move/move-bytecode-verifier/src/instruction_consistency.rs',
-    'third_party/move/move-bytecode-verifier/src/limits.rs',
-    'third_party/move/move-bytecode-verifier/src/locals_safety/abstract_state.rs',
-    'third_party/move/move-bytecode-verifier/src/loop_summary.rs',
-    'third_party/move/move-bytecode-verifier/src/meter.rs',
-    'third_party/move/move-bytecode-verifier/src/reference_safety/abstract_state.rs',
-    'third_party/move/move-bytecode-verifier/src/regression_tests/bounds_check.rs',
-    'third_party/move/move-bytecode-verifier/src/regression_tests/reference_analysis.rs',
-    'third_party/move/move-bytecode-verifier/src/regression_tests/struct_api.rs',
-    'third_party/move/move-bytecode-verifier/src/script_signature.rs',
-    'third_party/move/move-bytecode-verifier/src/signature_v2.rs',
-    'third_party/move/move-bytecode-verifier/src/stack_usage_verifier.rs',
-    'third_party/move/move-bytecode-verifier/src/struct_api_checker.rs',
-    'third_party/move/move-bytecode-verifier/src/struct_defs.rs',
-    'third_party/move/move-bytecode-verifier/src/type_safety.rs',
-    'third_party/move/move-bytecode-verifier/src/verifier.rs',
-    'third_party/move/move-core/types/src/abi.rs',
-    'third_party/move/move-core/types/src/ability.rs',
-    'third_party/move/move-core/types/src/account_address.rs',
-    'third_party/move/move-core/types/src/diag_writer.rs',
-    'third_party/move/move-core/types/src/effects.rs',
-    'third_party/move/move-core/types/src/errmap.rs',
-    'third_party/move/move-core/types/src/function.rs',
-    'third_party/move/move-core/types/src/gas_algebra.rs',
-    'third_party/move/move-core/types/src/identifier.rs',
-    'third_party/move/move-core/types/src/int256.rs',
-    'third_party/move/move-core/types/src/language_storage.rs',
-    'third_party/move/move-core/types/src/metadata.rs',
-    'third_party/move/move-core/types/src/move_resource.rs',
-    'third_party/move/move-core/types/src/parser.rs',
-    'third_party/move/move-core/types/src/safe_serialize.rs',
-    'third_party/move/move-core/types/src/state.rs',
-    'third_party/move/move-core/types/src/transaction_argument.rs',
-    'third_party/move/move-core/types/src/value.rs',
-    'third_party/move/move-core/types/src/vm_status.rs',
-    'third_party/move/move-vm/runtime/src/config.rs',
-    'third_party/move/move-vm/runtime/src/data_cache.rs',
-    'third_party/move/move-vm/runtime/src/debug.rs',
-    'third_party/move/move-vm/runtime/src/execution_tracing/recorders.rs',
-    'third_party/move/move-vm/runtime/src/execution_tracing/trace.rs',
-    'third_party/move/move-vm/runtime/src/frame.rs',
-    'third_party/move/move-vm/runtime/src/frame_type_cache.rs',
-    'third_party/move/move-vm/runtime/src/interpreter.rs',
-    'third_party/move/move-vm/runtime/src/interpreter_caches.rs',
-    'third_party/move/move-vm/runtime/src/loader/function.rs',
-    'third_party/move/move-vm/runtime/src/loader/modules.rs',
-    'third_party/move/move-vm/runtime/src/loader/script.rs',
-    'third_party/move/move-vm/runtime/src/loader/single_signature_loader.rs',
-    'third_party/move/move-vm/runtime/src/loader/type_loader.rs',
-    'third_party/move/move-vm/runtime/src/logging.rs',
-    'third_party/move/move-vm/runtime/src/module_traversal.rs',
-    'third_party/move/move-vm/runtime/src/move_vm.rs',
-    'third_party/move/move-vm/runtime/src/native_extensions.rs',
-    'third_party/move/move-vm/runtime/src/native_functions.rs',
-    'third_party/move/move-vm/runtime/src/native_models_for_runtime_ref_checks.rs',
-    'third_party/move/move-vm/runtime/src/reentrancy_checker.rs',
-    'third_party/move/move-vm/runtime/src/runtime_ref_checks.rs',
-    'third_party/move/move-vm/runtime/src/runtime_type_checks.rs',
-    'third_party/move/move-vm/runtime/src/runtime_type_checks_async.rs',
-    'third_party/move/move-vm/runtime/src/source_locator.rs',
-    'third_party/move/move-vm/runtime/src/storage/code_storage.rs',
-    'third_party/move/move-vm/runtime/src/storage/dependencies_gas_charging.rs',
-    'third_party/move/move-vm/runtime/src/storage/environment.rs',
-    'third_party/move/move-vm/runtime/src/storage/implementations/unsync_code_storage.rs',
-    'third_party/move/move-vm/runtime/src/storage/implementations/unsync_module_storage.rs',
-    'third_party/move/move-vm/runtime/src/storage/layout_cache.rs',
-    'third_party/move/move-vm/runtime/src/storage/loader/eager.rs',
-    'third_party/move/move-vm/runtime/src/storage/loader/lazy.rs',
-    'third_party/move/move-vm/runtime/src/storage/loader/traits.rs',
-    'third_party/move/move-vm/runtime/src/storage/module_storage.rs',
-    'third_party/move/move-vm/runtime/src/storage/publishing.rs',
-    'third_party/move/move-vm/runtime/src/storage/ty_depth_checker.rs',
-    'third_party/move/move-vm/runtime/src/storage/ty_layout_converter.rs',
-    'third_party/move/move-vm/runtime/src/storage/ty_tag_converter.rs',
-    'third_party/move/move-vm/runtime/src/storage/verified_module_cache.rs',
-    'third_party/move/move-vm/runtime/src/tracing.rs',
-    'third_party/move/move-vm/types/src/code/cache/module_cache.rs',
-    'third_party/move/move-vm/types/src/code/cache/script_cache.rs',
-    'third_party/move/move-vm/types/src/code/cache/test_types.rs',
-    'third_party/move/move-vm/types/src/code/cache/types.rs',
-    'third_party/move/move-vm/types/src/code/errors.rs',
-    'third_party/move/move-vm/types/src/code/storage.rs',
-    'third_party/move/move-vm/types/src/delayed_values/delayed_field_id.rs',
-    'third_party/move/move-vm/types/src/delayed_values/derived_string_snapshot.rs',
-    'third_party/move/move-vm/types/src/delayed_values/error.rs',
-    'third_party/move/move-vm/types/src/gas.rs',
-    'third_party/move/move-vm/types/src/instr.rs',
-    'third_party/move/move-vm/types/src/interner.rs',
-    'third_party/move/move-vm/types/src/limits.rs',
-    'third_party/move/move-vm/types/src/loaded_data/runtime_types.rs',
-    'third_party/move/move-vm/types/src/loaded_data/struct_name_indexing.rs',
-    'third_party/move/move-vm/types/src/module_id_interner.rs',
-    'third_party/move/move-vm/types/src/natives/function.rs',
-    'third_party/move/move-vm/types/src/resolver.rs',
-    'third_party/move/move-vm/types/src/ty_interner.rs',
-    'third_party/move/move-vm/types/src/value_serde.rs',
-    'third_party/move/move-vm/types/src/value_traversal.rs',
-    'third_party/move/move-vm/types/src/values/function_values_impl.rs',
-    'third_party/move/move-vm/types/src/values/values_impl.rs',
-    'third_party/move/move-vm/types/src/views.rs',
-    'types/src/access_path.rs',
-    'types/src/account_address.rs',
-    'types/src/account_config/constants/account.rs',
-    'types/src/account_config/constants/addresses.rs',
-    'types/src/account_config/events/burn.rs',
-    'types/src/account_config/events/burn_event.rs',
-    'types/src/account_config/events/burn_token.rs',
-    'types/src/account_config/events/burn_token_event.rs',
-    'types/src/account_config/events/cancel_offer.rs',
-    'types/src/account_config/events/claim.rs',
-    'types/src/account_config/events/coin_deposit.rs',
-    'types/src/account_config/events/coin_register.rs',
-    'types/src/account_config/events/coin_register_event.rs',
-    'types/src/account_config/events/coin_withdraw.rs',
-    'types/src/account_config/events/collection_description_mutate.rs',
-    'types/src/account_config/events/collection_description_mutate_event.rs',
-    'types/src/account_config/events/collection_maximum_mutate.rs',
-    'types/src/account_config/events/collection_maximum_mutate_event.rs',
-    'types/src/account_config/events/collection_mutation.rs',
-    'types/src/account_config/events/collection_mutation_event.rs',
-    'types/src/account_config/events/collection_uri_mutate.rs',
-    'types/src/account_config/events/collection_uri_mutate_event.rs',
-    'types/src/account_config/events/create_collection.rs',
-    'types/src/account_config/events/create_collection_event.rs',
-    'types/src/account_config/events/create_token_data_event.rs',
-    'types/src/account_config/events/default_property_mutate.rs',
-    'types/src/account_config/events/default_property_mutate_event.rs',
-    'types/src/account_config/events/deposit_event.rs',
-    'types/src/account_config/events/description_mutate.rs',
-    'types/src/account_config/events/description_mutate_event.rs',
-    'types/src/account_config/events/fungible_asset.rs',
-    'types/src/account_config/events/key_rotation.rs',
-    'types/src/account_config/events/key_rotation_event.rs',
-    'types/src/account_config/events/maximum_mutate.rs',
-    'types/src/account_config/events/maximum_mutate_event.rs',
-    'types/src/account_config/events/mint.rs',
-    'types/src/account_config/events/mint_event.rs',
-    'types/src/account_config/events/mint_token.rs',
-    'types/src/account_config/events/mint_token_event.rs',
-    'types/src/account_config/events/mutate_property_map.rs',
-    'types/src/account_config/events/mutate_token_property_map_event.rs',
-    'types/src/account_config/events/new_block.rs',
-    'types/src/account_config/events/new_epoch.rs',
-    'types/src/account_config/events/offer.rs',
-    'types/src/account_config/events/opt_in_transfer.rs',
-    'types/src/account_config/events/opt_in_transfer_event.rs',
-    'types/src/account_config/events/randomness_event.rs',
-    'types/src/account_config/events/royalty_mutate.rs',
-    'types/src/account_config/events/royalty_mutate_event.rs',
-    'types/src/account_config/events/token_cancel_offer_event.rs',
-    'types/src/account_config/events/token_claim_event.rs',
-    'types/src/account_config/events/token_data_creation.rs',
-    'types/src/account_config/events/token_deposit.rs',
-    'types/src/account_config/events/token_deposit_event.rs',
-    'types/src/account_config/events/token_mutation.rs',
-    'types/src/account_config/events/token_mutation_event.rs',
-    'types/src/account_config/events/token_offer_event.rs',
-    'types/src/account_config/events/token_withdraw.rs',
-    'types/src/account_config/events/token_withdraw_event.rs',
-    'types/src/account_config/events/transfer.rs',
-    'types/src/account_config/events/transfer_event.rs',
-    'types/src/account_config/events/uri_mutation.rs',
-    'types/src/account_config/events/uri_mutation_event.rs',
-    'types/src/account_config/events/withdraw_event.rs',
-    'types/src/account_config/resources/aggregator.rs',
-    'types/src/account_config/resources/any.rs',
-    'types/src/account_config/resources/chain_id.rs',
-    'types/src/account_config/resources/challenge.rs',
-    'types/src/account_config/resources/coin_info.rs',
-    'types/src/account_config/resources/coin_store.rs',
-    'types/src/account_config/resources/collection.rs',
-    'types/src/account_config/resources/collections.rs',
-    'types/src/account_config/resources/core_account.rs',
-    'types/src/account_config/resources/fixed_supply.rs',
-    'types/src/account_config/resources/fungible_asset_metadata.rs',
-    'types/src/account_config/resources/fungible_store.rs',
-    'types/src/account_config/resources/object.rs',
-    'types/src/account_config/resources/pending_claims.rs',
-    'types/src/account_config/resources/token.rs',
-    'types/src/account_config/resources/token_event_store_v1.rs',
-    'types/src/account_config/resources/token_store.rs',
-    'types/src/account_config/resources/type_info.rs',
-    'types/src/account_config/resources/unlimited_supply.rs',
-    'types/src/aggregate_signature.rs',
-    'types/src/block_executor/config.rs',
-    'types/src/block_executor/output.rs',
-    'types/src/block_executor/partitioner.rs',
-    'types/src/block_executor/transaction_slice_metadata.rs',
-    'types/src/block_executor/value.rs',
-    'types/src/block_info.rs',
-    'types/src/block_metadata.rs',
-    'types/src/block_metadata_ext.rs',
-    'types/src/bytes.rs',
-    'types/src/chain_id.rs',
-    'types/src/contract_event.rs',
-    'types/src/decryption.rs',
-    'types/src/delayed_fields.rs',
-    'types/src/dkg/chunky_dkg.rs',
-    'types/src/dkg/randomness_dkg.rs',
-    'types/src/epoch_change.rs',
-    'types/src/epoch_state.rs',
-    'types/src/error.rs',
-    'types/src/event.rs',
-    'types/src/executable.rs',
-    'types/src/fee_statement.rs',
-    'types/src/function_info.rs',
-    'types/src/governance.rs',
-    'types/src/lazy_bls.rs',
-    'types/src/ledger_info.rs',
-    'types/src/mempool_status.rs',
-    'types/src/move_any.rs',
-    'types/src/move_fixed_point.rs',
-    'types/src/move_utils/as_move_value.rs',
-    'types/src/move_utils/move_event_v1.rs',
-    'types/src/move_utils/move_event_v2.rs',
-    'types/src/object_address.rs',
-    'types/src/on_chain_config/approved_execution_hashes.rs',
-    'types/src/on_chain_config/aptos_features.rs',
-    'types/src/on_chain_config/aptos_version.rs',
-    'types/src/on_chain_config/chain_id.rs',
-    'types/src/on_chain_config/chunky_dkg_config.rs',
-    'types/src/on_chain_config/commit_history.rs',
-    'types/src/on_chain_config/consensus_config.rs',
-    'types/src/on_chain_config/epoch_timeout_config.rs',
-    'types/src/on_chain_config/execution_config.rs',
-    'types/src/on_chain_config/gas_schedule.rs',
-    'types/src/on_chain_config/jwk_consensus_config.rs',
-    'types/src/on_chain_config/randomness_api_v0_config.rs',
-    'types/src/on_chain_config/randomness_config.rs',
-    'types/src/on_chain_config/timed_features.rs',
-    'types/src/on_chain_config/timestamp.rs',
-    'types/src/on_chain_config/transaction_fee.rs',
-    'types/src/on_chain_config/validator_set.rs',
-    'types/src/proof/definition.rs',
-    'types/src/randomness.rs',
-    'types/src/secret_sharing.rs',
-    'types/src/serde_helper/bcs_utils.rs',
-    'types/src/serde_helper/vec_bytes.rs',
-    'types/src/stake_pool.rs',
-    'types/src/staking_contract.rs',
-    'types/src/state_proof.rs',
-    'types/src/state_store/errors.rs',
-    'types/src/state_store/hot_state.rs',
-    'types/src/state_store/native_position.rs',
-    'types/src/state_store/state_key/inner.rs',
-    'types/src/state_store/state_key/prefix.rs',
-    'types/src/state_store/state_key/registry.rs',
-    'types/src/state_store/state_slot.rs',
-    'types/src/state_store/state_storage_usage.rs',
-    'types/src/state_store/state_value.rs',
-    'types/src/state_store/table.rs',
-    'types/src/timestamp.rs',
-    'types/src/transaction/analyzed_transaction.rs',
-    'types/src/transaction/authenticator.rs',
-    'types/src/transaction/block_epilogue.rs',
-    'types/src/transaction/block_output.rs',
-    'types/src/transaction/change_set.rs',
-    'types/src/transaction/encrypted_payload.rs',
-    'types/src/transaction/module.rs',
-    'types/src/transaction/multisig.rs',
-    'types/src/transaction/script.rs',
-    'types/src/transaction/signature_verified_transaction.rs',
-    'types/src/transaction/use_case.rs',
-    'types/src/transaction/user_transaction_context.rs',
-    'types/src/transaction/webauthn.rs',
-    'types/src/trusted_state.rs',
-    'types/src/utility_coin.rs',
-    'types/src/validator_config.rs',
-    'types/src/validator_info.rs',
-    'types/src/validator_performances.rs',
-    'types/src/validator_signer.rs',
-    'types/src/validator_txn.rs',
-    'types/src/validator_verifier.rs',
-    'types/src/vesting.rs',
-    'types/src/vm/code.rs',
-    'types/src/vm/module_metadata.rs',
-    'types/src/vm/modules.rs',
-    'types/src/vm_status.rs',
-    'types/src/waypoint.rs',
-    'types/src/write_set.rs',
-    'vm-validator/src/vm_validator.rs',
+    # =================================================================================
+    # Core dispatch, validation, and fee accounting
+    # =================================================================================
+    "substrate/frame/system/src/lib.rs",
+    "substrate/frame/system/src/limits.rs",
+    "substrate/frame/system/src/extensions/mod.rs",
+    "substrate/frame/system/src/extensions/check_nonce.rs",
+    "substrate/frame/system/src/extensions/check_weight.rs",
+    "substrate/frame/system/src/extensions/check_mortality.rs",
+    "substrate/frame/system/src/extensions/authorize_call.rs",
+    "substrate/frame/system/src/extensions/weight_reclaim.rs",
+    "substrate/frame/transaction-payment/src/lib.rs",
+    "substrate/frame/transaction-payment/src/payment.rs",
+    "substrate/frame/transaction-payment/src/types.rs",
+    "substrate/frame/message-queue/src/lib.rs",
+    "substrate/frame/scheduler/src/lib.rs",
+    "substrate/frame/scheduler/src/migration.rs",
+    "substrate/frame/preimage/src/lib.rs",
+    "substrate/frame/preimage/src/migration.rs",
+    "substrate/frame/proxy/src/lib.rs",
+    "substrate/frame/multisig/src/lib.rs",
+    "substrate/frame/multisig/src/migrations.rs",
+    "substrate/frame/utility/src/lib.rs",
+    "substrate/primitives/runtime/src/lib.rs",
+    "substrate/primitives/runtime/src/transaction_validity.rs",
+    "substrate/primitives/runtime/src/generic/checked_extrinsic.rs",
+    "substrate/primitives/runtime/src/generic/unchecked_extrinsic.rs",
+    "substrate/primitives/runtime/src/traits/transaction_extension/mod.rs",
+    "substrate/primitives/runtime/src/traits/transaction_extension/dispatch_transaction.rs",
+    "substrate/primitives/runtime/src/traits/transaction_extension/as_transaction_extension.rs",
+    "substrate/primitives/weights/src/lib.rs",
+    "substrate/primitives/weights/src/weight_v2.rs",
+
+    # =================================================================================
+    # Assets, staking, and user-funds pallets
+    # =================================================================================
+    "substrate/frame/balances/src/lib.rs",
+    "substrate/frame/balances/src/types.rs",
+    "substrate/frame/balances/src/impl_currency.rs",
+    "substrate/frame/balances/src/impl_fungible.rs",
+    "substrate/frame/balances/src/migration.rs",
+    "substrate/frame/assets/src/lib.rs",
+    "substrate/frame/assets/src/functions.rs",
+    "substrate/frame/assets/src/types.rs",
+    "substrate/frame/assets/src/extra_mutator.rs",
+    "substrate/frame/assets/src/impl_fungibles.rs",
+    "substrate/frame/assets/src/impl_stored_map.rs",
+    "substrate/frame/assets/src/migration.rs",
+    "substrate/frame/assets-freezer/src/lib.rs",
+    "substrate/frame/assets-freezer/src/impls.rs",
+    "substrate/frame/asset-conversion/src/lib.rs",
+    "substrate/frame/asset-conversion/src/liquidity.rs",
+    "substrate/frame/asset-conversion/src/swap.rs",
+    "substrate/frame/asset-conversion/src/types.rs",
+    "substrate/frame/vesting/src/lib.rs",
+    "substrate/frame/vesting/src/vesting_info.rs",
+    "substrate/frame/vesting/src/migrations.rs",
+    "substrate/frame/staking/src/lib.rs",
+    "substrate/frame/staking/src/asset.rs",
+    "substrate/frame/staking/src/ledger.rs",
+    "substrate/frame/staking/src/slashing.rs",
+    "substrate/frame/staking/src/migrations.rs",
+    "substrate/frame/staking/src/pallet/mod.rs",
+    "substrate/frame/staking/src/pallet/impls.rs",
+    "substrate/frame/nfts/src/lib.rs",
+    "substrate/frame/nfts/src/common_functions.rs",
+    "substrate/frame/nfts/src/impl_nonfungibles.rs",
+    "substrate/frame/nfts/src/types.rs",
+    "substrate/frame/nfts/src/features/approvals.rs",
+    "substrate/frame/nfts/src/features/atomic_swap.rs",
+    "substrate/frame/nfts/src/features/attributes.rs",
+    "substrate/frame/nfts/src/features/buy_sell.rs",
+    "substrate/frame/nfts/src/features/create_delete_collection.rs",
+    "substrate/frame/nfts/src/features/create_delete_item.rs",
+    "substrate/frame/nfts/src/features/lock.rs",
+    "substrate/frame/nfts/src/features/metadata.rs",
+    "substrate/frame/nfts/src/features/roles.rs",
+    "substrate/frame/nfts/src/features/settings.rs",
+    "substrate/frame/nfts/src/features/transfer.rs",
+    "substrate/frame/nfts/src/migration.rs",
+    "substrate/frame/nft-fractionalization/src/lib.rs",
+    "substrate/frame/nft-fractionalization/src/types.rs",
+    "substrate/frame/treasury/src/lib.rs",
+    "substrate/frame/treasury/src/migration.rs",
+
+    # =================================================================================
+    # Contracts and execution environments
+    # =================================================================================
+    "substrate/frame/contracts/src/lib.rs",
+    "substrate/frame/contracts/src/address.rs",
+    "substrate/frame/contracts/src/chain_extension.rs",
+    "substrate/frame/contracts/src/exec.rs",
+    "substrate/frame/contracts/src/gas.rs",
+    "substrate/frame/contracts/src/primitives.rs",
+    "substrate/frame/contracts/src/schedule.rs",
+    "substrate/frame/contracts/src/storage.rs",
+    "substrate/frame/contracts/src/transient_storage.rs",
+    "substrate/frame/contracts/src/migration.rs",
+    "substrate/frame/contracts/src/storage/meter.rs",
+    "substrate/frame/contracts/src/wasm/mod.rs",
+    "substrate/frame/contracts/src/wasm/prepare.rs",
+    "substrate/frame/contracts/src/wasm/runtime.rs",
+    "substrate/frame/revive/src/lib.rs",
+    "substrate/frame/revive/src/address.rs",
+    "substrate/frame/revive/src/access_list.rs",
+    "substrate/frame/revive/src/call_builder.rs",
+    "substrate/frame/revive/src/deposit_payment.rs",
+    "substrate/frame/revive/src/evm.rs",
+    "substrate/frame/revive/src/exec.rs",
+    "substrate/frame/revive/src/impl_fungibles.rs",
+    "substrate/frame/revive/src/limits.rs",
+    "substrate/frame/revive/src/precompiles.rs",
+    "substrate/frame/revive/src/primitives.rs",
+    "substrate/frame/revive/src/storage.rs",
+    "substrate/frame/revive/src/transient_storage.rs",
+    "substrate/frame/revive/src/metering/mod.rs",
+    "substrate/frame/revive/src/metering/gas.rs",
+    "substrate/frame/revive/src/metering/weight.rs",
+    "substrate/frame/revive/src/metering/storage.rs",
+    "substrate/frame/revive/src/metering/math.rs",
+    "substrate/frame/revive/src/evm/call.rs",
+    "substrate/frame/revive/src/evm/fees.rs",
+    "substrate/frame/revive/src/evm/runtime.rs",
+    "substrate/frame/revive/src/evm/tx_extension.rs",
+    "substrate/frame/revive/src/evm/transfer_with_dust.rs",
+    "substrate/frame/revive/src/vm/mod.rs",
+    "substrate/frame/revive/src/vm/pvm.rs",
+    "substrate/frame/revive/src/vm/evm.rs",
+    "substrate/frame/revive/src/vm/runtime_costs.rs",
+    "substrate/frame/revive/src/vm/evm/interpreter.rs",
+    "substrate/frame/revive/src/vm/evm/memory.rs",
+    "substrate/frame/revive/src/vm/evm/stack.rs",
+    "substrate/frame/revive/src/vm/evm/ext_bytecode.rs",
+    "substrate/frame/revive/src/vm/evm/util.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/mod.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/arithmetic.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/bitwise.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/block_info.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/control.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/contract.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/contract/call_helpers.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/host.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/memory.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/stack.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/system.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/tx_info.rs",
+    "substrate/frame/revive/src/vm/evm/instructions/utility.rs",
+
+    # =================================================================================
+    # XCM and cross-chain execution libraries
+    # =================================================================================
+    "polkadot/xcm/pallet-xcm/src/lib.rs",
+    "polkadot/xcm/pallet-xcm/src/errors.rs",
+    "polkadot/xcm/pallet-xcm/src/migration.rs",
+    "polkadot/xcm/pallet-xcm/src/transfer_assets_validation.rs",
+    "polkadot/xcm/pallet-xcm/src/xcm_helpers.rs",
+    "polkadot/xcm/xcm-builder/src/lib.rs",
+    "polkadot/xcm/xcm-builder/src/asset_conversion.rs",
+    "polkadot/xcm/xcm-builder/src/barriers.rs",
+    "polkadot/xcm/xcm-builder/src/controller.rs",
+    "polkadot/xcm/xcm-builder/src/fee_handling.rs",
+    "polkadot/xcm/xcm-builder/src/filter_asset_location.rs",
+    "polkadot/xcm/xcm-builder/src/forwarder.rs",
+    "polkadot/xcm/xcm-builder/src/fungible_adapter.rs",
+    "polkadot/xcm/xcm-builder/src/fungibles_adapter.rs",
+    "polkadot/xcm/xcm-builder/src/location_conversion.rs",
+    "polkadot/xcm/xcm-builder/src/matcher.rs",
+    "polkadot/xcm/xcm-builder/src/matches_location.rs",
+    "polkadot/xcm/xcm-builder/src/matches_token.rs",
+    "polkadot/xcm/xcm-builder/src/nonfungible_adapter.rs",
+    "polkadot/xcm/xcm-builder/src/nonfungibles_adapter.rs",
+    "polkadot/xcm/xcm-builder/src/origin_aliases.rs",
+    "polkadot/xcm/xcm-builder/src/origin_conversion.rs",
+    "polkadot/xcm/xcm-builder/src/pay.rs",
+    "polkadot/xcm/xcm-builder/src/process_xcm_message.rs",
+    "polkadot/xcm/xcm-builder/src/routing.rs",
+    "polkadot/xcm/xcm-builder/src/transactional.rs",
+    "polkadot/xcm/xcm-builder/src/transfer.rs",
+    "polkadot/xcm/xcm-builder/src/universal_exports.rs",
+    "polkadot/xcm/xcm-builder/src/asset_exchange/mod.rs",
+    "polkadot/xcm/xcm-builder/src/asset_exchange/single_asset_adapter/adapter.rs",
+    "polkadot/xcm/xcm-executor/src/lib.rs",
+    "polkadot/xcm/xcm-executor/src/assets.rs",
+    "polkadot/xcm/xcm-executor/src/config.rs",
+    "polkadot/xcm/xcm-executor/src/traits/mod.rs",
+    "polkadot/xcm/xcm-executor/src/traits/asset_exchange.rs",
+    "polkadot/xcm/xcm-executor/src/traits/asset_lock.rs",
+    "polkadot/xcm/xcm-executor/src/traits/asset_transfer.rs",
+    "polkadot/xcm/xcm-executor/src/traits/conversion.rs",
+    "polkadot/xcm/xcm-executor/src/traits/drop_assets.rs",
+    "polkadot/xcm/xcm-executor/src/traits/event_emitter.rs",
+    "polkadot/xcm/xcm-executor/src/traits/export.rs",
+    "polkadot/xcm/xcm-executor/src/traits/fee_manager.rs",
+    "polkadot/xcm/xcm-executor/src/traits/hrmp.rs",
+    "polkadot/xcm/xcm-executor/src/traits/on_response.rs",
+    "polkadot/xcm/xcm-executor/src/traits/process_transaction.rs",
+    "polkadot/xcm/xcm-executor/src/traits/record_xcm.rs",
+    "polkadot/xcm/xcm-executor/src/traits/should_execute.rs",
+    "polkadot/xcm/xcm-executor/src/traits/token_matching.rs",
+    "polkadot/xcm/xcm-executor/src/traits/transact_asset.rs",
+    "polkadot/xcm/xcm-executor/src/traits/weight.rs",
+    "polkadot/xcm/src/lib.rs",
+    "polkadot/xcm/src/double_encoded.rs",
+    "polkadot/xcm/src/v5/mod.rs",
+    "polkadot/xcm/src/v5/asset.rs",
+    "polkadot/xcm/src/v5/junction.rs",
+    "polkadot/xcm/src/v5/junctions.rs",
+    "polkadot/xcm/src/v5/location.rs",
+    "polkadot/xcm/src/v5/traits.rs",
+    "polkadot/xcm/src/v4/mod.rs",
+    "polkadot/xcm/src/v4/asset.rs",
+    "polkadot/xcm/src/v4/junction.rs",
+    "polkadot/xcm/src/v4/junctions.rs",
+    "polkadot/xcm/src/v4/location.rs",
+    "polkadot/xcm/src/v4/traits.rs",
+    "polkadot/xcm/src/v3/mod.rs",
+    "polkadot/xcm/src/v3/junction.rs",
+    "polkadot/xcm/src/v3/junctions.rs",
+    "polkadot/xcm/src/v3/multiasset.rs",
+    "polkadot/xcm/src/v3/multilocation.rs",
+    "polkadot/xcm/src/v3/traits.rs",
+
+    # =================================================================================
+    # Cumulus and relay-chain parachain logic
+    # =================================================================================
+    "cumulus/pallets/xcm/src/lib.rs",
+    "cumulus/pallets/dmp-queue/src/lib.rs",
+    "cumulus/pallets/dmp-queue/src/migration.rs",
+    "cumulus/pallets/xcmp-queue/src/lib.rs",
+    "cumulus/pallets/xcmp-queue/src/migration/mod.rs",
+    "cumulus/pallets/xcmp-queue/src/migration/v5.rs",
+    "cumulus/pallets/xcmp-queue/src/migration/v6.rs",
+    "cumulus/pallets/xcmp-queue/src/migration/v7.rs",
+    "cumulus/pallets/parachain-system/src/lib.rs",
+    "cumulus/pallets/parachain-system/src/block_weight/mod.rs",
+    "cumulus/pallets/parachain-system/src/block_weight/pre_inherents_hook.rs",
+    "cumulus/pallets/parachain-system/src/block_weight/transaction_extension.rs",
+    "cumulus/pallets/parachain-system/src/consensus_hook.rs",
+    "cumulus/pallets/parachain-system/src/descendant_validation.rs",
+    "cumulus/pallets/parachain-system/src/migration.rs",
+    "cumulus/pallets/parachain-system/src/parachain_inherent.rs",
+    "cumulus/pallets/parachain-system/src/relay_state_snapshot.rs",
+    "cumulus/pallets/parachain-system/src/unincluded_segment.rs",
+    "cumulus/pallets/parachain-system/src/validate_block/mod.rs",
+    "cumulus/pallets/parachain-system/src/validate_block/implementation.rs",
+    "cumulus/pallets/parachain-system/src/validate_block/scheduling.rs",
+    "cumulus/pallets/parachain-system/src/validate_block/trie_cache.rs",
+    "cumulus/pallets/parachain-system/src/validate_block/trie_recorder.rs",
+    "cumulus/pallets/weight-reclaim/src/lib.rs",
+    "cumulus/primitives/core/src/lib.rs",
+    "cumulus/primitives/core/src/parachain_block_data.rs",
+    "cumulus/primitives/core/src/scheduling.rs",
+    "cumulus/primitives/parachain-inherent/src/lib.rs",
+    "cumulus/primitives/storage-weight-reclaim/src/lib.rs",
+    "cumulus/primitives/utility/src/lib.rs",
+    "polkadot/runtime/common/src/lib.rs",
+    "polkadot/runtime/common/src/impls.rs",
+    "polkadot/runtime/common/src/slot_range.rs",
+    "polkadot/runtime/common/src/xcm_sender.rs",
+    "polkadot/runtime/common/src/assigned_slots/mod.rs",
+    "polkadot/runtime/common/src/assigned_slots/migration.rs",
+    "polkadot/runtime/common/src/auctions/mod.rs",
+    "polkadot/runtime/common/src/claims/mod.rs",
+    "polkadot/runtime/common/src/crowdloan/mod.rs",
+    "polkadot/runtime/common/src/crowdloan/migration.rs",
+    "polkadot/runtime/common/src/paras_registrar/mod.rs",
+    "polkadot/runtime/common/src/paras_registrar/migration.rs",
+    "polkadot/runtime/common/src/purchase/mod.rs",
+    "polkadot/runtime/common/src/slots/mod.rs",
+    "polkadot/runtime/common/src/slots/migration.rs",
+    "polkadot/runtime/parachains/src/lib.rs",
+    "polkadot/runtime/parachains/src/configuration.rs",
+    "polkadot/runtime/parachains/src/configuration/migration.rs",
+    "polkadot/runtime/parachains/src/coretime/mod.rs",
+    "polkadot/runtime/parachains/src/dmp.rs",
+    "polkadot/runtime/parachains/src/dmp/inbound_downward_queue.rs",
+    "polkadot/runtime/parachains/src/dmp/migration.rs",
+    "polkadot/runtime/parachains/src/hrmp.rs",
+    "polkadot/runtime/parachains/src/inclusion/mod.rs",
+    "polkadot/runtime/parachains/src/inclusion/migration.rs",
+    "polkadot/runtime/parachains/src/initializer.rs",
+    "polkadot/runtime/parachains/src/on_demand/mod.rs",
+    "polkadot/runtime/parachains/src/on_demand/migration.rs",
+    "polkadot/runtime/parachains/src/origin.rs",
+    "polkadot/runtime/parachains/src/paras/mod.rs",
+    "polkadot/runtime/parachains/src/paras_inherent/mod.rs",
+    "polkadot/runtime/parachains/src/paras_inherent/misc.rs",
+    "polkadot/runtime/parachains/src/reward_points.rs",
+    "polkadot/runtime/parachains/src/scheduler.rs",
+    "polkadot/runtime/parachains/src/scheduler/assigner_coretime/mod.rs",
+    "polkadot/runtime/parachains/src/scheduler/migration.rs",
+    "polkadot/runtime/parachains/src/shared.rs",
+    "polkadot/runtime/parachains/src/shared/migration.rs",
+    "polkadot/runtime/parachains/src/util.rs",
 ]
+
 
 target_scopes = [
-    'Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.',
-    'Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.',
-    'High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.',
-    'High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.',
-    'Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.',
+    "Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze",
+    "Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior",
+    "Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution",
+    "Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach",
+    "Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages",
+    "Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds",
+    "High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer",
+    "High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency",
 ]
 
-APTOS_ALLOWED_IMPACT_SCOPE = """## Custody Impact Gate
-Accept only custody-grade, mainnet-relevant impacts tied to asset and ownership control."""
 
-APTOS_AUDIT_PIVOTS = """## Custody Pivots
-- Object creation, transfer, burn, extensibility, and ownership refs must preserve the intended controller.
-- Fungible asset metadata, primary and secondary stores, dispatchable hooks, and freeze state must preserve supply and holder identity.
-- Multisig-owned assets, resource accounts, and code objects must not leak upgrade, freeze, or transfer authority to unprivileged callers.
-- Custody invariants should hold across deposit, withdraw, transfer, split, merge, burn, and store-creation paths."""
-
-
+scope_scan = [
+]
 def question_generator(target_file: str) -> str:
     """
-    Generate security questions for one Aptos Core target.
+    Generate exploit-focused audit + fuzzing questions for one Polkadot SDK target.
+
+    ```
+    target_file format:
+    "'File Name: substrate/frame/assets/src/lib.rs -> Scope: Critical. Unauthorized asset accounting break'"
     """
 
     prompt = f"""
-    Build 18 to 24 Aptos custody questions for this exact file:
+    ```
+    
+    Generate exploit-focused security audit and fuzzing questions for this exact Polkadot SDK target:
+    
     {target_file}
-
-    Focus:
-    Stay on live mainnet custody surfaces: objects, fungible assets, token objects, resource accounts, multisig-held assets, and code objects that control value.
-
-    {APTOS_ALLOWED_IMPACT_SCOPE}
-
-    {APTOS_AUDIT_PIVOTS}
+    
+    Project focus:
+    This repo covers Substrate FRAME pallets, runtime primitives, contracts/revive execution, XCM libraries, Cumulus parachain support, and relay-chain parachain logic. Focus on implementation bugs reachable without privileged access, especially asset/accounting breaks, origin/dispatch bypasses, contract or precompile flaws, XCM/message-routing failures, and user-triggered halts.
 
     Rules:
-    * `File Name:` must be this file. `Scope:` must be exactly one `target_scopes` item.
-    * Use repo context as-is. Do not ask for more files or extra explanation.
-    * The attacker is strictly unprivileged. Do not assume validator, peer, node, admin, governance, signer, leaked key, database, or infra control.
-    * Do not assume the attacker already has owner, signer, publisher, multisig, capability, resource-account, or code-object permission.
-    * Discard peer-driven, generic DoS, Consensus Observer-only, `consensus/src/dag`, `experimental`, `keyless/pepper`, AIP-103, and AIP-104 ideas.
-    * Discard questions based only on unbounded input size, storage growth, queue growth, or spam volume without a concrete in-scope high or critical custody break.
-    * Ignore tests, mocks, fixtures, benches, examples, docs, readmes, generated or build files, `.toml`, event-only mismatches, rounding dust, style, and dependency-only behavior.
-    * Write 18 to 24 non-overlapping, high-signal questions.
-    * Name the exact corrupted value: balance, owner, metadata owner, freeze status, dispatch hook, multisig control, resource-account control, code object owner, or API response object.
-    * Every question must be testable with a Rust or Move unit, integration, property, or fuzz-style test.
+    * Treat `File Name:` as the exact file/module.
+    * Treat `Scope:` as the ONLY impact to target.
+    * Assume full repo context is accessible.
+    * Do not ask for code or say anything is missing.
+    * Use exact Rust symbols when possible.
+    * Attacker is unprivileged only: a normal signed user, proxy or multisig participant, contract caller, or attacker-controlled account using supported extrinsic/XCM paths.
+    * Never assume admin, governance, sudo, validator, collator, relayer, operator, node, peer, or leaked keys.
+    * Do not rely on mocked origins, handcrafted internal helpers, direct storage writes, impossible external-chain assumptions, or bridge-only trust assumptions.
+    * Generate 10 to 18 high-signal questions.
+    * At least 70% must be multi-step flow, invariant, accounting, origin, replay, XCM, contract-execution, queue, or cross-module questions.
+    * Every question must be testable by unit test, integration test, xcm-simulator/xcm-emulator test, fuzz test, invariant test, or differential test.
+    * Avoid generic checklist questions and repeated root causes.
 
-    Each question must include target symbol, attacker input, required state, call path, broken invariant, corrupted value, scoped impact, and proof idea.
+    Core invariants:
+    * No unprivileged user can mint, unlock, move, or burn assets they do not control.
+    * Signatures, nonces, origins, proxy approvals, multisig approvals, and XCM origins must not be forgeable, stale-reusable, or replayable.
+    * Contract/precompile execution must not escape intended caller, asset, or storage boundaries.
+    * XCM, fee, weight, gas, storage, and queue accounting must stay consistent and not be bypassed.
+    * Runtime behaviour must stay deterministic and must not admit unauthorized privileged calls.
+    * Crafted but valid user input must not permanently halt critical queues, validation paths, or freeze user funds.
 
-    Return Python only.
-    
-    Note u must follow the qwuestion format 
+    Each question must include:
+    1. target function/module;
+    2. attacker action;
+    3. preconditions;
+    4. call sequence;
+    5. invariant tested;
+    6. scoped impact;
+    7. proof idea.
+
+    Output only valid Python. No markdown. No explanations.
 
     questions = [
-    "[File: {target_file}]  Can attacker-controlled INPUT under REQUIRED_STATE cross a custody boundary in CALL_PATH and break MAINNET_CUSTODY_INVARIANT, corrupting EXACT_VALUE with scoped impact SCOPE_IMPACT? Proof idea: write a focused repo test that drives ENTRYPOINT and asserts EXPECTED_OWNERSHIP_OR_BALANCE_PROPERTY.",
+    "[File: {target_file}] [Function: symbol_or_module] Can an unprivileged ATTACKER_ACTION under PRECONDITIONS trigger CALL_SEQUENCE, violating INVARIANT, causing scoped impact: SCOPE_IMPACT? Proof idea: test/fuzz PARAMETERS and assert EXPECTED_PROPERTY.",
     ]
     """
     return prompt
 
-
-def audit_format(question: str) -> str:
+def audit_format(security_question: str) -> str:
     """
-    Generate a focused Aptos exploit-question validation prompt.
+    Generate a focused Polkadot SDK exploit-validation prompt.
     """
-    return f"""# APTOS CUSTODY REVIEW
 
-## Submitted Question
-{question}
+    prompt = f"""# SECURITY AUDIT PROMPT
 
-## Review Bounds
-- Review Aptos production custody logic only.
-- The path must start from unprivileged transaction, package, view, authenticator, API, bytecode, or proof input.
-- Ignore malicious peer or node behavior, generic network DoS, local tooling, and excluded scope areas.
+## Question
+{security_question}
 
-## Decision Standard
-Call it valid only if unprivileged input crosses a real custody boundary and changes who can own, move, mint, burn, freeze, upgrade, or recover value. Reject anything that needs pre-existing permissions or only produces cosmetic or event-level mismatch.
+## Rules
+- The referenced file/path exists. Do not say files are missing.
+- Do not ask for code. Use available repository context.
+- Analyze only this question and only the scoped impact.
+- Attacker is unprivileged only: a signed user, proxy or multisig participant, contract caller, or attacker-controlled account using real extrinsic/XCM paths.
+- Ignore admin-only, governance-only, node-only, relayer-only, leaked-key, docs, style, gas-only, and best-practice issues.
+- Privileged functions matter only if they create a later user-triggered exploit path.
+- Do not rely on mocked origins, direct helper calls, direct storage mutation, malicious peers/nodes, or impossible external-chain assumptions.
 
-## Required Impacts
-{APTOS_ALLOWED_IMPACT_SCOPE}
+## Mission
+Prove or disprove this as a real Polkadot SDK bug.
 
-{APTOS_AUDIT_PIVOTS}
+Check:
+- exact reachable Rust path;
+- attacker-controlled entry path from extrinsic, proxy, multisig, contract/precompile, XCM, or runtime-dispatch flow;
+- state changes before/after asset, accounting, queue, contract, or parachain transitions;
+- whether signature, nonce, origin, filter, barrier, proxy, fee, weight, gas, storage, or queue checks stop it;
+- whether the scoped impact is concrete;
+- whether a Rust unit/integration test, xcm-simulator/xcm-emulator test, or fuzz/invariant test can reproduce it.
 
-## Review Path
-1. Trace the unprivileged entrypoint into the exact custody surface.
-2. Map the controller, holder, and capability state before and after the path.
-3. Name the wrong balance, owner, authority, or recovery right.
-4. Reject if authority checks or ownership refs already close the path.
+## Core Invariants
+- User-controlled assets must remain fully backed and cannot be stolen, duplicated, or permanently frozen.
+- Signatures, nonces, origins, proxy approvals, multisig approvals, contract call context, and XCM origins must not be forgeable or replayable.
+- Contracts, precompiles, and XCM messages must only execute through intended routes with correct accounting.
+- Fee, weight, gas, storage, and queue logic must not be bypassable by normal users.
+- The runtime must not accept unauthorized privileged state transitions.
+- Critical queues and validation paths must not be permanently halted by valid user input.
+
+## Valid Only If
+1. Exact file/function/line range exists.
+2. Root cause is a real missing check, bad accounting, replay, origin confusion, unsafe parsing, or logic error.
+3. Exploit path is: preconditions -> attacker action/data -> trigger -> bad state/result.
+4. Existing protections are reviewed and insufficient.
+5. Impact matches the scoped impact.
+6. PoC/test idea has clear assertions.
 
 ## Output
-If valid:
+If valid, output exactly:
 
 ### Title
-[Clear vulnerability statement] - ([File: file_path])
+[Bug statement] - ([File: file_path])
 
 ### Summary
+[2-3 sentences]
+
 ### Finding Description
+[Code path, root cause, attacker inputs, exploit flow, and why checks fail]
+
 ### Impact Explanation
+[Concrete scoped impact]
+
 ### Likelihood Explanation
+[Preconditions, feasibility, repeatability]
+
 ### Recommendation
+[Specific fix]
+
 ### Proof of Concept
+[Rust integration test, xcm-simulator/xcm-emulator test, or fuzz/invariant test plan with expected assertions]
 
 If invalid, output exactly:
 #NoVulnerability found for this question.
-"""
 
-
-def scan_format(report: str) -> str:
-    """
-    Generate a cross-project analog scan prompt for Aptos issues.
-    """
-    prompt = f"""# CUSTODY ANALOG SCAN
-
-## External Report
-{report}
-
-## Task
-Use the external report only as a bug-class seed. Search for a new Aptos-native custody analog in object, fungible-asset, multisig, resource-account, or code-object flows.
-
-## Required Impacts
-{APTOS_ALLOWED_IMPACT_SCOPE}
-
-{APTOS_AUDIT_PIVOTS}
-
-Internally generate 2 to 4 candidate custody paths, keep the strongest one, and report it only if local code proves its own unprivileged root cause, broken custody invariant, exact corrupted value, and high or critical impact. Do not just restate the external bug.
-
-## Search Steps
-1. Reduce the external bug to one custody invariant.
-2. Generate 2 to 4 local candidate paths in scoped code.
-3. Keep only the strongest candidate with exact file and function support.
-4. Trace input -> authority break -> corrupted balance, owner, or control field -> impact.
-5. If the local path does not independently hold, return `#NoVulnerability found for this question.`
-
-## Output (Strict)
-If valid analog exists, output:
-
-### Title
-[Clear vulnerability statement] - ([File: file_path])
-
-### Summary
-### Finding Description
-### Impact Explanation
-### Likelihood Explanation
-### Recommendation
-### Proof of Concept
-
-If not, output exactly:
-#NoVulnerability found for this question.
+No extra text.
 """
     return prompt
 
 
 def validation_format(report: str) -> str:
     """
-    Generate a strict Aptos validation prompt for security claims.
+    Generate a strict bounty-style validation prompt for Polkadot SDK security claims.
     """
-    prompt = f"""# CUSTODY CLAIM VALIDATION
+    prompt = f"""# VALIDATION PROMPT
 
 ## Security Claim
 {report}
 
 ## Rules
-- Validate only the submitted claim against Aptos production custody code in this repository.
-- Do not widen the claim, change target scope, or raise severity without evidence.
-- A valid issue must come from an unprivileged external attacker using transaction, package, view, authenticator, API, or proof inputs exposed by scoped code.
-- Reject malicious peer or node behavior, generic network DoS, Consensus Observer-only impact, `consensus/src/dag`, `experimental`, `keyless/pepper`, AIP-103 Permissioned Signer, and AIP-104 Account Abstraction.
-- Reject leaked keys, privileged governance or validator powers, off-repo infra control, pre-existing permissions, config-only mistakes, and non-production artifacts.
-- The final impact must match one `target_scopes` item or the custody gate below and must name the exact corrupted value.
+- Validate only the submitted claim.
+- Check SECURITY.md and Researcher.Md for scope, exclusions, and valid impact classes.
+- Do not create a new vulnerability if the submitted claim is weak or invalid.
+- Do not upgrade severity unless the provided evidence proves the higher impact.
+- Reject admin-only, governance-only, node-only, relayer-only, leaked-key, best-practice, docs/style, gas-only, mocked-path, and purely theoretical issues.
+- Reject if the exploit requires unrealistic assumptions, victim mistakes, direct storage mutation, mocked XCM/origins, or unsupported protocol behavior.
+- A valid report must be triggerable by an unprivileged user, unless the claim proves privilege escalation from a user path.
+- The final impact must match an in-scope Polkadot SDK implementation impact, not a separate bridge-only program or a generic code bug.
+- Prefer #NoVulnerability over speculative reports.
 
-## Required Impacts
-{APTOS_ALLOWED_IMPACT_SCOPE}
+## Required Validation Checks
+All must pass:
+1. Exact in-scope file, function, and line/code references.
+2. Clear root cause and broken security/accounting assumption.
+3. Reachable exploit path: preconditions -> attacker action -> trigger -> bad result.
+4. Existing checks/guards reviewed and shown insufficient.
+5. Concrete in-scope impact with realistic likelihood.
+6. Reproducible proof path: unit PoC, fork test, invariant/fuzz test, or exact manual steps.
+7. No obvious rejection reason from SECURITY.md, known issues, privileges, or scope exclusions.
 
-{APTOS_AUDIT_PIVOTS}
-
-## Required Checks
-1. Exact file and function references in scoped code.
-2. A clear custody invariant tied to asset ownership, control, or recovery.
-3. A reachable path from attacker input to bad balance, owner, or authority state.
-4. Existing guards reviewed and shown insufficient.
-5. Exact wrong value named: balance, owner, metadata owner, freeze status, dispatch hook, multisig control, resource-account control, code object owner, or API object.
-6. A reproducible proof path via Rust or Move unit, integration, property, or fuzz-style testing.
+## Silent Triage Questions
+Before output, internally answer:
+- Can a normal external user trigger this through a real extrinsic, contract, parachain, or XCM path?
+- Does the code actually behave as claimed?
+- Is the impact caused by the SDK code, not by a malicious node, peer, or external dependency alone?
+- Is the loss/freeze/insolvency concrete, not hypothetical?
+- Would a bounty triager accept the proof?
+- What exact test would prove it?
 
 ## Output
 If valid, output exactly:
@@ -1138,7 +548,7 @@ Audit Report
 [Exact code path, root cause, exploit flow, and why existing checks fail]
 
 ## Impact Explanation
-[Concrete allowed repository impact and severity rationale]
+[Concrete in-scope impact and severity rationale]
 
 ## Likelihood Explanation
 [Attacker capability, required conditions, feasibility, repeatability]
@@ -1147,11 +557,67 @@ Audit Report
 [Specific fix guidance]
 
 ## Proof of Concept
-[Minimal reproducible steps or test plan]
+[Minimal reproducible steps or fuzz/invariant/fork test plan]
 
 If invalid, output exactly:
 #NoVulnerability found for this question.
 
 Output only one of the two outcomes above. No extra text.
+"""
+    return prompt
+
+
+def scan_format(report: str) -> str:
+    """
+    Generate a short cross-project analog scan prompt for Polkadot SDK.
+    """
+    prompt = f"""# ANALOG SCAN PROMPT
+
+## External Report
+{report}
+
+## Access Rules (Strict)
+- Treat in-scope SDK files as accessible context.
+- Do not claim missing/inaccessible files.
+- Do not ask for repository contents.
+
+## Objective
+Find whether the same vulnerability class can occur in this repo's in-scope Polkadot SDK code.
+Use the external report as a hint, not as proof.
+
+Note: Check SECURITY.md / Researcher.Md and think in this actual way.
+Note: Never generate a report that would result in an out-of-scope and rejected vulnerability.
+
+## Method
+1. Classify vuln type (auth, accounting, state transition, parsing/deserialization, crypto, replay, reentrancy, DoS).
+2. Map the vulnerability pattern to FRAME pallets, runtime primitives, contracts/revive, XCM, Cumulus, or relay-chain parachain logic to find a valid analog.
+3. Prove root cause with exact file/function/line references in the codebase.
+4. Confirm concrete impact + realistic likelihood for an unprivileged user.
+
+## Disqualify Immediately
+- No reachable attacker-controlled entry path.
+- Trusted-role compromise required.
+- Only mocked XCM/origin/helper paths are shown.
+- The path is bridge-only, node-only, peer-only, or otherwise outside the active program focus.
+- Theoretical-only issue with no protocol impact.
+- Impact or likelihood missing.
+
+## Output (Strict)
+If valid analog exists, output:
+
+### Title
+[Clear vulnerability statement] - ([File: file_path])
+
+### Summary
+### Finding Description
+### Impact Explanation
+### Likelihood Explanation
+### Recommendation
+### Proof of Concept
+
+If not, output exactly:
+#NoVulnerability found for this question.
+
+No extra text.
 """
     return prompt
