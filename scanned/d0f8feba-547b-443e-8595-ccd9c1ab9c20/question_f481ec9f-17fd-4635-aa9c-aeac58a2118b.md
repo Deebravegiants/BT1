@@ -1,1 +1,0 @@
-[File: string.move -> Scope: Critical.] Can attacker-controlled `name`/`symbol` String inputs cross a custody boundary in `liquidity_pairs::get_pair_obj_address` and `register_liquidity_pair` (aptos-move/move-examples/bonding_curve_launchpad/sources/liquidity_pairs.move) via the same unescaped `\

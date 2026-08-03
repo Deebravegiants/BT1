@@ -1,1 +1,0 @@
-[File: string.move -> Scope: Critical.] Can an attacker construct a `String` via `try_utf8` that decodes to zero bytes (empty seed) and pass it as the `name` or `collection` field into `token::create_token_seed`, breaking the invariant that every token name contributes non-trivial entropy to its object address seed, corrupting the seed such that `create_token_seed(\
