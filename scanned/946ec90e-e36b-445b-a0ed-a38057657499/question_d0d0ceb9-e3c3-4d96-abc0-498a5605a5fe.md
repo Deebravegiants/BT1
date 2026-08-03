@@ -1,1 +1,0 @@
-[File: '... Scope: Critical ...'] Can an unprivileged actor exploit a mismatch between `MerklePrunerSchema::name()` used for pruner identification and the actual `StaleIndexSchema` column family bound to that name (e.g., `PositionEpochSnapshot::name() == \
