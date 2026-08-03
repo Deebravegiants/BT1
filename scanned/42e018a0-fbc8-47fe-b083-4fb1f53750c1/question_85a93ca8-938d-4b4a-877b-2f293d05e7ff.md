@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/account_config/events/mint_token_event.rs -> Scope: Critical.']  Can the `MINT_TOKEN_EVENT_TYPE` static `TypeTag` (mint_token_event.rs:46-52), which hardcodes `address: TOKEN_ADDRESS, module: \
