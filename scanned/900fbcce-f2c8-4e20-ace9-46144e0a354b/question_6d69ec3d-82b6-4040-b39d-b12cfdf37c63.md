@@ -1,1 +1,0 @@
-[File: 'File Name: third_party/move/move-vm/runtime/src/native_models_for_runtime_ref_checks.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.']  Can an unprivileged caller who publishes a module with a native function named `(\
