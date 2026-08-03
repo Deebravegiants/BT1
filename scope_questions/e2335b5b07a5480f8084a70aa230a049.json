@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: polkadot/runtime/common/src/assigned_slots/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4a9102cd-eab7-4461-888e-bf0bdd9fe8ba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/assigned_slots/migration.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f553ee77-8793-4d10-988c-831bf1595dac?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/auctions/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e2df5637-6f58-4abf-89ab-c9cb9568a140?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/claims/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d4e4cdfd-4282-44a0-a581-b5a5f4f0fa33?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/crowdloan/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ac55c32d-5a33-438e-a8a6-4bd0c9a34376?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/crowdloan/migration.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5c23355a-2811-4cc5-8ae5-5fad2209c8d4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/paras_registrar/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_974b1173-43db-4d53-b012-c64449076075?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/paras_registrar/migration.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f8c41693-c06c-4679-b296-e3bc87ee5a64?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/purchase/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7436f67a-18cb-4d9b-a20a-8cb697929d74?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/slots/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4db8bdd4-37f2-4a5a-b25d-13f7f44b9bce?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/slots/migration.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_20645865-62fc-4b72-8981-9397ce885fd4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/lib.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0acf9fef-c5d9-443b-b9ec-a8792d887950?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/configuration.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a2ed1fd4-d650-4d48-855c-7082b7b99934?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/configuration/migration.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_68ef180f-fbe9-4b26-a3a8-d91a5698ea1f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/coretime/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0c777abd-7ba4-4ad9-bee7-8e813e046a31?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/dmp.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f06afed0-d53f-42b9-8437-e797435d5377?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/dmp/inbound_downward_queue.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fb7e0017-087c-45fa-b97f-7409d2b15296?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/dmp/migration.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c3a6abe6-fc6c-4b88-9701-260d6f139b9b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/hrmp.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_eca3bf2d-32fa-4b44-b2ae-a2970885fce1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/inclusion/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c396b27f-6aa7-40d0-83da-43a9edf60568?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/inclusion/migration.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5020abcb-fc65-4d26-9ba7-04bed3a5bfa9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/initializer.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1e276799-3be9-46a3-bc3f-5b19569999c0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/on_demand/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_07766e81-abfd-4585-8198-d75c07b5ec16?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/on_demand/migration.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_69f12d4f-ee63-4b61-8352-7afeee6d781a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/origin.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a3387869-9c22-4341-8ba9-7416b4aa6b0d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/paras/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_57eebe8d-100f-4f4b-94e7-3c1b06c4f342?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/paras_inherent/mod.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_14268a98-1d03-4890-9e5d-84c931396f82?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/paras_inherent/misc.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_eefb38c1-ef5d-4fda-a9b9-dd85344d3b02?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/reward_points.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b63e25bb-2eff-4fd7-8617-2112e5e54322?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/scheduler.rs -> Scope: High. Reachable fee, weight, refund, storage-metering, or queue-accounting asymmetry in `substrate/frame/{system,transaction-payment,contracts,revive}/src/*`, `substrate/primitives/weights/src/*`, `polkadot/xcm/**/*`, or `cumulus/pallets/{xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/*` lets a normal user obtain underpriced execution, grief critical paths at low cost, or force persistent accounting inconsistency'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5ac840ee-49a1-4644-9bfe-c93fce57dcd7?mode=deep",
+    "questions_generated": false
+  }
+]
