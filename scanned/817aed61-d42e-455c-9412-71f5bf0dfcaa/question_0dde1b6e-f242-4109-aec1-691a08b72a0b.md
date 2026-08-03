@@ -1,1 +1,0 @@
-[File: 'File Name: third_party/move/move-vm/types/src/delayed_values/error.rs -> Scope: Critical.'] Can a crafted resource write lacking a layout, reaching `map_id_to_values_in_write_set` in aptos-move/block-executor/src/executor_utilities.rs:443-459, cause the `code_invariant_error(\

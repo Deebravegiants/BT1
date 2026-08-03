@@ -1,1 +1,0 @@
-[File: 'File Name: third_party/move/move-vm/types/src/delayed_values/error.rs -> Scope: Critical.'] Can `get_reads_needing_exchange_sequential` in aptos-move/block-executor/src/view.rs:1367-1398 encounter a `ValueWithLayout::RawFromStorage` entry for a resource holding a code-object's delayed field and, instead of surfacing the `code_invariant_error(\
