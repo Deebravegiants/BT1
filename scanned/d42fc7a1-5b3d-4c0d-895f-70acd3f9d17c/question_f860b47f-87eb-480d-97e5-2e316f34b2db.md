@@ -1,1 +1,0 @@
-[File: ... -> Scope: Critical ...]  Can an attacker exploit the `ValidCryptoMaterial::to_bytes` wrapper (which calls `self.to_bytes().to_vec()`, i.e., the inherent `to_bytes`) being used as the AIP-80-prefixed serialization for a secp256r1 key stored as the sole signer of a resource account, where a mismatch between `AIP_80_PREFIX =
