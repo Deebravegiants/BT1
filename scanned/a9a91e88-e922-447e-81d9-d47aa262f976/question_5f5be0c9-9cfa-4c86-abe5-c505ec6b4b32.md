@@ -1,1 +1,0 @@
-[File: 'File Name: storage/aptosdb/src/pruner/state_kv_pruner/generics.rs -> Scope: Critical. ...']  Can an attacker who mints and burns a fungible asset supply repeatedly under REQUIRED_STATE where `StateValuePrunerSchema::name()` for `ColdStateKv` returns `\
