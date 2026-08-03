@@ -1,1 +1,0 @@
-[File: 'File Name: aptos-move/block-executor/src/view.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.']  Can an attacker abuse the `#[cfg(test)] fail_point!(\
