@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/utility_coin.rs -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.']  Can an unprivileged attacker who deploys a code module reusing the identifiers ident_str!(\
