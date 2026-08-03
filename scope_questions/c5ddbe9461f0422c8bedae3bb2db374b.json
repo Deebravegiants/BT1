@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: substrate/frame/nfts/src/types.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8e1f360a-c1f7-4e82-a2f9-c54be6decbf4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/approvals.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b927dff1-eb8b-4e82-9090-bb48c7bc6777?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/atomic_swap.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_adec5984-fcf0-4c92-8f5e-714d1b1e8531?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/attributes.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_12315053-ebbd-4444-a3dc-aa5c765f3404?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/buy_sell.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c6fcf87d-f93a-4051-aed1-8ee104aacc8e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/create_delete_collection.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_440dd200-982c-4395-99a2-d386c5cdab89?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/create_delete_item.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_426b2d24-bcdc-4e8b-b9ec-32a8b2f5c848?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/lock.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_995e9ff8-7da8-4cc4-b279-de275ed3bec4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/metadata.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_976af9d4-a78b-4817-88ff-d3bfead346f4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/roles.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d3c37bae-dff0-46cb-a64f-38f269aac77e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/settings.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_957ad668-22ca-44c0-8466-6645ac5144bb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/transfer.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_eebab2d5-d47a-417c-895d-be6c85db0da7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_40049604-9379-48fe-87af-0395ebcb99d6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nft-fractionalization/src/lib.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_09059795-36fa-4e4e-87a0-67546bf377c8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nft-fractionalization/src/types.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d2dcfcbc-1145-484e-90da-c338bd0cb280?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/treasury/src/lib.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b9995246-7ed8-41a9-94b3-7d59df9368d7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/treasury/src/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8d941189-316b-4856-bdbb-610cda2211db?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/lib.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_198eb4cd-f7cd-44ec-a58d-7182d63007b5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/address.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1b33d1bc-64cf-4968-858b-37864f12101a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/chain_extension.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b90da3ef-df7e-4c82-85ea-5d2cf032388b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/exec.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_83e366e4-f99b-415d-8992-7e7fb8a2eb40?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/gas.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6c21eb4d-9679-4ac4-a347-1c8dec010f20?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/primitives.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_53c1b9fc-5dcc-440e-b475-11bbdba13f28?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/schedule.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7c7ca0fd-5e3f-41ee-9e6b-96630693c468?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/storage.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_89dd077d-1b49-47b5-a20a-5b9db458fca7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/transient_storage.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_47dc54fe-3364-4b7e-97f9-5837d9b60de7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2f38bafb-ff26-4eae-8e4a-e55e7c717f66?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/storage/meter.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_01c4818b-8215-4e06-93f8-90a91737cd46?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/wasm/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4fb6ff93-657b-419a-95b4-c28c2fa8ff4d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/wasm/prepare.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bcc7bb00-55ee-4664-b8c6-6c0e6ec63d23?mode=deep",
+    "questions_generated": false
+  }
+]
