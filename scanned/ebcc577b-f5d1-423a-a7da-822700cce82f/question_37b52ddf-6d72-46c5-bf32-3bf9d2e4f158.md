@@ -1,1 +1,0 @@
-[File: 'File Name: aptos-move/aptos-vm/src/verifier/event_validation.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.']  Can `is_event_emit_call` at event_validation.rs:303-312 relying solely on exact string comparison of module name `\
