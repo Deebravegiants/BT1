@@ -1,1 +1,0 @@
-[File: 'File Name: aptos-move/framework/aptos-framework/sources/configs/chunky_dkg_config.move -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.']  Can `enabled()`'s exact byte-string comparison against `b\
