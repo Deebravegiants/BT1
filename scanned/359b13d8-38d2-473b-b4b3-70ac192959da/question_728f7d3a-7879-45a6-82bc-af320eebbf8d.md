@@ -1,1 +1,0 @@
-[File: function_info.move] Does `account_abstraction::update_dispatchable_authenticator_impl` build the dispatcher `FunctionInfo` for signature-checking via `function_info::new_function_info_from_address(@aptos_framework, \
