@@ -1,1 +1,0 @@
-[File: 'File Name: execution/executor/src/workflow/do_state_checkpoint.rs -> Scope: Critical.'] Can attacker-influenced `execution_output.compute_trading_native_state_roots` combined with a missing `persisted_position_state_summary` (triggering the `.expect(\
