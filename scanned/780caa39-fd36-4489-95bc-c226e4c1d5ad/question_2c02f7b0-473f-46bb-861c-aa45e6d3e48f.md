@@ -1,1 +1,0 @@
-[File: ... same scope] Since TokenMutationEvent::new (types/src/account_config/events/token_mutation_event.rs:22-28) performs no validation that old_value differs from new_value or that mutated_field_name is non-empty, can a zero-effect event (old_value == new_value, or mutated_field_name == \
