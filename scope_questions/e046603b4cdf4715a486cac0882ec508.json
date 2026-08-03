@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/process_transaction.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a23d412e-fdc6-459d-8798-ef4512bc3fe0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/record_xcm.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e3d275f9-3698-46dc-92f3-77dff495140b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/should_execute.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5234e0ac-5c9d-455a-80dc-c3d6e016de8b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/token_matching.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b5ecab1f-32a2-4c6a-a02b-b0a004ba4121?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/transact_asset.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_010e4016-935f-44eb-8592-b380accfef4d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/weight.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d6932275-9835-4872-a73e-1d569da8b2b9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/lib.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_28580714-8138-4357-9246-e2a06f785923?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/double_encoded.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9385b6f1-102a-4584-b988-745f9458361c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/mod.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a32f2b1d-91b8-4498-a28c-7cff91f89d4e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/asset.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_24d12f3e-b9a6-4f03-9c87-9513fdfd7dc3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/junction.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6908f8de-5c9e-424c-8adf-5cc5b2f137b8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/junctions.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a3c6019b-431b-4e4f-ae4f-9181c4bd770d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/location.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_97bbcc49-290f-4983-9a84-047ecfb68ba0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/traits.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4a5ede88-32c0-46d3-b4ac-f36797577e51?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/mod.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_50dc6e44-b9a3-4ef4-9cce-b7dce5e8bfaa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/asset.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5cd5ba77-c46e-4ab0-856b-fadcf44b9c4a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/junction.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_18fab7c7-74d9-4285-be4e-915f97580d9f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/junctions.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1e42b4e4-447f-4407-ad34-6bd3cd86dd1f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/location.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2f165468-08cb-4400-b7b9-2b614d6c4616?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/traits.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f4e16682-32f8-493c-b9b9-76ea637fcd4d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/mod.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_05bd1a95-b6d6-45c0-8bc2-d0e3c0aa52e2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/junction.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_96b6d0b6-a0cb-4d81-948a-be1d109762d6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/junctions.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_17313b4e-631e-43e4-8454-6efa8cfebf16?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/multiasset.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8b20f800-6540-4195-8d67-4bdae33b2901?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/multilocation.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_518128c5-1a2d-4d1f-ada9-e173546c8a24?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/traits.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_555ff5a8-5ade-4eef-a136-a8016965bde7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cumulus/pallets/xcm/src/lib.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_319b52ca-6dd9-45c9-9d29-e42f8811af72?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cumulus/pallets/dmp-queue/src/lib.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3b67c81d-1cf5-4f69-b4be-b4ce007085e5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cumulus/pallets/dmp-queue/src/migration.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3621c4d4-d6b8-43a5-905d-a860f813753d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cumulus/pallets/xcmp-queue/src/lib.rs -> Scope: Critical. Validation or block-weight bug in `cumulus/pallets/parachain-system/src/{lib.rs,descendant_validation.rs,parachain_inherent.rs,relay_state_snapshot.rs,validate_block/*,block_weight/*}` or `cumulus/primitives/{core,parachain-inherent,utility,storage-weight-reclaim}/src/*` enabling user-controlled data to be accepted, replayed, or mis-accounted beyond intended bounds'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aab5c111-c950-4721-8579-13df2a007695?mode=deep",
+    "questions_generated": false
+  }
+]
