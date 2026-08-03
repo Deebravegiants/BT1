@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/account_config/events/collection_mutation_event.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.']  If `CollectionMutationTranslator` (storage/indexer/src/event_v2_translator.rs:471-507) returns an `Err` (\
