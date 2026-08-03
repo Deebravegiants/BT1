@@ -1,1 +1,0 @@
-[File: 'File Name: aptos-move/aptos-vm/src/natives.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.'] Can an attacker who leaks a forged signer through a mis-scoped `#[cfg(feature = \
