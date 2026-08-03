@@ -1,1 +1,0 @@
-[File: 'File Name: storage/storage-interface/src/state_store/versioned_state_value.rs -> Scope: Critical.'] Can an unprivileged attacker exploit put_stale_state_value_index_for_shard's reliance on to_result_slot's `expect(\
