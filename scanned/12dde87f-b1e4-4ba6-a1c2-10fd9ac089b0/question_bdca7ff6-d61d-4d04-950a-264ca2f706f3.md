@@ -1,0 +1,1 @@
+[File: 'File Name: types/src/state_store/hot_state.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.']  Can HotStateValue::clone_from_slot's panic!(\
