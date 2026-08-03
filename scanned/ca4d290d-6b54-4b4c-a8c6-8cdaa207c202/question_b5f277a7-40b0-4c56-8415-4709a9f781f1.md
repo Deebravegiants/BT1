@@ -1,1 +1,0 @@
-[File: 'File Name: ...acquires_list_verifier.rs -> Scope: Critical...'] Can an attacker craft a function with `Bytecode::CallClosure` invoking a stored closure that at pack-time (`PackClosure`) captured a reference into a multisig-owned resource, with the acquires check deferred to \
