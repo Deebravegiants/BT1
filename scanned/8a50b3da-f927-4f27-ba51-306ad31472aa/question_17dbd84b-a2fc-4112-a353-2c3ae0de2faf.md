@@ -1,1 +1,0 @@
-[File: 'File Name: aptos-move/block-executor/src/executor_utilities.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.'] Can an unprivileged sender who forces `serialize_groups`'s `fail_point!(
