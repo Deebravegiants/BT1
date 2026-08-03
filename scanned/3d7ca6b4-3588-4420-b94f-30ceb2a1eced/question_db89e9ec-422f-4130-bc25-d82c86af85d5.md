@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/account_config/events/create_collection_event.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.']  Can an attacker exploit the fallback error path in `CreateCollectionTranslator` (returning `Err(\
