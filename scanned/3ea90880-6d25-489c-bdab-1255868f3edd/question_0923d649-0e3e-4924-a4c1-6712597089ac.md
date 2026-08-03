@@ -1,1 +1,0 @@
-[File: 'File Name: api/types/src/move_types.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.']  Can an attacker exploit `verify_identifier`'s weak check (it only rejects identifiers containing `\
