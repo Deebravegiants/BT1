@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/state_proof.rs -> Scope: Critical.'] Can attacker-supplied `latest_li_w_sigs` and `epoch_changes` that are individually well-formed but mutually inconsistent (`epoch_change_li != latest_li` and `latest_li.epoch() != new_epoch`) reach the `bail!(\

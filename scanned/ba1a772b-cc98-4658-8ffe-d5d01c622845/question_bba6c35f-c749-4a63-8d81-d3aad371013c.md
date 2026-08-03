@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/state_proof.rs -> Scope: Critical.'] Can an attacker submit a `StateProof` where `latest_li_w_sigs`'s `LedgerInfo` has `next_epoch_state = None` but is otherwise crafted to satisfy `epoch_change_li == latest_li` equality in `verify_and_ratchet_inner`, bypassing the `format_err!(\
