@@ -1,1 +1,0 @@
-[File: 'File Name: aptos-move/framework/aptos-stdlib/sources/type_info.move -> Scope: High. An unprivileged attacker can change asset control state such as metadata ownership, freeze authority, dispatch hooks, or code-object ownership without the required authority.']  Can an attacker-controlled CoinType whose type_name<CoinType>() string equals \
