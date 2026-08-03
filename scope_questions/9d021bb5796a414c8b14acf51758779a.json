@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: polkadot/runtime/common/src/assigned_slots/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_89f73105-f79b-4559-b139-b462870a6cf1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/assigned_slots/migration.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_802f1e5f-772b-4a61-b3b7-ab924b1ad7a6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/auctions/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8e13b8aa-430b-4682-b0f6-d67d9f859ed9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/claims/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ae72a62b-1c31-49b3-8912-9ef6d8a3e4db?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/crowdloan/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8eb3a513-c06f-4da8-a702-6f02b312effb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/crowdloan/migration.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b0668033-e69d-44ea-85bd-4091ffe95a8c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/paras_registrar/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_88062eca-e65e-4fa0-a760-1298581754bc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/paras_registrar/migration.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_66982a90-1918-4268-b10d-84252a60899b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/purchase/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ea391be8-4cf1-43d7-87c0-2e1cbdad8d9e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/slots/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ce428f22-1be5-4c35-aa2e-1e53af4684dd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/slots/migration.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2c604617-6e2a-449f-a5e1-07112c0e773d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/lib.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a00d74e4-9aca-4f8d-bcf9-b8bce16534ee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/configuration.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_256a5856-90dd-4601-a719-0d1384782be7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/configuration/migration.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2306c4f8-e7f5-401f-b812-3ea6ba938818?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/coretime/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8de55931-a2fd-43e7-b628-8cfd5a4213e9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/dmp.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1be68d46-5d7b-4e78-8e3a-b11fc5a718fe?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/dmp/inbound_downward_queue.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b37457dc-e6c9-46e1-a6b8-4d5310da92e5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/dmp/migration.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_29ca4e4c-fda4-4ab3-a99a-64f3ff0ffe0a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/hrmp.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0cc83360-50b7-48da-88b6-b9cdb4d8da5b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/inclusion/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e0e893c3-4524-46f4-8308-c36e2ec3622f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/inclusion/migration.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_57f692c6-0afb-4d68-8b8f-7d25445b3447?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/initializer.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_522f486a-f3e0-4c5e-adf6-5abfc03a499f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/on_demand/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fed372c8-8de5-4732-85c8-cd6bb9da0e41?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/on_demand/migration.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b39059e7-c97a-4a95-b37d-6fc212451293?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/origin.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e3471a4d-d99b-4f6b-ad11-3b0cdcb182d3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/paras/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1b24b77f-f0a9-4611-a7c8-06b44b7fed0f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/paras_inherent/mod.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c1aeb4f0-4a44-4114-8df8-0e02d726f361?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/paras_inherent/misc.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_096f4963-4033-4b9c-a01d-3ab5444f7133?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/reward_points.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_87faf2d6-e3d7-429c-a9bf-81f85d9c652a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/scheduler.rs -> Scope: Critical. Parachain lifecycle, registrar, crowdloan, claim, queue, or state-transition flaw in `polkadot/runtime/common/src/{lib.rs,impls.rs,xcm_sender.rs,claims/*,crowdloan/*,assigned_slots/*,purchase/*,paras_registrar/*,auctions/*,slots/*}` or `polkadot/runtime/parachains/src/{lib.rs,configuration.rs,shared.rs,origin.rs,dmp.rs,hrmp.rs,inclusion/*,scheduler.rs,coretime/mod.rs,on_demand/mod.rs,initializer.rs,paras/mod.rs}` that lets an unprivileged user seize resources, create unauthorized state changes, or permanently trap funds/messages'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_99600792-ae13-4a61-8b26-f213c479528f?mode=deep",
+    "questions_generated": false
+  }
+]
