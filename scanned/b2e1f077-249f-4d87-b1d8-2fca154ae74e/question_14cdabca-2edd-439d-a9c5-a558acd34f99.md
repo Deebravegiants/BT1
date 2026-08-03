@@ -1,1 +1,0 @@
-[File: 'File Name: storage/aptosdb/src/pruner/ledger_pruner/write_set_pruner.rs -> Scope: Critical.'] Can the WriteSetPruner::name() string 'WriteSetPruner' being used generically as an error-context label in LedgerPruner::prune's `map_err(|err| anyhow!(\
