@@ -1,1 +1,0 @@
-[File: 'File Name: third_party/move/move-core/types/src/parser.rs -> Scope: High. Unprivileged input can break custody accounting across deposit, withdraw, transfer, split, merge, or burn flows and credit the wrong holder or debit the wrong holder.']  Can an attacker-controlled hex-bytes literal of odd digit count (e.g. 'x\
