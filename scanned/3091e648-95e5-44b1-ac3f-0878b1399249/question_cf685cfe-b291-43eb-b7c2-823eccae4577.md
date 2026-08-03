@@ -1,1 +1,0 @@
-[File: 'File Name: crates/aptos-dkg/src/fiat_shamir.rs -> Scope: Critical.'] Can an attacker submit `sigma_proof` bytes via `append_sigma_proof` under REQUIRED_STATE (attacker controls the serialized `sigma_proof` argument passed into `RangeProof::append_sigma_proof`) cross the custody boundary by triggering a serialization panic (`.expect(\
