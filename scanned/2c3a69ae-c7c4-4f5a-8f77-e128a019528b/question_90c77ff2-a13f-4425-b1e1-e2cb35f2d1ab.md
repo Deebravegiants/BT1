@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/account_config/events/mutate_property_map.rs -> Scope: Critical.'] Can an attacker who controls the `types: Vec<String>` entries under a state where a downstream property decoder uses these strings to select a deserialization branch (e.g. mapping `\

@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/account_config/events/mutate_property_map.rs -> Scope: Critical.'] Can an attacker who controls `keys: Vec<String>` under a state where a downstream property applier treats specific reserved key strings (e.g. a hypothetical `\
