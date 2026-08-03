@@ -1,1 +1,0 @@
-[File: 'File Name: storage/aptosdb/src/pruner/state_kv_pruner/state_kv_pruner_manager.rs -> Scope: Critical. An unprivileged attacker can transfer, mint, burn, freeze, or reassign APT, fungible assets, or token objects through object, fungible-asset, or account state transitions.']  Can an attacker cause `PRUNER_VERSIONS.with_label_values(&[S::name(), \
