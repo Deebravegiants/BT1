@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: substrate/frame/system/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d6664b6d-555d-4a2b-a06b-db14baa500db?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/limits.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_81ad0569-7bba-43ee-8165-ddbfd862f0f9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/mod.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a236b78e-4e06-400e-97e1-22c70014d595?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/check_nonce.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_55560af1-7629-4392-991a-6298a0e9e468?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/check_weight.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a5d23650-70cb-49b6-ab94-f797b46cf20b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/check_mortality.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e4f912d6-4b78-4d29-8509-ece1fe71dc32?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/authorize_call.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_adedc369-71bd-4fe4-848b-318d10a0976f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/weight_reclaim.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_85563beb-8841-4f15-b6e3-3590e3a5f3c3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/transaction-payment/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8d861582-d92e-4128-b899-697fbb14b6be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/transaction-payment/src/payment.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_de0288a6-972f-46e6-9681-2e15e2fd660d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/transaction-payment/src/types.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e5c439b3-34cd-495a-a83a-032a7c1d0e3c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/message-queue/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2f1c09a3-b158-4083-b723-b494fd5a652e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/scheduler/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_52e2876f-e109-44aa-8ea6-94df37cbf817?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/scheduler/src/migration.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_740727da-d18e-4c96-a673-6697ac675be5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/preimage/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_22a6ab98-f800-4471-b844-fdfb721ec186?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/preimage/src/migration.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e4aaba9a-0767-4bbd-a240-10a04f23a258?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/proxy/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_800707f1-e67e-4d42-a4b3-f9c0e1fd69cc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/multisig/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ffca51cf-b3ae-463b-aee7-f899bbc87747?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/multisig/src/migrations.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_38f5d6c9-7c8f-4cf0-8bba-aa613a0f75b1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/utility/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_16a9967e-b0dc-4884-8fd7-254d00d65a32?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_89a31def-3b12-44ad-b06b-06bc7eeb5519?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/transaction_validity.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4514f315-1570-4214-b934-85c76777f88f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/generic/checked_extrinsic.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bf00d0b3-4e30-42df-a97a-98ad162d3bfa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/generic/unchecked_extrinsic.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1d0a5423-d3b0-42fa-bd0c-cb8aba46b4fc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/traits/transaction_extension/mod.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_758456fe-fac3-4bef-97cd-68ac0b44c22d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/traits/transaction_extension/dispatch_transaction.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b385df16-c17e-43cd-895f-183eac697b0e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/traits/transaction_extension/as_transaction_extension.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c40a780b-a748-4808-8114-14ef9cd620fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/weights/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2910b4c8-c08d-4967-80f1-3b63532c64d9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/weights/src/weight_v2.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0fb34435-bcb8-4831-aced-348d64124921?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/balances/src/lib.rs -> Scope: Critical. Signature, nonce, origin, proxy, multisig, preimage, scheduler, or dispatch-validation bypass in `substrate/frame/{system,proxy,multisig,utility,preimage,scheduler,transaction-payment}/src/*` or `substrate/primitives/runtime/src/{generic/*,traits/transaction_extension/*,transaction_validity.rs}` allowing an unprivileged user to replay effects, act as another account, skip required checks, or reach privileged behavior'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f2107922-841c-4a76-ae5b-eb073697c878?mode=deep",
+    "questions_generated": false
+  }
+]
