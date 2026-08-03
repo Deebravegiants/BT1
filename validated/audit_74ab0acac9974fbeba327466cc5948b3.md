@@ -1,0 +1,1 @@
+Now let me look at how this translator error is used by callers, to determine whether an error causes event loss or a hard failure.
