@@ -1,0 +1,1 @@
+[File: 'File Name: types/src/account_config/resources/fungible_asset_metadata.rs -> Scope: Critical.']  Can an unprivileged attacker submit a resource write at a metadata object address that collides with `MODULE_NAME=\

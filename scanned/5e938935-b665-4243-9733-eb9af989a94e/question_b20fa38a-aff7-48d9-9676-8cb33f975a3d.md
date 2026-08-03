@@ -1,0 +1,1 @@
+[File: 'File Name: crates/aptos-crypto/src/hash.rs -> Scope: High.'] Can two Move/Rust struct type names that BCS-serialize with overlapping bytes (e.g. via `#[serde(rename=...)]`) cause `DefaultHasher::prefixed_hash` (which prepends the fixed `HASH_PREFIX` b\
