@@ -1,1 +1,0 @@
-[File: 'File Name: types/src/validator_info.rs -> Scope: Critical. An unprivileged attacker can take over or permanently lock object-held, multisig-controlled, or resource-account-held value through ownership or capability confusion.']  Can the #[cfg(any(test, feature = \
