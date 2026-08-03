@@ -1,1 +1,0 @@
-[File: 'File Name: crates/aptos-crypto/src/bls12381/bls12381_pop.rs -> Scope: Critical. An unprivileged attacker can seize code-object or resource-account control in a way that later enables theft, freeze, or malicious upgrade of live assets.'] Can an attacker exploit `ValidCryptoMaterial::to_bytes` (bls12381_pop.rs:112-114), whose `AIP_80_PREFIX` is `\
