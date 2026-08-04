@@ -1,0 +1,1 @@
+Let me find `ensure_sorted_and_insert` implementation to complete the analysis.
