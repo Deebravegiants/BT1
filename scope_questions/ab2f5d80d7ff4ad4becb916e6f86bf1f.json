@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: polkadot/runtime/common/src/assigned_slots/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aaeac3d4-c152-408c-8ed6-e716ce4413bb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/assigned_slots/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_400ce92f-bcc1-497b-bf4e-8551ffb83310?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/auctions/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_57f9e966-e64d-48b7-95ae-5f5c4651107a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/claims/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ea979bba-2a68-4f71-983a-514687cb4c53?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/crowdloan/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_eb2de0df-c611-4aa5-9602-5b0ff701c8e8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/crowdloan/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_531c7363-8e5d-4662-a2ac-b45f472dbd28?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/paras_registrar/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_34f08273-99e4-4eda-ab44-57d2b270b434?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/paras_registrar/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f934d25d-b0a2-411c-8462-048032388dc5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/purchase/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5c59b639-84c6-41c7-a77a-a79e8cc42c1c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/slots/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f439d434-9f14-4f9c-a782-8b616470eb50?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/common/src/slots/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_20b1106d-8ca8-4c47-b6e7-ea5b0d55f200?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/lib.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1ed1a836-9654-4319-8e62-a98cc0fa15fd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/configuration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a7bb56df-18d0-4714-8720-ef2a69ae6042?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/configuration/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c3b5d11d-7c92-4be9-868b-7223eca2f70e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/coretime/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d5593b58-958f-4425-97a8-c2d3a8dd542f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/dmp.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5f39a155-50af-47ac-b7f4-c8226b651456?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/dmp/inbound_downward_queue.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_592ce925-0755-407c-96bc-b55449b8facc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/dmp/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d0da3fb2-0ca7-459a-9c1e-67937c936c7f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/hrmp.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_edb074ef-0b3e-4d90-b905-21bb0f2cba3a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/inclusion/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2cb443eb-84a8-4dbe-bbd0-08e5de3e2d55?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/inclusion/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2f2a664c-dde2-4ed5-8abe-f8c11ff7fe15?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/initializer.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_00e24155-5f86-4c2c-a9e8-2f8bce136071?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/on_demand/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_66178b76-dce5-49c1-b67e-55991e13e80f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/on_demand/migration.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5d4a1fac-d542-4763-8484-ce7e3810db5c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/origin.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0a1e317e-7b9a-4521-80b9-7abe2f5b9e0c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/paras/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3f21f6fb-52ca-4a8b-92ee-f8404c14d3f1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/paras_inherent/mod.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dd08f027-eabc-4acc-b4f0-dff44d6c9f3f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/paras_inherent/misc.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aee3c069-2dcf-44a3-8fe0-2c532fe61bb0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/reward_points.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6d65347c-3aef-4016-b480-512e4c59fd9e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/runtime/parachains/src/scheduler.rs -> Scope: Critical. Contract, precompile, VM, or metering flaw in `substrate/frame/{contracts,revive}/src/**/*` that lets a normal user or contract caller steal funds, corrupt storage, escape intended call context, bypass gas/weight/storage limits, or obtain unauthorized execution'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_05b5cc21-0307-4d1d-bfb3-b4c3227f24f4?mode=deep",
+    "questions_generated": false
+  }
+]
