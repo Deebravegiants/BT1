@@ -1,1 +1,0 @@
-[File: 'substrate/frame/revive/src/metering/mod.rs -> Scope: High'] [Function: FrameMeter::terminate / apply_pending_storage_changes] Can a malicious contract call sequence exploit the documented fix window in `apply_pending_storage_changes` (\
