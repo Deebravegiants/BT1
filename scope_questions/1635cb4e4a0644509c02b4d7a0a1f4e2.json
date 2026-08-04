@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: substrate/frame/nfts/src/types.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7fd5e550-3ad8-4dca-83fd-d38af87a8046?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/approvals.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bd5f343c-4226-435b-adb2-252a5a99d0f8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/atomic_swap.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bbaff22d-b966-4b94-8ee8-7f8dac949bfe?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/attributes.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_db2b2439-a4d4-4a14-ba4b-b8c6dc15c632?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/buy_sell.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ef7222b3-8dce-4286-b474-15d48cecaa64?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/create_delete_collection.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8fd2f2d7-71a3-4317-a758-b9386d1bf679?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/create_delete_item.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cada0962-eb79-4cf9-9549-121dbe2386ce?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/lock.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2fa38abd-bc52-45d5-8e47-ecacb3681328?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/metadata.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7af94e61-7e86-4cd1-852d-36d1251c7725?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/roles.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_eada2662-2d5a-47bc-aa0c-2e3ba2d4bc43?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/settings.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3e2efd60-3816-4a6e-97cc-64e7b1f7c315?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/features/transfer.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_892f5d39-0f00-4098-b3a0-4eda3d87b300?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nfts/src/migration.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_44aeec63-984a-4143-ba91-c12246989f41?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nft-fractionalization/src/lib.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8f057c15-491d-45e8-8bb2-e11a08c36e07?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/nft-fractionalization/src/types.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_31655db9-8694-4ab1-840d-9c0f56de2cdf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/treasury/src/lib.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c7ed0d50-b7e9-4e98-9a62-5c159bb2e9b6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/treasury/src/migration.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bcd6993f-9b65-43cc-b10a-5feb7dc153da?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/lib.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_59ff62de-3778-4b3a-89d9-5b96436c2529?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/address.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3dd5cc3f-4b9b-4a59-ab5e-c8040371f072?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/chain_extension.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bd01062f-a68e-4bd8-a6df-b4b589e5fa45?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/exec.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b8aa998b-e4f5-4bd8-b5de-b4ead952b08d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/gas.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_14125c5c-0431-4073-8071-ec10dfb303be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/primitives.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9fbed279-9ae2-4197-abe6-2db0255fd214?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/schedule.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e565147c-ea6c-4470-93e9-42c60774c4f9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/storage.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ba3dccaa-2d34-431d-ad3c-9c511a12e09c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/transient_storage.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d2077a04-2d63-4b87-af19-df943ec61f18?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/migration.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ee12bbef-deda-42f9-ae68-665a0b2aa0f6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/storage/meter.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_235d48a9-dcd7-41ee-8522-998f17d15cec?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/wasm/mod.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_21a4e3fc-e506-4a3b-968e-cde762a9ecf2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/contracts/src/wasm/prepare.rs -> Scope: Critical. XCM barrier, origin-conversion, asset-transactor, router, fee, or filter bypass in `polkadot/xcm/{pallet-xcm,xcm-builder,xcm-executor,src}/**/*` or `cumulus/pallets/{xcm,xcmp-queue,dmp-queue,parachain-system,weight-reclaim}/src/**/*` allowing a supported user or XCM path to move assets or execute calls it should not reach'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0de42012-ace0-4990-9120-0c79c8b7840f?mode=deep",
+    "questions_generated": false
+  }
+]
