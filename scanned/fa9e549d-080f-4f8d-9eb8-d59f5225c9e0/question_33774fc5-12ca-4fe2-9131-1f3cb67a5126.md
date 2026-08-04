@@ -1,1 +1,0 @@
-[File: cumulus/pallets/parachain-system/src/lib.rs -> Scope: Critical] [Function: Pallet::maybe_drop_included_ancestors] Can a collator (unprivileged) submit a relay-state proof in which `read_included_para_head()` returns `Ok(None)` while the `ConsensusHook::on_state_proof` capacity indicates `is_expecting_included_parent() == false`, triggering the `panic!(\
