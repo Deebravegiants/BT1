@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: substrate/frame/system/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_733776ff-0caf-4eac-b7b5-45a2348563ee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/limits.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_52bee9b5-93f2-4a39-a4f5-7554fb456c51?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/mod.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_77ff84d7-4998-4f38-a62a-09faafa2bbd8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/check_nonce.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_460e9d1d-bd22-47fd-ba25-3cfa920813f5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/check_weight.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0d1e3a92-1078-45e7-853a-2a086cbf58e0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/check_mortality.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e8a80ad1-a5b5-483e-b08c-eb5333cbd796?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/authorize_call.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_813ee1d5-1094-4d1b-88d8-702a140d4763?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/system/src/extensions/weight_reclaim.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b62e92b2-007a-4ecf-b8ca-24b9ba2ec9bb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/transaction-payment/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_babe5a2c-8654-4f2e-bcb7-252496087631?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/transaction-payment/src/payment.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_27f4013e-33ca-4296-be26-a79f2fbc4872?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/transaction-payment/src/types.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_34e977ba-715a-4391-9722-723c06a4422e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/message-queue/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8206c5a6-3557-4a2b-8bc7-343ce109c50f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/scheduler/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_28166ba3-2595-49c4-821a-a7d0caa4fdc8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/scheduler/src/migration.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7a819d1e-8185-4a01-9960-67273adb3105?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/preimage/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f9d120e9-3118-40e1-8258-d2fa97362db0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/preimage/src/migration.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_597a1471-b277-4203-abd8-fa2dde3c856a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/proxy/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a02e2fa3-ca6a-4091-8bb5-ac1c42e42c07?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/multisig/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_36544180-7681-46f8-9e8d-c4451e5fce26?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/multisig/src/migrations.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_65abe90b-0b81-434f-b89c-7deeddca84a1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/utility/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a45dbd08-6c1f-42eb-94d6-c432a901dee0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e6bd43da-2875-413b-aa65-fc1dc07ffd84?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/transaction_validity.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9f42c285-f086-4480-99c1-7da3fb2b529d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/generic/checked_extrinsic.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f3299663-f26e-4aa1-bd7a-d1b6f8bba336?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/generic/unchecked_extrinsic.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9b8f9f63-b89e-4114-b48b-23858f50ce37?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/traits/transaction_extension/mod.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7c6d0595-ee18-47c2-aaf0-29dd629b4bd7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/traits/transaction_extension/dispatch_transaction.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0a59533f-f428-41a4-856c-5aceda0410b1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/runtime/src/traits/transaction_extension/as_transaction_extension.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cf821f74-3a8a-46ba-91b9-73e29a57b02c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/weights/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d0820614-36c2-4ecd-8808-830f62e4b869?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/primitives/weights/src/weight_v2.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9e2f8acd-6a6d-44bd-b3e0-06cdb4a349c5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: substrate/frame/balances/src/lib.rs -> Scope: High. Crafted but valid user input causes a chain-wide or long-lived halt, stuck queue, or unrecoverable service degradation in `substrate/frame/{system,message-queue,contracts,revive}/src/*`, `polkadot/xcm/**/*`, `cumulus/pallets/**/*`, or `polkadot/runtime/parachains/src/**/*` without requiring control of a node, peer, validator, collator, or relayer'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c3688065-af7e-4043-b884-5c65e03c6c84?mode=deep",
+    "questions_generated": false
+  }
+]
