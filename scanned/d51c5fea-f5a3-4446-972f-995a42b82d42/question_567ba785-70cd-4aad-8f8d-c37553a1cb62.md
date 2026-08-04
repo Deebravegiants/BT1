@@ -1,0 +1,1 @@
+[File: polkadot/runtime/common/src/auctions/mod.rs -> Scope: Critical accounting mismatch] [Function: Pallet::check_auction_end / Randomness::random] Can an attacker who controls or predicts `T::Randomness::random(&b\

@@ -1,0 +1,1 @@
+[File: 'cumulus/pallets/parachain-system/src/lib.rs'] [Function: Pallet::maybe_drop_included_ancestors] Can a collator supply a relay chain state proof (`read_included_para_head`) that returns `None` while the runtime's `ConsensusHook::on_state_proof` reports `is_expecting_included_parent() == false`, hitting the `panic!(

@@ -1,0 +1,1 @@
+[File: polkadot/xcm/xcm-builder/src/location_conversion.rs -> Scope: Critical fee/asset filter bypass] [Function: ExternalConsensusLocationsConverterFor::convert_location Ethereum branch] Can an unprivileged attacker craft a remote Ethereum-origin `Location` with an attacker-chosen `tail` slice (e.g., unexpected junction sequence) that collides under `(b\

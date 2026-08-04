@@ -1,0 +1,1 @@
+[File: cumulus/pallets/parachain-system/src/lib.rs -> Function: Pallet::on_initialize / AggregatedUnincludedSegment::append] Can a sequence of parachain blocks authored across the max async-backing unincluded-segment depth, each individually valid, cause `aggregated_segment.append(&ancestor, watermark_update, &total_bandwidth_out).expect(\
