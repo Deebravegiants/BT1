@@ -1,0 +1,1 @@
+[File: cumulus/pallets/parachain-system/src/lib.rs -> Function: Pallet::maybe_drop_included_ancestors] Can a collator that controls the relay-state proof cause `relay_state_proof.read_included_para_head()` to return `None` while the `ConsensusHook` reports `capacity.is_expecting_included_parent() == false`, forcing the `(None, false)` branch to `panic!(\

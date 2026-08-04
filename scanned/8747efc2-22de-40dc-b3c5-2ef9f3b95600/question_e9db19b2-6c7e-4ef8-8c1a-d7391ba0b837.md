@@ -1,0 +1,1 @@
+[File: same scope] [Function: Pallet::on_initialize core_info_exists_at_max_once / CumulusDigestItem::CoreInfo] Can a malicious block author/collator include multiple `CumulusDigestItem::CoreInfo` digest items in a single block header (something a collator fully controls when building the block) to trigger the `panic!(\

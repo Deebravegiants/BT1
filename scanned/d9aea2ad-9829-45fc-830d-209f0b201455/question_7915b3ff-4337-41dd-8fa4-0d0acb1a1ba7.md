@@ -1,0 +1,1 @@
+[File: cumulus/pallets/parachain-system/src/validate_block/implementation.rs -> Function: validate_block, symbol: code_upgrade_detected] Can an unprivileged extrinsic sender who has no `set_code` privilege still trigger the multi-block `panic!(\
