@@ -1,0 +1,1 @@
+[File: substrate/frame/revive/src/impl_fungibles.rs -> Scope: Critical] [Function: `<Pallet<T> as fungibles::Mutate<AccountId>>::burn_from`] Since the out-of-gas / `Err(result)` branch from `Self::bare_call` returns `Err(\

@@ -1,0 +1,1 @@
+[File: cumulus/pallets/parachain-system/src/lib.rs -> Scope: chain-wide halt] [Function: Pallet::<T>::set_validation_data] Can an unprivileged user cause two collator-submitted candidates for the same block height built on the same parent to differ only in included ordinary transactions, yet still trigger the `assert!(!<ValidationData<T>>::exists(), \

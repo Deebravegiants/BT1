@@ -1,0 +1,1 @@
+[File: cumulus/pallets/xcmp-queue/src/migration/mod.rs -> Scope: High] [Function: v3::lazy_migrate_inbound_queue] Can an attacker-controlled sibling parachain send an HRMP message whose payload, once `try_into::<BoundedVec<_, MaxXcmpMessageLenOf<T>>>()` is attempted, exceeds `MaxXcmpMessageLenOf<T>::get()` so that the message is silently dropped (`tracing::error!(\

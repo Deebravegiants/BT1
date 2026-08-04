@@ -1,0 +1,1 @@
+[File: 'substrate/frame/message-queue/src/lib.rs' -> Function: Pallet::bump_service_head / ready_ring_unknit] Can an attacker who only controls XCM message *content* delivered into distinct `MessageOrigin`s (e.g. distinct sibling paras via `TransferOverXcm` responses) craft a set of origins whose `ready_neighbours` linking becomes inconsistent (e.g. via triggering `defensive!(\
