@@ -1,0 +1,1 @@
+[File: substrate/frame/revive/src/impl_fungibles.rs -> Scope: Critical] [Function: `<Pallet<T> as fungibles::Mutate<AccountId>>::burn_from` / `mint_into`] Both functions call `bool::abi_decode_validate(&return_value.data).expect(\
