@@ -1,0 +1,1 @@
+Now let's look at the actual watermark computation logic in `lib.rs`, since that's where `enqueue_inbound_horizontal_messages` and the `check_hrmp_message_metadata` assertion actually live.
