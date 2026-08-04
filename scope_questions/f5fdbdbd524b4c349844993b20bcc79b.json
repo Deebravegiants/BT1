@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/process_transaction.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_de0ab238-f5e1-44be-95ad-f64cbb3cc5cc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/record_xcm.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_91b16e94-6a82-43d9-9e1e-7bce70313c9e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/should_execute.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_11cf7215-fd34-4eb2-805e-cefe2ad980ff?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/token_matching.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c6fa3256-1788-4066-8f69-a84fcc4e1daf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/transact_asset.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_268b1765-5457-467b-b237-77dbebf37124?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/xcm-executor/src/traits/weight.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f027cf0e-9cab-41c6-a996-7bd170dcefdf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/lib.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9783df3b-6c5c-4995-8f52-743bd7a5da28?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/double_encoded.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_69233c15-fcec-412e-96f8-ff9e1da6634b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/mod.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_952ef56c-dce8-410e-baaa-911b4a130706?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/asset.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fa459647-724f-4733-acd4-b1d4d861ebee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/junction.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_74648779-92e4-4358-ac30-81bdab221d49?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/junctions.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b15d0150-2be1-4927-890f-7609571136be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/location.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8fc41894-b7eb-435f-963e-5cd2497b03e7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v5/traits.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e3a7f818-52e9-453b-9e8e-6b409e0ee84e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/mod.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c8f72daa-a045-4c7e-a44c-0648b4d94fbb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/asset.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0c41433a-58d4-491a-8633-725cf56c92be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/junction.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b17b67d3-6383-4e70-88d8-6af676e0ac40?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/junctions.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2b1c60d8-8e66-45f9-8cff-e93d01a0ab9e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/location.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_551ce5c5-9bab-4c45-b0b3-9b1caa482a49?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v4/traits.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_16442323-9271-49da-99dd-e7cdb9f480a7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/mod.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_27da2b30-8629-40bc-a1dd-8d26c7b0c3f3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/junction.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c7b71a2d-580f-4a48-9cde-c1e2ecba7cfc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/junctions.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_947899f5-3c73-42df-8c25-cc324a1227f7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/multiasset.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d549a3b1-3740-43b2-b95b-0cbf6c034f9c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/multilocation.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a8475ce0-6c0e-48c0-9ed1-4960369b7999?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: polkadot/xcm/src/v3/traits.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_424fe139-e94b-4666-a830-efc59112117b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cumulus/pallets/xcm/src/lib.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3948a863-8cdd-427e-b0a5-4ba57fb4bc85?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cumulus/pallets/dmp-queue/src/lib.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_54deb729-bb8c-4d24-93f7-3d68473ac66d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cumulus/pallets/dmp-queue/src/migration.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6376a80c-e5cf-4a82-b032-58ff01a21101?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cumulus/pallets/xcmp-queue/src/lib.rs -> Scope: Critical. Unauthorized mint, burn, withdraw, pool drain, double-claim, lease seizure, or accounting mismatch reachable by a normal user in `substrate/frame/{balances,assets,assets-freezer,asset-conversion,vesting,staking,nfts,nft-fractionalization,treasury}/src/*` or `polkadot/runtime/common/src/{claims,crowdloan,assigned_slots,purchase,paras_registrar,auctions,slots}/*`, causing direct theft, unbacked value, or permanent asset loss/freeze'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_836ea925-bae3-4eda-8497-fd152c882008?mode=deep",
+    "questions_generated": false
+  }
+]
