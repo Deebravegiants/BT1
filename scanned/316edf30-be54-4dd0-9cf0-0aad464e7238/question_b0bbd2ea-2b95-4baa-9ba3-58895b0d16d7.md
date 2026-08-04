@@ -1,1 +1,0 @@
-[File: 'substrate/frame/proxy/src/lib.rs'] [Function: Pallet::pure_account + Pallet::create_pure] Can an unprivileged attacker predict or force a collision in `pure_account`'s derived `AccountId` (via `(b\
