@@ -1,0 +1,1 @@
+[File: cumulus/pallets/parachain-system/src/lib.rs -> Scope: Critical, halting the outbound message queue] [Function: Pallet::on_finalize / AggregatedUnincludedSegment::append] Can a normal user whose XCM sends are aggregated across multiple parachain blocks within one unincluded segment (async backing) cause the `.expect(\

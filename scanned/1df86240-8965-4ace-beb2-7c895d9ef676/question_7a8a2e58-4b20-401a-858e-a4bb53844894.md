@@ -1,0 +1,1 @@
+[File: substrate/frame/message-queue/src/lib.rs -> Scope: High stuck queue] [Function: Pallet::process_message_payload] Given `T::MessageProcessor` routes to pallet_revive's fungibles adapter, can a message whose contract call deterministically returns `ProcessMessageError::Yield` (mapped from `mint_into`/`burn_from`'s `Err(\

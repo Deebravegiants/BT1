@@ -1,0 +1,1 @@
+[File: 'substrate/frame/revive/src/metering/storage.rs' -> Scope: Critical] [Function: RawMeter::execute_postponed_deposits / coalescing charges] Can a contract orchestrate multiple sub-contracts such that the charge-coalescing logic (sorting/merging `Charge` entries by `contract`, handling `Alive`+`Terminated` transitions) is driven into the `debug_assert!(false, \
