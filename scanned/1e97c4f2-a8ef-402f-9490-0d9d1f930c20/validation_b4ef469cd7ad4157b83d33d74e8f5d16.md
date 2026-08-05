@@ -1,1 +1,0 @@
-Let me find the actual `cancel_as_multi` function body to confirm the check.
