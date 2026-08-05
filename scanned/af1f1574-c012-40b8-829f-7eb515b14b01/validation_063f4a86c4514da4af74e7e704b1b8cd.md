@@ -1,1 +1,0 @@
-Now let me find the actual dispatchable `cancel`/`cancel_named` extrinsics that call these `do_cancel*` functions with `origin` derived from `T::ScheduleOrigin`.
