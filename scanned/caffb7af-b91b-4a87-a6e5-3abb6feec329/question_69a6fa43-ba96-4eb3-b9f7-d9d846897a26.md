@@ -1,0 +1,1 @@
+[File: 'bucket_map/src/index_entry.rs -> Scope: High.'] [Function: MultipleSlots::set_storage_offset] Can an attacker-driven sequence of account writes produce a storage_offset that is one bit below the 7-byte (56-bit) boundary being retried after a failed grow (per the `.expect(\

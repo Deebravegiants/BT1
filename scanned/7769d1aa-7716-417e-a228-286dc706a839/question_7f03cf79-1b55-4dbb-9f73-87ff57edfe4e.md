@@ -1,0 +1,1 @@
+[File: 'File Name: transaction-status-client-types/src/lib.rs -> Scope: Critical.'] [Function: UiTransactionError round-trip (Serialize/Deserialize impls)] Can an unprivileged attacker craft a transaction producing a `TransactionError::InstructionError(_, InstructionError::BorshIoError(..))` whose v2/v3 compatibility shim (`instruction_error.get(\
