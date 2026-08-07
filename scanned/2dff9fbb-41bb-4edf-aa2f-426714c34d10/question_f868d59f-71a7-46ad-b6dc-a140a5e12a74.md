@@ -1,0 +1,1 @@
+[File: 'compute-budget-instruction/src/builtin_programs_filter.rs' -> Scope: Critical] [Function: BuiltinProgramsFilter::get_program_kind] Can an unprivileged attacker craft a transaction whose static account keys and ALT-resolved keys produce a `program_id_index` value equal to or greater than `FILTER_SIZE` (256) when passed into `get_program_kind`, triggering the `.expect(\

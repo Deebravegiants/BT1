@@ -1,0 +1,1 @@
+[File: 'File Name: accounts-db/src/accounts_cache.rs -> Scope: High.'] [Function: AccountsCache::remove_slot / AccountsCacheIndex::remove] Can an unprivileged attacker, by causing rapid slot churn (many transactions triggering `remove_slot` for unrooted slots), trigger the `panic!(\

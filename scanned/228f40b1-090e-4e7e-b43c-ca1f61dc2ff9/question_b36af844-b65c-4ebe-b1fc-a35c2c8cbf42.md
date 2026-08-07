@@ -1,0 +1,1 @@
+[File: 'accounts-db/src/accounts_db/accounts_db_config.rs' -> Scope: Critical] [Function: AccountsDb::update_candidate_after_reclaims] Can an attacker interleave account closes and reopens of a single pubkey across slots so that `candidate_info.ref_count.checked_sub(reclaims.len() as RefCount).expect(\

@@ -1,0 +1,1 @@
+[File: accounts-db/src/account_locks.rs -> Scope: Critical] [Function: unlock_write/unlock_readonly debug_assert! behavior in release vs debug] Can an unprivileged attacker exploit the fact that `debug_assert!(false, ...)` in unlock_readonly/unlock_write is a no-op in release builds (the default for mainnet validators) to intentionally trigger the
