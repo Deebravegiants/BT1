@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: core/src/banking_stage/committer.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ef3af3ab-2d93-42d5-b7fa-87a5f0f87fb5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/consume_worker.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1454f756-28c5-4d12-92d7-869aca8e619c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/consumer.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3b61455e-e194-4874-8834-799cb11484f2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/decision_maker.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a56dda52-b374-484b-b5b9-16dce0a1f98f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/latest_validator_vote_packet.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_39e17b39-0c0c-4b99-8e2b-af1f6e215d75?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/leader_slot_metrics.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4875d200-bf21-4eca-b6e8-58a1b67876f5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/leader_slot_timing_metrics.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_589cd6c7-b382-4176-a216-f282ca793565?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/progress_tracker.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_339d37eb-f2f8-4ee5-8ce2-c5b066ddaf44?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/scheduler_messages.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ce7abd7b-56af-45c0-8f6b-6df26d0d52b4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/tpu_to_pack.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_570f0b61-8765-4b6a-abd9-d78e513bffa9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/batch_id_generator.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_307fcec9-a033-4a00-87a7-a4d748fae28c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/greedy_scheduler.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_51f81d3f-bb6b-4fbe-81d2-f0e0a82ef982?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/in_flight_tracker.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b4ca2c88-ed9f-4277-801a-3f4c7e2bf4c5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/mod.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5658d9c2-6940-40a6-85a7-d2dac88cb897?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/receive_and_buffer.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c8d4ca95-1c99-438b-8537-4833161621fc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/scheduler.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1c0905bd-6717-4c39-9b76-a35c98c80658?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/scheduler_common.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1d22ae1f-c915-4568-b98d-b0afd9f62e42?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/scheduler_controller.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_97db8101-47a7-4833-a631-9e38a17070fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/scheduler_error.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7930e99a-05a4-4104-902d-713cb1950f5c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/scheduler_metrics.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6a8cb3a7-d0c8-4e41-b91a-64d4b3d538de?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/transaction_priority_id.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_952eb28b-cbb9-4f10-90bc-3514d9531e8a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/transaction_state.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aea32e22-eb02-40ae-9d84-042f75eef9e6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/transaction_state_container.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f65d64b6-9e6e-46a4-908a-07790b79a009?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/vote_packet_receiver.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8acd72aa-93b7-4275-a0fa-f9d10784f980?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/vote_storage.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_de90b16e-8b45-4ed1-a945-6ff3b8a150e5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/vote_worker.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c6e69f14-65a6-4147-b210-f779ae83b62d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_947ab504-aefe-4e58-bf28-11163905e954?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_trace.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8a4912a9-a152-43a7-81a3-ff3585e15edd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/cluster_info_vote_listener.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c9eedf3f-3661-4315-a4b8-dd35ea420f39?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/cluster_slots_service/cluster_slots.rs -> Scope: High. An unprivileged attacker can bypass account-lock, reserved-key, writable-declaration, or loaded-accounts-data-size limits and write to or read state the transaction never declared or paid for.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9d4401a2-6a01-4ace-8e81-74990aad657e?mode=deep",
+    "questions_generated": false
+  }
+]
