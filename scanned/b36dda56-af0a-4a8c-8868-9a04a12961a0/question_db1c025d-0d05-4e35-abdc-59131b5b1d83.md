@@ -1,0 +1,1 @@
+[File: banks-client/src/error.rs -> Scope: Critical] [Function: BanksClientError::unwrap] Can an unprivileged attacker craft a VersionedTransaction whose processing path returns a BanksClientError::ClientError or BanksClientError::Io/RpcError variant instead of TransactionError/SimulationError, such that a naive caller invoking BanksClientError::unwrap() hits the `panic!(\

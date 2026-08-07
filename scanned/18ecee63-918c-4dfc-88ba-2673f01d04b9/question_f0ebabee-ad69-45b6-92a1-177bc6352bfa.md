@@ -1,0 +1,1 @@
+[File: 'runtime/src/installed_scheduler_pool.rs' -> Scope: High] [Function: SchedulerStatus::active_scheduler / schedule_transaction_executions error-recovery race] Can an attacker exploit the documented non-atomicity between the read-lock schedule attempt and the write-lock error retrieval (\
