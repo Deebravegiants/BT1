@@ -1,0 +1,1 @@
+[File: 'transaction-status-client-types/src/lib.rs' -> Scope: Critical] [Function: impl From<TransactionTokenBalance> for UiTransactionTokenBalance (owner/program_id empty-string sentinel)] Can an attacker whose SPL token account legitimately has an owner or program_id that serializes to an empty string (or an attacker-controlled string equal to

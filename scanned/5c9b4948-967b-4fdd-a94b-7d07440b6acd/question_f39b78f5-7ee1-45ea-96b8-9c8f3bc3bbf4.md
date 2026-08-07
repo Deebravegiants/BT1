@@ -1,0 +1,1 @@
+[File: 'bucket_map/src/index_entry.rs -> Scope: Critical'] [Function: IndexEntryPlaceInBucket::occupy_if_matches] Can an attacker submit rapid concurrent transactions that create/close/recreate the same account (same pubkey) so that two writers race on `occupy_if_matches`, hitting the `assert_eq!(enum_tag, OccupiedEnumTag::Free, \

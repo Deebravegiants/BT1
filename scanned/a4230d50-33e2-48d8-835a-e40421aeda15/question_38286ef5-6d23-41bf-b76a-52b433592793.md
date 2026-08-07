@@ -1,0 +1,1 @@
+[File: 'bucket_map/src/index_entry.rs -> Scope: Critical'] [Function: PackedStorage::set_offset_checked / MultipleSlots::set_storage_offset] Can an attacker drive the bucket-map data storage past 2^56 total offset capacity (via sustained account churn across a long-running validator) so that `set_offset_checked` fails/panics (`expect(\

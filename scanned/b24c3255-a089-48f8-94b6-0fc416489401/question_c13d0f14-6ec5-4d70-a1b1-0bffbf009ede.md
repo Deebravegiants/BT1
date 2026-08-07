@@ -1,0 +1,1 @@
+[File: 'program-runtime/src/vm.rs' -> Scope: Critical] [Function: configure_program_regions] Can an attacker-controlled program cause `MemoryMapping::get_regions_mut()` to return fewer than three regions when combined with account-list manipulations (e.g., maximum-size ALT-resolved account list or zero writable accounts), triggering the `panic!(\
