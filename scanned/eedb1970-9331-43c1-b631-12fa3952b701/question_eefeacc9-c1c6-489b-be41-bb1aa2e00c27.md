@@ -1,0 +1,1 @@
+[File: 'program-runtime/src/vm.rs' -> Scope: Critical] [Function: create_vm! macro / MEMORY_POOL::get_stack,get_heap] Can an attacker submit a transaction invoking a program whose `Executable::get_config().stack_size()` or the feature-derived `heap_size` mismatches the slice length returned by `VmMemoryPool::get_stack`/`get_heap`, causing the `.expect(\

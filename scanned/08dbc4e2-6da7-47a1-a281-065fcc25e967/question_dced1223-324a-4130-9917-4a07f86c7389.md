@@ -1,0 +1,1 @@
+[File: 'program-runtime/src/lib.rs' -> Scope: Critical consensus halt] [Function: invoke_context::InvokeContext::process_message / prepare_top_level_instructions] Can an unprivileged attacker craft a message whose instruction.accounts index list, when passed through transaction_callee_map (indexed by u16, capped at MAX_ACCOUNTS_PER_TRANSACTION), triggers the `.expect(\
