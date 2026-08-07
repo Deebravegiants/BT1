@@ -1,0 +1,1 @@
+[File: 'accounts-db/src/accounts_db/stats.rs' -> Scope: replay via NonceInfo::try_advance_nonce dev-utils divergence] [Function: NonceInfo::try_advance_nonce vs TransactionBatchProcessor::validate_transaction_nonce production path] Since try_advance_nonce is gated behind `#[cfg(feature =
