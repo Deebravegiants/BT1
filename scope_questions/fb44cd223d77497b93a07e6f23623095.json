@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: perf/src/data_budget.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5f2d06a0-f6cc-48a6-a33f-f322421cb515?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: perf/src/deduper.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fbc3cb1a-7a54-4b84-a015-e9d0c66f8804?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: perf/src/lib.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_88c69364-26f2-4fbe-ba75-a3173cdbea86?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: perf/src/packet.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5ae242bc-5951-47ed-a299-47b3cf64fb8a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: perf/src/recycled_vec.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c82623fb-bf3f-4e2e-aa74-370b5d401b24?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: perf/src/recycler.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_94e37677-c56e-448a-9010-aa94c3949e18?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: perf/src/sigverify.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e78cf30f-ebf8-4850-b2c7-6efb6db98234?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: perf/src/thread.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f9f57ec8-cf43-416c-86dc-ecfa2fde39fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: poh/src/lib.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c65fdecf-1166-42e3-97bb-56e84702bd69?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: poh/src/poh_controller.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f45c2863-de50-499a-bc55-3b0fa9533fcb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: poh/src/poh_recorder.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ff68f70a-4ad1-4295-9b20-5c39cd4f750b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: poh/src/poh_service.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c0f24680-fb5f-41ec-90be-de4525d0e7f5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: poh/src/record_channels.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1378c110-bce0-43e1-987d-67c31d57c819?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: poh/src/transaction_recorder.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a5b17b17-3a5e-4d3d-aa8a-fde6b1ca5a84?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: quic-client/src/lib.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ea8b9470-6048-4b7f-9439-8e365ba665f7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: quic-client/src/nonblocking/mod.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5ec16466-17fa-4dee-b7f8-2276b87a1979?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: quic-client/src/nonblocking/quic_client.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_10635570-f47e-4b1f-b4dd-a7c25fa5959b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: quic-client/src/quic_client.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9c470268-ba04-41f1-8bdb-e75c40a54906?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: scheduling-utils/src/error.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d9bdcf96-2ea8-4d1f-a5ae-76b39aff25f2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: scheduling-utils/src/lib.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3d6ca468-1d33-4902-bc33-8623087694fd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: scheduling-utils/src/pubkeys_ptr.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c591997a-dcd1-440c-94a1-f33fa0f59186?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: scheduling-utils/src/responses_region.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_17a7ed13-5061-4b86-9c25-7c4fc621a608?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: scheduling-utils/src/thread_aware_account_locks.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_01516549-4e7a-464c-a597-9f05b709f0af?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: scheduling-utils/src/transaction_ptr.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6dd877d0-7393-439b-9968-e8a22ac22f31?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: streamer/src/evicting_sender.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f9035d67-3ffe-415d-b42b-ff5baad64560?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: streamer/src/lib.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e14244fb-25cf-4435-9fc2-b4ea79e45998?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: streamer/src/msghdr.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8c577a78-d879-4b91-99c9-faa97add27e2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: streamer/src/nonblocking/connection_rate_limiter.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b4cb1356-e562-4540-afed-109056a56ef8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: streamer/src/nonblocking/mod.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_077e390d-496a-4e79-9577-0f5f2eae3caf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: streamer/src/nonblocking/qos.rs -> Scope: Critical. An unprivileged attacker can send a valid-looking transaction that panics, overflows, aborts, or wedges banking/replay on every node, halting consensus until human intervention.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_77f60f1f-c484-40ab-a1f0-bdd2b186caed?mode=deep",
+    "questions_generated": false
+  }
+]
