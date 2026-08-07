@@ -1,1 +1,0 @@
-[File: 'File Name: runtime/src/inflation_rewards/mod.rs -> Scope: Critical'] [Function: calculate_stake_rewards, final u64::try_from(rewards)] Can an attacker construct a stake/vote pair such that the computed `rewards` value (u128, before `u64::try_from(rewards).expect(\
