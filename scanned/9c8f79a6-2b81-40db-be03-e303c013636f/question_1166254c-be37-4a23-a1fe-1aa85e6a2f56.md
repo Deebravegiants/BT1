@@ -1,0 +1,1 @@
+[File: 'storage-bigtable/src/lib.rs -> Scope: High'] [Function: StoredConfirmedBlock (frozen_abi digest) deserialization via default_on_eof] Can an unprivileged attacker who controls the confirmed block content (e.g. via a downstream ingestion path that trusts client-submitted metadata) exploit `#[serde(deserialize_with =

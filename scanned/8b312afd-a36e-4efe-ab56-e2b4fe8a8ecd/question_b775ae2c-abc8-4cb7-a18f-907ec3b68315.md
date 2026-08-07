@@ -1,0 +1,1 @@
+[File: core/src/repair/cluster_slot_state_verifier.rs -> Scope: Critical] [Function: apply_state_changes] Can an unprivileged attacker submit a sequence of transactions across two slots that causes fork_choice.is_duplicate_confirmed(&(slot, bank_frozen_hash)) to return None for a bank recorded as ResultingStateChange::BankFrozen, tripping the .expect(\

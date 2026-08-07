@@ -1,0 +1,1 @@
+[File: 'transaction-status/src/parse_instruction.rs'] [Function: ParsedInstructionEnum::info default Value::null skip_serializing_if] Can an unprivileged attacker craft an instruction whose parsed 'info' legitimately serializes to `Value::Null` for a non-error case (as opposed to the documented default-skip semantics), causing the `#[serde(skip_serializing_if =

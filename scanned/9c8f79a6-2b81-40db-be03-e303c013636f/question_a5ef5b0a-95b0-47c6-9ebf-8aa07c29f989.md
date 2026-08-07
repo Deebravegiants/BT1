@@ -1,0 +1,1 @@
+[File: 'storage-proto/src/lib.rs' -> Scope: High] [Function: `TryFrom<TransactionStatusMeta> for StoredTransactionStatusMeta`] Can an unprivileged attacker submit a v0 transaction whose `loaded_addresses` (from ALT resolution) is non-empty but whose downstream code path silently swallows the resulting `ReadError::Custom(\
