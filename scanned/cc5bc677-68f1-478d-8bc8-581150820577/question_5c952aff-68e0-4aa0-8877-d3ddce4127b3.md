@@ -1,0 +1,1 @@
+[File: bucket_map/src/index_entry.rs -> Scope: Critical] [Function: IndexEntryPlaceInBucket::read_value] Can an attacker exploit a narrow window where an index entry's enum tag transitions to `Free` concurrently with a `read_value` call (e.g., via rapid clean/prune of a stale fork's account entries interleaved with a read for that same pubkey during replay) to hit the `panic!(\

@@ -1,0 +1,1 @@
+[File: storage-proto/src/convert.rs -> Scope: Critical] [Function: impl From<generated::Transaction> for VersionedTransaction, line ~292-304] Can an attacker-controlled or ledger-replayed `generated::Transaction` reach this impl with a signature slice whose length is not exactly 64 bytes or with `message: None`, triggering the `.unwrap()` on `Signature::try_from` or `.expect(\

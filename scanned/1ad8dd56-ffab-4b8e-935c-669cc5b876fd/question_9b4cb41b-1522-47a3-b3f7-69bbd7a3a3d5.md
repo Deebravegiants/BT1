@@ -1,0 +1,1 @@
+[File: transaction-status/src/parse_bpf_loader.rs -> Scope: Critical] [Function: parse_bpf_upgradeable_loader] Can an attacker submit a DeployWithMaxDataLen instruction where instruction.accounts.len() == 8 (satisfying check_num_bpf_upgradeable_loader_accounts) but max_data_len is a malicious huge u64 near u64::MAX, causing serde_json::json!({\

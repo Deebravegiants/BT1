@@ -1,0 +1,1 @@
+[File: builtins/src/prototype.rs -> Scope: Critical] [Function: BuiltinPrototype::register_fn via ProgramCacheEntry::new_builtin] Can an unprivileged attacker who triggers a feature activation path (e.g. by driving cluster time forward with ordinary transactions) cause `register_fn(&mut program, \

@@ -1,0 +1,1 @@
+[File: bucket_map/src/bucket_storage.rs -> Function: BucketStorage::new_with_capacity / Capacity::capacity_pow2] Can a bucket forced to resize via `Capacity::Actual(elements)` (used during restart-file-driven bucket sizing) ever be passed into a code path that calls `capacity_pow2()` on it, triggering the `panic!(\
