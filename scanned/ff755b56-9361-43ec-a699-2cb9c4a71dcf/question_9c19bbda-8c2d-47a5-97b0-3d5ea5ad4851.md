@@ -1,0 +1,1 @@
+[File: 'syscalls/src/logging.rs -> Scope: High.'] [Function: SyscallLogData::rust] Does the per-field charge model (`syscall_base_cost * num_fields` + `sum(field.len())`) accurately upper-bound the real cost of stable_log::program_data, which performs BASE64_STANDARD.encode(v) (≈4/3 byte expansion) and an itertools .join(\

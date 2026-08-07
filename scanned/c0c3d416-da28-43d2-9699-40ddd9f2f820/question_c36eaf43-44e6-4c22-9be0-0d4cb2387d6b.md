@@ -1,0 +1,1 @@
+[File: 'runtime/src/leader_schedule_utils.rs'] [Function: leader_schedule -> Bank::epoch_schedule().get_slots_in_epoch] Can an unprivileged attacker trigger a bank state (via legitimate transactions altering total stake/epoch configuration reachable at runtime, if any) where `epoch_schedule.get_slots_in_epoch(epoch).try_into().expect(\

@@ -1,0 +1,1 @@
+[File: accounts-db/src/append_vec.rs -> Scope: Critical] [Function: AppendVec::next_account_offset] Can an unprivileged attacker submit a sequence of transactions (e.g. repeated CPI account resizes up to MAX_PERMITTED_DATA_LENGTH, or many small accounts in one slot) whose resulting StoredMeta.data_len values cause STORE_META_OVERHEAD.checked_add(data_len).expect(\
