@@ -1,1 +1,0 @@
-[File: 'File Name: runtime/src/bank/partitioned_epoch_rewards/distribution.rs -> Scope: High.'] [Function: Bank::store_stake_accounts_in_partition] Can an unprivileged attacker cause `partition_rewards.all_stake_rewards.get(*index)` or `partition_rewards.partition_indices.get(partition_index as usize)` to be reached with data that panics (`panic!(
