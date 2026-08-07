@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: runtime/src/snapshot_package/compare.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f58e3139-5f57-4bc2-8611-b0c29f15ec54?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/snapshot_package.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ec4955e7-ac0f-4462-8dac-119001b56a67?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/snapshot_utils/snapshot_storage_rebuilder.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_757db74e-3474-41ca-a011-5afcf2a2ead8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/snapshot_utils.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_01e4009f-8382-4c9b-b197-f22fb9c349db?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/stake_account.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c66a2070-0640-465f-946c-a9f5b8057e0c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/stake_delegation.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0bee7d12-cab5-472e-921e-d669d66f6600?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/stake_history.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f539e0df-d159-4eb8-8e98-3c849922d453?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/stake_utils.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dc3674df-3af1-4442-90db-c0817d890207?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/stake_weighted_timestamp.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d8133952-1640-467e-a6a3-b56cdf52832e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/stakes/serde_stakes.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_228b741f-fd07-4829-8de7-432608af7543?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/stakes.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dd59be3a-059b-4d56-8de0-e80ecc8b6600?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/static_ids.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_79f004d3-90de-4a21-84d6-35d550d375aa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/status_cache.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b6294fe6-0023-43e0-8952-ed7ede2d1c29?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/sysvar_account.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8f523249-3a03-406a-9ef8-a87783de8f1c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/transaction_balances.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_30fc329a-3aae-44a6-8196-cdebb2525ef7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/transaction_batch.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_83d177fb-4e49-4777-9ffc-602f19b17fe2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/transaction_execution.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8f7acd51-9d79-4f95-8b9d-9dfcace43c99?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/src/vote_sender_types.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5d17657a-b85a-421e-a45e-4683baf72b76?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/admin_rpc_service.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_30f5293f-6b80-4f9a-a84c-730f76007a25?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/bootstrap.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_24dd715c-b834-4481-9261-d6321be0de07?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/cli/thread_args.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a4c65d65-180a-4624-9fa1-6c5b7603e01e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/cli.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_877c0024-7376-439d-9d9b-f271ebeca28e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/commands/authorized_voter/mod.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_eb5427ad-0cb8-4ca1-8163-313cab1db23f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/commands/blockstore/mod.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_574964f2-fd19-4b76-9bf6-a6269643d942?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/commands/contact_info/mod.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a242bc99-e279-48d0-9b64-2c093cd58dc8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/commands/exit/mod.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_80f644d5-08ef-4907-b18f-597e30b9fc87?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/commands/manage_block_production/mod.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_455c0782-0ece-42f0-ab33-20a65fd86c42?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/commands/mod.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3f7eb4df-0660-4992-836d-cdb3881b770a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/commands/monitor/mod.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2d78483a-a005-42d6-93ba-f1e146b8fbb4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: validator/src/commands/plugin/mod.rs -> Scope: Critical. An unprivileged attacker can replay or double-apply one signed transaction through durable-nonce advance, blockhash-queue aging, or status-cache dedup so a single authorization settles more than once.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_165d6df5-d31a-4409-b5e6-cbb63057576e?mode=deep",
+    "questions_generated": false
+  }
+]
