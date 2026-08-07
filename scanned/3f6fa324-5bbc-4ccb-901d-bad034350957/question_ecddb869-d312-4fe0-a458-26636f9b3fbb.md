@@ -1,1 +1,0 @@
-[File: poh/src/poh_controller.rs -> Scope: Critical] [Function: PohServiceMessageGuard::drop] Is there any code path in `PohService::handle_service_message` reachable via attacker-influenced bank state (e.g., a bank frozen mid-record due to a malicious transaction) where the guard is dropped without `take()` being called, triggering the `panic!(\
