@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: builtins-default-costs/src/lib.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f77eecd7-2e43-45f3-aba8-085c96ed86cc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: compute-budget/src/compute_budget.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_541df8ae-aa75-4499-9192-947071cc88f3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: compute-budget/src/compute_budget_limits.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8d47ad81-413b-4157-b6c1-4a6646977162?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: compute-budget/src/lib.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0fd9eb79-5dcf-4714-8bd8-b4506ff7b8fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: compute-budget-instruction/src/builtin_programs_filter.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_981a6a4f-4c75-4ac0-94e4-c059f67a1fa5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: compute-budget-instruction/src/compute_budget_instruction_details.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cf6b343a-dbad-4cb9-8799-196d0d34de91?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: compute-budget-instruction/src/compute_budget_program_id_filter.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ccc4bf23-b5c4-4c96-abf8-e2b16b9a497a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: compute-budget-instruction/src/instructions_processor.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_91a3c3a0-856e-4247-98ac-88c07dde8e84?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: compute-budget-instruction/src/lib.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4a51f67f-c245-4fd4-9844-3fd255a00f6e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cost-model/src/block_cost_limits.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e971db14-ab1a-49f4-9c1a-aac6631ab9b3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cost-model/src/cost_model.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_caa62393-e3e4-43df-9cbd-a8d6a0d996fe?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cost-model/src/cost_tracker.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1cc42c46-023a-47be-a5d1-77f4859cb296?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cost-model/src/cost_tracker_post_analysis.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f7417a87-7c4b-4753-8b1c-a8d2d131bca6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cost-model/src/lib.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5776fd1f-bbea-4d5c-91f7-bdfd2a0a06aa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cost-model/src/shred_limit.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d0b07df0-019a-4696-af32-9204bfb40b9c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cost-model/src/transaction_cost.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d11cc783-a938-45cb-b917-8f7f3233d5a0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: feature-set/src/lib.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_54930f05-cb43-4203-8ac9-4f9cb311997f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: fee/src/lib.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f78ecc2f-461a-4318-84b3-f379d8546a1a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: reserved-account-keys/src/lib.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b88f1ba2-6fe6-46df-8b95-9e1528f2e9de?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime-transaction/src/instruction_data_len.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_33543a9e-9b48-453b-8c43-8427c08f26de?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime-transaction/src/instruction_meta.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b0f05d83-0d4e-4f1d-aa83-c51fd1d20cb2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime-transaction/src/lib.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e118271c-0a0e-40da-8034-b77c82ee1e05?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime-transaction/src/runtime_transaction/sdk_transactions.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ceeedaef-84d0-44a4-8fef-f5aea8ada7be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime-transaction/src/runtime_transaction/transaction_view.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_92924a33-a5b7-4341-a6f0-b54e595c012c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime-transaction/src/runtime_transaction.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_72eb8f85-b3c2-4d78-84dd-40d18aad0cac?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime-transaction/src/sanitize_config.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_84733c6c-d76c-41ec-a85e-dd4cd5e22f3b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime-transaction/src/signature_details.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b481d546-cdeb-4d25-8aa3-42d7e1f1a1ec?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime-transaction/src/transaction_meta.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6f61c3c8-320f-4abd-84f0-233c8e43af6c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime-transaction/src/transaction_with_meta.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cf2a0a0a-39be-4ef0-bfd3-315f8864cc16?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: svm/src/account_loader.rs -> Scope: Critical. An unprivileged attacker can craft a transaction whose fee, rent, rollback, or balance-commit accounting in the SVM lifecycle moves, mints, duplicates, or destroys lamports the signer does not own.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4bde9b6e-4886-4393-a635-fc0d2326fc0a?mode=deep",
+    "questions_generated": false
+  }
+]
