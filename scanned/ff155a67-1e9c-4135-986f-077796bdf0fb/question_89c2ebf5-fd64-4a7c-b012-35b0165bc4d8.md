@@ -1,1 +1,0 @@
-[File: transaction-status/src/parse_system.rs -> Scope: Critical] [Function: parse_system, SystemInstruction::CreateAccount / CreateAccountWithSeed] Can an attacker set `lamports: u64::MAX` and `space: u64::MAX` in a `CreateAccount`/`CreateAccountWithSeed` payload such that `json!({
