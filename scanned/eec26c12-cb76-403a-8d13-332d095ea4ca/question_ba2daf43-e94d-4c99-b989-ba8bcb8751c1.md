@@ -1,0 +1,1 @@
+[File: 'scheduling-utils/src/thread_aware_account_locks.rs' -> Scope: Critical] [Function: ThreadAwareAccountLocks::write_lock_account / write_unlock_account entry.remove()] Can an attacker force the `locks: AHashMap<Pubkey, AccountLocks>` to retain a stale entry violating the documented invariant \
