@@ -1,0 +1,87 @@
+[
+  {
+    "question": "'File Name: turbine/src/cluster_nodes.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b1b24f97-fdf5-4ef3-ba7c-7965c2aa0d98?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: turbine/src/lib.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_54109232-1fe8-4840-b970-3851bfc60f4b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: turbine/src/retransmit_stage.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_45ceb082-4c61-49cb-af14-54e99b8026c4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: turbine/src/sigverify_shreds.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_09a48abe-5592-43b8-bb64-783cb640f245?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cpu-utils/src/affinity.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8b2c2867-0da3-423a-8e7f-67a1ab780a11?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: cpu-utils/src/lib.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1696e007-df38-406c-8366-10d3635b85f7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: logger/src/lib.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ad4bff2a-352e-45bf-83f2-99f1292b5db1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: math-utils/src/lib.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dd27e63d-107f-4bba-b76f-7d47022181cc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: math-utils/src/welford_stats.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_88b2df5e-85cb-4e4c-a2b5-8c9fce1f2914?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: measure/src/lib.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2eef2816-ec8e-42ef-a12e-093547ff9810?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: measure/src/macros.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a807c306-80d5-4eea-b535-0693c9b64584?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: measure/src/measure.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7fd725e6-44d0-4b29-b23e-bae0f7079fa0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: notifier/src/lib.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_41b82024-1ab7-4501-bf46-8cf1bb37bc67?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: random/src/lib.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_43f18a71-c713-49e5-a231-009caccddfa8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: random/src/range.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dd44dfe7-a89c-4cfe-b091-33279ca4c2ba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: random/src/weighted.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7e0e5c88-dae3-4148-9f72-8f5748d8aec6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: rayon-threadlimit/src/lib.rs -> Scope: Critical. An unprivileged attacker can submit a transaction whose loading, sanitization, ALT resolution, or execution result differs between honest validators, causing bank-hash divergence, a fork, or an unbootable ledger replay.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_169561f9-cfcd-4f2b-aaf5-b9a02525e9ad?mode=deep",
+    "questions_generated": false
+  }
+]
