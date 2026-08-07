@@ -1,1 +1,0 @@
-[File: 'File Name: vote/src/vote_account.rs -> Scope: Critical.'] [Function: VoteAccounts::do_sub_node_stake] Can an unprivileged attacker drive Stakes bookkeeping (via repeated delegate/undelegate to two different vote accounts sharing the same node_pubkey) into a state where do_sub_node_stake's `.expect(\
