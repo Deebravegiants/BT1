@@ -1,1 +1,0 @@
-[File: bucket_map/src/index_entry.rs -> Scope: Critical] [Function: MultipleSlots::set_storage_offset / PackedStorage::set_offset_checked] Can an attacker force `num_slots`/refcount growth to produce a `storage_offset` value at or beyond `1 << 56` (7-byte B56 field), causing `set_offset_checked` to panic (`expect(\
