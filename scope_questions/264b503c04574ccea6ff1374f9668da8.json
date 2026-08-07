@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: core/src/banking_stage/committer.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_47902c1b-be6e-4d30-9b43-7658d521ca18?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/consume_worker.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6ff56e18-1ed9-4f1c-87e4-13da0ffeb0a0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/consumer.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_baa0c61a-e87f-44c5-8ce1-2d65efc827ba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/decision_maker.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fd104ea5-bdd8-4937-b5f8-1355f8b8a916?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/latest_validator_vote_packet.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_95cd8496-7c3f-40e7-b597-1713e90c95b5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/leader_slot_metrics.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c00bc113-a475-4804-9f9e-9e4821ae907b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/leader_slot_timing_metrics.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fe6c8719-4094-41dd-8744-4c5769c6451f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/progress_tracker.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_346028bb-323b-4af6-a990-5afd6c315b68?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/scheduler_messages.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ff6f35c0-f3a3-46b9-addb-5b735f13bfa5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/tpu_to_pack.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_da560339-8775-474b-8ada-f01ebc5cddcc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/batch_id_generator.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_af91cc53-4332-48ea-8eac-802d752ce065?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/greedy_scheduler.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9b664db5-7a4d-4498-94fd-31fbd1394486?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/in_flight_tracker.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7b30467d-f82e-433f-8026-78c430ba1882?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/mod.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f3318ef6-9a28-4e0b-90a2-65a1c023c0ef?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/receive_and_buffer.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b0add6eb-c400-4d68-a063-6e10469c4130?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/scheduler.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a98f47a6-9f01-49b2-b378-5623aa506fb3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/scheduler_common.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9a92dbb9-a8ba-44e8-9b95-35771cba9063?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/scheduler_controller.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a9664173-2784-4d12-9fa8-98b7b40cf220?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/scheduler_error.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_98c1f7ac-0ae4-440e-8c7a-7efb6af6ad2b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/scheduler_metrics.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_46224eea-9c08-4035-b64e-7d9b8b882c62?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/transaction_priority_id.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c8289f42-7b0e-401d-9691-d2018ecda15f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/transaction_state.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9099e874-0380-4ad8-a6b9-8fe3a6ca8155?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/transaction_scheduler/transaction_state_container.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0d941ec9-148e-4dfe-8518-f851fc574f87?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/vote_packet_receiver.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9e921c78-6c71-4b19-a2cf-9a54c0895769?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/vote_storage.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_45cdd0fb-4e74-41d7-a041-b57911fd568b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage/vote_worker.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4bb6a5ed-9f18-488d-b714-807e976ec196?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_stage.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a1c83e8c-0362-4a50-9ebb-cd4b5bc9d0a9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/banking_trace.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e17c1559-7b48-43c5-950b-ede76410cd6d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/cluster_info_vote_listener.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_baf31adf-db9b-4b74-a5d3-a639e4caf764?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/src/cluster_slots_service/cluster_slots.rs -> Scope: High. An unprivileged attacker can make compute-budget, cost-model, or fee accounting charge materially less than the real CPU, memory, or account-load work performed, exhausting block capacity or node resources below true cost.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f879fff3-f7ce-4b88-b97a-f11bdcfa0285?mode=deep",
+    "questions_generated": false
+  }
+]
