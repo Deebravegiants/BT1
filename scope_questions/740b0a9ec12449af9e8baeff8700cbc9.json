@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: features/keychain/module/validate.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e2b65c5a-cee6-4a73-b3ae-eb11cb2dcf8d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/errors.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3f02adaf-b0e3-4e43-aeca-0e6b620e06e4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/cardano.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8e9337a6-cf82-4838-947e-34c79441a29a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/ed25519.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_08e746cc-dca6-4050-a55e-2686f128795d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/schnorr-z.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_76a147c5-8536-4f72-80df-2f4a30b59e82?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/secp256k1.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5101de32-7492-4e14-9b2f-ffba33c745fc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/seed-id.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_381bc0cc-4bbf-4955-8b1f-029aef144237?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/sodium.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_79e632b8-3e69-4bcf-a03e-e8d46fab8700?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/tweak.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a436183c-6fc0-4121-8568-490ebc8aa267?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/module/index.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_67dd4673-7ea6-4489-b059-7b9e9fd43930?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/module/utils.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_528e4003-7486-442d-a3c2-6b723f0acd94?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/module/wallet.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_83b94b38-c33b-42c4-895c-9f7031daa050?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/migrations/seed-metadata.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ddfee100-5747-42a1-a682-c8997789589c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/atoms/primary-seed-id.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_38d176f0-2bb5-45f9-94d7-aeab73e29a80?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/atoms/seed-metadata.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f908c461-67f0-49fc-b6ab-129cd8e5ac01?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/cached-sodium-encryptor/module/cache.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_36370a73-3716-408d-adcf-b9effc2ed3d8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/cached-sodium-encryptor/module/cached-sodium-encryptor.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_56ef63c3-8626-4d68-9501-6289fa80c489?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/cached-sodium-encryptor/module/schemas.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_62b30c25-d0d6-43fb-afc1-7badcbd493dc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/message-signer/src/module/errors.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_afff9a52-090b-4902-a1ae-f0db0032acdf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/message-signer/src/module/hardware-signer.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_200a332d-2f94-4a10-a1d6-00cc8dbd5709?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/message-signer/src/module/message-signer.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bf96fd51-b4d9-4e08-9866-f2f84f56f882?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/message-signer/src/module/seed-signer.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_51cbb6fd-eeae-47e1-ad7f-2d20dbac2a6b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/tx-signer/src/module/errors.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0a8d3f67-cc32-4a95-91e3-4dd08076ea5a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/tx-signer/src/module/seed-signer.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9f1629db-759c-4e4e-9a74-071d0ea7b1f0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/tx-signer/src/module/transaction-signer.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a02494ab-b66d-482f-9fdf-48d560067230?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet-accounts/src/module/utils.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_407a3f1e-f360-4111-9dbc-b0390af39044?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet-accounts/src/module/wallet-accounts.ts -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3da991b9-a841-4e7c-b01b-657d04a21321?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/connected-origins/atoms/connected-accounts.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cfd2c864-66be-4ff0-8621-c50b34ac361c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/connected-origins/atoms/connected-origins.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b3e2a348-0bb5-4b2e-a99f-14c532fd4454?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/connected-origins/module/connections.js -> Scope: Critical. An unprivileged attacker can bypass lock, passphrase, biometric, approval, or account-selection boundaries and perform wallet actions while the wallet should remain locked or scoped to a different account, origin, or user consent state.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d93d42f0-1658-4689-8fe4-bead14d979a5?mode=deep",
+    "questions_generated": false
+  }
+]
