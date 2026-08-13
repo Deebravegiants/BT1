@@ -1,0 +1,1 @@
+[File: modules/networking-common/src/cookie/validators.ts -> Scope: Critical] [Function: validateValue] Given validateValue() only checks characters in FORBIDDEN_IN_VALUE after unwrapping a leading/trailing quote pair, can an attacker craft a value like '\

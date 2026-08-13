@@ -1,0 +1,1 @@
+[File: libraries/svg-safe/src/validate.mjs -> Scope: High] [Function: tokenizeFile / tokenizeLine] Can an unprivileged attacker supplying a remote-config-fed or dApp-provided NFT/asset SVG with a pathological number of quote characters or '<' characters cause tokenizeFile's `tokens.join('') === raw` assertion and tokenizeLine's repeated `indexOf('\

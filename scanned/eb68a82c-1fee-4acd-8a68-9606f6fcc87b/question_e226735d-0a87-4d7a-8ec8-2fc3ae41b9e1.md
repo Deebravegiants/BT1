@@ -1,0 +1,1 @@
+[File: 'libraries/svg-safe/src/index.mjs -> Scope: Critical'] [Function: validateOption in validate.mjs] Can an unprivileged attacker who controls a remote token/asset SVG icon (delivered via token metadata or remote asset list synced by storage-icons-browser/mobile IconsStorage.storeIcons) craft an attribute value that matches validateOption's regex 'match(/^([\\d:a-z-]+)=\

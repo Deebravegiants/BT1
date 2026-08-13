@@ -1,0 +1,1 @@
+[File: libraries/svg-safe/src/validate.mjs -> Scope: High] [Function: validateOption generic option regex vs. per-tag branches] Can an unprivileged attacker fuzz permutations of `tag`/`name`/`value` triples that satisfy the generic regex `/^([\\d:a-z-]+)=\
