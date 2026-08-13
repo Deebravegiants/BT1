@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: adapters/storage-mobile/src/helpers/with-filesystem-fallback.ts -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a37935ce-9f02-48a1-973a-006569040597?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/storage-mobile/src/storage.ts -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4da97e58-e10b-4110-9da6-c1569639fcfa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/storage-unsafe-desktop/src/index.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1080d366-e0c0-494a-b94a-115b68e1e243?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/storage-unsafe-desktop/src/internal.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_42c4bf16-46f5-49bd-8d8a-e7b36282cff6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/storage-unsafe-desktop/src/utils.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6bcd3fd7-797e-4a79-9105-b9f0299b8e5e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/browser-extension-adapters/encrypted-storage/index.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bbb61e00-2296-428c-a1f0-1a08272cbbc0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/browser-extension-adapters/seco-storage/index.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aff56998-856c-48d8-ab30-cd8b09d6a6b3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/browser-extension-adapters/session-storage/index.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d882cb7e-ffd1-4fc5-8823-e8de3352ccb6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/browser-extension-adapters/unsafe-storage/index.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_26b31a45-bc61-411e-ae85-474eebd2a431?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/deferring-storage/src/index.ts -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2ce3fd76-8660-4cfe-b62e-14dff3a152b4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/deferring-storage/src/storage.ts -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bf9f43af-f000-4b75-909d-8168b678a32e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/seco-file/src/index.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8ce04a07-7ebc-48e7-bfb9-7dae36f3e4c2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/seco-keyval/src/index.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aed7bfa4-1db8-4b2f-8b2c-f6e6830016a0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/seco-rw/src/index.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_54b516ee-ce40-4610-944b-70eda64dced3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/blob.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d22f1bc8-5aba-4853-a5b0-7d208b88b107?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/buffer.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b570d0bb-e637-40ff-8905-b9730ee4533d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/compressed.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3829a3c8-e73b-43df-9524-9f471ca43bc8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/crypto.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_13f2b975-8d81-4be6-9416-9e824db7b702?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/file.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1388349a-7add-4f7f-8fa6-b7723fd7e0e6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/header.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_55403003-5024-4342-9887-3b03438ee62b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/index.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_84384515-98f5-4c20-a98d-ef26608c4976?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/metadata.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ff3d96f0-5d3c-4b76-90e1-573c02881fa8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/util.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e1698ada-d14b-4ee6-919b-ceb6e0ce7b13?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/transform-storage/src/index.ts -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d5f380ae-7d82-4648-babe-c0cae75cd650?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/transform-storage/src/transform.ts -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1388bebd-66d2-4fd6-a284-09d922de899a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/fetch-factory/src/fetch-factory.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_878b65a0-73a1-4507-a649-5f4ec25e1d43?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/fetch-factory/src/hostname.js -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d7f0847b-614e-4dd2-88b9-db0093d563e8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-common/src/cookie/deserialize.ts -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4d23f43f-9fa4-4424-968a-d16ab8150c8d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-common/src/cookie/serialize.ts -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d93d3ce5-0efc-458a-a9d3-adaafc618446?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-common/src/cookie/validators.ts -> Scope: Critical. An unprivileged attacker can abuse remote-config, RPC bridge, serialization, or storage migration flows to persist attacker-chosen security state, weaken signing or approval controls, or recover encrypted wallet secrets without privileged device or node access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d11feeac-fe94-4b2f-9c3c-6de2fd70eba6?mode=deep",
+    "questions_generated": false
+  }
+]
