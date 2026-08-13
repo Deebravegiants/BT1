@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: adapters/storage-mobile/src/helpers/with-filesystem-fallback.ts -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bde5179a-07df-44eb-bd83-65dae8702683?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/storage-mobile/src/storage.ts -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ff2cd131-763a-4798-9b10-7380ad12d99e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/storage-unsafe-desktop/src/index.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3c3be277-949a-4eff-b47f-9625311dd095?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/storage-unsafe-desktop/src/internal.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ae39f71c-b7fe-4d71-9164-f78d050a5474?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/storage-unsafe-desktop/src/utils.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cbe73002-0145-439b-8bbb-92fdd279bece?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/browser-extension-adapters/encrypted-storage/index.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5dcf23bf-f0ee-446a-adb8-a7394a455747?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/browser-extension-adapters/seco-storage/index.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e85c719c-9c54-48cd-9567-bb1852f2e5f4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/browser-extension-adapters/session-storage/index.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5ae9b76f-31b0-493f-a137-9a70eab89f37?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/browser-extension-adapters/unsafe-storage/index.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_52d666dd-cb9a-422c-a07f-2b25216e6f2e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/deferring-storage/src/index.ts -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_01e2391d-a040-4bd3-893e-c1ab56f2f357?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/deferring-storage/src/storage.ts -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f9b421b4-c5e9-4568-bb98-1e7fac6074c3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/seco-file/src/index.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5bebea42-18a7-470c-a529-4fcf16d9fcbb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/seco-keyval/src/index.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8f8afaeb-99cb-4f8f-aeee-a060570015b2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/seco-rw/src/index.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fcaf2010-a194-4ef4-9ec9-1b9598d4fad9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/blob.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_96652c9c-e4d7-475c-8eb1-8f9bc4b57c5c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/buffer.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e17166f5-2f81-485f-9dee-0689fa938e6c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/compressed.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2de2285a-63d6-4d5f-9a38-ddfb3df7a60d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/crypto.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f7fbd1a0-2288-47b7-ae90-cda44df596ef?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/file.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5f7f1196-16f8-4a41-95b3-5de6cf3135ba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/header.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_34027ab6-5b4d-41a3-a3f2-1451279ae2da?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/index.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9f4f73df-3ee6-4257-b252-3b1089887d83?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/metadata.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e3f038af-7997-4613-a459-2cc5fa45d222?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/secure-container/src/util.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_88ef1211-9ee4-40b0-9c10-50fad25bdcc4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/transform-storage/src/index.ts -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6c7d6cb5-c782-4fd3-b295-dcd259db33e7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/transform-storage/src/transform.ts -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_195ba376-7be1-43a8-9480-1621af55388c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/fetch-factory/src/fetch-factory.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2f6abef0-7030-4a54-99d6-5c304c253621?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/fetch-factory/src/hostname.js -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5b8a5531-304a-4bee-a39e-029a633d48eb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-common/src/cookie/deserialize.ts -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9dcb5d16-77ba-4a94-b3b5-0c1660772181?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-common/src/cookie/serialize.ts -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d1c8179d-24a7-44a1-bed4-80caf936bcdc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-common/src/cookie/validators.ts -> Scope: Critical. An unprivileged attacker can break connected-origin, public-key, address-provider, or wallet-account isolation so one origin, request, or account receives addresses, xpubs, signatures, or trust/auto-approve privileges that belong to another.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d884ab61-1a44-4c65-83d7-6e166276cab3?mode=deep",
+    "questions_generated": false
+  }
+]
