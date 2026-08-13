@@ -1,0 +1,1 @@
+[File: libraries/deferring-storage/src/storage.ts -> Proxy get trap] Can an attacker-influenced key or property name (e.g. an origin string or wallet-account id derived from untrusted RPC input) collide with a DeferringStorage instance method name ('set', 'delete', 'clear', 'namespace', 'release') so the Proxy's 'prop in target && typeof target[prop] ===
