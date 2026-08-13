@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: features/address-provider/module/address-cache/index.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3bbe825f-9c8a-4026-ac56-d07f20b06819?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/address-provider/module/address-cache/memory.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_124d1fb1-628e-46de-ae49-fe897a5d8efa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/address-provider/module/address-cache/utils.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_455638ea-13ea-449f-90fa-da9cb7325da7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/address-provider/module/address-provider.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0717637d-3cf7-42a5-aacc-ecde678d5976?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/address-provider/module/known-addresses.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a11e0e5a-242c-4baa-9c79-d88c164abe3c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/address-provider/module/utils.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7c5ff01f-9549-4fc0-8e48-50a6d304dcea?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/address-provider/module/validation.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_833094c3-fbe1-4ac5-ba84-31a1c4cbe41b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/public-key-provider/module/index.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d0ecade1-93ae-4344-aa8c-7ff811057872?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/public-key-provider/module/public-key-provider.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8aa9478b-bd03-462a-91ee-144f900893d1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/public-key-provider/module/store/formats/storage/legacy.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0135c961-b75e-41f2-8082-1e6f436486c8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/public-key-provider/module/store/formats/serialization/index.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_145c55a2-4ef4-4664-8216-c89ec2b227ae?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/public-key-provider/module/store/formats/serialization/monero-public-key.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fcd28af4-e2e2-4e51-b7bf-60bc19287b11?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/public-key-provider/module/store/formats/serialization/public-key.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_866db90b-7a3a-41eb-a37a-2b6c74f93092?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/public-key-provider/module/store/formats/serialization/xpub.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ae8f54b1-0146-48bf-9626-d69e4bd16478?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/asset-sources/module/asset-sources.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_71ca08e1-0388-4fef-a8b4-5581ba0be756?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/asset-sources/module/utils.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b33baaf5-9983-4514-9651-1c705e73210c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/remote-config/atoms/remote-config.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aaa4db3d-f4c4-458a-a7de-d088acb00719?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/remote-config/module/generate-remote-config-url.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d7c6454d-5418-421e-90e6-3abf23db18ff?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/remote-config/module/helpers.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_44669e0e-c367-4ad7-9d4e-e091e4b16b93?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/remote-config/module/index.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cc97071a-249a-4b8f-9ff2-f8f3a8386941?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/feature-flags/atoms/feature-flag-atoms.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0e41e058-a1be-43ff-8ebd-1f3bd5b3c2d0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/feature-flags/atoms/feature-flags-atom.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b6771a3b-a3b5-4d0d-8f18-fe5861db1040?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/feature-flags/atoms/remote-config-feature-flags.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b102257f-d585-4d36-95f7-ea7b84c68664?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/feature-flags/atoms/utils/normalize-remote-config-value.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_514149d4-0d6b-453b-8031-24a77618dc42?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/feature-flags/module/index.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9ede1348-348a-4a25-81eb-98c6025846df?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/fee-data-monitors/monitor/index.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e1b94c10-d293-46c9-b0ab-427397295e68?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/fees/module/index.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_149a4c0d-fc3d-4940-8e65-b2f6aedeffb3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/keystore-mobile/src/index.js -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f022a92a-25be-4b0b-b2ca-8dd144472adb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/storage-encrypted/src/index.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_33266af6-922e-4f0c-99e9-ecac51a96b97?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: adapters/storage-encrypted/src/storage.ts -> Scope: High. An unprivileged attacker can turn untrusted URLs, cookies, fetch inputs, SVG or other rendered content into direct wallet compromise, secret exposure, or wallet-authorized actions outside the intended trust boundary.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f9bd055f-9089-4691-b00d-0265bdfc6218?mode=deep",
+    "questions_generated": false
+  }
+]
