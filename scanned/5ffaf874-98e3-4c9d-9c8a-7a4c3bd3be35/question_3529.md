@@ -1,0 +1,13 @@
+# Q3529: index cross-context fee reuse via updateFee
+
+## Question
+Can an unprivileged attacker abuse wallet startup / refresh path that consumes default-enabled configuration state with crafted `port`, `message`, or stale-state timing so that `updateFee` in `features/fee-data-monitors/monitor/index.js` normalize or merge configuration values in a way that silently widens behavior or disables a guard, violating the invariant that cache validators must not prevent refresh when the effective security policy changed, and leading to `Taking state-modifying authenticated actions on behalf of other users without any interaction by that user`?
+
+## Target
+- File/function: features/fee-data-monitors/monitor/index.js::updateFee
+- Entrypoint: wallet startup / refresh path that consumes default-enabled configuration state
+- Attacker controls: ETag or Last-Modified transitions combined with repeated load / update calls
+- Exploit idea: normalize or merge configuration values in a way that silently widens behavior or disables a guard
+- Invariant to test: cache validators must not prevent refresh when the effective security policy changed
+- Expected Immunefi impact: Taking state-modifying authenticated actions on behalf of other users without any interaction by that user
+- Fast validation: load config for one network or account context, switch context, and ensure fee or policy data is not silently reused

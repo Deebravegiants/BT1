@@ -1,0 +1,13 @@
+# Q2014: wallet accounts lifecycle state bleed via accountPicker
+
+## Question
+Can an unprivileged attacker use wallet create/import/unlock/restore flow reachable from normal app usage with attacker-controlled `assetName`, `accounts`, and transition timing so that `accountPicker` in `features/wallet-accounts/src/module/wallet-accounts.ts` cause lifecycle hooks or event emission to run before security-critical state is committed or validated, violating the rule that imported or restored state must bind only to the intended active seed and wallet account, and ultimately reaching `Private key or private key generation leakage leading to unauthorized access to user funds`?
+
+## Target
+- File/function: features/wallet-accounts/src/module/wallet-accounts.ts::accountPicker
+- Entrypoint: wallet create/import/unlock/restore flow reachable from normal app usage
+- Attacker controls: an imported backup or mnemonic payload, the passphrase field, and call ordering across create/import/unlock
+- Exploit idea: cause lifecycle hooks or event emission to run before security-critical state is committed or validated
+- Invariant to test: imported or restored state must bind only to the intended active seed and wallet account
+- Expected Immunefi impact: Private key or private key generation leakage leading to unauthorized access to user funds
+- Fast validation: restore crafted state across multiple wallet accounts and assert only the intended seed/account pair is mutated or exposed

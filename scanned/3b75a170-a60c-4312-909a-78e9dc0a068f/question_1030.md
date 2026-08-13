@@ -1,0 +1,13 @@
+# Q1030: validate external key rebinding via throwIfInvalidMasters
+
+## Question
+Can an unprivileged attacker reach `throwIfInvalidMasters` in `features/keychain/module/validate.js` through signing or key-export flow triggered by a connected dapp or standard wallet action and supply crafted `port`, `port`, and `port` values that widen a derivation or export scope so a narrower approved request yields broader key material, violating the invariant that locked state must prevent all operations that derive, export, decrypt, or sign with key material, and causing `Sitewide disruption of core services`?
+
+## Target
+- File/function: features/keychain/module/validate.js::throwIfInvalidMasters
+- Entrypoint: signing or key-export flow triggered by a connected dapp or standard wallet action
+- Attacker controls: the order of lock/unlock, export, and sign requests around cached decrypted state
+- Exploit idea: widen a derivation or export scope so a narrower approved request yields broader key material
+- Invariant to test: locked state must prevent all operations that derive, export, decrypt, or sign with key material
+- Expected Immunefi impact: Sitewide disruption of core services
+- Fast validation: lock and clear between repeated export/sign operations and verify no cached key material remains usable
