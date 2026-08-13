@@ -1,0 +1,57 @@
+[
+  {
+    "question": "'File Name: modules/networking-common/src/form/index.ts -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0aaa1ff8-c022-4a19-b20e-d2b4d4e422a5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-common/src/http/index.ts -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_49494e54-0c22-44f5-b18f-a21850875641?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-common/src/url/constants.ts -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e76e6aed-3940-43c4-af63-6e6abbeb3193?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-common/src/url/index.ts -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6c1cdadb-c8f5-4c3a-bac4-69998ceabc0c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-mobile/src/cookie/cookie-jar.ts -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_62f1e30e-2e47-464b-b111-4c4fa782fdaa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-mobile/src/http/client.ts -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_abbe8438-74a8-46e4-b788-32942b50280c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-mobile/src/url/url-search-params.ts -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_637a9e97-23fe-411e-a924-ecc148600732?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: modules/networking-mobile/src/url/url.ts -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_578af651-6b5d-4dc3-aea2-15de3f824968?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/svg-safe/src/cleanup.mjs -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_522a0391-0ea9-4b1c-8267-a052a48abc9f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/svg-safe/src/index.mjs -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_223ead9e-703c-4dbc-b87d-f433bf08050c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: libraries/svg-safe/src/validate.mjs -> Scope: High. An unprivileged attacker can trigger cross-wallet state confusion, stale seed/account binding, or wrong-account signing/address derivation through cache, migration, persistence, or replayable UI/API flows.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c01776cb-666b-402f-8b02-f27bed4f439a?mode=deep",
+    "questions_generated": false
+  }
+]
