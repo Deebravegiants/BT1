@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: features/keychain/module/validate.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_64ee2d8d-6fa7-410e-846a-1ece07568e22?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/errors.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_22f57991-5f86-429c-909d-7cfd7ea8d868?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/cardano.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_85e216ab-072d-47b7-9a21-209256e3260e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/ed25519.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_79f85922-90ca-4145-bf1d-82eed0e9ea2f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/schnorr-z.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_75474fdb-3bd4-470d-bc49-252163b74b9c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/secp256k1.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_37aac19b-3a69-4785-b565-a4e2fc9ecc18?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/seed-id.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c37cc5c3-840f-4333-bd70-a77b0508b9bf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/sodium.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_02acc569-6544-4687-a51b-65b5c62c162c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/keychain/module/crypto/tweak.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e2d9f68d-3e12-45aa-b595-f842d3df733c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/module/index.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a68b8492-8b17-4d08-8292-fcb1b49a1d08?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/module/utils.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c9c5d6b8-d926-4c83-9bb8-7d866a6e308e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/module/wallet.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_86673e4c-ac04-4e92-bba0-1fbf308cd523?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/migrations/seed-metadata.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d8cad213-5836-49b8-90b1-040db8167021?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/atoms/primary-seed-id.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d1a9ffe6-6761-459e-8432-e73b422628f0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet/atoms/seed-metadata.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_faf02dd9-6702-4d50-9df1-0a212860b733?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/cached-sodium-encryptor/module/cache.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6319be48-fa2b-4bd3-80b3-c71840d50f90?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/cached-sodium-encryptor/module/cached-sodium-encryptor.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_662cc26e-433e-4e37-9ad7-000a5793b52c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/cached-sodium-encryptor/module/schemas.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_97e4f263-336b-4e40-afe9-6b5b9fbe8ea1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/message-signer/src/module/errors.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_28e64f7e-0c39-4996-babc-5ac7d86706b8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/message-signer/src/module/hardware-signer.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e54cb748-2fe2-4580-b8c5-e4ebf3ce3015?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/message-signer/src/module/message-signer.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3d50497c-83bd-46dc-8c41-acf596093c97?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/message-signer/src/module/seed-signer.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a70b0e21-02f9-4187-b562-5bbfa74e20de?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/tx-signer/src/module/errors.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_30f1ca4f-9a15-4d82-9847-ab7e6de455a9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/tx-signer/src/module/seed-signer.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_54df388e-f018-4203-8c54-f4757aeffa41?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/tx-signer/src/module/transaction-signer.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_923929f0-21f4-46c6-8636-66e0537fa03b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet-accounts/src/module/utils.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_582cf4cd-9bb8-4999-b302-385b32391a0b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/wallet-accounts/src/module/wallet-accounts.ts -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f0106bba-323f-4303-b2de-83c2817b8f4f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/connected-origins/atoms/connected-accounts.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_25c9c172-6f48-4a80-a9ec-8d0c3333cb4e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/connected-origins/atoms/connected-origins.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6787895d-f534-4f4d-95c8-1cbf47841663?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: features/connected-origins/module/connections.js -> Scope: Critical. An unprivileged attacker controlling only normal wallet inputs such as a website, dapp origin, deeplink, QR payload, imported backup, or RPC/API request can cause unauthorized transaction or message signing, seed creation/import side effects, or private key / seed material disclosure.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9c115822-dadc-4778-a4e1-a33ada526ca8?mode=deep",
+    "questions_generated": false
+  }
+]
