@@ -1,1 +1,0 @@
-[File: libraries/svg-safe/src/validate.mjs -> Scope: High] [Function: validateOption / validate] Can an unprivileged attacker who supplies a token/NFT icon SVG (consumed via storeIcons -> IconsStorage#storeIcon in adapters/storage-icons-browser and storage-icons-mobile) craft a <use xlink:href=\

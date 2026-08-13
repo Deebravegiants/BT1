@@ -1,1 +1,0 @@
-[File: libraries/svg-safe/src/validate.mjs -> Scope: High] [Function: isTransform / validateOption master regex] Can an attacker supply a pathological `transform`, `gradientTransform`, or generic attribute value string designed to trigger catastrophic backtracking in `isTransform`'s nested-quantifier regex or in `validateOption`'s `/^([\\d:a-z-]+)=\
