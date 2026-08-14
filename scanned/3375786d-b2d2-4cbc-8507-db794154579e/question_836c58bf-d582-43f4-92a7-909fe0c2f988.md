@@ -1,1 +1,0 @@
-[File: 'features/address-provider/module/validation.js' -> Scope: High] [Function: HARDENED_INDEX_REGEX, types.chainIndex/types.addressIndex] Can an attacker-controlled deeplink/dapp request supply a chainIndex or addressIndex string like \
