@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs' -> Scope: Critical.] [Function: QrCodes::with_user_qr_code()] Can an attacker who triggers a code path where scan_remaining_qr_codes reuses a cached QrCodes::Both variant across an expired-then-refreshed operator_qr_expiration_time boundary cause with_user_qr_code's `panic!(\

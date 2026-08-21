@@ -1,1 +1,0 @@
-[File: 'src/backend/user_status.rs'] [Function: verify (user_data.verify(user_data_hash))] Can an attacker who scans a QR-code without a user_data_hash field (e.g., legacy QR_CODE_V2 format, where user_data_hash is None) reach the branch where backend_keys+authenticated_app_data are Some, but the hash-verification guard is skipped due to `#[cfg(not(feature = \

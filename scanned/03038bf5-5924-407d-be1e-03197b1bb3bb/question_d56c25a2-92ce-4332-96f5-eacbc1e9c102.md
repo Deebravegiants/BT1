@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs' -> Scope: Critical.] [Function: handle_user_qr_code()] Can an attacker present a user QR-code whose user_id string-equals the operator QR-code's user_id under the `integration_testing` feature bypass (line 1041-1042 `#[cfg(not(feature = \
