@@ -1,1 +1,0 @@
-[File: 'src/utils/rkyv_ndarray.rs' -> Scope: High] [Function: `impl From<RkyvNdarray<u8, Dim<[usize;3]>>> for camera::rgb::Frame`] Given an attacker-influenced captured RGB frame whose shape[0]/shape[1] (height/width) values overflow u32 (`try_into().expect(\
