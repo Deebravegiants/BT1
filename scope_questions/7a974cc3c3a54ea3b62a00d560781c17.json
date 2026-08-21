@@ -1,0 +1,117 @@
+[
+  {
+    "question": "'File Name: src/debug_report.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9539675b-6e83-4e96-a59b-4ebb66904cd5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/logger.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a71e751f-066b-405f-abee-69c0000050bb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/ssd.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5aaf942e-718c-4a25-b871-33e7f2af56ab?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/process.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_84f0e96f-356f-47bd-8a2e-34eec9ca3423?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/image/mod.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0f1eb0a9-e103-40a8-8eb9-de0694466f7a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/image/fisheye.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_574b8e7c-5fc4-4390-a227-31d651db4e16?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/utils/mod.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_16d49044-9913-46a3-baa6-ed96e5df14a9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/utils/rkyv_ndarray.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7299cfbf-7e0a-4034-8bff-bbc3d42b0b4c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/utils/serializable_instant.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_26929974-c1da-45aa-961b-2413c7135bd4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/utils/serialize_with_sorted_keys.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e28d1e3d-ec07-434b-9ce9-65bb69d76260?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/lib.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5c9145ee-6807-4304-add9-0390f3ce8297?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/port.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_57dbd235-6354-46fc-b490-5e6a146a5568?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/agent/mod.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f0dee64b-3641-46fc-9c40-1293a9e0ffc9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/agent/process.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a2d173c9-8ed7-49ba-813b-9ef810af8550?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/agent/task.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_948b6975-6d14-4079-b311-ea6f3607cd7b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/agent/thread.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bba6db3a-ddaf-4299-ba42-33ecb24e1697?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/mod.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ba46c197-4df8-401d-b5fe-3b40b6e6375f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/livestream/mod.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_79bf67fe-5880-4954-b8ff-872ed1517424?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/livestream/upstream.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3e12e10e-283b-42bc-a8f0-dc42457b38a9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/livestream/downstream.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_da92d99e-9acf-4faf-b52b-be4dfda73bd2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: livestream-event/src/lib.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2cac1926-c06c-4462-88f3-4921a68f3cd6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: orb-relay-client/src/lib.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e5bac575-b130-4d8d-bea2-900cffb621c2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: orb-relay-client/src/client.rs -> Scope: Critical. An unprivileged attacker can forge, replay, or alter Orb-signed attestation material (secure-element signatures, iris-code commitments, signup payloads) so the backend accepts biometric data the Orb never captured or attributes it to the wrong user.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_377fe37f-0bec-4550-9363-65662aa72a0e?mode=deep",
+    "questions_generated": false
+  }
+]
