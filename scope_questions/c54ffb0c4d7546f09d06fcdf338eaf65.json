@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: ai-interface/src/lib.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d431f25e-199a-4a93-b27d-6cc3b60eda51?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: ir-net/src/lib.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_daa0d072-436f-4c97-8276-104617c5bbe0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: rgb-net/src/lib.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ddcbe709-276d-43eb-adee-1cf8e53e3f36?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/plans/personal_custody_package.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7ad9b6c1-78e5-4297-9af1-b1a5b26de9b3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/secure_element.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_760e1ae5-312b-4fbd-82fe-73e5ad411da1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/identification.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_88cd3ee6-0af1-4b0d-901a-3c527d1e7e09?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/short_lived_token.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_06cf468a-bf77-452a-b506-732e026d517f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/dbus.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9b00b5c9-d14f-404b-9d06-fee96e8ee7d3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/image_notary.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d5fa67b9-84f0-49d6-b58f-6f9600ce7c96?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: wld-data-id/src/lib.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_addd6465-ac7f-47a5-86ae-48eb69fa3a16?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: wld-data-id/src/wld_data_id.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b888ef59-b926-4c94-a953-03d2b3f51536?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: wld-data-id/src/s3_region.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_849782e6-2c44-4237-ba92-2ff0c2974015?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/mod.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d72368e4-875c-45b6-95ee-0098fc8562c8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/config.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_37573f89-21e5-41dd-8cec-accdb0bcc78c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/endpoints.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_df058f68-1b64-4b09-b6a5-5e026814b8a0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/signup_post.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dfe9febd-df23-4eaa-87e1-f6351815db1a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/signup_poll.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2352562b-9a99-4662-90d6-ad4e855a9e51?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/user_status.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_225de77d-0b0d-4f28-b351-69be8ccd13e7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/operator_status.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bda12393-6ef7-4065-b066-99d291aaa33c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/orb_os_status.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f438a0fa-d113-4a5f-a31e-c7dcbbc3a745?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/status.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b2b27c13-25bb-4adf-aa03-e2b67fddc99f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/presigned_url.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_31320cad-31c9-4c4e-8649-2efe39f66c35?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/s3_region.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cd66611b-5663-4a38-a4ed-a35512873105?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/upload_image.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_59db01ab-7451-4295-8a00-9d256818936a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/upload_debug_report.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6cb18e89-09cf-4529-942e-cd7796fd296f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/upload_personal_custody_package.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4df86fdf-796b-46e1-991e-67757522afc1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/config.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f50c0c33-d229-4b3a-b523-8a175c5daed8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/calibration.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6b1a430b-a9b0-43e3-850b-3f6419d51531?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/data_uploader.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_43e6c603-42b4-4e89-8f30-bce1c611e992?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/image_uploader.rs -> Scope: High. An unprivileged attacker can use malformed QR, MECARD, backend-config, or agent-IPC input to crash, hang, or wedge the Orb signup state machine, or to inject attacker-controlled arguments into wpa_supplicant/child-process or upload calls.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_29f1710d-16cc-4419-bdc9-fc8b045eefaa?mode=deep",
+    "questions_generated": false
+  }
+]
