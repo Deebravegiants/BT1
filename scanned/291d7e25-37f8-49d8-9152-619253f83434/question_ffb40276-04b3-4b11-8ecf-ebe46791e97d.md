@@ -1,1 +1,0 @@
-[File: 'ir-net/src/lib.rs' -> Scope: Critical] [Function: extract (src/agents/python/ir_net.rs) calling IrNet::estimate] Can a crafted physical eye presentation cause the Python `ir_net` model to omit or return a non-array `landmarks` field, causing `estimation.get_item(\
