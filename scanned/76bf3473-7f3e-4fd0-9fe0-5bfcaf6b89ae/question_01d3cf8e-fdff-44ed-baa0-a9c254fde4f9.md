@@ -1,0 +1,1 @@
+[File: 'src/dbus.rs -> Scope: High.'] [Function: `MasterPlan::idle_wait_for_signup_request` self-serve branch, src/plans/mod.rs:394-436] Can an attacker in self-serve mode repeatedly force the `panic!(\

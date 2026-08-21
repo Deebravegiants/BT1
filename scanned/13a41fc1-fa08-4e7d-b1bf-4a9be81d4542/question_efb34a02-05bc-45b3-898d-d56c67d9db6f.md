@@ -1,0 +1,1 @@
+[File: 'src/agents/camera/thermal.rs' -> Function: Sensor::run] Can a physical-scene attacker (denying/spoofing thermal camera pairing) drive `Camera::attach` to fail, causing the agent to enter the `loop { port.recv()... tracing::warn!(\

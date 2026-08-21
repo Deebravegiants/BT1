@@ -1,0 +1,1 @@
+[File: 'src/plans/mod.rs' -> Scope: High] [Function: QrCodes::with_user_qr_code] Can an unprivileged attacker, by presenting a valid user QR-code twice in rapid succession or racing the qr_scan timeout/retry loop, drive `QrCodes::with_user_qr_code` to be called when `self` is already `QrCodes::Both`, hitting `panic!(\

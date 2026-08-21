@@ -1,0 +1,1 @@
+[File: 'src/agents/ir_auto_focus.rs' -> Scope: Critical biometric leak] [Function: brokers::orb::Orb::stop_ir_auto_focus] Can an attacker abort a signup at the exact moment ir_auto_focus.enabled() returns None (e.g. by triggering a fast state transition) so that stop_ir_auto_focus's `.expect(\

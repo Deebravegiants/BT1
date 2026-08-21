@@ -1,0 +1,1 @@
+[File: 'src/agents/image_uploader.rs'] [Function: upload_saved_images filename filter] Can an unprivileged attacker cause a non-PNG or oversized file to be written into ir_camera/rgb_camera/ir_face/thermal/identification directories during their own signup (e.g. through capture pipeline errors triggered by unusual physical scenes/lighting) that bypasses the `path.extension() == \

@@ -1,0 +1,1 @@
+[File: 'src/backend/user_status.rs -> request/UserData construction'] Can an unprivileged attacker acting as their own signup session, whose device controls the QR-code payload, cause `qr_code.user_data_hash` to mismatch the backend-returned `user_data.verify()` in a way that is only checked when `#[cfg(not(feature = \

@@ -1,0 +1,1 @@
+[File: 'src/network/mod.rs -> join'] Can an unprivileged attacker who supplies an operator/user WiFi QR-code with an SSID or password containing shell-metacharacters or embedded '--' option-like strings reach 'cmd.arg(\

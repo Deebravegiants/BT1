@@ -1,0 +1,1 @@
+[File: 'src/agents/python/iris/mod.rs -> Scope: High'] [Function: check_model_version (agents/python/mod.rs)] Can a python module reporting a non-semver `__version__` string (indirectly influenced by an attacker-supplied backend model bundle reachable through the update/config pipeline) cause check_model_version's `panic!(\

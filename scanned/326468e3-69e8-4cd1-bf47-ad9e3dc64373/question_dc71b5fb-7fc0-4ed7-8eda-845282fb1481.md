@@ -1,0 +1,1 @@
+[File: 'src/plans/mod.rs -> handle_user_qr_code'] [Function: handle_user_qr_code] Can an attacker who controls both the operator-role QR and user QR presentation order craft a user_qr_code whose user_id exactly equals operator_data.qr_code.user_id via a race (scanning operator QR after user QR under `#[cfg(feature=\

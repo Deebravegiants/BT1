@@ -1,0 +1,1 @@
+[File: 'src/agents/data_uploader.rs' -> Scope: Critical] [Function: Pcp struct / Serialize+Deserialize] Since 'Pcp.data' is '#[serde(skip)]' and repopulated separately from disk in 'Queue::pop' for 'Persistent' queues, can an attacker who causes a crash between 'fs::write(path.join(

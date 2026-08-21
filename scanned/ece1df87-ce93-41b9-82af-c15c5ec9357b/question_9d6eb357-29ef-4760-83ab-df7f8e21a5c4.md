@@ -1,0 +1,1 @@
+[File: 'src/agents/eye_pid_controller.rs'] [Function: Agent::run - dd_gauge telemetry] Can an attacker drive x/y values (mirror offset degrees) to extreme magnitudes via crafted landmark inputs (e.g., near-zero iris_width denominator inflating iris_width and thus center_x/center_y before the PID integrates them) such that dd_gauge!(\

@@ -1,0 +1,1 @@
+[File: 'ai-interface/src/lib.rs -> Scope: Critical'] [Function: iris::EstimateOutput::try_from(PipelineOutput) -> Result<Self, PyError>] Can an attacker present an eye scene such that `output.iris_template` is `None` but `output.error` is also `None`, causing `Err(output.error.expect(\

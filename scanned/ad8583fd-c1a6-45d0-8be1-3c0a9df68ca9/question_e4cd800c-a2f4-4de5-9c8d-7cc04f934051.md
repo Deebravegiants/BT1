@@ -1,0 +1,1 @@
+[File: 'src/backend/user_status.rs -> Scope: High'] [Function: user_status::request, field: user_data_hash] Can an attacker who scans a legacy-format QR (no user_data_hash, matched via qr_scan::user::QR_CODE_V2) but whose account's backend response nonetheless includes authenticated_app_data force the '#[cfg(not(feature=\

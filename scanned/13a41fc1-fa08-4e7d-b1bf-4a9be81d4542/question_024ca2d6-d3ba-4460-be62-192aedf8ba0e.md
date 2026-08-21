@@ -1,0 +1,1 @@
+[File: 'src/backend/user_status.rs' -> Function: (user QR / backend keys resolution block ~L163-246)] Can a malicious backend response (reachable through the attacker's own signup session) supply a `user_data` whose `verify(user_data_hash)` succeeds trivially or is skipped (e.g. via mismatched `#[cfg(not(feature = \

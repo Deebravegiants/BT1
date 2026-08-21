@@ -1,0 +1,1 @@
+[File: 'agentwire/src/lib.rs' -> Scope: High] [Function: network::join / Command::new(WPA_SUPPLICANT_INTERFACE_BIN)] Can an unprivileged attacker who presents a crafted WiFi MECARD QR code (parsed by mecard::Credentials::parse and network::mecard::parse_string, which unescapes '\\', ';', ',', '\

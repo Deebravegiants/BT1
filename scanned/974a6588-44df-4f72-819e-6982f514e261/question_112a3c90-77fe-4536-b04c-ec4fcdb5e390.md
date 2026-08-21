@@ -1,0 +1,1 @@
+[File: src/agents/python/rgb_net.rs] [Function: estimate_once()] `estimate_once` re-initializes a fresh `RgbNet::init(py)` per call and is used by `load_biometric_input` to reconstruct a `Capture` from files. If this code path (guarded by `feature = \

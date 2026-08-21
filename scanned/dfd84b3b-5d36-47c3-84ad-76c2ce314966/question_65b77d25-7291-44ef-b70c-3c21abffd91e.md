@@ -1,0 +1,1 @@
+[File: 'src/agents/python/iris/mod.rs' -> Scope: Critical] [Function: Environment::estimate] Can an unprivileged attacker who controls the physical scene shown to the IR camera during their own signup session cause camera::ir::ArchivedFrame content that reaches self.agent.call_method(\

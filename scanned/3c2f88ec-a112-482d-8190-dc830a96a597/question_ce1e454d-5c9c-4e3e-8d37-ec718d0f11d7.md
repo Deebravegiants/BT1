@@ -1,0 +1,1 @@
+[File: src/network/mecard.rs -> Scope: Critical] [Function: AuthType::parse / parse_field] Can an attacker's WiFi QR with 'T:' auth-type field containing a valid-prefix-but-invalid-suffix value (e.g. 'T:WPA2;' where only 'WPA' matches `tag(\

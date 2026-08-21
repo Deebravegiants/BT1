@@ -1,0 +1,1 @@
+[File: 'src/agents/data_uploader.rs' -> Scope: Critical] [Function: Input::Pcp tier validation] Can an attacker-controlled code path that constructs 'Pcp { tier, .. }' with a value outside '1..=TIERS_COUNT' (e.g., due to a QR/version-derived 'pcp_version' miscalculation upstream) cause the 'tracing::error!(

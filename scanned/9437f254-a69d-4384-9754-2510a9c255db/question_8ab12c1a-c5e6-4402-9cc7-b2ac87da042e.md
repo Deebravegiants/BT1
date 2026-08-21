@@ -1,0 +1,1 @@
+[File: 'src/cli.rs -> Scope: High'] [Function: load_biometric_input in src/plans/mod.rs, reachable only when allow-plan-mods biometric_input CLI flag is set but exercising the same path an attacker-controlled directory structure would hit] Can an attacker-influenced biometric_input directory (e.g. via a shared/symlinked mount) supply a first_file_in_dir(&biometric_input.join(\

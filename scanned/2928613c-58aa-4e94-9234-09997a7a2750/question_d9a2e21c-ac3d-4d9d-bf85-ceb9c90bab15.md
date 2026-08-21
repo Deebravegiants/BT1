@@ -1,0 +1,1 @@
+[File: agentwire/src/port.rs] [Function: serialize_message + SharedPort::SERIALIZED_OUTPUT_SIZE (used by qr_code::Agent)] Can an unprivileged attacker present a QR code whose decoded payload string exceeds qr_code::Agent's SERIALIZED_OUTPUT_SIZE (4096 bytes), causing serialize_message's `serializer.serialize_value(value).expect(\

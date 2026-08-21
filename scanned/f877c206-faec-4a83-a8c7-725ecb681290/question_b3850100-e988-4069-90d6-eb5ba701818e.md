@@ -1,0 +1,1 @@
+[File: 'src/plans/biometric_capture/overcapture.rs'] [Function: `Plan::from`] Does the fallback `config.map_or((1, Duration::from_millis(DEFAULT_OVERCAPTURE_DURATION)), ...)` treat a missing/`None` `signup_extension_config.parameters` identically to an attacker explicitly supplying `parameters = \
