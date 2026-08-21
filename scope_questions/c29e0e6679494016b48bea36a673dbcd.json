@@ -1,0 +1,117 @@
+[
+  {
+    "question": "'File Name: src/debug_report.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cb9afa43-649e-494a-b8bb-206e3d4b5814?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/logger.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e3670b4a-d1bf-4f9b-9b38-51bd789e8e68?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/ssd.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5f8fefca-8872-4bd3-b501-0918e334f715?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/process.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6d881e9d-7ffc-4a33-b108-c8dcfa3e94d5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/image/mod.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_eefe58f4-e024-4555-82b7-da2164df269e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/image/fisheye.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c7f997dd-dcb7-4df2-af35-93b6c72c5e16?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/utils/mod.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a56b1d58-7fea-4c29-b14e-fc1af9b02319?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/utils/rkyv_ndarray.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8869d3ac-759b-4106-9b86-2df66784bbe7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/utils/serializable_instant.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6ab1735a-5874-4feb-9d0b-d4fd99e8c941?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/utils/serialize_with_sorted_keys.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fc736841-e2ba-4652-8da3-0de1e26ad942?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/lib.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_462ba6fd-27b1-437d-bbe4-c8c126e1bf7d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/port.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d93771e6-a62e-499c-a497-0d56edad773c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/agent/mod.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_29c7e698-2d6e-49a3-b087-8bcc1b46187f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/agent/process.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cad9b681-908a-4429-af41-e76ad49e49e9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/agent/task.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5b807011-e131-4578-a539-af0f1522dc70?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: agentwire/src/agent/thread.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_139a22b5-7103-480e-ab69-91730022f92b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/mod.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7ba27c31-cc96-492f-9d8b-81f828489f56?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/livestream/mod.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4bfeb3cb-af44-444e-8b95-5f495f11f7d8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/livestream/upstream.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7e24a23b-dc6f-4a37-9923-4e98f88c0ece?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/livestream/downstream.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5ecd5647-4d29-4b06-9f7f-2e7ab1ce158c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: livestream-event/src/lib.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_333c63a4-2698-45b5-b602-dfc4e0272639?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: orb-relay-client/src/lib.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8b54c077-dc3c-4c5d-a51d-1f06dbe9f00f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: orb-relay-client/src/client.rs -> Scope: Critical. An unprivileged attacker can cause captured iris/face images, iris codes, or self-custody secrets to be encrypted to, uploaded to, or recoverable by an attacker-chosen key, URL, bucket, or session, leaking another person's biometric data.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9b4c31e4-d4eb-47db-899e-aa3ae1b49ebc?mode=deep",
+    "questions_generated": false
+  }
+]
