@@ -1,1 +1,0 @@
-[File: 'src/cli.rs' Scope: Critical software-version gating bypass] [Function: MasterPlan::is_orb_os_version_allowed / signup_post::SoftwareVersionStatus handling (src/plans/enroll_user.rs:104-133)] Can an unprivileged ATTACKER's backend session return SoftwareVersionStatus::Unknown or ::Empty under PRECONDITION #[cfg(feature=\
