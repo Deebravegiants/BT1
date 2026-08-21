@@ -1,1 +1,0 @@
-[File: src/plans/qr_scan/user.rs -> Scope: Critical] [Function: qr_scan::user::Data::try_parse, QR_CODE_V2 regex] Can an attacker exploit the `[a-z0-9]{4}-[a-z0-9]{12}` optional group in `QR_CODE_V2` to submit a shortened/ambiguous `user_id` (e.g. `\

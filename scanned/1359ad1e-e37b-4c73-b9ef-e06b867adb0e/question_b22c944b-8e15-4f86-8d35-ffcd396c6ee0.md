@@ -1,1 +1,0 @@
-[File: src/plans/personal_custody_package.rs -> Scope: Critical] [Function: make_iris_codes_json / make_iris_code_shares_jsons] Can an attacker whose own signup produces partial/missing iris code shares (e.g. simulate fraud/hardware timeout scenario) still cause `Package::build` to proceed past `bail!(\
