@@ -1,1 +1,0 @@
-[File: src/logger.rs -> Scope: cross-signup state bleed] [Function: dd_timing! usage in image_uploader::upload_image / data_uploader::upload_pcp] Can an attacker abort signup A after custody package tier upload begins, immediately start signup B, and cause a delayed/late-arriving upload_pcp response for signup A's tier to fire dd_timing!(\

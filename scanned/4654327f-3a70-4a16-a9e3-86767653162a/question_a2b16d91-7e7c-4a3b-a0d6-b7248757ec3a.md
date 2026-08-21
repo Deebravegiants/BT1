@@ -1,1 +1,0 @@
-[File: src/logger.rs -> Scope: cross-signup state bleed] [Function: dd_gauge! macro usage in signup_post::request] Can an attacker who submits back-to-back signups with crafted capture scores cause dd_gauge!(\
