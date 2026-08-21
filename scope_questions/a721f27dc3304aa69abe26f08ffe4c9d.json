@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: src/plans/biometric_capture/focus_sweep.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d9a5d026-49ef-4201-9ecb-695c7a55dcf4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/plans/biometric_capture/mirror_sweep.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7591de9f-0461-4f2a-a4c5-a4ef97dccb63?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/plans/biometric_capture/multi_wavelength.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_da22b7ab-3ef3-43b9-850b-ad2e49b60ac2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/plans/biometric_capture/overcapture.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_45d7f043-3eed-439a-ab1c-bb09afe4af27?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/plans/biometric_capture/pupil_contraction.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1d494f08-ec1b-43df-9b7e-4f1a54bbaa96?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/plans/biometric_pipeline/mod.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_505e7057-6986-40bd-8b9a-75428007f67a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/plans/biometric_pipeline/code.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_da260de1-bec3-4815-a6f3-b01a9aecfa1b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/plans/fraud_check.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_69518d4e-b20d-4872-8b88-ed216a051f0e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: fraud-engine/src/lib.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b9325acb-b375-4227-b744-9493bffe7411?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: fraud-engine/src/dsl.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e026d4a3-f218-480c-86f8-d83291e8674e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: fraud-engine/src/pipeline.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_880cbe77-2537-4430-92fd-0a3c1f972921?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: fraud-engine/src/report.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7ede9129-eff1-4564-9a42-3c6de7a2851d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/eye_tracker.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_90d231f2-d3e6-4b1e-a6a5-f774c32b2cd4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/eye_pid_controller.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ed8b04b8-8a8f-409e-b373-136d11a79694?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/distance.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_02648e9c-3343-4d12-a8ad-e3191411b167?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/mirror.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f67c7097-855a-4678-bbbb-5b7b5e52b881?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/thermal.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_776540b7-8050-4ae2-a4cb-679896a3bf13?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/ir_auto_exposure.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6920f36f-88e8-4c65-8ac8-cbe6518c7c66?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/ir_auto_focus.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_00a86c23-0796-45bc-8542-f49b8e42e0cc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/mod.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_32134b18-e4d1-4e86-9cb2-32c2cf1734d1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/iris/mod.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e4640d1e-10b2-4462-b0b5-b4c1f607c723?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/iris/types.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a8293bfb-21de-4ab7-af8c-9a7049c0de4e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/iris/extracts.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_384a93dd-a385-4414-8804-4541ef714816?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/face_identifier/mod.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_61a6d693-bd9a-435e-a664-def3c064d051?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/face_identifier/types.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b1a4fe46-401f-40a3-b1ab-ea85281e1957?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/occlusion.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7e2abae1-df3a-45a6-ac04-11c04816bd20?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/ir_net.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_63dd3aa7-892c-497e-8b58-3488d3ed041e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/rgb_net.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_011cb66a-5574-44da-bfa9-5f1cee8b4ecd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/mega_agent_one.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f3537aab-cce3-4da3-97f6-9b278167481d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/python/mega_agent_two.rs -> Scope: Critical. An unprivileged attacker can bypass or neutralize liveness, occlusion, fraud-check, or face/iris qualification enforcement so a presentation, replayed capture, or degraded-signal path is accepted as a genuine live human signup.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1094438e-7422-4289-907f-d5ea179d5232?mode=deep",
+    "questions_generated": false
+  }
+]
