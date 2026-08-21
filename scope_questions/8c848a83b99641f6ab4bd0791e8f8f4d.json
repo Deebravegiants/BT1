@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: ai-interface/src/lib.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ddebf15b-6bf3-457e-abd7-d715fb848f20?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: ir-net/src/lib.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5da921a7-2a16-4cac-95a7-437ba06ec3ed?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: rgb-net/src/lib.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b8ce1532-58d1-42e5-9d25-061c4b359753?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/plans/personal_custody_package.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a90870b5-38ec-4f95-82fe-5f72ccf2e98c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/secure_element.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ab24098d-b751-4a79-ae47-0b89754ddca4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/identification.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e9f3b9af-7a26-42ff-8276-3380429db733?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/short_lived_token.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4c10d6ec-bdc4-4747-a19a-3eae97124ef5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/dbus.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4f3a212d-9dc3-4018-85cc-3d7ba806a1d2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/image_notary.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_692fc438-83cd-468d-91af-f91e9643dbdf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: wld-data-id/src/lib.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5c5ad036-2413-4aa2-8d90-bb7cbf140e83?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: wld-data-id/src/wld_data_id.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_200c780a-2d2e-43e3-a145-37965f36a95d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: wld-data-id/src/s3_region.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_13356c99-bc9f-4d65-8dc9-63b7416a885d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/mod.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6b52598e-21ea-421b-af89-2bad7f4c1390?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/config.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_18dc5404-317a-40a7-ad96-d6c94758b02c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/endpoints.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a0a42bdb-b844-4025-8a2c-689d824e16b4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/signup_post.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9c7fba89-6d68-4eab-bf24-0b593734dc6c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/signup_poll.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0f1ae7f0-a4cf-4868-9160-67465007f63d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/user_status.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dad21b60-120e-44d0-b970-2b018cd0eb65?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/operator_status.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_60941ce8-c741-4702-9928-c1ceb2a3c719?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/orb_os_status.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b196b81e-e534-409f-8552-cd0fd252b3c3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/status.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_551b3daa-88b0-485c-b196-ecad33cfa639?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/presigned_url.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ace8c5d9-2da4-4100-b364-0e93d089c584?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/s3_region.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_56b75f9d-2b80-440c-8881-e3e13c7f4075?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/upload_image.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_71f7edee-58ef-496f-bc6e-c5d45fc0f361?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/upload_debug_report.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f6b95539-89a4-47a7-9000-71cfe847fb6a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/backend/upload_personal_custody_package.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f9c10b0b-388d-461a-b30c-aee0e5a6554b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/config.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9d5d0905-40bf-442c-9bfb-554bf9e30fc0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/calibration.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_03ad1b82-fca3-4beb-a27d-753af711a0d5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/data_uploader.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b6b0252b-e80d-43fe-ac27-3261278d6035?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: src/agents/image_uploader.rs -> Scope: High. An unprivileged attacker can force cross-signup state bleed, so one user's captured frames, iris codes, QR-derived identity, or fraud verdict is carried into another user's signup, upload, or custody package.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7668ecec-9f94-4739-8e36-efa251d64d5f?mode=deep",
+    "questions_generated": false
+  }
+]
