@@ -1,1 +1,0 @@
-[File: 'File Name: src/ui/mod.rs -> Scope: Critical.'] [Function: plans::mod::MasterPlan::handle_user_qr_code] Can an attacker present a user QR-code whose user_id exactly equals the current operator_data.qr_code.user_id under preconditions of `#[cfg(feature = \
