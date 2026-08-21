@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs'] [Function: MasterPlan::handle_user_qr_code] Can an attacker present a user QR code whose qr_scan::user::Data::user_id textually equals the currently displayed operator_data.qr_code.user_id (rules.user_id == operator_data.qr_code.user_id) but only under cfg(feature = \
