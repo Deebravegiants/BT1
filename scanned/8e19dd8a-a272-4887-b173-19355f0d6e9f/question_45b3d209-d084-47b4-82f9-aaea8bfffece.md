@@ -1,1 +1,0 @@
-[File: src/short_lived_token.rs -> Scope: Critical] [Function: request_orb_token / dd_incr reattempt counters] Can an attacker who repeatedly disrupts network/D-Bus availability during their own signup (a physically-controllable condition, e.g. through timed Orb movement/vibration affecting local daemon comms) drive `wait_for_token`'s `dd_incr!(\
