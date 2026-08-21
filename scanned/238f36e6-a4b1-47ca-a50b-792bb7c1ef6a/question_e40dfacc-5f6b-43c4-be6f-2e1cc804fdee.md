@@ -1,1 +1,0 @@
-[File: 'src/agents/python/iris/mod.rs -> Scope: High'] [Function: TryFrom<PipelineOutput> for EstimateOutput] Can an unprivileged attacker whose presented iris/eye causes the underlying python model to return a PipelineOutput with iris_template=None and error=None simultaneously trigger the `output.error.expect(\
