@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs -> do_signup, is_orb_os_version_allowed'] [Function: do_signup] Can an attacker, by controlling the 'stage' vs non-stage code path indirectly through timing (repeatedly starting/aborting signups), reach the branch `#[cfg(not(feature = \
