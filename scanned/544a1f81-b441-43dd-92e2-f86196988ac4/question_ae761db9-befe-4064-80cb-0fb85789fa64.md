@@ -1,1 +1,0 @@
-[File: 'src/plans/personal_custody_package.rs' -> Scope: High] [Function: Package::make_iris_code_shares_jsons] If the biometric pipeline produces a signup with missing iris/mask code shares (e.g. attacker-induced fraud/skip path), does `bail!(\
