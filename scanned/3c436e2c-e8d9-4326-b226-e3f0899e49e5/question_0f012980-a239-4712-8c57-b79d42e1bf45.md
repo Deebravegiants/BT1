@@ -1,1 +1,0 @@
-[File: 'src/backend/upload_image.rs -> Scope: High'] [Function: qr_code::Agent::run / decode_rxing] Can a hostile QR-code image (crafted pixel pattern rather than text payload) delivered through the RGB camera frame to the process-isolated qr-code agent (src/agents/qr_code.rs) cause RgbImage::from_vec's `.expect(\

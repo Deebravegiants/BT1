@@ -1,1 +1,0 @@
-[File: 'src/backend/upload_image.rs -> Scope: High'] [Function: user_status::request / UserData::verify] Can an attacker supply a user QR-code with a user_data_hash that does not correspond to any backend-authenticated_app_data, or omit it entirely, to force the '#[cfg(not(feature=\
