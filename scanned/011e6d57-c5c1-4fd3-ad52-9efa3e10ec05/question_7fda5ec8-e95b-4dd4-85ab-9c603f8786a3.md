@@ -1,1 +1,0 @@
-[File: 'src/plans/personal_custody_package.rs' -> Scope: Critical.] [Function: make_iris_code_shares_jsons] Given the `# TODO: Should we produce a PCP if we don't have all the shares?` comment, when fraud detection zeroes/omits left_iris_code_shares etc. after a detected fraud attempt but signup_reason is nonetheless set to a non-Fraud value elsewhere, can bail!(\
