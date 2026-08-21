@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs'] [Function: MasterPlan::verify_operator_qr_code] Can an attacker exploit the early-return branch `if qr_code.signup_extension() || self.operator_qr_code_override.is_some()` to obtain a synthetic 'valid' operator LocationData{team_operating_country: \
