@@ -1,1 +1,0 @@
-[File: 'src/plans/enroll_user.rs'] [Function: make_signature] Can an unprivileged attacker cause `make_signature` to sign a SHA256 context built from `ORB_ID + user_qr_code.user_id + pipeline iris/mask codes` using a `user_qr_code.user_id` string that was accepted by `Data::try_parse` but never actually validated against a live backend session (e.g., a `#[cfg(feature=\
