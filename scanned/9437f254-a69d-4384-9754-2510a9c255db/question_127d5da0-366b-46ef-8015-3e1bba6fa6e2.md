@@ -1,1 +1,0 @@
-[File: 'src/network/mecard.rs -> Credentials::parse'] Can an unprivileged attacker present a WiFi QR code whose MECARD payload encodes an SSID/password containing shell-meta or argument-like strings (e.g. '--auth', embedded NUL, or thousands of escaped '\\\\' sequences) such that `network::join` in src/network/mod.rs builds `Command::new(WPA_SUPPLICANT_INTERFACE_BIN).arg(\

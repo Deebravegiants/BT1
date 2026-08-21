@@ -1,1 +1,0 @@
-[File: 'src/cli.rs -> Scope: High'] [Function: QrCodes::with_user_qr_code in src/plans/mod.rs] Can an unprivileged attacker cause handle_user_qr_code to be invoked twice for the same QrCodes::Both state (e.g. via a race in scan_remaining_qr_codes retry loop under check_signup_conditions failures) such that CALL_SEQUENCE with_user_qr_code hits the QrCodes::Both { .. } => panic!(\
