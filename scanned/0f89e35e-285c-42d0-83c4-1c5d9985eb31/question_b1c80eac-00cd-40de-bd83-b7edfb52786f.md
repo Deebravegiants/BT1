@@ -1,1 +1,0 @@
-[File: 'src/agents/mod.rs -> Scope: Critical.'] [Function: 'src/plans/mod.rs::QrCodes::with_user_qr_code' and enclosing 'ResolvedQrCodes' flow feeding 'TryInto<personal_custody_package::Credentials>'] Can an attacker who scans an operator QR code, then a user QR code, then re-triggers user QR scanning (calling 'with_user_qr_code' twice) cause the second call's 'panic!(\
