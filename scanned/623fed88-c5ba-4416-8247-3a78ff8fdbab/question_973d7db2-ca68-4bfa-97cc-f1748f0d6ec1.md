@@ -1,1 +1,0 @@
-[File: 'src/network/mecard.rs -> Function: Credentials::parse used via qr_scan::wifi::Schema::try_parse'] Can an attacker embed a crafted SSID/password via the hex-string auto-decode branch of parse_string (unquoted, even-length all-hex string decoded via char::from_u32) that produces control characters or NUL bytes, which then reach network::join's `cmd.arg(

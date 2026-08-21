@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs -> Function: handle_user_qr_code'] Can an attacker who is also playing operator scan a user QR-code identical to the operator QR-code under 'integration_testing' feature bypass (`#[cfg(not(feature = \
