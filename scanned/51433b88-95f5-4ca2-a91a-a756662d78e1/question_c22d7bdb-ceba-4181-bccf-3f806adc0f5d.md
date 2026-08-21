@@ -1,1 +1,0 @@
-[File: 'src/utils/serialize_with_sorted_keys.rs'] [Function: Package::make_backend_keys_json vs user_status::request::request identity_commitment verification] Given `user_data.verify(user_data_hash)` in 'src/backend/user_status.rs' gates acceptance of `authenticated_app_data`, can an attacker whose QR-code lacks `user_data_hash` (old QR-code format, `#[cfg(not(feature=\
