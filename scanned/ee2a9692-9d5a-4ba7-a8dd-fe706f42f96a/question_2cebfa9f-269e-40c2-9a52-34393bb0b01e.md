@@ -1,1 +1,0 @@
-[File: src/backend/s3_region.rs -> Scope: Critical] [Function: request()] Does `request()`'s `response.error_for_status_ref()?` check run only after `.send().await?`, meaning any backend response with a 2xx status but with attacker-influenced/unexpected JSON body content (e.g. `{\

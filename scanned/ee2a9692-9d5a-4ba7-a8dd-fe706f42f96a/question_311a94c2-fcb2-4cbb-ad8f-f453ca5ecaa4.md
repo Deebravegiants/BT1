@@ -1,1 +1,0 @@
-[File: src/backend/operator_status.rs] [Function: request] If the backend endpoint (SIGNUP_BACKEND_URL) is reachable by the attacker's own basic_auth'd orb token and returns a JSON body with additional/renamed fields matching camelCase serde rules but a boolean-like `valid` value expressed as a non-bool JSON type (e.g., string \

@@ -1,1 +1,0 @@
-[File: src/backend/s3_region.rs -> Scope: Critical] [Function: get_region()] Can an unprivileged attacker, by causing the `/api/v1/region` backend response to be slow, malformed JSON, or return a non-2xx status during `request()`, force `get_region()`'s `Err(e)` arm to silently return `Ok((S3Region::Unknown, \
