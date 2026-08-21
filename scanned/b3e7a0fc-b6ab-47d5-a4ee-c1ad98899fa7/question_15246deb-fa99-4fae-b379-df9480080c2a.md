@@ -1,1 +1,0 @@
-[File: 'File Name: src/brokers/orb.rs -> Scope: Critical.'] [Function: Orb::handle_mirror mirror angle clamping] Can an attacker exploit the hardware-version branch in Orb::handle_mirror (`identification::HARDWARE_VERSION.contains(\

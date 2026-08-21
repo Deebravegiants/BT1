@@ -1,1 +1,0 @@
-[File: 'File Name: src/brokers/orb.rs -> Scope: Critical.'] [Function: Orb::handle_fusion_rgb_net_face_identifier] Can an attacker manipulate frame timing so that self.rgb_net_frames is emptied by a concurrent handle_rgb_net call before handle_fusion_rgb_net_face_identifier's restore_frame! macro runs, hitting the `unreachable!(\
