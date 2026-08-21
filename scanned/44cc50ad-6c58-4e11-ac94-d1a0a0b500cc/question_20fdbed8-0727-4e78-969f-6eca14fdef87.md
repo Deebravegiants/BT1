@@ -1,1 +1,0 @@
-[File: 'agentwire/src/agent/task.rs -> Scope: High.'] [Function: network::wpa_passphrase / network::join] Can an unprivileged attacker supply a WiFi MECARD QR with an SSID containing zero bytes or non-UTF8-safe byte sequences (via the hex-string SSID path in `parse_string`) that, when passed to `pbkdf2::derive(ssid.as_bytes(), ...)` and then to `cmd.arg(
