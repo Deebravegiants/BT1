@@ -1,1 +1,0 @@
-[File: 'ai-interface/src/lib.rs -> Scope: Critical'] [Function: occlusion::Environment::occlusion_estimate estimation.get_item(...).extract()?] Can an attacker construct a scene (lighting/occlusion pattern) that drives the underlying Python occlusion model to return a dict missing one of `\
