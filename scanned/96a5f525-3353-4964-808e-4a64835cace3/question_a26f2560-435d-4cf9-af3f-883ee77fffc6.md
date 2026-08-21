@@ -1,1 +1,0 @@
-[File: 'src/cli.rs -> Scope: Critical.'] [Function: plans::mod::handle_user_qr_code] Can an unprivileged attacker present a user QR-code whose user_id equals operator_data.qr_code.user_id under the `integration_testing` feature path (where the early `return Ok(None)` guard is skipped: `#[cfg(not(feature = \
