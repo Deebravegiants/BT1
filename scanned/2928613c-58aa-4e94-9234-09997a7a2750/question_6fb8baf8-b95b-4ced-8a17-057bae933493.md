@@ -1,1 +1,0 @@
-[File: 'agentwire/src/lib.rs' -> Scope: High] [Function: agent::process::spawn_process_impl / ARGS_ENV shell_words::split] Can an unprivileged attacker who controls the `ARGS_ENV` environment variable indirectly through a chain not requiring operator access (e.g. a backend-supplied argument list intended for re-exec) cause `shell_words::split(&args).expect(\
