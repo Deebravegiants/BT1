@@ -1,1 +1,0 @@
-[File: 'src/agents/python/mega_agent_one.rs' -> Scope: High.] [Function: network::join, src/network/mod.rs:75] Can a crafted MECARD WiFi QR code with an SSID or password string containing shell-metacharacters or excessively long byte sequences (nom parser in mecard.rs::parse_string) reach network::join's `cmd.arg(\
