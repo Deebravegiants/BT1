@@ -1,0 +1,1 @@
+[File: src/agents/image_notary.rs -> Scope: Critical] [Function: save_frame (feature `no-image-encryption` vs default)] Frames are written unencrypted to disk only when the `no-image-encryption` feature is off is inverted: `encrypt_and_seal(&png_buf.into_inner())` runs only `#[cfg(not(feature =
