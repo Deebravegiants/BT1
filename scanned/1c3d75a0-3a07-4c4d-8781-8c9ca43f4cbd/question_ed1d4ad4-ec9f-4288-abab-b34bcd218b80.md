@@ -1,1 +1,0 @@
-[File: src/agents/image_uploader.rs -> Scope: Critical] [Function: upload_identification_images_impl] Can an attacker manipulate their own signup's identification directory structure (`identification/ir/left`, `identification/rgb/self_custody_candidate`, etc.) such that `upload_saved_images(&identification_dir.join(\
