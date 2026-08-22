@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: core/primitives/src/utils/compression.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9b7f2165-f062-4c43-acc5-f7f41424a4be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/account.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b87efb0f-52a8-4d37-af67-727c8669ca52?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/code.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3747456c-f57c-4538-87d7-64611468e045?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/config.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dd1e7cb3-1bb8-4ef4-ace7-383b3e009437?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/gas.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_736c0037-2f15-4c93-8170-4e6bd576b70f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/global_contract.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ff44b427-638c-4374-be0d-9461384c2616?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/deterministic_account_id.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1af0b1f1-d22a-494f-a02a-5fad43bb8bfd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/universal_account_id.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f350f895-69df-40d0-9ae3-4870e4714589?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/universal_state_init.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_65340193-2b01-4add-831d-f1aae61db93b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/trie_key.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c9b2c374-b48f-4a4a-a65b-a85731067d1c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/serialize.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fb9072df-15a1-4508-ae73-9e5f18ff52c5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/hash.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_66a40fa0-aa13-49c2-bec8-416c086060ae?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/types.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bd6a3fb4-fa9d-4c9c-b004-a0cf77f79d37?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/errors.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2b6021d3-bfa6-4877-884e-0098aa5785b1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/parameters/src/config.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_498628d7-247f-42be-9a0a-22261971eb09?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/parameters/src/cost.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c1008c35-5d04-4eff-89c2-17b07b9882be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/parameters/src/vm.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ed1c182d-c8eb-4ca3-ac54-d55d48fa09f5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/parameters/src/parameter_table.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7a545c4d-5608-43c1-a149-4f997d6e8ddf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mod.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_883b927b-062a-480b-a335-c0a0edbc93dd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/update.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_69fdc3e8-6735-469d-b16b-ae0bbf425a15?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/update/iterator.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1ad14ac3-ac4a-4b88-8d2a-cb2f3e1eb749?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/iterator.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e2d77a4e-5e5f-4292-9e0d-ce7743add46b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/trie_storage.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5246e1e0-215a-4c6d-a0f5-afe1ff4511a7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/trie_storage_update.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9ca6ef3d-3d1a-4546-b220-efbb93c4e9c1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/trie_recording.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f2e67504-b4ef-455c-a6bc-759094fa36b4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/raw_node.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_04595486-8ac8-445e-a99f-d2f708f825ab?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/nibble_slice.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_84b3b6f5-1463-4eb1-bde8-57eb0ea7fe59?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/shard_tries.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_87cb7427-f506-4bce-b61e-1f09c0a67975?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/config.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4db0976d-e4f5-4969-9063-4d95fa43fae7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/outgoing_metadata.rs -> Scope: High. An unprivileged attacker can exploit serialization, trie-key, or account-id parsing differentials to collide storage keys across accounts, corrupt state accounting, or make validation and execution disagree about the same transaction.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_06a56b16-f639-44f4-9fb8-0b12173a6634?mode=deep",
+    "questions_generated": false
+  }
+]
