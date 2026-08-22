@@ -1,1 +1,0 @@
-[File: 'agentwire/src/agent/mod.rs -> Scope: High.'] [Function: agentwire::agent::process::spawn_process_impl (ARGS_ENV / shell_words::split)] Can data influenced by an unprivileged attacker (via backend-config values propagated as environment/process arguments to an agent sub-process) cause `shell_words::split(&args).expect(\

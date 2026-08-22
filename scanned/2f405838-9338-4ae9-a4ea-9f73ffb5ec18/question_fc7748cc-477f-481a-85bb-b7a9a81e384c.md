@@ -1,1 +1,0 @@
-[File: 'agentwire/src/agent/mod.rs -> Scope: High.'] [Function: plans::mod::QrCodes::with_user_qr_code] Can a race/replay in the idle self-serve flow cause `with_user_qr_code` to be invoked twice on the same `QrCodes::Both` variant (e.g. by an attacker rapidly re-triggering `idle_scan_user_qr_code` across a signup abort/restart boundary), hitting the `panic!(\

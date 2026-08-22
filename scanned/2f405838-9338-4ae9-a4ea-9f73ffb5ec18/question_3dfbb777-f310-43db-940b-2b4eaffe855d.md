@@ -1,1 +1,0 @@
-[File: 'agentwire/src/agent/mod.rs -> Scope: High.'] [Function: network::join / network::hex_string] Can an unprivileged attacker who controls the WiFi MECARD QR content (ssid, password fields) cause argument or shell-metacharacter injection into the `wpa-supplicant-interface` child process invoked via `process::Command::new(WPA_SUPPLICANT_INTERFACE_BIN).arg(\
