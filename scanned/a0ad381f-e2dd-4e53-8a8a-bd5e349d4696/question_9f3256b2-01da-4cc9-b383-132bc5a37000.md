@@ -1,1 +1,0 @@
-[File: 'File Name: src/ssd.rs -> Scope: High.'] [Function: backend::operator_status::request URL construction] Can an unprivileged attacker who controls their own operator/user QR-code's user_id field (accepted by the loose QR_CODE_V2 regex allowing `[a-z0-9]{8}-...` segments) inject characters that survive URL-formatting in `format!(\
