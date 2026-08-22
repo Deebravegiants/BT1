@@ -1,1 +1,0 @@
-[File: 'File Name: fraud-engine/src/lib.rs -> Scope: High.'] [Function: MasterPlan::scan_operator_qr_code / operator signup_extension gating] Can an attacker in non-internal-data-acquisition builds still smuggle a `signup_extension` operator QR-code that reaches `handle_magic_operator_qr_code` or later fraud/pipeline logic in a state inconsistent with the `#[cfg(feature =
