@@ -1,0 +1,35 @@
+# [M] Two-step role transfer approach
+
+## Summary
+Severity: Medium
+Chain: Smart contract
+Component: 2022-11-opyn
+Published: 2022-12-03
+Source: https://github.com/sherlock-audit/2022-11-opyn-judging/issues/187
+Type: sherlock-finding
+
+## Details
+pzeus
+
+medium
+
+# Two-step role transfer approach
+
+## Summary
+Change the setting of a fee recipient to be done via a two-step approach
+## Vulnerability Detail
+An fee recipient receives the insurance fees. It would be way better if this role is set via the two-step role transfer approach where we separate the logic into 2 functions:
+
+1. First we are setting the new address as a `pendingFeeRecipient`
+2. Then the `pendingFeeRecipient` have to accept the role transfer. Meaning that inside the second function, there should be a `require(msg.sender == pendingFeeRecipient)` check
+
+## Impact
+This can end up with setting a wrong address for a fee recipient, either maliciously or by mistake, and then [a wrong address to receive those fees](https://github.com/opynfinance/squeeth-monorepo/blob/main/packages/hardhat/contracts/core/Controller.sol#L731)
+## Code Snippet
+https://github.com/opynfinance/squeeth-monorepo/blob/main/packages/hardhat/contracts/core/Controller.sol#L520
+## Tool used
+
+Manual Review
+
+## Recommendation
+A recommendation would be to split the fee recipient update process into two separate transactions - `setting` and `accepting` functions. And when calling the `accepting` function to check if the `msg.sender` is the same as the previously set address from the `setting` function

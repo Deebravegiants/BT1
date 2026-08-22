@@ -1,0 +1,40 @@
+# [M] one maturity could exhaust `VaultBorrowCapacity`
+
+## Summary
+Severity: Medium
+Chain: Smart contract
+Component: 2022-09-notional
+Published: 2022-10-13
+Source: https://github.com/sherlock-audit/2022-09-notional-judging/issues/130
+Type: sherlock-finding
+
+## Details
+GimelSec
+
+medium
+
+# one maturity could exhaust `VaultBorrowCapacity`
+
+## Summary
+
+`VaultBorrowCapacity` is used for all maturities in a vault. One or a few maturity could exhaust the capacity.
+
+## Vulnerability Detail
+
+All maturities in a vault share a borrow capacity. So if one maturity borrows too much then other maturities in the same vault cannot borrow anymore. 
+
+## Impact
+
+If `totalUsedBorrowCapacity` reach `maxBorrowCapacity`, no one can borrow anymore 
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-09-notional/blob/main/contracts-v2/contracts/internal/vaults/VaultConfiguration.sol#L293-L315
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Set a reasonable individual borrow capacity for all the maturities in one vault.
