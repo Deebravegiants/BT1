@@ -1,1 +1,0 @@
-[File: 'src/backend/user_status.rs::request'] Can an unprivileged attacker whose own signup session receives a crafted backend response containing 'backend_keys' and 'authenticated_app_data' but a mismatched/omitted 'user_data_hash' path cause 'UserData::verify(user_data_hash)' to be skipped in a build where the '#[cfg(not(feature = \
