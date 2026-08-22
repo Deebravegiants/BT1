@@ -1,1 +1,0 @@
-[File: 'File Name: src/calibration.rs -> Scope: High. ...'] [Function: Calibration::load version check] Can an unprivileged attacker rely on `Calibration::load` treating any version mismatch identically to a missing file (`bail!(\
