@@ -1,1 +1,0 @@
-[File: 'File Name: src/network/mecard.rs -> Scope: High.'] [Function: Credentials (Debug derive) / tracing::info! in plans/wifi/mod.rs] Can an unprivileged attacker set the WiFi QR's hidden/auth/ssid fields such that Debug-formatting `credentials` in `tracing::info!(\
