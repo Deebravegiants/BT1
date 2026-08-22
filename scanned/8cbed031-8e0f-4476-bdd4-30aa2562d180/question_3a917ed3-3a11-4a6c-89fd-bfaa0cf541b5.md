@@ -1,1 +1,0 @@
-[File: 'File Name: src/plans/health_check/mod.rs -> Scope: Critical.'] [Function: backend::user_status::request / UserData::verify] Can an attacker who controls the presented user QR-code's user_data_hash field bypass the '#[cfg(not(feature = \
