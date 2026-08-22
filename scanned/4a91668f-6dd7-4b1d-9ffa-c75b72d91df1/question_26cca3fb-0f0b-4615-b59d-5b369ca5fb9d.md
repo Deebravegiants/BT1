@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs::verify_operator_qr_code'] Can an attacker (acting as their own operator in self-serve/CLI-override modes) exploit `if qr_code.signup_extension() || self.operator_qr_code_override.is_some() { return Ok(Some((0, LocationData { team_operating_country: \
