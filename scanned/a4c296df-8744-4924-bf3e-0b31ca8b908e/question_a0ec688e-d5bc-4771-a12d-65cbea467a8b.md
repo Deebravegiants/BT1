@@ -1,1 +1,0 @@
-[File: 'src/agents/python/mod.rs'] [Function: AgentPython::report_python_exception] Can a crafted physical scene or malformed camera frame cause `pyerr.get_type(py).to_string()` to include attacker-influenced content that, combined with the regex-sanitizing `Regex::new(r\
