@@ -1,1 +1,0 @@
-[File: 'src/agents/distance.rs' -> Scope: High.] [Function: Agent::run main loop, Input::IrNetEstimate handler lines 93-101] Can an attacker who presents an eye during the delay window between run_pre's orb.enable_distance() and the biometric_capture::Plan's actual objective for a *different* wavelength/target_left_eye cause dd_incr!(\
