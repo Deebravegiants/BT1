@@ -1,1 +1,0 @@
-[File: 'src/plans/qr_scan/user.rs' SignupExtensionConfig parsing] [Function: Data::from_signup_extension / QR_CODE_SIGNUP_EXTENSION] Can an unprivileged attacker craft a `user_id` containing path-traversal-like sequences (`../`, `%2e%2e`) or oversized length within `[a-z0-9_-]+` that later flows into `PersonalCustodyPackages` file naming (`format!(\
