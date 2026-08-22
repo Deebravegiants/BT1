@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: runtime/runtime/src/lib.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b2f3a853-3391-4f30-9531-d8b826a8d0d7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/verifier.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4dc0f5ef-de69-433a-aaa2-32f39d097581?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/actions.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fc6188dc-98d7-47c6-b344-e4c770083c12?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/action_validation.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a353fbb1-275e-4864-8a08-375650d2d9f1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/access_keys.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ba00d510-3d7c-4f02-9911-25a975d19fca?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/adapter.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9f305e68-0c42-40c1-9d81-5d4c3eb675ca?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/config.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0d41e202-8576-4aed-8759-b0c4866477dd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/congestion_control.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5f0c6261-4373-4f43-b370-8053c0a8782a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/contract_code.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_651fb303-2f37-4e78-90da-adc87ca116d8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/conversions.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_143fced8-0ad3-456d-b6f2-a52c7da2c463?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/deterministic_account_id.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_70056256-abc6-4f05-9fe6-3b2d3a6452e3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/ext.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fa18ab56-cd50-49e5-8c7b-0bc26eb8b69e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/function_call.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ae9bd7a5-2f56-403d-926d-5ccca9d2828f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/global_contracts.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e060d5a6-aeac-499a-bb68-aa49cd5e6346?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/pipelining.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5e867e9a-9f9c-4998-b869-c618153dfad9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/prefetch.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7b50b1bb-7a17-4af4-8023-126b38e2cfe9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/receipt_manager.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dfdd2ee9-4c3a-4cc3-be1e-dbe7e3c4c255?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/state_viewer/mod.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7b14b825-2532-4642-b488-fa0a96efa3bd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/types.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ee0540c5-82be-4f05-9f25-92f849b54566?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/mod.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_525dbbbe-35b5-48a1-99f0-0da6447c7ea0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/scheduler.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4127b49b-a924-405f-b926-41ce4823d3c2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/distribute_remaining.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5643beb0-77a6-4204-b543-4eb894debc6b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/runner.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cfb96c2f-177a-48b0-97df-ce5fd5f9f61f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_138ee9cd-925d-4481-a686-3b16df465f0c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/prepare_v2.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2c99a5f7-8e09-465c-95a8-bcb825acf7ee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/prepare_v3.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b9d110d2-61eb-496c-8f5d-2202646db4ee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/instrument_v3.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bb0c7184-02f4-432c-b8ec-f3b94e5d6825?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/imports.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3754ad16-26d8-4151-a4e1-9eb76d69a5d6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/cache.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fe445b13-4e81-4896-9a42-af63e05c6f8b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/features.rs -> Scope: Critical. An unprivileged attacker can trigger nondeterministic or path-inconsistent execution so honest nodes disagree on state root, gas burn, or outcome for the same chunk, causing state divergence or an unintended chain split.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1ba3bb45-bafb-4d3c-b6ac-59f4e2f10e7c?mode=deep",
+    "questions_generated": false
+  }
+]
