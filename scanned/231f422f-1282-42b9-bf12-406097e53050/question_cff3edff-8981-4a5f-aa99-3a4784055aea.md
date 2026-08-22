@@ -1,1 +1,0 @@
-[File: 'File Name: src/backend/endpoints.rs -> Scope: High.'] [Function: plans::fraud_check::Report::fraud_checks / fraud_checks_strict] Given N_FRAUD_CHECKS is hardcoded to 0, can an attacker exploit the fact that fraud_checks() always returns an empty array so fraud_checks_strict()'s comment (\

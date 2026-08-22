@@ -1,1 +1,0 @@
-[File: 'File Name: src/backend/endpoints.rs -> Scope: High.'] [Function: plans::mod::MasterPlan::detect_fraud] Can any attacker complete a signup that would normally be flagged as fraudulent, given that detect_fraud (src/plans/mod.rs) unconditionally returns Ok(false) regardless of pipeline content (\
