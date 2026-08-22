@@ -1,1 +1,0 @@
-[File: 'File Name: src/process.rs -> Scope: Critical.'] [Function: enroll_user::make_signature / secure_element::sign] Can an attacker who controls the physical scene (presented face/iris) trigger make_signature to hash pipeline.v2 iris_code/mask_code fields alongside user_qr_code.user_id, then request Command::new(\
