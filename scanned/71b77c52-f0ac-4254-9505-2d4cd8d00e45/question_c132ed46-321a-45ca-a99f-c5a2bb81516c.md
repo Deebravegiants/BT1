@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs'] [Function: MasterPlan::handle_user_qr_code] Can an attacker present a user QR-code whose user_id exactly equals the operator's own qr_code.user_id under the `integration_testing` feature-gated bypass (line 1041-1042: `#[cfg(not(feature = \
