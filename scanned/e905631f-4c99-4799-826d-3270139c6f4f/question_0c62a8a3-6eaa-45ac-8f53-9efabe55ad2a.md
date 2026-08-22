@@ -1,1 +1,0 @@
-[File: ir-net/src/lib.rs -> Scope: High] [Function: EstimateOutput.message/status flowing into debug_report::IrNetMetadata] Can the free-form `msg` string returned by the Python model (estimation.get_item(\

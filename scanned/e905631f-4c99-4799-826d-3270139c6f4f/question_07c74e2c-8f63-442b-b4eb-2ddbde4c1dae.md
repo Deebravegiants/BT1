@@ -1,1 +1,0 @@
-[File: ir-net/src/lib.rs -> Scope: High] [Function: IrNet::init] Can a backend-supplied model config value routed through choose_config() in src/agents/python/mod.rs cause init_from_config() to return an InitAgent with agent=None and error=None, hitting init.error.expect(\
