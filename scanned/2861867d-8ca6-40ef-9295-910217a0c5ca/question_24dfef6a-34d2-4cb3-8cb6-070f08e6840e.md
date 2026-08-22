@@ -1,1 +1,0 @@
-[File: 'src/agents/python/iris/mod.rs' -> Scope: Critical.] [Function: EstimateOutput::try_from(PipelineOutput)] If output.iris_template is None but output.error is also None, try_from calls output.error.expect(\
