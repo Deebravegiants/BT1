@@ -1,1 +1,0 @@
-[File: 'src/plans/personal_custody_package.rs'] [Function: Package::make_iris_codes_json / make_iris_code_shares_jsons] Can an attacker whose capture produces a `Pipeline` with only partial iris/mask code shares (e.g., due to induced agent failure mid-capture) cause `make_iris_code_shares_jsons`'s `bail!(\
