@@ -1,1 +1,0 @@
-[File: 'File Name: agentwire/src/lib.rs -> Scope: Critical.'] [Function: src/plans/mod.rs::QrCodes::with_user_qr_code] Can an attacker who repeatedly re-presents a user QR-code while the Orb is already holding `QrCodes::Both` (e.g., self-serve idle scanning racing with a completed scan) trigger the `panic!(\
