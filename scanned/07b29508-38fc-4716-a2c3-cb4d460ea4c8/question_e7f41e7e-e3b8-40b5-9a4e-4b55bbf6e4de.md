@@ -1,1 +1,0 @@
-[File: 'src/logger.rs' Scope: High] [Function: backend::user_status (UserData construction) feeding qr_codes.user_data used throughout signup] Can an unprivileged attacker submit a QR whose user_data_hash is malformed/absent while backend_keys/authenticated_app_data are present, exploiting the '#[cfg(not(feature = \
