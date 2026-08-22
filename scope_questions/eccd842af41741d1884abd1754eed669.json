@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: runtime/runtime/src/lib.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8fdf57b4-12a9-453d-ae63-4ec8b61acba9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/verifier.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a6b0fbbb-e69d-4275-bb53-ce6a07a6c7f3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/actions.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7a3f53b2-0440-47e7-adfa-90d72011db20?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/action_validation.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8a54c6aa-bc57-4b36-bef3-7a82c5d9b780?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/access_keys.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_36b0756b-491b-4b6b-a723-ac511c94780f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/adapter.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1b34c438-6af6-460b-a5da-1248e6d17d93?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/config.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_201380ea-7426-4ac3-b0f0-bfbfe51af5b2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/congestion_control.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e38417fc-f67c-4f39-8c72-53fb0ba4d79e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/contract_code.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1ebb34b0-b8bd-40b2-b33b-c477ded82bc2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/conversions.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d6b86632-ca69-4b22-934b-a46cee153e59?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/deterministic_account_id.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b4dae91d-41c0-4e89-84f2-9f019f7535bc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/ext.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_186ed745-1bff-4395-b77a-635c5177ffcf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/function_call.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d9fdd69d-e987-4c44-811f-6edc01a81ced?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/global_contracts.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7f94f511-4f49-4d4b-a07b-699e83b93d85?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/pipelining.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7bd56ace-bdc0-4aa7-82cb-3a47de82310d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/prefetch.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_24f6346d-4ac8-46ac-b9b9-6e3b4a35b0e4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/receipt_manager.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f2cde248-07ba-4f39-816b-2c90084fe34a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/state_viewer/mod.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c069ed4a-6b23-4de8-9c8b-48d32677f9dc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/types.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_01d3df7a-38f2-4ac7-96b5-430d2baf24c4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/mod.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a08973a1-464f-4798-a832-6c10854a85a3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/scheduler.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_81ce076c-7bcd-4e2d-9be6-063086371b6e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/runtime/src/bandwidth_scheduler/distribute_remaining.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aa4a2130-4e05-4b5e-bd48-d7dbc7f76563?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/runner.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_77fc69be-5413-4a21-b63d-c738592282bc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_571183eb-dfba-40a7-b765-415bc20aff4c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/prepare_v2.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e20d3e07-a88f-4757-b5e7-c917479afd9c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/prepare_v3.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_64073a8a-3bd6-4764-9c1d-bc571cef77e8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/prepare/instrument_v3.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b7779a46-1ef7-439b-ba2f-0baac2f282a8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/imports.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_720091c4-c9fc-4615-9726-1995a5a43137?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/cache.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2effa20f-66c9-4b27-be24-6a1562135661?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/features.rs -> Scope: Critical. An unprivileged attacker who can only submit signed transactions or deploy and call their own contracts can mint, duplicate, or steal NEAR tokens, breaking the total-supply or per-account balance invariant through deposit, refund, gas-refund, staking, storage-staking, or receipt-accounting paths.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_053a7a75-641e-4068-b573-37248e294f9d?mode=deep",
+    "questions_generated": false
+  }
+]
