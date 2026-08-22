@@ -1,1 +1,0 @@
-[File: 'src/plans/qr_scan/user.rs'] [Function: Data::try_parse / decode_qr] Can a malformed user QR-code (invalid UUID bytes, truncated `user_data_hash`, or a string matching `QR_CODE_V2` regex only partially) cause `Data::from_v2`'s `captures.name(\

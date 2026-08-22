@@ -1,1 +1,0 @@
-[File: 'src/identification.rs -> Scope: High'] [Function: qr_scan::user::Data::user_id flowing into backend::operator_status::request / backend::user_status::do_request URL construction] Since `qr_code.user_id` is only regex-validated for the standard `QR_CODE_V2` path but is essentially attacker-controlled free text under `#[cfg(feature = \

@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs'] [Function: QrCodes::with_user_qr_code] Can an attacker who re-presents (replays) a user QR code twice in the same self-serve idle loop, or presents a user QR code before an operator QR in self-serve mode, drive `QrCodes::with_user_qr_code` into its `panic!(\
