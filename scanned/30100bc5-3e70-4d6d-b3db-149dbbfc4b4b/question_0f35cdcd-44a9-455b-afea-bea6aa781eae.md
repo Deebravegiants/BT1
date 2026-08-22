@@ -1,1 +1,0 @@
-[File: 'src/bin/orb-core.rs -> Scope: High.'] [Function: biometric_pipeline in src/plans/mod.rs, log_iris_data] Can an unprivileged attacker whose biometric_pipeline run errors mid-way (e.g. `biometric_pipeline::Error::Iris`) after `pipeline.v2.eye_left.iris_code_shares`/`iris_code` were partially computed and logged via `log_iris_data(...,\
