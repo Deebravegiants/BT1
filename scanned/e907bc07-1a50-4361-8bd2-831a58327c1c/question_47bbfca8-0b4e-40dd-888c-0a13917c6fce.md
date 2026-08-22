@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs'] [Function: MasterPlan::verify_operator_qr_code] Can an unprivileged attacker exploit the qr_code.signup_extension() short-circuit that returns Ok(Some((0, LocationData{team_operating_country: \
