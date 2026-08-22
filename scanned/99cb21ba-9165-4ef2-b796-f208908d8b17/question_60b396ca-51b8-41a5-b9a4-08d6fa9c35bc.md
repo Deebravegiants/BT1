@@ -1,1 +1,0 @@
-[File: src/network/mod.rs] [Function: join(credentials: Credentials)] Can an unprivileged attacker who presents a crafted WiFi-QR (MECARD `WIFI:S:...;P:...;;`) with an SSID or password containing NUL bytes, newlines, or `wpa_supplicant.conf` control characters (`#`, `\
