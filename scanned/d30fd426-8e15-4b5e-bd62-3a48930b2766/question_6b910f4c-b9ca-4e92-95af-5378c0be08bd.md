@@ -1,1 +1,0 @@
-[File: 'src/plans/biometric_pipeline/mod.rs' -> Scope: High cross-signup state bleed] [Function: Plan::new] Since face_bbox_*, eye_landmarks_*, and rgb frames are cloned straight out of the biometric_capture::Capture argument via `.expect(\
