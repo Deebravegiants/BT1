@@ -1,1 +1,0 @@
-[File: src/network/mod.rs] [Function: network::join] Can an attacker-controlled WiFi hotspot MECARD QR (parsed into mecard::Credentials with attacker-chosen ssid/password strings) result in argument injection into the wpa-supplicant-interface child process invoked via Command::new(WPA_SUPPLICANT_INTERFACE_BIN).arg(\

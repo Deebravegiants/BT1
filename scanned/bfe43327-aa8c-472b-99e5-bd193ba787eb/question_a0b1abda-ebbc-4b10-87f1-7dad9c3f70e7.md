@@ -1,1 +1,0 @@
-[File: src/plans/mod.rs] [Function: QrCodes::with_user_qr_code] Can a race in idle_wait_for_signup_request's self-serve branch, combined with an attacker rapidly re-scanning a new user QR-code mid-transition, cause QrCodes::with_user_qr_code to be invoked on a QrCodes::Both variant, triggering the panic!(\
