@@ -1,1 +1,0 @@
-[File: 'src/plans/mod.rs -> scan_user_qr_code / handle_user_qr_code'] [Function: handle_user_qr_code] Can an unprivileged attacker present a user QR-code identical to `operator_data.qr_code.user_id` (the operator-scanned QR) under the `integration_testing` feature path (where the early-return duplicate check is skipped: `#[cfg(not(feature = \
