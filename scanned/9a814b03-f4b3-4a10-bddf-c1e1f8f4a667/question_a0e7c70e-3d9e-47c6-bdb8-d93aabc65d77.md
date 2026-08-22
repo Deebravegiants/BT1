@@ -1,1 +1,0 @@
-[File: 'src/agents/python/iris/extracts.rs' -> Scope: cross-signup state bleed] [Function: TryFrom<PipelineOutput> for EstimateOutput error branch, output.error.expect] Can an attacker craft a PipelineOutput where iris_template is None but error is also None, causing output.error.expect(\
