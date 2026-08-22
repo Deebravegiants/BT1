@@ -1,1 +1,0 @@
-[File: 'ai-interface/src/lib.rs' Scope: Critical] [Function: InitAgent::agent/error] Can a race where `iris::Model::init` (src/agents/python/iris/mod.rs:228-243) or `MegaAgentOne::init`/`MegaAgentTwo::init` receives an `InitAgent{agent: None, error: None}` (neither field populated) cause `init.error.expect(\
