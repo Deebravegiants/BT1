@@ -1,1 +1,0 @@
-[File: runtime/near-vm-runner/src/logic/utils.rs -> Scope: High] [Function: split_method_names] Can an unprivileged attacker under preconditions of submitting method_names bytes equal to a single comma-only string (e.g. b\
