@@ -1,1 +1,0 @@
-[File: core/primitives/src/utils.rs -> Scope: Critical] [Function: derive_near_deterministic_account_id] Can an attacker craft a DeterministicAccountStateInit whose borsh serialization triggers the `.expect(\
