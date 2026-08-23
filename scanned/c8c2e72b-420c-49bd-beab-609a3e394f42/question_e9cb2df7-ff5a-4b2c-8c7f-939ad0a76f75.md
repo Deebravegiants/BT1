@@ -1,1 +1,0 @@
-[File: core/store/src/contract.rs -> Scope: Critical liveness] [Function: ContractStorage::record_call / ContractStorage::record_deploy] Can an unprivileged attacker force a call into ContractStorage::record_call or record_deploy after ContractStorage::finalize has consumed the tracker (Option<ContractsTracker> set to None), triggering the `expect(\
