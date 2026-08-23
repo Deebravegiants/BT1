@@ -1,1 +1,0 @@
-[File: core/primitives-core/src/serialize.rs -> Scope: High] [Function: dec_format::deserialize / DecType::try_from_str for u128] Can an unprivileged attacker craft a JSON-RPC request (e.g. a FunctionCall args or view-state amount field parsed via `#[serde(with = \
