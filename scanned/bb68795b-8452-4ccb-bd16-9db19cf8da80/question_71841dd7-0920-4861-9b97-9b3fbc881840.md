@@ -1,1 +1,0 @@
-[File: core/store/src/trie/update.rs -> Scope: Critical] [Function: TrieUpdate::finalize] Can an attacker-influenced execution path reach TrieUpdate::finalize while TrieUpdate::prospective is non-empty, triggering the `assert!(self.prospective.is_empty(), \
