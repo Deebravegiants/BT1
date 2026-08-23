@@ -1,0 +1,1 @@
+[File: core/store/src/trie/update/iterator.rs] [Function: TrieUpdateIterator::new seek_prefix] Can an attacker exploit the interaction between `trie_iter.seek_prefix(prefix)` (disk/memtrie side) and the BTreeMap `range` bound construction for `committed`/`prospective` to produce divergent start positions when `prefix` is empty (`b

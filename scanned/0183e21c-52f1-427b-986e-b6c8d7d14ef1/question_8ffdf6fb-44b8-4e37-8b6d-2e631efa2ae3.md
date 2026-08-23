@@ -1,0 +1,1 @@
+[File: 'core/primitives-core/src/serialize.rs' -> Scope: Critical] [Function: DecType for Option<T>, try_from_str via Option::try_from_str] Can an attacker submit an Option<Balance> field as the literal string \

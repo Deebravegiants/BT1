@@ -1,0 +1,1 @@
+[File: core/primitives-core/src/serialize.rs -> Scope: overflow-induced value corruption] [Function: DecType for u128 / u64 try_from_str] Can an attacker craft a decimal string exactly one greater than u128::MAX or u64::MAX (e.g. \

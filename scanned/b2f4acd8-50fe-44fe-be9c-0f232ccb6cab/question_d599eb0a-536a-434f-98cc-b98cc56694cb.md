@@ -1,0 +1,1 @@
+[File: core/store/src/trie/outgoing_metadata.rs -> Scope: High] [Function: OutgoingMetadatas::update_on_receipt_popped] Can an attacker trigger a call sequence where `OutgoingMetadatas::update_on_receipt_popped` is invoked for a shard_id whose metadata entry was never created (e.g. via a race between resharding shard-layout changes and buffer forwarding), hitting `.expect(\

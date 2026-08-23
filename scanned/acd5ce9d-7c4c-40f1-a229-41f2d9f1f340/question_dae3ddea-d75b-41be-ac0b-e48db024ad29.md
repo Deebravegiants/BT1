@@ -1,0 +1,1 @@
+[File: core/primitives-core/src/serialize.rs -> Scope: Critical] [Function: dec_format::Visitor::visit_str / DecType::try_from_str for u128] Can an unprivileged attacker submit a JSON-RPC transaction/receipt payload (e.g. FunctionCallAction gas, TransferAction deposit, or Balance fields in transaction.rs/views.rs annotated with #[serde(with = \

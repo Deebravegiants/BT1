@@ -1,0 +1,1 @@
+[File: runtime/near-vm-runner/src/features.rs -> Scope: Critical] Target: `finite_wasm::max_stack::SizeConfig::size_of_function_activation` (invoked from `prepare_v2.rs`/`prepare_v3.rs` `SimpleMaxStackCfg`) which contains `.expect(\

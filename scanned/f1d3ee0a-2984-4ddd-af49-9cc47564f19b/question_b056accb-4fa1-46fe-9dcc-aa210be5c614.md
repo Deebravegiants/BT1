@@ -1,0 +1,1 @@
+[File: core/primitives-core/src/serialize.rs -> Scope: nonce/authorization strictness] [Function: DecType for u64 used by nonce-adjacent view/RPC fields] Can an attacker submit a nonce value as a JSON string with non-minimal representation (e.g. \

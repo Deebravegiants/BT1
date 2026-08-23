@@ -1,0 +1,1 @@
+[File: core/store/src/contract.rs -> Scope: Critical] [Function: ContractStorage::get] Can an unprivileged attacker who deploys a contract and immediately triggers a function-call preparation pipeline race a chunk-application finalize() call, such that ContractStorage::record_call or record_deploy is invoked after tracker.take() in finalize (which uses .expect(\

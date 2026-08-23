@@ -1,0 +1,1 @@
+[File: runtime/runtime/src/function_call.rs -> Scope: Critical] [Function: execute_function_call, match on VMRunnerError::Nondeterministic] Can an unprivileged attacker craft a contract whose wasm execution triggers near_vm_runner to return VMRunnerError::Nondeterministic under normal (non-corrupted) node conditions, hitting the `panic!(\

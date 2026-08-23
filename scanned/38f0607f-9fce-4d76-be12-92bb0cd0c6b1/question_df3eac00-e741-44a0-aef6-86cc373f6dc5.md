@@ -1,0 +1,1 @@
+[File: core/store/src/trie/outgoing_metadata.rs -> Scope: Critical] [Function: ReceiptGroupsQueue::total_receipts_num / checked_add expect, line 284-288] Can an attacker cause `self.data.total_receipts_num.checked_add(1)` to overflow u64 by generating an astronomically large number of tiny receipts buffered to one congested shard, hitting the `expect(\

@@ -1,0 +1,1 @@
+[File: 'runtime/near-vm-runner/src/prepare/prepare_v2.rs'] [Function: PrepareContext::transform_import_section] Can an unprivileged attacker deploy a contract that imports a function or global from module `\

@@ -1,0 +1,1 @@
+[File: 'core/store/src/flat/delta.rs' -> Scope: High.'] [Function: FlatStateChanges::from_state_changes] Can an unprivileged attacker craft a transaction whose execution produces a RawStateChangesWithTrieKey for a TrieKey::DelayedReceiptIndices or TrieKey::BufferedReceiptIndices key with an empty `changes` Vec, triggering the `.expect(\

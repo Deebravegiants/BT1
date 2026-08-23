@@ -1,0 +1,1 @@
+[File: 'runtime/runtime/src/bandwidth_scheduler/mod.rs'] [Function: run_bandwidth_scheduler params calculation] Can an attacker, through triggering resharding to make `shard_layout.num_shards()` transiently zero or invalid during a boundary transition, cause the `NonZeroU64::new(shard_layout.num_shards()).expect(\

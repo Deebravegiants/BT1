@@ -1,0 +1,1 @@
+[File: core/store/src/trie/iterator.rs] [Function: TrieIteratorImpl::iter_step] Can a specially crafted trie (reachable by an attacker via ordinary AddKey/DeployContract/storage_write actions that create Branch/Extension/Leaf node combinations) drive the internal state machine into `(CrumbStatus::Entering | CrumbStatus::AtChild(_), non-Branch)` and hit `panic!(\
