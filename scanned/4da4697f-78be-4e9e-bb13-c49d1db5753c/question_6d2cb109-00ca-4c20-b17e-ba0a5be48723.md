@@ -1,0 +1,1 @@
+[File: runtime/near-vm-runner/src/errors.rs -> Scope: Critical] [Function: wasmtime_runner::mod::IntoVMError::into_vm_error, trap_classification::TrapClassification] Can an unprivileged attacker deploy and call a WASM contract crafted to trigger `TrapClassification::Unreachable{trap}` on a code path the engine configuration is assumed to make unreachable, hitting the `panic!(\

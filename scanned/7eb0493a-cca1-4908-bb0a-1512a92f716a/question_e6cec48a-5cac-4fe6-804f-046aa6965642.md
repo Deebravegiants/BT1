@@ -1,0 +1,1 @@
+[File: core/store/src/flat/delta.rs -> fn FlatStateChanges::from_state_changes, lines 105-120] Can an attacker force a chunk to contain a `RawStateChangesWithTrieKey` entry whose `.changes` vector is empty (violating the `.expect(\

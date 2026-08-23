@@ -1,0 +1,1 @@
+[File: runtime/near-vm-runner/src/prepare/prepare_v3.rs -> Scope: Critical] [Function: PrepareContext::run, wp::Payload::ExportSection EXPORT_PREFIX renaming under VMKind::Wasmtime] Can an unprivileged attacker name an exported function identically to a reserved internal instrumentation export produced by `InstrumentContext::new(..., \

@@ -1,0 +1,1 @@
+[File: core/primitives/src/trie_key.rs -> TrieKey::BufferedReceipt::append_into] Can an unprivileged attacker, through repeated cross-shard receipt generation (e.g. many `Transfer`/`FunctionCall` actions targeting many different shards) trigger a `receiving_shard` value that exceeds `u16::MAX` at the `assert!(receiving_shard <= u16::MAX as u64, \

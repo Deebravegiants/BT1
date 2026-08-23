@@ -1,0 +1,1 @@
+[File: core/primitives/src/transaction.rs -> Scope: Critical] [Function: get_hash_and_size / Transaction::get_hash_and_size using borsh::to_vec] Can an attacker construct a Transaction whose Action list contains a field (e.g., FunctionCallAction::args) sized such that borsh::to_vec's internal expect(\
