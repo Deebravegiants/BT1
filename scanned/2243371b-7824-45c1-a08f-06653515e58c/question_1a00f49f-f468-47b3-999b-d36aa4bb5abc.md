@@ -1,1 +1,0 @@
-[File: runtime/runtime/src/function_call.rs -> Scope: Critical] [Function: execute_function_call, match on VMRunnerError::WasmUnknownError] Can an unprivileged attacker deploy a contract that causes the underlying wasm engine to emit an unrecognized/unknown-message error, reaching the `panic!(\
