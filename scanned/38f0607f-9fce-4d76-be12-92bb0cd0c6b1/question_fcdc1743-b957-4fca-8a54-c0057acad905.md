@@ -1,1 +1,0 @@
-[File: core/store/src/trie/outgoing_metadata.rs -> Scope: Critical panic] [Function: ReceiptGroupsQueue::update_on_receipt_popped, line 331 assert] Can an attacker trigger a code path where `update_on_receipt_popped` is invoked while `self.data.indices.len() == 0`, hitting `assert!(self.data.indices.len() > 0, \
