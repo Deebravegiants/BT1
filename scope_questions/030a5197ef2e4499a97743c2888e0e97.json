@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: core/primitives/src/utils/compression.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8c18347a-e94b-483f-96a7-5bbc63c8b1b3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/account.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6251a56f-ef9e-4178-b83b-8ec47706d1c2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/code.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2b960c6b-f26f-43e1-8864-cc6173ddc6b4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/config.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_748a0b7a-7ef7-4225-b16e-f204e7e56efa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/gas.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_01807698-d37c-4812-8e4b-c8b94b844755?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/global_contract.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_652101ab-9a15-4eef-8f78-256a0630cad3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/deterministic_account_id.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_75a812ac-dd40-455c-b110-4f45c8382b92?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/universal_account_id.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3ed9783a-74d9-457b-b2ad-0eca82303120?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/universal_state_init.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_961f953b-9f7e-4b05-8c5c-9cf0aaaf0459?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/trie_key.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_19799f33-abc1-4295-9523-c5db77732637?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/serialize.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3467a6af-447b-4938-9448-8b8fefa0a8ef?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/hash.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f94f26e1-7bdf-450b-a00d-def3c67e277e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/types.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_05612d2c-e7c5-43d4-b45a-6c3cbe355836?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives-core/src/errors.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_61c23cae-9b78-4289-82d9-7336667836aa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/parameters/src/config.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_32026f68-e2f9-49cd-95ee-2019b8482d5e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/parameters/src/cost.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0ff7520d-6199-4aa9-901e-98ca3c3ca7db?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/parameters/src/vm.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_989ce870-0600-4c4c-9a0e-b9c236aad452?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/parameters/src/parameter_table.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8153a355-63fc-489e-9c2a-643acdc5c655?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mod.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1404e268-3453-43f8-a08a-9b968d1e1f9b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/update.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0892efcb-5ff6-4e89-bfd5-67545c1d9dbe?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/update/iterator.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_da10d7ae-4654-4be9-8341-0def73ff13dd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/iterator.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_18cc68f0-9caf-4adb-b207-e9ef4729effd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/trie_storage.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1c147678-c23d-43ad-b3ac-58a687ca3da5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/trie_storage_update.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_03428d79-8797-46cf-9524-637503fc0077?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/trie_recording.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c0ce1086-1567-4e40-b435-b6baa335cf4e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/raw_node.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8cbfddc2-09a6-480c-95fa-cbb7b3a28690?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/nibble_slice.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_79b7b709-40b3-4c37-88ab-0eb4b2e806bf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/shard_tries.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8a81ee16-45c7-44e0-874b-1a5cfafc358a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/config.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bfc67c76-21e5-4ef4-9f5b-06f385ccb1ca?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/outgoing_metadata.rs -> Scope: Critical. An unprivileged attacker can craft a transaction, receipt, or contract that makes chunk application panic, abort, hang, or consume unbounded memory or time on every validating node, stalling a shard or halting the chain.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_078f8d4f-0f99-4d4c-bd1d-b51d6a9bef1a?mode=deep",
+    "questions_generated": false
+  }
+]
