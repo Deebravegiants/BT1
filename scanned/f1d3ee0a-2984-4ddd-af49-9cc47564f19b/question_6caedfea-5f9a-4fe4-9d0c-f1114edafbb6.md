@@ -1,1 +1,0 @@
-[File: core/primitives-core/src/serialize.rs -> Scope: receipt/congestion accounting corruption] [Function: DecType for u128 used in Balance-typed view fields] Can an attacker submit a crafted decimal string with locale-style grouping or scientific notation (e.g. \

@@ -1,1 +1,0 @@
-[File: core/primitives-core/src/serialize.rs -> Scope: state divergence via non-canonical parsing] [Function: dec_format::DecType::try_from_str for u128] Can an unprivileged attacker submit an RPC JSON payload (e.g. a query_call/broadcast_tx_commit balance or deposit field) containing a numeric string with leading zeros, a leading '+' sign, or embedded underscores (e.g. \
