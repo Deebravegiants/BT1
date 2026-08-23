@@ -1,1 +1,0 @@
-[File: 'chain/jsonrpc/src/lib.rs' -> Scope: Critical balance invariant] [Function: process_query_response] Can an unprivileged attacker rely on the backward-compatible error remapping in process_query_response (chain/jsonrpc/src/lib.rs:375-433), specifically the ContractExecutionError branch that returns Ok(json!({\
