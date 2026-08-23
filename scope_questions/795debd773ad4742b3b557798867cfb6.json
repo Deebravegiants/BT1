@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/errors.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_edfe2c3a-991a-4793-bcb3-ea41faea7a41?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/profile.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e6d8dee6-bf79-4b7a-b03f-b4c09b40fb6b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/utils.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aa60cb05-37c6-4e1b-b496-29e6609db16c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/logic.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e0404fe6-dd93-4b86-8b4c-5a159213fa97?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/gas_counter.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fe1a460a-c968-4698-84c2-7715071943f5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/vmstate.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e81e9f5f-05fc-49c7-8451-922debdbff1d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/context.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5bbe583c-4970-4de3-81bd-7aee73ec6fa8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/dependencies.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2c510e16-dadb-467a-b29a-aa92064f28a9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/errors.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_755df203-36df-4fa9-a347-699e52636ea7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/types.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_34fb75cc-5a2c-4bf3-8676-b138bd526e95?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/utils.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_64da0296-d271-4b0b-8b1b-7cc079b9fa3f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/alt_bn128.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4b85c9af-2d20-4123-851c-309f75a00b5c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/bls12381.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_79c4fd97-45c7-44d6-9bbd-ac82213d388d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/logic/recorded_storage_counter.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1bbadcaf-1ea9-412a-a8a4-4e34e73b1747?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/wasmtime_runner/mod.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_237132ab-e028-4d6a-9f90-a43e45248f62?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/wasmtime_runner/logic.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e2b9aef0-0f8e-44bd-9d08-0c3a2c87c76a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: runtime/near-vm-runner/src/wasmtime_runner/trap_classification.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_58740c1d-e0cb-47fd-876a-a5deec622e29?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/transaction.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f95c98fb-cdd9-4b11-8d7c-0be12a2d28c6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/receipt.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e1aec092-7b84-45b3-bca6-a757e384c8d4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/action/mod.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f1b0b810-28e2-49ad-abfb-883b74c4238d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/action/delegate.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8e24af67-00db-42de-a0f4-7d32893a85bc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/signable_message.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5deef390-8240-4fb4-ac5b-50264fe5f37e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/errors.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_13a85147-b8dc-4d6c-807b-dd15a1968e56?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/trie_key.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bc21a45e-da22-4b16-92c5-9f1b264cde20?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/utils.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_697859d0-f78c-4756-9862-2389fd2b2ee5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/congestion_info.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_45943a17-71c3-4baf-b88d-69394a9a244d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/bandwidth_scheduler.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_67c3214b-2490-4f8b-888a-d439050b427c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/state_record.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_91db3415-f112-4807-94ac-9583d02b8b8e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/universal_state_init.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_021801a1-4b7e-42b3-b71e-50657356b08a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/primitives/src/views.rs -> Scope: Critical. An unprivileged attacker can bypass gas metering or storage staking so compute, storage growth, receipt size, or recorded witness size is unaccounted or underpriced, obtaining free execution, unbounded state bloat, or validator resource exhaustion.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_00f3d868-085d-4a3c-8bb5-5db7b542c336?mode=deep",
+    "questions_generated": false
+  }
+]
