@@ -1,1 +1,0 @@
-[File: prepare_v3.rs -> Scope: Critical] [Function: PrepareContext::run, ExportSection handling] Can an attacker craft a contract exporting an enormous number of functions/tables/globals with long UTF-8 names (each re-encoded via `format!(\
