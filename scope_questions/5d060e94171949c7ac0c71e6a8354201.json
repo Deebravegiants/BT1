@@ -1,0 +1,147 @@
+[
+  {
+    "question": "'File Name: core/store/src/trie/receipts_column_helper.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e2230ad1-1dac-4ad5-9bfe-4d064e61fe56?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/prefetching_trie_storage.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c57c6efe-3310-4d59-b645-31217a0c3e9e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/ops/insert_delete.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8e923c67-f522-401b-8ac6-efe061a8760b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/ops/interface.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_443829d6-5483-4fb5-8f20-8e3638c1f1be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/ops/iter.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ef794ec0-e075-43d8-8b0a-4d133c1fc141?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mem/lookup.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3c507c5d-ffb8-4e2c-9f52-57c86b26be60?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mem/memtrie_update.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_76b47d0d-cbbb-4476-9b6d-777a56cc0c01?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mem/node/encoding.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_92d647d9-2276-466e-9963-798e21bbb6a4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mem/node/view.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_80e97e83-43ca-4bc5-9923-0d21b72efead?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mem/flexible_data/encoding.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7942e9ea-2ac5-4a75-9b4b-0f7c8f84fe88?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mem/flexible_data/children.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a58458e7-88ad-4210-8843-10eaf25803bc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/trie/mem/flexible_data/value.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0ed3ed59-e6e2-44a4-9c19-3fd04442aa86?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/flat/storage.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3a62656b-0639-4e72-9021-5725c5564bea?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/flat/chunk_view.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_53a09e62-cdf6-4bb3-853f-47c99591d03a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/flat/delta.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_48f5eb24-faa9-46ca-b9ab-690e907ccb64?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/adapter/trie_store.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b3065b42-ab68-4521-a712-5ea0b8e617c3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/adapter/flat_store.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_524641b7-0c82-4d18-b4d9-5af7bfbe6ebe?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/store/src/contract.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d6b9c755-78c7-47a5-84d7-77acf97acfa8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: core/crypto/src/signature.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6590a6fc-a8e6-4f55-aa4f-c9d86aea87f6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/jsonrpc/src/api/transactions.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5a33128a-508d-4119-acba-b73f884fb479?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/jsonrpc/src/api/query.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_aab18663-2e8c-4a02-be9e-2402743b6a0f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/jsonrpc/src/api/call_function.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_82666a82-2859-41c2-a0f5-05af69779cde?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/jsonrpc/src/api/view_state.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1b0d9342-464b-4224-90ca-7a422645eb52?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/jsonrpc/src/api/view_access_key.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8bdd47e7-426e-4e09-b515-e4a056780902?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/jsonrpc/src/api/view_access_key_list.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e93e3e8a-12fd-440e-ac0c-bee82483c655?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/jsonrpc/src/api/view_gas_key_nonces.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ec3972b7-08ec-4bd7-976e-e023ffd1dae9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/jsonrpc/src/api/receipts.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_042581e7-ac70-4b93-8fad-933633a6a3f4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/jsonrpc/src/api/changes.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e6a13aae-cda7-42b6-b292-08295ab70f61?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: chain/jsonrpc/src/lib.rs -> Scope: Critical. An unprivileged attacker can act on an account they do not control by bypassing signature, nonce, or access-key authorization, FunctionCall access-key restrictions such as allowance, receiver_id and method_names, delegate-action sender binding or replay protection, or predecessor_id attribution.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3002b203-b09e-484a-84e5-6278266a0494?mode=deep",
+    "questions_generated": false
+  }
+]
