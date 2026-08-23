@@ -1,1 +1,0 @@
-[File: runtime/near-vm-runner/src/logic/utils.rs -> Scope: authorization/receipt validity feeding congestion] [Function: split_method_names, HostError::EmptyMethodName] Can an attacker exploit the split behavior on b\
