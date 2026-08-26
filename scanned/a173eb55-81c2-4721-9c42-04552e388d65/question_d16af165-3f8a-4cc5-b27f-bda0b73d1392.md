@@ -1,0 +1,1 @@
+[File: 'File Name: staging/src/k8s.io/pod-security-admission/admission/pods.go -> Scope: Critical.'] [Function: admitServiceAccount (noderestriction)] Can an attacker impersonating node identity request a TokenRequest for a serviceaccount subresource 'token' with ref.UID=='' (unset), bypassing the explicit `if ref.UID == \

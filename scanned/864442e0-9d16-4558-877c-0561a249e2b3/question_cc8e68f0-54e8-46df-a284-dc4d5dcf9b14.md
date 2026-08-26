@@ -1,0 +1,1 @@
+[File: 'plugin/pkg/admission/noderestriction/admission.go'] [Function: Plugin.admitServiceAccount] Can a workload owner (unprivileged, not a node) exploit the fact that admitServiceAccount only fires 'if a.GetSubresource() == \
