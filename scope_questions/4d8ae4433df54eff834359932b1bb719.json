@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/rbac/rbac.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_051568b6-f7de-449d-904b-1c691d2f29ed?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/rbac/subject_locator.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dd8272f0-ff5b-4737-9310-db38482b3d52?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/validation/rule.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8ed9e444-b84a-482b-9861-28dcb0af3870?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/validation/policy_compact.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d72629e9-f9d3-4338-b725-b3e346b3a12c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/node_authorizer.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3a2f796c-1a34-4a06-9be7-ef92b34a8fb9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/graph.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1670d59b-8173-426a-a767-1f963f0f8c1a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/graph_populator.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_54f84ef9-c8f9-483b-8bbd-07e5b428cb1f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/authorizer/rule.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d4f8f8d2-3eae-49e5-88f0-26b433f9aaa4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/authorizer/evaluate.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_948b3328-b653-49bb-9419-3bf0a78ec351?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/union/union.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2ff37dcf-2181-488e-80d9-64521047f3d1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/path/path.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9ef75c29-6b0b-4314-8912-31e691db5ea7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/escalation_check.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5f1baa9c-4966-4814-bffb-31c2b5e415ef?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/helpers.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c235675b-ea3c-46d3-9340-b05dcf2351a6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/role/policybased/storage.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_07ed03be-d31a-43db-8852-44ec303ba6d6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/rolebinding/policybased/storage.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e847a23e-6136-48ad-a702-32ae810653ba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/clusterrole/policybased/storage.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_08f64688-6f5b-4b91-b328-9e8e55e968ba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/clusterrolebinding/policybased/storage.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_613985dc-0836-4985-89c0-ef6c8383452b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/util/helpers.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d1f35798-fc2c-4fd1-8f2e-7b1d652ecc27?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/subjectaccessreview/rest.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ac2887f3-8ee3-4be1-bffd-2754b7a48916?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/localsubjectaccessreview/rest.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cded4126-299b-4e5e-9e01-e3c167bf0863?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/bearertoken/bearertoken.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b17cb63e-f617-497b-aed0-359182f8c462?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/union/union.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0f44bed9-2972-499c-9d2b-d6c9432445a8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/x509/x509.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f26b61b3-9254-4a7a-bd0f-6b8e0d859a9e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/x509/verify_options.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1fb3a5b5-8802-4910-abe6-2c186dac4910?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/anonymous/anonymous.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f8862a06-5f2c-4790-a6cc-93d56fb23fee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/token/jwt/jwt.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_55059dc9-7fd2-4505-a6cf-3ada0f162831?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/token/union/union.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_938ff241-1b67-450c-8142-72edec8a8a15?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/serviceaccount/util.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f82a712e-a8eb-4901-870e-a5c2c99df5e2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/serviceaccount/jwt.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1e7a2b49-283a-4fb7-b9ff-a23934284c27?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/serviceaccount/claims.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c0e6f0f7-78d4-41e4-abe9-e08dc1d74a64?mode=deep",
+    "questions_generated": false
+  }
+]
