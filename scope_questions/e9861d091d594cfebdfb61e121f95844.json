@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/rbac/rbac.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4bbc2b1d-b0ab-4e4b-ae4d-eeaa1f957974?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/rbac/subject_locator.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c9cf28c7-d22a-4dcf-a762-a8e6ec822bcd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/validation/rule.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4170b881-8a62-4ca8-ba6b-876b54aae364?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/validation/policy_compact.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8299b12a-5e59-444a-981f-fd9ef2135566?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/node_authorizer.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_27d39778-68b6-4224-bacd-d24f422f0c1d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/graph.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0d19a5a7-b8be-4a13-9ef4-eba95112936f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/graph_populator.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c0e33771-3213-41aa-94f3-f3e88c555160?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/authorizer/rule.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d902e0ea-5792-4e29-b80b-c6d3837cdf8b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/authorizer/evaluate.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ff3dce25-5a97-4f91-a299-5d217b67e8be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/union/union.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_905c5db4-e961-44e1-a5cc-d020248b1279?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/path/path.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b65b441c-72dd-4c5e-bfab-5a7aac03ad54?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/escalation_check.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f6b96f36-ac24-4c1d-a317-4bf0fe98ff01?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/helpers.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_551127a5-68e1-428f-8535-3d31352e54a8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/role/policybased/storage.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_80c6410d-44e1-4cb0-a480-94dce9ad48be?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/rolebinding/policybased/storage.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9c062964-18ce-4c05-8d24-e5a66b6d8b1e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/clusterrole/policybased/storage.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_864de810-b8f0-448e-9f22-1545137cb637?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/clusterrolebinding/policybased/storage.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ea0094b0-6c6e-4b7f-80c0-f7e62d19e0e5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/util/helpers.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bce54ab3-549a-4ae6-8248-0a5682233ed3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/subjectaccessreview/rest.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5f77e337-f015-46ca-8af2-4cc50272f37f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/localsubjectaccessreview/rest.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c84d657c-4cbd-401d-ae78-692f13ff18b7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/bearertoken/bearertoken.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_94d9f738-aa85-473c-aec6-d8c293f1ac81?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/union/union.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_af711a28-89c7-42b9-a95b-4b0ecab3c500?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/x509/x509.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e49902e2-dc9e-4836-9855-d0055166506d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/x509/verify_options.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1757c7e3-b8c2-498f-b19c-dee66bcfbad3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/anonymous/anonymous.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_78b85d1f-3481-47b8-8009-8272b4226fb4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/token/jwt/jwt.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_259d9c9b-5bfe-4438-be3e-b1bf7db68076?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/token/union/union.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e923c46a-f56c-4d6d-acab-80bbb94c7408?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/serviceaccount/util.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8d4a9cb9-f064-438c-8ae6-bffa83c33605?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/serviceaccount/jwt.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d9d532d8-f627-44a6-b5d9-66f0c5161cf2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/serviceaccount/claims.go -> Scope: High. An unprivileged user smuggles a malformed or under-validated field through core API validation (validation.go, names.go, securitycontext accessors) so an invalid spec is persisted, injecting into a downstream consumer or corrupting another user's object.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d54acbe1-aee8-4a1e-81cd-aa677ebf2dc6?mode=deep",
+    "questions_generated": false
+  }
+]
