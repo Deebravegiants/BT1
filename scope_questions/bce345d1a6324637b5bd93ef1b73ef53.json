@@ -1,0 +1,22 @@
+[
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/update.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_10c2a8e3-6738-43ae-87bf-b42f274400ee?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/patch.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4a277f43-087c-4d72-82f6-bf17fe87b6da?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/rest.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_af8fbc7d-cb79-4dc5-85b4-5cf29b0b7044?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/namer.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b7383407-f19b-4e97-99db-a164fc1f26ff?mode=deep",
+    "questions_generated": false
+  }
+]
