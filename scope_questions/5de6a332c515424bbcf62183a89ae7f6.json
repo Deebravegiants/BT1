@@ -1,0 +1,22 @@
+[
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/update.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d55a76d3-3180-449c-afe3-5e050dea07a5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/patch.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_906a9af9-06a8-4169-9f31-5787880b9aa3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/rest.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ac480c5d-1eaf-4186-83de-fea1116914b8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/namer.go -> Scope: Critical. An unprivileged user gains access to a resource, verb, namespace, or resource name their RBAC rules do not cover through a flaw in rule matching, wildcard/subresource handling, or authorizer union evaluation, obtaining unauthorized read or write across tenants.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c1d1a81b-8e72-454b-91ca-ecace25c7542?mode=deep",
+    "questions_generated": false
+  }
+]
