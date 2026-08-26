@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: pkg/serviceaccount/legacy.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d787dc6c-388c-4f86-b942-dcb4a6e3925c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/serviceaccount/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e2a34061-54f5-40a4-8c08-e74c2898883d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/noderestriction/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_28127eeb-4dfe-4cb7-bf39-9a791196ac70?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/nodetaint/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9bd37b78-5701-40f1-9960-fa6404d54bff?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/security/podsecurity/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0a2ab376-7dde-4a30-ba86-0d058f45a472?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/approval/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0b8c4d4c-9310-4eaa-8f39-cf289b917d39?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/signing/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_906266c5-bf47-464c-bc61-e509e3e3caa3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/subjectrestriction/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b5c4d483-f58d-4293-bbfd-ead3f2dcaf5f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/priority/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_dd38a2f0-2839-4f72-9c5b-d8dacd0acee4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/gc/gc_admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bfa05a86-18c5-4d98-96d9-70d625b7e3d9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/podtolerationrestriction/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3afd7dfc-2bcd-424b-9956-3b077f9cf613?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/podnodeselector/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_eec406a5-be7e-4b9e-9436-52b6d95b6f59?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/limitranger/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d30a5f23-4e42-4f8d-854b-28b41128a7c0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/admission/plugin/resourcequota/controller.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d93a48de-2877-42a8-873a-95bbb87c2bba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/admission/admission.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c18828e3-2664-42a3-8bf4-89c42686804e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/admission/pods.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a9c5b701-507d-4c40-9d2e-cd762efd7492?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/registry.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a38b2aaf-567e-41b7-acd2-ea8291c877b7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_privileged.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d546ebd8-83a9-4f26-8c79-ed8cf64b3fa1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_hostNamespaces.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5e403f68-df03-4c54-87fd-4db3dbdffcae?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_hostPathVolumes.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_18a07ed1-5500-446c-bc48-4cc6ded16da3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_capabilities_restricted.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_102b5caf-a414-419e-aedf-087db0e6bbeb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_allowPrivilegeEscalation.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7ae6916f-e55d-45f9-86ad-09207b538557?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_runAsNonRoot.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c99d5ced-49e4-4e08-b8f4-1910b0f970b7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_seccompProfile_restricted.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_97449778-8a77-47e8-9331-33db4fdc00e5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/helpers.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8eb4f308-b692-4f81-abc1-7e4193d1bbad?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/apis/core/validation/validation.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f2db14fe-3f31-4505-9eb8-f85710427413?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/apis/core/validation/names.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2fe90099-da81-46b3-8f20-a9507f137dca?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/securitycontext/accessors.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3af4acc8-251d-49d5-82cd-2020b259052d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/securitycontext/util.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6b9981f4-24cb-4def-b3a2-c1f6acc43523?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/create.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5c81d4e9-9f2c-4a9b-ae8e-7692240e3bff?mode=deep",
+    "questions_generated": false
+  }
+]
