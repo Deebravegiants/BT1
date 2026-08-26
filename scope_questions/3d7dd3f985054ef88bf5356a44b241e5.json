@@ -1,0 +1,22 @@
+[
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/update.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_90648e9c-72fc-4e06-91a0-2fe530ab8f84?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/patch.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3bfc3d60-6f3d-4224-a267-ab3dcbb640b8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/rest.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8bf5f725-62dc-415e-9105-5c462a719a00?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/namer.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_43cbc307-30ed-4aa5-b910-fd02511a9db8?mode=deep",
+    "questions_generated": false
+  }
+]
