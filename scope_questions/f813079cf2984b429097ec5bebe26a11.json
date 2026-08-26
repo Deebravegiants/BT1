@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/rbac/rbac.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b49e5e32-3b6f-4db9-9e95-c3fbfc5612ef?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/rbac/subject_locator.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_86aa39b9-3c36-4ae3-9469-a89451fe745e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/validation/rule.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_62295faf-afd8-452b-af28-bb4a1ed3427e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/validation/policy_compact.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_468787aa-2bf9-4384-a387-8071a7473dbc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/node_authorizer.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e3bac284-2e20-4407-9d72-946b76f42897?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/graph.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_51b0d438-fdce-4e7e-b048-13aa4011ad30?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/graph_populator.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_95eeb43d-bf70-4c78-8b39-8f669c7a2749?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/authorizer/rule.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_520e11ba-da80-4772-83d7-e8d65ade2c12?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/authorizer/evaluate.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2306c3c7-3d90-4294-9a7d-7fe6b193c91d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/union/union.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_34df58c8-9e6e-410e-83ea-b17c32843be1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/path/path.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f2227637-b4e5-4690-a49c-47e6355ed9e4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/escalation_check.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bc66aca1-8723-4e32-b2c9-73a4fbd84fa5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/helpers.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a98cb134-b587-4cab-980b-cef9d87a3767?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/role/policybased/storage.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_691b3598-96c5-4472-b2c0-8b228a6dc8c8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/rolebinding/policybased/storage.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_89cef746-91b5-4b19-8970-0951b07c3b24?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/clusterrole/policybased/storage.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_60a88544-1b81-41db-b5b6-6666446c9c21?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/clusterrolebinding/policybased/storage.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6d1c907b-0cc1-4da5-9cb4-114d6bd2168d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/util/helpers.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8dcdf6f0-f18e-4b9f-9cb3-68db91bab006?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/subjectaccessreview/rest.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9c769f18-dd4c-41ce-9ab1-f7d126e01852?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/localsubjectaccessreview/rest.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_684d90f9-cf3c-4d29-8205-c85cf3dc16e9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/bearertoken/bearertoken.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5f4274f0-ca08-4e06-b3b9-f585fddcc502?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/union/union.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f54c3b98-a989-4eea-acc8-e50f675b66fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/x509/x509.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_20baf9f7-68bc-481e-b97b-74fd8b046fbe?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/x509/verify_options.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6a6c3179-3251-4f9d-a2a9-aa458edeef03?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/anonymous/anonymous.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_28f5339c-5695-4a49-a732-f654cc52f876?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/token/jwt/jwt.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_84ef8ce1-76cb-40f3-860a-a09f4cb3714e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/token/union/union.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4a0b3e68-8bb2-4ed3-a8c2-9ae32ab221c1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/serviceaccount/util.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_20143916-ccc1-43bb-8d6a-c95e4a10f395?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/serviceaccount/jwt.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fb3f6229-4d42-415d-84ff-bada580c7319?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/serviceaccount/claims.go -> Scope: Critical. An unprivileged user reads or mutates objects in another namespace or another tenant's scope by exploiting name/namespace resolution, self/local subject access review, or request-handler namer confusion so authorization is evaluated against the wrong scope.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0bfc27fd-0f9b-4ed0-9355-023c0ee3b5e4?mode=deep",
+    "questions_generated": false
+  }
+]
