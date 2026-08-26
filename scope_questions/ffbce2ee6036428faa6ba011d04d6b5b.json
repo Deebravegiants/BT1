@@ -1,0 +1,22 @@
+[
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/update.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9e677fc7-bf49-4696-86b2-cc104d8b1273?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/patch.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c86215b9-f9f9-4633-b56c-3e52a99cb539?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/rest.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_62a22a6f-f90e-48ac-9535-0f15f6883a77?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/namer.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5a677b22-82df-4995-9484-a38b714dc8e0?mode=deep",
+    "questions_generated": false
+  }
+]
