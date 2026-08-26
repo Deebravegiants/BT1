@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: pkg/serviceaccount/legacy.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7017e434-4272-43f5-932d-7e32e726ee90?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/serviceaccount/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2bc0b948-6a70-4140-9e6b-a70bcce77ddb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/noderestriction/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a1218e71-2380-4bbc-9058-4ac8a26d36cc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/nodetaint/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_00e48a85-da7b-4192-9569-4a913f281d31?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/security/podsecurity/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c3f835e3-ffa6-4163-98e4-218ffd36ea61?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/approval/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_77ecce39-6301-40b2-9a9a-9f8ea02a4899?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/signing/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b07a3a35-9a71-4748-a302-70950880c764?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/subjectrestriction/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5e67b7b4-e0bb-4b95-9b46-f134e3749885?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/priority/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7edfb347-903b-41e1-97a1-c1dd98e4404d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/gc/gc_admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2a06323f-3fff-43eb-94e5-7659064e5ae8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/podtolerationrestriction/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5b091941-fcee-4cb2-b224-bd995dc044ed?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/podnodeselector/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2bfc8b59-c649-4495-acae-55ae24625140?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/limitranger/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c3ea1843-0e5b-433f-a060-df537b00b5a8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/admission/plugin/resourcequota/controller.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6fed1434-a9ae-4035-9ac0-77a8d27b84a3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/admission/admission.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a476465d-7d51-45e7-aa05-7227f8992447?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/admission/pods.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ae34bdf8-824d-4f49-8157-81eb0f83e4f5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/registry.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_df1e7a86-ee2b-4ef9-8e92-f595d9a44165?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_privileged.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6e79e71a-12df-4c91-9b3a-948c9bec0685?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_hostNamespaces.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_29b23563-83e8-478e-ab46-261bcf656bf8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_hostPathVolumes.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9e724635-4c31-4b2b-a305-7c29d5ee213e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_capabilities_restricted.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a10b8409-2106-4397-b605-49298e02b57d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_allowPrivilegeEscalation.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9d70d1dc-cec7-4fdf-8c35-a3f3498cde1d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_runAsNonRoot.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_207f79ae-33ab-4e4e-94b2-22d4d6de6d6d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_seccompProfile_restricted.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c8333133-9a10-4411-90af-9f641e390536?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/helpers.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bf957eb0-e8d0-45b1-a1cc-8ff915b1be7b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/apis/core/validation/validation.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_19fd0ffb-ca31-41e9-90d7-e746d152739a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/apis/core/validation/names.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fdaf05b7-871e-4b66-821e-5d7982f34bf9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/securitycontext/accessors.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a7bcddf9-d903-4bd2-b8e1-03a8c307ecf4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/securitycontext/util.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_32f9a80e-f8b0-43bf-89f9-b8eb917ed2d1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/create.go -> Scope: Critical. An unprivileged user authenticates as another identity or with elevated group membership by forging, confusing, or replaying a bearer or serviceaccount JWT, exploiting token validation, claim parsing, audience/expiry handling, or authenticator union ordering.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_51cbf6c7-15b1-4d84-85e7-f3105412ff44?mode=deep",
+    "questions_generated": false
+  }
+]
