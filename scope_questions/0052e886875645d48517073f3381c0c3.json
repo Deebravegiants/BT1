@@ -1,0 +1,22 @@
+[
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/update.go -> Scope: Critical. An unprivileged user obtains or projects a serviceaccount token, or binds a workload to a serviceaccount, they do not control by exploiting the serviceaccount admission mount logic, token claims, or bound-object validation, gaining that account's API privileges.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a7c28a5e-3252-45ff-a0da-403656c9cb9f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/patch.go -> Scope: Critical. An unprivileged user obtains or projects a serviceaccount token, or binds a workload to a serviceaccount, they do not control by exploiting the serviceaccount admission mount logic, token claims, or bound-object validation, gaining that account's API privileges.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e1e50ccc-b421-4f80-9a4c-aad5a5f57b81?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/rest.go -> Scope: Critical. An unprivileged user obtains or projects a serviceaccount token, or binds a workload to a serviceaccount, they do not control by exploiting the serviceaccount admission mount logic, token claims, or bound-object validation, gaining that account's API privileges.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_eedd15e3-2927-4167-a3a9-343819671fb6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/namer.go -> Scope: Critical. An unprivileged user obtains or projects a serviceaccount token, or binds a workload to a serviceaccount, they do not control by exploiting the serviceaccount admission mount logic, token claims, or bound-object validation, gaining that account's API privileges.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9573dbdd-d98c-4cc4-9e1c-71fa88171b0b?mode=deep",
+    "questions_generated": false
+  }
+]
