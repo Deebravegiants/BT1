@@ -1,3 +1,4 @@
+import ast
 import json
 import os
 import random
@@ -266,14 +267,69 @@ class GetQuestions:
         except Exception as e:
             print(f"An error occurred: {str(e)}")
 
+    @staticmethod
+    def _extract_questions_list_literal(text: str) -> str:
+        """
+        Return the ``[ ... ]`` literal assigned to ``questions``, found by
+        scanning for the bracket that *balances* the opening ``[``.
+
+        A plain regex can't do this: questions contain ``]`` inside them
+        (e.g. ``[File: ...]``) so a non-greedy match stops too early, and a
+        greedy match runs past the list into the citation code blocks. This
+        scanner tracks string state so brackets inside strings are ignored.
+        """
+        assign = re.search(r'questions\s*=\s*\[', text)
+        if not assign:
+            return ""
+        start = assign.end() - 1  # index of the opening '['
+        depth = 0
+        in_str = None
+        escaped = False
+        for i in range(start, len(text)):
+            c = text[i]
+            if in_str:
+                if escaped:
+                    escaped = False
+                elif c == '\\':
+                    escaped = True
+                elif c == in_str:
+                    in_str = None
+            elif c in ('"', "'"):
+                in_str = c
+            elif c == '[':
+                depth += 1
+            elif c == ']':
+                depth -= 1
+                if depth == 0:
+                    return text[start:i + 1]
+        return ""
+
     def get_question_content(self, clip_board_content: str) -> List[str]:
         """
-            Extracts security audit questions from the provided text using regex.
-            """
-        pattern = r'"(\[File:.*?)"'
-        questions = re.findall(pattern, clip_board_content, flags=re.DOTALL)
-        # Optional: Clean up whitespace (strip) for each question found
-        return [q.strip() for q in questions]
+        Extracts security audit questions from the provided text.
+
+        Primary strategy: isolate the ``questions = [ ... ]`` list literal
+        (stopping at its balanced closing bracket, NOT at any later ``]`` in
+        the citations) and parse it with ``ast.literal_eval`` so every element
+        is captured exactly, regardless of what tag it starts with. Falls back
+        to a per-item regex over that same literal if parsing fails.
+        """
+        literal = self._extract_questions_list_literal(clip_board_content)
+        if not literal:
+            return []
+
+        # Primary: parse the list literal.
+        try:
+            parsed = ast.literal_eval(literal)
+            if isinstance(parsed, (list, tuple)):
+                return [str(q).strip() for q in parsed if str(q).strip()]
+        except (ValueError, SyntaxError):
+            pass
+
+        # Fallback: match every quoted string item inside the literal only.
+        pattern = r'"((?:[^"\\]|\\.)*)"'
+        questions = re.findall(pattern, literal, flags=re.DOTALL)
+        return [q.strip() for q in questions if q.strip()]
 
 
 def generate_file_path_for_scope():
