@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: pkg/serviceaccount/legacy.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_56900eb7-1ba8-4ac7-83ef-187bb44ce87b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/serviceaccount/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d40e2e93-6234-4167-a0a0-1a3209245f2d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/noderestriction/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ea312804-49d5-4815-a049-66bde6bd0d6a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/nodetaint/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_299c4be3-4bf5-4838-b7e8-6ba2b666232d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/security/podsecurity/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b726749b-1e8b-4b74-afe6-30fcda6626fa?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/approval/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1bc8ee32-804c-4434-8c46-a0f41646cf9d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/signing/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9c934e17-2eb7-4412-b307-597e05715f61?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/subjectrestriction/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bce3a12f-e405-4e48-a781-0da46eb27f0b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/priority/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8e38797b-7537-4683-8e58-f2f5c4ff74eb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/gc/gc_admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5454e5ab-c0e7-43d6-a564-4df4128dcd00?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/podtolerationrestriction/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_841817f1-0ec2-4ff1-83cc-edec4057a648?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/podnodeselector/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4455f43d-aa4d-46aa-992a-048786debae9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/limitranger/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c0f1322c-2e41-4cc6-8d58-5c4906f471bd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/admission/plugin/resourcequota/controller.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_44d7e325-a494-4b26-b999-f7f03574f128?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/admission/admission.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8084100e-6e2c-434d-94fe-7ac8ab1b5073?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/admission/pods.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bcacf5d3-9d8e-42ed-bf3c-b3904f8d2352?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/registry.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_41eb120f-85f6-4ce9-9401-169293431c4f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_privileged.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d2c8efb3-7f68-4a9c-864b-841092b732d1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_hostNamespaces.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9a6c29da-af95-4316-b0c4-d6d0adf72729?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_hostPathVolumes.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4bd2c907-e112-464d-a544-ac1f60f1ddb9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_capabilities_restricted.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f3b4f14b-3163-4ce5-9f8c-c1aa5ea1231b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_allowPrivilegeEscalation.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e3015aae-08ab-43be-9d49-d181b9ab067e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_runAsNonRoot.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f04e303f-8559-4049-93dc-3d8639c5a7b0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_seccompProfile_restricted.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9d414e65-a8f7-474c-a1dd-5ec25a3548d5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/helpers.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f3aaaef0-064b-4e89-8198-1e9a7dea13c3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/apis/core/validation/validation.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_65a35826-ca5f-434b-b808-858f3cc5ff4a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/apis/core/validation/names.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_48214441-dc63-459a-8793-3576b2649133?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/securitycontext/accessors.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_33b39f4a-9389-4a10-8baf-c99c12daa5e4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/securitycontext/util.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9274f51a-f368-4fb0-a1a9-7cac601b5d36?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/create.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3034b08a-1f67-406d-be0f-f439b628e191?mode=deep",
+    "questions_generated": false
+  }
+]
