@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: pkg/serviceaccount/legacy.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_689480d0-8cc2-4f3e-bdc7-ce0399dc8586?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/serviceaccount/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_189eca27-b3b0-4bd5-a9d1-57100bd9c0d2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/noderestriction/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a91318de-cdd6-4c90-8907-60caf3bec4ba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/nodetaint/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a2944654-38e6-4ee3-864b-beaf49ba3076?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/security/podsecurity/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_fb838529-115c-46d0-a825-55f93f0b38a5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/approval/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d7a0a25c-71c8-4e94-aa37-e8547116796b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/signing/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_925924fc-8f32-4c0a-8960-d2dd2c397454?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/subjectrestriction/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ca9b0c94-1adc-4d4c-a3a0-cb7fc0355678?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/priority/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1635afdd-f3dc-431e-a9ab-17e8c7a3f1fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/gc/gc_admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_28adc42f-578d-4cbf-9502-2ddcb9fa5bd4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/podtolerationrestriction/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ccce5beb-225c-41c1-82ee-076c180f8fe7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/podnodeselector/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0a323be1-6067-4f88-89ba-f740adbd4074?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/limitranger/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8d4f4b78-3564-48c6-ba69-4e9636bb6526?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/admission/plugin/resourcequota/controller.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_70e9789d-e569-4f5a-9576-7da5b02e7da6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/admission/admission.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4ae6ff78-60b4-4093-a893-b47963bcb4e1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/admission/pods.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_df039048-92b2-4192-8106-ee7d36284106?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/registry.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e032a587-6412-4f80-9ded-df3ca9e2c459?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_privileged.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_9b83834c-2e82-4a26-a9b2-c3ac83d2fc34?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_hostNamespaces.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_abef9e3f-3d48-4f2f-b0a5-eacccea646e2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_hostPathVolumes.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ff374007-9c8f-402d-ad37-0a1e7ce888e4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_capabilities_restricted.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_7df82c0f-05d1-4062-9ce5-12bc54e8ef78?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_allowPrivilegeEscalation.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2acb7391-c165-480e-bd28-9e9551e77f96?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_runAsNonRoot.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8cdb9d7d-66bd-4109-8de1-82a73d7f6794?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_seccompProfile_restricted.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ba42fbc6-7069-4dc5-8b9f-9719263bced1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/helpers.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2350180f-e94f-41ba-8d51-c1065154c413?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/apis/core/validation/validation.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_02b9ac4b-1b43-4230-9f9b-1dd5abf461a4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/apis/core/validation/names.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_115b374f-3fa4-4cc8-8381-5d6e9b30178d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/securitycontext/accessors.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5dc04233-b399-4ddd-aa24-a2bd2e7e445d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/securitycontext/util.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_469833ab-318b-432c-bc0e-dd3ce267d965?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/create.go -> Scope: Critical. An unprivileged user submits a Pod (or pod-template controller object) that passes Pod Security Admission yet runs privileged, hostPID/hostIPC/hostNetwork, hostPath, or with escalated capabilities, achieving node compromise or container escape via a policy-check bypass.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ad73da65-a5b7-4a6d-9188-b00d4e1fbac5?mode=deep",
+    "questions_generated": false
+  }
+]
