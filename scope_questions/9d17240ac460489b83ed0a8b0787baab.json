@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/rbac/rbac.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5640cc1d-75ce-479a-9fe7-d53e92802c1b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/rbac/subject_locator.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a57f4035-71fb-4abf-8aa1-1f6d4d2bfb01?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/validation/rule.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a7344f65-b100-4049-8182-c8bb80badd5c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/validation/policy_compact.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_30e80d69-2bec-4d4a-bb41-3c840f3eb142?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/node_authorizer.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2510a522-7397-45c3-b549-c983387af920?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/graph.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f917266a-7c04-47d4-b8da-b5d639ec04f2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/auth/authorizer/node/graph_populator.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_93cd79a8-c464-48d6-8c2b-ce2720f66f01?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/authorizer/rule.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_28d02bb4-e523-4c9f-9b0c-436ab373fc68?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/authorizer/evaluate.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5b5a4f9f-9e46-4ed4-80d3-dc0ac714fd8c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/union/union.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_63a53c15-d7a7-4459-9f22-63b144bd1c49?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authorization/path/path.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8e7e5f19-6a53-4e93-bf6f-2db11cbfda37?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/escalation_check.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_449a725d-dba5-492e-956b-02f7412375e1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/helpers.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e1dfe766-d03b-4e45-9f46-94baf0b78cf6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/role/policybased/storage.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1438a171-d17a-4542-81a2-1d73c3534e74?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/rolebinding/policybased/storage.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ff9e1172-b2e3-4567-9e56-20e0becf1b4c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/clusterrole/policybased/storage.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_edc1229c-ef15-4172-aa15-4147e8383d66?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/rbac/clusterrolebinding/policybased/storage.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_32c46c63-3eae-4df1-a273-7fbbd9d76cae?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/util/helpers.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_3f9d6abd-d780-4c5a-931e-06f7a7e9db5b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/subjectaccessreview/rest.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b27c34bd-3adf-42ac-b1f5-e81782e09ea9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/registry/authorization/localsubjectaccessreview/rest.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_be4cb88f-7e9f-48e9-a7c9-e8af4a155793?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/bearertoken/bearertoken.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e6df257f-bdb7-449e-812b-15043104d953?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/union/union.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_0e4d003f-356b-4bec-8755-97c13d6d3066?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/x509/x509.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_eccabf81-bd8f-464f-bc5e-5a1fb4a8882f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/x509/verify_options.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_00d4e790-1659-4a27-9d37-70896ddc0354?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/request/anonymous/anonymous.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_acfe2de3-7972-4d5b-83ec-06dbb3e5d81a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/token/jwt/jwt.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_072d6675-9f82-4522-82bb-645e939780a2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/token/union/union.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_f79df57a-1539-47af-afb6-64a91a62b432?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/authentication/serviceaccount/util.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8956b873-c19a-474c-be58-4d336934591e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/serviceaccount/jwt.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b13e6475-2c99-4e24-a0a1-e5483eb8e7fd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/serviceaccount/claims.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_cee35939-4c2e-4937-a8d8-118cd9c3adf6?mode=deep",
+    "questions_generated": false
+  }
+]
