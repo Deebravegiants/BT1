@@ -1,1 +1,0 @@
-[File: staging/src/k8s.io/apiserver/pkg/authentication/request/bearertoken/bearertoken.go -> Scope: High] [Function: Authenticator.AuthenticateRequest] Can an unprivileged attacker reuse a bearer token header across a chained proxy request after successful authentication, given req.Header.Del(\
