@@ -1,0 +1,22 @@
+[
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/update.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_ebb6eacb-c206-4919-a90c-41e5bfcd8dcc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/patch.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1640f33f-6c7a-4018-bdfe-0b350c963420?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/rest.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5af55281-984f-4e36-b3e2-561415eaf5f6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/namer.go -> Scope: High. An unprivileged user bypasses the NodeRestriction or serviceaccount admission controllers to set nodeName, serviceAccountName, tolerations, or node/pod status fields they must not control, escaping workload isolation or impersonating node-scoped access.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_c77eb1ae-0427-40a3-af99-f997e7b777ac?mode=deep",
+    "questions_generated": false
+  }
+]
