@@ -1,0 +1,1 @@
+[File: 'plugin/pkg/auth/authorizer/rbac/bootstrappolicy/policy.go'] [Function: NodeRules] Can an unprivileged user granted only the standard 'system:node' aggregated ClusterRole bindings (if a namespace admin mistakenly binds it) create tokens for 'serviceaccounts/token' per the rule `NewRule(
