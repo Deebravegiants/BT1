@@ -1,0 +1,22 @@
+[
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/update.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a7bc3007-4e66-4565-84d2-f4b512a0993f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/patch.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6162a9f6-5843-4e80-9ef1-04de2e8a1d99?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/rest.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_410ccb2c-85ec-4d33-bf4e-63d23c53930b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/namer.go -> Scope: High. An unprivileged user bypasses priority, ResourceQuota, LimitRange, or garbage-collection admission to assign a system PriorityClass, exceed quota, or delete/adopt objects owned by others via crafted ownerReferences, denying service or seizing resources.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4f9e4b5c-edff-41d2-bf32-8072c4e5fd51?mode=deep",
+    "questions_generated": false
+  }
+]
