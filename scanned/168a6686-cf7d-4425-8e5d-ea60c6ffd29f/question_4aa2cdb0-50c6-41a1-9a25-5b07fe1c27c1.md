@@ -1,0 +1,1 @@
+)` expecting false but verify actual boundary condition given separator check placement. Invariant: authorization exactness. Impact: namespace-prefix confusion granting cross-namespace match. Proof idea: unit test `MatchesUsername` with adjacent-prefix namespace names (`ns`,`ns2`) asserting strict rejection.
