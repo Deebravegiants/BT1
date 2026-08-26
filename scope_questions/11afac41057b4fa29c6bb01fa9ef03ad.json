@@ -1,0 +1,152 @@
+[
+  {
+    "question": "'File Name: pkg/serviceaccount/legacy.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_156a5fe7-4c0d-4f87-bc68-b7bbe073499a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/serviceaccount/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_60f6d24b-b1b0-469b-b6c5-8435918a98ce?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/noderestriction/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a1e03557-722f-43aa-80a9-b1e420af89fe?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/nodetaint/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_734e376f-ef10-441b-802e-c16b3a72112f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/security/podsecurity/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4697b6a9-c1c6-4555-abe1-2c27056cbfd7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/approval/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_57b7e2a0-9186-4bf2-a030-178b14214ec5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/signing/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_80165eca-00b2-45f6-bded-988706aa00f6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/certificates/subjectrestriction/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_60a9a71e-9fca-4866-862c-ef334ce3f8c1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/priority/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_80d21ead-4fa5-425b-a025-6659a01b3f31?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/gc/gc_admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_555ea4f8-1381-4a87-a754-a9174106ef5c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/podtolerationrestriction/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e472d8c3-ded4-4c5f-b774-8ab4e0194c19?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/podnodeselector/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2ec3490c-c9a2-43c1-916d-e8358ebaf0b3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: plugin/pkg/admission/limitranger/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8259ddd3-df7e-4929-ba24-26623e8060a0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/admission/plugin/resourcequota/controller.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8dca633b-b3fb-4047-9534-4408376ded79?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/admission/admission.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_b1c2fbd1-cded-443b-b03b-563b757ffe3b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/admission/pods.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_e417bcba-ad65-4986-83b0-465302118274?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/registry.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_2cafe8df-a7bf-4e34-96e6-5f14000c5ac5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_privileged.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_81e95a5a-7cf7-4bc8-a8ff-a110d66fa57f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_hostNamespaces.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_454a8605-bf71-492b-815a-7fd5d2cb1894?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_hostPathVolumes.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_687890da-5b5d-4ca3-9eac-fda363cbc38c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_capabilities_restricted.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_5acfb838-c045-472f-8534-fa45028e723d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_allowPrivilegeEscalation.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_91987a0a-ad35-4495-947f-fdac1647dfec?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_runAsNonRoot.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_4446748a-0240-43e5-abcd-cf16dc5e4b2a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/check_seccompProfile_restricted.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_a4a14e0c-3fbf-47e3-aa5a-b2d5168ddcc9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/pod-security-admission/policy/helpers.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_6ddecdbd-de79-4375-88cd-bf515dda8657?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/apis/core/validation/validation.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_85be8168-e697-43a5-bb5a-1200873747fd?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/apis/core/validation/names.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_31491d73-b155-4e99-8822-372cf6ea4f58?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/securitycontext/accessors.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_8b25a13f-6a23-4ba9-8f75-ccdc162978a3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: pkg/securitycontext/util.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_59d98e96-49bf-41ef-9cc9-91fd7863f1d2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/create.go -> Scope: High. An unprivileged user gets a CertificateSigningRequest approved or signed for a username, group, or node identity they are not entitled to, bypassing the certificate approval, signing, or subject-restriction admission controllers, yielding a forged client identity.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_55297e6b-e202-4b4b-b022-99dc1e8677c5?mode=deep",
+    "questions_generated": false
+  }
+]
