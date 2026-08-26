@@ -1,0 +1,22 @@
+[
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/update.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_97575dfe-83b4-4424-8b83-ee4a23041e84?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/patch.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_d97640b0-3d7a-4b99-a5a8-ba56ad7b9d7a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/rest.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_1ea09c35-1388-4f13-b178-a2382184fd13?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: staging/src/k8s.io/apiserver/pkg/endpoints/handlers/namer.go -> Scope: Critical. An unprivileged authenticated user escalates their own privileges by creating or binding a Role, ClusterRole, RoleBinding, or ClusterRoleBinding that grants permissions they do not already hold, bypassing the escalation and bind checks in escalation_check.go or the policybased storage wrappers, reaching cluster-admin or cross-namespace control.'",
+    "url": "https://deepwiki.com/search/-generate-exploitfocused-secur_bfcc0386-4b8c-465a-889b-fc7aee154a08?mode=deep",
+    "questions_generated": false
+  }
+]
