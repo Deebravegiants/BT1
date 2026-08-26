@@ -1,0 +1,1 @@
+[File: 'plugin/pkg/admission/certificates/subjectrestriction/admission.go'] [Function: Plugin.Validate] Can an attacker submit a CSR create request with a Subresource set (e.g., '/status' or '/approval') to satisfy 'a.GetSubresource() != \

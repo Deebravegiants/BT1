@@ -1,0 +1,1 @@
+[File: 'plugin/pkg/auth/authorizer/node/node_authorizer.go' -> Scope: Critical] [Function: NodeAuthorizer.authorizePod] Can attacker use the single-pod fallback path at line 477-479 (`if attrs.GetName() !=

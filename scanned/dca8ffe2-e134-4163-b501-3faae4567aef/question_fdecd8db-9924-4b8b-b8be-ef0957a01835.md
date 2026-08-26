@@ -1,0 +1,1 @@
+[File: 'plugin/pkg/admission/certificates/subjectrestriction/admission.go' -> Scope: Critical] [Function: Plugin.Validate] Can an attacker submit a CSR whose GroupResource is not exactly certificatesapi.Resource(\

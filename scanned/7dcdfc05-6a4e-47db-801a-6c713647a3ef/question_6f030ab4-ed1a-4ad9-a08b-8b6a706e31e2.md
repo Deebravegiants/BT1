@@ -1,0 +1,1 @@
+[File: graph_populator.go -> Scope: Critical] [Function: Graph.getOrCreateVertexLocked / createVertexLocked] Since vertices are keyed as map[vertexType]map[namespace]map[name]*namedVertex, can an attacker supply a namespace string that normalizes to the same map key as another tenant's namespace (e.g., empty string \

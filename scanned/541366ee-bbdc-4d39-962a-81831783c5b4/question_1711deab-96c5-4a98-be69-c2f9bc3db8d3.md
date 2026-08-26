@@ -1,0 +1,1 @@
+[File: plugin/pkg/admission/noderestriction/admission.go] [Function: Plugin.admitServiceAccount] Can an attacker request a TokenRequest with an empty BoundObjectRef.Kind but non-empty Name/APIVersion='v1' to have the 'ref.Kind != \
