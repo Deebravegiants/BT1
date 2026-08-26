@@ -1,0 +1,51 @@
+# [M] `slippageThresholdGmxBps` has no limit and can be larger than `MAX_BPS`, causing the `executeBatchStake()` to fail
+
+## Summary
+Severity: Medium
+Chain: Smart contract
+Component: 2022-10-rage-trade
+Published: 2022-11-15
+Source: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/27
+Type: sherlock-finding
+
+## Details
+8olidity
+
+medium
+
+# `slippageThresholdGmxBps` has no limit and can be larger than `MAX_BPS`, causing the `executeBatchStake()` to fail
+
+## Summary
+`slippageThresholdGmxBps` has no limit and can be larger than `MAX_BPS`, causing the `executeBatchStake()` to fail
+## Vulnerability Detail
+There is no limit to how much `slippageThresholdGmxBps` can be set
+```solidity
+    function setThresholds(uint256 _slippageThresholdGmxBps) external onlyOwner {
+        slippageThresholdGmxBps = _slippageThresholdGmxBps;
+        emit ThresholdsUpdated(_slippageThresholdGmxBps);
+    }
+```
+If the `slippageThresholdGmxBps` setting is larger than `MAX_BPS`, an overflow error will occur and the `executeBatchStake() `will not run
+```solidity
+    function _executeVaultUserBatchStake() internal {
+        uint256 _roundUsdcBalance = vaultBatchingState.roundUsdcBalance;
+
+        if (_roundUsdcBalance == 0) revert NoUsdcBalance();
+
+        // use min price, because we are sending in usdc
+        uint256 price = gmxUnderlyingVault.getMinPrice(address(usdc));
+
+        // adjust for decimals and max possible slippage
+        uint256 minUsdg = _roundUsdcBalance.mulDiv(price * 1e12 * (MAX_BPS - slippageThresholdGmxBps), 1e30 * MAX_BPS);
+
+        vaultBatchingState.roundGlpStaked = _stakeGlp(address(usdc), _roundUsdcBalance, minUsdg);
+
+        emit BatchStake(vaultBatchingState.currentRound, _roundUsdcBalance, vaultBatchingState.roundGlpStaked);
+    }
+```
+
+## Impact
+`slippageThresholdGmxBps` has no limit and can be larger than `MAX_BPS`, causing the `executeBatchStake()` to fail
+## Code Snippet
+
+_Trimmed to 38 lines — full report: https://github.com/sherlock-audit/2022-10-rage-trade-judging/issues/27_
