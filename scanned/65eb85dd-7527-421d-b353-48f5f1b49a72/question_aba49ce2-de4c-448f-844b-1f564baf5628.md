@@ -1,1 +1,0 @@
-[File: 'staging/src/k8s.io/apiserver/pkg/admission/plugin/resourcequota/controller.go' -> Scope: Critical.] [Function: quotaEvaluator.Evaluate] Can an unprivileged serviceaccount with minimal RBAC craft admission.Attributes.GetSubresource()=='status' to hit the `if a.GetSubresource() != \
