@@ -1,1 +1,0 @@
-[File: 'plugin/pkg/admission/priority/admission.go' -> Scope: High] [Function: Plugin.admitCompositePodGroup] Can an attacker exploit the CompositePodGroup PreemptionPolicy default-fallback logic (schedulingPreemptionPolicy left as zero-value scheduling.PreemptionPolicy(\
