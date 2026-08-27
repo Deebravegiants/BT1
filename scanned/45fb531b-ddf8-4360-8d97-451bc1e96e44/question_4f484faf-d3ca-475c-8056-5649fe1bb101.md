@@ -1,1 +1,0 @@
-[File: plugin/pkg/admission/nodetaint/admission.go -> Scope: Critical] [Function: Plugin.Admit] Because Admit() returns nil (allow) for any resource/subresource combination other than exactly {nodes, \

@@ -1,1 +1,0 @@
-[File: plugin/pkg/admission/nodetaint/admission.go -> Scope: Critical] [Function: Plugin.Admit] Can the early-return guard `if a.GetResource().GroupResource() != nodeResource || a.GetSubresource() != \
