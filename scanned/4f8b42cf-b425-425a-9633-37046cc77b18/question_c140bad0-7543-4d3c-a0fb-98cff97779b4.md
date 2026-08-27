@@ -1,1 +1,0 @@
-[File: staging/src/k8s.io/pod-security-admission/admission/admission.go] [Function: (a *Admission) ValidatePodController] Can an unprivileged user set attrs.GetSubresource() to a non-empty value (e.g. 'status') on a PATCH of a Deployment they control to have ValidatePodController short-circuit via 'if attrs.GetSubresource() != \
