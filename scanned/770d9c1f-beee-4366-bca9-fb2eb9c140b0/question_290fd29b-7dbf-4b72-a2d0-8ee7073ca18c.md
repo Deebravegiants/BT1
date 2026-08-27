@@ -1,1 +1,0 @@
-[File: 'plugin/pkg/admission/priority/admission.go' -> Scope: Critical] [Function: (*Plugin).Admit switch a.GetResource().GroupResource()] Can an unprivileged attacker construct a request whose GroupVersionResource maps to the same GroupResource as scheduling.Resource(\
