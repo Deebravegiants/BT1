@@ -1,0 +1,41 @@
+### Title
+Gated-pod NodeSelector additions on Update bypass namespace PodNodeSelector enforcement - ([File: plugin/pkg/admission/podnodeselector/admission.go], [File: pkg/apis/core/validation/validation.go])
+
+### Finding Description
+`NewPodNodeSelector` registers the `PodNodeSelector` plugin's handler for `admission.Create` only <cite repo="Tylerpinwa/kubernetes--002" path="plugin/pkg/admission/podnodeselector/admission.go" start="195,201" end="201" />, so neither `Admit` (which merges the namespace's node selector into the pod and blocks conflicts) nor `Validate` (which enforces the namespace whitelist) run on `Update`/`Patch` requests <cite repo="Tylerpinwa/kubernetes--002" path="plugin/pkg/admission/podnodeselector/admission.go" start="100,124" end="157" />. This is confirmed by `TestHandles`, which explicitly asserts `Update: false` <cite repo="Tylerpinwa/kubernetes--002" path="plugin/pkg/admission/podnodeselector/admission_test.go" start="183,195" end="195" />.
+
+Normally this is safe because `ValidatePodUpdate` treats `spec.nodeSelector` (along with most of `PodSpec`) as immutable, comparing the munged spec against the old spec and rejecting any diff <cite repo="Tylerpinwa/kubernetes--002" path="pkg/apis/core/validation/validation.go" start="5910,5994" end="6001" />. However, for pods that still carry non-empty `spec.schedulingGates` (`podIsGated`), the validator explicitly permits **additions** to `spec.nodeSelector` between Create and subsequent Update/Patch calls, only calling `validateNodeSelectorMutation` to ensure the change is additive (superset), before munging the field away from the diff check <cite repo="Tylerpinwa/kubernetes--002" path="pkg/apis/core/validation/validation.go" start="5949,5956" end="5956" />. `SchedulingGates` can be set at pod creation and only removed afterwards, so an attacker fully controls the gate lifecycle <cite repo="Tylerpinwa/kubernetes--002" path="staging/src/k8s.io/api/core/v1/types.go" start="4644,4651" end="4651" />.
+
+**Exploit flow (unprivileged, namespace-scoped user with only `pods` create/update/patch RBAC):**
+1. Attacker creates a pod in a namespace with an enforced `scheduler.alpha.kubernetes.io/node-selector` annotation and/or a `podNodeSelectorPluginConfig` whitelist, setting `spec.schedulingGates: [{name: "hold"}]` and no (or a minimal, whitelist-compliant) `spec.nodeSelector`. This passes `Admit`/`Validate` on Create because it is compliant at creation time <cite repo="Tylerpinwa/kubernetes--002" path="plugin/pkg/admission/podnodeselector/admission.go" start="101,124" end="125" />.
+2. While the pod remains gated (unschedulable, per the `SchedulingGates` PreEnqueue check <cite repo="Tylerpinwa/kubernetes--002" path="pkg/scheduler/framework/plugins/schedulinggates/scheduling_gates.go" start="45,54" end="54" />), the attacker sends an Update/Patch adding arbitrary `spec.nodeSelector` keys (e.g., labels selecting nodes outside the namespace's allowed/whitelisted pool, or ones that conflict with the namespace's enforced selector).
+3. Since the request is an Update, `PodNodeSelector.Admit`/`Validate` never runs (handler only registered for Create), so there is no re-check against the namespace's enforced selector or whitelist.
+4. `ValidatePodUpdate` allows the change because it is a pure addition to `nodeSelector` on a gated pod — it does not re-invoke any namespace policy check, it only checks the diff is additive.
+5. The attacker then removes the scheduling gate (also permitted, since gates "can only be set at pod creation time, and be removed only afterwards" <cite repo="Tylerpinwa/kubernetes--002" path="staging/src/k8s.io/api/core/v1/types.go" start="4644,4644" end="4644" />), letting the pod proceed to scheduling with a `NodeSelector` that never passed the `PodNodeSelector` namespace/whitelist enforcement.
+
+This lets the attacker's pod be scheduled onto nodes the namespace's `PodNodeSelector` policy was meant to exclude (e.g., dedicated/tainted-for-privileged-workload node pools reserved for another tenant), which is a cross-tenant workload-placement/isolation bypass, not merely a validation nuisance.
+
+### Impact Explanation
+This is a workload-isolation / multi-tenant node-selector enforcement bypass: the `PodNodeSelector` admission plugin's core purpose — restricting which nodes a namespace's pods can land on — is unenforced for gated-pod nodeSelector additions made via Update/Patch. An unprivileged, namespace-scoped user can schedule pods onto node pools their namespace is supposed to be denied (e.g., other tenants' or infra-only nodes), violating multi-tenancy node isolation. Depending on cluster configuration (e.g., if those nodes host privileged workloads or have looser PSA/PSPs), this can facilitate lateral movement or resource abuse across tenant boundaries, matching the Kubernetes bounty "cross-namespace/cross-tenant access" and "admission bypass" impact classes.
+
+### Likelihood Explanation
+- Requires only the minimal RBAC an ordinary namespace user already needs to create pods: `create`, `update`/`patch` on `pods` in their own namespace.
+- Requires the target namespace to actually have `PodNodeSelector` enforcement (namespace annotation or plugin config whitelist) — a standard multi-tenant hardening configuration where this bug matters most.
+- Requires the pod to remain gated between creation and the exploit update — trivial, since the attacker controls both the initial gate and its later removal.
+- No feature gate blocks this; `SchedulingGates`/`PodSchedulingReadiness` is GA/beta and enabled by default in the versions represented in this repo, and the gated-pod nodeSelector-addition allowance in `ValidatePodUpdate` is unconditional once `podIsGated` is true.
+- Fully reproducible with a scripted create → patch → remove-gate sequence; no timing race or privileged component needed.
+
+### Recommendation
+Either:
+1. Register `PodNodeSelector`'s handler for `admission.Update` in addition to `admission.Create` (`admission.NewHandler(admission.Create, admission.Update)`) so `Admit`/`Validate` re-check the namespace's enforced selector and whitelist whenever `spec.nodeSelector` changes, including gated-pod additions; or
+2. In `ValidatePodUpdate`/`validateNodeSelectorMutation`, disallow nodeSelector additions unless they are validated against namespace-level node-selector policy (requires plumbing admission-time policy into pod strategy, which is more invasive); option 1 is the more surgical fix consistent with how the plugin is designed to enforce this policy at admission time.
+
+### Proof of Concept
+Integration test plan (extending `plugin/pkg/admission/podnodeselector/admission_test.go` or a new `test/integration/podnodeselector` test):
+1. Configure `PodNodeSelector` admission plugin with a namespace annotation `scheduler.alpha.kubernetes.io/node-selector: "env=prod"` (or a `podNodeSelectorPluginConfig` whitelist restricting `env` to `prod`) on `test-ns`.
+2. As a namespace-scoped user, `Create` a Pod in `test-ns` with `spec.schedulingGates: [{name: "hold"}]` and empty `spec.nodeSelector`.
+   - Assert: Create succeeds; resulting pod's `spec.nodeSelector` == `{"env":"prod"}` (merged by `Admit`).
+3. `Get` the pod, then `Update` it (still gated) adding `spec.nodeSelector["env"] = "dev"` (or adding an unrelated key not in the whitelist, e.g. `pool=other-tenant`).
+   - Assert (current buggy behavior): Update succeeds with no error, and the pod's persisted `spec.nodeSelector` now contains the added, non-whitelisted/conflicting key — this is the invalid/protected-field-persisted state that should be forbidden.
+   - Expected (fixed behavior): Update should fail with a `Forbidden`/`Invalid` error from `PodNodeSelector`'s namespace policy check (mirroring the `Conflicts`/whitelist checks in `Validate`), just as such a value would be rejected at Create time.
+4. As a follow-up, `Update` to clear `spec.schedulingGates` to `nil` and confirm the pod proceeds to scheduling with the non-compliant `NodeSelector` still in place, demonstrating the pod can be placed outside its namespace's policy-permitted node pool.
