@@ -1,1 +1,0 @@
-[File: 'pkg/registry/rbac/helpers.go' -> Scope: Critical JWT/identity forgery] [Function: jwtTokenAuthenticator.AuthenticateToken audit annotation for legacy tokens] Can an attacker abuse the audit annotation write 'audit.AddAuditAnnotation(ctx, \
