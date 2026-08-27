@@ -1,1 +1,0 @@
-]} -> escalation check compacts missing rights. INVARIANT: authorization exactness. SCOPE_IMPACT: privilege escalation via bind of wildcard resource role. Proof idea: unit test CompactRules with wildcard vs. specific resource inputs, assert output list still contains both rules distinctly.
