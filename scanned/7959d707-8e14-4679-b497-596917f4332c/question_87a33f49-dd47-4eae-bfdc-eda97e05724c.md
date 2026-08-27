@@ -1,1 +1,0 @@
-[File: 'pkg/registry/rbac/helpers.go' -> Scope: Critical JWT/identity forgery] [Function: staticPublicKeysGetter.GetPublicKeys in pkg/serviceaccount/jwt.go] Can an attacker send a JWT with a forged/absent 'kid' header to force 'GetPublicKeys(ctx,

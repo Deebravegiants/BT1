@@ -1,1 +1,0 @@
-[File: 'pkg/registry/rbac/helpers.go' -> Scope: Critical JWT/identity forgery] [Function: jwtTokenAuthenticator.AuthenticateToken multi-tok.Headers kid extraction] Can an attacker submit a JWS with multiple signatures/headers (JSON serialization with multiple 'kid' entries) so that 'for _, header := range tok.Headers { if header.KeyID != \
