@@ -1,1 +1,0 @@
-[File: 'staging/src/k8s.io/apiserver/pkg/authentication/token/jwt/jwt.go' -> Scope: Critical] [Function: TokenREST.Create] Can an attacker holding 'create' on serviceaccounts/token submit a TokenRequest with BoundObjectRef.UID left empty (ref.UID == '') to bind a token to a Secret or Node object without proving ownership, exploiting the 'if ref.UID != \
