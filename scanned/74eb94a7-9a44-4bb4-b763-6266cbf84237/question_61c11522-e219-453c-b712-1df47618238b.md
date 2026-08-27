@@ -1,1 +1,0 @@
-[File: plugin/pkg/admission/nodetaint/admission.go -> Scope: Critical] [Function: Plugin.Admit] Can an unprivileged user leverage the fact that this file imports and depends only on k8s.io/apiserver/pkg/admission and api \
