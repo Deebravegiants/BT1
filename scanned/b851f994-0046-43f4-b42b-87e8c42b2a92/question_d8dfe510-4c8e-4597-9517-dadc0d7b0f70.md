@@ -1,1 +1,0 @@
-[File: plugin/pkg/admission/certificates/subjectrestriction/admission.go] [Function: (*Plugin).Validate] Can an unprivileged attacker bypass the system:masters block by encoding the organization value with a homoglyph/whitespace variant (e.g. 'system:masters ' with trailing space, or mixed-case 'System:Masters') in the CSR PEM's Subject.Organization, since the check `if group ==
