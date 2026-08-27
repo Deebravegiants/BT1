@@ -1,1 +1,0 @@
-[File: 'plugin/pkg/admission/serviceaccount/admission.go' -> Function: Plugin.mountServiceAccountToken] Can an attacker pre-create a Volume in the pod spec named with the prefix 'kube-api-access-' pointing to a Secret volume source (not a projected SA token) they fully control, exploiting the `strings.HasPrefix(volume.Name, ServiceAccountVolumeName+
