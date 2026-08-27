@@ -1,1 +1,0 @@
-[File: 'staging/src/k8s.io/apiserver/pkg/authentication/serviceaccount/util.go' Scope: High] [Function: QuotaAdmission.Validate / isNamespaceCreation] Can an unprivileged user create a Namespace object via POST /api/v1/namespaces exploiting `if attr.GetNamespace() ==
