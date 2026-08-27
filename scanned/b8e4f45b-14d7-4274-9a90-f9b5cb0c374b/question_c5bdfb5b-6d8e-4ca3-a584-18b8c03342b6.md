@@ -1,1 +1,0 @@
-[File: resourcequota/admission.go] [Function: QuotaAdmission.Validate / isNamespaceCreation] Can an attacker exceeding ResourceQuota bypass enforcement entirely by submitting requests where attr.GetNamespace() == '' for a namespaced resource (e.g. by using a cluster-scoped subresource path or malformed RequestScope) since Validate short-circuits 'if attr.GetNamespace() == \
