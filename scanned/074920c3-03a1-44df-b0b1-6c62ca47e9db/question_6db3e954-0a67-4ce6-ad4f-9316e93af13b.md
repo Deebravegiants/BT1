@@ -1,1 +1,0 @@
-} where RESTMapper returns 2 GroupResources; craft RBAC to allow delete on the first mapping only. Invariant: authorization exactness across all matched resources. Proof idea: unit test with a fake multi-mapping RESTMapper and an authorizer that allows one GVR and denies another, assert Validate returns Forbidden not nil.
