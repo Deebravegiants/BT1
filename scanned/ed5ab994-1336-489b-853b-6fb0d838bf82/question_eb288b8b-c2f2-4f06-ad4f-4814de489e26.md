@@ -1,1 +1,0 @@
-[File: 'plugin/pkg/admission/noderestriction/admission.go'] [Function: Plugin.admitServiceAccount] Can an attacker submit a TokenRequest subresource with BoundObjectRef.APIVersion set to a value other than 'v1' (e.g., empty string, or 'v1beta1') while Kind='Pod', exploiting a strict string equality check (`ref.APIVersion !=
