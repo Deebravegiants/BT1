@@ -1,1 +1,0 @@
-[File: 'staging/src/k8s.io/apiserver/pkg/endpoints/handlers/patch.go -> Scope: High'] [Function: patcher.applyAdmission options construction (patchToUpdateOptions/patchToCreateOptions)] Can an unprivileged user set PatchOptions.DryRun=[
