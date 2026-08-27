@@ -1,1 +1,0 @@
-then verify scheduler-relevant label persists. Invariant: isolation - node cannot self-assign labels that steer privileged workloads. Impact: node self-labeling escalation enabling privileged workload placement. Proof idea: differential test comparing forbiddenLabels set enforcement between Create and Update branches of admitNode for identical label deltas.
