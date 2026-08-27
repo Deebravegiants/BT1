@@ -1,1 +1,0 @@
-[File: 'pkg/apis/core/validation/validation.go -> validatePodMetadataAndSpec'] Can an unprivileged user set pod.Spec.ServiceAccountName to empty string while embedding a projected volume with ServiceAccountToken source, relying on the check 'if pod.Spec.ServiceAccountName == \
