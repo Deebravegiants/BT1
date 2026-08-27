@@ -1,1 +1,0 @@
-[File: .../serviceaccount/util.go] [Function: ServiceAccountInfo.UserInfo] Verify NodeUIDKey is NEVER set when NodeName is empty but NodeUID is attacker-supplied non-empty (code sets NodeUIDKey only 'if sa.NodeUID !=
