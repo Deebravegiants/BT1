@@ -1,1 +1,0 @@
-[File: 'pkg/apis/core/validation/validation.go' -> Scope: High.] [Function: validatePodDNSConfig] Can an unprivileged user submit `dnsConfig.searches` entries that individually pass `ValidateDNS1123SubdomainWithUnderScore` but are validated only against `MaxDNSSearchListChars` in aggregate using `strings.Join(dnsConfig.Searches,
