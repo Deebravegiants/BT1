@@ -1,1 +1,0 @@
-[File: plugin/pkg/admission/certificates/approval/admission.go] [Function: (*Plugin).Validate] Can an unprivileged attacker bypass the signerName authorization check by submitting an UpdateApproval request where a.GetSubresource() is 'approval' but a.GetResource().GroupResource() is manipulated to not equal csrGroupResource (api.Resource(
