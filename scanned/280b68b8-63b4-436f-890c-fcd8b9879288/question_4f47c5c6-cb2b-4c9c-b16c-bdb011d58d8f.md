@@ -1,1 +1,0 @@
-[File: pkg/serviceaccount/jwt.go -> Scope: CSR forged identity] [Function: staticPublicKeysGetter.GetPublicKeys empty keyID branch] Can an unprivileged ATTACKER strip the 'kid' header from an otherwise validly-signed token to force GetPublicKeys(ctx, \

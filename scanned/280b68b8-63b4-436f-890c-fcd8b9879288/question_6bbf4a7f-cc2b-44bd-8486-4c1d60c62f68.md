@@ -1,1 +1,0 @@
-[File: pkg/certauthorization/certauthorization.go -> Scope: CSR approval/signing bypass] [Function: buildAttributes APIVersion wildcard] Can an unprivileged ATTACKER exploit the hardcoded APIVersion: \

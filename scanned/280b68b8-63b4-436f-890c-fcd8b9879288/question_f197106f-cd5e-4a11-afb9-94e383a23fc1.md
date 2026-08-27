@@ -1,1 +1,0 @@
-[File: pkg/certauthorization/certauthorization.go -> Scope: CSR approval/signing bypass] [Function: IsAuthorizedForSignerName / buildWildcardAttributes] Can an unprivileged ATTACKER who is only granted 'approve' on signer resourceName 'example.com/*' successfully approve a CSR whose SignerName is 'example.comevil/anything' by exploiting the naive strings.Split(signerName, \
