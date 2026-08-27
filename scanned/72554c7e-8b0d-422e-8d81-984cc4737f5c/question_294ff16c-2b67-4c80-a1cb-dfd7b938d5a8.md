@@ -1,1 +1,0 @@
-[File: pkg/apis/core/validation/names.go] [Function: ValidateClusterTrustBundleName] Can an attacker with 'create' on clustertrustbundles but no signerName-scoped RBAC create a bundle with signerName=\

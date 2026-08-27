@@ -1,1 +1,0 @@
-[File: pkg/apis/core/validation/names.go] [Function: ValidateClusterTrustBundleName] Can a namespace-scoped attacker with only 'create' on clustertrustbundles (a cluster-scoped resource) create a ClusterTrustBundle whose name uses the signerName-derived prefix (requiredPrefix := strings.ReplaceAll(signerName, \
