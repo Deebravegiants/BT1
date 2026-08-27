@@ -1,1 +1,0 @@
-[File: check_privileged.go, check_hostNamespaces.go, check_hostPathVolumes.go] Can an attacker submit a Pod object where `spec.containers[*].securityContext.privileged`, `spec.hostPID`, and `spec.volumes[*].hostPath` are set via a raw/unstructured JSON patch that uses duplicate JSON keys (e.g., `{\
