@@ -1,1 +1,0 @@
-}]}}`. Invariant tested: ISOLATION / VALIDATION_TOTALITY. Scoped impact: corrupting another user's object graph / GC bypass. Proof idea: integration test similar to TestPatchConflicts asserting only permitted mutations occur and gc-controller ownership invariants remain intact after concurrent/adversarial patches.
