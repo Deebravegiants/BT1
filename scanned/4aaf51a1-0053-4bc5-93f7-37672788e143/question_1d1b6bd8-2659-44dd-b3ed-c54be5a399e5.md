@@ -1,1 +1,0 @@
-[File: 'plugin/pkg/auth/authorizer/node/graph.go' -> Scope: Critical] [Function: NodeAuthorizer.authorizePod (list/watch fallback path)] Can attacker's node identity retrieve a single Pod belonging to a different node/namespace by omitting the spec.nodeName field selector and instead relying on the fallback branch 'if attrs.GetName() != \
