@@ -1,1 +1,0 @@
-[File: 'staging/src/k8s.io/apiserver/pkg/authentication/request/bearertoken/bearertoken.go' -> Scope: Critical] [Function: Authenticator.AuthenticateRequest] Can an unprivileged attacker who holds a valid bearer token for namespace-A send a request whose Authorization header token is reused unmodified while req.Header.Del(\
