@@ -1,1 +1,0 @@
-[File: plugin/pkg/admission/nodetaint/admission.go -> Scope: Critical] [Function: Plugin.Admit, addNotReadyTaint] Does Admit's check 'a.GetResource().GroupResource() != nodeResource || a.GetSubresource() != \
