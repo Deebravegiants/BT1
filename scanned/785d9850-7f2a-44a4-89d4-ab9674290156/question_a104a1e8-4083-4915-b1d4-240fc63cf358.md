@@ -1,1 +1,0 @@
-[File: check_privileged.go] Can an unprivileged user targeting a namespace with PSA level 'baseline' (not 'restricted') combine `securityContext.privileged=false` (passes CheckPrivileged) with `capabilities.add:[\
