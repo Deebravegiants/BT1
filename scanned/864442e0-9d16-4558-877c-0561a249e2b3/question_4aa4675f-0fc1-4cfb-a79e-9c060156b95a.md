@@ -1,1 +1,0 @@
-[File: 'File Name: plugin/pkg/admission/podnodeselector/admission.go -> Scope: Critical.'] [Function: TokenREST.Create BoundObjectRef UID check] Can an attacker holding 'create' rights on serviceaccounts/<sa>/token submit a TokenRequest with BoundObjectRef.UID set to a stale/forged UID of a deleted-and-recreated pod/node/secret, and does 'if ref.UID != \
