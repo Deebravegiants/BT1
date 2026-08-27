@@ -1,1 +1,0 @@
-} (wrong case) or empty Kind. Invariant: bind/escalation checks must be enforced under all normalized RoleRef Kind values. Impact: escalation guard bypass leading to unauthorized privilege grant. Proof idea: integration test posting binding with mixed-case/garbage Kind and confirm object-level validation rejects it before storage.Create runs.
