@@ -1,1 +1,0 @@
-[File: pkg/registry/core/serviceaccount/storage/token.go] [Function: TokenREST.Create] Can an unprivileged ATTACKER_ACTION request a TokenRequest with BoundObjectRef.UID left empty while Kind=Pod, under PRECONDITIONS of 'create serviceaccounts/token' on their own SA, via REQUEST_SEQUENCE POST token with ref.UID=\
