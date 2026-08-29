@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: High. CAPS ARE COMPARED AGAINST THE WRONG QUANTITY. `deposit` checks `(<= (+ current-assets amount) CAP-SUPPLY)` against the `assets` var rather than `total-assets`, and `system-borrow` checks `(<= (+ debt amount) CAP-DEBT)` against `total-debt` which includes accrued interest. Show a sequence that pushes real deposits or real debt past the intended ceiling, or one where accrued interest alone trips `CAP-DEBT` and permanently blocks every borrow while positions still need to be refinanced.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_92da14db-fb99-4c67-873d-bae83e64298e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: High. CAPS ARE COMPARED AGAINST THE WRONG QUANTITY. `deposit` checks `(<= (+ current-assets amount) CAP-SUPPLY)` against the `assets` var rather than `total-assets`, and `system-borrow` checks `(<= (+ debt amount) CAP-DEBT)` against `total-debt` which includes accrued interest. Show a sequence that pushes real deposits or real debt past the intended ceiling, or one where accrued interest alone trips `CAP-DEBT` and permanently blocks every borrow while positions still need to be refinanced.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_421e89c2-48b0-41ca-a90f-6cb2b2053b06?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: High. CAPS ARE COMPARED AGAINST THE WRONG QUANTITY. `deposit` checks `(<= (+ current-assets amount) CAP-SUPPLY)` against the `assets` var rather than `total-assets`, and `system-borrow` checks `(<= (+ debt amount) CAP-DEBT)` against `total-debt` which includes accrued interest. Show a sequence that pushes real deposits or real debt past the intended ceiling, or one where accrued interest alone trips `CAP-DEBT` and permanently blocks every borrow while positions still need to be refinanced.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_b8c40609-10c4-40fe-8682-c4d373a7eaff?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: High. CAPS ARE COMPARED AGAINST THE WRONG QUANTITY. `deposit` checks `(<= (+ current-assets amount) CAP-SUPPLY)` against the `assets` var rather than `total-assets`, and `system-borrow` checks `(<= (+ debt amount) CAP-DEBT)` against `total-debt` which includes accrued interest. Show a sequence that pushes real deposits or real debt past the intended ceiling, or one where accrued interest alone trips `CAP-DEBT` and permanently blocks every borrow while positions still need to be refinanced.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_554e3864-4aa5-40bc-ac24-f174d0150589?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: High. CAPS ARE COMPARED AGAINST THE WRONG QUANTITY. `deposit` checks `(<= (+ current-assets amount) CAP-SUPPLY)` against the `assets` var rather than `total-assets`, and `system-borrow` checks `(<= (+ debt amount) CAP-DEBT)` against `total-debt` which includes accrued interest. Show a sequence that pushes real deposits or real debt past the intended ceiling, or one where accrued interest alone trips `CAP-DEBT` and permanently blocks every borrow while positions still need to be refinanced.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_4a7bee9e-0300-4a92-b5d7-dc1d251d8a68?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: High. CAPS ARE COMPARED AGAINST THE WRONG QUANTITY. `deposit` checks `(<= (+ current-assets amount) CAP-SUPPLY)` against the `assets` var rather than `total-assets`, and `system-borrow` checks `(<= (+ debt amount) CAP-DEBT)` against `total-debt` which includes accrued interest. Show a sequence that pushes real deposits or real debt past the intended ceiling, or one where accrued interest alone trips `CAP-DEBT` and permanently blocks every borrow while positions still need to be refinanced.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_c7201570-703a-4b04-9461-00e60e91d4de?mode=deep",
+    "questions_generated": false
+  }
+]
