@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: Critical. THE UNRECONCILED LEDGERS. Sum over all users of the market-vault `debt` map times the vault `index` must equal the vault's own `total-debt` (`calc-cumulative-debt` of `principal-scaled`), yet the two are written by different contracts with different rounding: market `convert-to-scaled-debt` rounds the user's scaled debt UP while vault `system-borrow` computes its own `scaled-amount` with `mul-div-up` against the same `index`, and `repay` / `system-repay` shrink them with unrelated formulas. Show a borrow-repay cycle after which the per-user total and the vault aggregate differ, and compound it until the vault reports solvency it does not have.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_931893d3-34a4-43c8-916f-06900e183b75?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: Critical. THE UNRECONCILED LEDGERS. Sum over all users of the market-vault `debt` map times the vault `index` must equal the vault's own `total-debt` (`calc-cumulative-debt` of `principal-scaled`), yet the two are written by different contracts with different rounding: market `convert-to-scaled-debt` rounds the user's scaled debt UP while vault `system-borrow` computes its own `scaled-amount` with `mul-div-up` against the same `index`, and `repay` / `system-repay` shrink them with unrelated formulas. Show a borrow-repay cycle after which the per-user total and the vault aggregate differ, and compound it until the vault reports solvency it does not have.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_f86c388a-0667-49fb-a3f3-12f4819a7cde?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. THE UNRECONCILED LEDGERS. Sum over all users of the market-vault `debt` map times the vault `index` must equal the vault's own `total-debt` (`calc-cumulative-debt` of `principal-scaled`), yet the two are written by different contracts with different rounding: market `convert-to-scaled-debt` rounds the user's scaled debt UP while vault `system-borrow` computes its own `scaled-amount` with `mul-div-up` against the same `index`, and `repay` / `system-repay` shrink them with unrelated formulas. Show a borrow-repay cycle after which the per-user total and the vault aggregate differ, and compound it until the vault reports solvency it does not have.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_ac9ac443-9873-4005-919d-08e805cdcaa4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: Critical. THE UNRECONCILED LEDGERS. Sum over all users of the market-vault `debt` map times the vault `index` must equal the vault's own `total-debt` (`calc-cumulative-debt` of `principal-scaled`), yet the two are written by different contracts with different rounding: market `convert-to-scaled-debt` rounds the user's scaled debt UP while vault `system-borrow` computes its own `scaled-amount` with `mul-div-up` against the same `index`, and `repay` / `system-repay` shrink them with unrelated formulas. Show a borrow-repay cycle after which the per-user total and the vault aggregate differ, and compound it until the vault reports solvency it does not have.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_3d22970d-6932-4a0c-8644-6496be4c77cc?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: Critical. THE UNRECONCILED LEDGERS. Sum over all users of the market-vault `debt` map times the vault `index` must equal the vault's own `total-debt` (`calc-cumulative-debt` of `principal-scaled`), yet the two are written by different contracts with different rounding: market `convert-to-scaled-debt` rounds the user's scaled debt UP while vault `system-borrow` computes its own `scaled-amount` with `mul-div-up` against the same `index`, and `repay` / `system-repay` shrink them with unrelated formulas. Show a borrow-repay cycle after which the per-user total and the vault aggregate differ, and compound it until the vault reports solvency it does not have.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_262952bf-1fc8-4ff6-a4bb-a364257c5c51?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: Critical. THE UNRECONCILED LEDGERS. Sum over all users of the market-vault `debt` map times the vault `index` must equal the vault's own `total-debt` (`calc-cumulative-debt` of `principal-scaled`), yet the two are written by different contracts with different rounding: market `convert-to-scaled-debt` rounds the user's scaled debt UP while vault `system-borrow` computes its own `scaled-amount` with `mul-div-up` against the same `index`, and `repay` / `system-repay` shrink them with unrelated formulas. Show a borrow-repay cycle after which the per-user total and the vault aggregate differ, and compound it until the vault reports solvency it does not have.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_7b6a9b99-d579-4e99-8f05-a862ee7c51a4?mode=deep",
+    "questions_generated": false
+  }
+]
