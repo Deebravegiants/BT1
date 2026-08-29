@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: Critical. CUSTODY VERSUS LEDGER. The tokens actually held by .v0-market-vault must equal the sum of its `collateral` map for that asset. `receive-tokens` / `send-tokens` move them, `add-user-collateral` / `remove-user-collateral` record them, and in `collateral-remove` the map is decremented and `insert` is written BEFORE `send-tokens` runs. Show any path where a transfer succeeds without the matching map write, or the map write survives a transfer that moved a different amount, and drain the surplus or strand the deficit.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_95344f1b-ac05-4616-9bc8-2590585152e9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: Critical. CUSTODY VERSUS LEDGER. The tokens actually held by .v0-market-vault must equal the sum of its `collateral` map for that asset. `receive-tokens` / `send-tokens` move them, `add-user-collateral` / `remove-user-collateral` record them, and in `collateral-remove` the map is decremented and `insert` is written BEFORE `send-tokens` runs. Show any path where a transfer succeeds without the matching map write, or the map write survives a transfer that moved a different amount, and drain the surplus or strand the deficit.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_e0d82d2a-ae58-4db1-8d9a-f1c3715a8cf5?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. CUSTODY VERSUS LEDGER. The tokens actually held by .v0-market-vault must equal the sum of its `collateral` map for that asset. `receive-tokens` / `send-tokens` move them, `add-user-collateral` / `remove-user-collateral` record them, and in `collateral-remove` the map is decremented and `insert` is written BEFORE `send-tokens` runs. Show any path where a transfer succeeds without the matching map write, or the map write survives a transfer that moved a different amount, and drain the surplus or strand the deficit.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_a8157299-1485-45d7-96eb-c8f2cb0a7c81?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: Critical. CUSTODY VERSUS LEDGER. The tokens actually held by .v0-market-vault must equal the sum of its `collateral` map for that asset. `receive-tokens` / `send-tokens` move them, `add-user-collateral` / `remove-user-collateral` record them, and in `collateral-remove` the map is decremented and `insert` is written BEFORE `send-tokens` runs. Show any path where a transfer succeeds without the matching map write, or the map write survives a transfer that moved a different amount, and drain the surplus or strand the deficit.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_48fa976b-28a6-4dcb-a105-5fd1e27c40f2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: Critical. CUSTODY VERSUS LEDGER. The tokens actually held by .v0-market-vault must equal the sum of its `collateral` map for that asset. `receive-tokens` / `send-tokens` move them, `add-user-collateral` / `remove-user-collateral` record them, and in `collateral-remove` the map is decremented and `insert` is written BEFORE `send-tokens` runs. Show any path where a transfer succeeds without the matching map write, or the map write survives a transfer that moved a different amount, and drain the surplus or strand the deficit.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_1b316c78-2730-4155-a730-f606749ca82a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: Critical. CUSTODY VERSUS LEDGER. The tokens actually held by .v0-market-vault must equal the sum of its `collateral` map for that asset. `receive-tokens` / `send-tokens` move them, `add-user-collateral` / `remove-user-collateral` record them, and in `collateral-remove` the map is decremented and `insert` is written BEFORE `send-tokens` runs. Show any path where a transfer succeeds without the matching map write, or the map write survives a transfer that moved a different amount, and drain the surplus or strand the deficit.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_970d3d49-2d87-4d8c-9b6c-32c774ad8239?mode=deep",
+    "questions_generated": false
+  }
+]
