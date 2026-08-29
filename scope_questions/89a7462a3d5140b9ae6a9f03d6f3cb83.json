@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: High. THE COMPOSITE ENTRY POINTS MOVE VALUE TWICE. `supply-collateral-add` transfers underlying to the market, deposits it under an `as-contract?` post-condition scope, mints shares to the user, then adds `shares-minted` as collateral; `collateral-remove-redeem` removes `amount` of zToken collateral to the market and then redeems the SAME `amount` as shares. Show a mismatch between `shares-minted` and the amount subsequently pledged, or between the shares removed and the shares redeemed, that leaves value stranded in the market contract or lets a caller redeem shares it never pledged.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_6c9db1a0-4cd0-486f-9bdf-02432a23aa2d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: High. THE COMPOSITE ENTRY POINTS MOVE VALUE TWICE. `supply-collateral-add` transfers underlying to the market, deposits it under an `as-contract?` post-condition scope, mints shares to the user, then adds `shares-minted` as collateral; `collateral-remove-redeem` removes `amount` of zToken collateral to the market and then redeems the SAME `amount` as shares. Show a mismatch between `shares-minted` and the amount subsequently pledged, or between the shares removed and the shares redeemed, that leaves value stranded in the market contract or lets a caller redeem shares it never pledged.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_650cd271-e4b2-4bb8-a70c-fecc05d39259?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: High. THE COMPOSITE ENTRY POINTS MOVE VALUE TWICE. `supply-collateral-add` transfers underlying to the market, deposits it under an `as-contract?` post-condition scope, mints shares to the user, then adds `shares-minted` as collateral; `collateral-remove-redeem` removes `amount` of zToken collateral to the market and then redeems the SAME `amount` as shares. Show a mismatch between `shares-minted` and the amount subsequently pledged, or between the shares removed and the shares redeemed, that leaves value stranded in the market contract or lets a caller redeem shares it never pledged.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_f3f6b775-760c-476e-887b-651124902147?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: High. THE COMPOSITE ENTRY POINTS MOVE VALUE TWICE. `supply-collateral-add` transfers underlying to the market, deposits it under an `as-contract?` post-condition scope, mints shares to the user, then adds `shares-minted` as collateral; `collateral-remove-redeem` removes `amount` of zToken collateral to the market and then redeems the SAME `amount` as shares. Show a mismatch between `shares-minted` and the amount subsequently pledged, or between the shares removed and the shares redeemed, that leaves value stranded in the market contract or lets a caller redeem shares it never pledged.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_189d3691-ddba-4462-a173-f5d2892c13c4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: High. THE COMPOSITE ENTRY POINTS MOVE VALUE TWICE. `supply-collateral-add` transfers underlying to the market, deposits it under an `as-contract?` post-condition scope, mints shares to the user, then adds `shares-minted` as collateral; `collateral-remove-redeem` removes `amount` of zToken collateral to the market and then redeems the SAME `amount` as shares. Show a mismatch between `shares-minted` and the amount subsequently pledged, or between the shares removed and the shares redeemed, that leaves value stranded in the market contract or lets a caller redeem shares it never pledged.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_c985d9de-c7e5-4152-a2de-f43edd0a8b1c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: High. THE COMPOSITE ENTRY POINTS MOVE VALUE TWICE. `supply-collateral-add` transfers underlying to the market, deposits it under an `as-contract?` post-condition scope, mints shares to the user, then adds `shares-minted` as collateral; `collateral-remove-redeem` removes `amount` of zToken collateral to the market and then redeems the SAME `amount` as shares. Show a mismatch between `shares-minted` and the amount subsequently pledged, or between the shares removed and the shares redeemed, that leaves value stranded in the market contract or lets a caller redeem shares it never pledged.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_03f9926b-faff-46ce-b855-1dd79c1f2129?mode=deep",
+    "questions_generated": false
+  }
+]
