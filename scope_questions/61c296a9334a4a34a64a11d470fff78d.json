@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: High. LIQUIDATION LEAVES ORPHANED OBLIGATIONS. After `socialize-debt-asset` walks the borrower's debt list, and after collateral has been fully seized, check what remains: `debt` rows for assets not in the socialized list, `collateral` rows at zero that were never `map-delete`d, and mask bits that were never cleared. Show a fully liquidated position that still carries an obligation or a mask bit, so it cannot be re-used, cannot be closed, and keeps accruing interest that `total-assets` counts as a supplier asset forever.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_02134135-15e1-4655-8792-0c33616b8eb6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: High. LIQUIDATION LEAVES ORPHANED OBLIGATIONS. After `socialize-debt-asset` walks the borrower's debt list, and after collateral has been fully seized, check what remains: `debt` rows for assets not in the socialized list, `collateral` rows at zero that were never `map-delete`d, and mask bits that were never cleared. Show a fully liquidated position that still carries an obligation or a mask bit, so it cannot be re-used, cannot be closed, and keeps accruing interest that `total-assets` counts as a supplier asset forever.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_a777b23a-6870-435e-84ce-89beb4d0ade9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: High. LIQUIDATION LEAVES ORPHANED OBLIGATIONS. After `socialize-debt-asset` walks the borrower's debt list, and after collateral has been fully seized, check what remains: `debt` rows for assets not in the socialized list, `collateral` rows at zero that were never `map-delete`d, and mask bits that were never cleared. Show a fully liquidated position that still carries an obligation or a mask bit, so it cannot be re-used, cannot be closed, and keeps accruing interest that `total-assets` counts as a supplier asset forever.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_d4473e8d-608d-4fa8-b398-c2b2a19a223f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: High. LIQUIDATION LEAVES ORPHANED OBLIGATIONS. After `socialize-debt-asset` walks the borrower's debt list, and after collateral has been fully seized, check what remains: `debt` rows for assets not in the socialized list, `collateral` rows at zero that were never `map-delete`d, and mask bits that were never cleared. Show a fully liquidated position that still carries an obligation or a mask bit, so it cannot be re-used, cannot be closed, and keeps accruing interest that `total-assets` counts as a supplier asset forever.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_bb924002-9c2a-484e-a0ba-d945464dea9b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: High. LIQUIDATION LEAVES ORPHANED OBLIGATIONS. After `socialize-debt-asset` walks the borrower's debt list, and after collateral has been fully seized, check what remains: `debt` rows for assets not in the socialized list, `collateral` rows at zero that were never `map-delete`d, and mask bits that were never cleared. Show a fully liquidated position that still carries an obligation or a mask bit, so it cannot be re-used, cannot be closed, and keeps accruing interest that `total-assets` counts as a supplier asset forever.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_782dd39d-82c0-4f0b-bc71-dd1aab2556f7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: High. LIQUIDATION LEAVES ORPHANED OBLIGATIONS. After `socialize-debt-asset` walks the borrower's debt list, and after collateral has been fully seized, check what remains: `debt` rows for assets not in the socialized list, `collateral` rows at zero that were never `map-delete`d, and mask bits that were never cleared. Show a fully liquidated position that still carries an obligation or a mask bit, so it cannot be re-used, cannot be closed, and keeps accruing interest that `total-assets` counts as a supplier asset forever.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_738bc252-1732-4e96-a732-16b4f2257bda?mode=deep",
+    "questions_generated": false
+  }
+]
