@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: Critical. INTEREST THAT NEVER EXISTED. `total-assets` adds `(- debt borrowed)` as accrued interest whenever debt exceeds borrowed, and that figure feeds `convert-to-assets-preview` for every redeemer. The difference is not backed by any token in the vault until a borrower actually repays. Show a state where `total-assets` counts interest on debt that has been socialized away, on a position already liquidated, or on principal that `system-repay` removed from `total-borrowed` without removing from `principal-scaled`, so early redeemers withdraw at an inflated share price and the last suppliers absorb the hole.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_5b95e7bf-1d67-4574-91a7-1a9e5a4554da?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: Critical. INTEREST THAT NEVER EXISTED. `total-assets` adds `(- debt borrowed)` as accrued interest whenever debt exceeds borrowed, and that figure feeds `convert-to-assets-preview` for every redeemer. The difference is not backed by any token in the vault until a borrower actually repays. Show a state where `total-assets` counts interest on debt that has been socialized away, on a position already liquidated, or on principal that `system-repay` removed from `total-borrowed` without removing from `principal-scaled`, so early redeemers withdraw at an inflated share price and the last suppliers absorb the hole.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_ae3c908a-a050-4b90-8d3f-e95062fb0065?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. INTEREST THAT NEVER EXISTED. `total-assets` adds `(- debt borrowed)` as accrued interest whenever debt exceeds borrowed, and that figure feeds `convert-to-assets-preview` for every redeemer. The difference is not backed by any token in the vault until a borrower actually repays. Show a state where `total-assets` counts interest on debt that has been socialized away, on a position already liquidated, or on principal that `system-repay` removed from `total-borrowed` without removing from `principal-scaled`, so early redeemers withdraw at an inflated share price and the last suppliers absorb the hole.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_3cc62978-19e0-4bac-a580-ba64838e9413?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: Critical. INTEREST THAT NEVER EXISTED. `total-assets` adds `(- debt borrowed)` as accrued interest whenever debt exceeds borrowed, and that figure feeds `convert-to-assets-preview` for every redeemer. The difference is not backed by any token in the vault until a borrower actually repays. Show a state where `total-assets` counts interest on debt that has been socialized away, on a position already liquidated, or on principal that `system-repay` removed from `total-borrowed` without removing from `principal-scaled`, so early redeemers withdraw at an inflated share price and the last suppliers absorb the hole.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_a6cbf6f2-3d2a-434f-88fd-7b206a979a51?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: Critical. INTEREST THAT NEVER EXISTED. `total-assets` adds `(- debt borrowed)` as accrued interest whenever debt exceeds borrowed, and that figure feeds `convert-to-assets-preview` for every redeemer. The difference is not backed by any token in the vault until a borrower actually repays. Show a state where `total-assets` counts interest on debt that has been socialized away, on a position already liquidated, or on principal that `system-repay` removed from `total-borrowed` without removing from `principal-scaled`, so early redeemers withdraw at an inflated share price and the last suppliers absorb the hole.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_ef0435ce-a0d8-4210-8199-58f469052b20?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: Critical. INTEREST THAT NEVER EXISTED. `total-assets` adds `(- debt borrowed)` as accrued interest whenever debt exceeds borrowed, and that figure feeds `convert-to-assets-preview` for every redeemer. The difference is not backed by any token in the vault until a borrower actually repays. Show a state where `total-assets` counts interest on debt that has been socialized away, on a position already liquidated, or on principal that `system-repay` removed from `total-borrowed` without removing from `principal-scaled`, so early redeemers withdraw at an inflated share price and the last suppliers absorb the hole.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_448dc522-8b9a-4f4d-b948-0ceea2821215?mode=deep",
+    "questions_generated": false
+  }
+]
