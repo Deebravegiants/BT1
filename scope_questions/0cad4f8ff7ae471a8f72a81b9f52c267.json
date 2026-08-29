@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: High. THE RESERVE FEE IS TAKEN FROM THE WRONG BASE. `accrue` derives `reserve-inc` from `debt-delta` computed as `mul-div-down scaled-principal next` minus `mul-div-down scaled-principal idx`, both rounded down, while the borrower's own debt grows by `mul-div-up` on their scaled balance. Show that the interest charged to borrowers and the interest distributed to suppliers plus treasury do not sum to the same figure, and that the residue accumulates in - or is drained from - the supplier pool with every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_fb54c98c-73af-4589-96dd-33a9aa172121?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: High. THE RESERVE FEE IS TAKEN FROM THE WRONG BASE. `accrue` derives `reserve-inc` from `debt-delta` computed as `mul-div-down scaled-principal next` minus `mul-div-down scaled-principal idx`, both rounded down, while the borrower's own debt grows by `mul-div-up` on their scaled balance. Show that the interest charged to borrowers and the interest distributed to suppliers plus treasury do not sum to the same figure, and that the residue accumulates in - or is drained from - the supplier pool with every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_69bf16de-c02d-4ddb-b1c1-54f3001ce5d6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: High. THE RESERVE FEE IS TAKEN FROM THE WRONG BASE. `accrue` derives `reserve-inc` from `debt-delta` computed as `mul-div-down scaled-principal next` minus `mul-div-down scaled-principal idx`, both rounded down, while the borrower's own debt grows by `mul-div-up` on their scaled balance. Show that the interest charged to borrowers and the interest distributed to suppliers plus treasury do not sum to the same figure, and that the residue accumulates in - or is drained from - the supplier pool with every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_86c96cdc-e6ce-4a27-b7d3-5f717e5371a7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: High. THE RESERVE FEE IS TAKEN FROM THE WRONG BASE. `accrue` derives `reserve-inc` from `debt-delta` computed as `mul-div-down scaled-principal next` minus `mul-div-down scaled-principal idx`, both rounded down, while the borrower's own debt grows by `mul-div-up` on their scaled balance. Show that the interest charged to borrowers and the interest distributed to suppliers plus treasury do not sum to the same figure, and that the residue accumulates in - or is drained from - the supplier pool with every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_48e57551-78e8-4a27-9c5c-65803354d8b7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: High. THE RESERVE FEE IS TAKEN FROM THE WRONG BASE. `accrue` derives `reserve-inc` from `debt-delta` computed as `mul-div-down scaled-principal next` minus `mul-div-down scaled-principal idx`, both rounded down, while the borrower's own debt grows by `mul-div-up` on their scaled balance. Show that the interest charged to borrowers and the interest distributed to suppliers plus treasury do not sum to the same figure, and that the residue accumulates in - or is drained from - the supplier pool with every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_6e0944ae-4540-48d4-9a17-2c918edc1573?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: High. THE RESERVE FEE IS TAKEN FROM THE WRONG BASE. `accrue` derives `reserve-inc` from `debt-delta` computed as `mul-div-down scaled-principal next` minus `mul-div-down scaled-principal idx`, both rounded down, while the borrower's own debt grows by `mul-div-up` on their scaled balance. Show that the interest charged to borrowers and the interest distributed to suppliers plus treasury do not sum to the same figure, and that the residue accumulates in - or is drained from - the supplier pool with every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_ef81172c-5daf-4529-af01-ae8677d23f2f?mode=deep",
+    "questions_generated": false
+  }
+]
