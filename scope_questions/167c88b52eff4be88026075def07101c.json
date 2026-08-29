@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: High. REDEEM AND DEPOSIT ARE NOT INVERSES. `deposit` increments `assets` by the raw `amount` received, `redeem` decrements it by `inkind` derived from the share price, and both call `accrue` first so the price moves between them. Show a deposit-then-redeem in the same block that returns more underlying than went in, or a rounding direction in `convert-to-shares-preview` versus `convert-to-assets-preview` that lets a loop of small deposits and redeems extract a unit per iteration until the vault's `assets` no longer matches its balance.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_fcacce19-a58e-42d6-837d-0e3fe1bdce51?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: High. REDEEM AND DEPOSIT ARE NOT INVERSES. `deposit` increments `assets` by the raw `amount` received, `redeem` decrements it by `inkind` derived from the share price, and both call `accrue` first so the price moves between them. Show a deposit-then-redeem in the same block that returns more underlying than went in, or a rounding direction in `convert-to-shares-preview` versus `convert-to-assets-preview` that lets a loop of small deposits and redeems extract a unit per iteration until the vault's `assets` no longer matches its balance.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_a55e2abe-18bf-4d77-a889-9e3df7ecbb7b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: High. REDEEM AND DEPOSIT ARE NOT INVERSES. `deposit` increments `assets` by the raw `amount` received, `redeem` decrements it by `inkind` derived from the share price, and both call `accrue` first so the price moves between them. Show a deposit-then-redeem in the same block that returns more underlying than went in, or a rounding direction in `convert-to-shares-preview` versus `convert-to-assets-preview` that lets a loop of small deposits and redeems extract a unit per iteration until the vault's `assets` no longer matches its balance.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_cc8100f0-1f92-45b4-b879-f1870fa49c29?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: High. REDEEM AND DEPOSIT ARE NOT INVERSES. `deposit` increments `assets` by the raw `amount` received, `redeem` decrements it by `inkind` derived from the share price, and both call `accrue` first so the price moves between them. Show a deposit-then-redeem in the same block that returns more underlying than went in, or a rounding direction in `convert-to-shares-preview` versus `convert-to-assets-preview` that lets a loop of small deposits and redeems extract a unit per iteration until the vault's `assets` no longer matches its balance.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_378c130d-6878-4e6a-bbb7-f8aa64f72603?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: High. REDEEM AND DEPOSIT ARE NOT INVERSES. `deposit` increments `assets` by the raw `amount` received, `redeem` decrements it by `inkind` derived from the share price, and both call `accrue` first so the price moves between them. Show a deposit-then-redeem in the same block that returns more underlying than went in, or a rounding direction in `convert-to-shares-preview` versus `convert-to-assets-preview` that lets a loop of small deposits and redeems extract a unit per iteration until the vault's `assets` no longer matches its balance.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_76cce50d-eff0-4fa1-a27b-04a21ff26436?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: High. REDEEM AND DEPOSIT ARE NOT INVERSES. `deposit` increments `assets` by the raw `amount` received, `redeem` decrements it by `inkind` derived from the share price, and both call `accrue` first so the price moves between them. Show a deposit-then-redeem in the same block that returns more underlying than went in, or a rounding direction in `convert-to-shares-preview` versus `convert-to-assets-preview` that lets a loop of small deposits and redeems extract a unit per iteration until the vault's `assets` no longer matches its balance.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_341c7fd3-1719-4dce-ac14-4a7fe61a3518?mode=deep",
+    "questions_generated": false
+  }
+]
