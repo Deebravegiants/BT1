@@ -1,0 +1,13 @@
+# Q5150: get-full-position via supply-collateral-add: count one deposit as backing for two simultaneous claims
+
+## Question
+Entering through `supply-collateral-add` (mainnet/contracts/market/v0-4-market.clar:1175) while controlling the position state the final collateral-add is validated against, can an unprivileged attacker make `get-full-position` (mainnet/contracts/market/v0-4-market.clar:470) count one deposit as backing for two simultaneous claims? `get-full-position` returns all collateral rows regardless of the enabled bitmap, so the invariant that value leaving a call equals value entering plus value minted minus value burned would fail, yielding protocol insolvency.
+
+## Target
+- File/function: `mainnet/contracts/market/v0-4-market.clar:470` -> `get-full-position`
+- Entrypoint: `supply-collateral-add` (`mainnet/contracts/market/v0-4-market.clar:1175`), unprivileged and publicly callable
+- Attacker controls: the position state the final collateral-add is validated against
+- Exploit idea: `get-full-position` returns all collateral rows regardless of the enabled bitmap. Reach it through `supply-collateral-add` and count one deposit as backing for two simultaneous claims.
+- Invariant to test: value leaving a call equals value entering plus value minted minus value burned
+- Expected Immunefi impact: Critical - protocol insolvency
+- Fast validation: Write a Clarinet simnet test calling `supply-collateral-add` twice with the position state the final collateral-add is validated against varied, and assert that the value `get-full-position` returns is identical in both runs; a divergence confirms the finding.

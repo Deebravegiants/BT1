@@ -1,0 +1,51 @@
+# [H] stake and delegate can be re-entered thorough `_refundGas`
+
+## Summary
+Severity: High
+Chain: Smart contract
+Component: 2022-11-frankendao
+Published: 2022-11-16
+Source: https://github.com/sherlock-audit/2022-11-frankendao-judging/issues/64
+Type: sherlock-finding
+
+## Details
+ak1
+
+high
+
+# stake and delegate can be re-entered thorough `_refundGas`
+
+## Summary
+
+In `Staking.sol`, staking and delegation is done using stake and delegate function. There, gas refund operation is done using the `_refundGas`.
+Inside the `_refundGas`, call code is used to `(bool refundSent, ) = msg.sender.call{ value: refundAmount }('');` 
+It has possibilities for reentrancy attack.
+
+## Vulnerability Detail
+
+https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/Staking.sol#L269-L281
+
+https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/Staking.sol#L341-L351
+
+In following line of code, refund gas is called, [Staking.sol#L347](https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/Staking.sol#L347), [Staking.sol#L277](https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/Staking.sol#L277)
+
+Though it is last call, there could be more gas left which could help for reentrancy attack.
+
+The scenario could be, user can set with maximum gas to call these function and re-enter.
+
+## Impact
+
+staking and delegation can be re-entered by malicious user.
+
+
+## Code Snippet
+
+inside _refundGas function,
+
+https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/utils/Refundable.sol#L37
+
+https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/Staking.sol#L269-L281
+
+https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/Staking.sol#L341-L351
+
+_Trimmed to 38 lines — full report: https://github.com/sherlock-audit/2022-11-frankendao-judging/issues/64_

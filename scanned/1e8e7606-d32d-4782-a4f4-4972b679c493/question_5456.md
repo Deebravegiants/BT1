@@ -1,0 +1,13 @@
+# Q5456: calculate-asset-notional-value via liquidate-redeem: record a repayment larger than the value actually delivere
+
+## Question
+Does `liquidate-redeem` (mainnet/contracts/market/v0-4-market.clar:1604) let an unprivileged attacker who controls the seized zToken amount that is immediately redeemed reach `calculate-asset-notional-value` (mainnet/contracts/market/v0-4-market.clar:544) in a state where it record a repayment larger than the value actually delivered? Given that it normalizes collateral with round-down and debt with round-up, and calls `accrue-and-cache` with `unwrap-panic` inside the fold, the invariant that shares outstanding valued at the current share price never exceed `total-assets` breaks and the result is protocol insolvency.
+
+## Target
+- File/function: `mainnet/contracts/market/v0-4-market.clar:544` -> `calculate-asset-notional-value`
+- Entrypoint: `liquidate-redeem` (`mainnet/contracts/market/v0-4-market.clar:1604`), unprivileged and publicly callable
+- Attacker controls: the seized zToken amount that is immediately redeemed
+- Exploit idea: `calculate-asset-notional-value` normalizes collateral with round-down and debt with round-up, and calls `accrue-and-cache` with `unwrap-panic` inside the fold. Reach it through `liquidate-redeem` and record a repayment larger than the value actually delivered.
+- Invariant to test: shares outstanding valued at the current share price never exceed `total-assets`
+- Expected Immunefi impact: Critical - protocol insolvency
+- Fast validation: Write a Clarinet simnet test calling `liquidate-redeem` twice with the seized zToken amount that is immediately redeemed varied, and assert that the value `calculate-asset-notional-value` returns is identical in both runs; a divergence confirms the finding.

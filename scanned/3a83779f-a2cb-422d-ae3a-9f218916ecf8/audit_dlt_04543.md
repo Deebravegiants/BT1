@@ -1,0 +1,48 @@
+# [M] [WP-M2] `ETH` should be a constant as it must be `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE`
+
+## Summary
+Severity: Medium
+Chain: Smart contract
+Component: 2022-12-sentiment
+Published: 2022-12-02
+Source: https://github.com/sherlock-audit/2022-12-sentiment-judging/issues/16
+Type: sherlock-finding
+
+## Details
+WATCHPUG
+
+medium
+
+# [WP-M2] `ETH` should be a constant as it must be `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE`
+
+## Summary
+
+`ETH` on `StableSwap2PoolEthController` must be `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE`, therefore it should not be configurable.
+
+## Vulnerability Detail
+
+Curve's ETH address is fixed as `0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE`, so that it should also be fixed in `StableSwap2PoolEthController.sol`.
+
+The current implementation is allowing the `ETH` address to be configured on deployment.
+
+This is also inconsistent with [StableCurveEthOracle.sol](https://github.com/sentimentxyz/oracle/blob/40cfd1e95a531e4c88e082e651efae7fc16cdefa/src/curve/StableCurveEthOracle.sol#L37).
+
+## Impact
+
+A wrong configuration can result in malfunction of `StableSwap2PoolEthController`.
+
+## Code Snippet
+
+https://github.com/sentimentxyz/controller/blob/82f623707959f1f1dc46cbaf5ca01c858a17494a/src/curve/StableSwap2PoolEthController.sol#L7-L33
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Change to: 
+
+```solidity
+address constant ETH = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
+```

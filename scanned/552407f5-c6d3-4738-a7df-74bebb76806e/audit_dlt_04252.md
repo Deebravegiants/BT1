@@ -1,0 +1,36 @@
+# [H] `redeem` does not work for Illuminate principal tokens
+
+## Summary
+Severity: High
+Chain: Smart contract
+Component: 2022-10-illuminate
+Published: 2022-11-10
+Source: https://github.com/sherlock-audit/2022-10-illuminate-judging/issues/178
+Type: sherlock-finding
+
+## Details
+pashov
+
+high
+
+# `redeem` does not work for Illuminate principal tokens
+
+## Summary
+The code does math that will always underflow and result in DoS
+
+## Vulnerability Detail
+In `redeem()` function in `Redeemer.sol` for Illuminate principal tokens we have the following piece of code:
+`holdings[u][m] = holdings[u][m] - redeemed;`
+The mistake here is that the code uses subtraction, when it should have used addition like in all other `redeem()` methods in the contract. This will result in an underflow error, essentially a DoS in this functionality
+
+## Impact
+The impact is permanent loss of funds for the users holding Illuminate principal tokens - they can't redeem them for underlying tokens. High severity should be appropriate.
+
+## Code Snippet
+https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/Redeemer.sol#L425
+## Tool used
+
+Manual Review
+
+## Recommendation
+Change `holdings[u][m] = holdings[u][m] - redeemed;` to `holdings[u][m] = holdings[u][m] + redeemed;`
