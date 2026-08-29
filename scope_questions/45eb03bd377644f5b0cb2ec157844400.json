@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: High. REPAY ON BEHALF OF ANOTHER PRINCIPAL SPLITS PAYER FROM DEBTOR. `repay` pulls `amount-to-repay` from `contract-caller` via `vault-system-repay` but clears `repaid-scaled-debt` from `on-behalf-of`, with the token amount recomputed twice (`mul-div-up` after `mul-div-down`). Show a repayment where the tokens delivered to the vault are strictly less than the value of the scaled debt erased, or where the vault's `assets` is credited with `interest-paid` that the payer never provided.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_c3257009-1bb3-4352-84d3-e32d5cdef349?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: High. REPAY ON BEHALF OF ANOTHER PRINCIPAL SPLITS PAYER FROM DEBTOR. `repay` pulls `amount-to-repay` from `contract-caller` via `vault-system-repay` but clears `repaid-scaled-debt` from `on-behalf-of`, with the token amount recomputed twice (`mul-div-up` after `mul-div-down`). Show a repayment where the tokens delivered to the vault are strictly less than the value of the scaled debt erased, or where the vault's `assets` is credited with `interest-paid` that the payer never provided.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_cf828e11-35df-4d8e-8134-c7957d64e6d3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: High. REPAY ON BEHALF OF ANOTHER PRINCIPAL SPLITS PAYER FROM DEBTOR. `repay` pulls `amount-to-repay` from `contract-caller` via `vault-system-repay` but clears `repaid-scaled-debt` from `on-behalf-of`, with the token amount recomputed twice (`mul-div-up` after `mul-div-down`). Show a repayment where the tokens delivered to the vault are strictly less than the value of the scaled debt erased, or where the vault's `assets` is credited with `interest-paid` that the payer never provided.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_7d67a60c-74c6-458e-b6fc-ee3cf3aafa24?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: High. REPAY ON BEHALF OF ANOTHER PRINCIPAL SPLITS PAYER FROM DEBTOR. `repay` pulls `amount-to-repay` from `contract-caller` via `vault-system-repay` but clears `repaid-scaled-debt` from `on-behalf-of`, with the token amount recomputed twice (`mul-div-up` after `mul-div-down`). Show a repayment where the tokens delivered to the vault are strictly less than the value of the scaled debt erased, or where the vault's `assets` is credited with `interest-paid` that the payer never provided.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_49f07b08-82fa-4766-808f-f4185cafcd7d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: High. REPAY ON BEHALF OF ANOTHER PRINCIPAL SPLITS PAYER FROM DEBTOR. `repay` pulls `amount-to-repay` from `contract-caller` via `vault-system-repay` but clears `repaid-scaled-debt` from `on-behalf-of`, with the token amount recomputed twice (`mul-div-up` after `mul-div-down`). Show a repayment where the tokens delivered to the vault are strictly less than the value of the scaled debt erased, or where the vault's `assets` is credited with `interest-paid` that the payer never provided.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_d2d6d20a-da1d-466f-ab2e-e4f222622a4c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: High. REPAY ON BEHALF OF ANOTHER PRINCIPAL SPLITS PAYER FROM DEBTOR. `repay` pulls `amount-to-repay` from `contract-caller` via `vault-system-repay` but clears `repaid-scaled-debt` from `on-behalf-of`, with the token amount recomputed twice (`mul-div-up` after `mul-div-down`). Show a repayment where the tokens delivered to the vault are strictly less than the value of the scaled debt erased, or where the vault's `assets` is credited with `interest-paid` that the payer never provided.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_d7a8922c-27ae-4ba3-ac0d-010c5ca8c66f?mode=deep",
+    "questions_generated": false
+  }
+]
