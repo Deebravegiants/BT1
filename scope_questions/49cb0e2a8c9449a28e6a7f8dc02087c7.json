@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: Critical. THE SOCIALIZATION APPLIES TWO DIFFERENT LOSSES. One bad-debt event writes down `lindex` by the ratio `(- old-total-assets debt-reduction) / old-total-assets` but reduces `assets` by `principal-reduction`, a completely different quantity derived from `scaled-amount x borrowed / scaled-principal`. Show that the loss charged to suppliers through the share price and the loss removed from the vault's asset base disagree, so either the vault claims assets it lost or it destroys value the loss never justified, and quantify the drift over repeated socializations.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_a521021f-01f0-43e0-b7f1-105b3f333cc0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: Critical. THE SOCIALIZATION APPLIES TWO DIFFERENT LOSSES. One bad-debt event writes down `lindex` by the ratio `(- old-total-assets debt-reduction) / old-total-assets` but reduces `assets` by `principal-reduction`, a completely different quantity derived from `scaled-amount x borrowed / scaled-principal`. Show that the loss charged to suppliers through the share price and the loss removed from the vault's asset base disagree, so either the vault claims assets it lost or it destroys value the loss never justified, and quantify the drift over repeated socializations.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_85725fa0-f4db-47a4-975b-f61e7e61364b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. THE SOCIALIZATION APPLIES TWO DIFFERENT LOSSES. One bad-debt event writes down `lindex` by the ratio `(- old-total-assets debt-reduction) / old-total-assets` but reduces `assets` by `principal-reduction`, a completely different quantity derived from `scaled-amount x borrowed / scaled-principal`. Show that the loss charged to suppliers through the share price and the loss removed from the vault's asset base disagree, so either the vault claims assets it lost or it destroys value the loss never justified, and quantify the drift over repeated socializations.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_b264c676-676a-45d7-80a5-3a2daf9c0ee6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: Critical. THE SOCIALIZATION APPLIES TWO DIFFERENT LOSSES. One bad-debt event writes down `lindex` by the ratio `(- old-total-assets debt-reduction) / old-total-assets` but reduces `assets` by `principal-reduction`, a completely different quantity derived from `scaled-amount x borrowed / scaled-principal`. Show that the loss charged to suppliers through the share price and the loss removed from the vault's asset base disagree, so either the vault claims assets it lost or it destroys value the loss never justified, and quantify the drift over repeated socializations.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_8a3848c5-fe2c-4c8a-8f94-99b09fbb1fa8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: Critical. THE SOCIALIZATION APPLIES TWO DIFFERENT LOSSES. One bad-debt event writes down `lindex` by the ratio `(- old-total-assets debt-reduction) / old-total-assets` but reduces `assets` by `principal-reduction`, a completely different quantity derived from `scaled-amount x borrowed / scaled-principal`. Show that the loss charged to suppliers through the share price and the loss removed from the vault's asset base disagree, so either the vault claims assets it lost or it destroys value the loss never justified, and quantify the drift over repeated socializations.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_e5e38161-f5b6-49bb-ba79-313043d3a152?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: Critical. THE SOCIALIZATION APPLIES TWO DIFFERENT LOSSES. One bad-debt event writes down `lindex` by the ratio `(- old-total-assets debt-reduction) / old-total-assets` but reduces `assets` by `principal-reduction`, a completely different quantity derived from `scaled-amount x borrowed / scaled-principal`. Show that the loss charged to suppliers through the share price and the loss removed from the vault's asset base disagree, so either the vault claims assets it lost or it destroys value the loss never justified, and quantify the drift over repeated socializations.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_88fb41d5-dd7e-4fc2-a362-041b0ea7c3ac?mode=deep",
+    "questions_generated": false
+  }
+]
