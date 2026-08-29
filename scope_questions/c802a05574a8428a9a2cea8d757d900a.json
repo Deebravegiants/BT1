@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: Critical. TWO NAMES FOR ONE DEBT. `principal-scaled` and `total-borrowed` both describe outstanding principal but are updated by three different rules: `system-borrow` adds `mul-div-up amount INDEX-PRECISION idx` to one and raw `amount` to the other; `system-repay` reduces the first by `calc-principal-ratio-reduction` and the second by `capped-amount x total-borrowed / debt`; `socialize-debt` reduces the first by `scaled-amount` and the second by `scaled-amount x borrowed / scaled-principal`. Drive them apart so `total-debt` exceeds `total-borrowed` by phantom interest, or `total-borrowed` survives after `principal-scaled` hits zero, and show the effect on `total-assets` and therefore on every share price.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_af29459d-7a42-415c-bcae-6301e8013c94?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: Critical. TWO NAMES FOR ONE DEBT. `principal-scaled` and `total-borrowed` both describe outstanding principal but are updated by three different rules: `system-borrow` adds `mul-div-up amount INDEX-PRECISION idx` to one and raw `amount` to the other; `system-repay` reduces the first by `calc-principal-ratio-reduction` and the second by `capped-amount x total-borrowed / debt`; `socialize-debt` reduces the first by `scaled-amount` and the second by `scaled-amount x borrowed / scaled-principal`. Drive them apart so `total-debt` exceeds `total-borrowed` by phantom interest, or `total-borrowed` survives after `principal-scaled` hits zero, and show the effect on `total-assets` and therefore on every share price.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_2bfc4cf4-d10e-4e91-b577-163a263e5224?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. TWO NAMES FOR ONE DEBT. `principal-scaled` and `total-borrowed` both describe outstanding principal but are updated by three different rules: `system-borrow` adds `mul-div-up amount INDEX-PRECISION idx` to one and raw `amount` to the other; `system-repay` reduces the first by `calc-principal-ratio-reduction` and the second by `capped-amount x total-borrowed / debt`; `socialize-debt` reduces the first by `scaled-amount` and the second by `scaled-amount x borrowed / scaled-principal`. Drive them apart so `total-debt` exceeds `total-borrowed` by phantom interest, or `total-borrowed` survives after `principal-scaled` hits zero, and show the effect on `total-assets` and therefore on every share price.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_c60067d9-22e6-4e5a-b3a1-28956a9a4c14?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: Critical. TWO NAMES FOR ONE DEBT. `principal-scaled` and `total-borrowed` both describe outstanding principal but are updated by three different rules: `system-borrow` adds `mul-div-up amount INDEX-PRECISION idx` to one and raw `amount` to the other; `system-repay` reduces the first by `calc-principal-ratio-reduction` and the second by `capped-amount x total-borrowed / debt`; `socialize-debt` reduces the first by `scaled-amount` and the second by `scaled-amount x borrowed / scaled-principal`. Drive them apart so `total-debt` exceeds `total-borrowed` by phantom interest, or `total-borrowed` survives after `principal-scaled` hits zero, and show the effect on `total-assets` and therefore on every share price.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_d3de3e61-9c17-4506-bd9b-02a821f4d3fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: Critical. TWO NAMES FOR ONE DEBT. `principal-scaled` and `total-borrowed` both describe outstanding principal but are updated by three different rules: `system-borrow` adds `mul-div-up amount INDEX-PRECISION idx` to one and raw `amount` to the other; `system-repay` reduces the first by `calc-principal-ratio-reduction` and the second by `capped-amount x total-borrowed / debt`; `socialize-debt` reduces the first by `scaled-amount` and the second by `scaled-amount x borrowed / scaled-principal`. Drive them apart so `total-debt` exceeds `total-borrowed` by phantom interest, or `total-borrowed` survives after `principal-scaled` hits zero, and show the effect on `total-assets` and therefore on every share price.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_52691797-e1fd-4631-b374-34214a72b2c6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: Critical. TWO NAMES FOR ONE DEBT. `principal-scaled` and `total-borrowed` both describe outstanding principal but are updated by three different rules: `system-borrow` adds `mul-div-up amount INDEX-PRECISION idx` to one and raw `amount` to the other; `system-repay` reduces the first by `calc-principal-ratio-reduction` and the second by `capped-amount x total-borrowed / debt`; `socialize-debt` reduces the first by `scaled-amount` and the second by `scaled-amount x borrowed / scaled-principal`. Drive them apart so `total-debt` exceeds `total-borrowed` by phantom interest, or `total-borrowed` survives after `principal-scaled` hits zero, and show the effect on `total-assets` and therefore on every share price.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_7cc21be6-dd66-4ed8-9c95-342e067e19e9?mode=deep",
+    "questions_generated": false
+  }
+]
