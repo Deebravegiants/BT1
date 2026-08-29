@@ -1,0 +1,1 @@
+rather than theft, since it strictly under-mints, not over-mints). Scoped impact: High - permanent underpayment of `.dao-treasury`'s unclaimed reserve yield, absorbed by the DAO treasury. Proof idea: simnet test computing expected `reserve-inc` in tokens vs `treasury-lp` shares redeemed back to tokens immediately after mint, asserting a persistent rounding shortfall.

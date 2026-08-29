@@ -1,0 +1,1 @@
+[Function: resolve-or-create / add-user-collateral] Can an attacker who has never deposited before call collateral-add with amount=0 crafted... [excluded by ERR-AMOUNT-ZERO, skip - not a valid finding].

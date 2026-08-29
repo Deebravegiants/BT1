@@ -1,0 +1,1 @@
+; this one cannot be triggered by real capital). Proof idea: Clarinet test asserting no realistic funded principal can approach the overflow bound; documents this as a non-finding to avoid false-positive audit noise.
