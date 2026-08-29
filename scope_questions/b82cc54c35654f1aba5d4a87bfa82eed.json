@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: Critical. THE MISSING RECONCILIATION - what nobody built. There is no function anywhere in this protocol that sums the per-user ledger and compares it against the vault aggregate, no invariant check at the end of any state-changing call, and no way to detect drift after the fact. Identify the FIRST write that can desync the two ledgers under an ordinary user transaction, prove it numerically in one test (sum of `debt` map times `index` versus `total-debt`; sum of `collateral` map versus token balance; sum of zft balances times share price versus `total-assets`), and show that once desynced the protocol never notices, never corrects, and compounds the error at every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_0f225667-b83f-47fc-8194-281c0321280d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: Critical. THE MISSING RECONCILIATION - what nobody built. There is no function anywhere in this protocol that sums the per-user ledger and compares it against the vault aggregate, no invariant check at the end of any state-changing call, and no way to detect drift after the fact. Identify the FIRST write that can desync the two ledgers under an ordinary user transaction, prove it numerically in one test (sum of `debt` map times `index` versus `total-debt`; sum of `collateral` map versus token balance; sum of zft balances times share price versus `total-assets`), and show that once desynced the protocol never notices, never corrects, and compounds the error at every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_8c565c21-d3e8-40b6-ad90-e967f8ca3aa3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. THE MISSING RECONCILIATION - what nobody built. There is no function anywhere in this protocol that sums the per-user ledger and compares it against the vault aggregate, no invariant check at the end of any state-changing call, and no way to detect drift after the fact. Identify the FIRST write that can desync the two ledgers under an ordinary user transaction, prove it numerically in one test (sum of `debt` map times `index` versus `total-debt`; sum of `collateral` map versus token balance; sum of zft balances times share price versus `total-assets`), and show that once desynced the protocol never notices, never corrects, and compounds the error at every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_c3e50392-b8b4-443b-908c-56efedfef289?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: Critical. THE MISSING RECONCILIATION - what nobody built. There is no function anywhere in this protocol that sums the per-user ledger and compares it against the vault aggregate, no invariant check at the end of any state-changing call, and no way to detect drift after the fact. Identify the FIRST write that can desync the two ledgers under an ordinary user transaction, prove it numerically in one test (sum of `debt` map times `index` versus `total-debt`; sum of `collateral` map versus token balance; sum of zft balances times share price versus `total-assets`), and show that once desynced the protocol never notices, never corrects, and compounds the error at every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_bedd5960-19e3-49a0-af78-74672b55d7bf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: Critical. THE MISSING RECONCILIATION - what nobody built. There is no function anywhere in this protocol that sums the per-user ledger and compares it against the vault aggregate, no invariant check at the end of any state-changing call, and no way to detect drift after the fact. Identify the FIRST write that can desync the two ledgers under an ordinary user transaction, prove it numerically in one test (sum of `debt` map times `index` versus `total-debt`; sum of `collateral` map versus token balance; sum of zft balances times share price versus `total-assets`), and show that once desynced the protocol never notices, never corrects, and compounds the error at every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_8d1a27b7-efd7-4532-969e-59b20ab25b24?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: Critical. THE MISSING RECONCILIATION - what nobody built. There is no function anywhere in this protocol that sums the per-user ledger and compares it against the vault aggregate, no invariant check at the end of any state-changing call, and no way to detect drift after the fact. Identify the FIRST write that can desync the two ledgers under an ordinary user transaction, prove it numerically in one test (sum of `debt` map times `index` versus `total-debt`; sum of `collateral` map versus token balance; sum of zft balances times share price versus `total-assets`), and show that once desynced the protocol never notices, never corrects, and compounds the error at every accrual.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_03f7b430-c919-4e34-9da4-eeff286c8ca9?mode=deep",
+    "questions_generated": false
+  }
+]
