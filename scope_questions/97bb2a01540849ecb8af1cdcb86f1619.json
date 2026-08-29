@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: High. WRAPPED STX IS AN EXTRA HOP. v0-vault-stx alone routes value through `.wstx` with `receive-underlying` / `send-underlying` under `as-contract? ((with-stx amt))`, while `ubalance` asks `.wstx` for the balance. Show a divergence between the vault's wSTX balance, its native STX balance, and its `assets` var - a partial wrap, a transfer that lands on the wrong principal, or a post-condition scope that permits a second movement - and turn it into an over-withdrawal or a permanently unredeemable supply.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_09d9fd6c-574f-45c7-842b-2070a924870a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: High. WRAPPED STX IS AN EXTRA HOP. v0-vault-stx alone routes value through `.wstx` with `receive-underlying` / `send-underlying` under `as-contract? ((with-stx amt))`, while `ubalance` asks `.wstx` for the balance. Show a divergence between the vault's wSTX balance, its native STX balance, and its `assets` var - a partial wrap, a transfer that lands on the wrong principal, or a post-condition scope that permits a second movement - and turn it into an over-withdrawal or a permanently unredeemable supply.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_cea45eac-c588-4476-9131-3c4d2c7c9952?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: High. WRAPPED STX IS AN EXTRA HOP. v0-vault-stx alone routes value through `.wstx` with `receive-underlying` / `send-underlying` under `as-contract? ((with-stx amt))`, while `ubalance` asks `.wstx` for the balance. Show a divergence between the vault's wSTX balance, its native STX balance, and its `assets` var - a partial wrap, a transfer that lands on the wrong principal, or a post-condition scope that permits a second movement - and turn it into an over-withdrawal or a permanently unredeemable supply.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_fffb6381-0a87-4ccd-b78a-bf95c5105c0f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: High. WRAPPED STX IS AN EXTRA HOP. v0-vault-stx alone routes value through `.wstx` with `receive-underlying` / `send-underlying` under `as-contract? ((with-stx amt))`, while `ubalance` asks `.wstx` for the balance. Show a divergence between the vault's wSTX balance, its native STX balance, and its `assets` var - a partial wrap, a transfer that lands on the wrong principal, or a post-condition scope that permits a second movement - and turn it into an over-withdrawal or a permanently unredeemable supply.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_e95468ef-1c8b-4b26-93ed-f2d27fa86fd4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: High. WRAPPED STX IS AN EXTRA HOP. v0-vault-stx alone routes value through `.wstx` with `receive-underlying` / `send-underlying` under `as-contract? ((with-stx amt))`, while `ubalance` asks `.wstx` for the balance. Show a divergence between the vault's wSTX balance, its native STX balance, and its `assets` var - a partial wrap, a transfer that lands on the wrong principal, or a post-condition scope that permits a second movement - and turn it into an over-withdrawal or a permanently unredeemable supply.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_2e3a6321-6d08-43d5-9a76-e3222025ee19?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: High. WRAPPED STX IS AN EXTRA HOP. v0-vault-stx alone routes value through `.wstx` with `receive-underlying` / `send-underlying` under `as-contract? ((with-stx amt))`, while `ubalance` asks `.wstx` for the balance. Show a divergence between the vault's wSTX balance, its native STX balance, and its `assets` var - a partial wrap, a transfer that lands on the wrong principal, or a post-condition scope that permits a second movement - and turn it into an over-withdrawal or a permanently unredeemable supply.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_d93ac1ec-77d1-4a49-b91e-b24c9365612b?mode=deep",
+    "questions_generated": false
+  }
+]
