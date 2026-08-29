@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: Critical. THE TREASURY IS PAID IN SHARES NOBODY ACCOUNTED FOR. `accrue` mints `treasury-lp` zft to .dao-treasury computed as `reserve-inc x total-supply / (- total-assets-preview reserve-inc)`, while `total-supply-preview` adds that same not-yet-minted figure to the live supply used by BOTH conversion previews. Show that the shares minted are worth more than `reserve-inc` of assets at the post-mint price, that the same fee is counted twice within one transaction, or that the subtraction underflows and aborts `accrue`, freezing every function in the vault.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_c4751276-fc00-4747-a516-de7ca1d15cc3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: Critical. THE TREASURY IS PAID IN SHARES NOBODY ACCOUNTED FOR. `accrue` mints `treasury-lp` zft to .dao-treasury computed as `reserve-inc x total-supply / (- total-assets-preview reserve-inc)`, while `total-supply-preview` adds that same not-yet-minted figure to the live supply used by BOTH conversion previews. Show that the shares minted are worth more than `reserve-inc` of assets at the post-mint price, that the same fee is counted twice within one transaction, or that the subtraction underflows and aborts `accrue`, freezing every function in the vault.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_7f903130-fd43-4769-a136-97615caa0bff?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. THE TREASURY IS PAID IN SHARES NOBODY ACCOUNTED FOR. `accrue` mints `treasury-lp` zft to .dao-treasury computed as `reserve-inc x total-supply / (- total-assets-preview reserve-inc)`, while `total-supply-preview` adds that same not-yet-minted figure to the live supply used by BOTH conversion previews. Show that the shares minted are worth more than `reserve-inc` of assets at the post-mint price, that the same fee is counted twice within one transaction, or that the subtraction underflows and aborts `accrue`, freezing every function in the vault.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_bd59e4e2-4400-4961-ac12-45fcdc4c183d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: Critical. THE TREASURY IS PAID IN SHARES NOBODY ACCOUNTED FOR. `accrue` mints `treasury-lp` zft to .dao-treasury computed as `reserve-inc x total-supply / (- total-assets-preview reserve-inc)`, while `total-supply-preview` adds that same not-yet-minted figure to the live supply used by BOTH conversion previews. Show that the shares minted are worth more than `reserve-inc` of assets at the post-mint price, that the same fee is counted twice within one transaction, or that the subtraction underflows and aborts `accrue`, freezing every function in the vault.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_78dc321e-75bb-44c8-9e48-51a0ff84cb3a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: Critical. THE TREASURY IS PAID IN SHARES NOBODY ACCOUNTED FOR. `accrue` mints `treasury-lp` zft to .dao-treasury computed as `reserve-inc x total-supply / (- total-assets-preview reserve-inc)`, while `total-supply-preview` adds that same not-yet-minted figure to the live supply used by BOTH conversion previews. Show that the shares minted are worth more than `reserve-inc` of assets at the post-mint price, that the same fee is counted twice within one transaction, or that the subtraction underflows and aborts `accrue`, freezing every function in the vault.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_f857621e-c19a-49c7-b409-1746bccb2f77?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: Critical. THE TREASURY IS PAID IN SHARES NOBODY ACCOUNTED FOR. `accrue` mints `treasury-lp` zft to .dao-treasury computed as `reserve-inc x total-supply / (- total-assets-preview reserve-inc)`, while `total-supply-preview` adds that same not-yet-minted figure to the live supply used by BOTH conversion previews. Show that the shares minted are worth more than `reserve-inc` of assets at the post-mint price, that the same fee is counted twice within one transaction, or that the subtraction underflows and aborts `accrue`, freezing every function in the vault.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_8bac1c35-e7d5-458f-a72b-67f0d13465f5?mode=deep",
+    "questions_generated": false
+  }
+]
