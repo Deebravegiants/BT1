@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: Critical. DEBT THAT CANNOT BE REPAID. `convert-to-scaled-debt` rounds the borrower's scaled debt UP, `repay` caps at `max-repay-tokens` computed with `mul-div-up` then converts back with `mul-div-down`, and `remove-user-scaled-debt` deletes the row only on an exact zero. Show a borrow amount and index value for which the final unit of scaled debt can never be cleared, so the debt bit stays set in the position mask, the egroup never relaxes, and every unit of collateral behind it is permanently frozen.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_78b200bb-5213-48fe-b587-e0334d742664?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: Critical. DEBT THAT CANNOT BE REPAID. `convert-to-scaled-debt` rounds the borrower's scaled debt UP, `repay` caps at `max-repay-tokens` computed with `mul-div-up` then converts back with `mul-div-down`, and `remove-user-scaled-debt` deletes the row only on an exact zero. Show a borrow amount and index value for which the final unit of scaled debt can never be cleared, so the debt bit stays set in the position mask, the egroup never relaxes, and every unit of collateral behind it is permanently frozen.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_286a08ad-49e1-47ac-872a-3991421edd8c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. DEBT THAT CANNOT BE REPAID. `convert-to-scaled-debt` rounds the borrower's scaled debt UP, `repay` caps at `max-repay-tokens` computed with `mul-div-up` then converts back with `mul-div-down`, and `remove-user-scaled-debt` deletes the row only on an exact zero. Show a borrow amount and index value for which the final unit of scaled debt can never be cleared, so the debt bit stays set in the position mask, the egroup never relaxes, and every unit of collateral behind it is permanently frozen.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_a669d356-1d00-4a36-8846-51b923a71a66?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: Critical. DEBT THAT CANNOT BE REPAID. `convert-to-scaled-debt` rounds the borrower's scaled debt UP, `repay` caps at `max-repay-tokens` computed with `mul-div-up` then converts back with `mul-div-down`, and `remove-user-scaled-debt` deletes the row only on an exact zero. Show a borrow amount and index value for which the final unit of scaled debt can never be cleared, so the debt bit stays set in the position mask, the egroup never relaxes, and every unit of collateral behind it is permanently frozen.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_fdcbbe93-382c-4748-bb74-e1141b517617?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: Critical. DEBT THAT CANNOT BE REPAID. `convert-to-scaled-debt` rounds the borrower's scaled debt UP, `repay` caps at `max-repay-tokens` computed with `mul-div-up` then converts back with `mul-div-down`, and `remove-user-scaled-debt` deletes the row only on an exact zero. Show a borrow amount and index value for which the final unit of scaled debt can never be cleared, so the debt bit stays set in the position mask, the egroup never relaxes, and every unit of collateral behind it is permanently frozen.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_f0b701bc-98af-4273-ad60-b4c248028e90?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: Critical. DEBT THAT CANNOT BE REPAID. `convert-to-scaled-debt` rounds the borrower's scaled debt UP, `repay` caps at `max-repay-tokens` computed with `mul-div-up` then converts back with `mul-div-down`, and `remove-user-scaled-debt` deletes the row only on an exact zero. Show a borrow amount and index value for which the final unit of scaled debt can never be cleared, so the debt bit stays set in the position mask, the egroup never relaxes, and every unit of collateral behind it is permanently frozen.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_ed70bac8-b74d-44a8-8d87-3c63ffba1c2b?mode=deep",
+    "questions_generated": false
+  }
+]
