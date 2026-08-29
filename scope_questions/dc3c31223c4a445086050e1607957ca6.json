@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: Critical. THE SEIZURE DOES NOT BALANCE. In one liquidation the borrower loses `coll-final`, the liquidator pays `debt-to-repay`, the vault records `scaled-to-remove`, and any remainder may be socialized. `calc-final-liquidation-amounts` recomputes debt from capped collateral with `calc-liq-debt-repay-real`, then `scale-debt-for-liquidation` re-scales collateral again by `scaled-to-remove / scaled-debt`. Show a case where collateral leaving the borrower exceeds debt cleared times (BPS + liq-penalty), or where debt is cleared that nobody paid for, and name which party absorbs the difference.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_48d48117-d918-4f88-a3e5-9bb79a2dbd70?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: Critical. THE SEIZURE DOES NOT BALANCE. In one liquidation the borrower loses `coll-final`, the liquidator pays `debt-to-repay`, the vault records `scaled-to-remove`, and any remainder may be socialized. `calc-final-liquidation-amounts` recomputes debt from capped collateral with `calc-liq-debt-repay-real`, then `scale-debt-for-liquidation` re-scales collateral again by `scaled-to-remove / scaled-debt`. Show a case where collateral leaving the borrower exceeds debt cleared times (BPS + liq-penalty), or where debt is cleared that nobody paid for, and name which party absorbs the difference.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_966e8c42-991c-4775-b29e-4071af097048?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. THE SEIZURE DOES NOT BALANCE. In one liquidation the borrower loses `coll-final`, the liquidator pays `debt-to-repay`, the vault records `scaled-to-remove`, and any remainder may be socialized. `calc-final-liquidation-amounts` recomputes debt from capped collateral with `calc-liq-debt-repay-real`, then `scale-debt-for-liquidation` re-scales collateral again by `scaled-to-remove / scaled-debt`. Show a case where collateral leaving the borrower exceeds debt cleared times (BPS + liq-penalty), or where debt is cleared that nobody paid for, and name which party absorbs the difference.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_cf89b42a-4064-4d6d-8770-e8b97ca8eeba?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: Critical. THE SEIZURE DOES NOT BALANCE. In one liquidation the borrower loses `coll-final`, the liquidator pays `debt-to-repay`, the vault records `scaled-to-remove`, and any remainder may be socialized. `calc-final-liquidation-amounts` recomputes debt from capped collateral with `calc-liq-debt-repay-real`, then `scale-debt-for-liquidation` re-scales collateral again by `scaled-to-remove / scaled-debt`. Show a case where collateral leaving the borrower exceeds debt cleared times (BPS + liq-penalty), or where debt is cleared that nobody paid for, and name which party absorbs the difference.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_7a3a528c-750d-4d84-9fd0-aa9959b8e58d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: Critical. THE SEIZURE DOES NOT BALANCE. In one liquidation the borrower loses `coll-final`, the liquidator pays `debt-to-repay`, the vault records `scaled-to-remove`, and any remainder may be socialized. `calc-final-liquidation-amounts` recomputes debt from capped collateral with `calc-liq-debt-repay-real`, then `scale-debt-for-liquidation` re-scales collateral again by `scaled-to-remove / scaled-debt`. Show a case where collateral leaving the borrower exceeds debt cleared times (BPS + liq-penalty), or where debt is cleared that nobody paid for, and name which party absorbs the difference.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_13ddb709-df08-4198-b172-54ef72a8e28c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: Critical. THE SEIZURE DOES NOT BALANCE. In one liquidation the borrower loses `coll-final`, the liquidator pays `debt-to-repay`, the vault records `scaled-to-remove`, and any remainder may be socialized. `calc-final-liquidation-amounts` recomputes debt from capped collateral with `calc-liq-debt-repay-real`, then `scale-debt-for-liquidation` re-scales collateral again by `scaled-to-remove / scaled-debt`. Show a case where collateral leaving the borrower exceeds debt cleared times (BPS + liq-penalty), or where debt is cleared that nobody paid for, and name which party absorbs the difference.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_fb089027-0cb6-4d64-9c1b-602f600672ce?mode=deep",
+    "questions_generated": false
+  }
+]
