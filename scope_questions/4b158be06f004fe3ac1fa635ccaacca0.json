@@ -1,0 +1,32 @@
+[
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-4-market.clar -> Scope: Critical. DOUBLE COUNTING ACROSS THE ZTOKEN BOUNDARY. One deposit of underlying becomes vault `assets` backing zft shares AND, once pledged, a collateral row valued by `resolve-ztoken` at `lindex` times the share amount. The same economic value now supports a share redemption and a borrow at the same time. Establish whether the pledged shares are actually held by .v0-market-vault and therefore removed from the redeemable float, or whether `supply-collateral-add`, `collateral-remove-redeem` and `liquidate-redeem` leave a window in which one unit of underlying backs two claims. Impact: protocol insolvency.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_b6d4dcc9-2317-4f03-a5cc-d9b52482332c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/market/v0-market-vault.clar -> Scope: Critical. DOUBLE COUNTING ACROSS THE ZTOKEN BOUNDARY. One deposit of underlying becomes vault `assets` backing zft shares AND, once pledged, a collateral row valued by `resolve-ztoken` at `lindex` times the share amount. The same economic value now supports a share redemption and a borrow at the same time. Establish whether the pledged shares are actually held by .v0-market-vault and therefore removed from the redeemable float, or whether `supply-collateral-add`, `collateral-remove-redeem` and `liquidate-redeem` leave a window in which one unit of underlying backs two claims. Impact: protocol insolvency.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_43e9445b-bdee-4b64-adb1-3f1e75bb8f4c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. DOUBLE COUNTING ACROSS THE ZTOKEN BOUNDARY. One deposit of underlying becomes vault `assets` backing zft shares AND, once pledged, a collateral row valued by `resolve-ztoken` at `lindex` times the share amount. The same economic value now supports a share redemption and a borrow at the same time. Establish whether the pledged shares are actually held by .v0-market-vault and therefore removed from the redeemable float, or whether `supply-collateral-add`, `collateral-remove-redeem` and `liquidate-redeem` leave a window in which one unit of underlying backs two claims. Impact: protocol insolvency.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_6deede7c-79c6-481e-b6ca-8a5f9045f6e6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-sbtc.clar -> Scope: Critical. DOUBLE COUNTING ACROSS THE ZTOKEN BOUNDARY. One deposit of underlying becomes vault `assets` backing zft shares AND, once pledged, a collateral row valued by `resolve-ztoken` at `lindex` times the share amount. The same economic value now supports a share redemption and a borrow at the same time. Establish whether the pledged shares are actually held by .v0-market-vault and therefore removed from the redeemable float, or whether `supply-collateral-add`, `collateral-remove-redeem` and `liquidate-redeem` leave a window in which one unit of underlying backs two claims. Impact: protocol insolvency.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_34d4ef74-bf8d-40fc-be72-dfd5df493c8e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: Critical. DOUBLE COUNTING ACROSS THE ZTOKEN BOUNDARY. One deposit of underlying becomes vault `assets` backing zft shares AND, once pledged, a collateral row valued by `resolve-ztoken` at `lindex` times the share amount. The same economic value now supports a share redemption and a borrow at the same time. Establish whether the pledged shares are actually held by .v0-market-vault and therefore removed from the redeemable float, or whether `supply-collateral-add`, `collateral-remove-redeem` and `liquidate-redeem` leave a window in which one unit of underlying backs two claims. Impact: protocol insolvency.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_4e237181-f53a-4d29-b151-16e5e40e2065?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: mainnet/contracts/registry/v0-assets.clar -> Scope: Critical. DOUBLE COUNTING ACROSS THE ZTOKEN BOUNDARY. One deposit of underlying becomes vault `assets` backing zft shares AND, once pledged, a collateral row valued by `resolve-ztoken` at `lindex` times the share amount. The same economic value now supports a share redemption and a borrow at the same time. Establish whether the pledged shares are actually held by .v0-market-vault and therefore removed from the redeemable float, or whether `supply-collateral-add`, `collateral-remove-redeem` and `liquidate-redeem` leave a window in which one unit of underlying backs two claims. Impact: protocol insolvency.'",
+    "url": "https://deepwiki.com/search/-generate-valueconservation-se_2cba1a5f-9d2e-4f64-a7c6-7c6b7393e4fb?mode=deep",
+    "questions_generated": false
+  }
+]
