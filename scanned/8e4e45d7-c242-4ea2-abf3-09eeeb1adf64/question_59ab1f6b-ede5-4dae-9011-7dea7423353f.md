@@ -1,1 +1,0 @@
-[File: mainnet/contracts/vault/v0-vault-ststx.clar -> Scope: High.] [Function: system-repay] Can an unprivileged ATTACKER who is a registered `authorized-contract` proxy... (excluded, attacker cannot be authorized) — SKIP.
