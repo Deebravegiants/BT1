@@ -1,0 +1,1 @@
+` (in `auth_base_uri`, reachable from a subsequent `begin_auth` call using the very same unsanitized `shop`) and into `Session#shop`. Binding that breaks: SIGNATURE COVERAGE holds (the shop is inside the signed string) but SHOP BINDING fails - the signed shop is never checked to be a real Shopify domain, so

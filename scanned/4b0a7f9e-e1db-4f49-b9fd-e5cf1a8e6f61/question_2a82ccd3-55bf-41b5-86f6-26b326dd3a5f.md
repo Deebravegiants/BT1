@@ -1,0 +1,1 @@
+]` content that could echo back the posted secret if attacker's server reflects the request body in its response. Impact: High - if attacker's server (as the destination host, per the missing-sanitization bug) echoes the request body/headers in its error response, `serialized_error` in `HttpClient` includes `response.body[
