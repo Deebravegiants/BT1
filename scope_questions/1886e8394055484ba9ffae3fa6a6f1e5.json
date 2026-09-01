@@ -1,0 +1,132 @@
+[
+  {
+    "question": "'File Name: lib/shopify_api/utils/hmac_validator.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_c6871dfe-9019-4d49-9449-33d3776f507c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/verifiable_query.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_289ec9f3-d986-4261-af65-204b92f417f8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth/auth_query.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_e3075d90-ccc7-47a0-a179-58f3f13d1b44?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/webhooks/request.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_2e6bb911-cd9a-46cf-9c55-21efda6692c8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/jwt_payload.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_64893965-49e3-4d82-a89a-069277e09325?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/shop_validator.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_aad909c5-ae6c-4527-b2e4-6b635a843fa9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/session_utils.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_8096e776-0a39-4ef6-ade3-118f8df5df1e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/session.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_eb67187a-c4b4-46c9-89c4-227135d60cb6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/auth_scopes.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_4f54058e-7022-4784-ab93-e814f4e29d80?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_f66a6fb4-1875-45dd-8224-81b9816fdd21?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth/session_cookie.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_106ff60e-c012-4373-a520-4c284f2b37ec?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth/access_token_response.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_c5f1531a-5e6b-4e21-9359-d8d8630aaf64?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/token_exchange.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_1e22b791-8417-4eaf-bce5-7655d3b4aaa3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/client_credentials.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_2525a6f0-5a7f-46e3-b2ee-829ccb797f1f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/refresh_token.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_a4159e68-6662-4b03-b2a5-c90ada0e37b6?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/http_client.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_72a6a401-f610-467e-8251-43fe25404ac1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/http_request.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_e0dd9ebe-92d2-4683-8287-63f47c9849a7?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/rest/admin.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_661f0e68-0f18-4bcf-993b-8520bfebf889?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/graphql/client.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_ffd32c13-4891-4d99-851b-54f63ae7ed0b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/rest/base.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_3526b46c-d32b-4549-971e-0af4f0bc419b?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/graphql_proxy.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_082d8824-0516-4831-b033-9fcc7fb63948?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/http_utils.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_47016f90-9348-462a-a15b-7b06fe95cdc9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/webhooks/registry.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_0aacfb0e-f098-4c06-8ba5-ee6dd459e799?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/webhooks/registrations/http.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_f288cdc2-b64b-4491-970d-8aef923b0a3a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/context.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_a3fe9e45-eeeb-48b9-8a1d-c11f447d350d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/logger.rb -> Scope: Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_c2a19cd7-6a32-4351-b072-be69a75afa58?mode=deep",
+    "questions_generated": false
+  }
+]
