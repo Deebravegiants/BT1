@@ -1,0 +1,132 @@
+[
+  {
+    "question": "'File Name: lib/shopify_api/utils/hmac_validator.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_d1b356d3-e5a1-49fd-8f38-c873c3b57589?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/verifiable_query.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_980e0203-b549-49d4-9376-85045ffb8152?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth/auth_query.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_e7892fb5-f8fd-4518-b50e-8fcf569714de?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/webhooks/request.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_cfcc5778-8a56-43f3-b6c8-0e6150d597db?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/jwt_payload.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_ffc39a60-84ad-4de6-8dcb-c07765b1d68a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/shop_validator.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_c49fa803-4cca-488e-ab82-6bae1ff4e1f2?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/session_utils.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_33154030-8fd8-40ec-8bce-ac162e358619?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/session.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_04b2c8d8-50f5-406d-aeec-3d51835dc457?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/auth_scopes.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_0e44adbe-102d-4c1a-8f5d-489ef59f1fc8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_be12cd8a-4a96-4c9b-b089-0ac38a7aa677?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth/session_cookie.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_0b194772-4faf-4816-8e77-ebaa9b713102?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth/access_token_response.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_c9a9d03e-e7ec-453a-8c20-38ad6e93e71e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/token_exchange.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_dd2dcc66-4476-4f44-8a63-bfc7f9f11b47?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/client_credentials.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_a73c4c8a-0def-45dc-b404-27ed276af833?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/refresh_token.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_36d21c21-510e-497d-92cf-5717bbb7e539?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/http_client.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_a3894dd4-cdd4-458c-b926-5067c143834e?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/http_request.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_15a4fec9-7392-4419-b532-2290c6c5c9fb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/rest/admin.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_2a7ac96d-1d7a-4ff6-95ae-2c4f485a9914?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/graphql/client.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_4865d12e-8bea-4059-b553-2eee931b5505?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/rest/base.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_b02f57e4-3576-4d45-93dc-e1db0a4ba45d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/graphql_proxy.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_3e052683-08ad-465b-ac19-de08575f480a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/http_utils.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_1cb1b518-0c09-450a-9e1d-85bbfc2e2cdb?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/webhooks/registry.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_c2bc84ac-a9a6-4023-b050-d8a578a47c21?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/webhooks/registrations/http.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_6e939b72-74eb-4814-9072-437e56f60be0?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/context.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_0666003f-2860-4efc-bfe8-378a94044c4c?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/logger.rb -> Scope: Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_3398bfa3-cf39-47e2-a483-4658782eb7be?mode=deep",
+    "questions_generated": false
+  }
+]
