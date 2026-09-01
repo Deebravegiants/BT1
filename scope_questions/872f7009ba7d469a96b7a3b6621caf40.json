@@ -1,0 +1,132 @@
+[
+  {
+    "question": "'File Name: lib/shopify_api/utils/hmac_validator.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_ba1a0477-30ce-4885-9d71-9c88cb01092a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/verifiable_query.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_6038cc7f-3e2c-4771-af88-4a06f8687c40?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth/auth_query.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_8d784fcd-228f-4cac-82c7-f99b33d1cbbf?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/webhooks/request.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_087ced0c-26af-4fc5-934e-281ee592abe3?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/jwt_payload.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_081ddbb2-17b8-4b27-8fd5-eb4f172161e1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/shop_validator.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_fb3080f6-0073-49b5-875d-e094c64cdc97?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/session_utils.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_a26d2560-9217-4241-83df-37f258dd570a?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/session.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_56fd4f99-4825-48a4-8af6-464ebd122c77?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/auth_scopes.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_66de995e-94fe-451a-ba3b-fbfe5b851654?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_b1d679f4-4158-4763-88e8-17270d76b9b8?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth/session_cookie.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_01ea3410-b398-4f4e-8b13-3b508e65aca4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/oauth/access_token_response.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_beed3252-6a07-4295-904a-2833555f11a4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/token_exchange.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_8d8f7a45-01a2-4884-9718-800e91b2baa9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/client_credentials.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_f50a81bd-77ea-497b-9a14-c9be77cc819d?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/auth/refresh_token.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_a1c04d63-334a-424c-83dc-1ba079c8dd6f?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/http_client.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_1ca560fe-751e-49a2-a82b-156a1632c4b4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/http_request.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_e72970f7-fa9f-4749-8dc2-d9c0acfd7079?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/rest/admin.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_6a84ea19-0dd9-40da-816c-612fad2c4891?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/clients/graphql/client.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_13f2ef6b-2d33-4036-9e7a-107c26bc1336?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/rest/base.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_8d6ba60e-d71d-49a3-b6fc-d8489fd1efd9?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/graphql_proxy.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_7da5f4a2-29ea-443a-a0a0-c788f1da8e09?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/utils/http_utils.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_d5d1faab-7ad0-4585-8fb6-935a10b72ce4?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/webhooks/registry.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_56968fb4-453a-4eae-8fa0-bee884c6ce72?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/webhooks/registrations/http.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_c491d942-c344-470d-8f75-1d6e5d9a8050?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/context.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_f25c6a91-27d1-4b00-84df-8215c3d39ca1?mode=deep",
+    "questions_generated": false
+  },
+  {
+    "question": "'File Name: lib/shopify_api/logger.rb -> Scope: Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.'",
+    "url": "https://deepwiki.com/search/-generate-authentication-and-t_3cd7d018-616e-425b-aee9-d17207fd6935?mode=deep",
+    "questions_generated": false
+  }
+]
