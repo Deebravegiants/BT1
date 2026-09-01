@@ -6,9 +6,9 @@ from decouple import config
 # todo: if scope_files is: 500 > 50, 300 > 30 , 100 > 10
 MAX_REPO = 20
 # todo: the GitLab namespace/project path, for example group/project
-SOURCE_REPO = 'Zest-Protocol/zest-v2-contracts'
+SOURCE_REPO = 'Shopify/shopify-api-ruby'
 # todo: the name of the repository
-REPO_NAME = 'zest-v2-contracts'
+REPO_NAME = 'shopify-api-ruby'
 
 run_number = os.environ.get('GITHUB_RUN_NUMBER', '0')
 
@@ -48,92 +48,96 @@ else:
 
 scope_files = [
     # =================================================================================
-    # LENS: VALUE FLOW AND CONSERVATION.
-    # This variant follows the money only. Every file below is a place where tokens,
-    # shares, or debt units are created, destroyed, converted between representations, or
-    # moved between principals. A question belongs here only if it can be closed by an
-    # arithmetic identity that must hold before and after a call.
+    # LENS: TRUST BOUNDARY AND IDENTITY BINDING.
+    # This gem is the authentication layer of every Shopify app that embeds it. Every file
+    # below turns attacker-reachable bytes - query params, cookies, HTTP headers, a JWT, a
+    # webhook body, a shop domain string - into one of three decisions: is this request
+    # authentic, which shop/user does it belong to, and which host receives the merchant's
+    # access token or the app's client_secret. A question belongs here only if it can be
+    # closed by a binding that must hold between what was signed and what is acted upon.
     # =================================================================================
 
-    # -- The two ledgers that must agree ----------------------------------------------
-    # market: converts token amounts <-> USD <-> scaled debt, and is the only mover of
-    # user value. market-vault: the per-user side of the ledger (collateral map, debt map)
-    # and the custodian of all plain collateral. NOTHING in the protocol ever sums the
-    # per-user ledger and compares it to the vault aggregate, so a single bad write is
-    # permanent and compounds with every accrual.
-    "mainnet/contracts/market/v0-4-market.clar",
-    "mainnet/contracts/market/v0-market-vault.clar",
+    # -- Signature verification and everything it is supposed to cover ----------------
+    # HmacValidator is the single arbiter of authenticity for BOTH the OAuth callback and
+    # every inbound webhook, and it only ever sees `to_signable_string`. Anything a caller
+    # trusts that is not inside that string is unauthenticated input wearing a valid HMAC.
+    "lib/shopify_api/utils/hmac_validator.rb",
+    "lib/shopify_api/utils/verifiable_query.rb",
+    "lib/shopify_api/auth/oauth/auth_query.rb",
+    "lib/shopify_api/webhooks/request.rb",
 
-    # -- Where shares and debt units are minted and burned ----------------------------
-    # ft-mint? / ft-burn? of zft, the `assets` / `total-borrowed` / `principal-scaled`
-    # vars, index accrual, treasury LP minting, socialize-debt write-down, flashloan fee.
-    # v0-vault-stx is the native-STX path through .wstx and `as-contract? ((with-stx amt))`;
-    # v0-vault-sbtc is the 8-decimal case that breaks decimal-symmetric assumptions;
-    # v0-vault-ststx carries an underlying whose own value drifts against the share price.
-    # usdc / usdh / ststxbtc are byte-identical to these apart from constants.
-    "mainnet/contracts/vault/v0-vault-stx.clar",
-    "mainnet/contracts/vault/v0-vault-sbtc.clar",
-    "mainnet/contracts/vault/v0-vault-ststx.clar",
+    # -- Who the request claims to be, and where the credential is sent ---------------
+    # JwtPayload turns a session token into a shop string; ShopValidator is the only thing
+    # standing between an attacker-supplied host and an outbound request carrying
+    # client_secret or X-Shopify-Access-Token; SessionUtils mints the storage key the host
+    # app uses to load that credential back.
+    "lib/shopify_api/auth/jwt_payload.rb",
+    "lib/shopify_api/utils/shop_validator.rb",
+    "lib/shopify_api/utils/session_utils.rb",
+    "lib/shopify_api/auth/session.rb",
+    "lib/shopify_api/auth/auth_scopes.rb",
 
-    # -- Decimals: the multiplier on every value computation --------------------------
-    # `decimals` is captured once at `insert` via call-get-decimals and never re-read.
-    # Every USD figure in the protocol divides by (pow u10 decimals).
-    "mainnet/contracts/registry/v0-assets.clar",
+    # -- The credential-issuing flows -------------------------------------------------
+    # begin_auth / validate_auth_callback (state cookie, HMAC, code redemption),
+    # token exchange, client credentials and refresh - the four ways an access token is
+    # obtained and bound to a shop.
+    "lib/shopify_api/auth/oauth.rb",
+    "lib/shopify_api/auth/oauth/session_cookie.rb",
+    "lib/shopify_api/auth/oauth/access_token_response.rb",
+    "lib/shopify_api/auth/token_exchange.rb",
+    "lib/shopify_api/auth/client_credentials.rb",
+    "lib/shopify_api/auth/refresh_token.rb",
+
+    # -- Where the token actually goes on the wire ------------------------------------
+    # HttpClient builds `https://#{api_host || session.shop}` and attaches the access token
+    # to it; Rest::Admin and Rest::Base build the path from caller and response data;
+    # GraphqlProxy forwards a browser-supplied body to the Admin API on the app's session.
+    "lib/shopify_api/clients/http_client.rb",
+    "lib/shopify_api/clients/http_request.rb",
+    "lib/shopify_api/clients/rest/admin.rb",
+    "lib/shopify_api/clients/graphql/client.rb",
+    "lib/shopify_api/rest/base.rb",
+    "lib/shopify_api/utils/graphql_proxy.rb",
+    "lib/shopify_api/utils/http_utils.rb",
+
+    # -- Inbound webhook dispatch and global configuration ----------------------------
+    "lib/shopify_api/webhooks/registry.rb",
+    "lib/shopify_api/webhooks/registrations/http.rb",
+    "lib/shopify_api/context.rb",
+    "lib/shopify_api/logger.rb",
 
     # =================================================================================
     # NOT IN THIS VARIANT:
-    # * The whole dao directory. Any impact requiring DAO compromise is out of scope, and the
-    #   treasury is only ever credited by `accrue`, which is audited here from the vault side.
-    # * v0-egroup - risk parameters, not value math; covered by another lens.
-    # * FLASHLOANS. Out of scope protocol-wide: never target `flashloan`, its fee, its
-    #   permission whitelist or `in-flashloan`. A flashloan may fund an attack, never be one.
-    # * local-testing/**, Pyth and Wormhole, v0-1-data.clar, traits, proposals, docs, .toml.
+    # * lib/shopify_api/rest/resources/** - machine-generated per-version REST resource
+    #   classes. Generated code, no security decision, out of scope.
+    # * lib/shopify_api/errors/** - message-only exception classes.
+    # * test/**, sorbet/**, docs/**, bin/, Rakefile, *.gemspec, Gemfile*, *.md, *.yml.
     # =================================================================================
 ]
 
 
 target_scopes = [
-    "Critical. THE UNRECONCILED LEDGERS. Sum over all users of the market-vault `debt` map times the vault `index` must equal the vault's own `total-debt` (`calc-cumulative-debt` of `principal-scaled`), yet the two are written by different contracts with different rounding: market `convert-to-scaled-debt` rounds the user's scaled debt UP while vault `system-borrow` computes its own `scaled-amount` with `mul-div-up` against the same `index`, and `repay` / `system-repay` shrink them with unrelated formulas. Show a borrow-repay cycle after which the per-user total and the vault aggregate differ, and compound it until the vault reports solvency it does not have.",
+    "Critical. THE STATE COOKIE IS NOT BOUND TO A SHOP. `begin_auth` mints `state = SecureRandom.alphanumeric(15)` and stores it in a `SessionCookie` that carries the nonce and nothing else - not the shop it was issued for, not `is_online`, not the scope. `validate_auth_callback` then only asserts `state == auth_query.state`. Show that a callback validly signed for shop B completes an authorization the browser began for shop A, so the victim's browser is handed a `Session` for a shop the attacker controls, or the attacker's browser drives the app into storing a session it did not begin. Identity that breaks: shop passed to `begin_auth` == `auth_query.shop` at callback.",
 
-    "Critical. CUSTODY VERSUS LEDGER. The tokens actually held by .v0-market-vault must equal the sum of its `collateral` map for that asset. `receive-tokens` / `send-tokens` move them, `add-user-collateral` / `remove-user-collateral` record them, and in `collateral-remove` the map is decremented and `insert` is written BEFORE `send-tokens` runs. Show any path where a transfer succeeds without the matching map write, or the map write survives a transfer that moved a different amount, and drain the surplus or strand the deficit.",
+    "Critical. THE HMAC DOES NOT COVER THE REQUEST. `AuthQuery#to_signable_string` signs exactly five fields - code, host, shop, state, timestamp - via `URI.encode_www_form`. Anything else in the real callback URL is unauthenticated, and `timestamp` is verified as a string but never compared to `Time.now`. Show a callback whose HMAC verifies while a field the host app or this gem acts on differs from what Shopify signed: an extra or duplicated query key, a value whose encoding survives `encode_www_form` differently than it arrived, or a replay of a months-old signed callback. Identity: set of fields acted upon == set of fields inside `to_signable_string`.",
 
-    "Critical. TWO NAMES FOR ONE DEBT. `principal-scaled` and `total-borrowed` both describe outstanding principal but are updated by three different rules: `system-borrow` adds `mul-div-up amount INDEX-PRECISION idx` to one and raw `amount` to the other; `system-repay` reduces the first by `calc-principal-ratio-reduction` and the second by `capped-amount x total-borrowed / debt`; `socialize-debt` reduces the first by `scaled-amount` and the second by `scaled-amount x borrowed / scaled-principal`. Drive them apart so `total-debt` exceeds `total-borrowed` by phantom interest, or `total-borrowed` survives after `principal-scaled` hits zero, and show the effect on `total-assets` and therefore on every share price.",
+    "Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.",
 
-    "Critical. INTEREST THAT NEVER EXISTED. `total-assets` adds `(- debt borrowed)` as accrued interest whenever debt exceeds borrowed, and that figure feeds `convert-to-assets-preview` for every redeemer. The difference is not backed by any token in the vault until a borrower actually repays. Show a state where `total-assets` counts interest on debt that has been socialized away, on a position already liquidated, or on principal that `system-repay` removed from `total-borrowed` without removing from `principal-scaled`, so early redeemers withdraw at an inflated share price and the last suppliers absorb the hole.",
+    "Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.",
 
-    "Critical. ZERO SHARES FOR REAL TOKENS. `convert-to-shares-preview` returns `u0` when `total-assets-preview` is non-zero and `total-supply` is zero (the `(if (is-eq ta u0) u0 ...)` branch after the supply check), and `deposit` only enforces `(>= inkind min-out)`. Show a reachable vault state - after a full redeem that leaves residual `assets`, after socialization, or after a treasury-LP-only supply - where a depositor transfers underlying and is credited zero or near-zero shares, permanently donating its principal to whoever holds the remaining supply.",
+    "Critical. THE SHOP FROM A SESSION TOKEN IS NEVER VALIDATED AS A SHOPIFY DOMAIN. `JwtPayload#shop` is `@dest.gsub(\"https://\", \"\")` - an unanchored global substitution on a claim the constructor never checks against `TRUSTED_SHOPIFY_DOMAINS`, and it never asserts that `iss` and `dest` name the same shop. `TokenExchange.exchange_token` feeds that string into `Session.new(shop:)`, which `HttpClient` turns into `https://#{session.shop}` for a POST carrying `client_id` and `client_secret`. Show a `dest` or `iss` value reachable under a token this app's secret verifies that redirects the credential POST, or that binds the returned access token to the wrong shop key. Identity: host receiving `client_secret` ∈ TRUSTED_SHOPIFY_DOMAINS, and session key shop == authenticated shop.",
 
-    "Critical. THE SOCIALIZATION APPLIES TWO DIFFERENT LOSSES. One bad-debt event writes down `lindex` by the ratio `(- old-total-assets debt-reduction) / old-total-assets` but reduces `assets` by `principal-reduction`, a completely different quantity derived from `scaled-amount x borrowed / scaled-principal`. Show that the loss charged to suppliers through the share price and the loss removed from the vault's asset base disagree, so either the vault claims assets it lost or it destroys value the loss never justified, and quantify the drift over repeated socializations.",
+    "Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.",
 
-    "Critical. DEBT THAT CANNOT BE REPAID. `convert-to-scaled-debt` rounds the borrower's scaled debt UP, `repay` caps at `max-repay-tokens` computed with `mul-div-up` then converts back with `mul-div-down`, and `remove-user-scaled-debt` deletes the row only on an exact zero. Show a borrow amount and index value for which the final unit of scaled debt can never be cleared, so the debt bit stays set in the position mask, the egroup never relaxes, and every unit of collateral behind it is permanently frozen.",
+    "Critical. THE VALIDATOR ITSELF CAN BE TALKED PAST. `ShopValidator.sanitize_shop_domain` accepts a host when `trusted_domain == uri.domain`, and when `unified_admin?` (first label literally `admin`) holds it returns `\"#{uri.path.split(\"/\").last}.myshopify.com\"` built from an unvalidated path segment. Input is only downcased, stripped, rejected on `@`, and given a scheme. Probe the gap between what `Addressable::URI` calls `host`/`domain` and what an HTTP client resolves: a trailing dot, an embedded port or credentials, percent-encoded or backslash separators, IDN and Unicode-normalizing labels, a path segment that is itself a hostname or empty. Any input that returns from `sanitize!` but is not a Shopify shop becomes the destination of the merchant's access token.",
 
-    "Critical. THE SEIZURE DOES NOT BALANCE. In one liquidation the borrower loses `coll-final`, the liquidator pays `debt-to-repay`, the vault records `scaled-to-remove`, and any remainder may be socialized. `calc-final-liquidation-amounts` recomputes debt from capped collateral with `calc-liq-debt-repay-real`, then `scale-debt-for-liquidation` re-scales collateral again by `scaled-to-remove / scaled-debt`. Show a case where collateral leaving the borrower exceeds debt cleared times (BPS + liq-penalty), or where debt is cleared that nobody paid for, and name which party absorbs the difference.",
+    "Critical. THE SESSION ID IS DERIVED FROM UNAUTHENTICATED BYTES. `SessionUtils.current_session_id` returns `cookies[\"shopify_app_session\"]` verbatim as the storage key whenever the app is non-embedded, and for embedded apps too whenever no `shopify_id_token` is presented - the gem never verifies that cookie against `Context.api_secret_key`. On the token path it builds `\"#{shop}_#{payload.sub}\"` or `\"offline_#{shop}\"` by string interpolation of unvalidated values. Show that an attacker who supplies a chosen cookie value, or a shop or `sub` containing the separator, loads a session - and therefore an access token - belonging to a different merchant or a different user of the same shop. Identity: session id derived only from bytes authenticated under the app secret.",
 
-    "Critical. DOUBLE COUNTING ACROSS THE ZTOKEN BOUNDARY. One deposit of underlying becomes vault `assets` backing zft shares AND, once pledged, a collateral row valued by `resolve-ztoken` at `lindex` times the share amount. The same economic value now supports a share redemption and a borrow at the same time. Establish whether the pledged shares are actually held by .v0-market-vault and therefore removed from the redeemable float, or whether `supply-collateral-add`, `collateral-remove-redeem` and `liquidate-redeem` leave a window in which one unit of underlying backs two claims. Impact: protocol insolvency.",
+    "Critical. THE TOKEN IS ATTACHED BEFORE THE DESTINATION IS SETTLED. `HttpClient#initialize` sets `@base_uri = \"https://#{api_host || session.shop}\"` and unconditionally adds `X-Shopify-Access-Token`; `request_url` is plain interpolation of `request.path`; `Rest::Admin#request_url` re-roots the URL at `@base_uri` for any path starting with `admin/`; `Rest::Base.get_path` interpolates ids taken from caller input and from API response data into that path. Show a path or id value - traversal segments, a scheme or `//host`, an encoded `?` or `#` - that moves the authenticated request to an endpoint or host the caller never intended, and state what the access token reaches. Identity: the URL actually requested == base_uri + intended resource path, with the token only ever leaving for the session's own shop.",
 
-    "Critical. THE TREASURY IS PAID IN SHARES NOBODY ACCOUNTED FOR. `accrue` mints `treasury-lp` zft to .dao-treasury computed as `reserve-inc x total-supply / (- total-assets-preview reserve-inc)`, while `total-supply-preview` adds that same not-yet-minted figure to the live supply used by BOTH conversion previews. Show that the shares minted are worth more than `reserve-inc` of assets at the post-mint price, that the same fee is counted twice within one transaction, or that the subtraction underflows and aborts `accrue`, freezing every function in the vault.",
+    "High. AUTHORIZATION STATE IS TRUSTED WITHOUT BEING TRUE. `Session#expired?` returns false whenever `@expires` is nil, so a session that never learned its expiry is permanently valid; `AuthScopes#covers?` compares the caller's `compressed_scopes` against `expanded_scopes` grown by `implied_scope`, whose regex `\\A(unauthenticated_)?write_(.*)\\z` manufactures a read scope from any string shaped like a write scope; scope strings are split on `,` with no validation of the tokens. `GraphqlProxy.proxy_query` then forwards a caller-supplied GraphQL body on the merchant's online session with `session.online?` as its only gate, and `HttpUtils.normalize_headers` decides the content type by downcasing and rewriting caller-supplied header names. Show a request that passes a scope, expiry or proxy check it should fail, and name the merchant data it reaches.",
 
-    "High. DECIMAL TRUNCATION DESTROYS VALUE. Every USD figure is produced by `normalize`, which divides by `(pow u10 decimals)` AFTER multiplying amount by price, so the protocol's USD unit is a whole dollar. With an 8-decimal asset such as sBTC and a 6-decimal asset such as USDC in one position, show a collateral holding that normalizes to zero USD while still being seizable, a debt that normalizes to zero and therefore passes `is-healthy` for free, or an amount-price pair whose round-down on collateral and round-up on debt open a persistent free-borrow window.",
-
-    "High. REDEEM AND DEPOSIT ARE NOT INVERSES. `deposit` increments `assets` by the raw `amount` received, `redeem` decrements it by `inkind` derived from the share price, and both call `accrue` first so the price moves between them. Show a deposit-then-redeem in the same block that returns more underlying than went in, or a rounding direction in `convert-to-shares-preview` versus `convert-to-assets-preview` that lets a loop of small deposits and redeems extract a unit per iteration until the vault's `assets` no longer matches its balance.",
-
-    "High. THE SAME BORROW IS SCALED TWICE. market computes `scaled-debt-added` via `convert-to-scaled-debt asset-id amount true` from the cached `index`, while the vault independently computes `scaled-amount` via `mul-div-up amount INDEX-PRECISION idx` from its own `index` inside `system-borrow`. Both claim to represent the same principal. Show a case where the cached index and the live index differ, or the two roundings differ, so the user's recorded obligation and the vault's recorded receivable are not the same number, and repeat it to open a gap.",
-
-    "High. REPAY ON BEHALF OF ANOTHER PRINCIPAL SPLITS PAYER FROM DEBTOR. `repay` pulls `amount-to-repay` from `contract-caller` via `vault-system-repay` but clears `repaid-scaled-debt` from `on-behalf-of`, with the token amount recomputed twice (`mul-div-up` after `mul-div-down`). Show a repayment where the tokens delivered to the vault are strictly less than the value of the scaled debt erased, or where the vault's `assets` is credited with `interest-paid` that the payer never provided.",
-
-    "High. CAPS ARE COMPARED AGAINST THE WRONG QUANTITY. `deposit` checks `(<= (+ current-assets amount) CAP-SUPPLY)` against the `assets` var rather than `total-assets`, and `system-borrow` checks `(<= (+ debt amount) CAP-DEBT)` against `total-debt` which includes accrued interest. Show a sequence that pushes real deposits or real debt past the intended ceiling, or one where accrued interest alone trips `CAP-DEBT` and permanently blocks every borrow while positions still need to be refinanced.",
-
-    "High. THE REDEEM PATH LEAVES THE VAULT SHORT. `redeem` gates on `(>= current-assets inkind)` and `(>= available-assets inkind)` where `get-available-assets` reads the real balance, then burns shares and calls `send-underlying`. Show a state - after a socialization that zeroed `assets` by saturating subtraction, after `accrue` minted treasury shares against an asset base that did not grow, or after `system-repay` credited only `interest-paid` - where these two guards disagree with each other so a redeem either aborts permanently for the last suppliers or succeeds beyond what the vault holds.",
-
-    "High. THE COMPOSITE ENTRY POINTS MOVE VALUE TWICE. `supply-collateral-add` transfers underlying to the market, deposits it under an `as-contract?` post-condition scope, mints shares to the user, then adds `shares-minted` as collateral; `collateral-remove-redeem` removes `amount` of zToken collateral to the market and then redeems the SAME `amount` as shares. Show a mismatch between `shares-minted` and the amount subsequently pledged, or between the shares removed and the shares redeemed, that leaves value stranded in the market contract or lets a caller redeem shares it never pledged.",
-
-    "High. WRAPPED STX IS AN EXTRA HOP. v0-vault-stx alone routes value through `.wstx` with `receive-underlying` / `send-underlying` under `as-contract? ((with-stx amt))`, while `ubalance` asks `.wstx` for the balance. Show a divergence between the vault's wSTX balance, its native STX balance, and its `assets` var - a partial wrap, a transfer that lands on the wrong principal, or a post-condition scope that permits a second movement - and turn it into an over-withdrawal or a permanently unredeemable supply.",
-
-    "High. LIQUIDATION LEAVES ORPHANED OBLIGATIONS. After `socialize-debt-asset` walks the borrower's debt list, and after collateral has been fully seized, check what remains: `debt` rows for assets not in the socialized list, `collateral` rows at zero that were never `map-delete`d, and mask bits that were never cleared. Show a fully liquidated position that still carries an obligation or a mask bit, so it cannot be re-used, cannot be closed, and keeps accruing interest that `total-assets` counts as a supplier asset forever.",
-
-    "High. THE RESERVE FEE IS TAKEN FROM THE WRONG BASE. `accrue` derives `reserve-inc` from `debt-delta` computed as `mul-div-down scaled-principal next` minus `mul-div-down scaled-principal idx`, both rounded down, while the borrower's own debt grows by `mul-div-up` on their scaled balance. Show that the interest charged to borrowers and the interest distributed to suppliers plus treasury do not sum to the same figure, and that the residue accumulates in - or is drained from - the supplier pool with every accrual.",
-
-    "Critical. THE MISSING RECONCILIATION - what nobody built. There is no function anywhere in this protocol that sums the per-user ledger and compares it against the vault aggregate, no invariant check at the end of any state-changing call, and no way to detect drift after the fact. Identify the FIRST write that can desync the two ledgers under an ordinary user transaction, prove it numerically in one test (sum of `debt` map times `index` versus `total-debt`; sum of `collateral` map versus token balance; sum of zft balances times share price versus `total-assets`), and show that once desynced the protocol never notices, never corrects, and compounds the error at every accrual.",
+    "Critical. THE MISSING BINDING - what nobody built. Nothing in this gem ever asserts that the shop a request authenticates as, the shop key a session is stored under, and the host that receives the access token are the same value; there is no single choke point where an untrusted shop string is sanitized once, and no check that a session loaded from storage matches the authenticated shop of the current request. Identify the FIRST point at which a shop string from an unauthenticated source (an OAuth callback param, a webhook header, a JWT claim, a cookie) becomes a session key or an outbound request host without passing `ShopValidator`, prove it with one minitest + WebMock test that asserts the request host and the stored session id, and show that once the two diverge the gem never notices and the host app has no API with which to detect it.",
 ]
 
 
@@ -143,117 +147,120 @@ scope_scan = [
 
 def question_generator(target_file: str) -> str:
     """
-    Generate conservation-focused audit questions for one Zest v2 target.
+    Generate identity-binding audit questions for one shopify-api-ruby target.
 
     ```
     target_file format:
-    "'File Name: mainnet/contracts/vault/v0-vault-stx.clar -> Scope: Critical. ...'"
+    "'File Name: lib/shopify_api/utils/shop_validator.rb -> Scope: Critical. ...'"
     """
 
     prompt = f"""
     ```
 
-    Generate value-conservation security audit questions for this exact Zest Protocol v2 target:
+    Generate authentication and trust-boundary security audit questions for this exact
+    shopify-api-ruby target:
 
     {target_file}
 
     Project focus:
-    Zest v2 is a Clarity lending market on Stacks. Value exists in four representations and is
-    constantly converted between them: underlying tokens held by a vault or by .v0-market-vault;
-    zft shares minted by a vault; scaled debt units stored per user in market-vault and in
-    aggregate as `principal-scaled` / `total-borrowed`; and USD notionals produced by `normalize`
-    from an oracle price and a per-asset `decimals`. The market converts between all four on every
-    call. Two independent ledgers track the same debt - the per-user `debt` map and the vault's
-    own aggregate - and NOTHING reconciles them. Interest is created by `accrue` moving `index`
-    and `lindex`, taken partly as `reserve-inc` minted to .dao-treasury as fresh shares, and
-    destroyed by `socialize-debt`.
+    This gem is the authentication layer of every Shopify app that embeds it. Untrusted bytes
+    enter through four doors: the OAuth callback query (`AuthQuery`), an inbound webhook
+    (`Webhooks::Request` - body plus unsigned headers), a session token / JWT (`JwtPayload`),
+    and the `shopify_app_session` cookie (`SessionUtils`). From those bytes the gem decides
+    (a) is the request authentic - `HmacValidator` over `to_signable_string` only, (b) which
+    shop and user it belongs to - a string interpolated into a session id, and (c) which host
+    receives `client_secret` or `X-Shopify-Access-Token` - `HttpClient`'s
+    `https://#{{api_host || session.shop}}`. `ShopValidator.sanitize!` guards only some of
+    those paths. Anything trusted but unsigned, or used as a host but unvalidated, is the bug.
 
     Rules:
-    * Treat `File Name:` as the exact contract.
+    * Treat `File Name:` as the exact file.
     * Treat `Scope:` as the ONLY impact to target.
     * Assume full repo context is accessible.
     * Do not ask for code or say anything is missing.
-    * Use exact Clarity symbols (define-public/private/read-only names, map, data-var, constant).
-    * EVERY question must be answerable by an arithmetic identity that holds before and after a
-      call. State the identity explicitly. Narrative questions with no closing equation are rejected.
-    * Attacker is unprivileged only: an ordinary Stacks principal that funds a wallet, calls any
-      public function, deploys its own Clarity contract, passes it as `<ft-trait>` or
-      `<flash-callback>`, supplies its own `price-feeds`, and controls amounts, receivers,
-      `on-behalf-of` and call ordering within a block.
-    * Attacker is NOT a DAO signer, executor, market impl, authorized contract, miner, oracle
-      publisher or node operator. Ignore malicious-miner, chain-reorg, MEV-only, governance-key,
-      leaked-key and social-engineering assumptions.
+    * Use exact Ruby symbols (module, class, method, constant, ivar) as they appear in the file.
+    * EVERY question must close on a binding that must hold across a call. State it explicitly.
+      Narrative questions with no stated binding are rejected.
+    * Attacker is unprivileged only: any internet user who can send HTTP requests to an app
+      built on this gem. They may create their own development shop, install the app on it,
+      register their own webhook endpoint, receive their own validly signed callbacks and
+      webhooks, run their own server, and control query params, headers, cookies, bodies,
+      redirect targets and request ordering.
+    * Attacker is NOT the app developer, a Shopify employee, the victim merchant or their
+      staff, and never holds `api_secret_key`, `old_api_secret_key`, an access token, or any
+      leaked credential. No TLS interception, no local or physical access, no compromised
+      dependency, no social engineering.
+    * Assume the host app uses this gem as documented in README.md and docs/. The bug must be
+      in this gem's code, not in a hypothetical caller misusing it.
     * PROGRAM EXCLUSIONS - a question landing in any of these wastes the whole batch:
-      - ANY logic related to flashloans is OUT OF SCOPE. A flashloan may be used as a source of
-        capital for a different attack, but never target `flashloan` itself, its fee, its
-        `flashloan-permissions` / `default-flashloan-permissions` whitelist, or `in-flashloan`.
-      - Liquidation of disabled collateral, and any other deliberate protocol safety design
-        decision, is OUT OF SCOPE.
-      - Anything requiring DAO compromise, or an accidental or incorrect registry update by the
-        DAO, is OUT OF SCOPE. Full DAO control of the asset and egroup registries is intended
-        design, and every egroup invariant needing global market and position knowledge is
-        verified off-chain by the DAO before approval. Assume both registries are correctly
-        configured, and target only the read and resolution paths an ordinary user call executes.
-      - Also excluded everywhere: leaked keys or credentials, privileged addresses, external
-        stablecoin depegs the attacker did not cause through a bug in this code, 51% and basic
-        economic or governance attacks, Sybil attacks, centralization risk, lack of liquidity,
-        incorrect data supplied by third-party oracles, best-practice notes, feature requests,
-        and test or configuration files.
-      - Oracle manipulation caused by a bug in THIS code remains fully in scope.
+      - lib/shopify_api/rest/resources/** is machine-generated per-version code and is OUT OF
+        SCOPE, as are test/**, sorbet/**, docs/**, *.md, *.yml, *.gemspec and Gemfile*.
+      - Denial of service, rate limiting, retry/backoff behaviour, resource exhaustion,
+        unbounded collections and memory hygiene are OUT OF SCOPE.
+      - Vulnerabilities in third-party gems (jwt, httparty, addressable, openssl, zeitwerk)
+        with no exploit path through this gem's own code are OUT OF SCOPE.
+      - Also excluded: leaked keys or credentials, privileged accounts, best-practice notes,
+        feature requests, missing security headers, self-XSS, theoretical findings with no
+        demonstration, and anything requiring the attacker to already hold app secrets.
+      - A weakness in this gem that lets an attacker manipulate a third-party library into
+        unsafe behaviour remains fully in scope.
     * IN-SCOPE IMPACTS - every question must land on one and name it:
-      Critical: direct theft of user funds at rest or in motion, other than unclaimed yield;
-      permanent freezing of funds; protocol insolvency.
-      High: theft of unclaimed yield or royalties; permanent freezing of unclaimed yield or
-      royalties; temporary freezing of funds.
-    * Ignore Pyth and Wormhole internals, a real oracle publishing wrong data, external stablecoin
-      depegs, tests, mocks, `local-testing/**`, deployment plans, `.toml`, docs, read-only
-      aggregators, gas and style, and dependency-only issues.
-    * Every question must be a concrete real-world scenario an unprivileged principal can execute
-      on mainnet with its own capital. No speculative unbounded-list, memory or resource-hygiene
-      questions.
-    * Clarity `+` `-` `*` abort on overflow and underflow. An abort is a finding only when it
-      permanently blocks a funds path - say which one.
+      Critical: authentication bypass (a forged webhook, callback or session token accepted);
+      theft or exfiltration of a merchant access token, refresh token, authorization code or
+      the app's `client_secret`; cross-tenant access - one shop or one staff user acting on
+      another's data; remote code execution.
+      High: server-side request forgery driving an authenticated request to an unintended
+      host; session fixation or forced OAuth completion; scope or expiry check bypass;
+      credential leakage into logs or error output.
+    * Every question must be a concrete real-world scenario an unprivileged internet user can
+      execute against a deployed app that embeds this gem. No speculative resource-hygiene,
+      memory or unbounded-growth questions.
+    * A raised exception is a finding only when it lets an unauthenticated request through, or
+      leaks a secret in its message - say which.
     * Generate 30 to 40 high-signal questions.
-    * At least 70% must land on a Critical impact - direct theft of user funds, permanent
-      freezing of funds, or protocol insolvency - rather than a High one.
-    * Every question must be testable by a Clarinet / vitest simnet test in `local-testing/tests`
-      against a local fork. Never propose testing on mainnet or a public testnet.
+    * At least 70% must land on a Critical impact - authentication bypass, credential theft,
+      cross-tenant access or RCE - rather than a High one.
+    * Every question must be testable by a minitest + WebMock/Mocha test under `test/` with no
+      live shop and no network. Never propose testing against a real Shopify store.
     * Avoid generic checklist questions and repeated root causes.
-    * Prefer questions that name TWO quantities that must be equal and ask whether they are: a
-      per-user total and its aggregate, a mint and its backing, an amount pulled and an amount
-      credited, a round-up and its paired round-down, a fee charged and a fee distributed.
+    * Prefer questions that name TWO values that must be equal and ask whether they are: a
+      field signed and a field acted on, a shop authenticated and a shop stored, a host
+      validated and a host requested, bytes verified and bytes parsed, a scope granted and a
+      scope accepted.
 
     Known dead ends - do NOT generate questions about these:
-    * Governance setting a bad cap, fee, LTV, penalty or interest curve.
-    * An external oracle or token behaving badly on its own.
-    * A user harming only their own position with no third party and no protocol invariant broken.
-    * Findings requiring the attacker to already be an authorized contract, market impl or signer.
-    * Anything only reproducible against mock tokens or the mock oracle.
+    * Anything needing `api_secret_key`, an access token, or any leaked credential.
+    * A CVE in a dependency with no reachable path through this gem.
+    * The host application choosing to ignore this gem's documented API.
+    * Findings only reproducible against the generated REST resource classes or test helpers.
+    * Timing, DoS, log volume, or a user harming only their own shop with no tenant boundary
+      crossed and no credential exposed.
 
-    Core identities (each question must close on one):
-    * SHARE BACKING: sum of zft balances converted at the current share price never exceeds
-      `total-assets`, and `assets` never exceeds the underlying the vault actually holds.
-    * DEBT AGREEMENT: sum over users of the market-vault `debt` map times `index` equals the
-      vault's `total-debt`.
-    * CUSTODY: tokens held by .v0-market-vault equal the sum of its `collateral` map per asset.
-    * FLOW CLOSURE: in any single call, value leaving equals value entering plus value minted
-      minus value burned, with every party named.
-    * ROUNDING DIRECTION: every conversion rounds against the user, and each round-up has a
-      paired round-down that cannot be exploited by repetition.
+    Core bindings (each question must close on one):
+    * SIGNATURE COVERAGE: every value acted on downstream is inside the string handed to
+      `HmacValidator` via `to_signable_string`.
+    * SHOP BINDING: the shop authenticated by the signature or JWT == the shop interpolated
+      into the session id == the shop used as the request host.
+    * CREDENTIAL DESTINATION: `client_secret`, an authorization code and
+      `X-Shopify-Access-Token` leave only for a host that `ShopValidator` accepted.
+    * SESSION DERIVATION: a session id is derived only from bytes authenticated under
+      `Context.api_secret_key`.
+    * AUTHORIZATION TRUTH: `covers?`, `expired?`, the state comparison and the proxy gate
+      never return a permissive answer for a session that lacks the right.
 
     Each question must include:
-    1. target function/method;
-    2. attacker action (a concrete contract call with arguments);
-    3. preconditions (funded principal, vault state, existing position);
-    4. call sequence;
-    5. the identity that breaks, written as an equation;
-    6. scoped impact and who absorbs the loss;
+    1. target class/method;
+    2. attacker action (a concrete HTTP request with params, headers, cookies or body);
+    3. preconditions (app configuration, embedded or not, existing session state);
+    4. call sequence through the gem;
+    5. the binding that breaks, written as an equality;
+    6. scoped impact and whose credential or data is exposed;
     7. proof idea.
 
     Output only valid Python. No markdown. No explanations.
 
     questions = [
-    "[File: {target_file}] [Function: symbol_or_method] Can an unprivileged ATTACKER_ACTION under PRECONDITIONS trigger CALL_SEQUENCE, breaking the identity IDENTITY_EQUATION, causing scoped impact: SCOPE_IMPACT absorbed by PARTY? Proof idea: Clarinet simnet test PARAMETERS and assert SHARE_BACKING, DEBT_AGREEMENT, CUSTODY, FLOW_CLOSURE, or ROUNDING_DIRECTION.",
+    "[File: {target_file}] [Method: class_or_method] Can an unprivileged ATTACKER_ACTION under PRECONDITIONS trigger CALL_SEQUENCE, breaking the binding BINDING_EQUALITY, causing scoped impact: SCOPE_IMPACT against PARTY? Proof idea: minitest + WebMock test PARAMETERS asserting SIGNATURE_COVERAGE, SHOP_BINDING, CREDENTIAL_DESTINATION, SESSION_DERIVATION, or AUTHORIZATION_TRUTH.",
     ]
     """
     return prompt
@@ -261,7 +268,7 @@ def question_generator(target_file: str) -> str:
 
 def audit_format(security_question: str) -> str:
     """
-    Generate a conservation-focused Zest v2 exploit-validation prompt.
+    Generate an identity-binding shopify-api-ruby exploit-validation prompt.
     """
 
     prompt = f"""# SECURITY AUDIT PROMPT
@@ -271,21 +278,20 @@ def audit_format(security_question: str) -> str:
 
 ## Rules
 - Use existing repo context only. Analyze only this question and scoped impact.
-- Attacker is unprivileged only: an ordinary Stacks principal that funds a wallet, calls any public function, deploys its own Clarity contract and passes it as `<ft-trait>` or `<flash-callback>`, supplies its own `price-feeds`, and controls amounts, receivers, `on-behalf-of` and call ordering. No DAO signer, executor, market impl, authorized contract, miner, oracle publisher or node operator access; no leaked keys.
-- Reject malicious-miner, chain-reorg, MEV-only, privileged-address, leaked-key and oracle-publisher paths.
-- OUT OF SCOPE, reject on sight: any flashloan logic (`flashloan`, its fee, its permission whitelist, `in-flashloan`) - though a flashloan used purely as capital for a different attack is fine; liquidation of disabled collateral and other deliberate safety design decisions; anything requiring DAO compromise or an accidental or incorrect DAO registry update, since full DAO control of the asset and egroup registries is intended design and egroup invariants needing global position knowledge are verified off-chain before approval.
-- Also reject: leaked keys, privileged addresses, external stablecoin depegs the attacker did not cause through a bug here, 51% / basic economic / governance attacks, Sybil, centralization risk, lack of liquidity, incorrect data supplied by third-party oracles, best-practice notes, feature requests, and test or configuration files. Oracle manipulation caused by a bug in THIS code stays in scope.
-- The impact must be one of: Critical - direct theft of user funds at rest or in motion other than unclaimed yield, permanent freezing of funds, or protocol insolvency; High - theft of unclaimed yield or royalties, permanent freezing of unclaimed yield or royalties, or temporary freezing of funds.
-- Reject Pyth/Wormhole internals, third-party token behaviour, external stablecoin depegs, `local-testing/**`, tests, mocks, deployment plans, docs, read-only aggregators, and dependency-only findings.
-- Focus on real impact: protocol insolvency, direct theft of principal or unclaimed yield, permanent freezing of funds, or value minted from nothing.
+- Attacker is unprivileged only: any internet user who can send HTTP requests to an app built on this gem. They may create their own development shop, install the app on it, register their own webhook endpoint, receive their own validly signed callbacks and webhooks, run their own server, and control query params, headers, cookies, bodies, redirect targets and ordering. They never hold `api_secret_key`, `old_api_secret_key`, an access token or any leaked credential, and are not the app developer, a Shopify employee, or the victim merchant or their staff.
+- Reject TLS interception, local or physical access, compromised dependencies, social engineering, and any path requiring app secrets.
+- Assume the host app uses this gem as documented. The bug must be in this gem's code.
+- OUT OF SCOPE, reject on sight: `lib/shopify_api/rest/resources/**` (machine-generated), `test/**`, `sorbet/**`, `docs/**`, `*.md`, `*.yml`, `*.gemspec`, `Gemfile*`; denial of service, rate limiting, retry behaviour, resource exhaustion and memory hygiene; third-party gem defects with no exploit path through this gem's own code; best-practice notes; feature requests; theoretical findings with no demonstration.
+- The impact must be one of: Critical - authentication bypass (forged webhook, callback or session token accepted), theft or exfiltration of a merchant access token, refresh token, authorization code or the app's `client_secret`, cross-tenant access, or remote code execution; High - SSRF driving an authenticated request to an unintended host, session fixation or forced OAuth completion, scope or expiry check bypass, or credential leakage into logs or error output.
+- Focus on real impact: a credential leaving for a host it should not, an unauthenticated value being trusted as authenticated, or one tenant's request touching another tenant's data.
 
 ## Validate
-- Write the identity the question claims is broken as an explicit equation over named state variables BEFORE tracing any code.
-- Trace the exact reachable path from the attacker's call (function, arguments, trait principal, price-feeds, receiver, on-behalf-of, ordering) and record every read and write to `assets`, `principal-scaled`, `total-borrowed`, `index`, `lindex`, the zft supply, the `collateral` and `debt` maps, and the real token balances.
-- Compute both sides of the identity before and after. If they still agree, output no vulnerability.
-- Check whether `min-out` / `min-shares` / `min-underlying` slippage bounds, caps, pause states, health checks, `check-impl-auth` / `check-caller-auth`, or Clarity's own overflow aborts already prevent the divergence.
-- Quantify the divergence per call and say whether it is repeatable, and who absorbs it.
-- Require exact file/function support and a reproducible Clarinet / vitest simnet PoC that asserts the numbers.
+- Write the binding the question claims is broken as an explicit equality between two named values BEFORE tracing any code.
+- Trace the exact reachable path from the attacker's HTTP request (params, headers, cookies, body, cookie jar, ordering) and record every read and write of `session.shop`, `session.id`, `session.access_token`, `@base_uri`, `@headers`, the signable string, the computed and received HMAC, and the JWT claims `iss`, `dest`, `aud`, `sub`, `exp`.
+- Evaluate both sides of the equality before and after. If they still match, output no vulnerability.
+- Check whether `HmacValidator.validate`, `ShopValidator.sanitize!`, the `state` comparison, `JwtPayload`'s `aud` check, `HttpRequest#verify`, `Context.setup?` / `private?` / `embedded?`, or Sorbet runtime typing already prevent the divergence.
+- State what the attacker gains per request and whether it is repeatable against arbitrary victims.
+- Require exact file/method support and a reproducible minitest + WebMock/Mocha proof under `test/` with no live shop.
 
 ## Output
 If valid, output exactly:
@@ -297,19 +303,19 @@ If valid, output exactly:
 [2-3 sentences]
 
 ### Finding Description
-[The broken identity as an equation, the code path, root cause, attacker call arguments, exploit flow, and why existing guards fail]
+[The broken binding as an equality, the code path, root cause, the attacker's exact request, exploit flow, and why existing guards fail]
 
 ### Impact Explanation
-[Divergence per call, repeatability, total extractable or frozen value, party bearing the loss, matching Immunefi severity category]
+[What is exposed or bypassed, which party, repeatability, blast radius across tenants, matching severity category]
 
 ### Likelihood Explanation
-[Preconditions, capital cost to the attacker, feasibility, repeatability]
+[Preconditions, app configuration required, attacker cost, feasibility, repeatability]
 
 ### Recommendation
 [Specific fix]
 
 ### Proof of Concept
-[Clarinet simnet test plan with the exact numeric assertions on both sides of the identity]
+[minitest + WebMock test plan with the exact assertions on both sides of the binding]
 
 If invalid, output exactly:
 #NoVulnerability found for this question.
@@ -321,7 +327,7 @@ No extra text.
 
 def validation_format(report: str) -> str:
     """
-    Generate a strict bounty-style validation prompt for Zest v2 conservation claims.
+    Generate a strict bounty-style validation prompt for shopify-api-ruby claims.
     """
     prompt = f"""# VALIDATION PROMPT
 
@@ -333,36 +339,33 @@ def validation_format(report: str) -> str:
 - Check SECURITY.md and Researcher.Md for scope, exclusions, and valid impact classes.
 - Do not create a new vulnerability if the submitted claim is weak or invalid.
 - Do not upgrade severity unless the provided evidence proves the higher impact.
-- A conservation claim is only valid if the report states the broken identity as an equation and shows both sides numerically. Reject prose-only claims.
-- Reject anything requiring a DAO signer, executor, market impl, authorized contract, miner, oracle publisher, node operator, or leaked keys.
-- OUT OF SCOPE, reject on sight: any flashloan logic (`flashloan`, its fee, its permission whitelist, `in-flashloan`) - though a flashloan used purely as capital for a different attack is fine; liquidation of disabled collateral and other deliberate safety design decisions; anything requiring DAO compromise or an accidental or incorrect DAO registry update, since full DAO control of the asset and egroup registries is intended design and egroup invariants needing global position knowledge are verified off-chain before approval.
-- Also reject: leaked keys, privileged addresses, external stablecoin depegs the attacker did not cause through a bug here, 51% / basic economic / governance attacks, Sybil, centralization risk, lack of liquidity, incorrect data supplied by third-party oracles, best-practice notes, feature requests, and test or configuration files. Oracle manipulation caused by a bug in THIS code stays in scope.
-- The impact must be one of: Critical - direct theft of user funds at rest or in motion other than unclaimed yield, permanent freezing of funds, or protocol insolvency; High - theft of unclaimed yield or royalties, permanent freezing of unclaimed yield or royalties, or temporary freezing of funds.
-- Reject governance-parameter, centralization, Sybil, 51%, lack-of-liquidity, external-stablecoin-depeg and best-practice claims. Oracle manipulation and flashloan attacks are NOT excluded when the attacker causes them through a bug in this code.
-- Reject Pyth/Wormhole internals, third-party contracts, `local-testing/**`, tests, mocks, deployment plans, `.toml`, docs, read-only aggregator and dependency-only findings.
-- Reject if the bug was already fixed, acknowledged, or covered by the published Clarity Alliance, Greybeard or Asymmetric audits.
-- Reject a divergence of a single indivisible unit that is not repeatable and cannot be amplified.
-- A valid report must be triggerable by an ordinary Stacks principal on the currently deployed mainnet contracts.
-- The final impact must map to an in-scope Immunefi category: direct theft or permanent freezing of funds, theft or freezing of unclaimed yield, protocol insolvency, or temporary freezing of funds.
+- A binding claim is only valid if the report states the broken equality between two named values and shows both sides concretely. Reject prose-only claims.
+- Reject anything requiring `api_secret_key`, `old_api_secret_key`, an access token, leaked credentials, app developer or Shopify employee access, the victim merchant or their staff, TLS interception, local or physical access, a compromised dependency, or social engineering.
+- OUT OF SCOPE, reject on sight: `lib/shopify_api/rest/resources/**` (machine-generated), `test/**`, `sorbet/**`, `docs/**`, `*.md`, `*.yml`, `*.gemspec`, `Gemfile*`; denial of service, rate limiting, retry behaviour, resource exhaustion and memory hygiene; third-party gem defects with no exploit path through this gem's own code; best-practice notes; feature requests; missing security headers; self-XSS; theoretical findings with no demonstration.
+- The impact must be one of: Critical - authentication bypass, theft or exfiltration of a merchant access token, refresh token, authorization code or the app's `client_secret`, cross-tenant access, or remote code execution; High - SSRF with the app's credentials, session fixation or forced OAuth completion, scope or expiry check bypass, or credential leakage into logs or error output.
+- Reject claims that depend on the host application ignoring this gem's documented API.
+- Reject if the bug was already fixed, publicly disclosed, or is covered by an existing advisory or CHANGELOG entry for a supported version.
+- Reject a divergence with no crossing of a tenant, credential or authentication boundary.
+- A valid report must be triggerable by an unprivileged internet user against an app running the current released gem.
 - A PoC is mandatory. Prefer #NoVulnerability over speculative reports.
 
 ## Required Validation Checks
 All must pass:
-1. Exact in-scope file, function, and line/code references.
-2. The conservation identity written explicitly, with both sides evaluated before and after.
-3. Clear root cause: which write, which rounding, or which missing reconciliation causes the divergence.
-4. Reachable exploit path: preconditions -> attacker call -> trigger -> measured divergence.
-5. Slippage bounds, caps, pause states, health checks, auth guards and Clarity overflow aborts reviewed and shown insufficient.
-6. Divergence quantified per call, shown repeatable or amplifiable, and the losing party named.
-7. Reproducible proof: Clarinet / vitest simnet test asserting the numbers.
+1. Exact in-scope file, class/method, and line references.
+2. The binding written explicitly as an equality, with both sides shown before and after.
+3. Clear root cause: which unsigned field, which unvalidated host, which unauthenticated session key, or which missing check causes the divergence.
+4. Reachable exploit path: preconditions -> attacker HTTP request -> gem call sequence -> observed divergence.
+5. `HmacValidator`, `ShopValidator`, the `state` comparison, the JWT `aud` check, `HttpRequest#verify` and Context guards reviewed and shown insufficient.
+6. Impact stated concretely: which credential or which tenant's data, and whether it is repeatable against arbitrary victims.
+7. Reproducible proof: minitest + WebMock/Mocha test with the asserted values.
 
 ## Silent Triage Questions
 Before output, internally answer:
-- What exactly is the equation, and does it actually fail?
-- Can an ordinary funded principal trigger it without any privileged role?
-- Is the divergence caused by this code, not by an oracle, a third-party token, or a governance choice?
-- How much value moves per call, and can it be repeated?
-- Would an Immunefi triager accept the arithmetic?
+- What exactly is the equality, and does it actually fail?
+- Can an ordinary internet user trigger it with no secret and no privileged role?
+- Is the flaw in this gem's code, not in a dependency or in a careless caller?
+- What credential or whose data is exposed, and can it be repeated against other merchants?
+- Would a Shopify HackerOne triager accept the exploit path?
 - What exact test would prove it?
 
 ## Output
@@ -374,22 +377,22 @@ Audit Report
 [Clear vulnerability statement] - ([File: file_path])
 
 ## Summary
-[2-3 sentence summary of the broken identity and impact]
+[2-3 sentence summary of the broken binding and impact]
 
 ## Finding Description
-[Exact code path, the equation, root cause, exploit flow, and why existing guards fail]
+[Exact code path, the equality, root cause, exploit flow, and why existing guards fail]
 
 ## Impact Explanation
-[Quantified divergence, repeatability, party bearing the loss, Immunefi category]
+[What is exposed or bypassed, affected party, repeatability, severity category]
 
 ## Likelihood Explanation
-[Attacker capability, preconditions, capital cost, feasibility, repeatability]
+[Attacker capability, preconditions, app configuration, cost, feasibility]
 
 ## Recommendation
 [Specific fix guidance]
 
 ## Proof of Concept
-[Minimal reproducible steps or Clarinet simnet test plan with numeric assertions]
+[Minimal reproducible steps or minitest + WebMock test plan with concrete assertions]
 
 If invalid, output exactly:
 #NoVulnerability found for this question.
@@ -401,7 +404,7 @@ Output only one of the two outcomes above. No extra text.
 
 def scan_format(report: str) -> str:
     """
-    Generate a short cross-project conservation analog scan prompt for Zest v2.
+    Generate a short cross-project analog scan prompt for shopify-api-ruby.
     """
     prompt = f"""# ANALOG SCAN PROMPT
 
@@ -409,19 +412,18 @@ def scan_format(report: str) -> str:
 {report}
 
 ## Rules
-- Use in-scope production repo context only (`mainnet/contracts/**`). Do not ask for code or claim missing files.
+- Use in-scope library context only (`lib/shopify_api/**`, excluding `lib/shopify_api/rest/resources/**`). Do not ask for code or claim missing files.
 - Use the external report only as a bug-class hint, not as proof.
-- Keep only unprivileged-principal analogs that break a value identity: share minting and burning versus backing, the per-user debt ledger versus the vault aggregate, custody versus the collateral map, interest created versus interest distributed, fees charged versus fees forwarded, rounding direction across paired conversions, or decimal normalization losing value.
-- OUT OF SCOPE, reject on sight: any flashloan logic (`flashloan`, its fee, its permission whitelist, `in-flashloan`) - though a flashloan used purely as capital for a different attack is fine; liquidation of disabled collateral and other deliberate safety design decisions; anything requiring DAO compromise or an accidental or incorrect DAO registry update, since full DAO control of the asset and egroup registries is intended design and egroup invariants needing global position knowledge are verified off-chain before approval.
-- Also reject: leaked keys, privileged addresses, external stablecoin depegs the attacker did not cause through a bug here, 51% / basic economic / governance attacks, Sybil, centralization risk, lack of liquidity, incorrect data supplied by third-party oracles, best-practice notes, feature requests, and test or configuration files. Oracle manipulation caused by a bug in THIS code stays in scope.
-- The impact must be one of: Critical - direct theft of user funds at rest or in motion other than unclaimed yield, permanent freezing of funds, or protocol insolvency; High - theft of unclaimed yield or royalties, permanent freezing of unclaimed yield or royalties, or temporary freezing of funds.
-- Reject malicious-miner, chain-reorg, MEV-only, privileged-address, oracle-publisher, third-party token, `local-testing/**`, mock, deployment-plan, dependency-only and no-impact analogs.
+- Keep only unprivileged-internet-user analogs that break an identity binding: a field acted on but not covered by the HMAC, a shop authenticated versus the shop stored as a session key, a host validated versus the host that receives the access token or `client_secret`, bytes verified versus bytes parsed, a JWT claim trusted without being bound, a session id derived from unauthenticated bytes, or a scope or expiry check that answers permissively.
+- OUT OF SCOPE, reject on sight: `lib/shopify_api/rest/resources/**` (machine-generated), `test/**`, `sorbet/**`, `docs/**`, `*.md`, `*.yml`, `*.gemspec`, `Gemfile*`; denial of service, rate limiting, retry behaviour, resource exhaustion and memory hygiene; third-party gem defects with no exploit path through this gem's own code; anything requiring `api_secret_key`, an access token, leaked credentials, a privileged account, TLS interception, local access or social engineering; best-practice notes; feature requests; theoretical findings.
+- The impact must be one of: Critical - authentication bypass, theft or exfiltration of a merchant access token, refresh token, authorization code or the app's `client_secret`, cross-tenant access, or remote code execution; High - SSRF with the app's credentials, session fixation or forced OAuth completion, scope or expiry check bypass, or credential leakage into logs or error output.
+- Reject analogs that depend on the host application ignoring this gem's documented API, and analogs with no credential, tenant or authentication boundary crossed.
 
 ## Validate
-- Map the bug class to the strongest reachable Zest path and state the identity it would break as an equation.
-- Evaluate both sides before and after the attacker's call sequence.
-- Prove root cause with exact file/function support.
-- Accept only concrete protocol insolvency, theft of principal or unclaimed yield, permanent freezing of funds, or value minted from nothing.
+- Map the bug class to the strongest reachable path in this gem and state the binding it would break as an equality.
+- Evaluate both sides before and after the attacker's request sequence.
+- Prove root cause with exact file/method support.
+- Accept only concrete authentication bypass, credential exfiltration, cross-tenant access, RCE, or SSRF carrying the app's credentials.
 
 ## Output (Strict)
 If valid analog exists, output:

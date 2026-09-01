@@ -1,0 +1,13 @@
+# Q785: online_token? — struct coercion via associated_user presence
+
+## Question
+Starting from `online_token?`, which decides online vs offline purely by `!associated_user.nil?`, can an unprivileged attacker supply presence or absence of `associated_user`, which flips the session between online and offline and therefore flips the session id so that `from_hash` coerces types, so unexpected shapes are either raised on or silently accepted depending on nilability? Determine whether SHOP BINDING: shop authenticated by the signature/JWT == shop interpolated into the session id == shop used as the request host still holds through `Oauth::AccessTokenResponse#online_token?`, and whether the result reaches Critical - cross-user access inside one shop: one staff user's online session is served to another.
+
+## Target
+- File/function: `lib/shopify_api/auth/oauth/access_token_response.rb` -> `Oauth::AccessTokenResponse#online_token?`
+- Entrypoint: `online_token?`, which decides online vs offline purely by `!associated_user.nil?`
+- Attacker controls: presence or absence of `associated_user`, which flips the session between online and offline and therefore flips the session id
+- Exploit idea: `from_hash` coerces types, so unexpected shapes are either raised on or silently accepted depending on nilability
+- Invariant to test: SHOP BINDING: shop authenticated by the signature/JWT == shop interpolated into the session id == shop used as the request host
+- Expected Immunefi impact: Critical - cross-user access inside one shop: one staff user's online session is served to another (this repo is covered by Shopify's HackerOne program per SECURITY.md; severity mapped to the equivalent Critical/High class)
+- Fast validation: flip `associated_user` presence and assert the resulting session id cannot collide with an existing offline key

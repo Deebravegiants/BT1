@@ -1,0 +1,39 @@
+# [M] ASA-2024-003: Missing `BlockedAddressed` Validation in Vesting Module
+
+## Summary
+Severity: Medium
+Chain: Cosmos
+Component: cosmos/cosmos-sdk
+CWE: Improper Input Validation
+Published: 2024-02-20
+Source: https://github.com/cosmos/cosmos-sdk/security/advisories/GHSA-4j93-fm92-rp4m
+Type: github-advisory
+
+## Details
+## ASA-2024-003: Missing `BlockedAddressed` Validation in Vesting Module
+
+**Component**: Cosmos SDK
+**Criticality**: Low
+**Affected Versions**: Cosmos SDK versions <= 0.50.3; <= 0.47.8
+**Affected Users**: Chain developers, Validator and Node operators
+**Impact**: Denial of Service
+
+## Description
+
+A vulnerability was identified in the `x/auth/vesting` module, which can allow a user to create a periodic vesting account on a blocked address, for example a non-initialized module account. Additional validation was added to prevent creation of a periodic vesting account in this scenario.
+
+If this case is triggered, there is the potential for a chain halt if the uninitialized account in question is called by `GetModuleAccount` in `Begin`/`EndBlock` of a module. This combination of an uninitialized blocked module account is not common.  
+
+## Next Steps for Impacted Parties
+
+If your chain has uninitialized blocked module accounts, it is recommended to proactively initialize them, as they are often initialized during a chain migration or during init genesis.
+
+If you are a chain developer on an affected version of the Cosmos SDK, it is advised to update to the latest available version of the Cosmos SDK for your project.  Once a patched version is available, it is recommended that network operators upgrade.
+
+A Github Security Advisory for this issue is available in the Cosmos-SDK [repository](https://github.com/cosmos/cosmos-sdk/security/advisories). For more information about Cosmos SDK, see https://docs.cosmos.network/.
+
+This issue was found by [Dongsam](https://github.com/dongsam) who reported it to the Cosmos Bug Bounty Program on HackerOne on January 30, 2024. If you believe you have found a bug in the Interchain Stack or would like to contribute to the program by reporting a bug, please see https://hackerone.com/cosmos.
+
+## Addendum
+
+A variant trigger of this issue via the `x/authz` and `x/feegrant` modules was discovered by [Richie](https://github.com/sushiwushi) who reported it to the Cosmos Bug Bounty Program on HackerOne on April 6th, 2024, and was subsequently fixed by the Cosmos SDK team on April 21st, 2024.  The guidance for mitigating this additional variant is the same as the parent advisory, so it is suggested that all chains proactively initialize module accounts if they have not already done so.

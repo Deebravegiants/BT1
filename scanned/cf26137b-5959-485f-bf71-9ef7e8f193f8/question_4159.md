@@ -1,0 +1,13 @@
+# Q4159: shopify_user_id — shop never domain-validated via aud edge
+
+## Question
+Starting from `shopify_user_id`, gated by `user_id_sub?` and `admin_session_token?`, can an unprivileged attacker supply an `aud` claim that equals `Context.api_key` by type coercion rather than value (array form, numeric key) so that the derived `shop` string is used as a request host and a session key without `ShopValidator`? Determine whether SINGLE IDENTITY: exactly one shop identity exists per request, and every component derives it from the same authenticated source still holds through `JwtPayload#shopify_user_id`, and whether the result reaches Critical - authentication bypass: a forged or unsigned request is accepted as authentic by the app.
+
+## Target
+- File/function: `lib/shopify_api/auth/jwt_payload.rb` -> `JwtPayload#shopify_user_id`
+- Entrypoint: `shopify_user_id`, gated by `user_id_sub?` and `admin_session_token?`
+- Attacker controls: an `aud` claim that equals `Context.api_key` by type coercion rather than value (array form, numeric key)
+- Exploit idea: the derived `shop` string is used as a request host and a session key without `ShopValidator`
+- Invariant to test: SINGLE IDENTITY: exactly one shop identity exists per request, and every component derives it from the same authenticated source
+- Expected Immunefi impact: Critical - authentication bypass: a forged or unsigned request is accepted as authentic by the app (this repo is covered by Shopify's HackerOne program per SECURITY.md; severity mapped to the equivalent Critical/High class)
+- Fast validation: assert `JwtPayload.new` raises for a `dest` outside `TRUSTED_SHOPIFY_DOMAINS`; if it does not, assert the resulting `HttpClient` base URI under WebMock

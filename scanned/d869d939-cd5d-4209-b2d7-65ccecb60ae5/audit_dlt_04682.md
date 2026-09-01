@@ -1,0 +1,48 @@
+# [H] Usage of function signature for proposal will not work for all cases. Function with different name can have same signature
+
+## Summary
+Severity: High
+Chain: Smart contract
+Component: 2022-11-frankendao
+Published: 2022-11-16
+Source: https://github.com/sherlock-audit/2022-11-frankendao-judging/issues/82
+Type: sherlock-finding
+
+## Details
+ak1
+
+high
+
+# Usage of function signature for proposal will not work for all cases. Function with different name can have same signature
+
+## Summary
+During proposal creation, [signature ](https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/Governance.sol#L367)argument is used. 
+
+From the [comment ](https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/Governance.sol#L360)it can be understood as this is function signature.
+
+## Vulnerability Detail
+
+https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/Governance.sol#L357-L370
+
+For proposal creation, `_signatures` is used. The natspec comment say, it is function signature.
+
+In solidity, function signature mean, first four bytes when hashing the function name with argument type.
+
+It is possible, two different function name with argument can  have same signature.
+
+## Impact
+
+Proposals can not be created even when function names are different.
+Proposals can clash as per code.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-11-frankendao/blob/main/src/Governance.sol#L357-L370
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Kindly rethink of using the function signature for proposal.

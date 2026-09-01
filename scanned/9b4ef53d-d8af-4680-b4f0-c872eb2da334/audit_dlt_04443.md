@@ -1,0 +1,39 @@
+# [M] Missing checks on immutable address
+
+## Summary
+Severity: Medium
+Chain: Smart contract
+Component: 2022-11-opyn
+Published: 2022-12-03
+Source: https://github.com/sherlock-audit/2022-11-opyn-judging/issues/231
+Type: sherlock-finding
+
+## Details
+Deivitto
+
+medium
+
+# Missing checks on immutable address
+
+## Summary
+Parameter addresses in the constructor are the base of the contract workflow, they miss check for 0 address
+
+## Vulnerability Detail
+If wrongly assigned a value of address(0) to for example `_swapRouter`, contract won't work as expected
+
+## Impact
+`withdrawAuction` and `depositAuction` not working, gas wasted and need of redeploy. Reputational damage as maybe someone can deposit assets in this not working contract
+
+## Code Snippet
+https://github.com/sherlock-audit/2022-11-opyn/blob/main/crab-netting/src/CrabNetting.sol#L195-L213
+
+https://github.com/sherlock-audit/2022-11-opyn/blob/main/crab-netting/src/CrabNetting.sol#L537
+
+https://github.com/sherlock-audit/2022-11-opyn/blob/main/crab-netting/src/CrabNetting.sol#L685
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add 0 check to constructor addresses

@@ -1,0 +1,13 @@
+# Q1472: setup? — host header decoupled from connection via api_host vs session.shop
+
+## Question
+Does `Context.setup?` collapse two distinct identities into one when an unprivileged attacker submits the `api_host` setting, which splits the connection host from the `Host` header taken from `session.shop` at `setup?`, which only checks that four strings are non-empty? Show that with `api_host` set, `Host` is `session.shop` while the socket goes elsewhere, that SINGLE IDENTITY: exactly one shop identity exists per request, and every component derives it from the same authenticated source is violated, and that the consequence is Critical - cross-tenant access: one shop's request reads or mutates another merchant's data.
+
+## Target
+- File/function: `lib/shopify_api/context.rb` -> `Context.setup?`
+- Entrypoint: `setup?`, which only checks that four strings are non-empty
+- Attacker controls: the `api_host` setting, which splits the connection host from the `Host` header taken from `session.shop`
+- Exploit idea: with `api_host` set, `Host` is `session.shop` while the socket goes elsewhere
+- Invariant to test: SINGLE IDENTITY: exactly one shop identity exists per request, and every component derives it from the same authenticated source
+- Expected Immunefi impact: Critical - cross-tenant access: one shop's request reads or mutates another merchant's data (this repo is covered by Shopify's HackerOne program per SECURITY.md; severity mapped to the equivalent Critical/High class)
+- Fast validation: assert a crafted `api_version` cannot make `load_rest_resources` touch a path outside `lib/shopify_api/rest/resources`

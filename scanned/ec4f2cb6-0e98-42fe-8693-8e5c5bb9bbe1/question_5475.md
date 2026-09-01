@@ -1,0 +1,13 @@
+# Q5475: parsed_body — header collision via duplicate header prefixes
+
+## Question
+Starting from `parsed_body`, a `JSON.parse(@raw_body)` performed after verification, can an unprivileged attacker supply both `shopify-topic` and `x-shopify-topic` set to different values, exploiting the `||` preference order so that two spellings of one logical header resolve differently in `initialize`'s presence check than in `shopify_header`'s lookup? Determine whether SINGLE IDENTITY: exactly one shop identity exists per request, and every component derives it from the same authenticated source still holds through `Webhooks::Request#parsed_body`, and whether the result reaches Critical - theft of a merchant's Admin API access token (`X-Shopify-Access-Token`).
+
+## Target
+- File/function: `lib/shopify_api/webhooks/request.rb` -> `Webhooks::Request#parsed_body`
+- Entrypoint: `parsed_body`, a `JSON.parse(@raw_body)` performed after verification
+- Attacker controls: both `shopify-topic` and `x-shopify-topic` set to different values, exploiting the `||` preference order
+- Exploit idea: two spellings of one logical header resolve differently in `initialize`'s presence check than in `shopify_header`'s lookup
+- Invariant to test: SINGLE IDENTITY: exactly one shop identity exists per request, and every component derives it from the same authenticated source
+- Expected Immunefi impact: Critical - theft of a merchant's Admin API access token (`X-Shopify-Access-Token`) (this repo is covered by Shopify's HackerOne program per SECURITY.md; severity mapped to the equivalent Critical/High class)
+- Fast validation: register two handlers, replay one signed body under each topic header, and assert only the signed topic is dispatched
