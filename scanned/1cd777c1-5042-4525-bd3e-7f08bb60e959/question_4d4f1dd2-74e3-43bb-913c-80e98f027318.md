@@ -1,1 +1,0 @@
-[File: lib/shopify_api/auth/oauth/session_cookie.rb -> Scope: Critical] [Method: ShopifyAPI::Auth::JwtPayload#shop] Can a `dest` claim of `'https://Attacker.EXAMPLE'` (mixed case, unlike `ShopValidator.sanitize_shop_domain` which lowercases via `shop_domain.to_s.downcase.strip`) be preserved verbatim as `shop == 'Attacker.EXAMPLE'` by `JwtPayload`, and does `HttpClient`'s `
