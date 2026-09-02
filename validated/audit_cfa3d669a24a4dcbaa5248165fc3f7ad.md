@@ -1,1 +1,0 @@
-Let me check the webhook `Request` class to determine what bytes the HMAC actually covers versus what gets parsed as `shop`/`topic`, since this is the classic "bytes verified vs bytes parsed" analog.
