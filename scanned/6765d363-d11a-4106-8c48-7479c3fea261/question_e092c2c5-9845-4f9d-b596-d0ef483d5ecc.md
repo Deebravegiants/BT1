@@ -1,0 +1,1 @@
+[File: contracts/TransfererBase.sol -> Scope: Critical] Can a caller-chosen `feeStructure.feeRecipient` in `HinkalWrapper._settleFee` be a malicious contract whose `receive()` re-enters `HinkalWrapper.prooflessDeposit` (a SECOND, nested call) BEFORE the outer call's `_pullAndApproveDepositTokens` has executed, given `TransfererBase.transferETH` uses a raw `.call{value: _value}(

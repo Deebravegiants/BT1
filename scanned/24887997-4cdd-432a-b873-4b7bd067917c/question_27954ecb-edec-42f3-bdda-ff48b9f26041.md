@@ -1,0 +1,1 @@
+for a leaf that was never really placed there consistently. Proof idea: Foundry test batch-inserting leaves count crossing a power-of-two boundary (e.g., 3 leaves when tree already has 1), recompute the root path per-leaf externally in JS/circom witness and diff against `roots[newIndex-1]`.
