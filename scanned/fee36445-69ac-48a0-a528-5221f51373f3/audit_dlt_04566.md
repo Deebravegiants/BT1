@@ -1,0 +1,52 @@
+# [M] If the renounceOwnership authorization is used, the project becomes unavailable
+
+## Summary
+Severity: Medium
+Chain: Smart contract
+Component: 2022-11-buffer
+Published: 2022-11-22
+Source: https://github.com/sherlock-audit/2022-11-buffer-judging/issues/118
+Type: sherlock-finding
+
+## Details
+0xSmartContract
+
+medium
+
+# If the renounceOwnership authorization is used, the project becomes unavailable
+
+## Summary
+`onlyOwner` has another secret import (from Ownable.sol) privilege: `renounceOwnership()`
+They can use this authority whenever he wants, there is no restriction.
+If he uses this authority, the very important functions detailed below will not be available, updated
+
+
+## Vulnerability Detail
+We see the use of Openzeppelin in `Ownable.sol` in many contracts and owners can `renounceOwnership()` like this project, which is sometimes a positive as it reduces the risk of rugpull but the situation is a bit different here, Owner is constantly needed
+(For example settraderNFTContract  / setMinFee) , so security risk is high
+
+```solidity
+contracts/core/OptionsConfig.sol:
+  32:     function settraderNFTContract(address value) external onlyOwner {
+  37:     function setMinFee(uint256 value) external onlyOwner {
+  50:     function setOptionFeePerTxnLimitPercent(uint16 value) external onlyOwner {
+  55:     function setOverallPoolUtilizationLimit(uint16 value) external onlyOwner {
+  61:     function setAssetUtilizationLimit(uint16 value) external onlyOwner {
+  67:     function setMaxPeriod(uint32 value) external onlyOwner {
+  76:     function setMinPeriod(uint32 value) external onlyOwner {
+  85:     function setMarketTime(Window[] memory windows) external onlyOwner {
+```
+
+## Impact
+
+1 - OnlyOwner does renounceOwnership() based on her authority in the Ownable.sol contract
+2 - The project required updating `settraderNFTContract`
+3 - Unfortunately this cannot be done
+
+```solidity
+    function renounceOwnership() public virtual onlyOwner {
+        _transferOwnership(address(0));
+    }
+```
+
+_Trimmed to 38 lines — full report: https://github.com/sherlock-audit/2022-11-buffer-judging/issues/118_

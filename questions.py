@@ -6,9 +6,9 @@ from decouple import config
 # todo: if scope_files is: 500 > 50, 300 > 30 , 100 > 10
 MAX_REPO = 20
 # todo: the GitLab namespace/project path, for example group/project
-SOURCE_REPO = 'Shopify/shopify-api-ruby'
+SOURCE_REPO = 'Hinkal-Protocol/Hinkal-Contracts-Circuits'
 # todo: the name of the repository
-REPO_NAME = 'shopify-api-ruby'
+REPO_NAME = 'Hinkal-Contracts-Circuits'
 
 run_number = os.environ.get('GITHUB_RUN_NUMBER', '0')
 
@@ -48,96 +48,158 @@ else:
 
 scope_files = [
     # =================================================================================
-    # LENS: TRUST BOUNDARY AND IDENTITY BINDING.
-    # This gem is the authentication layer of every Shopify app that embeds it. Every file
-    # below turns attacker-reachable bytes - query params, cookies, HTTP headers, a JWT, a
-    # webhook body, a shop domain string - into one of three decisions: is this request
-    # authentic, which shop/user does it belong to, and which host receives the merchant's
-    # access token or the app's client_secret. A question belongs here only if it can be
-    # closed by a binding that must hold between what was signed and what is acted upon.
+    # LENS: VALUE CONSERVATION AND PROOF BINDING.
+    # Hinkal is a shielded-UTXO pool. Every file below sits on the path from attacker-
+    # supplied calldata - CircomData, Dimensions, a Groth16 proof, external-action
+    # metadata, hook addresses, deposit arrays - to one of three decisions: does the
+    # proof constrain exactly the values the chain acts on, does value entering or
+    # leaving Hinkal equal the shielded value created or destroyed, and can a leaf be
+    # spent exactly once. A question belongs here only if it can be closed by an
+    # equality that must hold between what the circuit constrained and what the
+    # contracts moved.
     # =================================================================================
 
-    # -- Signature verification and everything it is supposed to cover ----------------
-    # HmacValidator is the single arbiter of authenticity for BOTH the OAuth callback and
-    # every inbound webhook, and it only ever sees `to_signable_string`. Anything a caller
-    # trusts that is not inside that string is unauthenticated input wearing a valid HMAC.
-    "lib/shopify_api/utils/hmac_validator.rb",
-    "lib/shopify_api/utils/verifiable_query.rb",
-    "lib/shopify_api/auth/oauth/auth_query.rb",
-    "lib/shopify_api/webhooks/request.rb",
+    # -- The entrypoint and the balance equation ---------------------------------------
+    # `transact` runs performHinkalChecks -> verifyProof -> rootHashExists -> hooks ->
+    # internal or external transfer -> balanceDif == amountChanges + utxoAmount ->
+    # insertNullifiers -> insertCommitments. `prooflessDeposit` skips the proof and
+    # mints on-chain UTXOs from msg.value / transferFrom. Every equality lives here.
+    "contracts/Hinkal.sol",
+    "contracts/HinkalBase.sol",
+    "contracts/HinkalWrapper.sol",
+    "contracts/Transferer.sol",
+    "contracts/TransfererBase.sol",
 
-    # -- Who the request claims to be, and where the credential is sent ---------------
-    # JwtPayload turns a session token into a shop string; ShopValidator is the only thing
-    # standing between an attacker-supplied host and an outbound request carrying
-    # client_secret or X-Shopify-Access-Token; SessionUtils mints the storage key the host
-    # app uses to load that credential back.
-    "lib/shopify_api/auth/jwt_payload.rb",
-    "lib/shopify_api/utils/shop_validator.rb",
-    "lib/shopify_api/utils/session_utils.rb",
-    "lib/shopify_api/auth/session.rb",
-    "lib/shopify_api/auth/auth_scopes.rb",
+    # -- What the proof actually covers -------------------------------------------------
+    # CircomDataBuilder builds calldataHash and signedMessageHash and the public-input
+    # vector in a fixed order; HinkalHelper checks lengths against Dimensions, relay,
+    # originalSender and onChainCreation; VerifierFacade picks the verifier from
+    # (tokenNumber, nullifierAmount, outputAmount, externalActionId). Anything acted on
+    # that is not inside these hashes is unproven input riding a valid proof.
+    "contracts/CircomDataBuilder.sol",
+    "contracts/HinkalHelper.sol",
+    "contracts/VerifierFacade.sol",
+    "contracts/Constants.sol",
+    "contracts/RelayStore.sol",
 
-    # -- The credential-issuing flows -------------------------------------------------
-    # begin_auth / validate_auth_callback (state cookie, HMAC, code redemption),
-    # token exchange, client credentials and refresh - the four ways an access token is
-    # obtained and bound to a shop.
-    "lib/shopify_api/auth/oauth.rb",
-    "lib/shopify_api/auth/oauth/session_cookie.rb",
-    "lib/shopify_api/auth/oauth/access_token_response.rb",
-    "lib/shopify_api/auth/token_exchange.rb",
-    "lib/shopify_api/auth/client_credentials.rb",
-    "lib/shopify_api/auth/refresh_token.rb",
+    # -- The commitment tree and its truncated-path semantics ---------------------------
+    # Merkle stores one frontier node per level and a root only at batch ends; the
+    # circuit's MerkleRootCalculator treats a zero sibling as "stop here". The two must
+    # agree on exactly which (leaf, root) pairs exist.
+    "contracts/Merkle.sol",
+    "contracts/MerkleBase.sol",
 
-    # -- Where the token actually goes on the wire ------------------------------------
-    # HttpClient builds `https://#{api_host || session.shop}` and attaches the access token
-    # to it; Rest::Admin and Rest::Base build the path from caller and response data;
-    # GraphqlProxy forwards a browser-supplied body to the Admin API on the app's session.
-    "lib/shopify_api/clients/http_client.rb",
-    "lib/shopify_api/clients/http_request.rb",
-    "lib/shopify_api/clients/rest/admin.rb",
-    "lib/shopify_api/clients/graphql/client.rb",
-    "lib/shopify_api/rest/base.rb",
-    "lib/shopify_api/utils/graphql_proxy.rb",
-    "lib/shopify_api/utils/http_utils.rb",
+    # -- Money that leaves Hinkal into caller-steered contracts -------------------------
+    # External actions receive -delta tokens BEFORE runAction, execute caller-supplied
+    # metadata (arbitrary calls in Emporium, arbitrary router calldata in LiFi, standing
+    # approvals in DepositOnChainUtxos) and hand back a UTXO set that Hinkal credits.
+    "contracts/external-actions/emporium/upgradeable/EmporiumUpgradeable.sol",
+    "contracts/external-actions/emporium/upgradeable/EmporiumStorage.sol",
+    "contracts/external-actions/emporium/EmporiumStack.sol",
+    "contracts/external-actions/emporium/HinkalWallet.sol",
+    "contracts/external-actions/swaps/ExternalActionSwap.sol",
+    "contracts/external-actions/swaps/LifiExternalAction.sol",
+    "contracts/external-actions/DepositOnChainUtxosExternalAction.sol",
+    "contracts/external-actions/ExternalActionBaseV2.sol",
+    "contracts/external-actions/ExternalActionBaseUpgradeable.sol",
+    "contracts/lib/UTXOLib.sol",
 
-    # -- Inbound webhook dispatch and global configuration ----------------------------
-    "lib/shopify_api/webhooks/registry.rb",
-    "lib/shopify_api/webhooks/registrations/http.rb",
-    "lib/shopify_api/context.rb",
-    "lib/shopify_api/logger.rb",
+    # -- Deployment, ownership and shared types ---------------------------------------
+    "contracts/HinkalFactory.sol",
+    "contracts/HinkalFactoryDeployer.sol",
+    "contracts/OwnerHinkal.sol",
+    "contracts/OwnerHinkalUpgradeable.sol",
+    "contracts/types/CircomData.sol",
+    "contracts/types/UTXO.sol",
+    "contracts/types/Dimensions.sol",
+    "contracts/types/StealthAddressStructure.sol",
+    "contracts/types/ProoflessFeeStructure.sol",
+    "contracts/types/TokenWithAmount.sol",
+    "contracts/types/IHinkal.sol",
+    "contracts/types/IHinkalBase.sol",
+    "contracts/types/IHinkalHelper.sol",
+    "contracts/types/IExternalAction.sol",
+    "contracts/types/IExternalActionV2.sol",
+    "contracts/types/ITransactHook.sol",
+    "contracts/types/IHinkalWallet.sol",
+    "contracts/types/IRelayStore.sol",
+    "contracts/types/IMerkle.sol",
+    "contracts/types/IVerifier.sol",
+    "contracts/types/IVerifierFacade.sol",
+    "contracts/types/IWrapper.sol",
+    "contracts/types/IPoseidon2.sol",
+    "contracts/types/IPoseidon4.sol",
+
+    # -- The circuits: what a valid proof actually asserts -----------------------------
+    # MainEVMCircuit: nullifier = Poseidon(commitment, Poseidon(key, commitment)),
+    # commitment = Poseidon4(amount, token, stealth, ts) zeroed when amount == 0,
+    # root check disabled when amount == 0, inTotal + amountChanges === outTotal.
+    # MainEVMCircuitMin proves only knowledge of messageSeed.
+    "circuits/MainEVMCircuit.circom",
+    "circuits/MainEVMCircuitMin.circom",
+    "circuits/MerkleRootCalculator.circom",
+    "circuits/NullifierCalculator.circom",
+    "circuits/OriginalCommitmentCalculator.circom",
+    "circuits/Signature.circom",
+    "circuits/SignatureVerifier.circom",
+    "circuits/StealthAddressCalculator.circom",
+    "circuits/StealthAddressCompressor.circom",
+    "circuits/PointCompressor.circom",
+    "circuits/OverflowPreventer.circom",
+    "circuits/ConditionalOverflowPreventer.circom",
+    "circuits/BabyJubjubSubgroupCheck.circom",
 
     # =================================================================================
     # NOT IN THIS VARIANT:
-    # * lib/shopify_api/rest/resources/** - machine-generated per-version REST resource
-    #   classes. Generated code, no security decision, out of scope.
-    # * lib/shopify_api/errors/** - message-only exception classes.
-    # * test/**, sorbet/**, docs/**, bin/, Rakefile, *.gemspec, Gemfile*, *.md, *.yml.
+    # * contracts/verifiers/** - snarkJS / Circom-Make generated Groth16 verifiers and
+    #   wrappers. Generated code, out of scope.
+    # * contracts/types/IVerifierEVM*.sol - generated per-dimension interfaces.
+    # * circuits/BabyJubjubConstants.circom - generated constant table.
+    # * README.md, *.py, *.json, *.toml and any test, mock or deployment file.
     # =================================================================================
 ]
 
 
 target_scopes = [
-    "Critical. THE STATE COOKIE IS NOT BOUND TO A SHOP. `begin_auth` mints `state = SecureRandom.alphanumeric(15)` and stores it in a `SessionCookie` that carries the nonce and nothing else - not the shop it was issued for, not `is_online`, not the scope. `validate_auth_callback` then only asserts `state == auth_query.state`. Show that a callback validly signed for shop B completes an authorization the browser began for shop A, so the victim's browser is handed a `Session` for a shop the attacker controls, or the attacker's browser drives the app into storing a session it did not begin. Identity that breaks: shop passed to `begin_auth` == `auth_query.shop` at callback.",
+    "Critical. THE MIN CIRCUIT TURNS EMPORIUM INTO A PERMISSIONLESS EXECUTOR. `CircomDataBuilder.formInputForCircom` selects `formInputEmporiumMin` whenever `externalActionId == HINKAL_EMPORIUM_ACTION_ID` and `erc20TokenAddresses.length == 0`; `MainEVMCircuitMin` proves only `message == Poseidon(messageSeed)` - no key, no nullifier, no root. `EmporiumUpgradeable.runAction` then decodes an `EmporiumStack` with `signerAddress == 0` (so `verifyWallet` checks only `usedMessages`) and executes every `op.endpoint.call{value: op.value}(op.callData)` from Emporium itself, while the balance loop iterates an EMPTY token list. Enumerate what Emporium's `msg.sender` identity and balances are worth: ETH and ERC20 parked there by any earlier flow, approvals that persist after the call, and every contract whose `onlyAllowedRecipient`, `onlyOwner` or router trust names Emporium. Identity: set of assets Emporium can move in a transaction == set of assets accounted in `balancesBefore` / `balancesAfter`.",
 
-    "Critical. THE HMAC DOES NOT COVER THE REQUEST. `AuthQuery#to_signable_string` signs exactly five fields - code, host, shop, state, timestamp - via `URI.encode_www_form`. Anything else in the real callback URL is unauthenticated, and `timestamp` is verified as a string but never compared to `Time.now`. Show a callback whose HMAC verifies while a field the host app or this gem acts on differs from what Shopify signed: an extra or duplicated query key, a value whose encoding survives `encode_www_form` differently than it arrived, or a replay of a months-old signed callback. Identity: set of fields acted upon == set of fields inside `to_signable_string`.",
+    "Critical. EXTERNAL ACTIONS ACCOUNT ONLY FOR THE TOKENS THE CALLER LISTS. `LifiExternalAction.callRouter` calls `approveUnlimited(inputToken, router)` and then `router.call(externalActionMetadata)` with fully caller-controlled calldata, and `inputAmount` is never passed to the router for ERC20 input - the calldata decides how much is pulled. `ExternalActionSwap.swap` deducts `totalFee` from `amountToSendToHinkal` but `sendToRelay` silently no-ops when `circomData.relay == address(0)`, stranding the fee inside the action; `EmporiumUpgradeable.handleOut` returns only the positive `balanceChange`, so any pre-existing balance stays. Show that value the protocol itself parks in an action (stranded fees, router refunds, partial fills, `-delta` tokens the caller then omits) is pulled out by the next unprivileged caller and credited as their UTXO. Identity: tokens leaving an action in a transaction == the `-deltaAmountChanges` Hinkal sent to it in that same transaction.",
 
-    "Critical. THE WEBHOOK SIGNATURE COVERS ONLY THE BODY. `Webhooks::Request#to_signable_string` returns `@raw_body`; `topic`, `shop-domain`, `api-version` and `webhook-id` come from headers that no signature covers. `Registry.process` selects the handler by `request.topic` and hands `shop: request.shop` straight into `WebhookMetadata`, which is how the host app decides whose records to mutate. Show that anyone who obtains one validly signed body - their own shop's webhook, delivered to their own registered endpoint - can relabel it to another topic and another shop and have the app act on it as that tenant. Identity: shop and topic the handler acts on == shop and topic authenticated by the HMAC.",
+    "Critical. POSITIVE `amountChanges` IN AN EXTERNAL TRANSACTION IS A DEPOSIT WITH NO PAYER. In `Hinkal._externalTransact` only negative deltas are transferred to the action; a positive `amountChanges[i]` is satisfied by whatever makes `balanceDif` rise - an Emporium op that `transfer`s Emporium's own balance to Hinkal, a LiFi router paying Hinkal directly, an ERC777 hook. The circuit then enforces `inTotal + amountChanges === outTotal` and mints `amountChanges[i]` of shielded value with no on-chain UTXO and no `transferFrom` from the prover. Show a source of tokens reachable by an unprivileged caller (any residual in Emporium or the swap action, any allowance those contracts hold, any refund a router sends) that is turned into shielded balance through a positive delta. Identity: every positive `amountChanges[i]` == value the prover paid from an account the prover controls.",
 
-    "Critical. THE HMAC IS NORMALIZED BEFORE IT IS COMPARED. `Request#hmac` computes `Digest.hexencode(Base64.decode64(header))`, and `Base64.decode64` silently drops characters outside the alphabet and tolerates missing padding, so many distinct header values collapse to the same digest, while `HmacValidator.validate_signature` calls `OpenSSL.secure_compare` on the result. Separately, `to_signable_string` returns the body as the framework handed it over. Show a divergence between the bytes verified and the bytes later returned by `parsed_body` - an encoding change, a truncated or re-read body, a trailing-byte variant - so a handler processes content that was never signed. Identity: bytes passed to `compute_signature` == bytes passed to `JSON.parse`.",
+    "Critical. THE BALANCE EQUATION IS THE ONLY THING BACKING SHIELDED VALUE. `Hinkal.transact` computes `balanceDif = new - old (+ msg.value for address(0))` from `getBalancesForArray` and requires `balanceDif == (onChainCreation[i] ? 0 : amountChanges[i]) + utxoAmount`, where `utxoAmount` sums only `utxoSet` entries whose `erc20Address` matches. Probe every way the two sides agree while the vault is short: a token whose `balanceOf` the caller steers between the two snapshots, address(0) listed alongside its wrapper so one ETH movement satisfies two legs, a rebasing or fee-on-transfer token, `onChainCreation` switching the RHS to zero, and `int256` casts of balances near 2**255. Identity: net value entering Hinkal == sum of `amountChanges` + sum of on-chain UTXO amounts inserted as leaves.",
 
-    "Critical. THE SHOP FROM A SESSION TOKEN IS NEVER VALIDATED AS A SHOPIFY DOMAIN. `JwtPayload#shop` is `@dest.gsub(\"https://\", \"\")` - an unanchored global substitution on a claim the constructor never checks against `TRUSTED_SHOPIFY_DOMAINS`, and it never asserts that `iss` and `dest` name the same shop. `TokenExchange.exchange_token` feeds that string into `Session.new(shop:)`, which `HttpClient` turns into `https://#{session.shop}` for a POST carrying `client_id` and `client_secret`. Show a `dest` or `iss` value reachable under a token this app's secret verifies that redirects the credential POST, or that binds the returned access token to the wrong shop key. Identity: host receiving `client_secret` ∈ TRUSTED_SHOPIFY_DOMAINS, and session key shop == authenticated shop.",
+    "Critical. ETH IS COUNTED FOUR DIFFERENT WAYS. `transact` adds `msg.value` to `balanceDif` only when address(0) is listed and `oldBalances` already contains it; `_internalTransact` requires `msg.value == amountChanges[i]` per ETH leg via `transferERC20TokenFromOrCheckETH`; `prooflessDeposit` subtracts `msg.value` from `balanceBefore` once per unique token; `HinkalWrapper._settleFee` forwards `msg.value - feeAmount`; `DepositOnChainUtxosExternalAction` skips the transfer for address(0) and relies on Hinkal's equation; Emporium ops spend `op.value` from Emporium's balance and `handleOut` sends ETH back through `receive()`. Find a combination - ETH listed with `onChainCreation`, ETH not listed while msg.value is sent, ETH returned by an action in the same tx as msg.value - where one wei of ETH is credited to two accounting terms or credited without arriving. Identity: ETH credited as shielded or on-chain UTXO value == ETH that arrived at Hinkal in that transaction.",
 
-    "Critical. THE OAUTH CALLBACK SHOP IS NEVER SANITIZED. `ClientCredentials`, `RefreshToken` and `migrate_to_expiring_token` all call `Utils::ShopValidator.sanitize!`, but `Oauth.begin_auth` (`auth_base_uri` -> `\"https://#{shop}/admin\"`) and `Oauth.validate_auth_callback` (`Session.new(shop: auth_query.shop)`, then `Session.from(shop: auth_query.shop, ...)`) do not. Show that the shop string travelling through the OAuth flow reaches `HttpClient`'s `@base_uri`, the authorize redirect, or the stored session id without ever passing the validator, and turn that into exfiltration of `client_secret` and the authorization `code`, or a session stored under a shop key the app will later serve to the wrong tenant.",
+    "Critical. TRUST IN `onlyAllowedRecipient` IS TRANSITIVE. `ExternalActionBaseV2` / `ExternalActionBaseUpgradeable` admit every address in `isAllowedRecipient`, and the comment says it serves 'VolatileTokenAction and Hinkal interactions', so Hinkal is not the only caller. If Emporium (or any action) is an allowed recipient of `DepositOnChainUtxosExternalAction`, a stateless Emporium op can call its `runAction` with a fabricated `circomData.originalSender` equal to any victim holding a standing allowance, pulling the victim's tokens to `msg.sender` (Emporium); `handleOut` then credits that gain to the attacker's own `stealthAddressStructure`. The same op can drive `LifiExternalAction.runAction` to swap the action's residual balance to Emporium. Map the full caller graph of `runAction` implementations and show the shortest unprivileged path from an Emporium op to a `transferFrom` or `transfer` on someone else's value. Identity: `msg.sender` of every `runAction` == Hinkal, and `originalSender` == the EOA that submitted the proof.",
 
-    "Critical. THE VALIDATOR ITSELF CAN BE TALKED PAST. `ShopValidator.sanitize_shop_domain` accepts a host when `trusted_domain == uri.domain`, and when `unified_admin?` (first label literally `admin`) holds it returns `\"#{uri.path.split(\"/\").last}.myshopify.com\"` built from an unvalidated path segment. Input is only downcased, stripped, rejected on `@`, and given a scheme. Probe the gap between what `Addressable::URI` calls `host`/`domain` and what an HTTP client resolves: a trailing dot, an embedded port or credentials, percent-encoded or backslash separators, IDN and Unicode-normalizing labels, a path segment that is itself a hostname or empty. Any input that returns from `sanitize!` but is not a Shopify shop becomes the destination of the merchant's access token.",
+    "Critical. STANDING APPROVALS TO THE DEPOSIT ACTION ARE SPENT ON `originalSender`'S BEHALF. `DepositOnChainUtxosExternalAction.runAction` calls `transferERC20TokenFrom(token, circomData.originalSender, msg.sender, tokenTotal)`; the only binding of `originalSender` to the real submitter is `HinkalHelper.performHinkalChecks` (`originalSender == sender && relay == 0`), enforced in a swappable helper and never re-checked in the action; for address(0) the action pulls nothing and relies on Hinkal's msg.value equation, and `deltaAmounts[i] == 0` is required while `utxoAmounts` metadata decides what is minted. Show a path where the address whose allowance is consumed is not the address that produced the proof, where the UTXO count from `countUtxos` and the amounts pulled diverge, or where an ETH UTXO is credited without msg.value backing it. Identity: `from` in every `transferFrom` issued by the action == `msg.sender` of the `Hinkal.transact` that carried the proof, and sum of minted UTXO amounts == tokens pulled.",
 
-    "Critical. THE SESSION ID IS DERIVED FROM UNAUTHENTICATED BYTES. `SessionUtils.current_session_id` returns `cookies[\"shopify_app_session\"]` verbatim as the storage key whenever the app is non-embedded, and for embedded apps too whenever no `shopify_id_token` is presented - the gem never verifies that cookie against `Context.api_secret_key`. On the token path it builds `\"#{shop}_#{payload.sub}\"` or `\"offline_#{shop}\"` by string interpolation of unvalidated values. Show that an attacker who supplies a chosen cookie value, or a shop or `sub` containing the separator, loads a session - and therefore an access token - belonging to a different merchant or a different user of the same shop. Identity: session id derived only from bytes authenticated under the app secret.",
+    "Critical. ZERO MEANS FIVE DIFFERENT THINGS. `insertCommitments` skips leaves equal to 0; `insertNullifiers` skips nullifiers equal to 0; `NullifierCalculator` and `OriginalCommitmentCalculator` output 0 when the commitment or amount is 0; `MerkleRootCalculator` treats a sibling of 0 as 'stop here'; `rootHashExists` returns `_root == 0` on an empty tree and rejects `_root == 0` otherwise; `ForceEqualIfEnabled(enabled = inAmounts)` disables the root check at amount 0; on-chain padding hashes `hash2(node, 0)`. Find a value that one component produces as a legitimate zero and another interprets as 'absent': an on-chain UTXO with amount 0 from an action, a nullifier that is 0 for a value-bearing leaf, a leaf whose sibling is a genuine zero-valued node, a fresh deployment whose first proof cites root 0. Identity: a zero produced by any component == a zero every consumer of that value treats as absent.",
 
-    "Critical. THE TOKEN IS ATTACHED BEFORE THE DESTINATION IS SETTLED. `HttpClient#initialize` sets `@base_uri = \"https://#{api_host || session.shop}\"` and unconditionally adds `X-Shopify-Access-Token`; `request_url` is plain interpolation of `request.path`; `Rest::Admin#request_url` re-roots the URL at `@base_uri` for any path starting with `admin/`; `Rest::Base.get_path` interpolates ids taken from caller input and from API response data into that path. Show a path or id value - traversal segments, a scheme or `//host`, an encoded `?` or `#` - that moves the authenticated request to an endpoint or host the caller never intended, and state what the access token reaches. Identity: the URL actually requested == base_uri + intended resource path, with the token only ever leaving for the session's own shop.",
+    "Critical. THE TREE AND THE CIRCUIT MUST AGREE ON WHICH (LEAF, ROOT) PAIRS EXIST. `Merkle.insertMany` keeps one frontier node per level in `tree[]`, computes `twoPower = ceil(log2(fullCount))` from the FINAL count of the batch and stores `roots[newIndex-1] = tree[twoPower]` - so the first leaf is literally its own root and roots live at growing depths. `sortInPairs` / `insertTwo` skip writing `tree[0]` for paired leaves; `insertOne` treats `currentNodeIndex == 1` as left. `MerkleRootCalculator` keeps hashing through zero siblings but selects the root as the value after the LAST non-zero sibling. Show a path the circuit accepts for a leaf never inserted under that root, a batch boundary where `tree[i]` holds a stale node that a later right-child insertion reads, or a root stored under an index that `rootHashExists` maps to a different tree state. Identity: {(leaf, root) accepted by the circuit} == {(leaf, root) produced by `insert*` and stored in `roots`}.",
 
-    "High. AUTHORIZATION STATE IS TRUSTED WITHOUT BEING TRUE. `Session#expired?` returns false whenever `@expires` is nil, so a session that never learned its expiry is permanently valid; `AuthScopes#covers?` compares the caller's `compressed_scopes` against `expanded_scopes` grown by `implied_scope`, whose regex `\\A(unauthenticated_)?write_(.*)\\z` manufactures a read scope from any string shaped like a write scope; scope strings are split on `,` with no validation of the tokens. `GraphqlProxy.proxy_query` then forwards a caller-supplied GraphQL body on the merchant's online session with `session.online?` as its only gate, and `HttpUtils.normalize_headers` decides the content type by downcasing and rewriting caller-supplied header names. Show a request that passes a scope, expiry or proxy check it should fail, and name the merchant data it reaches.",
+    "Critical. ONE LEAF, ONE NULLIFIER, ONE SPEND. Commitment = `Poseidon4(amount, token, stealthAddress, timeStamp)` and nullifier = `Poseidon2(commitment, Poseidon2(nullifyingPrivateKey, commitment))`, so identical preimages share one nullifier and the second leaf is dead the moment the first is spent. `DepositOnChainUtxosExternalAction` stamps `circomData.timeStamp + utxoIndex`, `EmporiumUpgradeable.handleOut` stamps `circomData.timeStamp`, `prooflessDeposit` stamps `block.timestamp`, and on-chain UTXOs are emitted in full inside `NewCommitment`, so every preimage is public. Show a sequence where an unprivileged caller makes a victim's value-bearing leaf unspendable (permanent freeze), or where the same nullifier value is accepted twice through the `onChainCreation` break in `insertNullifiers`, the zero skip, or two Hinkal instances. Identity: spendable leaves carrying value == distinct nullifiers that will ever be accepted for them.",
 
-    "Critical. THE MISSING BINDING - what nobody built. Nothing in this gem ever asserts that the shop a request authenticates as, the shop key a session is stored under, and the host that receives the access token are the same value; there is no single choke point where an untrusted shop string is sanitized once, and no check that a session loaded from storage matches the authenticated shop of the current request. Identify the FIRST point at which a shop string from an unauthenticated source (an OAuth callback param, a webhook header, a JWT claim, a cookie) becomes a session key or an outbound request host without passing `ShopValidator`, prove it with one minitest + WebMock test that asserts the request host and the stored session id, and show that once the two diverge the gem never notices and the host app has no API with which to detect it.",
+    "Critical. NOTHING SEPARATES DEPLOYMENTS EXCEPT `block.chainid`. Hinkal is live on Ethereum, Arbitrum, Optimism, Base and Polygon; `HinkalFactoryDeployer` uses `SAFE_SINGLETON_FACTORY` with the fixed salt `keccak256(\"HINKAL\")` so factories and therefore Hinkal addresses repeat across chains; `getSignedMessageHash` mixes in `block.chainid` and `hinkalAddress`, but commitments, nullifiers, stealth addresses, `emporiumMessage`, `usedMessages` and EIP-712 stacks (domain `Emporium/1.0.0`) carry only what their own domain adds. Show a proof, nullifier, on-chain UTXO preimage, wallet stack or cancel signature produced for one chain or one Hinkal/Emporium instance that is accepted by another, or a same-chain redeploy through `HinkalFactory.deployHinkal` where leaves re-imported into a new tree can be spent against both instances. Identity: every accepted artifact (proof, nullifier, message, signature) is valid for exactly one (chain, contract) pair.",
+
+    "Critical. THE PROOF COVERS ONLY WHAT `formBasicInput` AND THE TWO HASHES SAY IT COVERS. `getHashedCalldata` hashes publicSignalCount, relay, emporiumMessage, externalActionData, slippageValues, hookData, encryptedOutputs, onChainEncryptedOutput, feeStructure, onChainCreation, originalSender, extraData; `getSignedMessageHash` adds root, tokens, amounts, timeStamp, nullifiers, outCommitments, calldataHash and the H0/H1 points; `buildVerifierId` derives the verifier from `Dimensions` and `externalActionId`; each `VerifierEVM*` wrapper checks only `input.length == inputAmount`. Find a field the contracts act on that is outside both hashes (`rootHashHinkalIndex`, `dimensions`, the a/b/c encoding), a `publicSignalCount` / `Dimensions` pair that maps calldata to a verifier whose circuit signal order differs from the vector built on-chain, or a Min-vs-normal selection that checks the proof against the wrong circuit. Identity: every value the chain acts on == the value the selected circuit constrained at the same public-signal index.",
+
+    "Critical. TWO NUMBER SYSTEMS, ONE STORAGE. Public inputs are reduced mod `CIRCOM_P` only where the contracts remember to (`calldataHash`, `signedMessageHash`, negative `amountChanges`), while `nullifiers`, `roots`, `usedMessages`, `emporiumMessage`, `timeStamp`, `outCommitments` and stealth points are stored and compared as raw `uint256`; the generated verifier's field check is the only barrier to a value `x + P` aliasing `x`. `CircomDataBuilder.MAX_AMOUNT = 2**252` bounds `amountChanges` while `OverflowPreventer` bounds each amount by `(2**252 - 1) / nCount`; `Emporium op.value` is `uint128`, loop counters in `CircomDataBuilder` are `uint16`, and `getBalancesForArray` results are cast to `int256`. Show an input that is accepted by the verifier or a wrapper under one representation and matched on-chain under another - a nullifier stored as `x` but later presented as `x + P`, an amount that satisfies the circuit sum in the field but not as an integer, a truncated counter that silently drops public signals. Identity: the integer the contracts store or compare == the field element the circuit constrained.",
+
+    "Critical. THE ACTION'S RETURN VALUE IS TRUSTED FOR EVERYTHING BUT THE SUM. `Hinkal.transact` sizes `onChainCommitments` as `utxoSet.length`, fills only entries whose `erc20Address` matches a listed token, and passes the whole array to `insertCommitments`, which adds `onChainCommitments.length` to the leaf count without checking `commitment != 0`; the UTXO's `amount`, `erc20Address` and `timeStamp` come from the action, only `stealthAddressStructure` is proof-bound, and `createOnchainCommitment` hashes with a single shared `onChainEncryptedOutput`. `EmporiumUpgradeable` shrinks `utxoSet` with `UTXOLib.skipLast` in assembly. Show an action output (a UTXO for an unlisted token, a zero-amount UTXO, a mis-sized `utxoSet`, an `onChainCreation[i]` leg that still returns a UTXO) that inserts a zero or duplicate leaf, credits value under the wrong token, or desynchronises `leaves`, `insertedIndexes` and the `NewCommitment` events. Identity: every leaf inserted == one value-bearing UTXO whose amount was counted in `balanceDif` for its own token.",
+
+    "Critical. `prooflessDeposit` IS A MINT WITH NO PROOF. `Hinkal.prooflessDeposit` and `HinkalWrapper.prooflessDeposit` create on-chain UTXOs guarded only by `performProoflessDepositChecks` (equal lengths, `<= MAX_LEAVES_PD`, non-empty encrypted output, `amounts[i] > 0`) and the per-unique-token require `balanceAfter - balanceBefore == amount`; the caller chooses every field of `stealthAddressStructures`, `createBlockedUtxos` is only an event, and `HinkalWrapper._settleFee` pays a caller-chosen `feeRecipient` in a caller-chosen `feeToken` BEFORE `_pullAndApproveDepositTokens`, with no reentrancy guard on the wrapper. Show a deposit whose minted leaves exceed the value that arrived (a token whose `balanceOf` moves during the hook, duplicate tokens whose aggregation differs between `_calcTokenChangesForProoflessDeposit` and `_pullAndApproveDepositTokens`, a `feeRecipient` that re-enters the wrapper while its approvals to Hinkal are live). Identity: sum of on-chain UTXO amounts minted == net value transferred into Hinkal from the caller.",
+
+    "Critical. STATELESS OPS LEAVE THEIR STATE IN EMPORIUM. Emporium is a `Transferer`, so it implements `onERC721Received` / `onERC1155Received` and accepts anything; every CASE 2 op runs with Emporium as `msg.sender`, so an LP position, a vault share, an NFT, a locked stake, a limit order, a permit2 allowance or a protocol-side balance created by a user's stateless op is owned by Emporium, not by the user's stealth address or `HinkalWallet`. Nothing in `runAction` forces a user to route stateful calls through `invokeWallet`, and the balance loop only sees ERC20/ETH balances of listed tokens. Show that a position a victim created through stateless ops (or a refund that arrives at Emporium after the victim's tx) is claimable by the next unprivileged caller through the Min circuit or a normal Emporium transaction. Identity: every asset or claim created by a user's ops is owned by that user's wallet or stealth address, never by Emporium.",
+
+    "Critical. THE WALLET OWNER SIGNS LESS THAN WHAT EXECUTES. `EmporiumUpgradeable.verifyWallet` covers only `(emporiumMessage, ops, maxFee, deadline)`; `feeStructure.feeToken`, `relay`, `erc20TokenAddresses`, `deltaAmountChanges` and the output `stealthAddressStructure` are bound only through the ZK proof's `calldataHash`, and the secrecy of `messageSeed` is the sole reason a harvested stack cannot be re-executed under an attacker's `CircomData`. `usedMessages` is written BEFORE the signature is checked; `cancelEmporiumMessage` accepts any signer who is `msg.sender`; `HinkalWallet` is designed for EIP-7702 delegation, so `callHinkalWallet` exposes the delegating EOA's entire balance and allowances to whatever ops Emporium forwards. Show a signed stack, a dropped or reverted mempool transaction, a Min-circuit proof for the same message, or an op whose `bytes4(op.callData)` dodges the two-selector filter, that moves wallet or EOA assets to a destination the owner never signed. Identity: (assets leaving the wallet, their destination) == (ops, maxFee) the wallet owner signed.",
+
+    "Critical. HOOKS AND RECIPIENTS GET CONTROL WITH HINKAL AS `msg.sender`. `Hinkal.transact` calls `preHookContract.preTransact(circomData)` before the balance snapshot and `postHookContract.afterTransact(circomData)` AFTER the balance equation passes but BEFORE `insertNullifiers` / `insertCommitments`; `_internalTransact` sends ETH to a caller-chosen `externalAddress` via `transferETH`; ERC777 and callback tokens hand control to the attacker inside `getBalancesForArray`'s window. Hinkal is the trusted `msg.sender` for `onlyHinkal` in HinkalHelper and `onlyAllowedRecipient` in every external action, `nonReentrant` guards only `transact` and `prooflessDeposit`, and `HinkalWrapper` has no guard at all. Show a hook, recipient or token callback that changes a balance, allowance, action state or wrapper approval between the equality check and the leaf/nullifier writes, or reaches a Hinkal-trusting function through Hinkal's identity. Identity: the state the balance equation checked == the state that exists when nullifiers and commitments are written.",
+
+    "Critical. THE HELPER IS THE ONLY PLACE ANYTHING IS CHECKED, AND IT IS A VIEW ON A MUTABLE ADDRESS. `HinkalHelper.performHinkalChecks` alone enforces `originalSender`/`relay` pairing, `relayerIsValid` (`tx.origin == relay`), `dimensionsCheck`, `checkOnchainCreation` and the calldata-hash integrity, and it builds the verifier input with `hinkalAddress` as `verifyingContract`; Hinkal calls it through a `hinkalHelper` storage pointer and then trusts every downstream contract to have been protected by it. `dimensionsCheck` compares inner lengths only against index 0, `checkOnchainCreation` inspects `inputNullifiers` but not `outCommitments`, `feeStructure.variableRate == 10000` sends 100% of a withdrawal to the relay, and nothing bounds `timeStamp`. Show an input shape or relay/sender combination that passes every helper check yet reaches `_internalTransact`, an external action or `insertCommitments` with a meaning the checks did not cover - a relayed transaction paying nothing, an `originalSender` that is a contract acting for someone else, arrays whose later rows differ from row 0. Identity: the CircomData shape and roles the helper validated == the shape and roles every downstream consumer assumes.",
+
+    "Critical. THE MISSING INVARIANT - what nobody built. No contract asserts that Emporium, LifiExternalAction or DepositOnChainUtxosExternalAction hold zero balance, zero positions and zero outstanding approvals between transactions, yet every accounting rule assumes it; no on-chain check ties `publicSignalCount` or the order of `formBasicInput` to the public-signal layout of the verifier that `buildVerifierId` selects; commitments and nullifiers are domain-separated by nothing while addresses repeat across five chains; `transact` accepts any historical root forever and never checks `timeStamp` against `block.timestamp` outside the LiFi window; hook contracts and `feeRecipient` run with no whitelist; on-chain UTXO preimages are public and their timestamps caller-chosen. Identify the FIRST point at which one of these unstated assumptions is violated by an unprivileged caller with only their own funds and their own proof, prove it with a Foundry/Hardhat test that asserts vault balance versus total shielded value before and after, and show that once the two diverge nothing in the protocol can detect or reverse it.",
 ]
 
 
@@ -147,120 +209,119 @@ scope_scan = [
 
 def question_generator(target_file: str) -> str:
     """
-    Generate identity-binding audit questions for one shopify-api-ruby target.
+    Generate value-conservation audit questions for one Hinkal target.
 
     ```
     target_file format:
-    "'File Name: lib/shopify_api/utils/shop_validator.rb -> Scope: Critical. ...'"
+    "'File Name: contracts/Hinkal.sol -> Scope: Critical. ...'"
     """
 
     prompt = f"""
     ```
 
-    Generate authentication and trust-boundary security audit questions for this exact
-    shopify-api-ruby target:
+    Generate smart-contract and zk-circuit security audit questions for this exact Hinkal
+    target:
 
     {target_file}
 
     Project focus:
-    This gem is the authentication layer of every Shopify app that embeds it. Untrusted bytes
-    enter through four doors: the OAuth callback query (`AuthQuery`), an inbound webhook
-    (`Webhooks::Request` - body plus unsigned headers), a session token / JWT (`JwtPayload`),
-    and the `shopify_app_session` cookie (`SessionUtils`). From those bytes the gem decides
-    (a) is the request authentic - `HmacValidator` over `to_signable_string` only, (b) which
-    shop and user it belongs to - a string interpolated into a session id, and (c) which host
-    receives `client_secret` or `X-Shopify-Access-Token` - `HttpClient`'s
-    `https://#{{api_host || session.shop}}`. `ShopValidator.sanitize!` guards only some of
-    those paths. Anything trusted but unsigned, or used as a host but unvalidated, is the bug.
+    Hinkal is a shielded-UTXO pool on EVM chains. Untrusted bytes enter through two doors:
+    `Hinkal.transact(a, b, c, dimensions, circomData)` and `Hinkal.prooflessDeposit(...)`
+    (also via `HinkalWrapper`). From those bytes the contracts decide (a) what the Groth16
+    proof constrained - `CircomDataBuilder` builds `calldataHash`, `signedMessageHash` and the
+    public-input vector, `VerifierFacade` picks the verifier from `Dimensions`; (b) whether
+    value is conserved - `balanceDif == amountChanges + utxoAmount` after an internal
+    transfer or an external action (`EmporiumUpgradeable`, `LifiExternalAction`,
+    `DepositOnChainUtxosExternalAction`) that runs caller-supplied metadata; (c) whether a
+    leaf is spent once - `nullifiers` mapping, `Merkle` roots, `MerkleRootCalculator`'s
+    zero-sibling truncation. Anything acted on but not constrained by the proof, or moved but
+    not counted in the balance equation, is the bug.
 
     Rules:
     * Treat `File Name:` as the exact file.
     * Treat `Scope:` as the ONLY impact to target.
     * Assume full repo context is accessible.
     * Do not ask for code or say anything is missing.
-    * Use exact Ruby symbols (module, class, method, constant, ivar) as they appear in the file.
-    * EVERY question must close on a binding that must hold across a call. State it explicitly.
-      Narrative questions with no stated binding are rejected.
-    * Attacker is unprivileged only: any internet user who can send HTTP requests to an app
-      built on this gem. They may create their own development shop, install the app on it,
-      register their own webhook endpoint, receive their own validly signed callbacks and
-      webhooks, run their own server, and control query params, headers, cookies, bodies,
-      redirect targets and request ordering.
-    * Attacker is NOT the app developer, a Shopify employee, the victim merchant or their
-      staff, and never holds `api_secret_key`, `old_api_secret_key`, an access token, or any
-      leaked credential. No TLS interception, no local or physical access, no compromised
-      dependency, no social engineering.
-    * Assume the host app uses this gem as documented in README.md and docs/. The bug must be
-      in this gem's code, not in a hypothetical caller misusing it.
+    * Use exact Solidity/Circom symbols (contract, function, modifier, struct field, signal,
+      template, constant) as they appear in the file.
+    * EVERY question must close on an equality that must hold across a call. State it
+      explicitly. Narrative questions with no stated equality are rejected.
+    * Attacker is unprivileged only: any EOA on the chain. They may deposit their own funds,
+      generate their own valid proofs for their own UTXOs, deploy contracts (hooks, fake
+      tokens, endpoints, recipients), craft every field of `CircomData`, `Dimensions`,
+      `externalActionMetadata` and deposit arrays, choose gas and ordering, and use public
+      flash liquidity.
+    * Attacker is NOT the owner, DEFAULT_ADMIN_ROLE, HINKAL_HELPER_MANAGER, a whitelisted
+      relay, the factory owner, an upgrade admin, or the victim. They hold no private key of
+      another user, no nullifyingPrivateKey but their own, and no trusted-setup toxic waste.
+      No malicious relayer, sequencer, node or RPC; no compromised dependency; no social
+      engineering.
     * PROGRAM EXCLUSIONS - a question landing in any of these wastes the whole batch:
-      - lib/shopify_api/rest/resources/** is machine-generated per-version code and is OUT OF
-        SCOPE, as are test/**, sorbet/**, docs/**, *.md, *.yml, *.gemspec and Gemfile*.
-      - Denial of service, rate limiting, retry/backoff behaviour, resource exhaustion,
-        unbounded collections and memory hygiene are OUT OF SCOPE.
-      - Vulnerabilities in third-party gems (jwt, httparty, addressable, openssl, zeitwerk)
-        with no exploit path through this gem's own code are OUT OF SCOPE.
-      - Also excluded: leaked keys or credentials, privileged accounts, best-practice notes,
-        feature requests, missing security headers, self-XSS, theoretical findings with no
-        demonstration, and anything requiring the attacker to already hold app secrets.
-      - A weakness in this gem that lets an attacker manipulate a third-party library into
-        unsafe behaviour remains fully in scope.
+      - contracts/verifiers/**, contracts/types/IVerifierEVM*.sol and
+        circuits/BabyJubjubConstants.circom are generated and OUT OF SCOPE, as are README,
+        tests, mocks, scripts and config.
+      - Denial of service, gas griefing, block stuffing, front-running that only reverts a
+        victim's transaction, unbounded loops, storage growth and memory hygiene are OUT OF
+        SCOPE.
+      - Defects inside Poseidon, circomlib, snarkJS, OpenZeppelin or the LI.FI router with no
+        exploit path through this repository's own code are OUT OF SCOPE; a weakness here
+        that steers them into unsafe behaviour is fully IN scope.
+      - Also excluded: leaked keys, privileged accounts, centralization risk, best-practice
+        notes, feature requests, price-oracle or depeg assumptions, funds sent to a contract
+        by user mistake, and theoretical findings with no demonstration.
     * IN-SCOPE IMPACTS - every question must land on one and name it:
-      Critical: authentication bypass (a forged webhook, callback or session token accepted);
-      theft or exfiltration of a merchant access token, refresh token, authorization code or
-      the app's `client_secret`; cross-tenant access - one shop or one staff user acting on
-      another's data; remote code execution.
-      High: server-side request forgery driving an authenticated request to an unintended
-      host; session fixation or forced OAuth completion; scope or expiry check bypass;
-      credential leakage into logs or error output.
-    * Every question must be a concrete real-world scenario an unprivileged internet user can
-      execute against a deployed app that embeds this gem. No speculative resource-hygiene,
-      memory or unbounded-growth questions.
-    * A raised exception is a finding only when it lets an unauthenticated request through, or
-      leaks a secret in its message - say which.
-    * Generate 30 to 40 high-signal questions.
-    * At least 70% must land on a Critical impact - authentication bypass, credential theft,
-      cross-tenant access or RCE - rather than a High one.
-    * Every question must be testable by a minitest + WebMock/Mocha test under `test/` with no
-      live shop and no network. Never propose testing against a real Shopify store.
+      Critical: direct theft of shielded or in-flight user funds; minting shielded value
+      without backing or spending a leaf twice (protocol insolvency); permanent freezing of
+      user funds; proof or nullifier verification bypass.
+      High: theft or permanent freezing of protocol/relay fees; temporary freezing of user
+      funds; executing calls or moving assets a wallet owner or prover never authorised.
+    * Every question must be a concrete real-world scenario an unprivileged EOA can execute
+      against the deployed contracts through `transact`, `prooflessDeposit` or
+      `HinkalWrapper.prooflessDeposit`, with their own funds and their own proof.
+    * A revert is a finding only when it permanently strands value or lets an unproven value
+      through - say which.
+    * Generate 40 to 80 high-signal questions.
+    * At least 70% must land on a Critical impact rather than a High one.
+    * Every question must be testable in a Foundry or Hardhat test on a local fork with
+      locally generated snarkjs proofs. Never propose testing on mainnet or a public testnet.
     * Avoid generic checklist questions and repeated root causes.
     * Prefer questions that name TWO values that must be equal and ask whether they are: a
-      field signed and a field acted on, a shop authenticated and a shop stored, a host
-      validated and a host requested, bytes verified and bytes parsed, a scope granted and a
-      scope accepted.
+      field acted on and a field hashed into the proof, value moved and value counted, a
+      root the circuit derives and a root the tree stored, a leaf inserted and a nullifier
+      accepted, tokens leaving an action and tokens Hinkal sent it.
 
     Known dead ends - do NOT generate questions about these:
-    * Anything needing `api_secret_key`, an access token, or any leaked credential.
-    * A CVE in a dependency with no reachable path through this gem.
-    * The host application choosing to ignore this gem's documented API.
-    * Findings only reproducible against the generated REST resource classes or test helpers.
-    * Timing, DoS, log volume, or a user harming only their own shop with no tenant boundary
-      crossed and no credential exposed.
+    * Anything needing an owner, admin, relay or manager key, or another user's keys.
+    * A CVE in a dependency with no reachable path through this repo.
+    * Findings only reproducible in generated verifiers or against a hypothetical misuse by
+      the Hinkal frontend.
+    * Timing, DoS, gas, or a user harming only their own shielded balance with no protocol or
+      third-party loss.
 
-    Core bindings (each question must close on one):
-    * SIGNATURE COVERAGE: every value acted on downstream is inside the string handed to
-      `HmacValidator` via `to_signable_string`.
-    * SHOP BINDING: the shop authenticated by the signature or JWT == the shop interpolated
-      into the session id == the shop used as the request host.
-    * CREDENTIAL DESTINATION: `client_secret`, an authorization code and
-      `X-Shopify-Access-Token` leave only for a host that `ShopValidator` accepted.
-    * SESSION DERIVATION: a session id is derived only from bytes authenticated under
-      `Context.api_secret_key`.
-    * AUTHORIZATION TRUTH: `covers?`, `expired?`, the state comparison and the proxy gate
-      never return a permissive answer for a session that lacks the right.
+    Core equalities (each question must close on one):
+    * PROOF COVERAGE: every `CircomData` field acted on is inside `calldataHash`,
+      `signedMessageHash` or the public-input vector at the index the circuit expects.
+    * VALUE CONSERVATION: net tokens entering Hinkal == sum of `amountChanges` + amounts of
+      on-chain UTXOs inserted; tokens leaving an action == `-deltaAmountChanges` it received.
+    * TREE TRUTH: the (leaf, root) pairs `MerkleRootCalculator` accepts == the pairs
+      `Merkle.insert*` produced and stored in `roots`.
+    * SINGLE SPEND: one value-bearing leaf == one nullifier ever accepted for it.
+    * AUTHORITY: `from` of every transferFrom, and every op executed against a wallet, was
+      authorised by the account that produced the proof or the signature.
 
     Each question must include:
-    1. target class/method;
-    2. attacker action (a concrete HTTP request with params, headers, cookies or body);
-    3. preconditions (app configuration, embedded or not, existing session state);
-    4. call sequence through the gem;
-    5. the binding that breaks, written as an equality;
-    6. scoped impact and whose credential or data is exposed;
+    1. target contract/function or template/signal;
+    2. attacker action (a concrete call with the CircomData / metadata fields that matter);
+    3. preconditions (tree state, registered actions, balances, approvals);
+    4. call sequence through the contracts and circuit;
+    5. the equality that breaks, written explicitly;
+    6. scoped impact and whose funds or fees are exposed;
     7. proof idea.
 
     Output only valid Python. No markdown. No explanations.
 
     questions = [
-    "[File: {target_file}] [Method: class_or_method] Can an unprivileged ATTACKER_ACTION under PRECONDITIONS trigger CALL_SEQUENCE, breaking the binding BINDING_EQUALITY, causing scoped impact: SCOPE_IMPACT against PARTY? Proof idea: minitest + WebMock test PARAMETERS asserting SIGNATURE_COVERAGE, SHOP_BINDING, CREDENTIAL_DESTINATION, SESSION_DERIVATION, or AUTHORIZATION_TRUTH.",
+    "[File: {target_file}] [Method: contract_or_function] Can an unprivileged ATTACKER_ACTION under PRECONDITIONS trigger CALL_SEQUENCE, breaking the equality EQUALITY, causing scoped impact: SCOPE_IMPACT against PARTY? Proof idea: Foundry/Hardhat fork test PARAMETERS asserting PROOF_COVERAGE, VALUE_CONSERVATION, TREE_TRUTH, SINGLE_SPEND, or AUTHORITY.",
     ]
     """
     return prompt
@@ -268,7 +329,7 @@ def question_generator(target_file: str) -> str:
 
 def audit_format(security_question: str) -> str:
     """
-    Generate an identity-binding shopify-api-ruby exploit-validation prompt.
+    Generate a value-conservation Hinkal exploit-validation prompt.
     """
 
     prompt = f"""# SECURITY AUDIT PROMPT
@@ -278,20 +339,19 @@ def audit_format(security_question: str) -> str:
 
 ## Rules
 - Use existing repo context only. Analyze only this question and scoped impact.
-- Attacker is unprivileged only: any internet user who can send HTTP requests to an app built on this gem. They may create their own development shop, install the app on it, register their own webhook endpoint, receive their own validly signed callbacks and webhooks, run their own server, and control query params, headers, cookies, bodies, redirect targets and ordering. They never hold `api_secret_key`, `old_api_secret_key`, an access token or any leaked credential, and are not the app developer, a Shopify employee, or the victim merchant or their staff.
-- Reject TLS interception, local or physical access, compromised dependencies, social engineering, and any path requiring app secrets.
-- Assume the host app uses this gem as documented. The bug must be in this gem's code.
-- OUT OF SCOPE, reject on sight: `lib/shopify_api/rest/resources/**` (machine-generated), `test/**`, `sorbet/**`, `docs/**`, `*.md`, `*.yml`, `*.gemspec`, `Gemfile*`; denial of service, rate limiting, retry behaviour, resource exhaustion and memory hygiene; third-party gem defects with no exploit path through this gem's own code; best-practice notes; feature requests; theoretical findings with no demonstration.
-- The impact must be one of: Critical - authentication bypass (forged webhook, callback or session token accepted), theft or exfiltration of a merchant access token, refresh token, authorization code or the app's `client_secret`, cross-tenant access, or remote code execution; High - SSRF driving an authenticated request to an unintended host, session fixation or forced OAuth completion, scope or expiry check bypass, or credential leakage into logs or error output.
-- Focus on real impact: a credential leaving for a host it should not, an unauthenticated value being trusted as authenticated, or one tenant's request touching another tenant's data.
+- Attacker is unprivileged only: any EOA who can deposit their own funds, generate proofs for their own UTXOs, deploy contracts (hooks, tokens, endpoints), craft every field of `CircomData`, `Dimensions`, `externalActionMetadata` and deposit arrays, and choose ordering. They are not the owner, DEFAULT_ADMIN_ROLE, HINKAL_HELPER_MANAGER, a whitelisted relay, an upgrade admin or the victim, and hold no other user's keys.
+- Reject malicious relayer/node/RPC assumptions, compromised dependencies, social engineering, and any path requiring a privileged role.
+- OUT OF SCOPE, reject on sight: `contracts/verifiers/**`, `contracts/types/IVerifierEVM*.sol`, `circuits/BabyJubjubConstants.circom` (generated), README, tests, mocks, scripts, config; denial of service, gas griefing, revert-only front-running, unbounded loops and memory hygiene; Poseidon, circomlib, snarkJS, OpenZeppelin or LI.FI router defects with no exploit path through this repo's code; price-oracle or depeg assumptions; funds sent by user mistake; best-practice notes; theoretical findings.
+- The impact must be one of: Critical - direct theft of shielded or in-flight user funds, minting shielded value without backing or double spend, permanent freezing of user funds, proof or nullifier verification bypass; High - theft or permanent freezing of protocol/relay fees, temporary freezing of user funds, executing calls or moving assets a wallet owner or prover never authorised.
+- Focus on real impact: value leaving Hinkal or an action that was not counted, a leaf spent twice or stranded, or a field acted on that the proof never constrained.
 
 ## Validate
-- Write the binding the question claims is broken as an explicit equality between two named values BEFORE tracing any code.
-- Trace the exact reachable path from the attacker's HTTP request (params, headers, cookies, body, cookie jar, ordering) and record every read and write of `session.shop`, `session.id`, `session.access_token`, `@base_uri`, `@headers`, the signable string, the computed and received HMAC, and the JWT claims `iss`, `dest`, `aud`, `sub`, `exp`.
+- Write the equality the question claims is broken between two named values BEFORE tracing any code.
+- Trace the exact reachable path from the attacker's call and record every read and write of `amountChanges`, `deltaAmountChanges`, `balanceDif`, `utxoAmount`, `msg.value`, `nullifiers`, `roots`, `tree`, `m_index`, `usedMessages`, `calldataHash`, `signedMessageHash`, the public-input vector and the circuit signals it maps to.
 - Evaluate both sides of the equality before and after. If they still match, output no vulnerability.
-- Check whether `HmacValidator.validate`, `ShopValidator.sanitize!`, the `state` comparison, `JwtPayload`'s `aud` check, `HttpRequest#verify`, `Context.setup?` / `private?` / `embedded?`, or Sorbet runtime typing already prevent the divergence.
-- State what the attacker gains per request and whether it is repeatable against arbitrary victims.
-- Require exact file/method support and a reproducible minitest + WebMock/Mocha proof under `test/` with no live shop.
+- Check whether `performHinkalChecks` (originalSender/relay, `dimensionsCheck`, `checkOnchainCreation`), `verifyProof` and `buildVerifierId`, `rootHashExists`, the balance and slippage requires, `insertNullifiers`, `onlyAllowedRecipient`, `verifyWallet`, `nonReentrant`, or the circuit constraints (`inTotal + amountChanges === outTotal`, `OverflowPreventer`, `BabyJubjubSubgroupCheck`, `ForceEqualIfEnabled`) already prevent the divergence.
+- State what the attacker gains per transaction and whether it is repeatable.
+- Require exact file/function support and a reproducible Foundry or Hardhat fork test with locally generated proofs.
 
 ## Output
 If valid, output exactly:
@@ -303,19 +363,19 @@ If valid, output exactly:
 [2-3 sentences]
 
 ### Finding Description
-[The broken binding as an equality, the code path, root cause, the attacker's exact request, exploit flow, and why existing guards fail]
+[The broken equality, the code path, root cause, the attacker's exact call, exploit flow, and why existing guards fail]
 
 ### Impact Explanation
-[What is exposed or bypassed, which party, repeatability, blast radius across tenants, matching severity category]
+[What is stolen, minted, frozen or bypassed, which party, repeatability, matching severity category]
 
 ### Likelihood Explanation
-[Preconditions, app configuration required, attacker cost, feasibility, repeatability]
+[Preconditions, tree/action state required, attacker cost, feasibility, repeatability]
 
 ### Recommendation
 [Specific fix]
 
 ### Proof of Concept
-[minitest + WebMock test plan with the exact assertions on both sides of the binding]
+[Foundry/Hardhat test plan with the exact assertions on both sides of the equality]
 
 If invalid, output exactly:
 #NoVulnerability found for this question.
@@ -327,7 +387,7 @@ No extra text.
 
 def validation_format(report: str) -> str:
     """
-    Generate a strict bounty-style validation prompt for shopify-api-ruby claims.
+    Generate a strict bounty-style validation prompt for Hinkal claims.
     """
     prompt = f"""# VALIDATION PROMPT
 
@@ -339,33 +399,32 @@ def validation_format(report: str) -> str:
 - Check SECURITY.md and Researcher.Md for scope, exclusions, and valid impact classes.
 - Do not create a new vulnerability if the submitted claim is weak or invalid.
 - Do not upgrade severity unless the provided evidence proves the higher impact.
-- A binding claim is only valid if the report states the broken equality between two named values and shows both sides concretely. Reject prose-only claims.
-- Reject anything requiring `api_secret_key`, `old_api_secret_key`, an access token, leaked credentials, app developer or Shopify employee access, the victim merchant or their staff, TLS interception, local or physical access, a compromised dependency, or social engineering.
-- OUT OF SCOPE, reject on sight: `lib/shopify_api/rest/resources/**` (machine-generated), `test/**`, `sorbet/**`, `docs/**`, `*.md`, `*.yml`, `*.gemspec`, `Gemfile*`; denial of service, rate limiting, retry behaviour, resource exhaustion and memory hygiene; third-party gem defects with no exploit path through this gem's own code; best-practice notes; feature requests; missing security headers; self-XSS; theoretical findings with no demonstration.
-- The impact must be one of: Critical - authentication bypass, theft or exfiltration of a merchant access token, refresh token, authorization code or the app's `client_secret`, cross-tenant access, or remote code execution; High - SSRF with the app's credentials, session fixation or forced OAuth completion, scope or expiry check bypass, or credential leakage into logs or error output.
-- Reject claims that depend on the host application ignoring this gem's documented API.
-- Reject if the bug was already fixed, publicly disclosed, or is covered by an existing advisory or CHANGELOG entry for a supported version.
-- Reject a divergence with no crossing of a tenant, credential or authentication boundary.
-- A valid report must be triggerable by an unprivileged internet user against an app running the current released gem.
+- A claim is only valid if the report states the broken equality between two named values and shows both sides concretely. Reject prose-only claims.
+- Reject anything requiring the owner, DEFAULT_ADMIN_ROLE, HINKAL_HELPER_MANAGER, a whitelisted relay, an upgrade admin, another user's keys, a malicious relayer/node/RPC, a compromised dependency, or social engineering.
+- OUT OF SCOPE, reject on sight: `contracts/verifiers/**`, `contracts/types/IVerifierEVM*.sol`, `circuits/BabyJubjubConstants.circom` (generated), README, tests, mocks, scripts, config; denial of service, gas griefing, revert-only front-running, unbounded loops and memory hygiene; Poseidon, circomlib, snarkJS, OpenZeppelin or LI.FI router defects with no exploit path through this repo's code; price-oracle or depeg assumptions; centralization risk; funds sent by user mistake; best-practice notes; feature requests; theoretical findings.
+- The impact must be one of: Critical - direct theft of shielded or in-flight user funds, minting shielded value without backing or double spend, permanent freezing of user funds, proof or nullifier verification bypass; High - theft or permanent freezing of protocol/relay fees, temporary freezing of user funds, executing calls or moving assets a wallet owner or prover never authorised.
+- Reject claims where the only loss is the attacker's own shielded balance.
+- Reject if the bug was already fixed, publicly disclosed, or covered by a known-issues list.
+- A valid report must be triggerable by an unprivileged EOA against the current contracts with their own funds and proof.
 - A PoC is mandatory. Prefer #NoVulnerability over speculative reports.
 
 ## Required Validation Checks
 All must pass:
-1. Exact in-scope file, class/method, and line references.
-2. The binding written explicitly as an equality, with both sides shown before and after.
-3. Clear root cause: which unsigned field, which unvalidated host, which unauthenticated session key, or which missing check causes the divergence.
-4. Reachable exploit path: preconditions -> attacker HTTP request -> gem call sequence -> observed divergence.
-5. `HmacValidator`, `ShopValidator`, the `state` comparison, the JWT `aud` check, `HttpRequest#verify` and Context guards reviewed and shown insufficient.
-6. Impact stated concretely: which credential or which tenant's data, and whether it is repeatable against arbitrary victims.
-7. Reproducible proof: minitest + WebMock/Mocha test with the asserted values.
+1. Exact in-scope file, contract/function or template/signal, and line references.
+2. The equality written explicitly, with both sides shown before and after.
+3. Clear root cause: which unconstrained field, uncounted transfer, tree/circuit divergence, reusable nullifier, or missing check causes it.
+4. Reachable exploit path: preconditions -> attacker call -> contract and circuit sequence -> observed divergence.
+5. `performHinkalChecks`, `verifyProof`, `rootHashExists`, the balance equation, `insertNullifiers`, `onlyAllowedRecipient`, `verifyWallet`, `nonReentrant` and the circuit constraints reviewed and shown insufficient.
+6. Impact stated concretely: which funds or fees, whose, and whether it is repeatable.
+7. Reproducible proof: Foundry or Hardhat fork test with locally generated proofs and the asserted values.
 
 ## Silent Triage Questions
 Before output, internally answer:
 - What exactly is the equality, and does it actually fail?
-- Can an ordinary internet user trigger it with no secret and no privileged role?
-- Is the flaw in this gem's code, not in a dependency or in a careless caller?
-- What credential or whose data is exposed, and can it be repeated against other merchants?
-- Would a Shopify HackerOne triager accept the exploit path?
+- Can an ordinary EOA trigger it with no privileged role and no other user's key?
+- Is the flaw in this repo's contracts or circuits, not in a dependency or the frontend?
+- What value is stolen, minted or frozen, whose is it, and can it be repeated?
+- Would an Immunefi triager accept the exploit path under the smart-contract severity system?
 - What exact test would prove it?
 
 ## Output
@@ -377,22 +436,22 @@ Audit Report
 [Clear vulnerability statement] - ([File: file_path])
 
 ## Summary
-[2-3 sentence summary of the broken binding and impact]
+[2-3 sentence summary of the broken equality and impact]
 
 ## Finding Description
 [Exact code path, the equality, root cause, exploit flow, and why existing guards fail]
 
 ## Impact Explanation
-[What is exposed or bypassed, affected party, repeatability, severity category]
+[What is stolen, minted, frozen or bypassed, affected party, repeatability, severity category]
 
 ## Likelihood Explanation
-[Attacker capability, preconditions, app configuration, cost, feasibility]
+[Attacker capability, preconditions, state required, cost, feasibility]
 
 ## Recommendation
 [Specific fix guidance]
 
 ## Proof of Concept
-[Minimal reproducible steps or minitest + WebMock test plan with concrete assertions]
+[Minimal reproducible steps or Foundry/Hardhat test plan with concrete assertions]
 
 If invalid, output exactly:
 #NoVulnerability found for this question.
@@ -404,7 +463,7 @@ Output only one of the two outcomes above. No extra text.
 
 def scan_format(report: str) -> str:
     """
-    Generate a short cross-project analog scan prompt for shopify-api-ruby.
+    Generate a short cross-project analog scan prompt for Hinkal.
     """
     prompt = f"""# ANALOG SCAN PROMPT
 
@@ -412,18 +471,18 @@ def scan_format(report: str) -> str:
 {report}
 
 ## Rules
-- Use in-scope library context only (`lib/shopify_api/**`, excluding `lib/shopify_api/rest/resources/**`). Do not ask for code or claim missing files.
+- Use in-scope repo context only (`contracts/**` and `circuits/**`, excluding `contracts/verifiers/**`, `contracts/types/IVerifierEVM*.sol` and `circuits/BabyJubjubConstants.circom`). Do not ask for code or claim missing files.
 - Use the external report only as a bug-class hint, not as proof.
-- Keep only unprivileged-internet-user analogs that break an identity binding: a field acted on but not covered by the HMAC, a shop authenticated versus the shop stored as a session key, a host validated versus the host that receives the access token or `client_secret`, bytes verified versus bytes parsed, a JWT claim trusted without being bound, a session id derived from unauthenticated bytes, or a scope or expiry check that answers permissively.
-- OUT OF SCOPE, reject on sight: `lib/shopify_api/rest/resources/**` (machine-generated), `test/**`, `sorbet/**`, `docs/**`, `*.md`, `*.yml`, `*.gemspec`, `Gemfile*`; denial of service, rate limiting, retry behaviour, resource exhaustion and memory hygiene; third-party gem defects with no exploit path through this gem's own code; anything requiring `api_secret_key`, an access token, leaked credentials, a privileged account, TLS interception, local access or social engineering; best-practice notes; feature requests; theoretical findings.
-- The impact must be one of: Critical - authentication bypass, theft or exfiltration of a merchant access token, refresh token, authorization code or the app's `client_secret`, cross-tenant access, or remote code execution; High - SSRF with the app's credentials, session fixation or forced OAuth completion, scope or expiry check bypass, or credential leakage into logs or error output.
-- Reject analogs that depend on the host application ignoring this gem's documented API, and analogs with no credential, tenant or authentication boundary crossed.
+- Keep only unprivileged-EOA analogs that break an equality: a `CircomData` field acted on but outside `calldataHash` / `signedMessageHash` / the public-input vector, value moved by Hinkal or an external action but not counted in the balance equation, a (leaf, root) pair the circuit accepts that the tree never produced, a nullifier reusable or a value-bearing leaf left unspendable, or a transferFrom / wallet op not authorised by the prover or signer.
+- OUT OF SCOPE, reject on sight: generated verifiers and constants, README, tests, mocks, scripts, config; denial of service, gas griefing, revert-only front-running, unbounded loops and memory hygiene; Poseidon, circomlib, snarkJS, OpenZeppelin or LI.FI router defects with no exploit path through this repo's code; anything requiring an owner, admin, relay, manager, upgrade key or another user's key; malicious relayer/node assumptions; price-oracle or depeg assumptions; funds sent by user mistake; best-practice notes; theoretical findings.
+- The impact must be one of: Critical - direct theft of shielded or in-flight user funds, minting shielded value without backing or double spend, permanent freezing of user funds, proof or nullifier verification bypass; High - theft or permanent freezing of protocol/relay fees, temporary freezing of user funds, executing calls or moving assets a wallet owner or prover never authorised.
+- Reject analogs where the only loss is the attacker's own shielded balance.
 
 ## Validate
-- Map the bug class to the strongest reachable path in this gem and state the binding it would break as an equality.
-- Evaluate both sides before and after the attacker's request sequence.
-- Prove root cause with exact file/method support.
-- Accept only concrete authentication bypass, credential exfiltration, cross-tenant access, RCE, or SSRF carrying the app's credentials.
+- Map the bug class to the strongest reachable path in this repo and state the equality it would break.
+- Evaluate both sides before and after the attacker's call sequence.
+- Prove root cause with exact file/function or template/signal support.
+- Accept only concrete theft, unbacked minting or double spend, permanent or temporary freezing, proof/nullifier bypass, or unauthorised asset movement.
 
 ## Output (Strict)
 If valid analog exists, output:

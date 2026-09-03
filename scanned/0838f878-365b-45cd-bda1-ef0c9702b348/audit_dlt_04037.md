@@ -1,0 +1,43 @@
+# [M] M-02 wstETH Feed Doesn't check for Freshness
+
+## Summary
+Severity: Medium
+Chain: Smart contract
+Component: 2022-09-notional
+Published: 2022-10-13
+Source: https://github.com/sherlock-audit/2022-09-notional-judging/issues/127
+Type: sherlock-finding
+
+## Details
+GalloDaSballo
+
+medium
+
+# M-02 wstETH Feed Doesn't check for Freshness
+
+## Summary
+
+The Price feed for wstETH is accepting the price at face value instead of checking for the recency of the oracle
+
+https://github.com/notional-finance/leveraged-vaults/blob/91b96a456a6ada5a7f73ecf420e4ac5bf6797b45/contracts/trading/oracles/wstETHChainlinkOracle.sol#L43-L44
+
+## Vulnerability Detail
+
+Feed may have not been updated due to network conditions.
+
+The system may accept a price that is not consistent with reality, which would allow for MEV.
+
+## Impact
+
+MEV extraction as real price / AMM price vs accepted price is different, leading to arbitrage opportunities at the detriment of the protocol
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Apply a check for `updatedAt` being recent enough
+
+
+Duplicate of #133

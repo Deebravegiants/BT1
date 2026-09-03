@@ -1,0 +1,13 @@
+# Q4770: circuit constraint gap: a BabyJubjub point off the prime-order s [when the deposit uses proofles]
+
+## Question
+Can an unprivileged attacker construct witnesses using a BabyJubjub point off the prime-order subgroup slipping past BabyJubjubSubgroupCheck, where a cofactor or Ax==0 point is accepted as a valid key, so a Groth16 proof validates for a spend/mint that violates the intended value or authenticity constraint of MainEVMCircuit, specifically when the deposit uses prooflessDeposit instead of a proof (where the no-proof mint path is taken)?
+
+## Target
+- File/function: circuits/BabyJubjubSubgroupCheck.circom :: template constraints
+- Entrypoint: Hinkal.transact (proof witness)
+- Attacker controls: private circuit inputs (amounts, keys, signatures, seeds, points)
+- Exploit idea: find a witness satisfying the R1CS that breaks a value/authenticity invariant
+- Invariant to test: every accepted proof implies conservation and authentic ownership of the spent leaves
+- Expected Immunefi impact: Critical: proof or verifier bypass (unproven state accepted)
+- Fast validation: snarkjs: craft the witness, generate a proof, assert transact accepts an invalid state
