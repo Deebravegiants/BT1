@@ -1,0 +1,40 @@
+### Title
+Relay fee (and withdrawal payout) drawn from Emporium's ambient token balance rather than the fee-paying party's own deposited value - (`contracts/external-actions/emporium/upgradeable/EmporiumUpgradeable.sol`)
+
+### Summary
+`EmporiumUpgradeable.payRelayFees` → `payRelay` → `Transferer.sendToRelay` pays the relay fee by calling `transferERC20TokenOrETH` against Emporium's raw current token balance, with no check that the transferred value originates from the calling attacker's own `-deltaAmountChanges[i]`. Because Emporium has no per-user ledger, any ERC20 residual left at the Emporium contract by an unrelated party (e.g. dust from a prior stateless op) is fungible with, and can be drained by, a subsequent unrelated caller's `transact`.
+
+### Finding Description
+The broken equality is:
+
+`amount paid to relay / paid out to msg.sender for token T` **should equal** `f(-deltaAmountChanges[i] actually contributed by the current caller's own proven UTXO spend)`,
+
+but the code instead computes it from `IERC20(T).balanceOf(address(Emporium))`, which is ambient and shared across all callers.
+
+Code path:
+- `EmporiumUpgradeable.runAction` (contracts/external-actions/emporium/upgradeable/EmporiumUpgradeable.sol:76-160) snapshots `balancesBefore`/`balancesAfter` of Emporium itself, executes attacker-supplied `ops` (Case 2, stateless, since `signerAddress == address(0)`), then calls `payRelayFees`.
+- `payRelayFees` (lines 201-260) only requires `deltaAmountChanges[i] < 0` (a withdrawal claim proven by the attacker's own ZK proof) and `erc20TokenAddress == feeStructure.feeToken`; when `signerAddress == address(0)` it computes `relayFee = hinkalHelper.calculateRelayFee(sumAbs, flatFee, variableRate)` and calls `payRelay`.
+- `payRelay` (lines 262-282), for `signerAddress == address(0)`, calls `sendToRelay(relay, relayFee, erc20TokenAddress)`.
+- `sendToRelay` (`contracts/Transferer.sol:178-190`) unconditionally does `transferERC20TokenOrETH(erc20TokenAddress, relay, relayFee)` — a direct transfer out of Emporium's current balance, with no linkage to which deposit funded it.
+- The post-loop invariant in `runAction` (lines 132-151) only checks `balanceChange = (balancesAfter[i]-balancesBefore[i]) - deltaAmountChanges[i] >= 0`. Since `relayFee` is by construction a fraction of `sumAbs = -deltaAmountChanges[i]` (`calculateRelayFee` returns `<= sumAbs`), this check is satisfied algebraically regardless of whether the tokens debited for the fee (and for the subsequent payout in `handleOut`, line 162-184, which sends `balanceChange = sumAbs - relayFee` to `msg.sender`) came from the attacker's own newly-supplied funds or from a victim's pre-existing residual sitting at the Emporium address.
+
+Attacker's exact call: craft a valid own-funds `transact` with `circomData.externalActionData.externalActionId` = Emporium, `deltaAmountChanges[i] < 0` for token `T` (a legitimately proven withdrawal of the attacker's own small/negligible shielded UTXO), `feeStructure.feeToken = T`, `stack.signerAddress = address(0)` (stateless case), and `ops` that do nothing (or a no-op call to an attacker endpoint). If Emporium already holds a residual balance of `T` belonging to a previous unrelated stateless-op caller (a common leftover pattern since `handleOut` only forwards balance changes computed relative to `balancesBefore`, and dust/slippage residues can remain), the attacker's `sendToRelay` fee payment — and in fact their entire `handleOut` payout of `sumAbs - relayFee` — is serviced out of that ambient balance rather than requiring the attacker to have actually deposited or produced `T` through their `ops`.
+
+Existing guards do not prevent this: `performHinkalChecks`, `verifyProof`, `rootHashExists`, and the circuit's `inTotal + amountChanges === outTotal` all validate that the attacker legitimately owns and is spending their own shielded UTXO of value `sumAbs` — they say nothing about where the *physical* ERC20 tokens backing that withdrawal come from once execution reaches the external-action layer. The `runAction` balance-change check is an algebraic identity that holds true as long as `relayFee <= sumAbs`, independent of the token's actual provenance, so it does not catch fund commingling.
+
+### Impact Explanation
+Relay fees (and, as this trace shows, potentially the entire withdrawal payout for token `T`) are paid out of Emporium's ambient/shared ERC20 balance. If that balance contains an unrelated victim's residual funds, an attacker's own `transact` call can cause those residual funds to be transferred to the relay and/or to the attacker's own address, rather than being drawn from the attacker's own contributed value. This is theft/permanent loss of relay fees (and potentially of victim principal) — matching the "High: theft or permanent freezing of protocol/relay fees" category, with escalation risk to Critical if `sumAbs` exceeds the fee and drains victim principal via `handleOut`. This is repeatable per residual-holding token and per Emporium deployment.
+
+### Likelihood Explanation
+Requires: (1) Emporium to hold a nonzero ERC20 residual for some token `T` (plausible via dust/slippage from prior stateless ops, since nothing sweeps or earmarks leftover balances to a specific depositor), and (2) an unprivileged attacker able to submit their own valid `transact` with `deltaAmountChanges[i] < 0` for `T` and `feeStructure.feeToken = T`, `signerAddress = address(0)`. Both preconditions are attacker-controllable/observable (residual balance is publicly readable on-chain via `balanceOf`), and generating the proof only requires the attacker's own legitimately-owned shielded UTXO for `T` (even a tiny nonzero amount) — no privileged role or victim key is needed. The attack is repeatable each time residual balance accumulates.
+
+### Recommendation
+Track per-token, per-transaction fund provenance explicitly rather than relying on Emporium's ambient `balanceOf`. Concretely: require that any amount transferred out via `sendToRelay`/`handleOut` for token `i` be strictly bounded by the value the *current* `ops` execution demonstrably brought into Emporium for that token during this call (e.g., compare against `balancesBefore[i]` captured at function entry plus funds provably deposited/produced by the current caller, and revert if a payout would consume balance that predates the current transaction). Alternatively, sweep/attribute any residual balance to the depositor who created it (e.g., via an escrow/ledger keyed by depositor) instead of leaving it as unallocated Emporium-owned balance.
+
+### Proof of Concept
+Foundry test outline:
+1. Deploy `Hinkal`, `EmporiumUpgradeable`, a mock ERC20 `T`, and a mock relay address.
+2. Simulate a "victim residual": directly mint/transfer `R` tokens of `T` to the Emporium contract address (representing leftover balance from an unrelated prior stateless op), without any corresponding attacker deposit.
+3. As an unrelated attacker, generate a valid `transact` proof spending the attacker's own trivial shielded UTXO such that `deltaAmountChanges[i] = -1` (or small `sumAbs`) for token `T`, with `feeStructure.feeToken = T`, `feeStructure.flatFee/variableRate` set so `relayFee > 0`, `stack.signerAddress = address(0)`, and a no-op `ops` array (or an op calling an attacker-controlled endpoint that does nothing to `T`).
+4. Call `Hinkal.transact(...)`.
+5. Assert: `relay`'s balance of `T` increased by `relayFee` and/or attacker's balance increased by `sumAbs - relayFee`, even though `R` (Emporium's balance) — not any attacker-supplied deposit — is the source, i.e., assert `IERC20(T).balanceOf(emporium)` decreased by an amount not matched by any inbound transfer from the attacker in this same transaction. This demonstrates `balancesBefore[i] (== R)` is consumed to satisfy `payRelay`/`handleOut`, violating the required equality that fee/payout must derive from `-deltaAmountChanges[i]` of the fee-paying party's own deposit.
