@@ -1,1 +1,0 @@
-fails because `inputForCircom` from `formInputEmporiumMin` is chain-invariant. Impact: Critical — executing calls a prover only authorised once on N chains. Proof idea: Foundry multi-fork test (vm.createSelectFork on two RPCs / two chainId mocks) reusing the same calldata, assert both accept.
