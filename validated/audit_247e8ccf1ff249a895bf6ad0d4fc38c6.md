@@ -1,0 +1,42 @@
+### Title
+Attacker-controlled duplicate on-chain UTXO commitments collide to a single nullifier, permanently freezing the second identical leaf's value - (File: contracts/external-actions/DepositOnChainUtxosExternalAction.sol / circuits/NullifierCalculator.circom)
+
+### Summary
+`NullifierCalculator` derives a nullifier purely from `Poseidon(commitment, signature)`, where `commitment = hash4(amount, token, publicKey, timeStamp)` and `signature = Poseidon(nullifyingPrivateKey, commitment)`. Because `DepositOnChainUtxosExternalAction.runAction` lets the caller fully choose `amount`, `stealthAddressStructure` (hence the recipient `publicKey`) and `timeStamp` (`circomData.timeStamp`, not `block.timestamp`), an attacker can create two on-chain leaves in the Merkle tree with byte-for-byte identical preimages across two separate `transact()` calls. Both leaves then map to the identical nullifier, so once the first is spent, `insertNullifiers` will always revert `"Nullifier cannot be reused"` for the second — a real, funded leaf that can never be spent.
+
+### Finding Description
+The claimed equality is: *distinct tree leaves that hold genuinely deposited value ⇒ distinct nullifiers, so each leaf is independently spendable.* This is broken.
+
+- `OriginalCommitmentCalculator` (circuits/OriginalCommitmentCalculator.circom:16-22) computes `commitment = Poseidon(amount, erc20TokenAddress, publicKey, timeStamp)`, purely a function of these four values, with no leaf index, tree position, or per-deposit nonce mixed in.
+- `NullifierCalculator` (circuits/NullifierCalculator.circom:6-19) computes `out = Poseidon(commitment, signature) * (1 - IsZero(commitment))`, and `signature = Poseidon(nullifyingPrivateKey, commitment)` (circuits/Signature.circom). Both are deterministic functions of `commitment` and the spender's `nullifyingPrivateKey` only.
+- Consequently, **if two leaves share the same `(amount, token, publicKey, timeStamp)` preimage, they are forced to produce the same nullifier** when spent by the owner of that stealth address — regardless of which tree index/inclusion path each leaf occupies.
+- `HinkalBase.insertCommitments` (contracts/HinkalBase.sol:72-133) never checks for or rejects duplicate commitment values when inserting new leaves.
+- `DepositOnChainUtxosExternalAction.runAction` (contracts/external-actions/DepositOnChainUtxosExternalAction.sol:21-86) is explicitly documented as producing commitments "fully determined by the caller, because their timestamps come from `circomData.timeStamp` rather than from the block." It only guarantees uniqueness of `timeStamp` *within a single call* via `circomData.timeStamp + utxoIndex` (line 70); it does nothing to prevent the same `timeStamp`, `amount`, and `stealthAddressStructure` from being reused across two separate `transact()` calls.
+- `HinkalBase.insertNullifiers` (contracts/HinkalBase.sol:135-152) enforces `require(!nullifiers[inputNullifiers[i][j]], "Nullifier cannot be reused")`. This correctly prevents double-spending the *same* leaf, but because the nullifier is not bound to a unique leaf identity, it also permanently blocks the *second, distinct, value-bearing leaf* from ever being spent once the first identical leaf's nullifier is recorded.
+
+Attacker's exact call sequence:
+1. Attacker (as depositor, using their own funds and their own `circomData.originalSender`, or any depositor sending to a chosen recipient's known `stealthAddressStructure`) calls `Hinkal.transact` with `externalActionData` targeting `DepositOnChainUtxosExternalAction`, choosing `circomData.timeStamp = T`, `utxoAmounts[i][0] = X`, and a fixed `stealthAddressStructure` (attacker picks the ephemeral point / stealth address off-chain).
+2. Attacker repeats the identical call in a second transaction, again with `timeStamp = T`, `amount = X`, and the same `stealthAddressStructure`.
+3. Two distinct leaves are inserted at different tree indices, both equal to `hash4(X, token, publicKey, T)`.
+4. The owner (attacker or a targeted recipient who received the duplicate leaf) later spends one of them via `Hinkal.transact`; `MainEVMCircuit` computes and the contract records nullifier `N`.
+5. Any attempt to later spend the second identical leaf (different Merkle path, same commitment) forces the circuit to output the same `N`; `insertNullifiers` reverts every time — the leaf's value is permanently stranded with no nullifier that will ever be accepted for it.
+
+None of the existing guards prevent this: `verifyProof`/`rootHashExists` only check that the leaf exists in *some* valid root, not that its commitment is globally unique; `dimensionsCheck` only checks array lengths; `OverflowPreventer`/`ForceEqualIfEnabled`/`inTotal + amountChanges === outTotal` only bound per-transaction amount arithmetic, not cross-transaction commitment collisions; there is no chain-id/contract-address/leaf-index domain separation anywhere in the nullifier derivation.
+
+### Impact Explanation
+The value backing the second identical leaf is permanently frozen — it was legitimately deposited (real ERC20/ETH pulled into the contract) but can never produce an inclusion+nullifier proof the contract will accept once the sibling nullifier is set. This matches "permanent freezing of user funds," a Critical-severity category per the rules. It is fully repeatable: any depositor (attacker or otherwise) can grief any recipient whose `stealthAddressStructure`/public spending key is known, by depositing a duplicate-preimage UTXO to them, at the cost of only the deposit amount they intentionally lock up (or, if depositing to their own account, self-inflicted but still demonstrates the systemic flaw that no invariant enforces "one leaf, one nullifier").
+
+### Likelihood Explanation
+Preconditions are trivial and fully attacker-controlled: knowledge of a target's public stealth-address derivation data (routine for depositing to anyone), ability to choose `circomData.timeStamp` and `amount` (both are ordinary prover-supplied `CircomData` fields, not fixed to `block.timestamp` in this deposit path), and two ordinary `transact()` calls. No privileged role, no relay, no cross-chain replay is required — it is a same-chain, same-deployment self-collision achievable by any EOA at minimal cost (gas + the deposited amount).
+
+### Recommendation
+Bind the nullifier (or the commitment) to something that is guaranteed unique per real leaf, e.g., include the assigned Merkle leaf index, a monotonically-increasing on-chain deposit counter/nonce, or `block.timestamp`/`block.number` enforced by the contract (not caller-supplied) in the commitment/nullifier preimage. Additionally, consider having `insertCommitments`/`createOnchainCommitment` reject or auto-differentiate commitments that already exist in the tree, and stop allowing `circomData.timeStamp` to be an arbitrary caller-chosen value for on-chain UTXO creation.
+
+### Proof of Concept
+Foundry test plan:
+1. Deploy `Hinkal` + `DepositOnChainUtxosExternalAction`; whitelist the action as an allowed recipient.
+2. Craft `circomData` for call #1: `originalSender = attacker`, `stealthAddressStructure = S`, `timeStamp = T`, `utxoAmounts = [[100]]`, token = mock ERC20. Call `Hinkal.transact` (deposit path skips proof per `onChainCreation`/DepositOnChainUtxosExternalAction) — assert `NewCommitment` emitted with `commitment1 = hash4(100, token, S, T)` at index `idx1`.
+3. Repeat call #2 with identical `originalSender`, `S`, `T`, `amount = 100` — assert `NewCommitment` emitted with `commitment2 == commitment1` at a different index `idx2 != idx1`.
+4. Generate a valid spend proof for leaf `idx1` (locally, using the known `nullifyingPrivateKey` for `S`) and call `Hinkal.transact` to spend it — assert success and `nullifiers[N] == true` where `N = Poseidon(commitment1, Poseidon(nullifyingPrivateKey, commitment1))`.
+5. Generate a valid spend proof for leaf `idx2` with a fresh Merkle inclusion path for `idx2` (same commitment, different path) — assert the circuit computes the same `inNullifier == N`, and that `Hinkal.transact` **reverts** with `"Nullifier cannot be reused"`.
+6. Assert both sides of the invariant: `leaf(idx1) != leaf(idx2)` (different tree positions/paths, both funded) but `nullifier(idx1) == nullifier(idx2) == N`, and only one of the two deposits' value can ever be withdrawn — proving the second deposit's `100` tokens are permanently unspendable.
