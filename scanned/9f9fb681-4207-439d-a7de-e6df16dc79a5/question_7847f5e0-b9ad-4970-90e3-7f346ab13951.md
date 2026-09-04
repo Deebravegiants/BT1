@@ -1,1 +1,0 @@
-with zero authorisation ceiling. Impact: Critical, direct theft of user withdrawal funds via an unbounded relay fee. Proof: Foundry test with signerAddress=0, extreme variableRate, asserting payRelayFees's computed relayFee approaches sumAbs, i.e. actual fee paid != any signed/capped maxFee.
