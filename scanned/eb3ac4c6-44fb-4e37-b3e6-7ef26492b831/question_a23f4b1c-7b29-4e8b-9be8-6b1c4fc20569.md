@@ -1,1 +1,0 @@
-[File: contracts/types/IHinkalBase.sol -> Scope: Critical] Target: `Hinkal._internalTransact` positive-delta branch vs `_externalTransact` positive-delta branch, contrasted for the same `amountChanges[i]>0`. Attacker action: note that `_internalTransact` enforces `require(circomData.externalActionData.externalAddress == msg.sender,
