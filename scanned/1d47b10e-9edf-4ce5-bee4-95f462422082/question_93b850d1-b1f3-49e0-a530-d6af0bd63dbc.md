@@ -1,1 +1,0 @@
-numeric cap that has no token binding. Proof idea: Foundry test setting `maxFee = 100` (intended as 100 units of a stablecoin) but attacker sets `feeToken` = an 18-decimal high-value token, asserting the dollar value extracted vastly exceeds what the owner intended, while the `flatFee > stack.maxFee` guard still passes.]

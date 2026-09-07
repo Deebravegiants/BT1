@@ -1,0 +1,40 @@
+# [H] Improper Restriction of Operations within the Bounds of a Memory Buffer in Apache Tomcat
+
+## Summary
+Severity: High
+Advisory: GHSA-vf77-8h7g-gghp
+CVE: CVE-2020-13934
+CWE: CWE-119, CWE-476
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2022-02-08
+Source: https://github.com/advisories/GHSA-vf77-8h7g-gghp
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.tomcat:tomcat` — affected >=10.0.0-M1 <10.0.0-M6
+- Maven: `org.apache.tomcat:tomcat` — affected >=9.0.0.M5 <9.0.36
+- Maven: `org.apache.tomcat:tomcat` — affected >=8.5.1 <8.5.56
+- Maven: `org.apache.tomcat:tomcat-coyote` — affected >=10.0.0-M1 <10.0.0-M6
+- Maven: `org.apache.tomcat:tomcat-coyote` — affected >=9.0.0.M5 <9.0.36
+- Maven: `org.apache.tomcat:tomcat-coyote` — affected >=8.5.1 <8.5.56
+
+## Details
+An h2c direct connection to Apache Tomcat 10.0.0-M1 to 10.0.0-M6, 9.0.0.M5 to 9.0.36 and 8.5.1 to 8.5.56 did not release the HTTP/1.1 processor after the upgrade to HTTP/2. If a sufficient number of such requests were made, an OutOfMemoryException could occur leading to a denial of service.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2020-13934
+- https://github.com/apache/tomcat
+- https://lists.apache.org/thread.html/r61f411cf82488d6ec213063fc15feeeb88e31b0ca9c29652ee4f962e%40%3Cannounce.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/ra072b1f786e7d139e86f1d1145572e0ff71cef38a96d9c6f5362aac8@%3Cdev.tomcat.apache.org%3E
+- https://lists.debian.org/debian-lts-announce/2020/07/msg00017.html
+- https://security.netapp.com/advisory/ntap-20200724-0003
+- https://usn.ubuntu.com/4596-1
+- https://www.debian.org/security/2020/dsa-4727
+- https://www.oracle.com//security-alerts/cpujul2021.html
+- https://www.oracle.com/security-alerts/cpuApr2021.html
+- https://www.oracle.com/security-alerts/cpujan2021.html
+- https://www.oracle.com/security-alerts/cpujan2022.html
+- https://www.oracle.com/security-alerts/cpuoct2020.html
+- http://lists.opensuse.org/opensuse-security-announce/2020-07/msg00084.html
+- http://lists.opensuse.org/opensuse-security-announce/2020-07/msg00088.html

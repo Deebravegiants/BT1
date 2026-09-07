@@ -1,0 +1,47 @@
+# [M] Command injection in codecov (npm package)
+
+## Summary
+Severity: Medium
+Advisory: GHSA-xp63-6vf5-xf3v
+CVE: CVE-2020-15123
+CWE: CWE-78
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:N (CVSS_V3)
+Published: 2020-07-20
+Source: https://github.com/advisories/GHSA-xp63-6vf5-xf3v
+Type: github-advisory
+
+## Affected
+- npm: `codecov` — affected >=0 <3.7.1
+
+## Details
+### Impact
+
+The `upload` method has a command injection vulnerability. Clients of the `codecov-node` library are unlikely to be aware of this, so they might unwittingly write code that contains a vulnerability.
+
+A similar CVE was issued: [CVE-2020-7597](https://github.com/advisories/GHSA-5q88-cjfq-g2mh), but the fix was incomplete. It only blocked `&`, and command injection is still possible using backticks instead to bypass the sanitizer.
+
+We have written a [CodeQL](https://codeql.com) query, which automatically detects this vulnerability. You can see the results of the query on the `codecov-node` project [here](https://lgtm.com/query/7714424068617023832/).
+
+
+### Patches
+This has been patched in version 3.7.1
+
+### Workarounds
+
+None, however, the attack surface is low in this case. Particularly in the standard use of codecov, where the module is used directly in a build pipeline, not built against as a library in another application that may supply malicious input and perform command injection. 
+
+### References
+*  [CVE-2020-7597](https://github.com/advisories/GHSA-5q88-cjfq-g2mh)
+
+### For more information
+If you have any questions or comments about this advisory:
+* Contact us via our [Security Email](mailto:security@codecov.io)
+
+## References
+- https://github.com/codecov/codecov-node/security/advisories/GHSA-xp63-6vf5-xf3v
+- https://nvd.nist.gov/vuln/detail/CVE-2020-15123
+- https://github.com/codecov/codecov-node/pull/180
+- https://github.com/codecov/codecov-node/commit/c0711c656686e902af2cd92d6aecc8074de4d83d
+- https://github.com/advisories/GHSA-5q88-cjfq-g2mh
+- https://lgtm.com/query/7714424068617023832

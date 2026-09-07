@@ -1,0 +1,22 @@
+# [M] Cross-site scripting in CLEditor
+
+## Summary
+Severity: Medium
+Advisory: GHSA-hh56-x62g-gvhc
+CVE: CVE-2019-1010113
+CWE: CWE-79
+Ecosystem: NuGet
+CVSS: CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N (CVSS_V3)
+Published: 2019-07-26
+Source: https://github.com/advisories/GHSA-hh56-x62g-gvhc
+Type: github-advisory
+
+## Affected
+- NuGet: `CLEditor` — affected >=0
+
+## Details
+Premium Software CLEditor 1.4.5 and earlier is affected by: Cross Site Scripting (XSS). The impact is: An attacker might be able to inject arbitrary html and script code into the web site. The component is: jQuery plug-in. The attack vector is: the victim must open a crafted href attribute of a link (A) element.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2019-1010113
+- https://drive.google.com/drive/folders/1UxgdL8SJO6KKnG3bh0-LTl7C6i41VwoW?usp=sharing

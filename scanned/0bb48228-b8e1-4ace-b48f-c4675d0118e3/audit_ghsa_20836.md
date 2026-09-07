@@ -1,0 +1,41 @@
+# [H] lakeFS vulnerable to authenticated users deleting files they are not authorized to delete
+
+## Summary
+Severity: High
+Advisory: GHSA-28q9-9c3g-v3f9
+CWE: CWE-281, CWE-284
+Ecosystem: Go
+Published: 2022-09-23
+Source: https://github.com/advisories/GHSA-28q9-9c3g-v3f9
+Type: github-advisory
+
+## Affected
+- Go: `github.com/treeverse/lakefs` — affected >=0 <0.82.0
+
+## Details
+### Impact
+
+Authenticated users can send a request to delete-objects through the s3 gateway and delete files they are not authorized to delete.
+
+### Patches
+
+lakeFS v0.82.0 and later
+
+### Workarounds
+
+Drop specific request to the lakeFS listen port. Any request with "Authorization" header and value that starts with "AWS".
+
+### References
+
+[advisories/GHSA-28q9-9c3g-v3f9](https://github.com/treeverse/lakeFS/security/advisories/GHSA-28q9-9c3g-v3f9)
+
+### For more information
+If you have any questions or comments about this advisory:
+
+Ask on the [lakeFS Slack](https://github.com/treeverse/lakeFS/security/advisories/lakefs.io/slack) #help channel
+Email us at [security@treeverse.io](mailto:security@treeverse.io)
+
+## References
+- https://github.com/treeverse/lakeFS/security/advisories/GHSA-28q9-9c3g-v3f9
+- https://github.com/treeverse/lakeFS/commit/81182bf9c0cf57f3cec3c893cf739b2069305e37
+- https://github.com/treeverse/lakeFS

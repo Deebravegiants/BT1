@@ -1,0 +1,42 @@
+# [M] quic-go HTTP/3 QPACK Header Expansion DoS
+
+## Summary
+Severity: Medium
+Advisory: GHSA-g754-hx8w-x2g6
+CVE: CVE-2025-64702
+CWE: CWE-770
+Ecosystem: Go
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L (CVSS_V3)
+Published: 2025-12-11
+Source: https://github.com/advisories/GHSA-g754-hx8w-x2g6
+Type: github-advisory
+
+## Affected
+- Go: `github.com/quic-go/quic-go` — affected >=0 <0.57.0
+
+## Details
+## Summary
+
+An attacker can cause excessive memory allocation in quic-go's HTTP/3 client and server implementations by sending a QPACK-encoded HEADERS frame that decodes into a large header field section (many unique header names and/or large values). The implementation builds an `http.Header` (used on the `http.Request` and `http.Response`, respectively), while only enforcing limits on the size of the (QPACK-compressed) HEADERS frame, but not on the decoded header, leading to memory exhaustion.
+
+## Impact
+
+A misbehaving or malicious peer can cause a denial-of-service (DoS) attack on quic-go's HTTP/3 servers or clients by triggering excessive memory allocation, potentially leading to crashes or exhaustion. It affects both servers and clients due to symmetric header construction.
+
+## Details
+
+In HTTP/3, headers are compressed using QPACK (RFC 9204). quic-go's HTTP/3 server (and client) decodes the QPACK-encoded HEADERS frame into header fields, then constructs an http.Request (or response).
+
+`http3.Server.MaxHeaderBytes` and `http3.Transport.MaxResponseHeaderBytes`, respectively, limit encoded HEADERS frame size (default: 1 MB server, 10 MB client), but not decoded size. A maliciously crafted HEADERS frame can expand to ~50x the encoded size using QPACK static table entries with long names / values.
+
+RFC 9114 requires enforcing decoded field section size limits via SETTINGS, which quic-go did not do.
+
+## The Fix
+
+quic-go now enforces RFC 9114 decoded field section size limits, sending SETTINGS_MAX_FIELD_SECTION_SIZE and using incremental QPACK decoding to check the header size after each entry, aborting early on violations with HTTP 431 (on the server side) and stream reset (on the client side).
+
+## References
+- https://github.com/quic-go/quic-go/security/advisories/GHSA-g754-hx8w-x2g6
+- https://nvd.nist.gov/vuln/detail/CVE-2025-64702
+- https://github.com/quic-go/quic-go/commit/5b2d2129f8315da41e01eff0a847ab38a34e83a8
+- https://github.com/quic-go/quic-go

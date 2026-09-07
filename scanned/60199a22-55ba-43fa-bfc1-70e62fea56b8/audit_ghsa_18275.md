@@ -1,0 +1,101 @@
+# [M] MobSF Vulnerable to Arbitrary File Write (AR-Slip) via Absolute Path in .a Extraction
+
+## Summary
+Severity: Medium
+Advisory: GHSA-9gh8-9r95-3fc3
+CVE: CVE-2025-58162
+CWE: CWE-22
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:H/A:H (CVSS_V3)
+Published: 2025-09-02
+Source: https://github.com/advisories/GHSA-9gh8-9r95-3fc3
+Type: github-advisory
+
+## Affected
+- PyPI: `mobsf` — affected >=0 <4.4.1
+
+## Details
+### Summary
+The vulnerability allows any user to overwrite any files available under the account privileges of the running process.
+
+### Details
+As part of static analysis, iOS MobSF supports loading and parsing statically linked libraries `.a`. When parsing such archives, the code extracts the embedded objects to the file system in the working directory of the analysis. The problem is that the current implementation does not prohibit absolute file names inside `.a`. If an archive item has a name like /abs/path/to/file, the resulting path is constructed as Path(dst) /name; for absolute paths, this leads to a complete substitution of the destination directory: writing occurs directly to the specified absolute directory. the path (outside the working directory).
+
+Thus, an authenticated user who uploaded a specially prepared `.a`, can write arbitrary files to any directory writable by the user of the MobSF process (for example, `/tmp`, neighboring directories inside `~/.MobSF`, etc.).
+
+The key reason is that checking the "sliding" paths only takes into account the presence of `..` (relative traversal), but does not take into account the absoluteness of the name and does not compare the normalized target path with the root directory of the extraction.
+
+### What exactly is vulnerable:
+**mobsf/StaticAnalyzer/views/common/shared_func.py**
+Function for extracting objects from `.a` — ar_extract
+```
+def ar_extract(checksum, src, dst):
+    """Extract AR archive."""
+    ...
+    ar = arpy.Archive(src)
+    ar.read_all_headers()
+    for a, val in ar.archived_files.items():
+        # Handle archive slip attacks
+        filtered = a.decode('utf-8', 'ignore')
+        if is_path_traversal(filtered):
+            msg = f'Zip slip detected. skipped extracting {filtered}'
+            logger.warning(msg)
+            append_scan_status(checksum, msg)
+            continue
+        out = Path(dst) / filtered
+        out.write_bytes(val.read())
+```
+- The “slip” check is limited to is_path_traversal(filtered), which looks only for traversal patterns like `..`, `%2e%2e`, `%252e`.
+- Therefore, if the .a archive contains a member named '/tmp/pwned.txt', MobSF will write it to `/tmp/pwned.txt`, outside the intended working directory.
+
+ar_extract is called from:
+**mobsf/StaticAnalyzer/views/common/a.py**
+```
+def extract_n_get_files(checksum, src, dst):
+    dst = Path(dst) / 'static_objects'
+    dst.mkdir(parents=True, exist_ok=True)
+    ar_extract(checksum, src, dst.as_posix())
+```
+The expectation is that extraction happens only under the static_objects subdirectory, but absolute file names inside the `.a` break this assumption by directing writes outside that directory.
+
+### Attack Scenario
+1. The attacker creates a valid AR archive.a, in which the name of one of the members is the absolute path (as an example) /home/mobsf/.MobSF/db.sqlite3. This is done by the standard AR (GNU long filename table) mechanism.
+2. It downloads this one via the web interface or the Static library loading API `.a` in MobSF.
+3. During the analysis, MobSF extracts the contents: due to the absolute name, the resulting path becomes /home/mobsf/.MobSF/db.sqlite3, and the file is created/overwritten outside the working directory.
+4. In our case, the database file was overwritten, which caused MobSF to malfunction.
+### PoC
+1. Using the script, create a file with the payload. In the example, this is "/home/mobsf/.MobSF/db.sqlite3"
+<img width="786" height="342" alt="image" src="https://github.com/user-attachments/assets/0b7aee5c-6938-45cc-b668-9ad19f48c2c5" />
+
+2. Connect to the container and verify that the db.sqlite3 file is a database. The scan has not been performed yet.
+<img width="2535" height="1507" alt="image" src="https://github.com/user-attachments/assets/0cc92da7-91c0-453f-b1ed-080c9cfaa7f1" />
+
+3. Upload the file for scanning and then update the page to get a server error.
+<img width="2559" height="1476" alt="image" src="https://github.com/user-attachments/assets/a5b84ace-b853-46ad-9e2e-afad59ed058a" />
+
+4. Check the file structure after scanning and see that the file has been overwritten.
+<img width="797" height="213" alt="image" src="https://github.com/user-attachments/assets/758ba3da-ae25-4c8d-bd8b-932573ca2306" />
+
+5. There is a database error in the MobSF log.
+<img width="1724" height="1476" alt="image" src="https://github.com/user-attachments/assets/cd4211b1-2896-45e0-9934-9425b6035f2a" />
+
+### Impact
+1. Arbitrary writing/overwriting of files within the rights of the MobSF process (for example, /tmp, directories with analysis results, logs).
+2. Distortion of analysis results (substitution of artifacts) and undermining the integrity of reports.
+3. Implementation of a system malfunction (overwriting the db.sqlite3 file).
+4. Compromise of the UI (if you have write rights to statics/templates): Stored XSS by overwriting the plug-in.js/template.
+5. Potential escalation of risks with lax configuration of containers/rights (for example, writing to system paths inside the container if the process is running with excessive privileges).
+
+
+### Mitigation
+Reject absolute paths and normalize before writing. 
+
+
+
+### **Please, assign all credits to Vasily Leshchenko (Solar AppSec)**
+
+## References
+- https://github.com/MobSF/Mobile-Security-Framework-MobSF/security/advisories/GHSA-9gh8-9r95-3fc3
+- https://github.com/MobSF/Mobile-Security-Framework-MobSF/commit/7f3bc086c028c1b50889cab8a15f7b59b7abdaf9
+- https://github.com/MobSF/Mobile-Security-Framework-MobSF
+- https://github.com/MobSF/Mobile-Security-Framework-MobSF/releases/tag/v4.4.1

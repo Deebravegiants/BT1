@@ -1,0 +1,33 @@
+# [M] Apache Tomcat Leaks Pathname Information via Error Message
+
+## Summary
+Severity: Medium
+Advisory: GHSA-r6cf-cr44-m8rr
+CVE: CVE-2002-2009
+CWE: CWE-209
+Ecosystem: Maven
+CVSS: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N (CVSS_V4)
+Published: 2022-04-30
+Source: https://github.com/advisories/GHSA-r6cf-cr44-m8rr
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.tomcat:tomcat` — affected >=4.0.0
+
+## Details
+Apache Tomcat 4.0.1 allows remote attackers to obtain the web root path via HTTP requests for JSP files preceded by (1) +/, (2) >/, (3) </, and (4) %20/, which leaks the pathname in an error message.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2002-2009
+- https://exchange.xforce.ibmcloud.com/vulnerabilities/42915
+- https://github.com/apache/tomcat
+- https://lists.apache.org/thread.html/29dc6c2b625789e70a9c4756b5a327e6547273ff8bde7e0327af48c5%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/29dc6c2b625789e70a9c4756b5a327e6547273ff8bde7e0327af48c5@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/c62b0e3a7bf23342352a5810c640a94b6db69957c5c19db507004d74%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/c62b0e3a7bf23342352a5810c640a94b6db69957c5c19db507004d74@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/rb71997f506c6cc8b530dd845c084995a9878098846c7b4eacfae8db3%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/rb71997f506c6cc8b530dd845c084995a9878098846c7b4eacfae8db3@%3Cdev.tomcat.apache.org%3E
+- https://web.archive.org/web/20200302170930/https://www.securityfocus.com/bid/4557
+- http://tomcat.apache.org/security-4.html
+- http://www.derkeiler.com/Mailing-Lists/securityfocus/bugtraq/2002-04/0286.html
+- http://www.derkeiler.com/Mailing-Lists/securityfocus/bugtraq/2002-04/0297.html

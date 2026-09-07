@@ -1,0 +1,25 @@
+# [H] 1Panel contains a cross-site request forgery (CSRF) vulnerability in the web port configuration functionality
+
+## Summary
+Severity: High
+Advisory: GHSA-wrvc-x3wf-j5f5
+CVE: CVE-2025-34429
+CWE: CWE-352
+Ecosystem: Go
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:H (CVSS_V3)
+Published: 2025-12-10
+Source: https://github.com/advisories/GHSA-wrvc-x3wf-j5f5
+Type: github-advisory
+
+## Affected
+- Go: `github.com/1Panel-dev/1Panel` — affected >=1.10.33
+
+## Details
+1Panel versions 1.10.33 - 2.0.15 contain a cross-site request forgery (CSRF) vulnerability in the web port configuration functionality. The port-change endpoint lacks CSRF defenses such as anti-CSRF tokens or Origin/Referer validation. An attacker can craft a malicious webpage that submits a port-change request; when a victim visits it while authenticated, the browser includes valid session cookies and the request succeeds. This allows an attacker to change the port on which the 1Panel web service listens, causing loss of access on the original port and resulting in service disruption or denial of service, and may unintentionally expose the service on an attacker-chosen port.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2025-34429
+- https://1panel.pro
+- https://github.com/1Panel-dev/1Panel
+- https://github.com/1Panel-dev/1Panel/releases
+- https://www.vulncheck.com/advisories/1panel-csrf-web-port-configuration-change

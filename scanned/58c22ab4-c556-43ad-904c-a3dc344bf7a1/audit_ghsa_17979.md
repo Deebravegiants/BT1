@@ -1,0 +1,40 @@
+# [M] Apache Tomcat Session Fixation vulnerability
+
+## Summary
+Severity: Medium
+Advisory: GHSA-23hv-mwm6-g8jf
+CVE: CVE-2025-55668
+CWE: CWE-384
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2025-08-13
+Source: https://github.com/advisories/GHSA-23hv-mwm6-g8jf
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.tomcat:tomcat-catalina` — affected >=11.0.0-M1 <11.0.8
+- Maven: `org.apache.tomcat:tomcat-catalina` — affected >=10.1.0-M1 <10.1.42
+- Maven: `org.apache.tomcat:tomcat-catalina` — affected >=9.0.0.M1 <9.0.106
+- Maven: `org.apache.tomcat.embed:tomcat-embed-core` — affected >=11.0.0-M1 <11.0.8
+- Maven: `org.apache.tomcat.embed:tomcat-embed-core` — affected >=10.1.0-M1 <10.1.42
+- Maven: `org.apache.tomcat.embed:tomcat-embed-core` — affected >=9.0.0.M1 <9.0.106
+
+## Details
+Session Fixation vulnerability in Apache Tomcat via rewrite valve.
+
+This issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.7, from 10.1.0-M1 through 10.1.41, from 9.0.0.M1 through 9.0.105.
+Older, EOL versions may also be affected.
+
+Users are recommended to upgrade to version 11.0.8, 10.1.42 or 9.0.106, which fix the issue.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2025-55668
+- https://github.com/apache/tomcat/commit/8621e4c6ba2c916a41eb34cb0f781171ead33fb6
+- https://github.com/apache/tomcat/commit/90306d971bb8b8393336d893644124fb2ca11d21
+- https://github.com/apache/tomcat/commit/9c3673ba04009377cb0c81ccb6cf5078aec1aa95
+- https://github.com/apache/tomcat
+- https://lists.apache.org/thread/v6bknr96rl7l1qxkl1c03v0qdvbbqs47
+- https://tomcat.apache.org/security-10.html
+- https://tomcat.apache.org/security-11.html
+- https://tomcat.apache.org/security-9.html
+- http://www.openwall.com/lists/oss-security/2025/08/13/3

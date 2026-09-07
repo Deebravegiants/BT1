@@ -1,0 +1,44 @@
+# [M] DoS in KubeEdge's Websocket Client in package Viaduct
+
+## Summary
+Severity: Medium
+Advisory: GHSA-6wvc-6pww-qr4r
+CVE: CVE-2022-31080
+CWE: CWE-400, CWE-770
+Ecosystem: Go
+CVSS: CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2022-07-11
+Source: https://github.com/advisories/GHSA-6wvc-6pww-qr4r
+Type: github-advisory
+
+## Affected
+- Go: `github.com/kubeedge/kubeedge` — affected >=1.11.0 <1.11.1
+- Go: `github.com/kubeedge/kubeedge` — affected >=1.10.0 <1.10.2
+- Go: `github.com/kubeedge/kubeedge` — affected >=0 <1.9.4
+
+## Details
+### Impact
+A large response received by the viaduct WSClient can cause a DoS from memory exhaustion. The entire body of the response is being read into memory which could allow an attacker to send a request that returns a response with a large body.
+The consequence of the exhaustion is that the process which invokes a WSClient will be in a denial of service. It will be affected If users which are authenticated to the edge side and connect from the edge side to `cloudhub` through WebSocket protocol.
+
+### Patches
+This bug has been fixed in Kubeedge 1.11.1, 1.10.2, 1.9.4. Users should update to these versions to resolve the issue.
+
+### Workarounds
+At the time of writing, no workaround exists.
+
+### References
+NA
+
+### Credits
+Thanks David Korczynski and Adam Korczynski of ADA Logics for responsibly disclosing this issue in accordance with the [kubeedge security policy](https://github.com/kubeedge/kubeedge/security/policy) during a security audit sponsored by CNCF and facilitated by OSTIF.
+
+### For more information
+If you have any questions or comments about this advisory:
+* Open an issue in [KubeEdge repo](https://github.com/kubeedge/kubeedge/issues/new/choose)
+* To make a vulnerability report, email your vulnerability to the private [cncf-kubeedge-security@lists.cncf.io](mailto:cncf-kubeedge-security@lists.cncf.io) list with the security details and the details expected for [KubeEdge bug reports](https://github.com/kubeedge/kubeedge/blob/master/.github/ISSUE_TEMPLATE/bug-report.md).
+
+## References
+- https://github.com/kubeedge/kubeedge/security/advisories/GHSA-6wvc-6pww-qr4r
+- https://nvd.nist.gov/vuln/detail/CVE-2022-31080
+- github.com/kubeedge/kubeedge

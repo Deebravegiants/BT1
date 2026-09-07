@@ -1,0 +1,39 @@
+# [H] Improper Authorization in Apache Xalan-Java
+
+## Summary
+Severity: High
+Advisory: GHSA-rc2w-r4jq-7pfx
+CVE: CVE-2014-0107
+CWE: CWE-285
+Ecosystem: Maven
+Published: 2022-05-13
+Source: https://github.com/advisories/GHSA-rc2w-r4jq-7pfx
+Type: github-advisory
+
+## Affected
+- Maven: `xalan:xalan` — affected >=0 <2.7.2
+
+## Details
+The TransformerFactory in Apache Xalan-Java before 2.7.2 does not properly restrict access to certain properties when FEATURE_SECURE_PROCESSING is enabled, which allows remote attackers to bypass expected restrictions and load arbitrary classes or access external resources via a crafted (1) xalan:content-header, (2) xalan:entities, (3) xslt:content-header, or (4) xslt:entities property, or a Java property that is bound to the XSLT 1.0 system-property function.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2014-0107
+- https://exchange.xforce.ibmcloud.com/vulnerabilities/92023
+- https://github.com/apache/xalan-java
+- https://h20566.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c05324755
+- https://issues.apache.org/jira/browse/XALANJ-2435
+- https://lists.apache.org/thread.html/519eb0fd45642dcecd9ff74cb3e71c20a4753f7d82e2f07864b5108f@%3Cdev.drill.apache.org%3E
+- https://lists.apache.org/thread.html/b0656d359c7d40ec9f39c8cc61bca66802ef9a2a12ee199f5b0c1442@%3Cdev.drill.apache.org%3E
+- https://lists.apache.org/thread.html/r0c00afcab8f238562e27b3ae7b8af1913c62bc60838fb8b34c19e26b@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r2900489bc665a2e32d021bb21f6ce2cb8e6bb5973490eebb9a346bca@%3Cdev.tomcat.apache.org%3E
+- https://security.gentoo.org/glsa/201604-02
+- https://www.oracle.com//security-alerts/cpujul2021.html
+- https://www.oracle.com/security-alerts/cpuoct2021.html
+- https://www.oracle.com/technetwork/security-advisory/cpuapr2019-5072813.html
+- https://www.tenable.com/security/tns-2018-15
+- http://rhn.redhat.com/errata/RHSA-2014-0348.html
+- http://rhn.redhat.com/errata/RHSA-2014-1351.html
+- http://rhn.redhat.com/errata/RHSA-2015-1888.html
+- http://svn.apache.org/viewvc?view=revision&revision=1581058
+- http://www-01.ibm.com/support/docview.wss?uid=swg21674334
+- http://www-01.ibm.com/support/docview.wss?uid=swg21676093

@@ -1,0 +1,13 @@
+# Q3016: Decimals/min nep141:aptos.omft.near feeInclusive: false: `getCachedTokenDecimals` returns a
+
+## Question
+For `nep141:aptos.omft.near` via OmniBridge with `feeInclusive: false`, when `getCachedTokenDecimals` returns a stale value after a token migration changes `decimals`, can an unprivileged user sign a withdrawal whose amount passes `validateWithdrawal` but normalises to less than the destination's minimum or to zero (1h TTL cache), so the tokens are debited on intents.near and never credited on Aptos?
+
+## Target
+- File/function: packages/intents-sdk/src/bridges/omni-bridge/omni-bridge.ts `validateWithdrawal` (verifyTransferAmount, getMinimumTransferableAmount, MIN_AMOUNT_SOL_OMNI_WITHDRAWAL, UTXO min_amount), `getCachedTokenDecimals`; sdk.ts `_estimateWithdrawalFee` skipMinAmountValidation
+- Entrypoint: `IntentsSDK.estimateWithdrawalFee` then `signAndSendWithdrawalIntent` / `processWithdrawal`
+- Attacker controls: `amount`, `feeInclusive`, reuse of a FeeEstimation across amounts
+- Exploit idea: 1h TTL cache
+- Invariant to test: normalised destination amount > 0 and >= destination minimum for every withdrawal the SDK signs.
+- Expected Immunefi impact: Critical - fee calculation error draining a material share of the amount (HackenProof: fee calculation errors causing significant losses)
+- Fast validation: vitest: mock decimals and getFee; sweep amounts around the boundary; assert throws vs intents produced.

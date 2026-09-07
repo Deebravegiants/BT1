@@ -1,0 +1,241 @@
+# [M] ImageMagick CLAHE : Unsigned underflow and division-by-zero lead to OOB pointer arithmetic and process crash (DoS)
+
+## Summary
+Severity: Medium
+Advisory: GHSA-wpp4-vqfq-v4hp
+CVE: CVE-2025-62594
+CWE: CWE-119, CWE-191, CWE-369
+Ecosystem: NuGet
+CVSS: CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2025-10-27
+Source: https://github.com/advisories/GHSA-wpp4-vqfq-v4hp
+Type: github-advisory
+
+## Affected
+- NuGet: `Magick.NET-Q16-x64` — affected >=0
+- NuGet: `Magick.NET-Q8-x64` — affected >=0
+- NuGet: `Magick.NET-Q16-HDRI-x64` — affected >=0
+- NuGet: `Magick.NET-Q8-OpenMP-x64` — affected >=0
+- NuGet: `Magick.NET-Q16-HDRI-OpenMP-x64` — affected >=0
+- NuGet: `Magick.NET-Q16-OpenMP-x64` — affected >=0
+- NuGet: `Magick.NET-Q8-arm64` — affected >=0
+- NuGet: `Magick.NET-Q16-arm64` — affected >=0
+- NuGet: `Magick.NET-Q16-OpenMP-arm64` — affected >=0
+- NuGet: `Magick.NET-Q8-OpenMP-arm64` — affected >=0
+- NuGet: `Magick.NET-Q16-HDRI-OpenMP-arm64` — affected >=0
+- NuGet: `Magick.NET-Q16-HDRI-arm64` — affected >=0
+
+## Details
+## Summary
+
+A single root cause in the CLAHE implementation — tile width/height becoming zero — produces two distinct but related unsafe behaviors.
+Vulnerabilities exists in the `CLAHEImage()` function of ImageMagick’s `MagickCore/enhance.c`.
+
+1. Unsigned integer underflow → out-of-bounds pointer arithmetic (OOB): when `tile_info.height == 0`, the expression `tile_info.height - 1` (unsigned) wraps to a very large value; using that value in pointer arithmetic yields a huge offset and OOB memory access (leading to memory corruption, SIGSEGV, or resource exhaustion).
+2. **Division/modulus by zero**: where code performs `... / tile_info.width` or `... % tile_info.height` without re-checking for zero, causing immediate division-by-zero crashes under sanitizers or `abort` at runtime.
+
+Both behaviors are triggered by the same invalid tile condition (e.g., CLI exact `-clahe 0x0!` or automatic tile derivation `dim >> 3 == 0` for very small images). 
+
+---
+
+## Details
+
+### **Unsigned underflow(can lea to OOB)**
+
+- Location: `MagickCore/enhance.c`, around line 609
+- Version tested: 7.1.2-8 (local ASan(undefined). /UBSan build)
+- Vulnerable code
+    
+    enhance.c: 609
+    
+    ```c
+    p += (ptrdiff_t) clahe_info->width * (tile.height - 1);
+    ```
+    
+- Root Cause
+    - If `tile.height == 0`, then `(tile.height - 1)` underflows to `UINT_MAX`.
+    - Multiplication with `clahe_info->width` yields a huge value close to `SIZE_MAX`.
+    - Adding this to `p` causes pointer arithmetic underflow.
+
+### **Division-by-zero**
+
+- File / Location: `MagickCore/enhance.c`, around line 669
+- Version tested: 7.1.2-8 (local ASan(undefined). /UBSan build)
+- vulnerable code
+    
+    enhance.c: 669-673
+    
+    ```c
+     if ((image->columns % tile_info.width) != 0)
+        tile_info.x=(ssize_t) (tile_info.width-(image->columns % tile_info.width));
+      tile_info.y=0;
+      if ((image->rows % tile_info.height) != 0)
+        tile_info.y=(ssize_t) (tile_info.height-(image->rows % tile_info.height));
+    ```
+    
+- Root cause
+    
+    Missing input validation / bounds checks after computing default tile dimensions:
+    
+    If either `tile_info.width` or `tile_info.height` is 0, this triggers a division by zero. Zeros can reach this point through:
+    
+    1. Exact tiles: CLI `clahe 0x0!` (the `!` forces zero to be used verbatim).
+    2. Auto tiles on tiny images: When a requested tile is `0` (no `!`), the code derives a default from the image size (e.g., `dim >> 3`). For images with `dim < 8`, this result is 0 unless clamped.
+
+---
+
+## Reproduction
+
+### **Unsigned underflow**
+
+**Environment**
+
+Built with AddressSanitizer and UndefinedBehaviorSanitizer enabled.
+
+```c
+export UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1
+export ASAN_OPTIONS=abort_on_error=1:allocator_may_return_null=1:detect_leaks=0
+```
+
+**Command**
+
+```bash
+./magick xc:black -clahe 0x0 null:
+```
+
+**Output**
+
+```
+MagickCore/enhance.c:609:6: runtime error: addition of unsigned offset overflowed
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior MagickCore/enhance.c:609:6 in CLAHEImage
+```
+
+`./magick -size 10x10 xc:black -clahe 0x0 null:`
+
+<img width="1068" height="64" alt="image" src="https://github.com/user-attachments/assets/cd9637ee-1d03-4066-834d-fda22410dd8b" />
+
+memory region corruption.
+
+`./magick -size 2000x2000 xc:black -clahe 0x0 null:`
+
+<img width="1069" height="70" alt="image" src="https://github.com/user-attachments/assets/ecbab79c-a3c2-4e8c-96c9-8e2aa8f0d2b2" />
+
+→ Significant memory consumption and evidence of memory region corruption.
+
+`./magick -size 4000x4000 xc:black -clahe 0x0 null:`
+
+<img width="776" height="49" alt="image" src="https://github.com/user-attachments/assets/63a7cec5-616b-4aa5-87f3-a546a87e6625" />
+
+→ Much larger memory usage; process appears to be aggressively consuming cache and address space.
+
+`./magick -size 8000x8000 xc:black -clahe 0x0 null:`
+
+<img width="748" height="46" alt="image" src="https://github.com/user-attachments/assets/48b3aac8-98b3-4fbb-a5ca-4e7936bca44b" />
+
+→ Memory usage escalates further and begins exhausting available cache. If left running, the process is likely to crash (DoS) after sustained allocation attempts.
+
+### **Division-by-zero**
+
+**Environment:** ASan/UBSan-enabled build.
+
+```c
+export UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1
+export ASAN_OPTIONS=abort_on_error=1:allocator_may_return_null=1:detect_leaks=0
+```
+
+**Command**
+
+```bash
+./magick -size 16x2 gradient: -type TrueColor -depth 8 -clahe 0x0! null:
+```
+
+**Output**
+
+<img width="1915" height="818" alt="image" src="https://github.com/user-attachments/assets/cfe44432-b429-49e4-8673-2ed55ba9a961" />
+
+**Notes:** Without sanitizers, the process may terminate with just `Aborted` (still DoS).
+
+---
+
+## Impact
+
+- Primary: Denial-of-Service — crash or sustained resource exhaustion (memory/cache thrash) when processing crafted parameters or small images via CLI or API. Attackers can trivially trigger via `clahe 0x0!` or by uploading very small images to services using ImageMagick.
+- Secondary (theoretical): OOB memory accesses and memory corruption could potentially be combined with other vulnerabilities to achieve more severe outcomes; however, no reliable code execution was demonstrated from these PoCs alone.
+
+---
+
+## Suggested concrete patch snippets
+
+Apply in `CLAHEImage()` after `tile_info` is computed but **before** any division/modulus/pointer arithmetic:
+
+```c
+if (exact_tiles_requested && (tile_info.width == 0 || tile_info.height == 0)) {
+  ThrowMagickException(exception, GetMagickModule(), OptionError,
+                       "CLAHEInvalidTile", "%lux%lu",
+                       (unsigned long) tile_info.width,
+                       (unsigned long) tile_info.height);
+  return (Image *) NULL;
+}
+
+if (!exact_tiles_requested) {
+  tile_info.width  = (tile_info.width  == 0) ? MagickMax((size_t)1, image->columns >> 3) : tile_info.width;
+  tile_info.height = (tile_info.height == 0) ? MagickMax((size_t)1, image->rows    >> 3) : tile_info.height;
+}
+
+if (tile_info.width == 0 || tile_info.height == 0) {
+  ThrowMagickException(exception, GetMagickModule(), OptionError,
+                       "CLAHEInvalidTile", "%lux%lu",
+                       (unsigned long) tile_info.width,
+                       (unsigned long) tile_info.height);
+  return (Image *) NULL;
+}
+
+ssize_t tile_h_minus1 = (ssize_t)tile_info.height - 1;
+if (tile_h_minus1 < 0) {
+  ThrowMagickException(exception, GetMagickModule(), OptionError,
+                       "CLAHEInvalidTile", "%lux%lu",
+                       (unsigned long) tile_info.width,
+                       (unsigned long) tile_info.height);
+  return (Image *) NULL;
+}
+p += (ptrdiff_t) clahe_info->width * tile_h_minus1;
+```
+
+Notes about `exact_tiles_requested`: if the CLI/Wand parser already exposes whether `!` was present, use it. If not, add a parse-time flag so CLAHEImage can know whether `0` is literal or auto.
+
+---
+
+## Credit
+
+### Team Whys 
+
+**Bug Hunting Master Program, HSpace/Findthegap**
+
+**Youngmin Kim** 
+kunshim@naver.com
+
+**Woojin Park**
+
+[@jin-156](https://github.com/jin-156)
+[1203kids@gmail.com](mailto:1203kids@gmail.com)
+
+**Youngin Won**
+
+[@amethyst0225](https://github.com/amethyst0225)
+[youngin04@korea.ac.kr](mailto:youngin04@korea.ac.kr)
+
+**Siyeon Han**
+
+[@hanbunny](https://github.com/hanbunny)
+[kokosyeon@gmail.com](mailto:kokosyeon@gmail.com)
+
+**Shinyoung Won**
+
+[@yosiimich](yosimich123@gmail.com)
+[yosimich123@gmail.com](mailto:yosimich123@gmail.com)
+
+## References
+- https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-wpp4-vqfq-v4hp
+- https://nvd.nist.gov/vuln/detail/CVE-2025-62594
+- https://github.com/ImageMagick/ImageMagick/commit/7b47fe369eda90483402fcd3d78fa4167d3bb129
+- https://github.com/ImageMagick/ImageMagick

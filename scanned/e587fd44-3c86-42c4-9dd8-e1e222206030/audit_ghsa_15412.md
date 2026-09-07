@@ -1,0 +1,23 @@
+# [C] NextChat has full-read SSRF and XSS vulnerability in /api/cors endpoint
+
+## Summary
+Severity: Critical
+Advisory: GHSA-qf3q-9f3h-cjp9
+CVE: CVE-2023-49785
+CWE: CWE-79, CWE-918
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N (CVSS_V3)
+Published: 2024-08-05
+Source: https://github.com/advisories/GHSA-qf3q-9f3h-cjp9
+Type: github-advisory
+
+## Affected
+- npm: `nextchat` — affected >=0
+
+## Details
+NextChat, also known as ChatGPT-Next-Web, is a cross-platform chat user interface for use with ChatGPT. Versions 2.11.2 and prior are vulnerable to server-side request forgery and cross-site scripting. This vulnerability enables read access to internal HTTP endpoints but also write access using HTTP POST, PUT, and other methods. Attackers can also use this vulnerability to mask their source IP by forwarding malicious traffic intended for other Internet targets through these open proxies. As of time of publication, no patch is available, but other mitigation strategies are available. Users may avoid exposing the application to the public internet or, if exposing the application to the internet, ensure it is an isolated network with no access to any other internal resources.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2023-49785
+- https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web
+- https://www.horizon3.ai/attack-research/attack-blogs/nextchat-an-ai-chatbot-that-lets-you-talk-to-anyone-you-want-to

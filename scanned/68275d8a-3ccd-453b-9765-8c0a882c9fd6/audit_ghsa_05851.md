@@ -1,0 +1,71 @@
+# [C] mcp-contextforge-gateway has RestrictedPython sandbox bypass via getattr builtin in python_sandbox_server
+
+## Summary
+Severity: Critical
+Advisory: GHSA-xm98-3vcf-fph7
+CVE: CVE-2026-53710
+CWE: CWE-693, CWE-94
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H (CVSS_V3)
+Published: 2026-08-24
+Source: https://github.com/advisories/GHSA-xm98-3vcf-fph7
+Type: github-advisory
+
+## Affected
+- PyPI: `mcp-contextforge-gateway` — affected >=0 <1.0.2
+
+## Details
+**Commit:** `f855e54d5b7bc1c91b977574a03b91eff6b86bb6`
+**Component:** `mcp-servers/python/python_sandbox_server/src/python_sandbox_server/server_fastmcp.py`
+
+## Vulnerability
+
+RestrictedPython's sandbox in ContextForge's `python_sandbox_server` sub-project allows arbitrary Python execution via three compounding weaknesses:
+
+1. Raw `getattr` is exposed in `safe_builtins`, bypassing `_getattr_` mediation.
+2. `validate_code` checks for literal dangerous dunder strings, but the payload constructs those names at runtime.
+3. The `execute_code` MCP tool can be exposed over HTTP/SSE transport with no authentication layer.
+
+## Proof of Concept
+
+The local PoC was executed against the real pinned sandbox code path. It constructs dunder names at runtime, walks Python's class hierarchy through the exposed `getattr`, finds `subprocess.Popen`, and executes a harmless marker command.
+
+Transcript excerpt:
+
+```text
+POC: IBM/mcp-context-forge RestrictedPython getattr sandbox bypass
+validation={'valid': True, 'message': 'Code passed validation', 'warnings': None}
+success=True
+stdout="FOUND_POPEN\nb'IBM_SANDBOX_POC_PASS'\n"
+IBM_RESTRICTEDPYTHON_GETATTR_POPEN_REPRO_PASS
+```
+
+PoC artifact hashes:
+
+```text
+beb2d856c5a1b7c10005c9c0fccaf3d491d4fbcc2a69bc54b5e95c5730c0874b  run.py
+1037dcb4f0831a3c96ca728527f939af1d3e19514b23ef54f663707875748ff8  run.sh
+7026e676ee31916886f10feed959ffdbe486fda05b17421387e4717acbf90ba6  transcript.txt
+```
+
+## Production Deployment Context
+
+ContextForge's documentation describes registering MCP servers as gateways in a running ContextForge instance. If this sandbox server is reachable over HTTP in that pattern, any client that can reach the endpoint can submit the payload through `tools/call`.
+
+## Impact
+
+An attacker with access to the `python_sandbox_server` HTTP endpoint can execute OS commands with the privileges of the server process. In containerized deployments with host mounts or internal network reachability, this can become filesystem compromise or network pivoting from the gateway host.
+
+## Suggested Fix
+
+Remove raw `getattr` and `setattr` from `safe_builtins`, expose only policy-controlled attribute access if dynamic lookup is required, replace substring filtering with a stricter RestrictedPython policy pipeline, and add authentication to HTTP transport for all `tools/call` requests.
+
+## Caveats
+
+This report covers the `python_sandbox_server` sub-project. The core ContextForge gateway and proxy components are not directly affected. The Critical score assumes HTTP reachability; stdio-only deployments reduce the attack vector.
+
+## References
+- https://github.com/IBM/mcp-context-forge/security/advisories/GHSA-xm98-3vcf-fph7
+- https://github.com/IBM/mcp-context-forge/commit/63a2900e6301b9c8a483a38d3737a1beb3a7ce89
+- https://github.com/IBM/mcp-context-forge
+- https://github.com/IBM/mcp-context-forge/releases#release-v1.0.2

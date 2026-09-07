@@ -1,0 +1,31 @@
+# [C] Liferay Portal and Liferay DXP Vulnerable to XSS in the Fragment Components
+
+## Summary
+Severity: Critical
+Advisory: GHSA-j663-6jpj-xx8c
+CVE: CVE-2023-44309
+CWE: CWE-79
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:H (CVSS_V3)
+Published: 2023-10-17
+Source: https://github.com/advisories/GHSA-j663-6jpj-xx8c
+Type: github-advisory
+
+## Affected
+- Maven: `com.liferay:com.liferay.fragment.entry.processor.impl` — affected >=0 <3.0.25
+- Maven: `com.liferay.portal:release.dxp.bom` — affected >=7.4.0 <7.4.13.u54
+
+## Details
+Multiple stored cross-site scripting (XSS) vulnerabilities in the fragment components before 3.0.25 from Liferay Portal (7.4.2 through 7.4.3.53), and Liferay DXP 7.4 before update 54 allow remote attackers to inject arbitrary web script or HTML via a crafted payload injected into any non-HTML field of a linked source asset.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2023-44309
+- https://github.com/liferay/liferay-portal/commit/1287c68486d60b87179995d8b8bd530031300a47
+- https://github.com/liferay/liferay-portal/commit/28f8a7aabccce45e9d60cfb0cf63fc53c99b0d26
+- https://github.com/liferay/liferay-portal/commit/9031a7a03e5891e7ccf762011fe8bcc2e433b1db
+- https://github.com/liferay/liferay-portal/commit/ba628735cfae8656ab4243ecffce260413ed2460
+- https://github.com/liferay/liferay-portal/commit/d70fecd2c5709d8dd5f4992b408a640ce912001b
+- https://github.com/liferay/liferay-portal/commit/e45bf2d00ed7f95f02702a1da3e4115ab30b1bff
+- https://github.com/liferay/liferay-portal/commit/ed856dd9e2947e3e660d7cfbdb8c604b296db790
+- https://github.com/liferay/liferay-portal
+- https://liferay.dev/portal/security/known-vulnerabilities/-/asset_publisher/jekt/content/cve-2023-44309

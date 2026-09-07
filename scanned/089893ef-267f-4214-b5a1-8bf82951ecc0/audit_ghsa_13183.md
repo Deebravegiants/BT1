@@ -1,0 +1,25 @@
+# [M] Economizzer vulnerable to Clickjacking
+
+## Summary
+Severity: Medium
+Advisory: GHSA-gc95-5mmp-mp6j
+CVE: CVE-2023-38873
+CWE: CWE-1021
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N (CVSS_V3)
+Published: 2023-09-28
+Source: https://github.com/advisories/GHSA-gc95-5mmp-mp6j
+Type: github-advisory
+
+## Affected
+- Packagist: `gugoan/economizzer` — affected >=0
+
+## Details
+The commit 3730880 (April 2023) and v.0.9-beta1 of gugoan Economizzer is vulnerable to Clickjacking. Clickjacking, also known as a "UI redress attack", is when an attacker uses multiple transparent or opaque layers to trick a user into clicking on a button or link on another page when they were intending to click on the top-level page. Thus, the attacker is "hijacking" clicks meant for their page and routing them to another page, most likely owned by another application, domain, or both.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2023-38873
+- https://github.com/gugoan/economizzer/commit/37308802dfe00d43df396a8afaa2096ece8b7b57
+- https://github.com/dub-flow/vulnerability-research/tree/main/CVE-2023-38873
+- https://github.com/gugoan/economizzer
+- https://www.economizzer.org

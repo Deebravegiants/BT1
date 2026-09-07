@@ -1,0 +1,27 @@
+# [C] Liferay Portal and Liferay DXP Vulnerable to XSS via the Page Tree Menu
+
+## Summary
+Severity: Critical
+Advisory: GHSA-j5gv-w838-mmcx
+CVE: CVE-2023-44310
+CWE: CWE-79
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:H (CVSS_V3)
+Published: 2023-10-17
+Source: https://github.com/advisories/GHSA-j5gv-w838-mmcx
+Type: github-advisory
+
+## Affected
+- Maven: `com.liferay:com.liferay.layout.impl` — affected >=0 <6.0.102
+- Maven: `com.liferay.portal:release.dxp.bom` — affected >=7.3.10.fp1
+- Maven: `com.liferay.portal:release.dxp.bom` — affected >=7.4.0 <7.4.13.u79
+
+## Details
+Stored cross-site scripting (XSS) vulnerability in Page Tree menu in Liferay Layout Implementation before 6.0.102 from Liferay Portal (7.3.6 through 7.4.3.78), and Liferay DXP 7.3 fix pack 1 through update 23, and 7.4 before update 79 allows remote attackers to inject arbitrary web script or HTML via a crafted payload injected into page's "Name" text field.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2023-44310
+- https://github.com/liferay/liferay-portal/commit/45931175b6ae14df089f0304f86b5b0f66ac3c02
+- https://github.com/liferay/liferay-portal
+- https://liferay.atlassian.net/browse/LPE-17725
+- https://liferay.dev/portal/security/known-vulnerabilities/-/asset_publisher/jekt/content/cve-2023-44310?p_r_p_assetEntryId=122124880&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_jekt_redirect=https%3A%2F%2Fliferay.dev%3A443%2Fportal%2Fsecurity%2Fknown-vulnerabilities%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_jekt%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26p_r_p_assetEntryId%3D122124880%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_jekt_cur%3D0%26p_r_p_resetCur%3Dfalse

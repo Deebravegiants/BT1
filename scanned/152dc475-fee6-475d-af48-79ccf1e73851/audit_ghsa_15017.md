@@ -1,0 +1,32 @@
+# [M] ZendFramework Potential Proxy Injection Vulnerabilities
+
+## Summary
+Severity: Medium
+Advisory: GHSA-mg7h-9qfx-4r83
+CWE: CWE-74
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N (CVSS_V3)
+Published: 2024-06-07
+Source: https://github.com/advisories/GHSA-mg7h-9qfx-4r83
+Type: github-advisory
+
+## Affected
+- Packagist: `zendframework/zendframework` — affected >=2.0.0 <2.0.5
+
+## Details
+`Zend\Session\Validator\RemoteAddr` and `Zend\View\Helper\ServerUrl` were found to be improperly parsing HTTP headers for proxy information, which could potentially allow an attacker to spoof a proxied IP or host name.
+
+In `Zend\Session\Validator\RemoteAddr`, if the client is behind a proxy server, the detection of the proxy URL was incorrect, and could lead to invalid results on subsequent lookups.
+
+In `Zend\View\Helper\ServerUrl`, if the server lives behind a proxy, the helper would always generate a URL based on the proxy host, regardless of whether or not this was desired; additionally, it did not take into account the proxy port or protocol, if provided.
+
+## References
+- https://github.com/zendframework/zendframework/commit/1040acaf70d297ec7214934d8ddc3e811d249b5c
+- https://github.com/zendframework/zendframework/commit/ad8fdc3378710b7cfbe2a271dbb0e3256cffb599
+- https://github.com/zendframework/zendframework/commit/ada1fab92f6d5c7ad96c5a63f3196d925e3f5887
+- https://github.com/zendframework/zendframework/commit/b914ecdd4d17ab5b61f15ccdc02a6e9b255b15d8
+- https://github.com/zendframework/zendframework/commit/c3819abbf2c9571069c893d27ae6170bda413925
+- https://github.com/zendframework/zendframework/commit/cfaf5ea095c93f3e70343358a3a88c3924d7ed7d
+- https://framework.zend.com/security/advisory/ZF2012-04
+- https://github.com/FriendsOfPHP/security-advisories/blob/master/zendframework/zendframework/ZF2012-04.yaml
+- https://github.com/zendframework/zendframework

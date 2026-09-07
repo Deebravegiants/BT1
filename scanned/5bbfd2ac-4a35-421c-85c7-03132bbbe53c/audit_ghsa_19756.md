@@ -1,0 +1,23 @@
+# [H] Open WebUI Vulnerable to a Session Fixation Attack
+
+## Summary
+Severity: High
+Advisory: GHSA-43g4-487m-5q6m
+CVE: CVE-2024-7053
+CWE: CWE-79
+Ecosystem: PyPI
+CVSS: CVSS:3.0/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:L/A:N (CVSS_V3)
+Published: 2025-03-20
+Source: https://github.com/advisories/GHSA-43g4-487m-5q6m
+Type: github-advisory
+
+## Affected
+- PyPI: `open-webui` — affected >=0
+
+## Details
+A vulnerability in open-webui/open-webui version 0.3.8 allows an attacker with a user-level account to perform a session fixation attack. The session cookie for all users is set with the default `SameSite=Lax` and does not have the `Secure` flag enabled, allowing the session cookie to be sent over HTTP to a cross-origin domain. An attacker can exploit this by embedding a malicious markdown image in a chat, which, when viewed by an administrator, sends the admin's session cookie to the attacker's server. This can lead to a stealthy administrator account takeover, potentially resulting in remote code execution (RCE) due to the elevated privileges of administrator accounts.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-7053
+- https://github.com/open-webui/open-webui
+- https://huntr.com/bounties/947f8191-0abf-4adf-b7c4-d4c19683aba2

@@ -1,0 +1,45 @@
+# [H] Citizen Short Description stored XSS vulnerability through wikitext
+
+## Summary
+Severity: High
+Advisory: GHSA-p85q-mww9-gwqf
+CVE: CVE-2025-53369
+CWE: CWE-79
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:L (CVSS_V3)
+Published: 2025-07-03
+Source: https://github.com/advisories/GHSA-p85q-mww9-gwqf
+Type: github-advisory
+
+## Affected
+- Packagist: `starcitizentools/short-description` — affected >=4.0.0 <4.0.1
+
+## Details
+### Summary
+Short descriptions are not properly sanitized by the ShortDescription before being inserted as HTML using `mw.util.addSubtitle`, allowing any user to insert arbitrary HTML into the DOM by editing a page.
+
+### Details
+The description provided by the user via the `{{SHORTDESC:}}` parser function is insufficiently sanitized by the `sanitize()` function, as html entities are decoded:
+https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription/blob/7244b1e8b5cb6dbd7e546c5be7fed8a56e33d065/includes/Hooks/ParserHooks.php#L147-L159
+Via JS, the short description is then passed to `mw.util.addSubtitle`, which inserts it as raw HTML:
+https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription/blob/7244b1e8b5cb6dbd7e546c5be7fed8a56e33d065/modules/ext.shortDescription.js#L8
+https://github.com/wikimedia/mediawiki/blob/96372101b3c579d9992e8a31a3ccd90a937cac47/resources/src/mediawiki.util/util.js#L552-L563
+
+### PoC
+1. Enable ShortDescription
+2. Make sure `$wgShortDescriptionEnableTagline` is set to `true` (this is the default)
+3. Create a page and insert the following wikitext: `{{SHORTDESC:&lt;img src="" onerror="alert('shortdescription xss')"&gt;}}`
+4. Visit the page
+
+![image](https://github.com/user-attachments/assets/8e467f28-3bb5-4462-b28b-14e145be743f)
+![image](https://github.com/user-attachments/assets/39e132c3-6a92-4f24-8aef-b915e8560f63)
+
+
+### Impact
+Arbitrary HTML can be inserted into the DOM by any user, allowing for JavaScript to be executed.
+
+## References
+- https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription/security/advisories/GHSA-p85q-mww9-gwqf
+- https://nvd.nist.gov/vuln/detail/CVE-2025-53369
+- https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription/commit/bc4fdbaeb1dff127fb6d08c0d385b64aa128c8f8
+- https://github.com/StarCitizenTools/mediawiki-extensions-ShortDescription

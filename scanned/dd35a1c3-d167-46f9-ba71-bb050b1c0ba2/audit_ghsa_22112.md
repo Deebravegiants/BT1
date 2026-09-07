@@ -1,0 +1,25 @@
+# [M] Joomla! vulnerable to Cross-site Scripting
+
+## Summary
+Severity: Medium
+Advisory: GHSA-vcq7-x4wr-w2mj
+CVE: CVE-2011-2509
+CWE: CWE-79
+Ecosystem: Packagist
+CVSS: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N (CVSS_V4)
+Published: 2022-05-14
+Source: https://github.com/advisories/GHSA-vcq7-x4wr-w2mj
+Type: github-advisory
+
+## Affected
+- Packagist: `joomla/joomla-cms` — affected >=0 <1.6.4
+
+## Details
+Multiple cross-site scripting (XSS) vulnerabilities in Joomla! before 1.6.4 allow remote attackers to inject arbitrary web script or HTML via (1) the query string to the com_contact component, as demonstrated by the Itemid parameter to index.php; (2) the query string to the com_content component, as demonstrated by the filter_order parameter to index.php; (3) the query string to the com_newsfeeds component, as demonstrated by an arbitrary parameter to index.php; or (4) the option parameter in a reset.request action to index.php; and, when Internet Explorer or Konqueror is used, (5) allow remote attackers to inject arbitrary web script or HTML via the searchword parameter in a search action to index.php in the com_search component.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2011-2509
+- http://developer.joomla.org/security/news/352-20110604-xss-vulnerability.html
+- http://www.openwall.com/lists/oss-security/2011/06/28/4
+- http://www.openwall.com/lists/oss-security/2011/06/29/12
+- http://yehg.net/lab/pr0js/advisories/joomla/core/%5Bjoomla_1.6.3%5D_cross_site_scripting%28XSS%29

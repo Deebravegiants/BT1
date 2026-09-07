@@ -1,0 +1,26 @@
+# [H] Qutebrowser CSRF Vulnerability
+
+## Summary
+Severity: High
+Advisory: GHSA-wgmx-52ph-qqcw
+CVE: CVE-2018-10895
+CWE: CWE-352
+Ecosystem: PyPI
+CVSS: CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2018-10-10
+Source: https://github.com/advisories/GHSA-wgmx-52ph-qqcw
+Type: github-advisory
+
+## Affected
+- PyPI: `qutebrowser` — affected >=0 <1.4.1
+
+## Details
+qutebrowser before version 1.4.1 is vulnerable to a cross-site request forgery flaw that allows websites to access `qute://*` URLs. A malicious website could exploit this to load a `qute://settings/set` URL, which then sets `editor.command` to a bash script, resulting in arbitrary code execution.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2018-10895
+- https://github.com/qutebrowser/qutebrowser/commit/43e58ac865ff862c2008c510fc5f7627e10b4660
+- https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2018-10895
+- https://github.com/pypa/advisory-database/tree/main/vulns/qutebrowser/PYSEC-2018-27.yaml
+- https://github.com/qutebrowser/qutebrowser
+- http://www.openwall.com/lists/oss-security/2018/07/11/7

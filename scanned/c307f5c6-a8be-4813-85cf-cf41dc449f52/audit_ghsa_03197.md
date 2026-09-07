@@ -1,0 +1,27 @@
+# [M] Cross-site scripting in phpoffice/phpspreadsheet
+
+## Summary
+Severity: Medium
+Advisory: GHSA-4mqv-gcr3-pff9
+CVE: CVE-2020-7776
+CWE: CWE-79
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:L/A:N (CVSS_V3)
+Published: 2021-05-06
+Source: https://github.com/advisories/GHSA-4mqv-gcr3-pff9
+Type: github-advisory
+
+## Affected
+- Packagist: `phpoffice/phpspreadsheet` — affected >=0 <1.16.0
+- Packagist: `phpoffice/phpexcel` — affected >=0
+
+## Details
+This affects the package phpoffice/phpspreadsheet. The library is vulnerable to XSS when creating an html output from an excel file by adding a comment on any cell. The root cause of this issue is within the HTML writer where user comments are concatenated as part of link and this is returned as HTML.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2020-7776
+- https://github.com/PHPOffice/PhpSpreadsheet/pull/1719
+- https://github.com/PHPOffice/PhpSpreadsheet/commit/0ed5b800be2136bcb8fa9c1bdf59abc957a98845
+- https://github.com/FriendsOfPHP/security-advisories/blob/master/phpoffice/phpspreadsheet/CVE-2020-7776.yaml
+- https://github.com/PHPOffice/PhpSpreadsheet/blob/master/src/PhpSpreadsheet/Writer/Html.php%23L1792
+- https://snyk.io/vuln/SNYK-PHP-PHPOFFICEPHPSPREADSHEET-1048856

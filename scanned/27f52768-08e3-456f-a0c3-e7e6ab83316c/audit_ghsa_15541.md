@@ -1,0 +1,43 @@
+# [M] Keycloak Services has a potential bypass of brute force protection
+
+## Summary
+Severity: Medium
+Advisory: GHSA-gc7q-jgjv-vjr2
+CVE: CVE-2024-4629
+CWE: CWE-307, CWE-837
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N (CVSS_V3)
+Published: 2024-09-17
+Source: https://github.com/advisories/GHSA-gc7q-jgjv-vjr2
+Type: github-advisory
+
+## Affected
+- Maven: `org.keycloak:keycloak-services` — affected >=0 <22.0.12
+- Maven: `org.keycloak:keycloak-services` — affected >=23.0.0 <24.0.7
+- Maven: `org.keycloak:keycloak-services` — affected >=25.0.0 <25.0.4
+
+## Details
+If an attacker launches many login attempts in parallel then the attacker can have more guesses at a password than the brute force protection configuration permits. This is due to the brute force check occurring before the brute force protector has locked the user.
+
+**Acknowledgements:**
+Special thanks to Maurizio Agazzini for reporting this issue and helping us improve our project.
+
+## References
+- https://github.com/keycloak/keycloak/security/advisories/GHSA-gc7q-jgjv-vjr2
+- https://nvd.nist.gov/vuln/detail/CVE-2024-4629
+- https://github.com/keycloak/keycloak/commit/d78b3072ffffbff3954bf9f3181e3daf8e93c1ab
+- https://github.com/keycloak/keycloak/commit/c8053dd812d9b9f05b293f901b9dc39e061ebb88
+- https://github.com/keycloak/keycloak/commit/b25c28458a562abda2f84fc684e59cce8577e562
+- https://github.com/keycloak/keycloak/commit/99f92ad5fff5555d53930c2d32f8be3e08c514c1
+- https://github.com/keycloak/keycloak/commit/461fa631dc55b9739c9ed8c49de9f5b213955200
+- https://github.com/keycloak/keycloak/commit/2fb358e1a21c5387cdc11100ce3562b4dcfe5416
+- https://github.com/keycloak/keycloak
+- https://bugzilla.redhat.com/show_bug.cgi?id=2276761
+- https://access.redhat.com/security/cve/CVE-2024-4629
+- https://access.redhat.com/errata/RHSA-2024:6501
+- https://access.redhat.com/errata/RHSA-2024:6500
+- https://access.redhat.com/errata/RHSA-2024:6499
+- https://access.redhat.com/errata/RHSA-2024:6497
+- https://access.redhat.com/errata/RHSA-2024:6495
+- https://access.redhat.com/errata/RHSA-2024:6494
+- https://access.redhat.com/errata/RHSA-2024:6493

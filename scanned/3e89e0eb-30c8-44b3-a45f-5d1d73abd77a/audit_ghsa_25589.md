@@ -1,0 +1,30 @@
+# [M] Jakarta Tomcat cross-site scripting (XSS) vulnerability
+
+## Summary
+Severity: Medium
+Advisory: GHSA-5hgm-qm5m-5vmw
+CVE: CVE-2003-0044
+CWE: CWE-79
+Ecosystem: Maven
+Published: 2022-04-29
+Source: https://github.com/advisories/GHSA-5hgm-qm5m-5vmw
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.tomcat:tomcat` — affected >=3.0 <3.3.2
+
+## Details
+Multiple cross-site scripting (XSS) vulnerabilities in the (1) examples and (2) ROOT web applications for Jakarta Tomcat 3.x through 3.3.1a allow remote attackers to insert arbitrary web script or HTML.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2003-0044
+- https://exchange.xforce.ibmcloud.com/vulnerabilities/11196
+- http://jakarta.apache.org/builds/jakarta-tomcat/release/v3.3.1a
+- http://jakarta.apache.org/builds/jakarta-tomcat/release/v3.3.1a/RELEASE-NOTES-3.3.1a.txt
+- http://secunia.com/advisories/7972
+- http://www.ciac.org/ciac/bulletins/n-060.shtml
+- http://www.debian.org/security/2003/dsa-246
+- http://www.osvdb.org/9203
+- http://www.osvdb.org/9204
+- http://www.securityfocus.com/advisories/5111
+- http://www.securityfocus.com/bid/6720

@@ -1,0 +1,27 @@
+# [C] AWS Amplify CLI has incorrect trust policy management
+
+## Summary
+Severity: Critical
+Advisory: GHSA-846g-p7hm-f54r
+CVE: CVE-2024-28056
+CWE: CWE-269, CWE-276
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2024-04-15
+Source: https://github.com/advisories/GHSA-846g-p7hm-f54r
+Type: github-advisory
+
+## Affected
+- npm: `@aws-amplify/cli` — affected >=0 <12.10.1
+
+## Details
+Amazon AWS Amplify CLI before 12.10.1 incorrectly configures the role trust policy of IAM roles associated with Amplify projects. When the Authentication component is removed from an Amplify project, a Condition property is removed but "Effect":"Allow" remains present, and consequently sts:AssumeRoleWithWebIdentity would be available to threat actors with no conditions. Thus, if Amplify CLI had been used to remove the Authentication component from a project built between August 2019 and January 2024, an "assume role" may have occurred, and may have been leveraged to obtain unauthorized access to an organization's AWS resources. NOTE: the problem could only occur if an authorized AWS user removed an Authentication component. (The vulnerability did not give a threat actor the ability to remove an Authentication component.) However, in realistic situations, an authorized AWS user may have removed an Authentication component, e.g., if the objective were to stop using built-in Cognito resources, or move to a completely different identity provider.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-28056
+- https://github.com/aws-amplify/amplify-cli/commit/73b08dc424db2fb60399c5343c314e02e849d4a1
+- https://aws.amazon.com/security/security-bulletins/AWS-2024-003
+- https://github.com/aws-amplify/amplify-cli
+- https://github.com/aws-amplify/amplify-cli/blob/8ad57bf99a404f3c92547c8a175458016f682fac/packages/amplify-provider-awscloudformation/resources/update-idp-roles-cfn.json
+- https://github.com/aws-amplify/amplify-cli/releases/tag/v12.10.1
+- https://securitylabs.datadoghq.com/articles/amplified-exposure-how-aws-flaws-made-amplify-iam-roles-vulnerable-to-takeover

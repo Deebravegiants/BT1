@@ -1,0 +1,187 @@
+# [M] PrivateBin's template-switching feature allows arbitrary local file inclusion through path traversal
+
+## Summary
+Severity: Medium
+Advisory: GHSA-g2j9-g8r5-rg82
+CVE: CVE-2025-64714
+CWE: CWE-23, CWE-73, CWE-98
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:N (CVSS_V3)
+Published: 2025-11-14
+Source: https://github.com/advisories/GHSA-g2j9-g8r5-rg82
+Type: github-advisory
+
+## Affected
+- Packagist: `privatebin/privatebin` — affected >=1.7.7 <2.0.3
+
+## Details
+## Summary
+
+An unauthenticated Local File Inclusion exists in the template-switching feature: if `templateselection` is enabled in the configuration, the server trusts the `template` cookie and includes the referenced PHP file. An attacker can read sensitive data or, if they manage to drop a PHP file elsewhere, gain RCE.
+
+## Affected versions
+
+PrivateBin versions since 1.7.7.
+
+## Conditions
+
+- `templateselection` got enabled in `cfg/conf.php`
+- Visitor sets a cookie `template` pointing to an existing PHP file without it's suffix, using a path relative to the `tpl` folder. Absolute paths do not work.
+
+## Impact
+
+The constructed path of the template file is checked for existence, then included. For PrivateBin project files this does not leak any secrets due to data files being created with PHP code that prevents execution, but if a configuration file without that line got created or the visitor figures out the relative path to a PHP script that directly performs an action without appropriate privilege checking, those might execute or leak information.
+
+### Impact analysis
+In detail, we have analyzed different ways of exploiting this vulnerability and found no way to cause a full remote code execution (RCE) vulnerability or denial of service (DoS) as recursive includes, e.g., are not possible.
+
+Generally, it is again notably to remember only PHP files of the local filesystem can be included. That's why potentially at risk PrivateBin PHP files have been analyzed.
+
+* the PrivateBin config file is by default [protected as it prevents access itself](https://github.com/PrivateBin/PrivateBin/blob/591d2d40e16a196aa628e3962a1c21bdf9793db2/cfg/conf.sample.php#L1) resulting in a 403 HTTP status code. This is called the “(PHP) protection line”.
+* Likewise, the paste data cannot be accessed due to that “protection line”. [Each created file contains the same line protecting it against](https://github.com/PrivateBin/PrivateBin/blob/591d2d40e16a196aa628e3962a1c21bdf9793db2/lib/Data/Filesystem.php#L46) PHP execution/inclusion.
+* As for the `salt`, `purge_` and `traffic_limiter` files, they get included, but no data is displayed (variables or comments only), and a webserver specific error message is returned.
+* When one tries to include `index.php`, you get a PHP error (possibly visible, depending on the webserver setup), due to define being called twice.
+* With any of the files in lib and likely those in vendor (we have not verified each dependency), code is only declared and not executed and the result is again a webserver specific error message.
+* With the scripts in bin, the result is an error message, but code is executed to some extent, but you cannot pass arguments to any administrative scripts [as they are read via `$_SERVER['argc']`](https://github.com/PrivateBin/PrivateBin/blob/d32ac29925066c668241a165264c76de051398e3/bin/administration#L357C37-L357C54).
+
+That said, the vulnerability could be used to chain more attacks or execute other non-PrivateBin related PHP files on the host system, if such other files exist and the (relative) path to them can be guessed.
+Also, should for some reason the PHP “protection line” be missing on your deployment the impact could be much worse and e.g. data like the URL shortener token or the database configuration from the configuration file could possibly be exfiltrated.
+
+### Real-life impact
+
+PrivateBin has checked all instances versioned 1.7.7 and above listed in the [PrivateBin directory](https://privatebin.info/directory/) and did find 11 instances that had the template switcher enabled. The following script was used to detect this:
+
+```shell
+for URL in $(
+    curl --silent --header 'Accept: application/json' 'https://privatebin.info/directory/api?top=100&version=1.7.7' | jq --raw-output '.[].url'
+) $(
+    curl --silent --header 'Accept: application/json' 'https://privatebin.info/directory/api?top=100&version=1.7.8' | jq --raw-output '.[].url'
+) $(
+    curl --silent --header 'Accept: application/json' 'https://privatebin.info/directory/api?top=100&version=2'     | jq --raw-output '.[].url'
+)
+do
+    curl --silent "$URL" | grep -q 'id="template"' && echo "$URL uses template switcher"
+done
+```
+
+None of these instances had an unprotected PrivateBin configuration file in use. The following script was used and may be adapted to check any single instance:
+
+```shell
+curl --silent --cookie  'template=../cfg/conf' https://privatebin.net
+```
+
+## Technical Description
+
+Users can select their preferred template via the `template` cookie, as seen in `TemplateSwitcher::getSelectedByUserTemplate`:
+
+```php
+    private static function getSelectedByUserTemplate(): ?string
+    {
+        $selectedTemplate    = null;
+        $templateCookieValue = $_COOKIE['template'] ?? '';
+
+        if (self::isTemplateAvailable($templateCookieValue)) {
+            $selectedTemplate = $templateCookieValue;
+        }
+
+        return $selectedTemplate;
+    }
+```
+
+In [this commit](44f8cfbfb8df4b4bec1cbf79aa8ce51abdb18be3), introduced in 1.7.7, the `TemplateSwitcher::isTemplateAvailable` method went from this:
+
+```php
+    public static function isTemplateAvailable(string $template): bool
+    {
+        return in_array($template, self::getAvailableTemplates());
+    }
+```
+
+to this:
+
+```php
+    public static function isTemplateAvailable(string $template): bool
+    {
+        $available = in_array($template, self::getAvailableTemplates());
+
+        if (!$available && !View::isBootstrapTemplate($template)) {
+            $path      = View::getTemplateFilePath($template);
+            $available = file_exists($path);
+        }
+
+        return $available;
+    }
+```
+
+The new code will now blindly trust `$template`, unless it starts with the string `bootstrap-`.
+
+`View::getTemplateFilePath` will return `PATH . 'tpl' . DIRECTORY_SEPARATOR . $file . '.php'`, allowing directory traversal, but preventing non-PHP files to be included.
+
+`View::draw` will then include the user-submitted template:
+
+```php
+    public function draw($template)
+    {
+        $path = self::getTemplateFilePath($template);
+        if (!file_exists($path)) {
+            throw new Exception('Template ' . $template . ' not found!', 80);
+        }
+        extract($this->_variables);
+        include $path;
+    }
+```
+
+**Note:** this is only possible if `templateselection` configuration is enabled, or if no template has been set. The `template` will be rewritten if this condition isn't met:
+
+```php
+    private function _setDefaultTemplate()
+    {
+        $templates = $this->_conf->getKey('availabletemplates');
+        $template  = $this->_conf->getKey('template');
+        TemplateSwitcher::setAvailableTemplates($templates);
+        TemplateSwitcher::setTemplateFallback($template);
+
+        // force default template, if template selection is disabled and a default is set
+        if (!$this->_conf->getKey('templateselection') && !empty($template)) {
+            $_COOKIE['template'] = $template;
+            setcookie('template', $template, array('SameSite' => 'Lax', 'Secure' => true));
+        }
+    }
+```
+
+### Reproduction Steps
+
+1. Configure PrivateBin with templateselection = true (default template list is fine).
+2. Send a request with a malicious template cookie like `template=../cfg/conf`, where the relative path points to a PHP file without its file suffix
+3. The script now includes the select PHP file (leading to a 500 in that specific case).
+
+## Mitigation
+
+### Patches
+
+The issue has been patched in version 2.0.3.
+
+### Workarounds
+
+Set `templateselection = false` in `cfg/conf.php` or remove it, it's default is `false`.
+
+## Credits
+
+PrivateBin would like to thank [Benoit Esnard](https://github.com/esnard), who reported this vulnerability.
+
+In general, PrivateBin would like to thank everyone reporting issues and potential vulnerabilities to us.
+
+If a user suspects they have found a vulnerability or potential security risk, [PrivateBin kindly asks them to follow the security policy](https://github.com/PrivateBin/PrivateBin/blob/master/SECURITY.md) and report it to PrivateBin. After submssion the report is assessed and necessary actions will be taken to address it.
+
+## Timeline
+
+- 2025-11-09 Received report via GitHub Security Advisory
+- 2025-11-10 Discussed and reproduced issue, wrote a unit test case based on this, started work on a patch
+- 2025-11-11 Further work on patch, refactored related code
+- 2025-11-12 Released patch with PrivateBin 2.0.3
+
+## References
+- https://github.com/PrivateBin/PrivateBin/security/advisories/GHSA-g2j9-g8r5-rg82
+- https://nvd.nist.gov/vuln/detail/CVE-2025-64714
+- https://github.com/PrivateBin/PrivateBin/commit/4434dbf73ac53217fda0f90d8cf9b6110f8acc4f
+- https://github.com/PrivateBin/PrivateBin

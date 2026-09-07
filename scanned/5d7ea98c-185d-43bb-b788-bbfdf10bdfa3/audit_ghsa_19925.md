@@ -1,0 +1,27 @@
+# [M] Twitter-Post-Fetcher vulnerable to Use of Web Link to Untrusted Target with window.opener Access
+
+## Summary
+Severity: Medium
+Advisory: GHSA-m688-cx2p-rgq9
+CVE: CVE-2018-25058
+CWE: CWE-1022
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N (CVSS_V3)
+Published: 2022-12-29
+Source: https://github.com/advisories/GHSA-m688-cx2p-rgq9
+Type: github-advisory
+
+## Affected
+- npm: `twitter-fetcher-js` — affected >=0 <18.0.0
+
+## Details
+A vulnerability classified as problematic has been found in Twitter-Post-Fetcher up to 17.x. This affects an unknown part of the file `js/twitterFetcher.js` of the component Link Target Handler. The manipulation leads to use of web link to untrusted target with window.opener access. It is possible to initiate the attack remotely. Upgrading to version 18.0.0 can address this issue. The name of the patch is 7d281c6fb5acbc29a2cad295262c1f0c19ca56f3. It is recommended to upgrade the affected component. The identifier VDB-217017 was assigned to this vulnerability.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2018-25058
+- https://github.com/jasonmayes/Twitter-Post-Fetcher/pull/170
+- https://github.com/jasonmayes/Twitter-Post-Fetcher/commit/7d281c6fb5acbc29a2cad295262c1f0c19ca56f3
+- https://github.com/jasonmayes/Twitter-Post-Fetcher
+- https://github.com/jasonmayes/Twitter-Post-Fetcher/releases/tag/18.0.0
+- https://vuldb.com/?ctiid.217017
+- https://vuldb.com/?id.217017

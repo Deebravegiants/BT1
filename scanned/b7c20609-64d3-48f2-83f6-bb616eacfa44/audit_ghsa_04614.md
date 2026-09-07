@@ -1,0 +1,51 @@
+# [M] Dulwich has unbounded memory allocation in receive-pack from crafted thin packs
+
+## Summary
+Severity: Medium
+Advisory: GHSA-xrvj-v92f-53gj
+CVE: CVE-2026-47734
+CWE: CWE-400, CWE-789
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2026-06-08
+Source: https://github.com/advisories/GHSA-xrvj-v92f-53gj
+Type: github-advisory
+
+## Affected
+- PyPI: `dulwich` — affected >=0.1.0 <1.2.5
+
+## Details
+## Impact
+
+An uncontrolled-resource-consumption (memory exhaustion) denial-of-service vulnerability (CWE-400 / CWE-789).
+
+A client with push access could push a tiny crafted thin pack (~174 bytes)  whose delta header declares a huge   dest_size. When dulwich ingested it via  add_thin_pack / apply_delta, it would  allocate hundreds of MB of memory based on that attacker-controlled size, with no relationship to the actual bytes received.
+
+Who is impacted: Operators running a Dulwich-based Git server that exposes git-receive-pack (i.e. accepts pushes) -
+for example via dulwich.server functionality, the HTTP  smart server, or anything built on ReceivePackHandler. 
+
+## Patches
+
+Patched in 1.2.5.
+
+add_thin_pack now accepts a max_input_size keyword (bytes; 0/None = unlimited, matching git's semantics), and ReceivePackHandler reads receive.maxInputSize from the repository config and passes it through. Wire reads are counted and a PackInputTooLarge exception is raised once the cap is exceeded - equivalent to git index-pack --max-input-size.
+
+Users should upgrade to Dulwich 1.2.5 or later and set receive.maxInputSize in their server's repository config to a sane bound for their environment.
+
+## Workarounds
+
+On unpatched versions, receive.maxInputSize has no effect, so it cannot be used as a workaround. Until upgrading, operators should:
+
+- Restrict dulwich-receive-pack (push) access to trusted, authenticated clients only, or disable it entirely on servers that only need to serve fetches.
+- Run the server under an OS-level memory limit (e.g. ulimit, cgroups/MemoryMax, or a container memory limit) so a malicious push is killed rather than taking down the host.
+
+##  Resources
+
+- git's receive.maxInputSize / git index-pack --max-input-size documentation 
+- Reported by Liyi, Ziyue, Strick, Maurice and Chenchen @ University of Sydney
+
+## References
+- https://github.com/jelmer/dulwich/security/advisories/GHSA-xrvj-v92f-53gj
+- https://nvd.nist.gov/vuln/detail/CVE-2026-47734
+- https://github.com/jelmer/dulwich
+- https://github.com/jelmer/dulwich/releases/tag/dulwich-1.2.5

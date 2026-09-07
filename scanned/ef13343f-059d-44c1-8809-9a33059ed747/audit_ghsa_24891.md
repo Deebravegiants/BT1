@@ -1,0 +1,25 @@
+# [H] Codiad SSRF Vulnerability
+
+## Summary
+Severity: High
+Advisory: GHSA-c3q8-hh69-7mg5
+CVE: CVE-2020-14044
+CWE: CWE-918
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2022-05-24
+Source: https://github.com/advisories/GHSA-c3q8-hh69-7mg5
+Type: github-advisory
+
+## Affected
+- Packagist: `codiad/codiad` — affected >=1.7.8
+
+## Details
+A Server-Side Request Forgery (SSRF) vulnerability was found in Codiad v1.7.8 and later. A user with admin privileges could use the plugin install feature to make the server request any URL via components/market/class.market.php. This could potentially result in remote code execution. **NOTE:** the vendor states "Codiad is no longer under active maintenance by core contributors."
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2020-14044
+- https://github.com/Codiad/Codiad/issues/1122
+- https://github.com/Codiad/Codiad/issues/1132
+- https://advisory.checkmarx.net/advisory/CX-2020-4280
+- https://github.com/Codiad/Codiad

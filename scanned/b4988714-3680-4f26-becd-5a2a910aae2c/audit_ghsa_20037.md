@@ -1,0 +1,28 @@
+# [M] Yii2 FileAPI Widget vulnerable to Cross-site Scripting
+
+## Summary
+Severity: Medium
+Advisory: GHSA-j82x-fh8h-326g
+CVE: CVE-2017-20158
+CWE: CWE-79
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N (CVSS_V3)
+Published: 2022-12-31
+Source: https://github.com/advisories/GHSA-j82x-fh8h-326g
+Type: github-advisory
+
+## Affected
+- Packagist: `vova07/yii2-fileapi-widget` — affected >=0 <0.1.9
+
+## Details
+A vulnerability was found in vova07 Yii2 FileAPI Widget up to 0.1.8. It has been declared as problematic. Affected by this vulnerability is the function run of the file actions/UploadAction.php. The manipulation of the argument file leads to cross site scripting. The attack can be launched remotely. Upgrading to version 0.1.9 can address this issue. The name of the patch is c00d1e4fc912257fca1fce66d7a163bdbb4c8222. It is recommended to upgrade the affected component. The identifier VDB-217141 was assigned to this vulnerability.
+
+NOTE: This vulnerability only affects products that are no longer supported by the maintainer.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2017-20158
+- https://github.com/vova07/yii2-fileapi-widget/commit/c00d1e4fc912257fca1fce66d7a163bdbb4c8222
+- https://github.com/vova07/yii2-fileapi-widget
+- https://github.com/vova07/yii2-fileapi-widget/releases/tag/0.1.9
+- https://vuldb.com/?ctiid.217141
+- https://vuldb.com/?id.217141

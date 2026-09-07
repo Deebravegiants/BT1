@@ -1,0 +1,37 @@
+# [H] smarty Cross-site Scripting vulnerability in Javascript escaping 
+
+## Summary
+Severity: High
+Advisory: GHSA-7j98-h7fp-4vwj
+CVE: CVE-2023-28447
+CWE: CWE-79
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:L (CVSS_V3)
+Published: 2023-03-29
+Source: https://github.com/advisories/GHSA-7j98-h7fp-4vwj
+Type: github-advisory
+
+## Affected
+- Packagist: `smarty/smarty` — affected >=4.0.0 <4.3.1
+- Packagist: `smarty/smarty` — affected >=0 <3.1.48
+
+## Details
+### Impact
+An attacker could exploit this vulnerability to execute arbitrary JavaScript code in the context of the user's browser session. This may lead to unauthorized access to sensitive user data, manipulation of the web application's behavior, or unauthorized actions performed on behalf of the user.
+
+### Patches
+Please upgrade to the most recent version of Smarty v3 or v4.
+
+### For more information
+If you have any questions or comments about this advisory please open an issue in [the Smarty repo](https://github.com/smarty-php/smarty)
+
+## References
+- https://github.com/smarty-php/smarty/security/advisories/GHSA-7j98-h7fp-4vwj
+- https://nvd.nist.gov/vuln/detail/CVE-2023-28447
+- https://github.com/smarty-php/smarty/commit/685662466f653597428966d75a661073104d713d
+- https://github.com/FriendsOfPHP/security-advisories/blob/master/smarty/smarty/CVE-2023-28447.yaml
+- https://github.com/smarty-php/smarty
+- https://lists.debian.org/debian-lts-announce/2024/11/msg00013.html
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/HSAUM3YHWHO4UCJXRGRLQGPJAO3MFOZZ
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/JBB35GLYTL6JL6EOM6BOZNYP47JKNNHT
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/P7O7SKTATM6GAP45S64QFXNLWIY5I7HP

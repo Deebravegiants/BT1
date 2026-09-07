@@ -1,0 +1,23 @@
+# [M] Aim Stored Cross-site Scripting Vulnerability
+
+## Summary
+Severity: Medium
+Advisory: GHSA-p9f2-jg9w-cx69
+CVE: CVE-2024-6578
+CWE: CWE-79
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N (CVSS_V3)
+Published: 2024-07-29
+Source: https://github.com/advisories/GHSA-p9f2-jg9w-cx69
+Type: github-advisory
+
+## Affected
+- PyPI: `aim` — affected >=0
+
+## Details
+A stored cross-site scripting (XSS) vulnerability exists in aimhubio/aim version 3.19.3. The vulnerability arises from the improper neutralization of input during web page generation, specifically in the logs-tab for runs. The terminal output logs are displayed using the `dangerouslySetInnerHTML` function in React, which is susceptible to XSS attacks. An attacker can exploit this vulnerability by injecting malicious scripts into the logs, which will be executed when a user views the logs-tab.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-6578
+- https://github.com/aimhubio/aim
+- https://huntr.com/bounties/5b1ebc67-5346-44aa-b8b8-3c1c09d79680

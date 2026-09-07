@@ -1,0 +1,25 @@
+# [H] Uncontrolled Resource Consumption in Hawk
+
+## Summary
+Severity: High
+Advisory: GHSA-44pw-h2cw-w3vq
+CVE: CVE-2022-29167
+CWE: CWE-1333, CWE-400
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:N/I:N/A:H (CVSS_V3)
+Published: 2022-05-23
+Source: https://github.com/advisories/GHSA-44pw-h2cw-w3vq
+Type: github-advisory
+
+## Affected
+- npm: `hawk` — affected >=0 <9.0.1
+
+## Details
+Hawk is an HTTP authentication scheme providing mechanisms for making authenticated HTTP requests with partial cryptographic verification of the request and response, covering the HTTP method, request URI, host, and optionally the request payload. Hawk used a regular expression to parse `Host` HTTP header (`Hawk.utils.parseHost()`), which was subject to regular expression DoS attack - meaning each added character in the attacker's input increases the computation time exponentially. `parseHost()` was patched in `9.0.1` to use built-in `URL` class to parse hostname instead.`Hawk.authenticate()` accepts `options` argument. If that contains `host` and `port`, those would be used instead of a call to `utils.parseHost()`.
+
+## References
+- https://github.com/mozilla/hawk/security/advisories/GHSA-44pw-h2cw-w3vq
+- https://nvd.nist.gov/vuln/detail/CVE-2022-29167
+- https://github.com/mozilla/hawk/pull/286
+- https://github.com/mozilla/hawk/commit/d10d72ca82db967f6c5fcf866ff78e3ca25ce1ab
+- https://github.com/mozilla/hawk

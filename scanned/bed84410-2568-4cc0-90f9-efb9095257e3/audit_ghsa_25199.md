@@ -1,0 +1,24 @@
+# [H] Apache ODE Path Traversal vulnerability
+
+## Summary
+Severity: High
+Advisory: GHSA-jf7g-5q92-4hp2
+CVE: CVE-2018-1316
+CWE: CWE-22
+Ecosystem: Maven
+CVSS: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N (CVSS_V3)
+Published: 2022-05-14
+Source: https://github.com/advisories/GHSA-jf7g-5q92-4hp2
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.ode:ode` — affected >=0 <1.3.3
+
+## Details
+The ODE process deployment web service was sensible to deployment messages with forged names. Using a path for the name was allowing directory traversal, resulting in the potential writing of files under unwanted locations, the overwriting of existing files or their deletion. This issue was addressed in Apache ODE 1.3.3 which was released in 2009, however the incorrect name CVE-2008-2370 was used on the advisory by mistake.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2018-1316
+- https://github.com/apache/ode
+- https://lists.apache.org/thread.html/ce416ddfba1a87f4b8e2d8125f1c3b45d1f0b350af29a4d0405e213b@%3Cuser.ode.apache.org%3E
+- http://mail-archives.apache.org/mod_mbox/www-announce/200908.mbox/%3Cfbdc6a970908072141w20a7a9d9ka1f896ad8073dffb%40mail.gmail.com%3E

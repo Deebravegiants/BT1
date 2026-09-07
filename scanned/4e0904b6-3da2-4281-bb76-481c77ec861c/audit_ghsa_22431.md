@@ -1,0 +1,41 @@
+# [M] Exposure of Sensitive Information in Apache Tomcat
+
+## Summary
+Severity: Medium
+Advisory: GHSA-cww4-vj5r-rx57
+CVE: CVE-2007-5333
+CWE: CWE-200
+Ecosystem: Maven
+Published: 2022-05-01
+Source: https://github.com/advisories/GHSA-cww4-vj5r-rx57
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.tomcat:tomcat` — affected >=6.0.0 <6.0.15
+- Maven: `org.apache.tomcat:tomcat` — affected >=5.5.0 <5.5.26
+- Maven: `org.apache.tomcat:tomcat` — affected >=4.1.0 <4.1.37
+
+## Details
+Apache Tomcat 6.0.0 through 6.0.14, 5.5.0 through 5.5.25, and 4.1.0 through 4.1.36 does not properly handle (1) double quote (") characters or (2) %5C (encoded backslash) sequences in a cookie value, which might cause sensitive information such as session IDs to be leaked to remote attackers and enable session hijacking attacks.  NOTE: this issue exists because of an incomplete fix for CVE-2007-3385.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2007-5333
+- https://www.redhat.com/archives/fedora-package-announce/2008-February/msg00460.html
+- https://www.redhat.com/archives/fedora-package-announce/2008-February/msg00315.html
+- https://oval.cisecurity.org/repository/search/definition/oval%3Aorg.mitre.oval%3Adef%3A11177
+- https://lists.apache.org/thread.html/rb71997f506c6cc8b530dd845c084995a9878098846c7b4eacfae8db3@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/rb71997f506c6cc8b530dd845c084995a9878098846c7b4eacfae8db3%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r584a714f141eff7b1c358d4679288177bd4ca4558e9999d15867d4b5@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r584a714f141eff7b1c358d4679288177bd4ca4558e9999d15867d4b5%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r3aacc40356defc3f248aa504b1e48e819dd0471a0a83349080c6bcbf@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r3aacc40356defc3f248aa504b1e48e819dd0471a0a83349080c6bcbf%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/c62b0e3a7bf23342352a5810c640a94b6db69957c5c19db507004d74@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/c62b0e3a7bf23342352a5810c640a94b6db69957c5c19db507004d74%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/8dcaf7c3894d66cb717646ea1504ea6e300021c85bb4e677dc16b1aa@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/8dcaf7c3894d66cb717646ea1504ea6e300021c85bb4e677dc16b1aa%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/29dc6c2b625789e70a9c4756b5a327e6547273ff8bde7e0327af48c5@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/29dc6c2b625789e70a9c4756b5a327e6547273ff8bde7e0327af48c5%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/06cfb634bc7bf37af7d8f760f118018746ad8efbd519c4b789ac9c2e@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/06cfb634bc7bf37af7d8f760f118018746ad8efbd519c4b789ac9c2e%40%3Cdev.tomcat.apache.org%3E
+- https://github.com/apache/tomcat
+- https://bugzilla.redhat.com/show_bug.cgi?id=532111

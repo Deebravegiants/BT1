@@ -1,0 +1,35 @@
+# [M] Gradio vulnerable to SSRF in the path parameter of /queue/join
+
+## Summary
+Severity: Medium
+Advisory: GHSA-576c-3j53-r9jj
+CVE: CVE-2024-47167
+CWE: CWE-918
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N (CVSS_V3)
+Published: 2024-10-10
+Source: https://github.com/advisories/GHSA-576c-3j53-r9jj
+Type: github-advisory
+
+## Affected
+- PyPI: `gradio` — affected >=0 <5.0.0
+
+## Details
+### Impact  
+**What kind of vulnerability is it? Who is impacted?**
+
+This vulnerability relates to **Server-Side Request Forgery (SSRF)** in the `/queue/join` endpoint. Gradio’s `async_save_url_to_cache` function allows attackers to force the Gradio server to send HTTP requests to user-controlled URLs. This could enable attackers to target internal servers or services within a local network and possibly exfiltrate data or cause unwanted internal requests. Additionally, the content from these URLs is stored locally, making it easier for attackers to upload potentially malicious files to the server. This impacts users deploying Gradio servers that use components like the Video component which involve URL fetching.
+
+### Patches  
+Yes, please upgrade to `gradio>=5` to address this issue.
+
+### Workarounds  
+**Is there a way for users to fix or remediate the vulnerability without upgrading?**
+
+As a workaround, users can disable or heavily restrict URL-based inputs in their Gradio applications to trusted domains only. Additionally, implementing stricter URL validation (such as allowinglist-based validation) and ensuring that local or internal network addresses cannot be requested via the `/queue/join` endpoint can help mitigate the risk of SSRF attacks.
+
+## References
+- https://github.com/gradio-app/gradio/security/advisories/GHSA-576c-3j53-r9jj
+- https://nvd.nist.gov/vuln/detail/CVE-2024-47167
+- https://github.com/gradio-app/gradio
+- https://github.com/pypa/advisory-database/tree/main/vulns/gradio/PYSEC-2024-215.yaml

@@ -1,0 +1,131 @@
+# [H] brace-expansion: DoS via unbounded expansion length causing an out-of-memory process crash
+
+## Summary
+Severity: High
+Advisory: GHSA-mh99-v99m-4gvg
+CVE: CVE-2026-14257
+CWE: CWE-400, CWE-770
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2026-07-24
+Source: https://github.com/advisories/GHSA-mh99-v99m-4gvg
+Type: github-advisory
+
+## Affected
+- npm: `brace-expansion` — affected >=4.0.0 <5.0.8
+- npm: `brace-expansion` — affected >=3.0.0 <3.0.3
+- npm: `brace-expansion` — affected >=2.0.0 <2.1.3
+- npm: `brace-expansion` — affected >=0 <1.1.17
+
+## Details
+### Summary
+
+`expand()` bounds the *number* of results it produces (the `max` option,
+`100_000` by default) but not their *length*. By chaining many brace groups,
+an attacker keeps the result count under `max` while making every result grow
+with the number of groups. Building `max` long results — plus the intermediate
+arrays combined at each brace group — exhausts memory and crashes the Node
+process with an **uncatchable** out-of-memory error. `try/catch` around
+`expand()` does not help: the fatal error terminates the process.
+
+A ~7.5 KB input (`'{a,b}'.repeat(1500)`) is enough to crash a default Node
+process.
+
+### Details
+
+For `N` chained brace groups such as `'{a,b}'.repeat(N)`:
+
+- the result count is `2^N`, immediately capped at `max` (`100_000`), so the
+  `max` protection appears to hold, but
+- each result is `N` characters long, so the total output size is
+  `max × N` characters, which grows without bound in `N`.
+
+`expand_` combines each brace set with the fully-expanded tail:
+
+```js
+const post = m.post.length ? expand_(m.post, max, false) : ['']
+...
+for (let j = 0; j < N.length; j++) {
+  for (let k = 0; k < post.length && expansions.length < max; k++) {
+    const expansion = pre + N[j] + post[k]   // grows one group longer per level
+    ...
+    expansions.push(expansion)
+  }
+}
+```
+
+The loop guard `expansions.length < max` limits how many strings are built, but
+nothing limits how long they get. Each recursion level materializes another
+array of up to `max` strings, one character longer than the level below, and —
+because V8 represents `pre + N[j] + post[k]` as a cons-string (rope) that
+references `post[k]` — those intermediate strings stay reachable through the
+whole chain. Memory therefore scales with `max × N`.
+
+Measured on `5.0.7` (`'{a,b}'.repeat(N)`, default `max`):
+
+| groups (N) | input bytes | result count | peak RSS |
+|---|---|---|---|
+| 20 | 100 | 100,000 | ~80 MB |
+| 50 | 250 | 100,000 | ~214 MB |
+| 100 | 500 | 100,000 | ~409 MB |
+| 300 | 1,500 | 100,000 | ~1,148 MB |
+| 1500 | 7,500 | — | **OOM crash** |
+
+### Proof of concept
+
+```js
+const { expand } = require('brace-expansion')
+
+// ~7.5 KB input — crashes the process with a fatal, uncatchable OOM:
+//   FATAL ERROR: ... JavaScript heap out of memory
+try {
+  expand('{a,b}'.repeat(1500))
+} catch (e) {
+  // never reached — the process is already dead
+}
+```
+
+### Impact
+
+Any application that passes attacker-influenced strings to
+`brace-expansion.expand()` — directly, or transitively via `minimatch` / `glob`
+brace patterns — can be crashed by a small request. Because the failure is a
+fatal V8 out-of-memory error rather than a thrown exception, it cannot be caught
+and it takes down the whole worker/process, denying service.
+
+### Remediation
+
+Upgrade to a patched release. The fix bounds the total number of characters a
+single `expand()` call may accumulate (`EXPANSION_MAX_LENGTH`, default
+`4_000_000`, configurable via a new `maxLength` option), applied inside the
+output-building loops so intermediate arrays are bounded too. Once the limit is
+reached, output is truncated — consistent with how `max` already truncates —
+instead of growing without bound. The limit sits well above any realistic
+expansion (100,000 results hitting `max` measure ~1M characters), so legitimate
+input is unaffected.
+
+After the fix, `'{a,b}'.repeat(1500)` returns a bounded, truncated result in
+~0.7 s using ~340 MB and never crashes, including under a constrained 512 MB
+heap.
+
+The fix bounds memory but the algorithm still rebuilds intermediate arrays at
+each level (roughly `O(N × maxLength)` work on this input class). A streaming
+rewrite that produces output in `O(total output size)` can be a non-urgent
+follow-up.
+
+If immediate upgrade isn't possible, avoid passing untrusted input to
+`expand()` / glob brace patterns, or pass a small explicit `max` **and**
+`maxLength`.
+
+## References
+- https://github.com/juliangruber/brace-expansion/security/advisories/GHSA-mh99-v99m-4gvg
+- https://nvd.nist.gov/vuln/detail/CVE-2026-14257
+- https://github.com/juliangruber/brace-expansion/pull/129
+- https://github.com/juliangruber/brace-expansion/pull/130
+- https://github.com/juliangruber/brace-expansion/pull/136
+- https://github.com/juliangruber/brace-expansion/commit/139d015104e71433ad52a41d19467c48ecbb2c7d
+- https://github.com/juliangruber/brace-expansion/commit/a1bd33999ea75262c4749fff3bbb0d1372bd07b5
+- https://github.com/juliangruber/brace-expansion/commit/cb4b9e47cc2ec777c14b2b4492fb431a56f6a031
+- https://github.com/juliangruber/brace-expansion/commit/d13ff455a58b0d56704f0111e3c2a0b16ceb06eb
+- https://github.com/juliangruber/brace-expansion
+- https://www.npmjs.com/package/brace-expansion

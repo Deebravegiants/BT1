@@ -1,0 +1,28 @@
+# [M] openssl-src subject to Timing Oracle in RSA Decryption
+
+## Summary
+Severity: Medium
+Advisory: GHSA-p52g-cm5j-mjv4
+CVE: CVE-2022-4304
+CWE: CWE-203
+Ecosystem: crates.io
+CVSS: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2023-02-08
+Source: https://github.com/advisories/GHSA-p52g-cm5j-mjv4
+Type: github-advisory
+
+## Affected
+- crates.io: `openssl-src` — affected >=0 <111.25.0
+- crates.io: `openssl-src` — affected >=300.0.0 <300.0.12
+
+## Details
+A timing based side channel exists in the OpenSSL RSA Decryption implementation which could be sufficient to recover a plaintext across a network in a Bleichenbacher style attack. To achieve a successful decryption an attacker would have to be able to send a very large number of trial messages for decryption. The vulnerability affects all RSA padding modes: PKCS#1 v1.5, RSA-OEAP and RSASVE.
+
+For example, in a TLS connection, RSA is commonly used by a client to send an encrypted pre-master secret to the server. An attacker that had observed a genuine connection between a client and a server could use this flaw to send trial messages to the server and record the time taken to process them. After a sufficiently large number of messages the attacker could recover the pre-master secret used for the original connection and thus be able to decrypt the application data sent over that connection.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2022-4304
+- https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2023-0003
+- https://rustsec.org/advisories/RUSTSEC-2023-0007.html
+- https://security.gentoo.org/glsa/202402-08
+- https://www.openssl.org/news/secadv/20230207.txt

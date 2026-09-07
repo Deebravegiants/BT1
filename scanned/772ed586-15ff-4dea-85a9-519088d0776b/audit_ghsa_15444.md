@@ -1,0 +1,24 @@
+# [M] Casdoor has reflected XSS in QrCodePage.js (GHSL-2024-036)
+
+## Summary
+Severity: Medium
+Advisory: GHSA-gv2p-4mvg-g32h
+CVE: CVE-2024-41658
+CWE: CWE-79
+Ecosystem: Go
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N (CVSS_V3)
+Published: 2024-08-22
+Source: https://github.com/advisories/GHSA-gv2p-4mvg-g32h
+Type: github-advisory
+
+## Affected
+- Go: `github.com/casdoor/casdoor` — affected >=0
+
+## Details
+Casdoor is a UI-first Identity and Access Management (IAM) / Single-Sign-On (SSO) platform.  In Casdoor 1.577.0 and earlier, he purchase URL that is created to generate a WechatPay QR code is vulnerable to reflected XSS. When purchasing an item through casdoor, the product page allows you to pay via wechat pay. When using wechat pay, a QR code with the wechat pay link is displayed on the payment page, hosted on the domain of casdoor. This page takes a query parameter from the url successUrl, and redirects the user to that url after a successful purchase. Because the user has no reason to think that the payment page contains sensitive information, they may share it with other or can be social engineered into sending it to others. An attacker can then craft the casdoor link with a special url and send it back to the user, and once payment has gone though an XSS attack occurs.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-41658
+- https://github.com/casdoor/casdoor
+- https://github.com/casdoor/casdoor/blob/v1.577.0/web/src/QrCodePage.js
+- https://securitylab.github.com/advisories/GHSL-2024-035_GHSL-2024-036_casdoor

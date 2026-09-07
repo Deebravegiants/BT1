@@ -1,0 +1,28 @@
+# [H] Improper Authentication in SaltStack Salt
+
+## Summary
+Severity: High
+Advisory: GHSA-xf37-qcvf-7m57
+CVE: CVE-2021-22004
+CWE: CWE-287
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2022-05-24
+Source: https://github.com/advisories/GHSA-xf37-qcvf-7m57
+Type: github-advisory
+
+## Affected
+- PyPI: `salt` — affected >=0 <3003.3
+
+## Details
+An issue was discovered in SaltStack Salt before 3003.3. The salt minion installer will accept and use a minion config file at C:\salt\conf if that file is in place before the installer is run. This allows for a malicious actor to subvert the proper behaviour of the given minion software.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2021-22004
+- https://github.com/advisories/GHSA-xf37-qcvf-7m57
+- https://github.com/pypa/advisory-database/tree/main/vulns/salt/PYSEC-2021-346.yaml
+- https://github.com/saltstack/salt
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/6BUWUF5VTENNP2ZYZBVFKPSUHLKLUBD5
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ACVT7M4YLZRLWWQ6SGRK3C6TOF4FXOXT
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/MBAHHSGZLEJRCG4DX6J4RBWJAAWH55RQ
+- https://saltproject.io/security_announcements/salt-security-advisory-2021-sep-02

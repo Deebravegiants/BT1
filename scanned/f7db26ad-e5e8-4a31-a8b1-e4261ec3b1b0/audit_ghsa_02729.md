@@ -1,0 +1,46 @@
+# [H] Basic-auth app bundle credential exposure in gatsby-source-wordpress
+
+## Summary
+Severity: High
+Advisory: GHSA-rqjw-p5vr-c695
+CVE: CVE-2021-32770
+CWE: CWE-200, CWE-522
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2021-07-19
+Source: https://github.com/advisories/GHSA-rqjw-p5vr-c695
+Type: github-advisory
+
+## Affected
+- npm: `gatsby-source-wordpress` — affected >=0 <4.0.8
+- npm: `gatsby-source-wordpress` — affected >=5.0.0 <5.9.2
+
+## Details
+### Impact
+The gatsby-source-wordpress plugin prior to versions 4.0.8 and 5.9.2 leaks .htaccess HTTP Basic Authentication variables into the app.js bundle during build-time.  Users who are not initializing basic authentication credentials in the gatsby-config.js are not affected.
+
+Example affected gatsby-config.js:
+```
+      resolve: 'gatsby-source-wordpress',
+        auth: {
+          htaccess: {
+            username: leaked_username
+            password: leaked_password,
+          },
+        },
+```
+
+### Patches
+A patch has been introduced in gatsby-source-wordpress@4.0.8 and gatsby-source-wordpress@5.9.2 which mitigates the issue by filtering all variables specified in the `auth: { }` section.  Users that depend on this functionality are advised to upgrade to the latest release of gatsby-source-wordpress, run `gatsby clean` followed by a `gatsby build`.
+
+
+### Workarounds
+There is no known workaround at this time, other than manually editing the app.js file post-build.
+
+
+### For more information
+Email us at [security@gatsbyjs.com](mailto:security@gatsbyjs.com)
+
+## References
+- https://github.com/gatsbyjs/gatsby/security/advisories/GHSA-rqjw-p5vr-c695
+- https://nvd.nist.gov/vuln/detail/CVE-2021-32770

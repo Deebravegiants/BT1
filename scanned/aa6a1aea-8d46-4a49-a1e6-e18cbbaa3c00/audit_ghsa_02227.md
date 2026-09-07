@@ -1,0 +1,79 @@
+# [M] Open Redirect in ActionPack
+
+## Summary
+Severity: Medium
+Advisory: GHSA-2rqw-v265-jf8c
+CVE: CVE-2021-22942
+CWE: CWE-601
+Ecosystem: RubyGems
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N (CVSS_V3)
+Published: 2021-08-26
+Source: https://github.com/advisories/GHSA-2rqw-v265-jf8c
+Type: github-advisory
+
+## Affected
+- RubyGems: `actionpack` — affected >=6.0.0 <6.0.4.1
+- RubyGems: `actionpack` — affected >=6.1.0 <6.1.4.1
+
+## Details
+# Overview
+
+There is a possible open redirect vulnerability in the Host Authorization middleware in Action Pack. This vulnerability has been assigned the CVE identifier CVE-2021-22942.
+
+Versions Affected: >= 6.0.0.
+Not affected: < 6.0.0
+Fixed Versions: 6.1.4.1, 6.0.4.1
+
+# Impact
+
+Specially crafted “X-Forwarded-Host” headers in combination with certain “allowed host” formats can cause the Host Authorization middleware in Action Pack to redirect users to a malicious website.
+
+Impacted applications will have allowed hosts with a leading dot. For example, configuration files that look like this:
+
+```ruby
+config.hosts <<  '.EXAMPLE.com'
+```
+
+When an allowed host contains a leading dot, a specially crafted Host header can be used to redirect to a malicious website.
+
+This vulnerability is similar to CVE-2021-22881, but CVE-2021-22881 did not take in to account domain name case sensitivity.
+
+# Releases
+
+The fixed releases are available at the normal locations.
+
+# Workarounds
+
+In the case a patch can’t be applied, the following monkey patch can be used in an initializer:
+
+```ruby
+module ActionDispatch
+  class HostAuthorization
+    HOSTNAME = /[a-z0-9.-]+|\[[a-f0-9]*:[a-f0-9.:]+\]/i
+    VALID_ORIGIN_HOST = /\A(#{HOSTNAME})(?::\d+)?\z/
+    VALID_FORWARDED_HOST = /(?:\A|,[ ]?)(#{HOSTNAME})(?::\d+)?\z/
+
+    private
+      def authorized?(request)
+        origin_host =
+          request.get_header("HTTP_HOST")&.slice(VALID_ORIGIN_HOST, 1) || ""
+        forwarded_host =
+          request.x_forwarded_host&.slice(VALID_FORWARDED_HOST, 1) || ""
+        @permissions.allows?(origin_host) &&
+          (forwarded_host.blank? || @permissions.allows?(forwarded_host))
+      end
+  end
+end
+```
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2021-22942
+- https://access.redhat.com/security/cve/cve-2021-22942
+- https://github.com/rails/rails
+- https://github.com/rubysec/ruby-advisory-db/blob/master/gems/actionpack/CVE-2021-22942.yml
+- https://groups.google.com/g/rubyonrails-security/c/wB5tRn7h36c
+- https://rubygems.org/gems/actionpack
+- https://security.netapp.com/advisory/ntap-20240202-0005
+- https://weblog.rubyonrails.org/2021/8/19/Rails-6-0-4-1-and-6-1-4-1-have-been-released
+- https://www.debian.org/security/2023/dsa-5372
+- http://www.openwall.com/lists/oss-security/2021/12/14/5

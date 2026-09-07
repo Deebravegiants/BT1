@@ -1,0 +1,34 @@
+# [H] Uncontrolled Resource Consumption in Apache ZooKeeper
+
+## Summary
+Severity: High
+Advisory: GHSA-7cwj-j333-x7f7
+CVE: CVE-2017-5637
+CWE: CWE-400
+Ecosystem: Maven
+CVSS: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2022-05-13
+Source: https://github.com/advisories/GHSA-7cwj-j333-x7f7
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.zookeeper:zookeeper` — affected >=3.4.0 <3.4.10
+- Maven: `org.apache.zookeeper:zookeeper` — affected >=3.5.0 <3.5.3
+
+## Details
+Two four letter word commands "wchp/wchc" are CPU intensive and could cause spike of CPU utilization on Apache ZooKeeper server if abused, which leads to the server unable to serve legitimate client requests. Apache ZooKeeper thru version 3.4.9 and 3.5.2 suffer from this issue, fixed in 3.4.10, 3.5.3, and later.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2017-5637
+- https://access.redhat.com/errata/RHSA-2017:2477
+- https://access.redhat.com/errata/RHSA-2017:3354
+- https://access.redhat.com/errata/RHSA-2017:3355
+- https://issues.apache.org/jira/browse/ZOOKEEPER-2693
+- https://lists.apache.org/thread.html/053d9ce4d579b02203db18545fee5e33f35f2932885459b74d1e4272@%3Cissues.activemq.apache.org%3E
+- https://lists.apache.org/thread.html/58170aeb7a681d462b7fa31cae81110cbb749d2dc83c5736a0bb8370@%3Cdev.zookeeper.apache.org%3E
+- https://lists.apache.org/thread.html/bcce5a9c532b386c68dab2f6b3ce8b0cc9b950ec551766e76391caa3@%3Ccommits.nifi.apache.org%3E
+- https://lists.apache.org/thread.html/rca37935d661f4689cb4119f1b3b224413b22be161b678e6e6ce0c69b@%3Ccommits.nifi.apache.org%3E
+- https://www.oracle.com//security-alerts/cpujul2021.html
+- https://www.oracle.com/security-alerts/cpujul2020.html
+- http://www.debian.org/security/2017/dsa-3871
+- http://www.securityfocus.com/bid/98814
