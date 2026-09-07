@@ -1,1 +1,0 @@
-, normalizedAddress, xrpMemo].join(
