@@ -1,0 +1,1 @@
+[File: packages/intents-sdk/src/intents/intent-hashes/sep53.ts -> Scope: High] Can a `payload` string containing characters that TextEncoder re-encodes with a different byte count than a Stellar wallet's UTF-8 encoder (e.g. due to an already-UTF-8-encoded-then-decoded string carrying invalid surrogate pairs replaced with U+FFFD) make `computeSep53Prehash`'s concatenation of `
