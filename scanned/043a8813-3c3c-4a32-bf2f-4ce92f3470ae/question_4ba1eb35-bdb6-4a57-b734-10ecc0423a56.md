@@ -1,0 +1,1 @@
+[File: packages/intents-sdk/src/bridges/poa-bridge/poa-bridge-utils.ts -> Scope: Critical] Can an unprivileged attacker supply a `destinationAddress` string containing a literal ':' character (e.g. a mistyped XRPL address embedding a colon, or any chain accepting free-form strings) so that `createWithdrawMemo`'s `memo.join(':')` after `[

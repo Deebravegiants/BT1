@@ -1,0 +1,1 @@
+[File: packages/intents-sdk/src/bridges/hot-bridge/hot-bridge.ts -> Scope: Critical] `HotBridge.createWithdrawalIntents` computes `amount = args.withdrawalParams.amount + (isNative ? feeAmount : 0n)` and asserts `intent.amounts[0] === amount.toString()`. If `parseAssetId` misclassifies a token as native (via the `address ===
