@@ -1,1 +1,0 @@
-invariant and letting the signature execute after the caller believed it had expired? Proof idea: vitest test setNonce(nonceWithFarFutureDeadline).setDeadline(nearDeadline).buildWithSalt(salt), decode the nonce, and assert its embedded deadline equals payload.deadline (fails).
