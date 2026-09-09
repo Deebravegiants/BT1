@@ -1,0 +1,1 @@
+Let me check the cache key construction for `destinationChainAddressCache` and `tokenDecimalsCache`, since a collision here could cause the wrong token address/decimals to be used across different chains or tokens.
