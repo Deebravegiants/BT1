@@ -1,0 +1,28 @@
+# [C] EEx template evaluation of prompt content in AshAi enables remote code execution
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-77956
+Aliases: EEF-CVE-2026-77956, GHSA-2g59-hg7m-qc83
+CVSS: 9.0 (CVSS:4.0/AV:L/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H)
+Published: 2026-08-31
+Source: https://osv.dev/vulnerability/CVE-2026-77956
+Type: osv
+
+## Details
+Improper Control of Generation of Code (Code Injection) vulnerability in ash-project ash_ai allows a remote, unauthenticated client to execute arbitrary Elixir code.
+
+AshAi.Actions.Prompt evaluates prompt content through EEx.eval_string/2. The documented prompt: fn input, context -> ... end form lets the prompt content be built from action arguments, so when a prompt action's text incorporates request data, that attacker-controlled text is compiled and run as an EEx template (Elixir source). Content such as <%= System.cmd(...) %> therefore executes on the server before any model request is made, requiring no authentication beyond reaching a prompt action. The fix stops evaluating function-supplied prompt content as EEx; only statically configured templates are evaluated.
+
+This issue affects ash_ai: from 0.1.0 before 1.0.0.
+
+## References
+- https://cna.erlef.org/cves/CVE-2026-77956.html
+- https://github.com
+- https://osv.dev/vulnerability/EEF-CVE-2026-77956
+- https://repo.hex.pm
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/77xxx/CVE-2026-77956.json
+- https://github.com/ash-project/ash_ai/security/advisories/GHSA-2g59-hg7m-qc83
+- https://nvd.nist.gov/vuln/detail/CVE-2026-77956
+- https://github.com/ash-project/ash_ai/commit/e9948254b5659c1143b73dc2f59f457931e64514
+- https://github.com/ash-project/ash_ai

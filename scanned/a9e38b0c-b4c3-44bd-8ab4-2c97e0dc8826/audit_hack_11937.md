@@ -1,0 +1,56 @@
+# [H] Absence of Signature Expiry Check in LibMuon.verifyPrices()
+
+## Summary
+Severity: High
+Reporter: pengun
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/libraries/LibMuon.sol#L50-L68C6
+Type: audit-issue
+
+## Details
+# Absence of Signature Expiry Check in LibMuon.verifyPrices()
+
+## Summary
+The absence of a signature expiry check in the `LibMuon.verifyPrices()`. This vulnerability allows malicious parties to manipulate liquidation prices by using expired signatures, potentially leading to significant financial losses.
+
+## Vulnerability Detail
+The vulnerability arises from the missing verification of signature expiry in the `LibMuon.verifyPrices()` function. The `setSymbolsPrice` function plays a crucial role in determining the valuation of assets before liquidation. However, without checking the expiry of the provided signature in the `verifyPrices()` function, malicious actors can manipulate liquidation prices using past signatures.
+
+By leveraging expired signatures, an adversary can modify liquidation prices for their advantage as a partyA, partyB, or the liquidator. This malicious activity can result in severe financial losses and compromise the integrity of the liquidation process.
+
+## Impact
+Exploiting the vulnerability, malicious actors can manipulate liquidation prices, potentially causing significant financial losses for parties involved in the liquidation process.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/libraries/LibMuon.sol#L50-L68C6
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/libraries/LibMuon.sol#L70-L85
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L38
+## Tool used
+
+Manual Review
+
+## Recommendation
+```solidity
+    function verifyPrices(PriceSig memory priceSig, address partyA) internal view {
+        MuonStorage.Layout storage muonLayout = MuonStorage.layout();
+        require( // check valid signature
+            block.timestamp <= upnlSig.timestamp + muonLayout.upnlValidTime,
+            "LibMuon: Expired signature"
+        );
+        require(priceSig.prices.length == priceSig.symbolIds.length, "LibMuon: Invalid length");
+        bytes32 hash = keccak256(
+            abi.encodePacked(
+                muonLayout.muonAppId,
+                priceSig.reqId,
+                address(this),
+                partyA,
+                priceSig.upnl,
+                priceSig.totalUnrealizedLoss,
+                priceSig.symbolIds,
+                priceSig.prices,
+                priceSig.timestamp,
+                getChainId()
+            )
+        );
+        verifyTSSAndGateway(hash, priceSig.sigs, priceSig.gatewaySignature);
+    }
+```

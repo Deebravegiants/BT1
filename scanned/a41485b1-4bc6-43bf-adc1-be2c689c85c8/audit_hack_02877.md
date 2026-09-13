@@ -1,0 +1,29 @@
+# [M] Should prevent users from shares more native tokens in the _burnShares function
+
+## Summary
+Severity: Medium
+Reporter: Bnke0x0
+Source: https://github.com/sherlock-audit/2022-10-mycelium/blob/main/mylink-contracts/src/Vault.sol#L412
+Type: audit-issue
+
+## Details
+# Should prevent users from shares more native tokens in the _burnShares function
+
+## Summary
+
+## Vulnerability Detail
+
+## Impact
+When a user bridges a native token via the _burnShares function of Vault, the contract checks whether shares[_from] >= _shares, hold. In other words, if a user accidentally sends more native tokens than he has to, the contract accepts it but only bridges the _shares of tokens. The rest of the tokens are left in the contract and can be recovered by anyone (see another submission for details).
+
+## Code Snippet
+https://github.com/sherlock-audit/2022-10-mycelium/blob/main/mylink-contracts/src/Vault.sol#L412
+
+        'require(shares[_from] >= _shares, "Cannot burn more shares than owned");'
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider changing '>=' to '==' at line 412

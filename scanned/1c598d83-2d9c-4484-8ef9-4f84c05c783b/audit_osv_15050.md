@@ -1,0 +1,19 @@
+# [M] CVE-2019-13112
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-13112
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2019-06-30
+Source: https://osv.dev/vulnerability/CVE-2019-13112
+Type: osv
+
+## Details
+A PngChunk::parseChunkContent uncontrolled memory allocation in Exiv2 through 0.27.1 allows an attacker to cause a denial of service (crash due to an std::bad_alloc exception) via a crafted PNG image file.
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/FGBT5OD2TF4AIXJUC56WOUJRHAZLZ4DC/
+- https://github.com/Exiv2/exiv2/pull/846
+- https://lists.debian.org/debian-lts-announce/2023/01/msg00004.html
+- https://usn.ubuntu.com/4056-1/
+- https://github.com/Exiv2/exiv2/issues/845

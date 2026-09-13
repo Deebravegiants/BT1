@@ -1,0 +1,88 @@
+# [H] dmaengine: tegra-adma: Fix use-after-free
+
+## Summary
+Severity: High
+Advisory: CVE-2025-71162
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-01-25
+Source: https://osv.dev/vulnerability/CVE-2025-71162
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=4.7.0 <5.10.249, >=5.11.0 <5.15.199, >=5.16.0 <6.1.162, >=6.2.0 <6.6.122, >=6.7.0 <6.12.67, >=6.13.0 <6.18.7
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+dmaengine: tegra-adma: Fix use-after-free
+
+A use-after-free bug exists in the Tegra ADMA driver when audio streams
+are terminated, particularly during XRUN conditions. The issue occurs
+when the DMA buffer is freed by tegra_adma_terminate_all() before the
+vchan completion tasklet finishes accessing it.
+
+The race condition follows this sequence:
+
+  1. DMA transfer completes, triggering an interrupt that schedules the
+     completion tasklet (tasklet has not executed yet)
+  2. Audio playback stops, calling tegra_adma_terminate_all() which
+     frees the DMA buffer memory via kfree()
+  3. The scheduled tasklet finally executes, calling vchan_complete()
+     which attempts to access the already-freed memory
+
+Since tasklets can execute at any time after being scheduled, there is
+no guarantee that the buffer will remain valid when vchan_complete()
+runs.
+
+Fix this by properly synchronizing the virtual channel completion:
+ - Calling vchan_terminate_vdesc() in tegra_adma_stop() to mark the
+   descriptors as terminated instead of freeing the descriptor.
+ - Add the callback tegra_adma_synchronize() that calls
+   vchan_synchronize() which kills any pending tasklets and frees any
+   terminated descriptors.
+
+Crash logs:
+[  337.427523] BUG: KASAN: use-after-free in vchan_complete+0x124/0x3b0
+[  337.427544] Read of size 8 at addr ffff000132055428 by task swapper/0/0
+
+[  337.427562] Call trace:
+[  337.427564]  dump_backtrace+0x0/0x320
+[  337.427571]  show_stack+0x20/0x30
+[  337.427575]  dump_stack_lvl+0x68/0x84
+[  337.427584]  print_address_description.constprop.0+0x74/0x2b8
+[  337.427590]  kasan_report+0x1f4/0x210
+[  337.427598]  __asan_load8+0xa0/0xd0
+[  337.427603]  vchan_complete+0x124/0x3b0
+[  337.427609]  tasklet_action_common.constprop.0+0x190/0x1d0
+[  337.427617]  tasklet_action+0x30/0x40
+[  337.427623]  __do_softirq+0x1a0/0x5c4
+[  337.427628]  irq_exit+0x110/0x140
+[  337.427633]  handle_domain_irq+0xa4/0xe0
+[  337.427640]  gic_handle_irq+0x64/0x160
+[  337.427644]  call_on_irq_stack+0x20/0x4c
+[  337.427649]  do_interrupt_handler+0x7c/0x90
+[  337.427654]  el1_interrupt+0x30/0x80
+[  337.427659]  el1h_64_irq_handler+0x18/0x30
+[  337.427663]  el1h_64_irq+0x7c/0x80
+[  337.427667]  cpuidle_enter_state+0xe4/0x540
+[  337.427674]  cpuidle_enter+0x54/0x80
+[  337.427679]  do_idle+0x2e0/0x380
+[  337.427685]  cpu_startup_entry+0x2c/0x70
+[  337.427690]  rest_init+0x114/0x130
+[  337.427695]  arch_call_rest_init+0x18/0x24
+[  337.427702]  start_kernel+0x380/0x3b4
+[  337.427706]  __primary_switched+0xc0/0xc8
+
+## References
+- https://cert-portal.siemens.com/productcert/html/ssa-019113.html
+- https://git.kernel.org/stable/c/2efd07a7c36949e6fa36a69183df24d368bf9e96
+- https://git.kernel.org/stable/c/59cb421b0902fbef2b9512ae8ba198a20f26b41f
+- https://git.kernel.org/stable/c/5f8d1d66a952d0396671e1f21ff8127a4d14fb4e
+- https://git.kernel.org/stable/c/76992310f80776b4d1f7f8915f59b92883a3e44c
+- https://git.kernel.org/stable/c/ae3eed72de682ddbba507ed2d6b848c21a6b721e
+- https://git.kernel.org/stable/c/be655c3736b3546f39bc8116ffbf2a3b6cac96c4
+- https://git.kernel.org/stable/c/cb2c9c4bb1322cc3c9984ad17db8cdd2663879ca
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/71xxx/CVE-2025-71162.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-71162
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

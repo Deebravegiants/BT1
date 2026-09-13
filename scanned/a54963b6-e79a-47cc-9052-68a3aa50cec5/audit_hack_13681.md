@@ -1,0 +1,54 @@
+# [H] Users will get burned more assets than they are supposed to by using stale debt/share data
+
+## Summary
+Severity: High
+Reporter: Nutty Admiral Scorpion
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/vault/LMPVault.sol#L422-L434
+Type: audit-issue
+
+## Details
+# Users will get burned more assets than they are supposed to by using stale debt/share data
+## Summary
+Users will get burned more assets than they are supposed to  by using stale debt/share data
+
+## Vulnerability Detail
+When calling redeem or withdraw on the `LMPVault` contract, there will be the escenario where you have to calcualte the exact amount of shares to burn from the user by calling the function `_calcUserWithdrawSharesToBurn()`
+
+```solidity
+ for (uint256 i = 0; i < withdrawalQueueLength; ++i) {
+                IDestinationVault destVault = IDestinationVault(withdrawalQueue[i]);
+                (uint256 sharesToBurn, uint256 totalDebtBurn) = _calcUserWithdrawSharesToBurn(
+                    destVault,
+                    shares,
+                    info.totalAssetsToPull - Math.max(info.debtDecrease, info.totalAssetsPulled), //max normally means the biggest number
+                    totalVaultShares
+                );
+```
+
+This function directly gets the information from the destination vault directly from a mapping called `destinationInfo`
+
+```solidity
+ (sharesToBurn, totalDebtBurn) = LMPDebt._calcUserWithdrawSharesToBurn(
+            destinationInfo[address(destVault)], destVault, userShares, maxAssetsToPull, totalVaultShares
+        );
+```
+
+The problem here is the data/params from this mapping are not updated at the time of calling `redeem()` or `withdraw()`. Therefore this data is stale and user will get burned a faulty amount of shares due to the stale data.
+
+## Impact
+Users will get burned a faulty amount of shares due to the stale data.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/vault/LMPVault.sol#L422-L434
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+The data from the mapping `destinationInfo` should be updated before calling `redeem()` or `withdraw()`. This is done by calling `updateDebtReporting()` with the destinations of the vaults that you will withdraw from.
+```solidity
+    function updateDebtReporting(address[] calldata _destinations) external nonReentrant trackNavOps {
+        _updateDebtReporting(_destinations);  
+    }
+```

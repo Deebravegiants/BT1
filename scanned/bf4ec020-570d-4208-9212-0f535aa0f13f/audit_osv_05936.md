@@ -1,0 +1,22 @@
+# [M] BIT-java-2025-30754
+
+## Summary
+Severity: Medium
+Advisory: BIT-java-2025-30754
+Aliases: BIT-java-min-2025-30754, BIT-jre-2025-30754, CVE-2025-30754
+Ecosystem: Bitnami
+Published: 2026-05-06
+Source: https://osv.dev/vulnerability/BIT-java-2025-30754
+Type: osv
+
+## Affected
+- Bitnami: `java` — affected >=22.0.0 <24.0.2
+
+## Details
+Vulnerability in the Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: JSSE).  Supported versions that are affected are Oracle Java SE: 8u451, 8u451-perf, 11.0.27, 17.0.15, 21.0.7, 24.0.1; Oracle GraalVM for JDK: 17.0.15, 21.0.7 and  24.0.1; Oracle GraalVM Enterprise Edition: 21.3.14. Difficult to exploit vulnerability allows unauthenticated attacker with network access via TLS to compromise Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition.  Successful attacks of this vulnerability can result in  unauthorized update, insert or delete access to some of Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition accessible data as well as  unauthorized read access to a subset of Oracle Java SE, Oracle GraalVM for JDK, Oracle GraalVM Enterprise Edition accessible data. Note: This vulnerability applies to Java deployments, typically in clients running sandboxed Java Web Start applications or sandboxed Java applets, that load and run untrusted code (e.g., code that comes from the internet) and rely on the Java sandbox for security. This vulnerability does not apply to Java deployments, typically in servers, that load and run only trusted code (e.g., code installed by an administrator). CVSS 3.1 Base Score 4.8 (Confidentiality and Integrity impacts).  CVSS Vector: (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N).
+
+## References
+- https://lists.debian.org/debian-lts-announce/2025/07/msg00011.html
+- https://lists.debian.org/debian-lts-announce/2025/08/msg00014.html
+- https://nvd.nist.gov/vuln/detail/CVE-2025-30754
+- https://www.oracle.com/security-alerts/cpujul2025.html

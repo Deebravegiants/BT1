@@ -1,0 +1,28 @@
+# [M] Potential Denial-of-Service in bindata
+
+## Summary
+Severity: Medium
+Advisory: GHSA-hj56-84jw-67h6
+CVE: CVE-2021-32823
+CWE: CWE-400
+Ecosystem: RubyGems
+CVSS: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L (CVSS_V3)
+Published: 2021-06-23
+Source: https://github.com/advisories/GHSA-hj56-84jw-67h6
+Type: github-advisory
+
+## Affected
+- RubyGems: `bindata` — affected >=0 <2.4.10
+
+## Details
+In the bindata RubyGem before version 2.4.10 there is a potential denial-of-service vulnerability. In affected versions it is very slow for certain classes in BinData to be created. For example `BinData::Bit100000`, `BinData::Bit100001`, `BinData::Bit100002`, `BinData::Bit<N>`. In combination with `<user_input>.constantize` there is a potential for a CPU-based DoS. In version 2.4.10, bindata improved the creation time of Bits and Integers.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2021-32823
+- https://github.com/rubysec/ruby-advisory-db/issues/476
+- https://github.com/dmendel/bindata/commit/d99f050b88337559be2cb35906c1f8da49531323
+- https://about.gitlab.com/releases/2021/06/01/security-release-gitlab-13-12-2-released/#update-bindata-dependency
+- https://github.com/dmendel/bindata
+- https://github.com/dmendel/bindata/blob/master/ChangeLog.rdoc#version-2410-2021-05-18-
+- https://github.com/dmendel/bindata/blob/v2.4.10/ChangeLog.rdoc#version-2410-2021-05-18-
+- https://rubygems.org/gems/bindata

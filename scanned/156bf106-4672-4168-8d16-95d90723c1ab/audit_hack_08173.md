@@ -1,0 +1,207 @@
+# [M] Function signature may have hash collision
+
+## Summary
+Severity: Medium
+Reporter: ShadowForce
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+# Function signature may have hash collision
+
+## Summary
+Function signature may have hash collision
+## Vulnerability Detail
+A birthday attack is a type of cryptographic attack that exploits the mathematical principle of the birthday paradox to find collisions in a hash function.
+
+The birthday paradox states that if you have a group of n people, the probability that any two of them share the same birthday is much higher than you might expect. Specifically, the probability of a collision is approximately 50% when the number of people is around the square root of the number of possible birthdays.
+
+In the context of hash functions, a birthday attack works by generating a large number of random inputs and hashing them to create a set of hash values. Because the output of a hash function is typically much smaller than the input, there will be many more possible inputs than outputs, which means that collisions are likely to occur.
+
+By using a variant of the birthday paradox, an attacker can calculate the probability of finding a collision in a hash function with a given output size and number of inputs. They can then use this probability to determine the number of inputs they need to generate in order to find a collision with a high degree of probability.
+
+In summary, a birthday attack is a technique used to find collisions in a hash function by exploiting the birthday paradox to reduce the amount of computation required to find a collision. It is a powerful technique that can be used to break many cryptographic protocols that rely on hash functions, which is why hash functions are designed to be resistant to birthday attacks by using large output sizes and secure hashing algorithms.
+
+```solidity
+    L1InfoFuncSignature = "setL1BlockValues(uint64,uint64,uint256,bytes32,uint64,bytes32,uint256,uint256)"
+    L1InfoArguments     = 8
+    L1InfoLen           = 4 + 32*L1InfoArguments
+)
+
+var (
+    L1InfoFuncBytes4       = crypto.Keccak256([]byte(L1InfoFuncSignature))[:4]
+    L1InfoDepositerAddress = common.HexToAddress("0xdeaddeaddeaddeaddeaddeaddeaddeaddead0001")
+    L1BlockAddress         = predeploys.L1BlockAddr
+)
+```
+
+in the snippet above, we see the protocol opted to generate a signature for the function. I think it is trivial and not in best interest of the protocol to do this. Like i have explained above, an attacker can find a string whose hash has the same four signature bytes as the one used in `L1InfoFuncBytes4`. The attacker can then input invalid data.
+
+This collision already happens in the function `transfer(address,uint256)`. You can view all the possible collisions in the link below:
+https://www.4byte.directory/signatures/?bytes4_signature=0xa9059cbb
+
+A similar attack can be view in the poly network hack
+
+> The attacker computed the 32-bit ID for putCurEpochConPubKeyBytes: 
+ethers.utils.id ('putCurEpochConPubKeyBytes(bytes)').slice(0, 10)'0x41973cd9' 
+
+>The attacker brute-forced a string that, if set as _method in the code snippet above, gives the same 32-bit value. In this case the attacker used the string “f1121318093”: 
+>ethers.utils.id ('f1121318093(bytes,bytes,uint64)').slice(0, 10)'0x41973cd9' 
+https://research.kudelskisecurity.com/2021/08/12/the-poly-network-hack-explained/
+
+the protocol wants to validate the first four function signature bytes, The validation they implementation is that.
+```solidity
+  if !bytes.Equal(data[0:offset], L1InfoFuncBytes4) {
+        return fmt.Errorf("data does not match L1 info function signature: 0x%x", data[offset:4])
+    }
+```
+L1InfoFuncBytes4 is
+```solidity
+   L1InfoFuncSignature = "setL1BlockValues(uint64,uint64,uint256,bytes32,uint64,bytes32,uint256,uint256)"
+    L1InfoArguments     = 8
+    L1InfoLen           = 4 + 32*L1InfoArguments
+)
+
+var (
+    L1InfoFuncBytes4       = crypto.Keccak256([]byte(L1InfoFuncSignature))[:4]
+    L1InfoDepositerAddress = common.HexToAddress("0xdeaddeaddeaddeaddeaddeaddeaddeaddead0001")
+    L1BlockAddress         = predeploys.L1BlockAddr
+)
+```
+
+The client code is expected to read data from this smart contract
+```solidity
+  function setL1BlockValues(
+        uint64 _number,
+        uint64 _timestamp,
+        uint256 _basefee,
+        bytes32 _hash,
+        uint64 _sequenceNumber,
+        bytes32 _batcherHash,
+        uint256 _l1FeeOverhead,
+        uint256 _l1FeeScalar
+    ) external {
+        require(
+            msg.sender == DEPOSITOR_ACCOUNT,
+            "L1Block: only the depositor account can set L1 block values"
+        );
+
+        number = _number;
+        timestamp = _timestamp;
+        basefee = _basefee;
+        hash = _hash;
+        sequenceNumber = _sequenceNumber;
+        batcherHash = _batcherHash;
+        l1FeeOverhead = _l1FeeOverhead;
+        l1FeeScalar = _l1FeeScalar;
+    }
+```
+if the attacker brute force to generate a function that has the same signature byte collision
+the attack can inject invalid state here
+```solidity
+ number = _number;
+        timestamp = _timestamp;
+        basefee = _basefee;
+        hash = _hash;
+        sequenceNumber = _sequenceNumber;
+        batcherHash = _batcherHash;
+        l1FeeOverhead = _l1FeeOverhead;
+        l1FeeScalar = _l1FeeScalar;
+```
+for example, an attacker can deploy a fake smart contract like the one below
+```solidity
+  // signature collision with setL1BlockValues(uint64,uint64,uint256,bytes32,uint64,bytes32,uint256,uint256)
+    function random3234function(
+        uint64 _number,
+        uint64 _timestamp,
+        uint256 _basefee,
+        bytes32 _hash,
+        uint64 _sequenceNumber,
+        bytes32 _batcherHash,
+        uint256 _l1FeeOverhead,
+        uint256 _l1FeeScalar
+    ) external {
+        number = _number;
+        timestamp = _timestamp;
+        basefee = _basefee;
+        hash = _hash;
+        sequenceNumber = _sequenceNumber;
+        batcherHash = _batcherHash;
+        l1FeeOverhead = _l1FeeOverhead;
+        l1FeeScalar = _l1FeeScalar;
+    }
+}
+```
+the attacker can then then set invalid number, timestamp, etc...
+
+additionally we can see the call flow is as follows
+```solidity
+func waitForL1OriginOnL2(l1BlockNum uint64, client *ethclient.Client, timeout time.Duration) (*types.Block, error) {
+    timeoutCh := time.After(timeout)
+    ctx, cancel := context.WithTimeout(context.Background(), timeout)
+    defer cancel()
+
+    headChan := make(chan *types.Header, 100)
+    headSub, err := client.SubscribeNewHead(ctx, headChan)
+    if err != nil {
+        return nil, err
+    }
+    defer headSub.Unsubscribe()
+
+    for {
+        select {
+        case head := <-headChan:
+            block, err := client.BlockByNumber(ctx, head.Number)
+            if err != nil {
+                return nil, err
+            }
+            l1Info, err := derive.L1InfoDepositTxData(block.Transactions()[0].Data())
+            if err != nil {
+                return nil, err
+            }
+            if l1Info.Number >= l1BlockNum {
+                return block, nil
+            }
+
+        case err := <-headSub.Err():
+            return nil, fmt.Errorf("error in head subscription: %w", err)
+        case <-timeoutCh:
+            return nil, errors.New("timeout")
+        }
+    }
+}
+```
+which calls `  l1Info, err := derive.L1InfoDepositTxData(block.Transactions()[0].Data())` this calls
+```solidity
+// L1InfoDepositTxData is the inverse of L1InfoDeposit, to see where the L2 chain is derived from
+func L1InfoDepositTxData(data []byte) (L1BlockInfo, error) {
+    var info L1BlockInfo
+    err := info.UnmarshalBinary(data)
+    return info, err
+}
+```
+this calls
+```solidity
+func (info *L1BlockInfo) UnmarshalBinary(data []byte) error {
+    if len(data) != L1InfoLen {
+        return fmt.Errorf("data is unexpected length: %d", len(data))
+    }
+    var padding [24]byte
+    offset := 4
+
+    if !bytes.Equal(data[0:offset], L1InfoFuncBytes4) {
+        return fmt.Errorf("data does not match L1 info function signature: 0x%x", data[offset:4])
+    }
+```
+
+## Impact
+the attacker can brute force to generate a function that has the same signature byte collision
+the attacker can then inject invalid state and the consequence of this could be severe.
+## Code Snippet
+https://github.com/ethereum-optimism/optimism/pull/4936/files
+## Tool used
+
+Manual Review
+
+## Recommendation
+validate the address that emits the event as well to avoid the collision attack

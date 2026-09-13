@@ -1,0 +1,15 @@
+# [H] CVE-2020-10101
+
+## Summary
+Severity: High
+Advisory: CVE-2020-10101
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2020-03-05
+Source: https://osv.dev/vulnerability/CVE-2020-10101
+Type: osv
+
+## Details
+An issue was discovered in Zammad 3.0 through 3.2. The WebSocket server crashes when messages in non-JSON format are sent by an attacker. The message format is not properly checked and parsing errors not handled. This leads to a crash of the service process.
+
+## References
+- https://zammad.com/news/security-advisory-zaa-2020-06

@@ -1,0 +1,26 @@
+# [H] JLSEC-2026-173
+
+## Summary
+Severity: High
+Advisory: JLSEC-2026-173
+Ecosystem: Julia
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-04-21
+Source: https://osv.dev/vulnerability/JLSEC-2026-173
+Type: osv
+
+## Affected
+- Julia: `OpenLDAPClient_jll` — affected >=0 <2.5.14+0
+
+## Details
+In OpenLDAP through 2.4.57 and 2.5.x through 2.5.1alpha, an assertion failure in slapd can occur in the issuerAndThisUpdateCheck function via a crafted packet, resulting in a denial of service (daemon exit) via a short timestamp. This is related to `schema_init.c` and checkTime.
+
+## References
+- https://bugs.openldap.org/show_bug.cgi?id=9454
+- https://git.openldap.org/openldap/openldap/-/commit/3539fc33212b528c56b716584f2c2994af7c30b0
+- https://git.openldap.org/openldap/openldap/-/commit/9badb73425a67768c09bcaed1a9c26c684af6c30
+- https://lists.apache.org/thread.html/r58af02e294bd07f487e2c64ffc0a29b837db5600e33b6e698b9d696b%40%3Cissues.bookkeeper.apache.org%3E
+- https://lists.apache.org/thread.html/rf4c02775860db415b4955778a131c2795223f61cb8c6a450893651e4%40%3Cissues.bookkeeper.apache.org%3E
+- https://lists.debian.org/debian-lts-announce/2021/02/msg00035.html
+- https://security.netapp.com/advisory/ntap-20210319-0005/
+- https://www.debian.org/security/2021/dsa-4860

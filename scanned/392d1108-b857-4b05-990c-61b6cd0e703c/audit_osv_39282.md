@@ -1,0 +1,19 @@
+# [M] xrdp: Unchecked FIPS padding length in standard RDP Security causes heap out-of-bounds read in HMAC verification
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-44978
+Aliases: GHSA-9cg5-f7m7-ppvj
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L)
+Published: 2026-07-20
+Source: https://osv.dev/vulnerability/CVE-2026-44978
+Type: osv
+
+## Details
+xrdp is an open source RDP server. Versions 0.10.6 and prior contain a heap out-of-bounds read vulnerability within the FIPS-specific receive paths. This vulnerability does not affect the default configuration of xrdp. The vulnerability is only exploitable when the security layer is set to security_layer=negotiate or security_layer=rdp, and the crypto level is changed to crypt_level=fips in xrdp.ini. In this specific non-default mode, the server fails to validate the FIPS padding length field, leading to a pointer underflow and a subsequent negative length calculation. An unauthenticated remote attacker can exploit this by sending a crafted FIPS-protected PDU, causing a heap out-of-bounds read that results in a process crash and denial of service (DoS). However, since xrdp forks a new process for each connection by default, an out-of-bounds read causing a process crash is unlikely to bring down the entire xrdp service. This issue has been fixed in version 0.10.6.1.
+
+## References
+- https://github.com/neutrinolabs/xrdp/releases/tag/v0.10.6.1
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/44xxx/CVE-2026-44978.json
+- https://github.com/neutrinolabs/xrdp/security/advisories/GHSA-9cg5-f7m7-ppvj
+- https://nvd.nist.gov/vuln/detail/CVE-2026-44978

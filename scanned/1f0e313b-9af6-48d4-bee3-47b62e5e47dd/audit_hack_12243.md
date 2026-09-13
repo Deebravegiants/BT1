@@ -1,0 +1,49 @@
+# [H] Malicious users can bypass protocol pause to add or remove liquidity
+
+## Summary
+Severity: High
+Reporter: branch_indigo
+Source: https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L53
+Type: audit-issue
+
+## Details
+# Malicious users can bypass protocol pause to add or remove liquidity
+
+## Summary
+Malicious users can bypass protocol pause to add or remove liquidity.
+## Vulnerability Detail
+In ArraksiV2Router.sol, protocol pause is implemented through a modifier `whenNotPaused()`.
+```solidity
+//ArrakisV2Router.sol-addliquidity()
+   function addLiquidity(
+        AddLiquidityData memory params_
+    )
+        external
+        payable
+ >>>    whenNotPaused
+        nonReentrant
+        returns (uint256 amount0, uint256 amount1, uint256 sharesReceived)
+    {...
+```
+```solidity
+//ArrakisV2Router.sol-addliquidity()
+ function removeLiquidity(
+        RemoveLiquidityData memory params_
+    )
+        external
+>>>     whenNotPaused
+        nonReentrant
+        returns (uint256 amount0, uint256 amount1)
+    {..
+```
+But a malicious actor can bypass this modifier by interacting with the core ArrakisV2.sol to mint or burn liquidity and receive profits because there is no pause mechanism implemented in the core contract.
+## Impact
+Users can still mint and burn liquidity during pause, which is unsafe to the protocol.
+## Code Snippet
+[https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L53](https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L53)
+## Tool used
+
+Manual Review
+
+## Recommendation
+In ArrakisV2.sol, implement a check to query protocol pausing state from the router contract in key functions such as `mint()` and `burn()`. This will ensure that when the protocol is paused on the router, any attempt to mint and burn through the core vault contract will be reverted.

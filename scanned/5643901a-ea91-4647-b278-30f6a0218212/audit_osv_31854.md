@@ -1,0 +1,55 @@
+# [H] RDMA/bnxt_re: Fix the page details for the srq created by kernel consumers
+
+## Summary
+Severity: High
+Advisory: CVE-2025-21885
+Ecosystem: Linux
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2025-03-27
+Source: https://osv.dev/vulnerability/CVE-2025-21885
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.7.0 <6.12.18, >=6.13.0 <6.13.6
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+RDMA/bnxt_re: Fix the page details for the srq created by kernel consumers
+
+While using nvme target with use_srq on, below kernel panic is noticed.
+
+[  549.698111] bnxt_en 0000:41:00.0 enp65s0np0: FEC autoneg off encoding: Clause 91 RS(544,514)
+[  566.393619] Oops: divide error: 0000 [#1] PREEMPT SMP NOPTI
+..
+[  566.393799]  <TASK>
+[  566.393807]  ? __die_body+0x1a/0x60
+[  566.393823]  ? die+0x38/0x60
+[  566.393835]  ? do_trap+0xe4/0x110
+[  566.393847]  ? bnxt_qplib_alloc_init_hwq+0x1d4/0x580 [bnxt_re]
+[  566.393867]  ? bnxt_qplib_alloc_init_hwq+0x1d4/0x580 [bnxt_re]
+[  566.393881]  ? do_error_trap+0x7c/0x120
+[  566.393890]  ? bnxt_qplib_alloc_init_hwq+0x1d4/0x580 [bnxt_re]
+[  566.393911]  ? exc_divide_error+0x34/0x50
+[  566.393923]  ? bnxt_qplib_alloc_init_hwq+0x1d4/0x580 [bnxt_re]
+[  566.393939]  ? asm_exc_divide_error+0x16/0x20
+[  566.393966]  ? bnxt_qplib_alloc_init_hwq+0x1d4/0x580 [bnxt_re]
+[  566.393997]  bnxt_qplib_create_srq+0xc9/0x340 [bnxt_re]
+[  566.394040]  bnxt_re_create_srq+0x335/0x3b0 [bnxt_re]
+[  566.394057]  ? srso_return_thunk+0x5/0x5f
+[  566.394068]  ? __init_swait_queue_head+0x4a/0x60
+[  566.394090]  ib_create_srq_user+0xa7/0x150 [ib_core]
+[  566.394147]  nvmet_rdma_queue_connect+0x7d0/0xbe0 [nvmet_rdma]
+[  566.394174]  ? lock_release+0x22c/0x3f0
+[  566.394187]  ? srso_return_thunk+0x5/0x5f
+
+Page size and shift info is set only for the user space SRQs.
+Set page size and page shift for kernel space SRQs also.
+
+## References
+- https://git.kernel.org/stable/c/2cf8e6b52aecb8fbb71c41fe5add3212814031a2
+- https://git.kernel.org/stable/c/722c3db62bf60cd23acbdc8c4f445bfedae4498e
+- https://git.kernel.org/stable/c/b66535356a4834a234f99e16a97eb51f2c6c5a7d
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/21xxx/CVE-2025-21885.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-21885
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

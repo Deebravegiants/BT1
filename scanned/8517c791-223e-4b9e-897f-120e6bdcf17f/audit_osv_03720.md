@@ -1,0 +1,19 @@
+# [C] ALPINE-CVE-2026-42960
+
+## Summary
+Severity: Critical
+Advisory: ALPINE-CVE-2026-42960
+Ecosystem: Alpine:v3.24
+CVSS: 10.0 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:H/A:H)
+Published: 2026-05-20
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2026-42960
+Type: osv
+
+## Affected
+- Alpine:v3.24: `unbound` — affected >=0 <1.25.1-r0
+
+## Details
+NLnet Labs Unbound up to and including version 1.25.0 is vulnerable to poisoning via promiscuous records for the authority section. Promiscuous RRSets that complement DNS replies in the authority section can be used to trick Unbound to cache such records. If an adversary is able to attach such records in a reply (i.e., spoofed packet, fragmentation attack) he would be able to poison Unbound's cache. A malicious actor can exploit the possible poisonous effect by injecting RRSets other than NS that are also accompanied by address records in a reply, for example MX. This could be achieved by trying to spoof a reply packet or fragmentation attacks. Unbound would then accept the relative address records in the additional section and cache them if the authority RRSet has enough trust at this point, i.e., in-zone data for the delegation point. Unbound 1.25.1 contains a patch with a fix that disregards address records from the additional section if they are not explicitly relevant only to authority NS records, mitigating the possible poison effect. This is a complement fix to CVE-2025-11411.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2026-42960

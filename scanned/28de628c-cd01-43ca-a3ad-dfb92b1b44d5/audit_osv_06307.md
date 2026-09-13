@@ -1,0 +1,28 @@
+# [M] Groups not dropped before running subprocess when using empty 'extra_groups' parameter
+
+## Summary
+Severity: Medium
+Advisory: BIT-libpython-2023-6507
+Aliases: BIT-python-2023-6507, BIT-python-min-2023-6507, CVE-2023-6507, PSF-2023-12, PSF-CVE-2023-6507
+Ecosystem: Bitnami
+Published: 2025-08-11
+Source: https://osv.dev/vulnerability/BIT-libpython-2023-6507
+Type: osv
+
+## Affected
+- Bitnami: `libpython` — affected >=3.12.0 <3.12.1
+
+## Details
+An issue was found in CPython 3.12.0 `subprocess` module on POSIX platforms. The issue was fixed in CPython 3.12.1 and does not affect other stable releases.
+
+When using the `extra_groups=` parameter with an empty list as a value (ie `extra_groups=[]`) the logic regressed to not call `setgroups(0, NULL)` before calling `exec()`, thus not dropping the original processes' groups before starting the new process. There is no issue when the parameter isn't used or when any value is used besides an empty list.
+
+This issue only impacts CPython processes run with sufficient privilege to make the `setgroups` system call (typically `root`).
+
+## References
+- https://github.com/python/cpython/commit/10e9bb13b8dcaa414645b9bd10718d8f7179e82b
+- https://github.com/python/cpython/commit/85bbfa8a4bbdbb61a3a84fbd7cb29a4096ab8a06
+- https://github.com/python/cpython/commit/9fe7655c6ce0b8e9adc229daf681b6d30e6b1610
+- https://github.com/python/cpython/issues/112334
+- https://mail.python.org/archives/list/security-announce@python.org/thread/AUL7QFHBLILGISS7U63B47AYSSGJJQZD/
+- https://nvd.nist.gov/vuln/detail/CVE-2023-6507

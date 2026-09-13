@@ -1,0 +1,25 @@
+# [M] checkTransaction function suggest return status
+
+## Summary
+Severity: Medium
+Reporter: Dazzling Plastic Barracuda
+Source: https://github.com/sherlock-audit/2024-01-telcoin/blob/main/telcoin-audit/contracts/zodiac/core/SafeGuard.sol#L41-L79
+Type: audit-issue
+
+## Details
+# checkTransaction function suggest return status
+
+## Summary
+checkTransaction function don't  adhere to  design
+## Vulnerability Detail
+"The checkTransaction function is designed to verify if a transaction has been vetoed based on its hash. It reverts only when a transaction is not found in the transactionHashes set. Regardless of the outcome, whether successful or unsuccessful, we do not obtain information about the status."
+## Impact
+medium，It didn't adhere to the intended design of the function.
+## Code Snippet
+https://github.com/sherlock-audit/2024-01-telcoin/blob/main/telcoin-audit/contracts/zodiac/core/SafeGuard.sol#L41-L79
+## Tool used
+
+Manual Review
+
+## Recommendation
+"As the contract inherits the IGuard interface, direct return values are not employed. Instead, we can either utilize the emit keyword or set a mapping with addresses to access the desired information."

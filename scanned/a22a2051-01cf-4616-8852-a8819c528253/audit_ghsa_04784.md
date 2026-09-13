@@ -1,0 +1,36 @@
+# [H] Strimzi: Cross-namespace privilege escalation via `Kafka.spec.entityOperator`
+
+## Summary
+Severity: High
+Advisory: GHSA-mw9r-p8xp-wx96
+CVE: CVE-2026-55225
+CWE: CWE-269, CWE-441
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:A/AC:H/PR:L/UI:N/S:C/C:H/I:H/A:H (CVSS_V3)
+Published: 2026-06-18
+Source: https://github.com/advisories/GHSA-mw9r-p8xp-wx96
+Type: github-advisory
+
+## Affected
+- Maven: `io.strimzi:strimzi` — affected >=0 <1.0.1
+
+## Details
+### Impact
+
+Having the Topic and User operators to watch different namespaces than the one where the Kafka cluster is deployed, is a fully documented feature.
+
+When the `watchedNamespace` field is used within the Topic or User operator (as part of the `Kafka.spec.entityOperator` field), the Cluster Operator creates a Role granting full CRUD on Secrets into the specified namespace. It also creates a RoleBinding to bind such Role to the entity operator ServiceAccount within the namespace where the Kafka cluster runs.
+
+An attacker can craft a Kafka custom resource (in an attacker's namespace) with the `watchedNamespace` field set to a target namespace and then they can mint a token for the ServiceAccount (in the attacker's namespace)  to read/write Secrets in that target. This is valid with any target namespace for which the Cluster Operator has the rights (regardless the value of the  `STRIMZI_NAMESPACE` environment variable). The at-risk target namespaces are the namespaces which the user has given permissions to the Cluster Operator for, by creating related RoleBinding(s).
+
+### Patches
+
+The issue is fixed in Strimzi 1.0.1 and 1.1.0 by adding a control to enable the watched namespace feature through a dedicated environment variable within the Cluster Operator deployment. The watched namespaces feature is disabled by default.
+
+### Workarounds
+
+A possible workaround for this issue is about using a policy agent like Kyverno or OPA to prevent the usage of the `watchedNamespace` at configuration level within the `Kafka` custom resource.
+
+## References
+- https://github.com/strimzi/strimzi-kafka-operator/security/advisories/GHSA-mw9r-p8xp-wx96
+- https://github.com/strimzi/strimzi-kafka-operator

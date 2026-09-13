@@ -1,0 +1,17 @@
+# [M] CVE-2024-39702
+
+## Summary
+Severity: Medium
+Advisory: CVE-2024-39702
+CVSS: 5.9 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2024-07-23
+Source: https://osv.dev/vulnerability/CVE-2024-39702
+Type: osv
+
+## Details
+In lj_str_hash.c in OpenResty 1.19.3.1 through 1.25.3.1, the string hashing function (used during string interning) allows HashDoS (Hash Denial of Service) attacks. An attacker could cause excessive resource usage during proxy operations via crafted requests, potentially leading to a denial of service with relatively few incoming requests. This vulnerability only exists in the OpenResty fork in the openresty/luajit2 GitHub repository. The LuaJIT/LuaJIT repository. is unaffected.
+
+## References
+- https://openresty.org/en/ann-1025003002.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/39xxx/CVE-2024-39702.json
+- https://nvd.nist.gov/vuln/detail/CVE-2024-39702

@@ -1,0 +1,35 @@
+# [H] Incorrect Priviliges `setOperatorAddresses`
+
+## Summary
+Severity: High
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+#### Description
+
+The function `setOperatorAddresses` instead of allowing the **Operator** to update its own, as well as the **Fee Recipient** address, incorrectly provides the privileges to the Fee Recipient. As a result, the Fee Recipient can modify the operator address as and when needed, to DoS the operator and exploit the system. Additionally, upon reviewing the documentation, we found that there are no administrative rights defined for the Fee Recipient, hence highlighting the incorrect privilege allocation.
+
+
+**src/contracts/StakingContract.sol:L412-L424**
+```solidity
+function setOperatorAddresses(
+    uint256 _operatorIndex,
+    address _operatorAddress,
+    address _feeRecipientAddress
+) external onlyActiveOperatorFeeRecipient(_operatorIndex) {
+    _checkAddress(_operatorAddress);
+    _checkAddress(_feeRecipientAddress);
+    StakingContractStorageLib.OperatorsSlot storage operators = StakingContractStorageLib.getOperators();
+
+    operators.value[_operatorIndex].operator = _operatorAddress;
+    operators.value[_operatorIndex].feeRecipient = _feeRecipientAddress;
+    emit ChangedOperatorAddresses(_operatorIndex, _operatorAddress, _feeRecipientAddress);
+}
+```
+
+#### Recommendation
+
+The modifier should be `onlyActiveOperatorOrAdmin` allowing only the operator itself or admin of the system, to update the necessary addresses.
+
+Also, for transferring crucial privileges from one address to another, the operator's address should follow a 2-step approach like transferring ownership.

@@ -1,0 +1,34 @@
+# [M] `USSD.sol#mintForToken` has no upper limit
+
+## Summary
+Severity: Medium
+Reporter: J4de
+Source: https://github.com/USSDofficial/ussd-contracts/blob/f44c726371f3152634bcf0a3e630802e39dec49c/contracts/USSD.sol#L151
+Type: audit-issue
+
+## Details
+# `USSD.sol#mintForToken` has no upper limit
+
+## Summary
+
+The `mintForToken` function has no mint upper limit. To much mint leads to a decrease in the collateral rate of the collateral and increases the risk
+
+## Vulnerability Detail
+
+USSD uses overcollateralization to ensure the stability of USSD. But the `mintForToken` function uses the value of the collateral 1:1 for the user mint USSD. This will result in a lower collateral rate for USSD and increases the risk.
+
+## Impact
+
+To much mint leads to a decrease in the collateral rate of the collateral and increases the risk
+
+## Code Snippet
+
+https://github.com/USSDofficial/ussd-contracts/blob/f44c726371f3152634bcf0a3e630802e39dec49c/contracts/USSD.sol#L151
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+It is recommended to not allow to mint after the collateral rate is too low

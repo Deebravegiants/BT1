@@ -1,0 +1,77 @@
+# [H] net/mlx5: fw_tracer, return NULL on create error
+
+## Summary
+Severity: High
+Advisory: CVE-2026-74717
+Ecosystem: Linux
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-08-22
+Source: https://osv.dev/vulnerability/CVE-2026-74717
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.3.0 <5.10.265, >=5.11.0 <5.15.216, >=5.16.0 <6.1.183, >=6.2.0 <6.6.152, >=6.7.0 <6.12.104, >=6.13.0 <6.18.45, >=6.19.0 <7.1.9
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+net/mlx5: fw_tracer, return NULL on create error
+
+Tracer creation can fail by returning either NULL or ERR_PTR.
+The return value is stored without a check on the device, and users
+treat ERR_PTR and NULL the same way.
+This also causes a crash in the core dump logic, which is missing the
+ERR_PTR check and ends up dereferencing it, as shown in the trace below.
+
+Switch tracer creation to return NULL on failure only, so callers only
+need a single NULL check.
+
+  Internal error: Oops: 0000000096000006 [#1]  SMP
+  Modules linked in: mlx5_ib ib_uverbs ib_core ipv6 mlx5_core
+  CPU: 1 UID: 0 PID: 12 Comm: kworker/u16:0 Not tainted 6.19.7 #1 PREEMPT(none)
+  Workqueue: mlx5_health0001:01:00.0 mlx5_fw_reporter_err_work [mlx5_core]
+  pstate: a3400009 (NzCv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+  pc : mlx5_fw_tracer_trigger_core_dump_general+0x58/0xe0 [mlx5_core]
+  lr : mlx5_fw_tracer_trigger_core_dump_general+0x40/0xe0 [mlx5_core]
+  sp : ffff800081cf3c40
+  x29: ffff800081cf3c90 x28: 0000000000000000 x27: 0000000000000000
+  x26: ffff000080018828 x25: 0000000000000000 x24: ffff000080304a05
+  x23: ffff800081cf3d80 x22: ffff0000847e01a0 x21: 0000000000000000
+  x20: ffff0000847e01a0 x19: ffffffffffffffa1 x18: ffff80008310bbf0
+  x17: ffff800080119650 x16: ffff80008010df54 x15: ffff80008010d4ac
+  x14: ffff800079c202e4 x13: ffff80008002fe60 x12: ffff800080119650
+  x11: ffff80008010df54 x10: ffff80008010d4ac x9 : ffff800079c203d8
+  x8 : ffff800081cf3c88 x7 : 0000000000000000 x6 : 0000000000000000
+  x5 : 0000000000000000 x4 : 0000000000000008 x3 : 0000000000000030
+  x2 : 0000000000000008 x1 : 0000000000000000 x0 : 00000000c5c4000e
+  Call trace:
+   mlx5_fw_tracer_trigger_core_dump_general+0x58/0xe0 [mlx5_core] (P)
+   mlx5_fw_reporter_dump+0x30/0x2e0 [mlx5_core]
+   devlink_health_do_dump+0x9c/0x160
+   devlink_health_report+0x1c0/0x288
+   mlx5_fw_reporter_err_work+0xac/0xc0 [mlx5_core]
+   process_one_work+0x15c/0x3d8
+   worker_thread+0x18c/0x320
+   kthread+0x148/0x228
+   ret_from_fork+0x10/0x20
+  Code: b9400000 5ac00800 7a401800 540003ca (3940a260)
+  ---[ end trace 0000000000000000 ]---
+  Kernel panic - not syncing: Oops: Fatal exception
+  SMP: stopping secondary CPUs
+  Kernel Offset: disabled
+  CPU features: 0x000000,00078031,75fce5a1,35fffe67
+  Memory Limit: none
+  ---[ end Kernel panic - not syncing: Oops: Fatal exception ]---
+
+## References
+- https://git.kernel.org/stable/c/04599570c3a18f9ae7aad36825eb46f3dcd2c4e3
+- https://git.kernel.org/stable/c/47fe0d2571e5b446a0f0b0c1d6b99f55e51f5cc0
+- https://git.kernel.org/stable/c/4aafa600d93e9551c1f24e785d57cbd4adf021d5
+- https://git.kernel.org/stable/c/80094352bd40ba54a33731f9c22872493983ed6d
+- https://git.kernel.org/stable/c/9a416f000285a94c1b723877547981dec8132434
+- https://git.kernel.org/stable/c/af39eb111ce6b5eba9c08513b62c4868eb7e7fd5
+- https://git.kernel.org/stable/c/b1d6375b9a63c9dc7e5e780d3ea9b126fe30d6cb
+- https://git.kernel.org/stable/c/ee41ea49c4ab0e4015919f52ad23ec251d3b39d3
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/74xxx/CVE-2026-74717.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-74717
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

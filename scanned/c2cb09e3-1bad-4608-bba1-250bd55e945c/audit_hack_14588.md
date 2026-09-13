@@ -1,0 +1,36 @@
+# [M] secondsPerLiquidityGlobal will eventually overflow leading to incorrect calculations
+
+## Summary
+Severity: Medium
+Reporter: Eager Hazel Mule
+Source: https://github.com/sherlock-audit/2023-07-kyber-swap/blob/main/ks-elastic-sc/contracts/Pool.sol#L576-L578
+Type: audit-issue
+
+## Details
+# secondsPerLiquidityGlobal will eventually overflow leading to incorrect calculations
+## Summary
+When incrementing `secondsPerLiquidityGlobal` in `Pool::_syncSecondsPerLiquidity` it will eventually increment past `type(uint128).max`, causing all future calculations using `secondsPerLiquidityGlobal` to be incorrect.
+
+## Vulnerability Detail
+In `Pool::_syncSecondsPerLiquidity` is incremented: 
+
+```solidity
+_secondsPerLiquidityGlobal += uint128((secondsElapsed << C.RES_96) / baseL);
+        // write to storage
+        poolData.secondsPerLiquidityGlobal = _secondsPerLiquidityGlobal;
+```
+
+this will eventually overflow and `setsecondsPerLiquidityGlobal` to 0. This causes all future calculations of rewards that should be received to be incorrect.
+
+## Impact
+All positions are accounted for having their liquidity allocated for an incorrect amount of time.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-07-kyber-swap/blob/main/ks-elastic-sc/contracts/Pool.sol#L576-L578
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Change `poolData.secondsPerLiquidityGlobal` to type uint256.

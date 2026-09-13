@@ -1,0 +1,43 @@
+# [M] Function not implemented
+
+## Summary
+Severity: Medium
+Reporter: neila
+Source: https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/src/VaultImplementation.sol#L100
+Type: audit-issue
+
+## Details
+# Function not implemented
+
+## Summary
+There is only an interface, not a function
+found by [Tomosuke0930](https://github.com/Tomosuke0930)
+
+## Vulnerability Detail
+In `VaultImplementation.sol`, calling function of external contract but there is no function.
+https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/src/VaultImplementation.sol#L100
+
+```solidity
+bytes32 hash = keccak256(
+      abi.encode(
+        STRATEGY_TYPEHASH,
+
+        // @audit-issue not implemented
+        IAstariaRouter(ROUTER()).strategistNonce(strategy.strategist),
+        strategy.deadline,
+        root
+      )
+```
+
+## Impact
+https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/src/interfaces/IAstariaRouter.sol
+https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/src/AstariaRouter.sol
+
+## Code Snippet
+The above
+
+## Tool used
+Manual Review
+
+## Recommendation
+Should implement the name `strategistNonce` of function

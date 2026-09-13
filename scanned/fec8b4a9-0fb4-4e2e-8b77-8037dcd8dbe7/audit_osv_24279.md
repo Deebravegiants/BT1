@@ -1,0 +1,49 @@
+# [H] fs/ntfs3: Fix slab-out-of-bounds in r_page
+
+## Summary
+Severity: High
+Advisory: CVE-2022-50869
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2025-12-30
+Source: https://osv.dev/vulnerability/CVE-2022-50869
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.15.0 <5.15.87, >=5.16.0 <6.0.17, >=6.1.0 <6.1.3
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+fs/ntfs3: Fix slab-out-of-bounds in r_page
+
+When PAGE_SIZE is 64K, if read_log_page is called by log_read_rst for
+the first time, the size of *buffer would be equal to
+DefaultLogPageSize(4K).But for *buffer operations like memcpy,
+if the memory area size(n) which being assigned to buffer is larger
+than 4K (log->page_size(64K) or bytes(64K-page_off)), it will cause
+an out of boundary error.
+ Call trace:
+  [...]
+  kasan_report+0x44/0x130
+  check_memory_region+0xf8/0x1a0
+  memcpy+0xc8/0x100
+  ntfs_read_run_nb+0x20c/0x460
+  read_log_page+0xd0/0x1f4
+  log_read_rst+0x110/0x75c
+  log_replay+0x1e8/0x4aa0
+  ntfs_loadlog_and_replay+0x290/0x2d0
+  ntfs_fill_super+0x508/0xec0
+  get_tree_bdev+0x1fc/0x34c
+  [...]
+
+Fix this by setting variable r_page to NULL in log_read_rst.
+
+## References
+- https://git.kernel.org/stable/c/6d076293e5bffdf897ea5f975669206e09beed6a
+- https://git.kernel.org/stable/c/bf86a640a34947d92062996e1a75b9cd9d83dd19
+- https://git.kernel.org/stable/c/ecfbd57cf9c5ca225184ae266ce44ae473792132
+- https://git.kernel.org/stable/c/ed686e7a26dd19ae6b46bb662f735acfa88ff7bc
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/50xxx/CVE-2022-50869.json
+- https://nvd.nist.gov/vuln/detail/CVE-2022-50869
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

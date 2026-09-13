@@ -1,0 +1,19 @@
+# [C] FrontMCP: CodeCall sandbox escape -> host RCE via live Zod schema exposure by getTool
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-67531
+Aliases: GHSA-mp29-fxh8-92px
+CVSS: 9.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N)
+Published: 2026-08-05
+Source: https://osv.dev/vulnerability/CVE-2026-67531
+Type: osv
+
+## Details
+FrontMCP is a TypeScript-first framework for the Model Context Protocol (MCP). Prior to 1.5.7, the sandboxed codecall:execute tool exposes live host Zod schema instances to the script via getTool(), and because Zod v4 defines _zod as a non-configurable, non-writable own property, the ECMAScript Proxy invariants force the security membrane to hand back the raw host object, letting a script reach _zod.constr.constructor (the host Function constructor) and execute arbitrary code in the server process. A single tools/call is sufficient to escape the sandbox and achieve remote code execution as the server user, exposing everything the process holds such as OAuth client secrets, JWT_SECRET, session keys, database credentials, and cloud instance metadata. Because the framework's DEFAULT_AUTH_OPTIONS is public mode, an unconfigured server serves this to unauthenticated callers, and on authenticated servers an indirect prompt injection in tool output or fetched content can trigger it without a human attackerThis issue is fixed in version 1.5.7.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/67xxx/CVE-2026-67531.json
+- https://github.com/agentfront/frontmcp/security/advisories/GHSA-mp29-fxh8-92px
+- https://nvd.nist.gov/vuln/detail/CVE-2026-67531
+- https://github.com/agentfront/frontmcp/commit/209cddd19a8d4db0777f725b527818da7df6f67f

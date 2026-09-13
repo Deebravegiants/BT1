@@ -1,0 +1,25 @@
+# [M] rebalance() should provide a slippage protection
+
+## Summary
+Severity: Medium
+Reporter: Witty Menthol Tadpole
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/vault/LMPVault.sol#L691
+Type: audit-issue
+
+## Details
+# rebalance() should provide a slippage protection
+## Summary
+rebalance() should provide a slippage protection
+## Vulnerability Detail
+In LMPVault.sol, the rebalance() function uses the RebalanceParams to pass parameters. However, the RebalanceParams lacks parameters similar to minAmountOut to ensure a minimum amount of tokens that can be collected.
+
+## Impact
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/vault/LMPVault.sol#L691
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider adding parameters similar to minAmountOut to provide slippage protection.

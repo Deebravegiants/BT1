@@ -1,0 +1,86 @@
+# [M] liquidatePositionsPartyA() may underflow
+
+## Summary
+Severity: Medium
+Reporter: bin2chen
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L20
+Type: audit-issue
+
+## Details
+# liquidatePositionsPartyA() may underflow
+
+## Summary
+At present, when liquidating `partyA`, it does not consider whether one of the `partyB` is in deficit
+May underflow in `accountLayout.partyBAllocatedBalances [quote.partyB] [partyA] -= amount `
+Resulting in inability to liquidate
+
+## Vulnerability Detail
+when `liquidatePartyA()` does not check if one of the `partyB` is in deficit.
+For example, suppose  `partA` has two quotes  （Huge losses when prices drop sharply）
+
+quote[1] = { partyB = B , lockedBalances = 100,   profit = 101 }  
+quote[2] = { partyB = C , lockedBalances = 100,  profit = -302 }
+allocatedBalances[partyA] = 200
+partyBAllocatedBalances[partyB][partyA] = 100
+
+In liquidating `partyA`  , `partyB` is in deficit
+
+In `liquidatePositionsPartyA ()`, underflow
+
+```solidity
+    function liquidatePositionsPartyA(
+        address partyA,
+        uint256[] memory quoteIds
+    ) internal returns (bool) {
+...
+
+            if (
+                accountLayout.liquidationDetails[partyA].liquidationType == LiquidationType.NORMAL
+            ) {
+                accountLayout.partyBAllocatedBalances[quote.partyB][partyA] += quote
+                    .lockedValues
+                    .cva;
+                if (hasMadeProfit) {
+@>                  accountLayout.partyBAllocatedBalances[quote.partyB][partyA] -= amount;
+                } else {
+                    accountLayout.partyBAllocatedBalances[quote.partyB][partyA] += amount;
+                }
+            } else if (
+                accountLayout.liquidationDetails[partyA].liquidationType == LiquidationType.LATE
+            ) {
+
+                accountLayout.partyBAllocatedBalances[quote.partyB][partyA] +=
+                    quote.lockedValues.cva -
+                    ((quote.lockedValues.cva * accountLayout.liquidationDetails[partyA].deficit) /
+                        accountLayout.lockedBalances[partyA].cva);
+                if (hasMadeProfit) {
+@>                  accountLayout.partyBAllocatedBalances[quote.partyB][partyA] -= amount;
+                } else {
+                    accountLayout.partyBAllocatedBalances[quote.partyB][partyA] += amount;
+                }
+            } else if (
+                accountLayout.liquidationDetails[partyA].liquidationType == LiquidationType.OVERDUE
+            ) {
+                if (hasMadeProfit) {
+@>                  accountLayout.partyBAllocatedBalances[quote.partyB][partyA] -= amount;
+                } else {
+                    accountLayout.partyBAllocatedBalances[quote.partyB][partyA] +=
+                        amount -
+                        ((amount * accountLayout.liquidationDetails[partyA].deficit) /
+                            uint256(-accountLayout.liquidationDetails[partyA].totalUnrealizedLoss));
+                }
+            }
+```
+
+## Impact
+underflow, Unable to liquidate Position
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L20
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+When liquidating `partyA`, it is necessary to first judge that all  `partyB` of `partyA` cannot have a deficit
+or Simple if < 0, set to 0

@@ -1,0 +1,17 @@
+# [H] CVE-2018-7285
+
+## Summary
+Severity: High
+Advisory: CVE-2018-7285
+CVSS: 7.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2018-02-22
+Source: https://osv.dev/vulnerability/CVE-2018-7285
+Type: osv
+
+## Details
+A NULL pointer access issue was discovered in Asterisk 15.x through 15.2.1. The RTP support in Asterisk maintains its own registry of dynamic codecs and desired payload numbers. While an SDP negotiation may result in a codec using a different payload number, these desired ones are still stored internally. When an RTP packet was received, this registry would be consulted if the payload number was not found in the negotiated SDP. This registry was incorrectly consulted for all packets, even those which are dynamic. If the payload number resulted in a codec of a different type than the RTP stream (for example, the payload number resulted in a video codec but the stream carried audio), a crash could occur if no stream of that type had been negotiated. This was due to the code incorrectly assuming that a stream of that type would always exist.
+
+## References
+- http://www.securityfocus.com/bid/103149
+- http://www.securitytracker.com/id/1040415
+- http://downloads.asterisk.org/pub/security/AST-2018-001.html

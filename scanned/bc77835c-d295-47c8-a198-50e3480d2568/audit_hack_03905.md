@@ -1,0 +1,34 @@
+# [H] Attacker uses flashloan for arbitrage resulting in user interest loss
+
+## Summary
+Severity: High
+Reporter: nobody2018
+Source: https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Vault.sol#L404-419
+Type: audit-issue
+
+## Details
+# Attacker uses flashloan for arbitrage resulting in user interest loss
+
+## Summary
+There is a function [claimTokens](https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Vault.sol#L404-419) in Vault.sol. It harvests govToken from underlying protocols and swaps govToken with vaultCurrency from dex. The govToken of underlying protocol usually has multiple pairs in dex, which provides arbitrage opportunities for attacker.
+## Vulnerability Detail
+For example, assuming that there are three trading pairs: **XXX-DAI** and **XXX-WETH** and **WETH-USDC** in DEX, and the swap path used in Vault is **XXX-Weth-USDC**. The attacker has deployed **contract A**. All of the following operations are completed **in one transaction**:
+
+1.  Contract A uses flashloan to borrow all the XXX token from XXX-DAI pair.
+2.  Contract A swaps all the XXX token to the XXX-WETH pair to get WETH, which dumps XXX's price.
+3.  Contract A calls Vault.claimtokens, the amount of WETH swapped is less than normal.
+4.  Contract A swaps all WETH to the XXX-WETH pair to get XXX token.
+5.  Contract A repays flashloan.
+
+Finally, attacker will get some XXX token.
+## Impact
+This issue will **reduce** the interests of users. **All Claimable protocols** will be affected **in all chains**. **The bigger the amount of funds into protocol, the more Govtoken obtained, and the greater the profit of flashloan arbitrage**.
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+- Add access check for claimToken function. At present, anyone can call it.
+- Add a parameter minOutAmount for claimToken function. It prevents being frontrun by MEV.

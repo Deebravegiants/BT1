@@ -1,0 +1,46 @@
+# [M] Anyone can be a liquidator when isLiquidatorWhitelistOpen is false
+
+## Summary
+Severity: Medium
+Reporter: volodya
+Source: https://github.com/sherlock-audit/2023-04-jojo/blob/main/JUSDV1/src/Impl/JUSDBank.sol#L87
+Type: audit-issue
+
+## Details
+# Anyone can be a liquidator when isLiquidatorWhitelistOpen is false
+
+## Summary
+Anyone can be a liquidator when isLiquidatorWhitelistOpen is false
+## Vulnerability Detail
+I think it is not the intention of this modifier to let anyone be a liquidator when isLiquidatorWhitelistOpen is false
+```solidity
+    modifier isLiquidator(address liquidator) {
+        if(isLiquidatorWhitelistOpen){
+            require(isLiquidatorWhiteList[liquidator], "liquidator is not in the liquidator white list");
+        }
+        _;
+    }
+
+```
+[JUSDV1/src/Impl/JUSDBank.sol#L87](https://github.com/sherlock-audit/2023-04-jojo/blob/main/JUSDV1/src/Impl/JUSDBank.sol#L87)
+## Impact
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+```diff
+    modifier isLiquidator(address liquidator) {
+        if (isLiquidatorWhitelistOpen) {
+            require(isLiquidatorWhiteList[liquidator], "liquidator is not in the liquidator white list");
+        }
++        else {
++            revert("LiquidatorWhitelistNotOpen");
++        }
+        _;
+    }
+
+```

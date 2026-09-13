@@ -1,0 +1,42 @@
+# [H] Miss-pricing of lp tokens due to not handling the `type(uint211).max` returned by totalSupply.
+
+## Summary
+Severity: High
+Reporter: Nutty Admiral Scorpion
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/oracles/providers/BalancerLPMetaStableEthOracle.sol#L68
+Type: audit-issue
+
+## Details
+# Miss-pricing of lp tokens due to not handling the `type(uint211).max` returned by totalSupply.
+## Summary
+Miss-pricing of lp tokens due to not handling the `type(uint211).max` returned by totalSupply.
+
+## Vulnerability Detail
+New balancer pools with pre-minted BPT will always return type(uint211).max if totalSupply is used.	
+In Tokemak's case, `totalSupply()` is used to calculate the price of the Lp token. 
+This will result in a wrong price for the Lp token for new pools as they come with pre-minted BPT, and they always return `type(uint211).max` as the [totalSupply](https://docs.balancer.fi/concepts/advanced/valuing-bpt/valuing-bpt.html#on-chain).
+
+```solidity
+ uint256 totalSupply = pool.totalSupply();
+```
+check [docs](https://docs.balancer.fi/concepts/advanced/valuing-bpt/valuing-bpt.html#on-chain)
+## Impact
+This will result in a wrong price for the Lp token for new pools 
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/oracles/providers/BalancerLPMetaStableEthOracle.sol#L68
+
+https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/oracles/providers/BalancerLPMetaStableEthOracle.sol#L35-L82
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+When fetching the supply from balancer pools add the check that:
+
+```solidity
+require(supply != uint211, "incorrect pool type"); 
+```
+So, it does not miss-calculate the price of the lpToken.

@@ -1,0 +1,90 @@
+# [H] net/smc: fix double-free of smc_spd_priv when tee() duplicates splice pipe buffer
+
+## Summary
+Severity: High
+Advisory: CVE-2026-31507
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-04-22
+Source: https://osv.dev/vulnerability/CVE-2026-31507
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=4.18.0 <5.10.253, >=5.11.0 <5.15.203, >=5.16.0 <6.1.168, >=6.2.0 <6.6.131, >=6.7.0 <6.12.80, >=6.13.0 <6.18.21, >=6.19.0 <6.19.11
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+net/smc: fix double-free of smc_spd_priv when tee() duplicates splice pipe buffer
+
+smc_rx_splice() allocates one smc_spd_priv per pipe_buffer and stores
+the pointer in pipe_buffer.private.  The pipe_buf_operations for these
+buffers used .get = generic_pipe_buf_get, which only increments the page
+reference count when tee(2) duplicates a pipe buffer.  The smc_spd_priv
+pointer itself was not handled, so after tee() both the original and the
+cloned pipe_buffer share the same smc_spd_priv *.
+
+When both pipes are subsequently released, smc_rx_pipe_buf_release() is
+called twice against the same object:
+
+  1st call: kfree(priv)  sock_put(sk)  smc_rx_update_cons()  [correct]
+  2nd call: kfree(priv)  sock_put(sk)  smc_rx_update_cons()  [UAF]
+
+KASAN reports a slab-use-after-free in smc_rx_pipe_buf_release(), which
+then escalates to a NULL-pointer dereference and kernel panic via
+smc_rx_update_consumer() when it chases the freed priv->smc pointer:
+
+  BUG: KASAN: slab-use-after-free in smc_rx_pipe_buf_release+0x78/0x2a0
+  Read of size 8 at addr ffff888004a45740 by task smc_splice_tee_/74
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x53/0x70
+   print_report+0xce/0x650
+   kasan_report+0xc6/0x100
+   smc_rx_pipe_buf_release+0x78/0x2a0
+   free_pipe_info+0xd4/0x130
+   pipe_release+0x142/0x160
+   __fput+0x1c6/0x490
+   __x64_sys_close+0x4f/0x90
+   do_syscall_64+0xa6/0x1a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000020
+  RIP: 0010:smc_rx_update_consumer+0x8d/0x350
+  Call Trace:
+   <TASK>
+   smc_rx_pipe_buf_release+0x121/0x2a0
+   free_pipe_info+0xd4/0x130
+   pipe_release+0x142/0x160
+   __fput+0x1c6/0x490
+   __x64_sys_close+0x4f/0x90
+   do_syscall_64+0xa6/0x1a0
+   entry_SYSCALL_64_after_hwframe+0x77/0x7f
+   </TASK>
+  Kernel panic - not syncing: Fatal exception
+
+Beyond the memory-safety problem, duplicating an SMC splice buffer is
+semantically questionable: smc_rx_update_cons() would advance the
+consumer cursor twice for the same data, corrupting receive-window
+accounting.  A refcount on smc_spd_priv could fix the double-free, but
+the cursor-accounting issue would still need to be addressed separately.
+
+The .get callback is invoked by both tee(2) and splice_pipe_to_pipe()
+for partial transfers; both will now return -EFAULT.  Users who need
+to duplicate SMC socket data must use a copy-based read path.
+
+## References
+- https://cert-portal.siemens.com/productcert/html/ssa-019113.html
+- https://cert-portal.siemens.com/productcert/html/ssa-082556.html
+- https://git.kernel.org/stable/c/24dd586bb4cbba1889a50abe74143817a095c1c9
+- https://git.kernel.org/stable/c/3cc76380fea749280c026f410af56a28aaac388a
+- https://git.kernel.org/stable/c/54c87a730157868543ebdfa0ecb21b4590ed23a5
+- https://git.kernel.org/stable/c/7bcb974c771c863e8588cea0012ac204443a7126
+- https://git.kernel.org/stable/c/7e8916f46c2f48607f907fd401590093753a6bc5
+- https://git.kernel.org/stable/c/81acbd345d405994875d419d43b319fee0b9ad62
+- https://git.kernel.org/stable/c/98ba5cb274768146e25ffbfde47753652c1c20d3
+- https://git.kernel.org/stable/c/ae5575e660410c8d2c5d38fb28a0f37aea945676
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/31xxx/CVE-2026-31507.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-31507
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

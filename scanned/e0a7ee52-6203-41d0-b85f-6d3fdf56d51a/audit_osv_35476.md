@@ -1,0 +1,19 @@
+# [H] Bluetooth: Mesh: Out-of-Bound Write in gen_prov_start
+
+## Summary
+Severity: High
+Advisory: CVE-2025-9558
+Aliases: GHSA-8wvr-688x-68vr
+CVSS: 7.6 (CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:H)
+Published: 2025-11-26
+Source: https://osv.dev/vulnerability/CVE-2025-9558
+Type: osv
+
+## Details
+There is a potential OOB Write vulnerability in the gen_prov_start function in pb_adv.c. The full length of the received data is copied into the link.rx.buf receiver buffer without any validation on the data size.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/9xxx/CVE-2025-9558.json
+- https://github.com/zephyrproject-rtos/zephyr/security/advisories/GHSA-8wvr-688x-68vr
+- https://nvd.nist.gov/vuln/detail/CVE-2025-9558
+- https://github.com/zephyrproject-rtos/zephyr

@@ -1,0 +1,34 @@
+# [M] Deactivate removes vault from registry
+
+## Summary
+Severity: Medium
+Reporter: cducrest-brainbot
+Source: https://github.com/sherlock-audit/2023-02-olympus/blob/main/src/policies/lending/abstracts/SingleSidedLiquidityVault.sol#L663-L667
+Type: audit-issue
+
+## Details
+# Deactivate removes vault from registry
+
+## Summary
+
+The `deactivate()` function of `SingleSidedLiquidityVault.sol` removes the vault from the registry.
+
+## Vulnerability Detail
+
+The vault may still have outstanding OHM in pool, or relevant information that should be gathered by the registry for accounting. If it is removed, the UI processing information about vaults will provide non trustable information. 
+
+## Impact
+
+Broken accounting of OHM vault emitted / minted / burned tokens
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-02-olympus/blob/main/src/policies/lending/abstracts/SingleSidedLiquidityVault.sol#L663-L667
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Do not remove the vault from the registry

@@ -1,0 +1,33 @@
+# [H] Malicious AdlKeeper could drain the treasury
+
+## Summary
+Severity: High
+Reporter: Ch_301
+Source: https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/exchange/AdlHandler.sol#L89-L164
+Type: audit-issue
+
+## Details
+# Malicious AdlKeeper could drain the treasury
+
+## Summary
+Adl or auto-deleverages. the ADL keeper invokes [AdlHandler.executeAdl()](https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/exchange/AdlHandler.sol#L89-L164) to decrease pending profits below the allowed thresholds
+[this](https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/order/OrderUtils.sol#L178) comment says 
+```solidity
+//gas costs for liquidations / adl is subsidised by the treasury
+```
+
+## Vulnerability Detail
+If Adl is enabled, Malicious AdlKeeper could keep invoking `AdlHandler.executeAdl()` with dust amount for `sizeDeltaUsd`.
+the treasury will pay gas costs every time and this is not healthy for it  
+
+## Impact
+Malicious AdlKeeper could drain the treasury 
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+The easiest, but not the most efficient add a minimum amount for `sizeDeltaUsd`

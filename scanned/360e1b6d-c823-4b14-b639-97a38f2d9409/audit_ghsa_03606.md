@@ -1,0 +1,40 @@
+# [H] npm symlink reference outside of node_modules
+
+## Summary
+Severity: High
+Advisory: GHSA-x8qc-rrcw-4r46
+CVE: CVE-2019-16776
+CWE: CWE-22
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:C/C:H/I:H/A:N (CVSS_V3)
+Published: 2019-12-13
+Source: https://github.com/advisories/GHSA-x8qc-rrcw-4r46
+Type: github-advisory
+
+## Affected
+- npm: `npm` — affected >=0 <6.13.3
+
+## Details
+Versions of the npm CLI prior to 6.13.3 are vulnerable to a symlink reference outside of node_modules. It is possible for packages to create symlinks to files outside of the`node_modules` folder through the `bin` field upon installation. A properly constructed entry in the package.json bin field would allow a package publisher to create a symlink pointing to arbitrary files on a user’s system when the package is installed. Only files accessible by the user running the `npm install` are affected.  
+
+This behavior is still possible through install scripts. This vulnerability bypasses a user using the --ignore-scripts install option.
+
+
+## Recommendation
+
+Upgrade to version 6.13.3 or later.
+
+## References
+- https://github.com/npm/cli/security/advisories/GHSA-x8qc-rrcw-4r46
+- https://nvd.nist.gov/vuln/detail/CVE-2019-16776
+- https://access.redhat.com/errata/RHEA-2020:0330
+- https://access.redhat.com/errata/RHSA-2020:0573
+- https://access.redhat.com/errata/RHSA-2020:0579
+- https://access.redhat.com/errata/RHSA-2020:0597
+- https://access.redhat.com/errata/RHSA-2020:0602
+- https://blog.npmjs.org/post/189618601100/binary-planting-with-the-npm-cli
+- https://github.com/advisories/GHSA-x8qc-rrcw-4r46
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/Z36UKPO5F3PQ3Q2POMF5LEKXWAH5RUFP
+- https://www.npmjs.com/advisories/1436
+- https://www.oracle.com/security-alerts/cpujan2020.html
+- http://lists.opensuse.org/opensuse-security-announce/2020-01/msg00027.html

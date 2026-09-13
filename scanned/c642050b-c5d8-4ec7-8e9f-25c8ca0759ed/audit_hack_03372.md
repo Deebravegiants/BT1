@@ -1,0 +1,138 @@
+# [H] `BvbProtocol.transferPosition` does not check for null `recipient`, which may cause loss of premium + collateral and opens door to the griefing
+
+## Summary
+Severity: High
+Reporter: aviggiano
+Source: https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L529
+Type: audit-issue
+
+## Details
+# `BvbProtocol.transferPosition` does not check for null `recipient`, which may cause loss of premium + collateral and opens door to the griefing
+
+## Summary
+
+`BvbProtocol.transferPosition` does not check for null [`recipient`](https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L529), which may cause 
+
+- (i) Bear loss of premium + collateral
+- (ii) Bull loss of premium + collateral
+- (iii) opens door to the Bull griefing the Bear.
+
+## Vulnerability Detail
+
+The vulnerability can happen both from the Bull or the Bear calling `transferPosition` to the null address, and may lead to different scenarios.
+
+### (i) The Bear calls `transferPosition` with `recipient` null and can no longer call `settleContract`
+
+Steps:
+
+1. `matchOrder` is called once
+2. Bear calls `transferPosition` with `recipient` equals `address(0)`
+3. Bear can no longer call `settleContract` as the [require check](https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L383) will fail
+4. Bear will have lost their premium + collateral
+
+The amount `order.premium + order.collateral` will be locked in `BvbProtocol` forever.
+
+### (ii) The Bull calls `transferPosition` with `recipient` null and can no longer call `reclaimContract`
+
+Steps: 
+
+1. `matchOrder` is called once
+2. Bull calls `transferPosition` with `recipient` equals `address(0)`
+3. Bull can no longer call `reclaimContract` as the [IERC20 safeTransfer call](https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L437) will fail
+4. Bull will have lost their premium + collateral
+
+The amount `order.premium + order.collateral` will be locked in `BvbProtocol` forever.
+
+### (iii) The Bull calls `transferPosition` with `recipient` null, and can later call `matchOrder` again, griefing the Bear
+
+This attack can be done with the following steps:
+
+1. `matchOrder` is called once
+6. Bull calls `transferPosition` with `recipient` equals `address(0)` (this will [wrongly consider the order as not matched](https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L759-L760))
+7. `matchOrder` is repeated with the same parameters a second time. 
+
+In this case, the Bear premium will be transferred to `BvbProtocol` twice (on steps 1 and 3), but if the contract is settled through `settleContract`, the Bear will receive only one instance of [premium + collateral](https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L402), thus having lost the premium of the second `matchOrder`. 
+
+This griefing can be done N times, not only two. The amount griefed will be locked in `BvbProtocol` forever.
+
+Since `order.collateral` is greater than `order.premium`, the Bear has no financial incentive to use this attack, other than griefing the Bear and making them lose money, at the expense of the Bull itself losing money too.
+
+## Impact
+
+### (i)
+
+Bear will have lost premium + collateral
+
+### (ii)
+
+Bull will have lost premium + collateral
+
+### (iii) 
+For N instances of griefing:
+- Bull loses N * `order.collateral`
+- Bear loses N * `order.premium`
+
+## Code Snippet
+
+```diff
+diff --git a/bvb-protocol/test/unit/SettleContract.t.sol b/bvb-protocol/test/unit/SettleContract.t.sol
+index f948e53..b5b423b 100644
+--- a/bvb-protocol/test/unit/SettleContract.t.sol
++++ b/bvb-protocol/test/unit/SettleContract.t.sol
+@@ -99,6 +99,33 @@ contract TestSettleContract is Base {
+         assertEq(weth.balanceOf(address(this)), balanceBearBefore + order.premium + order.collateral, "Asset amount should have been transfered to bear");
+     }
+ 
++    function testGrifing() public {
++        uint balanceBearBefore = weth.balanceOf(address(this));
++        BvbProtocol.Order memory order = defaultOrder();
++
++        bytes memory signature = signOrder(bullPrivateKey, order);
++
++        uint bullPrice = (order.collateral * fee) / 1000 + order.collateral;
++        uint bearPrice = (order.premium * fee) / 1000 + order.premium;
++        uint balanceBvbBefore = IERC20(order.asset).balanceOf(address(bvb));
++        uint256 contractId = bvb.matchOrder(order, signature);
++        assertEq(IERC20(order.asset).balanceOf(address(bvb)), balanceBvbBefore + bullPrice + bearPrice, "Bvb received the correct amount of asset");
++
++        vm.prank(bull);
++        // transfer position to null address, allowing bull to match the same order once again
++        bvb.transferPosition(bytes32(contractId), true, address(0));
++
++        // match order again
++        bvb.matchOrder(order, signature);
++        assertEq(IERC20(order.asset).balanceOf(address(bvb)), 2 * (balanceBvbBefore + bullPrice + bearPrice), "Bvb received 2x the amount of assets");
++        assertEq(weth.balanceOf(address(this)), balanceBearBefore - 2 * bearPrice, "Bear lost 2x the premium and will get only 1x premium + collateral");
++
++
++        uint balanceBearBeforeSettlement = weth.balanceOf(address(this));
++        bvb.settleContract(order, tokenIdBear);
++        assertEq(weth.balanceOf(address(this)), balanceBearBeforeSettlement + order.premium + order.collateral, "Asset amount should have been transfered to bear");
++    }
++
+     function testEmitSettledContract() public {
+         BvbProtocol.Order memory order = defaultOrder();
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Check for invalid `address(0)` on `recipient` parameter of function `transferPosition`:
+
+```diff
+diff --git a/bvb-protocol/src/BvbProtocol.sol b/bvb-protocol/src/BvbProtocol.sol
+index d793ad0..cbdbfc1 100644
+--- a/bvb-protocol/src/BvbProtocol.sol
++++ b/bvb-protocol/src/BvbProtocol.sol
+@@ -519,6 +519,7 @@ contract BvbProtocol is EIP712("BullvBear", "1"), Ownable, ReentrancyGuard, ERC7
+      * @param recipient The address of the new owner of the position
+      */
+     function transferPosition(bytes32 orderHash, bool isBull, address recipient) public {
++        require(recipient != address(0), "INVALID_RECIPIENT");
+         // ContractId
+         uint contractId = uint(orderHash);
+ 
+```

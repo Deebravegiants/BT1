@@ -1,0 +1,16 @@
+# [H] CVE-2021-3119
+
+## Summary
+Severity: High
+Advisory: CVE-2021-3119
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2021-03-25
+Source: https://osv.dev/vulnerability/CVE-2021-3119
+Type: osv
+
+## Details
+Zetetic SQLCipher 4.x before 4.4.3 has a NULL pointer dereferencing issue related to sqlcipher_export in crypto.c and sqlite3StrICmp in sqlite3.c. This may allow an attacker to perform a remote denial of service attack. For example, an SQL injection can be used to execute the crafted SQL command sequence, which causes a segmentation fault.
+
+## References
+- https://github.com/sqlcipher/sqlcipher/commit/cb71f53e8cea4802509f182fa5bead0ac6ab0e7f#diff-9305215a9a0ea69300281fc4af90bc7f3437e34a0e1745d030213152993ddae4
+- https://www.telekom.com/resource/blob/621186/3fb50ca7a4a97728be18717ed7b0062c/dl-210308-critical-dos-vulnerability-in-sqlcipher-sql-command-processing-data.pdf

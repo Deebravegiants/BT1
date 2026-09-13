@@ -1,0 +1,32 @@
+# [M] `PythOracle#commitRequested()` extra ETH should be refunded.
+
+## Summary
+Severity: Medium
+Reporter: Happy Mocha Worm
+Source: https://github.com/sherlock-audit/2023-07-perennial/blob/main/perennial-v2/packages/perennial-oracle/contracts/pyth/PythOracle.sol#L184-L196
+Type: audit-issue
+
+## Details
+# `PythOracle#commitRequested()` extra ETH should be refunded.
+
+## Vulnerability Detail
+
+The amount of the update fee (`pyth.getUpdateFee(updateDataList)`) may have changed during the time the transaction was sent and it gets minted. When it decreases, there will be a surplus of ETH remaining in the contract.
+
+Over time, it can accumulate and one can take advantage of this and send no ETH but use the balance on the contract to post an Oracle update and claim the keeper fee.
+
+## Impact
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-07-perennial/blob/main/perennial-v2/packages/perennial-oracle/contracts/pyth/PythOracle.sol#L184-L196
+
+https://github.com/sherlock-audit/2023-07-perennial/blob/main/perennial-v2/packages/perennial-oracle/contracts/pyth/PythOracle.sol#L124-L157\
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Refund `msg.value - pyth.getUpdateFee(updateDataList)` if any.

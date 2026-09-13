@@ -1,0 +1,16 @@
+# [H] CVE-2020-0829
+
+## Summary
+Severity: High
+Advisory: CVE-2020-0829
+Aliases: GHSA-jv2c-mhcq-6wp4
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2020-03-12
+Source: https://osv.dev/vulnerability/CVE-2020-0829
+Type: osv
+
+## Details
+A remote code execution vulnerability exists in the way that the ChakraCore scripting engine handles objects in memory, aka 'Scripting Engine Memory Corruption Vulnerability'. This CVE ID is unique from CVE-2020-0768, CVE-2020-0823, CVE-2020-0825, CVE-2020-0826, CVE-2020-0827, CVE-2020-0828, CVE-2020-0830, CVE-2020-0831, CVE-2020-0832, CVE-2020-0833, CVE-2020-0848.
+
+## References
+- https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2020-0829

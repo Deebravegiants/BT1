@@ -1,0 +1,25 @@
+# [M] OlympusTreasury::addAsset() does not check duplications in locations array
+
+## Summary
+Severity: Medium
+Reporter: Colossal Lilac Sloth
+Source: https://github.com/sherlock-audit/2023-11-olympus/blob/main/bophades/src/modules/TRSRY/OlympusTreasury.sol#L415-L444
+Type: audit-issue
+
+## Details
+# OlympusTreasury::addAsset() does not check duplications in locations array
+
+## Summary
+OlympusTreasury::addAsset() does not check duplications in locations array
+## Vulnerability Detail
+addAsset() does not check if there is any duplication in input locations array. As a result, one location might be added multiple times into asset.locations, leading to incorrect accounting. For example, getAssetBalance(), which depends on asset.locations, will return incorrect result. 
+## Impact
+Potentially disrupt accounting of the system.
+## Code Snippet
+https://github.com/sherlock-audit/2023-11-olympus/blob/main/bophades/src/modules/TRSRY/OlympusTreasury.sol#L415-L444
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider implementing duplication check.

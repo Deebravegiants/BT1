@@ -1,0 +1,23 @@
+# [M] CVE-2016-1000339
+
+## Summary
+Severity: Medium
+Advisory: CVE-2016-1000339
+Aliases: GHSA-c8xf-m4ff-jcxj
+CVSS: 5.3 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)
+Published: 2018-06-04
+Source: https://osv.dev/vulnerability/CVE-2016-1000339
+Type: osv
+
+## Details
+In the Bouncy Castle JCE Provider version 1.55 and earlier the primary engine class used for AES was AESFastEngine. Due to the highly table driven approach used in the algorithm it turns out that if the data channel on the CPU can be monitored the lookup table accesses are sufficient to leak information on the AES key being used. There was also a leak in AESEngine although it was substantially less. AESEngine has been modified to remove any signs of leakage (testing carried out on Intel X86-64) and is now the primary AES class for the BC JCE provider from 1.56. Use of AESFastEngine is now only recommended where otherwise deemed appropriate.
+
+## References
+- https://usn.ubuntu.com/3727-1/
+- https://www.oracle.com/security-alerts/cpuoct2020.html
+- https://access.redhat.com/errata/RHSA-2018:2669
+- https://access.redhat.com/errata/RHSA-2018:2927
+- https://lists.debian.org/debian-lts-announce/2018/07/msg00009.html
+- https://security.netapp.com/advisory/ntap-20181127-0004/
+- https://github.com/bcgit/bc-java/commit/413b42f4d770456508585c830cfcde95f9b0e93b#diff-54656f860db94b867ba7542430cd2ef0
+- https://github.com/bcgit/bc-java/commit/8a73f08931450c17c749af067b6a8185abdfd2c0#diff-494fb066bed02aeb76b6c005632943f2

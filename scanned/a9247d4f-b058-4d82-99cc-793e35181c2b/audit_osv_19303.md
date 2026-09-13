@@ -1,0 +1,19 @@
+# [M] CVE-2021-2010
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-2010
+CVSS: 4.2 (CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:L/A:L)
+Published: 2021-01-20
+Source: https://osv.dev/vulnerability/CVE-2021-2010
+Type: osv
+
+## Details
+Vulnerability in the MySQL Client product of Oracle MySQL (component: C API). Supported versions that are affected are 5.6.50 and prior, 5.7.32 and prior and 8.0.22 and prior. Difficult to exploit vulnerability allows low privileged attacker with network access via multiple protocols to compromise MySQL Client. Successful attacks of this vulnerability can result in unauthorized update, insert or delete access to some of MySQL Client accessible data and unauthorized ability to cause a partial denial of service (partial DOS) of MySQL Client. CVSS 3.1 Base Score 4.2 (Integrity and Availability impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:N/I:L/A:L).
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/CS5THZSGI7O2CZO44NWYE57AG2T7NK3K/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/T7EAHJPWOOF4D6PEFLXW5IQWRRSZ3HRC/
+- https://security.gentoo.org/glsa/202105-27
+- https://security.netapp.com/advisory/ntap-20210622-0001/
+- https://www.oracle.com/security-alerts/cpujan2021.html

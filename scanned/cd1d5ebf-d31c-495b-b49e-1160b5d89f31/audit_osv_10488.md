@@ -1,0 +1,24 @@
+# [H] CVE-2017-16232
+
+## Summary
+Severity: High
+Advisory: CVE-2017-16232
+CVSS: 7.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2019-03-21
+Source: https://osv.dev/vulnerability/CVE-2017-16232
+Type: osv
+
+## Details
+LibTIFF 4.0.8 has multiple memory leak vulnerabilities, which allow attackers to cause a denial of service (memory consumption), as demonstrated by tif_open.c, tif_lzw.c, and tif_aux.c. NOTE: Third parties were unable to reproduce the issue
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2018-01/msg00036.html
+- http://lists.opensuse.org/opensuse-security-announce/2018-01/msg00041.html
+- http://packetstormsecurity.com/files/150896/LibTIFF-4.0.8-Memory-Leak.html
+- http://www.openwall.com/lists/oss-security/2017/11/01/11
+- http://www.openwall.com/lists/oss-security/2017/11/01/3
+- http://www.openwall.com/lists/oss-security/2017/11/01/7
+- http://www.openwall.com/lists/oss-security/2017/11/01/8
+- http://www.securityfocus.com/bid/101696
+- http://seclists.org/fulldisclosure/2018/Dec/32
+- http://seclists.org/fulldisclosure/2018/Dec/47

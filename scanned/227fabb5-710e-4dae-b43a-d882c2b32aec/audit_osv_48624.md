@@ -1,0 +1,16 @@
+# [H] CVE-2018-10114
+
+## Summary
+Severity: High
+Advisory: CVE-2018-10114
+CVSS: 8.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2018-04-16
+Source: https://osv.dev/vulnerability/CVE-2018-10114
+Type: osv
+
+## Details
+An issue was discovered in GEGL through 0.3.32. The gegl_buffer_iterate_read_simple function in buffer/gegl-buffer-access.c allows remote attackers to cause a denial of service (write access violation) or possibly have unspecified other impact via a malformed PPM file, related to improper restrictions on memory allocation in the ppm_load_read_header function in operations/external/ppm-load.c.
+
+## References
+- https://bugzilla.gnome.org/show_bug.cgi?id=795248
+- https://github.com/xiaoqx/pocs/tree/master/gegl

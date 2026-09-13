@@ -1,0 +1,62 @@
+# [H] Using slot0 for sqrtPriceX96 in order to calculate amount could lead to price manipulation
+
+## Summary
+Severity: High
+Reporter: shealtielanz
+Source: https://github.com/sherlock-audit/2023-06-real-wagmi/blob/main/concentrator/contracts/Multipool.sol#L816C1-L838C6
+Type: audit-issue
+
+## Details
+# Using slot0 for sqrtPriceX96 in order to calculate amount could lead to price manipulation
+
+## Summary
+Both the Factory and Multipool use the UniV3Pool.slot0 and IUniswapV3Pool.observe respectively to determine the price of tokens which is used to get the amountOut. slot0 and Observe is the most recent data point and is therefore extremely easy to manipulate. 
+
+## Vulnerability Detail
+The getAmounOut function in multipool.sol makes use of the UniswapV3.observe to calculate the sqrtPriceX96 which is in turn used to calculate the amount out.
+```solidity
+        (int56[] memory tickCumulatives, ) = IUniswapV3Pool(underlyingTrustedPools[500].poolAddress)
+            .observe(secondsAgo);
+        int24 avarageTick = int24((tickCumulatives[1] - tickCumulatives[0]) / int32(twapDuration));
+        uint160 sqrtPriceX96 = TickMath.getSqrtRatioAtTick(avarageTick);
+        if (sqrtPriceX96 <= type(uint128).max) {
+            uint256 ratioX192 = uint256(sqrtPriceX96) * sqrtPriceX96;
+            swappedOut = zeroForOne
+                ? FullMath.mulDiv(ratioX192, amountIn, 1 << 192)
+                : FullMath.mulDiv(1 << 192, amountIn, ratioX192);
+        } else {
+            uint256 ratioX128 = FullMath.mulDiv(sqrtPriceX96, sqrtPriceX96, 1 << 64);
+            swappedOut = zeroForOne
+                ? FullMath.mulDiv(ratioX128, amountIn, 1 << 128)
+                : FullMath.mulDiv(1 << 128, amountIn, ratioX128);
+        }
+    }
+```
+The getQuoteAtTick in Factory makes use of the Uniswap.slot0 to get the lastest price in order to calculate amount out.
+```solidity
+        (uint160 sqrtPriceX96, , , , , , ) = IUniswapV3Pool(underlyingPool).slot0();
+
+        if (sqrtPriceX96 <= type(uint128).max) {
+            uint256 ratioX192 = uint256(sqrtPriceX96) * sqrtPriceX96;
+            amountOut = tokenIn < tokenOut
+                ? FullMath.mulDiv(ratioX192, amountIn, 1 << 192)
+                : FullMath.mulDiv(1 << 192, amountIn, ratioX192);
+        } else {
+            uint256 ratioX128 = FullMath.mulDiv(sqrtPriceX96, sqrtPriceX96, 1 << 64);
+            amountOut = tokenIn < tokenOut
+                ? FullMath.mulDiv(ratioX128, amountIn, 1 << 128)
+                : FullMath.mulDiv(1 << 128, amountIn, ratioX128);
+        }
+    }
+```
+## Impact
+tokens value can be manipulated to cause loss of funds for the protocol and other users via flash loans, MEV searchers and slippage vulns. This allows a malicious user to manipulate the valuation of the LP. An example of this kind of manipulation would be to use large buys/sells to alter the composition of the LP to make it worth less or more.
+## Code Snippet
+- https://github.com/sherlock-audit/2023-06-real-wagmi/blob/main/concentrator/contracts/Multipool.sol#L816C1-L838C6
+- https://github.com/sherlock-audit/2023-06-real-wagmi/blob/main/concentrator/contracts/Factory.sol#L157C1-L180C6
+## Tool used
+
+Manual Review
+
+## Recommendation
+Make use of Oracles like chainlink to get the price of a token or better still TWAP.

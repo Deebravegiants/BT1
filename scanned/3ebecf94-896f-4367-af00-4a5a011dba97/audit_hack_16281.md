@@ -1,0 +1,34 @@
+# [M] Use `safeTransferFrom` in `Auction._settleAuction`
+
+## Summary
+Severity: Medium
+Reporter: Puny Flint Pony
+Source: https://github.com/sherlock-audit/2023-09-nounsbuilder/blob/main/nouns-protocol/src/auction/Auction.sol#L280
+Type: audit-issue
+
+## Details
+# Use `safeTransferFrom` in `Auction._settleAuction`
+
+## Summary
+Use `safeTransferFrom` in `Auction._settleAuction`.
+
+## Vulnerability Detail
+`_settleAuction` calls `transferFrom` and it may cause ERC721 to be locked in a receiver contract which do not have `onERC721Received` function.
+`token.transferFrom(address(this), _auction.highestBidder, _auction.tokenId);`
+
+## Impact
+Same as Vulnerability Detail.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-09-nounsbuilder/blob/main/nouns-protocol/src/auction/Auction.sol#L280
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Replace `transferFrom` with `safeTransferFrom`.
+ERC721.safeTransferFrom is sometimes avoided because of reentrancy attacks.
+It is, however, safe because the functions calling `_settleAuction` is nonReentrant.
+- `settleCurrentAndCreateNewAuction`
+- `settleAuction`

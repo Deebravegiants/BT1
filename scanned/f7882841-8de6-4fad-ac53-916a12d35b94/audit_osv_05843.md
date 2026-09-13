@@ -1,0 +1,34 @@
+# [M] BIT-java-2020-2781
+
+## Summary
+Severity: Medium
+Advisory: BIT-java-2020-2781
+Aliases: BIT-java-min-2020-2781, BIT-jre-2020-2781, CVE-2020-2781
+Ecosystem: Bitnami
+Published: 2026-05-06
+Source: https://osv.dev/vulnerability/BIT-java-2020-2781
+Type: osv
+
+## Affected
+- Bitnami: `java` — affected >=12.0.0 <14.0.1
+
+## Details
+Vulnerability in the Java SE, Java SE Embedded product of Oracle Java SE (component: JSSE). Supported versions that are affected are Java SE: 7u251, 8u241, 11.0.6 and 14; Java SE Embedded: 8u241. Easily exploitable vulnerability allows unauthenticated attacker with network access via HTTPS to compromise Java SE, Java SE Embedded. Successful attacks of this vulnerability can result in unauthorized ability to cause a partial denial of service (partial DOS) of Java SE, Java SE Embedded. Note: Applies to client and server deployment of Java. This vulnerability can be exploited through sandboxed Java Web Start applications and sandboxed Java applets. It can also be exploited by supplying data to APIs in the specified Component without using sandboxed Java Web Start applications or sandboxed Java applets, such as through a web service. CVSS 3.0 Base Score 5.3 (Availability impacts). CVSS Vector: (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L).
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2020-06/msg00000.html
+- http://lists.opensuse.org/opensuse-security-announce/2020-06/msg00023.html
+- http://lists.opensuse.org/opensuse-security-announce/2020-06/msg00048.html
+- https://kc.mcafee.com/corporate/index?page=content&id=SB10318
+- https://lists.debian.org/debian-lts-announce/2020/04/msg00024.html
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/CKAV6KFFAEANXAN73AFTGU7Z6YNRWCXQ/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/L7VHC4EW36KZEIDQ56RPCWBZCQELFFKN/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/NYHHHZRHXCBGRHGE5UP7UEB4IZ2QX536/
+- https://nvd.nist.gov/vuln/detail/CVE-2020-2781
+- https://security.gentoo.org/glsa/202006-22
+- https://security.gentoo.org/glsa/202209-15
+- https://security.netapp.com/advisory/ntap-20200416-0004/
+- https://usn.ubuntu.com/4337-1/
+- https://www.debian.org/security/2020/dsa-4662
+- https://www.debian.org/security/2020/dsa-4668
+- https://www.oracle.com/security-alerts/cpuapr2020.html

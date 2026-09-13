@@ -1,0 +1,18 @@
+# [H] CVE-2021-35397
+
+## Summary
+Severity: High
+Advisory: CVE-2021-35397
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N)
+Published: 2021-08-04
+Source: https://osv.dev/vulnerability/CVE-2021-35397
+Type: osv
+
+## Details
+A path traversal vulnerability in the static router for Drogon from 1.0.0-beta14 to 1.6.0 could allow an unauthenticated, remote attacker to arbitrarily read files. The vulnerability is due to lack of proper input validation for requested path. An attacker could exploit this vulnerability by sending crafted HTTP request with specific path to read. Successful exploitation could allow the attacker to read files that should be restricted.
+
+## References
+- https://github.com/an-tao/drogon
+- https://github.com/an-tao/drogon/wiki/ENG-02-Installation
+- https://github.com/an-tao/drogon/wiki/ENG-03-Quick-Start#Static-Site
+- https://github.com/an-tao/drogon/blob/834e3eabdd0441ad2bc80c02e8bbfc3b8312c213/lib/src/StaticFileRouter.cc#L62-L67

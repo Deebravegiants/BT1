@@ -1,0 +1,48 @@
+# [M] Racing condition in between withdrawing a defaulted loan collateral and repaying the loan
+
+## Summary
+Severity: Medium
+Reporter: cducrest-brainbot
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L712-L762
+Type: audit-issue
+
+## Details
+# Racing condition in between withdrawing a defaulted loan collateral and repaying the loan
+
+## Summary
+
+There is a racing condition in between the repayment of a late loan and the withdrawal of the collateral at stake by the lender.
+
+## Vulnerability Detail
+
+The function to withdraw collateral from a loan `CollateralManager.withdraw()` does not update the state of the bid.
+
+When a loan is defaulted, the user may realise they are late on payment and attempt to repay their loans. It could also be that chain congestion introduces delay in the user transaction and the user submitted the transaction when loan was not yet defaulted.
+
+If the lender (or anyone) calls `CollateralManager.withdraw()` at the same time (or as an evil front-run), the collateral will be sent to the lender.
+
+If the user only repays part of the loan, they are not entitled to withdraw their collateral and the `TellerV2` contract will not interact with the `CollateralManager`. As a result, the borrower will repay debt towards the lender for a defaulted loan for which the collateral has already been withdrawn.
+
+## Impact
+
+Borrower may repay defaulted loans if they send transactions close to the due date or after it. The defaulted loan may already have been liquidated by the lender. This is a loss of funds for the borrower.
+
+## Code Snippet
+
+The _repayLoan() function does not check if loan is defaulted or if the collateral has been withdrawn, unless `paymentAmount >= _owedAmount` and `_shouldWithdrawCollateral == true`:
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L712-L762
+
+CollateralManager.withdraw() does not update the status of the loan on TellerV2:
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L250-L260
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Prevent borrower to repay defaulted loan by calling `isLoanDefaulted()` and reverting when true.
+
+Otherwise, when they repay their loans check if the collateral has already been withdrawn. You can do this for example by adding a boolean mapping `withdrawn[bidId]` on `CollateralManager`.
+
+The most intuitive fix would be to update the bid state to `LIQUIDATED` when collateral is withdrawn, but that requires the CollateralManager to call the TellerV2, or to move the `withdraw` function from CollateralManager to TellerV2. `withdraw()` would set the status of the loan to PAID / LIQUIDATED and call `CollateralManager._withdraw()`.

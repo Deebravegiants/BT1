@@ -1,0 +1,16 @@
+# [H] CVE-2023-1216
+
+## Summary
+Severity: High
+Advisory: CVE-2023-1216
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2023-03-07
+Source: https://osv.dev/vulnerability/CVE-2023-1216
+Type: osv
+
+## Details
+Use after free in DevTools in Google Chrome prior to 111.0.5563.64 allowed a remote attacker who had convienced the user to engage in direct UI interaction to potentially exploit heap corruption via a crafted HTML page. (Chromium security severity: High)
+
+## References
+- https://chromereleases.googleblog.com/2023/03/stable-channel-update-for-desktop.html
+- https://crbug.com/1417649

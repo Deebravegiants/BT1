@@ -1,0 +1,38 @@
+# [H] Ruby Time component ReDoS issue
+
+## Summary
+Severity: High
+Advisory: GHSA-fg7x-g82r-94qc
+CVE: CVE-2023-28756
+CWE: CWE-1333
+Ecosystem: RubyGems
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2023-03-31
+Source: https://github.com/advisories/GHSA-fg7x-g82r-94qc
+Type: github-advisory
+
+## Affected
+- RubyGems: `time` — affected >=0.2.0 <0.2.2
+- RubyGems: `time` — affected >=0 <0.1.1
+
+## Details
+A ReDoS issue was discovered in the Time component through 0.2.1 in Ruby through 3.2.1. The Time parser mishandles invalid URLs that have specific characters. It causes an increase in execution time for parsing strings to Time objects. The fixed versions are 0.1.1 and 0.2.2.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2023-28756
+- https://www.ruby-lang.org/en/news/2023/03/30/redos-in-time-cve-2023-28756
+- https://www.ruby-lang.org/en/news/2022/12/25/ruby-3-2-0-released
+- https://www.ruby-lang.org/en/downloads/releases
+- https://security.netapp.com/advisory/ntap-20230526-0004
+- https://security.gentoo.org/glsa/202401-27
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WMIOPLBAAM3FEQNAXA2L7BDKOGSVUT5Z
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/G76GZG3RAGYF4P75YY7J7TGYAU7Z5E2T
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/FFZANOQA4RYX7XCB42OO3P24DQKWHEKA
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/WMIOPLBAAM3FEQNAXA2L7BDKOGSVUT5Z
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/G76GZG3RAGYF4P75YY7J7TGYAU7Z5E2T
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/FFZANOQA4RYX7XCB42OO3P24DQKWHEKA
+- https://lists.debian.org/debian-lts-announce/2024/09/msg00000.html
+- https://lists.debian.org/debian-lts-announce/2023/04/msg00033.html
+- https://github.com/rubysec/ruby-advisory-db/blob/master/gems/time/CVE-2023-28756.yml
+- https://github.com/ruby/time/releases
+- https://github.com/ruby/time

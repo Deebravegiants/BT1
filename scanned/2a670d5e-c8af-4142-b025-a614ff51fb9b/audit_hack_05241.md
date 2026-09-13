@@ -1,0 +1,44 @@
+# [H] Adversary can break bounty payouts by adding malicious ERC20 token to bounty
+
+## Summary
+Severity: High
+Reporter: 0x52
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/DepositManager/Implementations/DepositManagerV1.sol#L36-L74
+Type: audit-issue
+
+## Details
+# Adversary can break bounty payouts by adding malicious ERC20 token to bounty
+
+## Summary
+
+DepositManagerV1#fundBountyToken allows anyone to add any ERC20 token they wish to the bounty. When the bounty is paid it cycles through every token in the bounty list and sends each one to the claimant. An adverary can add a malicious ERC20 tokens that reverts whenever it's transferred between anyone besides themselves. They fund the bounty then whenever anyone attempts to claim the transaction will always revert, making it impossible to claim any bounty.
+
+## Vulnerability Detail
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/DepositManager/Implementations/DepositManagerV1.sol#L36-L74
+
+DepositManagerV1#fundBountyToken is a permissionless function that allows any open bounty with any token they want. 
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/ClaimManager/Implementations/ClaimManagerV1.sol#L130-L148
+
+When a bounty is claimed it loops through all payout tokens and transfers each one.
+
+An adverary can add a malicious ERC20 tokens that reverts whenever it's transferred between anyone besides themselves. They fund the bounty then whenever anyone attempts to claim the transaction will always revert, making it impossible to claim any bounty.
+
+Submitting as high risk because when combined with refund locking methods it will result in all deposited tokens being stuck forever.
+
+## Impact
+
+Adversary can permanently disable bounty payouts
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/ClaimManager/Implementations/ClaimManagerV1.sol#L31-L67
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+To maintain the permissionless nature of funding. I recommend implementing secondary bounty-specific whitelists that are set by the bounty issuers. Only allow tokens that appear on either whitelist to fund the bounty. This solves two issues. This allows OpenQ to approve common ERC20 tokens (USDC, USDT, etc) to all bounties while allowing bounty issuers to add uncommon tokens like their protocol token without needing intervention from OpenQ team.

@@ -1,0 +1,50 @@
+# [M] Missing to check that staking points were exceeded when extending the staking period
+
+## Summary
+Severity: Medium
+Reporter: Nutty Admiral Scorpion
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/staking/GPToke.sol#L109-L111
+Type: audit-issue
+
+## Details
+# Missing to check that staking points were exceeded when extending the staking period
+## Summary
+Missing to check that staking points were exceeded when extending the staking period
+
+## Vulnerability Detail
+When staking tokens by calling `stake()` there is a check that the staking points are not exceeded. 
+
+```solidity
+   (uint256 points, uint256 end) = previewPoints(amount, duration);
+
+        if (points + totalSupply() > type(uint192).max) {
+            revert StakingPointsExceeded();
+        }
+```
+However, when extending the staking period by calling `extend()` there is no check that the staking points are not exceeded. Therefore, an attacker could stake a lot of tokens and then extend the staking period to get above the max staking points.
+
+Missing code in `extend()`:
+```solidity
+   if (points + totalSupply() > type(uint192).max) {
+            revert StakingPointsExceeded();
+        }
+```
+
+## Impact
+Breaking one of the protocol invariants, (You should never exceed the maximum amount of points), which will push the protocol to an undesired state
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/staking/GPToke.sol#L109-L111
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add the following check to extend():
+
+```solidity
+   if (points + totalSupply() > type(uint192).max) {
+            revert StakingPointsExceeded();
+        }
+```

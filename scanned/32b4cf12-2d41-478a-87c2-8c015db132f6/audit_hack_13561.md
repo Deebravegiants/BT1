@@ -1,0 +1,165 @@
+# [H] queueNewRewards pulls in more reward token than expected leading to permanently stuck reward token
+
+## Summary
+Severity: High
+Reporter: Wonderful Sage Goldfish
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/rewarders/AbstractRewarder.sol#L235-L261
+Type: audit-issue
+
+## Details
+# queueNewRewards pulls in more reward token than expected leading to permanently stuck reward token
+## Summary
+queueNewRewards function is used by whitelisted addresses to queue in rewards for stakers, but the function does not pull in the specified rewards but instead pulls in already queuedRewards + specified rewards. 
+
+## Vulnerability Detail
+```solidity
+function queueNewRewards(uint256 newRewards) external onlyWhitelisted {
+
+uint256 startingQueuedRewards = queuedRewards;
+
+uint256 startingNewRewards = newRewards;
+
+newRewards += startingQueuedRewards; ///@audit modifying specifed amount
+
+....
+
+IERC20(rewardToken).safeTransferFrom(msg.sender, address(this), newRewards);
+///@audit ^ pulls in the modified amount instead of desired
+}
+```
+
+POC - 
+1. A vault has 1000 ether in deposits which is accounted for in its rewarder, the rewarder has 10 ether in rewards and 800 newRewardRatio(default in tests).
+2. Rewarder's duration is 100 blocks, making reward rate = 10 ether/ 100 = 0.1 ether 
+3. 50 blocks pass , 5 new toke is queued to the rewarder by the whitelist ,it wont be distributed immediately as queuedRatio = (0.1 ether \* 50 \* 1000)  / 5 ether = 1000 > newRewarRatio. Calculation as per formula below
+```solidity
+uint256 currentAtNow = rewardRate * elapsedBlock;
+///@audit queuedRatio formula in abstractRewarder.sol
+uint256 queuedRatio = currentAtNow * 1000 / newRewards;
+```
+4. So now these 5 ether newRewards will reside inside queue. Now 50 more blocks pass and the whitelist want to move to next epoch by queuing some newRewards. lets say 1 ether.
+5. when they call queueNewRewards(1 ether) it will result into the following -
+		newRewards + = queuedRewards => newRewards = 1 ether + 5 ether = 6 ether.
+6. As you can see in  the above code snippet now it will pull 6 ether from whitelist instead of 1 . This will either lead to revert due to insufficient allowance or successfully pulling an amount the sender did not want to send. Both these scenarios have problems. 
+7. In the scenario of DOS, the queued rewards will be stuck forever in the rewarder hence loss of funds, as only adding newRewards makes them claimable. 
+8. In case the whitelist want to make the queued rewards unstuck and they give the rewarder an allowance of 6 ether, these extra 5 ether are not accounted for making them stuck permanently, 
+	total Toke pulled by rewarder in this scenario is -
+	10 ether (initial ) + 5 ether (after 50 blocks) + 6 ether( 1 + 5 extra). But only 16 ether will be claimable.
+
+Attaching a working poc to help understand better - 
+```solidity
+function test_QueueNewRewards_belowRatio() public {
+
+uint rewardAmt = 30 ether;
+
+uint otherDeposits = 1000 ether;
+
+//caching the vault rewarder,for expectRevert to work
+
+MainRewarder rewarder =MainRewarder(address(_lmpVault.rewarder()));
+
+// initialRewards Queued
+
+_accessController.grantRole(Roles.DV_REWARD_MANAGER_ROLE, address(this));
+
+_lmpVault.rewarder().addToWhitelist(address(this));
+
+_toke.mint(address(this), rewardAmt);
+
+_toke.approve(address(_lmpVault.rewarder()), 10 ether);
+
+_lmpVault.rewarder().queueNewRewards(10 ether);
+
+// deposits
+
+_asset.mint(address(this), otherDeposits);
+
+_asset.approve(address(_lmpVault), otherDeposits);
+
+_lmpVault.deposit(otherDeposits, address(this));
+
+// some rewards are added to rewardQueue i.e,
+
+// queuedRatio > = newRewardRatio
+
+vm.roll(block.number + 50);
+
+_toke.approve(address(_lmpVault.rewarder()), 5 ether);
+
+_lmpVault.rewarder().queueNewRewards(5 ether);
+
+vm.roll(block.number + 51);
+
+//new rewards after epoch completion
+
+_toke.approve(address(_lmpVault.rewarder()), 1 ether);
+
+// new reward deposits are DOS'd
+
+vm.expectRevert(bytes("ERC20: insufficient allowance"));
+
+rewarder.queueNewRewards(1 ether);
+
+//no body can rescue queued rewards unless team adds newRewards + rewardsInQueue
+
+assertEq(_lmpVault.rewarder().earned(address(this)),10 ether);
+
+// if after some time team decides to queue new rewards anyway
+
+// to get those rewards out of queue and distribute to users
+
+// or the protocol team might have very high approvals for toke to rewarder
+
+// as rewarder is trusted and this might accidently happen
+
+_toke.approve(address(_lmpVault.rewarder()), 6 ether);
+
+rewarder.queueNewRewards(1 ether);
+
+// now totalRewards earned should be 10 ether + 5 ether + 6 ether
+
+// but it will only be 16 ether and the 5 ether extra sent is not accounted in the code
+
+vm.roll(block.number + 100);
+
+assertEq(_lmpVault.rewarder().earned(address(this)), 16 ether);
+
+assertEq(_toke.balanceOf(address(_lmpVault.rewarder())), 21 ether);
+
+// hence an amount equal to queued rewards will be locked forever in rewarder
+
+}
+```
+add it to LMPVault-Withdraw.t.sol file in the LMPVaultMintingTests contract. Last two assertEq lines are what give a clear understanding that funds are stuck. run it by the following command 
+```solidity
+forge test --match-path ./test/vault/LMPVault-Withdraw.t.sol --match-test test_QueueNewRewards_belowRatio -vv
+```
+## Impact
+
+toke amount equivalent to queued amount in rewarder is stuck permanently.
+
+## Code Snippet
+
+[Line235-261](https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/rewarders/AbstractRewarder.sol#L235-L261)
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+pull in startingNewRewards instead of newRewards.
+```solidity
+function queueNewRewards(uint256 newRewards) external onlyWhitelisted {
+
+uint256 startingQueuedRewards = queuedRewards;
+
+uint256 startingNewRewards = newRewards;
+
+newRewards += startingQueuedRewards;
+
+....
+
+IERC20(rewardToken).safeTransferFrom(msg.sender, address(this), startingNewRewards);
+///@audit ^ pulls in the specified amount instead of modified amount
+}
+```

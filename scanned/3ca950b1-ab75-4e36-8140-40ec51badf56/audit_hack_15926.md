@@ -1,0 +1,30 @@
+# [M] wrong input to transfer function
+
+## Summary
+Severity: Medium
+Reporter: Special Carmine Wren
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/core/Allo.sol#L469-L478
+Type: audit-issue
+
+## Details
+# wrong input to transfer function
+
+in Allo.sol::createPool if the base fee is greater than 0 base fee amount should be sent to the treasury but we send NATIVE but not the token we are using for creating the pool
+
+## Vulnerability Detail
+
+## Impact
+
+much or less funds will be sent to the treasury
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/core/Allo.sol#L469-L478
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+input the token that is used not NATIVE

@@ -1,0 +1,52 @@
+# [H] Buyer can buy protection only for expected payment days by abusing renewals
+
+## Summary
+Severity: High
+Reporter: jkoppel
+Source: https://github.com/sherlock-audit/2023-02-carapace/blob/main/contracts/libraries/ProtectionPoolHelper.sol#L57-L59
+Type: audit-issue
+
+## Details
+# Buyer can buy protection only for expected payment days by abusing renewals
+
+## Summary
+
+Protection buyer can have a protection that expires and renews every day. On days when a payment is expected, they set the renewal to their full principal. On other days, they set the renewal to a tiny amount.
+
+## Vulnerability Detail
+
+ProtectionPoolHelper.verifyBuyerCanRenewProtection contains no checks for how much protection is under a renewal. The renewed protection can be for 1/1000th as much as the previous, or for 1000x more. 
+
+Further, each renewal can be for a minimum period of one day.  See https://github.com/sherlock-audit/2023-02-carapace/blob/main/contracts/libraries/ProtectionPoolHelper.sol#L57-L59
+
+So, buyers can employer the following strategy:
+
+Day 1: Buy protection for the minimum possible amount (namely 0).
+Day 90: Protection expires. Renew for 1 day, still protecting minimum amount.
+Day 91: Protection expires. Renew for 1 day, still protecting minimum amount.
+...
+Day N: Protection from previous day expires.  Missed payment is expected. Renew for 1 day, this time protecting the maximum amount.
+
+The buyer can even do this right before DefaultStateManager._assesStates is called, ensuring they never buy protection until the moment they need it.
+
+The docs state: "Existing lenders cannot buy protection anytime they want. Otherwise, they would buy protection right before the missed payment."
+
+But, putting these two facts together, "buying protection right before the missed payment" is very possible.
+
+This issue is separate from https://github.com/sherlock-audit/2023-02-carapace-jkoppel/issues/9 . That also involves abusing renewals, but it is based on the renewal grace period, whereas this is based on the ability to alter the size of protection across renewals.
+
+## Impact
+
+Buyers can protect their full principal for close to zero.
+
+## Code Snippet
+
+verifyCanRenewProtection: https://github.com/sherlock-audit/2023-02-carapace/blob/main/contracts/libraries/ProtectionPoolHelper.sol#L360
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Require renewals to be for the same amount as the original purchase.

@@ -1,0 +1,93 @@
+# [M] Loss of funds for user if inflationMultiplier increases while reverting transaction is pending
+
+## Summary
+Severity: Medium
+Reporter: oot2k
+Source: https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L2ECOBridge.sol#L161
+Type: audit-issue
+
+## Details
+# Loss of funds for user if inflationMultiplier increases while reverting transaction is pending
+
+## Summary
+When the token inflationMultiplier increases, all currently pending transactions from layer2 to layer1, that will revert for any reason, will cause loss of tokens for the User.
+
+Possible reasons for a revert could be following:
+- ECO token is paused, this can happen for various reasons
+- In edge cases where someone try's to withdrawal more tokens then the bridge holds, (this is unlikely)
+
+## Vulnerability Detail
+The governance of the ECO protocol can vote onChain to modify the inflation multiplier, which is a process known as rebase. 
+During this process, all contracts are updated to utilize the new inflation multiplier. 
+
+However, since the bridge sends tokens based on the inflation-corrected amount, it needs to recalculate the actual amount being sent. This situation gives rise to the following problem: 
+
+Lets imagine some user sends a transaction from layer2 to layer1. 
+He sends 100 tokens, the inflationMultiplier is 10.
+
+```solidity
+// Construct calldata for l1TokenBridge.finalizeERC20Withdrawal(_to, _amount)
+        _amount = _amount * inflationMultiplier;
+        bytes memory message = abi.encodeWithSelector(
+            //call parent interface of IL1ECOBridge to get the selector
+            IL1ERC20Bridge.finalizeERC20Withdrawal.selector,
+            l1Eco,
+            l2Eco,
+            _from,
+            _to,
+            _amount,
+            _data
+        );
+```
+Inside of _initiateWithdrawal() the amount to send will be multiplied by the Inflation Multiplier.
+Now the token amount is 1000.
+
+After the waiting period for the transaction, finalizeERC20Withdrawal() on layer 1 will be called.
+```solidity
+(bool success, bytes memory returnData) = _l1Token.call{value: 0}(
+            _ecoTransferMessage
+        );
+
+        // make sure that the call to transfer didn't revert or return false
+        if (success && abi.decode(returnData, (bool))) {
+            // if successful, emit an event
+            emit ERC20WithdrawalFinalized(
+                _l1Token,
+                _l2Token,
+                _from,
+                _to,
+                _amount,
+                _data
+            );
+        } else {
+            // if the transfer fails, create a return tx
+```
+If now for any reason the transaction reverts, the finalizeERC20Withdrawal() function will send a new return transaction.
+It will send the 1000 tokens back.
+
+If the Inflation multiplier has change to 11, on layer2 the return transaction will calculate less tokens to mint:
+```solidity
+        _amount = _amount / inflationMultiplier;
+        L2ECO(_l2Token).mint(_to, _amount);
+        emit DepositFinalized(_l1Token, _l2Token, _from, _to, _amount, _data);
+```
+
+Now the user got 90 (1000 / 11) instead of 100 tokens back. 
+
+## Impact
+
+Loss of funds for user if inflationMultiplier increases while reverting transaction is pending.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L2ECOBridge.sol#L161
+
+https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L2ECOBridge.sol#L240
+
+https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L1ECOBridge.sol#L275
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider sending the inflation multiplier with the layer2 to layer1 transaction. After the layer1 transaction reverts, calculate the minted amount in finalizeDeposit() on layer2 with the old inflation multiplier.

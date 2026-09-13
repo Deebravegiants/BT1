@@ -1,0 +1,32 @@
+# [M] Must approve 0 first for non-standard tokens
+
+## Summary
+Severity: Medium
+Reporter: Energetic Lemon Scallop
+Source: https://github.com/sherlock-audit/2023-12-arcadia/blob/main/accounts-v2/src/asset-modules/Stargate-Finance/StakedStargateAM.sol#L83
+Type: audit-issue
+
+## Details
+# Must approve 0 first for non-standard tokens
+
+## Summary
+Some tokens (like USDT) do not work when changing the allowance from an existing non-zero allowance value.They must first be approved by zero and then the actual allowance must be approved.
+
+## Vulnerability Detail
+`StakedStargateAM::_stake()` will fail to execute on non-standard tokens which require the approval amount to start from zero.
+
+## Impact
+See Vulnerability Detail
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-12-arcadia/blob/main/accounts-v2/src/asset-modules/Stargate-Finance/StakedStargateAM.sol#L83
+
+## Tool used
+Manual Review
+
+## Recommendation
+Add an approve(0) before approving;
+```solidity
+ + ERC20(asset).approve(address(LP_STAKING_TIME), 0);
+   ERC20(asset).approve(address(LP_STAKING_TIME), amount);
+```

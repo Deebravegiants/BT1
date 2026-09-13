@@ -1,0 +1,17 @@
+# [H] CVE-2019-9500
+
+## Summary
+Severity: High
+Advisory: CVE-2019-9500
+CVSS: 8.3 (CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H)
+Published: 2020-01-16
+Source: https://osv.dev/vulnerability/CVE-2019-9500
+Type: osv
+
+## Details
+The Broadcom brcmfmac WiFi driver prior to commit 1b5e2423164b3670e8bc9174e4762d297990deff is vulnerable to a heap buffer overflow. If the Wake-up on Wireless LAN functionality is configured, a malicious event frame can be constructed to trigger an heap buffer overflow in the brcmf_wowl_nd_results function. This vulnerability can be exploited with compromised chipsets to compromise the host, or when used in combination with CVE-2019-9503, can be used remotely. In the worst case scenario, by sending specially-crafted WiFi packets, a remote, unauthenticated attacker may be able to execute arbitrary code on a vulnerable system. More typically, this vulnerability will result in denial-of-service conditions.
+
+## References
+- https://kb.cert.org/vuls/id/166939/
+- https://git.kernel.org/linus/1b5e2423164b3670e8bc9174e4762d297990deff
+- https://blog.quarkslab.com/reverse-engineering-broadcom-wireless-chipsets.html

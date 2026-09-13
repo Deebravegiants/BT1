@@ -1,0 +1,18 @@
+# [M] CVE-2019-15794
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-15794
+CVSS: 6.7 (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H)
+Published: 2020-04-24
+Source: https://osv.dev/vulnerability/CVE-2019-15794
+Type: osv
+
+## Details
+Overlayfs in the Linux kernel and shiftfs, a non-upstream patch to the Linux kernel included in the Ubuntu 5.0 and 5.3 kernel series, both replace vma->vm_file in their mmap handlers. On error the original value is not restored, and the reference is put for the file to which vm_file points. On upstream kernels this is not an issue, as no callers dereference vm_file following after call_mmap() returns an error. However, the aufs patchs change mmap_region() to replace the fput() using a local variable with vma_fput(), which will fput() vm_file, leading to a refcount underflow.
+
+## References
+- https://usn.ubuntu.com/usn/usn-4208-1
+- https://usn.ubuntu.com/usn/usn-4209-1
+- https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/eoan/commit/?id=270d16ae48a4dbf1c7e25e94cc3e38b4bea37635
+- https://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/eoan/commit/?id=ef81780548d20a786cc77ed4203fca146fd81ce3

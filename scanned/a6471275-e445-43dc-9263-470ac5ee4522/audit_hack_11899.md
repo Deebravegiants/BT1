@@ -1,0 +1,41 @@
+# [M] Function depositAndAllocateForPartyB does not correctly convert deposit amount into 18 decimals, leading to allocating only a fraction of it
+
+## Summary
+Severity: Medium
+Reporter: tvdung94
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacet.sol#L74-L82
+Type: audit-issue
+
+## Details
+# Function depositAndAllocateForPartyB does not correctly convert deposit amount into 18 decimals, leading to allocating only a fraction of it
+
+## Summary
+Function depositAndAllocateForPartyB does not convert the deposit amount into 18 decimals before allocating it to the user's sub account balance. The actual amount being allocated will be much less than expected, and the rest is sitting in the user's main balance .
+## Vulnerability Detail
+Depositing and allocating  are using amount in different decimals. In depositing, the amount is in collateral's decimals, while in allocating, the amount is in converted 18 decimals.
+However, depositAndAllocateForPartyB does not convert the amount into 18 decimals before allocating, so the amount being allocated will be much smaller than expected.
+## Impact
+It could harm users in some scenarios. 
+For example:
+- An user wants to avoid their balance being liquidated by adding more fund into their sub allocated balance using this function. They might not realize this function only allocate a fraction of their fund (the rest is sitting to their main balance), and their sub account ends up being liquidated because the new amount being allocated is too small, not enough to make their sub account safe. 
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacet.sol#L74-L82
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add amount conversion. For example:
+```javascript
+ function depositAndAllocateForPartyB(
+        uint256 amount,
+        address partyA
+    ) external whenNotPartyBActionsPaused onlyPartyB {
+        AccountFacetImpl.depositForPartyB(amount);
+        uint256 amountWith18Decimals = (amount * 1e18) /
+        (10 ** IERC20Metadata(GlobalAppStorage.layout().collateral).decimals());
+        AccountFacetImpl.allocateForPartyB(amountWith18Decimals, partyA, true);
+        emit DepositForPartyB(msg.sender, amount);
+        emit AllocateForPartyB(msg.sender, partyA, amount);
+    }
+```

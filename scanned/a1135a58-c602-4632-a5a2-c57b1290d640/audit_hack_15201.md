@@ -1,0 +1,26 @@
+# [H] Anyone can (de)activate the pool due to missing modifier
+
+## Summary
+Severity: High
+Reporter: Formal Wintergreen Mole
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol#L219-L221
+Type: audit-issue
+
+## Details
+# Anyone can (de)activate the pool due to missing modifier
+Modifier `onlyPoolManager(msg.sender)` is missing in:
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol#L219-L221
+## Vulnerability Detail
+Anyone can deactivate the pool leading to functions not being able to function since they check for one of the following:
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/BaseStrategy.sol#L257-L265
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/BaseStrategy.sol#L276-L286
+## Impact
+Provided in Vulnerability Detail
+## Code Snippet
+Provided in Vulnerability Detail
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add the modifier

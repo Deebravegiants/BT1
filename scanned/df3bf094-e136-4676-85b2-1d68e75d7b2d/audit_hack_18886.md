@@ -1,0 +1,30 @@
+# [M] getReward(user) should be assigned to some variable.
+
+## Summary
+Severity: Medium
+Reporter: Fun Opal Squid
+Source: https://github.com/sherlock-audit/2023-12-truflation/blob/main/truflation-contracts/src/staking/VirtualStakingRewards.sol#L135
+Type: audit-issue
+
+## Details
+# getReward(user) should be assigned to some variable.
+
+## Summary
+getReward(user) should be assigned to some variable in the exit function.
+## Vulnerability Detail
+  function exit(address user) external {
+        if (_balances[user] != 0) {
+            withdraw(user, _balances[user]);
+        }
+        getReward(user);
+    }
+## Impact
+assign some variable to   getReward(user);
+## Code Snippet
+https://github.com/sherlock-audit/2023-12-truflation/blob/main/truflation-contracts/src/staking/VirtualStakingRewards.sol#L135
+## Tool used
+
+Manual Review
+
+## Recommendation
+assign some variable to   getReward(user);

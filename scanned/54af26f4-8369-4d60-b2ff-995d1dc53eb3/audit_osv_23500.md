@@ -1,0 +1,44 @@
+# [H] mm/khugepaged: invoke MMU notifiers in shmem/file collapse paths
+
+## Summary
+Severity: High
+Advisory: CVE-2022-48991
+Ecosystem: Linux
+CVSS: 8.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H)
+Published: 2024-10-21
+Source: https://osv.dev/vulnerability/CVE-2022-48991
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=4.8.0 <4.9.337, >=4.10.0 <4.14.303, >=4.15.0 <4.19.270, >=4.20.0 <5.4.227, >=5.5.0 <5.10.159, >=5.11.0 <5.15.83, >=5.16.0 <6.0.13
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+mm/khugepaged: invoke MMU notifiers in shmem/file collapse paths
+
+Any codepath that zaps page table entries must invoke MMU notifiers to
+ensure that secondary MMUs (like KVM) don't keep accessing pages which
+aren't mapped anymore.  Secondary MMUs don't hold their own references to
+pages that are mirrored over, so failing to notify them can lead to page
+use-after-free.
+
+I'm marking this as addressing an issue introduced in commit f3f0e1d2150b
+("khugepaged: add support of collapse for tmpfs/shmem pages"), but most of
+the security impact of this only came in commit 27e1f8273113 ("khugepaged:
+enable collapse pmd for pte-mapped THP"), which actually omitted flushes
+for the removal of present PTEs, not just for the removal of empty page
+tables.
+
+## References
+- https://git.kernel.org/stable/c/1a3f8c6cd29d9078cc81b29d39d0e9ae1d6a03c3
+- https://git.kernel.org/stable/c/275c626c131cfe141beeb6c575e31fa53d32da19
+- https://git.kernel.org/stable/c/5450535901d89a5dcca5fbbc59a24fe89caeb465
+- https://git.kernel.org/stable/c/5ffc2a75534d9d74d49760f983f8eb675fa63d69
+- https://git.kernel.org/stable/c/7f445ca2e0e59c7971d0b7b853465e50844ab596
+- https://git.kernel.org/stable/c/c23105673228c349739e958fa33955ed8faddcaf
+- https://git.kernel.org/stable/c/f268f6cf875f3220afc77bdd0bf1bb136eb54db9
+- https://git.kernel.org/stable/c/ff2a1a6f869650aec99e9d070b5ab625bfbc5bc3
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/48xxx/CVE-2022-48991.json
+- https://nvd.nist.gov/vuln/detail/CVE-2022-48991
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

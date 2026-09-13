@@ -1,0 +1,18 @@
+# [M] CVE-2022-21635
+
+## Summary
+Severity: Medium
+Advisory: CVE-2022-21635
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:H/A:H)
+Published: 2022-10-18
+Source: https://osv.dev/vulnerability/CVE-2022-21635
+Type: osv
+
+## Details
+Vulnerability in the MySQL Server product of Oracle MySQL (component: InnoDB). Supported versions that are affected are 8.0.29 and prior. Easily exploitable vulnerability allows high privileged attacker with network access via multiple protocols to compromise MySQL Server. Successful attacks of this vulnerability can result in unauthorized creation, deletion or modification access to critical data or all MySQL Server accessible data and unauthorized ability to cause a hang or frequently repeatable crash (complete DOS) of MySQL Server. CVSS 3.1 Base Score 6.5 (Integrity and Availability impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:H/A:H).
+
+## References
+- https://www.oracle.com/security-alerts/cpuoct2022.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/21xxx/CVE-2022-21635.json
+- https://nvd.nist.gov/vuln/detail/CVE-2022-21635
+- https://security.netapp.com/advisory/ntap-20221028-0013/

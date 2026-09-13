@@ -1,0 +1,92 @@
+# [H] bpf, sockmap: Fix panic when calling skb_linearize
+
+## Summary
+Severity: High
+Advisory: CVE-2025-38165
+Ecosystem: Linux
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2025-07-03
+Source: https://osv.dev/vulnerability/CVE-2025-38165
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=0 <5.15.190, >=5.16.0 <6.1.142, >=6.2.0 <6.6.94, >=6.6.0 <6.12.34, >=6.7.0 <6.15.3
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+bpf, sockmap: Fix panic when calling skb_linearize
+
+The panic can be reproduced by executing the command:
+./bench sockmap -c 2 -p 1 -a --rx-verdict-ingress --rx-strp 100000
+
+Then a kernel panic was captured:
+'''
+[  657.460555] kernel BUG at net/core/skbuff.c:2178!
+[  657.462680] Tainted: [W]=WARN
+[  657.463287] Workqueue: events sk_psock_backlog
+...
+[  657.469610]  <TASK>
+[  657.469738]  ? die+0x36/0x90
+[  657.469916]  ? do_trap+0x1d0/0x270
+[  657.470118]  ? pskb_expand_head+0x612/0xf40
+[  657.470376]  ? pskb_expand_head+0x612/0xf40
+[  657.470620]  ? do_error_trap+0xa3/0x170
+[  657.470846]  ? pskb_expand_head+0x612/0xf40
+[  657.471092]  ? handle_invalid_op+0x2c/0x40
+[  657.471335]  ? pskb_expand_head+0x612/0xf40
+[  657.471579]  ? exc_invalid_op+0x2d/0x40
+[  657.471805]  ? asm_exc_invalid_op+0x1a/0x20
+[  657.472052]  ? pskb_expand_head+0xd1/0xf40
+[  657.472292]  ? pskb_expand_head+0x612/0xf40
+[  657.472540]  ? lock_acquire+0x18f/0x4e0
+[  657.472766]  ? find_held_lock+0x2d/0x110
+[  657.472999]  ? __pfx_pskb_expand_head+0x10/0x10
+[  657.473263]  ? __kmalloc_cache_noprof+0x5b/0x470
+[  657.473537]  ? __pfx___lock_release.isra.0+0x10/0x10
+[  657.473826]  __pskb_pull_tail+0xfd/0x1d20
+[  657.474062]  ? __kasan_slab_alloc+0x4e/0x90
+[  657.474707]  sk_psock_skb_ingress_enqueue+0x3bf/0x510
+[  657.475392]  ? __kasan_kmalloc+0xaa/0xb0
+[  657.476010]  sk_psock_backlog+0x5cf/0xd70
+[  657.476637]  process_one_work+0x858/0x1a20
+'''
+
+The panic originates from the assertion BUG_ON(skb_shared(skb)) in
+skb_linearize(). A previous commit(see Fixes tag) introduced skb_get()
+to avoid race conditions between skb operations in the backlog and skb
+release in the recvmsg path. However, this caused the panic to always
+occur when skb_linearize is executed.
+
+The "--rx-strp 100000" parameter forces the RX path to use the strparser
+module which aggregates data until it reaches 100KB before calling sockmap
+logic. The 100KB payload exceeds MAX_MSG_FRAGS, triggering skb_linearize.
+
+To fix this issue, just move skb_get into sk_psock_skb_ingress_enqueue.
+
+'''
+sk_psock_backlog:
+    sk_psock_handle_skb
+       skb_get(skb) <== we move it into 'sk_psock_skb_ingress_enqueue'
+       sk_psock_skb_ingress____________
+                                       ↓
+                                       |
+                                       | → sk_psock_skb_ingress_self
+                                       |      sk_psock_skb_ingress_enqueue
+sk_psock_verdict_apply_________________↑          skb_linearize
+'''
+
+Note that for verdict_apply path, the skb_get operation is unnecessary so
+we add 'take_ref' param to control it's behavior.
+
+## References
+- https://git.kernel.org/stable/c/3d25fa2d7f127348c818e1dab9e58534f7ac56cc
+- https://git.kernel.org/stable/c/4dba44333a11522df54b49aa1f2edfaf6ce35fc7
+- https://git.kernel.org/stable/c/5ca2e29f6834c64c0e5a9ccf1278c21fb49b827e
+- https://git.kernel.org/stable/c/9718ba6490732dbe70190d42c21deb1440834402
+- https://git.kernel.org/stable/c/db1d15a26f21f97459508c42ae87cabe8d3afc3b
+- https://git.kernel.org/stable/c/e9c1299d813fc04668042690f2c3cc76d013959a
+- https://lists.debian.org/debian-lts-announce/2025/10/msg00008.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/38xxx/CVE-2025-38165.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-38165
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

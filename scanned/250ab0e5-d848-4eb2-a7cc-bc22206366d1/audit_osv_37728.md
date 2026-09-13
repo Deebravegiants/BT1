@@ -1,0 +1,19 @@
+# [H] libsixel: Use-after-free in load_with_gdkpixbuf()
+
+## Summary
+Severity: High
+Advisory: CVE-2026-33023
+Aliases: GHSA-hr25-g2j6-qjw6
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2026-04-14
+Source: https://osv.dev/vulnerability/CVE-2026-33023
+Type: osv
+
+## Details
+libsixel is a SIXEL encoder/decoder implementation derived from kmiya's sixel. In versions 1.8.7 and prior, when built with the --with-gdk-pixbuf2 option, a use-after-free vulnerability exists in load_with_gdkpixbuf() in loader.c. The cleanup path manually frees the sixel_frame_t object and its internal buffers without consulting the reference count, even though the object was created via the refcounted constructor sixel_frame_new() and exposed to the public callback. A callback that calls sixel_frame_ref(frame) to retain a logically valid reference will hold a dangling pointer after sixel_helper_load_image_file() returns, and any subsequent access to the frame or its fields triggers a use-after-free confirmed by AddressSanitizer. The root cause is a consistency failure between two cleanup strategies in the same codebase: sixel_frame_unref() is used in load_with_builtin() but raw free() is used in load_with_gdkpixbuf(). An attacker supplying a crafted image to any application built against libsixel with gdk-pixbuf2 support can trigger this reliably, potentially leading to information disclosure, memory corruption, or code execution. This issue has been fixed in version 1.8.7-r1.
+
+## References
+- https://github.com/saitoha/libsixel/releases/tag/v1.8.7-r1
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/33xxx/CVE-2026-33023.json
+- https://github.com/saitoha/libsixel/security/advisories/GHSA-hr25-g2j6-qjw6
+- https://nvd.nist.gov/vuln/detail/CVE-2026-33023

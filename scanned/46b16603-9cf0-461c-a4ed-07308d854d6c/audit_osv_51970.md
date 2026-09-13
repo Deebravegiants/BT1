@@ -1,0 +1,48 @@
+# [M] CVE-2021-46912
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-46912
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2024-02-27
+Source: https://osv.dev/vulnerability/CVE-2021-46912
+Type: osv
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+net: Make tcp_allowed_congestion_control readonly in non-init netns
+
+Currently, tcp_allowed_congestion_control is global and writable;
+writing to it in any net namespace will leak into all other net
+namespaces.
+
+tcp_available_congestion_control and tcp_allowed_congestion_control are
+the only sysctls in ipv4_net_table (the per-netns sysctl table) with a
+NULL data pointer; their handlers (proc_tcp_available_congestion_control
+and proc_allowed_congestion_control) have no other way of referencing a
+struct net. Thus, they operate globally.
+
+Because ipv4_net_table does not use designated initializers, there is no
+easy way to fix up this one "bad" table entry. However, the data pointer
+updating logic shouldn't be applied to NULL pointers anyway, so we
+instead force these entries to be read-only.
+
+These sysctls used to exist in ipv4_table (init-net only), but they were
+moved to the per-net ipv4_net_table, presumably without realizing that
+tcp_allowed_congestion_control was writable and thus introduced a leak.
+
+Because the intent of that commit was only to know (i.e. read) "which
+congestion algorithms are available or allowed", this read-only solution
+should be sufficient.
+
+The logic added in recent commit
+31c4d2f160eb: ("net: Ensure net namespace isolation of sysctls")
+does not and cannot check for NULL data pointers, because
+other table entries (e.g. /proc/sys/net/netfilter/nf_log/) have
+.data=NULL but use other methods (.extra2) to access the struct net.
+
+## References
+- https://git.kernel.org/stable/c/1ccdf1bed140820240e383ba0accc474ffc7f006
+- https://git.kernel.org/stable/c/35d7491e2f77ce480097cabcaf93ed409e916e12
+- https://git.kernel.org/stable/c/97684f0970f6e112926de631fdd98d9693c7e5c1

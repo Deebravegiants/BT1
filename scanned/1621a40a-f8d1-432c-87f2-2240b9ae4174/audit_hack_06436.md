@@ -1,0 +1,193 @@
+# [M] It is not possible to borrow at collateral ratio 120%
+
+## Summary
+Severity: Medium
+Reporter: jonatascm
+Source: https://github.com/sherlock-audit/2023-03-taurus-jonatascm/tree/main/taurus-contracts/contracts/Vault/BaseVault.sol#L123-L127
+Type: audit-issue
+
+## Details
+# It is not possible to borrow at collateral ratio 120%
+
+## Summary
+
+In the documentation, the minimum collateralization ratio is 120%, but in the code is not possible to borrow at the collateral ratio of 120%.
+
+## Vulnerability Detail
+
+It is not possible to create a borrow with a collateralization ratio of 120%.
+
+If Alice wants to borrow 1000 TAU for the price of $1 (price decimals 18), adding 1200 TokenA as collateral, in this case, the ratio would be 120%, but the function `getAccountHealth` returns false if the ratio is equal to minimum collateral ratio.
+
+## POC
+
+```solidity
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.15;
+
+import "forge-std/Test.sol";
+import "../contracts/Vault/BaseVault.sol";
+import "../contracts/Controller/Controller.sol";
+import "../contracts/Mocks/MockERC20.sol";
+import "../contracts/Vault/YieldAdapters/GMX/IRewardRouter.sol";
+import "../contracts/Oracle/CustomPriceOracle/CustomPriceOracle.sol";
+import "../contracts/Oracle/Wrapper/CustomOracleWrapper.sol";
+import "../contracts/Oracle/PriceOracleManager.sol";
+import { Constants } from "../contracts/Libs/Constants.sol";
+import { ERC20 } from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+//Custom VaultAdapter 
+contract VaultAdapter is BaseVault {
+	  // Reward router for GMX. Note that this must be V1, not V2, for now.
+    address public rewardRouter;
+
+    constructor(
+        address _controller,
+        address _tau,
+        address _collateralToken,
+        address _rewardRouter
+    ) {
+        __BaseVault_init(_controller, _tau, _collateralToken);
+        rewardRouter = _rewardRouter;
+    }
+
+    function collectYield() external {
+        IRewardRouter(rewardRouter).claimFees(); // Claim WETH yield from staked esGmx and Glp
+        IRewardRouter(rewardRouter).compound(); // Claim and stake esGmx and bnGmx earned from staked esGmx and Glp
+    }
+
+    function updateRewardRouter(address _newRewardRouter) external onlyMultisig {
+        rewardRouter = _newRewardRouter;
+    }
+
+    function calcLiquidation(
+        uint256 _accountCollateral,
+        uint256 _accountDebt,
+        uint256 _debtToLiquidate
+    ) public view returns (uint256 collateralToLiquidate, uint256 liquidationSurcharge) {
+        return _calcLiquidation(
+            _accountCollateral,
+            _accountDebt,
+            _debtToLiquidate
+        );
+    }
+}
+
+//Custom ERC20 with 6 decimals
+contract CustomToken is ERC20 {
+    constructor(string memory name, string memory symbol) ERC20(name, symbol) {
+        _mint(msg.sender, 500 ether);
+    }
+
+    function mint(address to, uint256 amount) external {
+        _mint(to, amount);
+    }
+
+    function decimals() public pure override returns (uint8) {
+        return 6;
+    }
+}
+
+contract VaulTest is Test{
+    VaultAdapter vault;
+    Controller _controller;
+    MockERC20 _tau;
+    MockERC20 _tgt;
+    CustomToken _collateralToken;
+    PriceOracleManager oracleManager;
+    CustomPriceOracle customOracle;
+    CustomOracleWrapper oracleWrapper;
+    address _rewardRouter;
+
+   function setUp() public {
+        //Setting up tokens, oracle, controller, and vault
+        _tau = new MockERC20("Mock TAU", "TAU");
+        _tgt = new MockERC20("Mock TGT", "TGT");
+
+        _collateralToken = new CustomToken("Mock CustomToken", "CTK");
+
+        //ARBITRUM_GMX_REWARD_ROUTER_V2_ADDRESS    
+        _rewardRouter = address(0xB95DB5B167D75e6d04227CfFFA61069348d271F5);
+
+        //CUSTOM ORACLE
+        customOracle = new CustomPriceOracle("CUSTOM ORACLE", address(_collateralToken), 18);
+        customOracle.registerTrustedNode(address(this));
+        
+        //ORACLE WRAPPER
+        oracleWrapper = new CustomOracleWrapper();
+        oracleWrapper.addOracle(address(_collateralToken), address(customOracle));
+
+        //ORACLE MANAGER
+        oracleManager = new PriceOracleManager();
+        oracleManager.setWrapper(address(_collateralToken), address(oracleWrapper));
+
+        //CONTROLLER
+        _controller = new Controller(address(_tau), address(_tgt), address(this), address(this));
+        _controller.setAddress(Constants.PRICE_ORACLE_MANAGER, address(oracleManager));
+        
+        //VAULT
+        vault = new VaultAdapter(
+            address(_controller),
+            address(_tau),
+            address(_collateralToken),
+            address(_rewardRouter)
+        );
+
+    }
+
+    function testNotPossibleRatio120() public {
+        customOracle.updatePrice(1e18); //1:1
+        uint256 accountCollateral = 120 * 1e18; // 121 CTK
+        uint256 accountDebt = 100 * 1e18; // 100 TAU
+        uint256 debtToLiquidate = 100 * 1e18;
+        
+        
+        _collateralToken.increaseAllowance(address(vault), accountCollateral);
+
+        //@audit Even if the price is 1:1
+        // the collateral ratio is 120%
+        // It will revert
+        vm.expectRevert();
+        //Create Position with 120CTK collateral and 100TAU debt
+        vault.modifyPosition(
+            accountCollateral,
+            accountDebt,
+            true,
+            true
+        );
+    }
+}
+```
+
+## Impact
+
+The users can't borrow at a minimum collateralization ration
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-03-taurus-jonatascm/tree/main/taurus-contracts/contracts/Vault/BaseVault.sol#L123-L127
+
+```solidity
+function getAccountHealth(address _account) public view returns (bool) {
+  uint256 ratio = _getCollRatio(_account);
+
+  return (ratio > MIN_COL_RATIO);
+}
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+It's recommended to include the minimum collateral ratio when getting account health:
+
+```diff
+function getAccountHealth(address _account) public view returns (bool) {
+  uint256 ratio = _getCollRatio(_account);
+
+-  return (ratio > MIN_COL_RATIO);
++  return (ratio >= MIN_COL_RATIO);
+}
+```

@@ -1,0 +1,21 @@
+# [H] ProxySQL MCP run_sql_readonly executes side-effecting MySQL multi-statements despite read-only contract
+
+## Summary
+Severity: High
+Advisory: BIT-proxysql-2026-48774
+Aliases: CVE-2026-48774, GHSA-7wh6-2vcc-gcm4
+Ecosystem: Bitnami
+Published: 2026-08-17
+Source: https://osv.dev/vulnerability/BIT-proxysql-2026-48774
+Type: osv
+
+## Affected
+- Bitnami: `proxysql` — affected >=3.0.6 <3.0.9
+
+## Details
+ProxySQL is a proxy for MySQL and its forks, as well as PostgreSQL. In versions 3.0.0 through 3.0.8, ProxySQL's GenAI/MCP `run_sql_readonly` tool violates its documented read-only contract for MySQL targets. The tool validates only the full input string with a substring blacklist and first-keyword allowlist, but then executes the entire SQL string on a backend connection created with `CLIENT_MULTI_STATEMENTS`. As a result, a caller can submit a read-only first statement followed by a side-effecting second statement, such as `SELECT 1; RENAME TABLE ...`. The validator accepts the payload because it starts with `SELECT` and because side-effecting MySQL statements such as `RENAME TABLE`, `SET`, `RESET`, `LOCK TABLES`, and `KILL` are not rejected by the blacklist. In a live MCP runtime test, the `/mcp/query` endpoint accepted a `run_sql_readonly` request. The MCP response reported success for the first `SELECT`, and direct backend verification showed that the table had actually been renamed. This violates the endpoint's read-only security contract and lets an MCP caller perform backend writes or administrative SQL, limited by the configured MCP target account's database privileges. Version 3.0.9 contains a fix. Other operator mitigations include: keeping MCP disabled unless required; setting a non-empty `mcp-query_endpoint_auth` token before exposing `/mcp/query`; restricting MCP listener network exposure; configuring MCP backend target credentials as database-level read-only users; and adding temporary MCP query rules to block obvious multi-statement patterns.
+
+## References
+- https://github.com/sysown/proxysql/commit/e32b7fd50c7c234ea628e392e621e09a2a919e08
+- https://github.com/sysown/proxysql/security/advisories/GHSA-7wh6-2vcc-gcm4
+- https://nvd.nist.gov/vuln/detail/CVE-2026-48774

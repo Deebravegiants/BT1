@@ -1,0 +1,18 @@
+# [M] CVE-2021-21396
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-21396
+Aliases: GHSA-qx8q-rhq2-rg4j
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2021-03-26
+Source: https://osv.dev/vulnerability/CVE-2021-21396
+Type: osv
+
+## Details
+wire-server is an open-source back end for Wire, a secure collaboration platform. In wire-server from version 2021-02-16 and before version 2021-03-02, the client metadata of all users was exposed in the `GET /users/list-clients` endpoint. The endpoint could be used by any logged in user who could request client details of any other user (no connection required) as far as they can find their User ID. The exposed metadata included id, class, type, location, time, and cookie. A user on a Wire backend could use this endpoint to find registration time and location for each device for a given list of users. As a workaround, remove `/list-clients` from nginx config. This has been fixed in version 2021-03-02.
+
+## References
+- https://github.com/wireapp/wire-server/releases/tag/v2021-03-02
+- https://github.com/wireapp/wire-server/commit/7ba2bf4140282557cf215e0b2c354d4d08cd3421
+- https://github.com/wireapp/wire-server/security/advisories/GHSA-qx8q-rhq2-rg4j

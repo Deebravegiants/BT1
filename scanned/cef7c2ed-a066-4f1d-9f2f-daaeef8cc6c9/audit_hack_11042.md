@@ -1,0 +1,50 @@
+# [H] Anyone can mint and burn arbitrary amount of USSD
+
+## Summary
+Severity: High
+Reporter: Kose
+Source: https://github.com/USSDofficial/ussd-contracts/blob/f44c726371f3152634bcf0a3e630802e39dec49c/contracts/USSD.sol#L196-L215
+Type: audit-issue
+
+## Details
+# Anyone can mint and burn arbitrary amount of USSD
+
+## Summary
+Because of missing modifier, anyone can call ```mintRebalancer()``` and ```burnRebalancer()``` functions with arbitrary amounts.
+## Vulnerability Detail
+[USSD.sol#L196-L215](https://github.com/USSDofficial/ussd-contracts/blob/f44c726371f3152634bcf0a3e630802e39dec49c/contracts/USSD.sol#L196-L215)
+```solidity
+ /*//////////////////////////////////////////////////////////////
+                               REBALANCER
+    //////////////////////////////////////////////////////////////*/
+
+    function setRebalancer(address _rebalancer) public onlyControl {
+        rebalancer = IUSSDRebalancer(_rebalancer);
+    }
+
+    function mintRebalancer(uint256 amount) public override {
+        _mint(address(this), amount);
+    }
+
+    function burnRebalancer(uint256 amount) public override {
+        _burn(address(this), amount);
+    }
+
+    modifier onlyBalancer() {
+        require(msg.sender == address(rebalancer), "bal");
+        _;
+    }
+```
+As we can see from the code, ```onlyBalancer()``` modifier has implented but not used in ```mintRebalancer()``` and ```burnRebalancer()``` functions. Because these functions are public, anyone can call them to mint and burn arbitrary amounts of USSD which can cause protocol to collapse.
+
+## Impact
+All USSD tokens can be burned and infinite amount of USSD tokens can be minted by anyone. These factors undermine the usefulness and functionality of the protocol.
+## Code Snippet
+[USSD.sol#L196-L215](https://github.com/USSDofficial/ussd-contracts/blob/f44c726371f3152634bcf0a3e630802e39dec49c/contracts/USSD.sol#L196-L215)
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add ```onlyBalancer``` modifier to ```mintRebalancer()``` and ```burnRebalancer()``` functions.

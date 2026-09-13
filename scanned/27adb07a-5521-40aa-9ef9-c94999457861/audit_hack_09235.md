@@ -1,0 +1,27 @@
+# [M] Users can withdraw without wait  state.withdrawTimeLock
+
+## Summary
+Severity: Medium
+Reporter: jprod15
+Source: https://github.com/sherlock-audit/2023-04-jojo/blob/main/smart-contract-EVM/contracts/lib/Funding.sol#L89-L93
+Type: audit-issue
+
+## Details
+# Users can withdraw without wait  state.withdrawTimeLock
+
+## Summary
+users can withdraw without wait  state.withdrawTimeLock 
+## Vulnerability Detail
+due that the function requestWithdraw, lack check of balances to user this can call without have balances and set state.withdrawExecutionTimestamp[msg.sender] =block.timestamp + state.withdrawTimeLock;
+then once time transcurred can deposit and execute withdraw inmediately    
+https://github.com/sherlock-audit/2023-04-jojo/blob/main/smart-contract-EVM/contracts/lib/Funding.sol#L89-L93
+## Impact
+this break the logic of protocol and can allowed attacks malicious as flash loans to liquidate users
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-jojo/blob/main/smart-contract-EVM/contracts/lib/Funding.sol#L89-L93
+## Tool used
+
+Manual Review
+
+## Recommendation
+check balances in requestwithdraw

@@ -1,0 +1,54 @@
+# [M] GoBGP: BGP OPEN capability parser may read capability values outside declared CapLen boundaries
+
+## Summary
+Severity: Medium
+Advisory: GHSA-gjrg-jjr3-56cm
+CVE: CVE-2026-49837
+CWE: CWE-125
+Ecosystem: Go
+CVSS: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N (CVSS_V3)
+Published: 2026-07-09
+Source: https://github.com/advisories/GHSA-gjrg-jjr3-56cm
+Type: github-advisory
+
+## Affected
+- Go: `github.com/osrg/gobgp/v4` — affected >=0 <4.6.0
+
+## Details
+### Summary
+    GoBGP contains a BGP OPEN capability parsing issue where several concrete capability decoders may parse data from the full remaining capability buffer instead of the slice bounded by the declared capability length, `CapLen`.
+    A malformed BGP OPEN message can cause bytes from a following capability to be interpreted as part of the current capability. The most security-relevant case is the 4-octet AS capability, where a capability with `CapLen == 0` may cause the parser to read bytes from the following capability as the 4-octet AS value. This parsed value may later affect peer AS validation during BGP session establishment.
+
+### Details
+The issue is in the BGP OPEN capability parser under:
+
+- `pkg/packet/bgp/bgp.go`
+- `pkg/packet/bgp/validate.go`
+- 
+The BGP OPEN optional parameter capability format includes a capability code, a capability length field, and a capability value. Each concrete capability decoder should only parse bytes inside the declared capability value boundary.
+In affected versions, the generic capability parser records the declared `CapLen`, but several concrete capability decoders continue parsing from the full remaining capability buffer after advancing past the two-byte capability header. Conceptually, the vulnerable pattern is:
+```go
+data = data[2:]
+// decoder reads from data without first limiting it to CapLen
+
+### PoC
+The following parser-level proof of concept demonstrates the issue without requiring a full BGP session or a running `bgpd` instance.
+The malformed capability uses:
+- Capability Code: `65` (`BGP_CAP_FOUR_OCTET_AS_NUMBER`)
+- Declared `CapLen`: `0`
+- Four following bytes: `00 00 fd e8`
+
+Although the capability declares an empty value, affected versions parse the following four bytes as the 4-octet AS value `65000`.
+
+### Impact
+A remote peer that can send a malformed BGP OPEN message to a GoBGP instance may cause capability values to be parsed from outside their declared `CapLen` boundaries.
+In the 4-octet AS capability case, this may affect:
+- peer AS validation;
+- capability negotiation;
+- interpretation of malformed OPEN messages;
+- acceptance or rejection decisions during BGP session establishment.
+This issue does not appear to be arbitrary memory corruption, remote code execution, or information disclosure. It is a protocol parser boundary validation issue that can affect BGP OPEN validation semantics.
+
+## References
+- https://github.com/osrg/gobgp/security/advisories/GHSA-gjrg-jjr3-56cm
+- https://github.com/osrg/gobgp

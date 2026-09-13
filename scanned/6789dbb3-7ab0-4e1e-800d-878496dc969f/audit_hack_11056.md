@@ -1,0 +1,25 @@
+# [M] removed collateral can't be accessible
+
+## Summary
+Severity: Medium
+Reporter: mahdikarimi
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L120-L123
+Type: audit-issue
+
+## Details
+# removed collateral can't be accessible
+
+## Summary
+If admin remove a collateral , the collateral can't be accessible anymore .
+## Vulnerability Detail
+Since the collateral will be removed from CollateralInfo array so it can't be used for re-balancing therefore removing collateral leads to just ignoring it while re-balancing , while there should be a mechanism to swap it to other collaterals . 
+## Impact
+removed collateral won't be accessible 
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L120-L123
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add a mechanism to swap collateral to another allowed collateral after removing .

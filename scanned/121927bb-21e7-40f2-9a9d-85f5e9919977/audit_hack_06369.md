@@ -1,0 +1,72 @@
+# [H] Attackers can disable vault deposits for all users
+
+## Summary
+Severity: High
+Reporter: tvdung94
+Source: https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L212-L219
+Type: audit-issue
+
+## Details
+# Attackers can disable vault deposits for all users
+
+## Summary
+Attackers can disable vault deposits for all users.
+## Vulnerability Detail
+
+
+Whenever a user make a deposit to a Taurus's vault, it mints TAU token for the user.
+
+TAU has a mint limit for each vault. It tracks a vault's currentMinted value which is supposed to increase when users mint and decrease vice versa. The currentMinted cannot surpass the mint limit. Any transaction that makes currentMinted exceed the mint limit is getting reverted.
+
+However, the TAU contract accidentally skips reducing the currentMinted of the vault while burning TAU, due to checking the wrong currentMinted from burn recipient instead of the vault's. As a result, currentMinted of vaults can only increase. 
+
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L212-L219
+
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L276-L304
+
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/TAU.sol#L76-L83
+
+## Impact
+Attackers can repeatedly deposit and withdrawing large amounts of Tau debts to push a vault's currentMinted to excess in the TAU contract. Following users who attempt to deposit will have their tx revert, because the vault has no more authority to mint. This results in the vault DOS unless a new mint limit is set. However, even if the new limit is set, the attackers can just repeat the attack.
+## Code Snippet
+
+Test:
+```js
+it.only("Should reduce currentMinted", async () => {
+      await tau.connect(vaultPlaceholder).mint(deployer.address, 1000);
+      await tau.connect(deployer).approve(vaultPlaceholder.address, 1000);
+      await tau.connect(vaultPlaceholder).burnFrom(deployer.address, 1000);
+      expect(await tau.currentMinted(vaultPlaceholder.address)).to.equal(0);
+    });
+```
+Result:
+ 0 passing (5s)
+  1 failing
+
+  1) TAU token
+       Vault mint tests
+         Should reduce currentMinted:
+
+      AssertionError: expected 1000 to equal 0. The numerical values of the given "ethers.BigNumber" and "number" inputs were compared, and they differed.
+      + expected - actual
+
+      -1000
+      +0
+## Tool used
+
+Manual Review
+
+## Recommendation
+Original version:
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/TAU.sol#L76-L83
+New version:
+```solidity
+ function _decreaseCurrentMinted(address account, uint256 amount) internal virtual {
+        // If the burner is a vault, subtract burnt TAU from its currentMinted.
+        // This has a few highly unimportant edge cases which can generally be rectified by increasing the relevant vault's mintLimit.
+        uint256 accountMinted = currentMinted[msg.sender];
+        if (accountMinted >= amount) {
+            currentMinted[msg.sender] = accountMinted - amount;
+        }
+    }
+```

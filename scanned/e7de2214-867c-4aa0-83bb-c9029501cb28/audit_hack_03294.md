@@ -1,0 +1,36 @@
+# [M] Vouch.lastUpdated() is not updated when a new Vouch is created
+
+## Summary
+Severity: Medium
+Reporter: peanuts
+Source: https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/user/UserManager.sol#L555
+Type: audit-issue
+
+## Details
+# Vouch.lastUpdated() is not updated when a new Vouch is created
+
+## Summary
+
+When a new Vouch is created by a staker, the vouch is not updated to the latest block.number
+
+## Vulnerability Detail
+
+            vouchers[borrower].push(Vouch(staker, trustAmount, 0, 0));
+
+## Impact
+
+The frozen coin age calculation will be wrong.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/user/UserManager.sol#L555
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Change
+            vouchers[borrower].push(Vouch(staker, trustAmount, 0, 0));
+to
+            vouchers[borrower].push(Vouch(staker, trustAmount, 0, block.number));

@@ -1,0 +1,79 @@
+# [M] Pyramid static view path traversal up one directory
+
+## Summary
+Severity: Medium
+Advisory: GHSA-j8g2-6fc7-q8f8
+CVE: CVE-2023-40587
+CWE: CWE-22
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N (CVSS_V3)
+Published: 2023-08-25
+Source: https://github.com/advisories/GHSA-j8g2-6fc7-q8f8
+Type: github-advisory
+
+## Affected
+- PyPI: `pyramid` — affected >=2.0.0 <2.0.2
+
+## Details
+### Impact
+
+This impacts users of Python 3.11 that are using a Pyramid static view with a full filesystem path and have a `index.html` file that is located exactly one directory above the location of the static view's file system path. No further path traversal exists, and the only file that could be disclosed accidentally is `index.html`.
+
+Example:
+
+```
+config.add_static_view(name='static', path='/usr/src/app/static', cache_max_age=0)
+```
+
+And directory tree:
+
+```
+/usr/src/app \
+              | - static \
+                          | - file.css
+                          | - index.html
+                          | - ...
+              | - index.html <-- (this file could be disclosed with this bug)
+```
+
+### Patches
+
+Pyramid now will reject any path that contains a null-byte out of caution. While valid in directory/file names, we would strongly consider it a mistake to use null-bytes in naming files/directories.
+
+Secondly, Python 3.11, and 3.12 has fixed the underlying issue in `os.path.normpath` to no longer truncate on the first `0x00` found, returning the behavior to pre-3.11 Python, un an as of yet unreleased version, see:
+
+- https://github.com/python/cpython/issues/106242
+- https://github.com/python/cpython/pull/106816
+
+At the time the following Python versions are not fixed:
+
+- Python 3.11.0 to 3.11.4
+- Python 3.12.0a1 to 3.12.0rc1
+
+Fixes will be available in: Python 3.12.0rc2 or 3.11.5.
+
+Please note that release candidates of Python are not production ready and should not be used for production workloads.
+
+### Workarounds
+
+Use a version of Python 3 that is not affected. Downgrade to Python 3.10 series temporarily, or wait till Python 3.11.5 is released and upgrade to the latest version of Python 3.11 series.
+
+### References
+
+- https://owasp.org/www-community/attacks/Path_Traversal
+-  VN: JVN#41113329
+-  TN: JPCERT#93311166
+
+### Thanks
+
+- Masashi Yamane of LAC Co., Ltd
+
+## References
+- https://github.com/Pylons/pyramid/security/advisories/GHSA-j8g2-6fc7-q8f8
+- https://nvd.nist.gov/vuln/detail/CVE-2023-40587
+- https://github.com/python/cpython/issues/106242
+- https://github.com/python/cpython/pull/106816
+- https://github.com/Pylons/pyramid/commit/347d7750da6f45c7436dd0c31468885cc9343c85
+- https://github.com/Pylons/pyramid
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/LYSDTQ7NP5GHPQ7HBE47MBJQK7YEIYMF
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/OQIPHQTM3XE5NIEXCTQFV2J2RK2YUSMT

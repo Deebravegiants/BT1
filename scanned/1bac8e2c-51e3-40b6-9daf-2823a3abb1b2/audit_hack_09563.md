@@ -1,0 +1,34 @@
+# [M] No check for success or failure during approves
+
+## Summary
+Severity: Medium
+Reporter: nzm_
+Source: https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumEscrow.sol#L75-L81
+Type: audit-issue
+
+## Details
+# No check for success or failure during approves
+
+## Summary
+
+FootiumEscrow doesn't check return values of ERC20 approve functions and some ERC20 tokens do not revert if the approval failed.
+
+## Vulnerability Detail
+
+FootiumEscrow can approve any ERC20 tokens, but doesn't check if that approval succeeded. In case of a failure a transaction will be included in a block without alerting the user of the unsuccessful approval.  
+
+## Impact
+
+Users may lose their tokens if, for example, they decide to decrease the amount of approved tokens and the approval fails, but the transaction doesn't revert, a spender can use initial amount of tokens without the user's knowledge. 
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumEscrow.sol#L75-L81
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+The function should compare allowance before and after the approval and revert in case of a failure

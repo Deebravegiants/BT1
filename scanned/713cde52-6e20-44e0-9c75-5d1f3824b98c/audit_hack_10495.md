@@ -1,0 +1,35 @@
+# [M] Infinite approvals
+
+## Summary
+Severity: Medium
+Reporter: sam_gmk
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#LL242C2-L247C6
+Type: audit-issue
+
+## Details
+# Infinite approvals
+
+## Summary
+
+## Vulnerability Detail
+Infinite approvals are granted to the uniswap router. Incase of malfunction/compromise, all the funds can be drained. This goes for all the tokens owned by USSD contract as the approval function is callable by anyone to pass in a token.
+
+```solidity
+   function approveToRouter(address _token) public {
+        IERC20Upgradeable(_token).approve(
+            address(uniRouter),
+            0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+        );
+    }
+``` 
+## Impact
+Incase of uniswap router malfunction/compromise, all the funds can be drained. 
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#LL242C2-L247C6 
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Give approvals for amounts needed for the swap instead of infinite approvals

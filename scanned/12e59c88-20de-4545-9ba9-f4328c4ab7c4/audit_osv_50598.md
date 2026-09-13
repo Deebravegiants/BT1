@@ -1,0 +1,21 @@
+# [M] CVE-2020-25597
+
+## Summary
+Severity: Medium
+Advisory: CVE-2020-25597
+CVSS: 6.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H)
+Published: 2020-09-23
+Source: https://osv.dev/vulnerability/CVE-2020-25597
+Type: osv
+
+## Details
+An issue was discovered in Xen through 4.14.x. There is mishandling of the constraint that once-valid event channels may not turn invalid. Logic in the handling of event channel operations in Xen assumes that an event channel, once valid, will not become invalid over the life time of a guest. However, operations like the resetting of all event channels may involve decreasing one of the bounds checked when determining validity. This may lead to bug checks triggering, crashing the host. An unprivileged guest may be able to crash Xen, leading to a Denial of Service (DoS) for the entire system. All Xen versions from 4.4 onwards are vulnerable. Xen versions 4.3 and earlier are not vulnerable. Only systems with untrusted guests permitted to create more than the default number of event channels are vulnerable. This number depends on the architecture and type of guest. For 32-bit x86 PV guests, this is 1023; for 64-bit x86 PV guests, and for all ARM guests, this number is 4095. Systems where untrusted guests are limited to fewer than this number are not vulnerable. Note that xl and libxl limit max_event_channels to 1023 by default, so systems using exclusively xl, libvirt+libxl, or their own toolstack based on libxl, and not explicitly setting max_event_channels, are not vulnerable.
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/4JRXMKEMQRQYWYEPHVBIWUEAVQ3LU4FN/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/DA633Y3G5KX7MKRN4PFEGM3IVTJMBEOM/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/RJZERRBJN6E6STDCHT4JHP4MI6TKBCJE/
+- https://security.gentoo.org/glsa/202011-06
+- https://www.debian.org/security/2020/dsa-4769
+- http://lists.opensuse.org/opensuse-security-announce/2020-10/msg00008.html
+- https://xenbits.xen.org/xsa/advisory-338.html

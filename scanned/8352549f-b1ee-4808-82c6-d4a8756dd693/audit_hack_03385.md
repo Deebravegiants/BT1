@@ -1,0 +1,38 @@
+# [H] `withdrawToken` can be re-entered
+
+## Summary
+Severity: High
+Reporter: ak1
+Source: https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L450-L462
+Type: audit-issue
+
+## Details
+# `withdrawToken` can be re-entered
+
+## Summary
+`withdrawToken` is used to claim the token.
+This does not have the nonreentrant modfiier.
+
+## Vulnerability Detail
+
+[withdrawToken](https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L450-L462) does not have `nonReentrant` modifier.
+
+This will open the gate to reenter to claim again and again.
+
+Note :  withdrawableCollectionTokenId[collection][tokenId] = address(0); is done only after transferring the token. 
+
+
+## Impact
+
+Absence of reentrancy guard will allow for reentrancy to claim again and again.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L450-L462
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add `nonReentrant` modifier for `withdrawToken` fucntion too.

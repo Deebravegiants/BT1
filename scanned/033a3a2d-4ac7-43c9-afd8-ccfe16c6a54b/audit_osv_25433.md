@@ -1,0 +1,18 @@
+# [M] Knowage-Server vulnerable to Path traversal in download functionalities
+
+## Summary
+Severity: Medium
+Advisory: CVE-2023-36819
+Aliases: GHSA-jw99-hxxj-75g2
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2023-07-03
+Source: https://osv.dev/vulnerability/CVE-2023-36819
+Type: osv
+
+## Details
+Knowage is the professional open source suite for modern business analytics over traditional sources and big data systems. The endpoint `_/knowage/restful-services/dossier/importTemplateFile_` allows authenticated users to download template hosted on the server. However, starting in the 6.x.x branch and prior to version 8.1.8, the application does not sanitize the `_templateName_ `parameter allowing an attacker to use `*../*` in it, and escaping the directory the template are normally placed and download any file from the system. This vulnerability allows a low privileged attacker to exfiltrate sensitive configuration file. This issue has been patched in Knowage version 8.1.8.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/36xxx/CVE-2023-36819.json
+- https://github.com/KnowageLabs/Knowage-Server/security/advisories/GHSA-jw99-hxxj-75g2
+- https://nvd.nist.gov/vuln/detail/CVE-2023-36819

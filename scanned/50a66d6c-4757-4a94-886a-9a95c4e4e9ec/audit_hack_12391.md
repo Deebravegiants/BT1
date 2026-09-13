@@ -1,0 +1,79 @@
+# [M] Any tokens left in the router contract can be stolen
+
+## Summary
+Severity: Medium
+Reporter: branch_indigo
+Source: https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L168-L183
+Type: audit-issue
+
+## Details
+# Any tokens left in the router contract can be stolen
+
+## Summary
+Any tokens left in the router contract can be stolen.
+## Vulnerability Detail
+
+In `swapAndAddLiquidity()`, token0 and token1 are first transferred to the router contract based on `amount0Max` and `amount1Max`. Then in `_swapAndAddLiquidity()`, `amountInSwap` is directly transferred from the router contract to RouterSwapExecutor.sol. 
+
+```solidity
+//ArrakisV2Router.sol-swapAndAddLiquidity()
+
+ if (
+            params_.addData.amount0Max > 0 && (msg.value == 0 || !isToken0Weth)
+        ) {
+            token0.safeTransferFrom(
+                msg.sender,
+                address(this),
+                params_.addData.amount0Max
+            );
+        }
+        if (
+            params_.addData.amount1Max > 0 && (msg.value == 0 || isToken0Weth)
+        ) {
+            token1.safeTransferFrom(
+                msg.sender,
+                address(this),
+                params_.addData.amount1Max
+            );
+        }
+(
+            amount0,
+            amount1,
+            sharesReceived,
+            amount0Diff,
+            amount1Diff
+        ) = _swapAndAddLiquidity(params_, token0, token1);
+}
+```
+```solidity
+//ArrakisV2Router.sol-_swapAndAddLiquidity()
+...
+        if (params_.swapData.zeroForOne) {
+            token0_.safeTransfer(
+                address(swapper),
+                params_.swapData.amountInSwap
+            );
+        } else {
+            token1_.safeTransfer(
+                address(swapper),
+                params_.swapData.amountInSwap
+            );
+        }
+...
+```
+Then in RouterSwapExecutor.sol, `amountInSwap` will be sent to an external contract to swap for the other token and sent back to the router contract to add liquidity. 
+
+This scenario is totally possible. Since the amount swapped would be more than the user sent to the router, all of user sent swapped tokens (if any ) will be converted to the other token, which means that the user is adding one-sided liquidity to the vault. For the user to get shares for one-sided deposit to the vault, the vault at that point will need to have one-sided liquidity, which is totally possible for uniswap v3 liquidity when spot price moves out of the current liquidity range; In addition, there are some tokens in the router, this could be accumulative dust amount or other accidental transfers. And it's possible that both conditions are met which makes it the right timing for the attack.
+
+## Impact
+Users can steal token balances in the router contract to add liquidity to the vault. 
+## Code Snippet
+[https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L168-L183](https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L168-L183)
+
+[https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L465-L473](https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L465-L473)
+## Tool used
+
+Manual Review
+
+## Recommendation
+Check `amountInSwap` to make sure it's not more than the user deposited amounts.

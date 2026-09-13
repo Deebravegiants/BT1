@@ -1,0 +1,19 @@
+# [M] pam_usb: OOM guards removed by -DNDEBUG cause NULL dereference and authentication process crash
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-47271
+Aliases: GHSA-7rvx-jcc6-7hqq
+CVSS: 5.1 (CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-05-27
+Source: https://osv.dev/vulnerability/CVE-2026-47271
+Type: osv
+
+## Details
+pam_usb provides hardware authentication for Linux using ordinary removable media. Prior to 0.9.0, src/mem.c implemented out-of-memory guards for xmalloc(), xrealloc(), and xstrdup() using assert(data != NULL). The C standard specifies that all assert() expressions are compiled out when NDEBUG is defined at build time. NDEBUG is commonly defined in release and packaging builds (Debian, Fedora, Arch package flags all define it via -DNDEBUG in CFLAGS). With the guard removed, xmalloc/xrealloc/xstrdup silently return NULL on allocation failure. Every caller in the codebase dereferences the return value without a NULL check -- this is the intended design, as the guard was supposed to abort before the dereference. With the guard gone, any allocation failure causes a NULL pointer dereference, crashing the PAM module. A crash in a PAM module loaded by sudo or login causes authentication to fail for the duration of the crash, creating a local denial-of-service condition. An attacker who can induce memory pressure at authentication time can lock all users out of sudo and login. This vulnerability is fixed in 0.9.0.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/47xxx/CVE-2026-47271.json
+- https://github.com/mcdope/pam_usb/security/advisories/GHSA-7rvx-jcc6-7hqq
+- https://nvd.nist.gov/vuln/detail/CVE-2026-47271
+- https://github.com/mcdope/pam_usb/commit/d003e551b794a9e3774ff4720830fb7aadaa48bd

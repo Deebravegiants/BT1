@@ -1,0 +1,20 @@
+# [C] Power Platform Terraform Provider has Improper Masking of Secrets in Logs
+
+## Summary
+Severity: Critical
+Advisory: CVE-2024-47083
+Aliases: GHSA-7w3w-pjm5-m36c
+CVSS: 9.0 (CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H)
+Published: 2024-09-25
+Source: https://osv.dev/vulnerability/CVE-2024-47083
+Type: osv
+
+## Details
+Power Platform Terraform Provider allows managing environments and other resources within Power Platform. Versions prior to 3.0.0 have an issue in the Power Platform Terraform Provider where sensitive information, specifically the `client_secret` used in the service principal authentication, may be exposed in logs. This exposure occurs due to an error in the logging code that causes the `client_secret` to not be properly masked when logs are persisted or viewed. Users should upgrade to version 3.0.0 to receive a patched version of the provider that removes all logging of sensitive content. Users who have used this provider with the affected versions should take the following additional steps to mitigate the risk: Immediately rotate the `client_secret` for any service principal that has been configured using this Terraform provider. This will invalidate any potentially exposed secrets. Those who have set the `TF_LOG_PATH` environment variable or configured Terraform to persist logs to a file or an external system, consider disabling this until they have updated to a fixed version of the provider. Those who have existing logs that may contain the `client_secret` should remove or sanitize these logs to prevent unauthorized access. This includes logs on disk, in monitoring systems, or in logging services.
+
+## References
+- https://github.com/microsoft/terraform-provider-power-platform/releases/tag/v3.0.0
+- https://registry.terraform.io/providers/microsoft/power-platform/latest/docs#authenticating-to-power-platform-using-a-service-principal-with-oidc
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/47xxx/CVE-2024-47083.json
+- https://github.com/microsoft/terraform-provider-power-platform/security/advisories/GHSA-7w3w-pjm5-m36c
+- https://nvd.nist.gov/vuln/detail/CVE-2024-47083

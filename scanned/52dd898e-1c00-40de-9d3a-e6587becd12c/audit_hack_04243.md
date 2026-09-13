@@ -1,0 +1,43 @@
+# [M] Undefined data variable is found
+
+## Summary
+Severity: Medium
+Reporter: ak1
+Source: https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Vault.sol#L235
+Type: audit-issue
+
+## Details
+# Undefined data variable is found
+
+## Summary
+
+
+Vault.sol used the storePriceAndRewards() which has the following line
+
+    int256 totalAllocatedTokensRounded = totalAllocatedTokens / 1E18;
+
+here, we can see that 1E18 is used instead of 1e18.
+
+I serached for 1E18, but nowhere found in solidity document.
+
+## Vulnerability Detail
+
+refer the summary section
+
+## Impact
+
+function would not work.
+
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Vault.sol#L235
+
+## Tool used
+
+Manual Review
+
+use `1e18` instead of `1E18`.
+
+
+## Recommendation

@@ -1,0 +1,22 @@
+# [H] CVE-2020-6439
+
+## Summary
+Severity: High
+Advisory: CVE-2020-6439
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2020-04-13
+Source: https://osv.dev/vulnerability/CVE-2020-6439
+Type: osv
+
+## Details
+Insufficient policy enforcement in navigations in Google Chrome prior to 81.0.4044.92 allowed a remote attacker to bypass security UI via a crafted HTML page.
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/6XWIVVYIQU67QR2LHNGGZBS4FZOW2RQO/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/HFVP775RPRDVY5FUCN7ABH5AE74TQFDD/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/XMXPDHEEACPD3BCMTC26SCCYB2ZMUOAO/
+- http://lists.opensuse.org/opensuse-security-announce/2020-04/msg00024.html
+- http://lists.opensuse.org/opensuse-security-announce/2020-04/msg00031.html
+- https://chromereleases.googleblog.com/2020/04/stable-channel-update-for-desktop_7.html
+- https://www.debian.org/security/2020/dsa-4714
+- https://crbug.com/868145

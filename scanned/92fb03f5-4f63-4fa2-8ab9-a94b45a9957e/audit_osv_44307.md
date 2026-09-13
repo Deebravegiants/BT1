@@ -1,0 +1,18 @@
+# [H] wolfProvider reuses the AES-GCM nonce on every TLS 1.2 / DTLS 1.2 record
+
+## Summary
+Severity: High
+Advisory: CVE-2026-81019
+CVSS: 7.4 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N)
+Published: 2026-08-28
+Source: https://osv.dev/vulnerability/CVE-2026-81019
+Type: osv
+
+## Details
+wolfProvider before 1.2.2 generates the 8-byte explicit AES-GCM nonce once when the TLS write key is set and never increments it per record. As a result every TLS 1.2 and DTLS 1.2 AES-GCM record within a connection is encrypted under an identical key and nonce pair. Reusing a GCM key and nonce discloses the keystream (the XOR of two ciphertexts equals the XOR of their plaintexts, so one known record recovers the others) and leaks the GHASH authentication key, enabling authentication tag forgery. AES-CCM, TLS 1.3, and non-TLS use of the cipher are not affected.
+
+## References
+- https://www.wolfssl.com/docs/security-vulnerabilities/
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/81xxx/CVE-2026-81019.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-81019
+- https://github.com/wolfSSL/wolfProvider

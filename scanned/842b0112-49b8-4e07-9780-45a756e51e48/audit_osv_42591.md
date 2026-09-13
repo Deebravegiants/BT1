@@ -1,0 +1,22 @@
+# [H] jackson-databind: unbounded numeric parse in Duration and XMLGregorianCalendar deserialization allows CPU denial of service
+
+## Summary
+Severity: High
+Advisory: CVE-2026-68497
+Aliases: GHSA-q4xh-88c3-wmh7
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-09-11
+Source: https://osv.dev/vulnerability/CVE-2026-68497
+Type: osv
+
+## Details
+jackson-databind binds a JSON string to a javax.xml.datatype.Duration or javax.xml.datatype.XMLGregorianCalendar field by passing the raw string verbatim to DatatypeFactory.newDuration(value) or newXMLGregorianCalendar(value) in CoreXMLDeserializers.Std._deserialize. These deserializers are registered by default with no opt-in, so a plain ObjectMapper or JsonMapper with no polymorphic typing and no special configuration reaches this path. The XML Schema lexical grammar permits numeric components of arbitrary length, which the JDK materializes through the native BigInteger(String) and BigDecimal(String) constructors, both quadratic in digit count. Because the digits sit inside a JSON string token rather than a JSON number token, jackson-core's StreamReadConstraints.maxNumberLength guard never applies; jackson's own NumberDeserializers call validateIntegerLength or validateFPLength before parsing a stringified number, but the XML datatype deserializer omits that pre-check. An unauthenticated attacker can therefore submit a single request of a few megabytes, such as a Duration value consisting of the letter P followed by several million digits and the letter Y, and force tens of seconds to several minutes of single-threaded CPU work; a handful of concurrent requests can saturate a server's worker threads. This affects com.fasterxml.jackson.core:jackson-databind from 2.0.0 before 2.18.10, from 2.19.0 before 2.21.6, and from 2.22.0 before 2.22.2, and tools.jackson.core:jackson-databind from 3.0.0 before 3.1.6 and from 3.2.0 before 3.2.2. Users should upgrade to 2.18.10, 2.21.6, 2.22.2, 3.1.6, or 3.2.2.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/68xxx/CVE-2026-68497.json
+- https://github.com/FasterXML/jackson-databind
+- https://github.com/FasterXML/jackson-databind/commit/a99b7e74c8928f43f6975773a8c862c8316178bd
+- https://github.com/FasterXML/jackson-databind/pull/6127
+- https://github.com/FasterXML/jackson-databind/security/advisories/GHSA-q4xh-88c3-wmh7
+- https://nvd.nist.gov/vuln/detail/CVE-2026-68497
+- https://repo.maven.apache.org/maven2

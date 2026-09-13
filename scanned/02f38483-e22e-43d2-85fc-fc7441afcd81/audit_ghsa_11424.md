@@ -1,0 +1,90 @@
+# [H] OliveTin has unauthenticated DoS via concurrent map writes in OAuth2 state handling
+
+## Summary
+Severity: High
+Advisory: GHSA-45m3-398w-m2m9
+CVE: CVE-2026-28789
+CWE: CWE-362, CWE-400, CWE-662
+Ecosystem: Go
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2026-03-02
+Source: https://github.com/advisories/GHSA-45m3-398w-m2m9
+Type: github-advisory
+
+## Affected
+- Go: `github.com/OliveTin/OliveTin` — affected >=0 <0.0.0-20260301235225-f044d90d5525c
+
+## Details
+### Summary
+An unauthenticated denial-of-service vulnerability exists in OliveTin’s OAuth2 login flow. Concurrent requests to /oauth/login can trigger unsynchronized access to a shared registeredStates map, causing a Go runtime panic (fatal
+  error: concurrent map writes) and process termination. This allows remote attackers to crash the service when OAuth2 is enabled.
+
+
+### Details
+The OAuth2 handler stores per-login state in a shared map without synchronization:
+
+  - service/internal/auth/otoauth2/restapi_auth_oauth2.go:24
+    registeredStates map[string]*oauth2State
+  - Unlocked write in login handler: .../restapi_auth_oauth2.go:141
+  - Unlocked read in callback check: .../restapi_auth_oauth2.go:174
+  - Unlocked writes in callback flow: .../restapi_auth_oauth2.go:284-285
+  - Unlocked read in auth chain check: .../restapi_auth_oauth2.go:376
+
+  These paths are network reachable via publicly registered routes:
+```bash
+  - service/internal/httpservers/frontend.go:71 → /oauth/login
+  - service/internal/httpservers/frontend.go:72 → /oauth/callback
+```
+  Because Go HTTP handlers run concurrently, high parallel traffic to /oauth/login causes concurrent map access and runtime panic.
+
+  Tested on:
+
+  - Container image: ghcr.io/olivetin/olivetin:3000.10.0
+  - Source also contains same pattern at commit/tag eb42029b5d0c0633551621288180dd4566b913f7 (3000.10.1)
+
+
+### PoC
+1. Start OliveTin with OAuth2 provider configured (example github), exposing port 1337.
+  2. Confirm baseline:
+```bash
+  curl -i http://127.0.0.1:1337/readyz
+  curl -i "http://127.0.0.1:1337/oauth/login?provider=github"
+```
+  Expected: 200 for /readyz, 302 for /oauth/login.
+
+  3. Run concurrency PoC:
+```bash
+  python3 /OliveTin/tools/poc_oauth2_state_map_race_dos.py \
+    --base-url http://127.0.0.1:1337 \
+    --provider github \
+    --workers 80 \
+    --requests 120000 \
+    --health-failures 3
+```
+  4. Verify crash:
+
+  docker inspect olivetin-dos --format 'status={{.State.Status}} exit={{.State.ExitCode}}'
+  docker logs olivetin-dos 2>&1 | grep -E "fatal error: concurrent map|concurrent map writes|restapi_auth_oauth2.go"
+
+  Observed result:
+
+  - Process exited with code 2
+  - Logs include:
+      - fatal error: concurrent map writes
+      - .../internal/auth/otoauth2/restapi_auth_oauth2.go:141 in HandleOAuthLogin
+
+
+
+### Impact
+- Vulnerability type: Race condition (CWE-362) leading to DoS.
+  - Attacker requirements: network access only; no authentication required for exploit path.
+  - Impacted deployments: OliveTin instances with OAuth2 enabled and reachable over network.
+  - Security impact: remote unauthenticated attacker can repeatedly crash OliveTin, causing availability loss until restart/recovery.
+ 
+[poc_oauth2_state_map_race_dos.py](https://github.com/user-attachments/files/25577901/poc_oauth2_state_map_race_dos.py)
+
+## References
+- https://github.com/OliveTin/OliveTin/security/advisories/GHSA-45m3-398w-m2m9
+- https://nvd.nist.gov/vuln/detail/CVE-2026-28789
+- https://github.com/OliveTin/OliveTin/commit/f044d90d5525c4c8e3f421b32ed7eff771c22d36
+- https://github.com/OliveTin/OliveTin

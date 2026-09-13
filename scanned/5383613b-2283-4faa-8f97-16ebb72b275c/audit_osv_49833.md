@@ -1,0 +1,21 @@
+# [H] CVE-2019-19577
+
+## Summary
+Severity: High
+Advisory: CVE-2019-19577
+CVSS: 7.2 (CVSS:3.1/AV:P/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H)
+Published: 2019-12-11
+Source: https://osv.dev/vulnerability/CVE-2019-19577
+Type: osv
+
+## Details
+An issue was discovered in Xen through 4.12.x allowing x86 AMD HVM guest OS users to cause a denial of service or possibly gain privileges by triggering data-structure access during pagetable-height updates. When running on AMD systems with an IOMMU, Xen attempted to dynamically adapt the number of levels of pagetables (the pagetable height) in the IOMMU according to the guest's address space size. The code to select and update the height had several bugs. Notably, the update was done without taking a lock which is necessary for safe operation. A malicious guest administrator can cause Xen to access data structures while they are being modified, causing Xen to crash. Privilege escalation is thought to be very difficult but cannot be ruled out. Additionally, there is a potential memory leak of 4kb per guest boot, under memory pressure. Only Xen on AMD CPUs is vulnerable. Xen running on Intel CPUs is not vulnerable. ARM systems are not vulnerable. Only systems where guests are given direct access to physical devices are vulnerable. Systems which do not use PCI pass-through are not vulnerable. Only HVM guests can exploit the vulnerability. PV and PVH guests cannot. All versions of Xen with IOMMU support are vulnerable.
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/D5R73AYE53QA32KTMHUVKCX6E52CIS43/
+- https://seclists.org/bugtraq/2020/Jan/21
+- http://lists.opensuse.org/opensuse-security-announce/2020-01/msg00011.html
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/34HBFTYNMQMWIO2GGK7DB6KV4M6R5YPV/
+- https://security.gentoo.org/glsa/202003-56
+- https://www.debian.org/security/2020/dsa-4602
+- https://xenbits.xen.org/xsa/advisory-311.html

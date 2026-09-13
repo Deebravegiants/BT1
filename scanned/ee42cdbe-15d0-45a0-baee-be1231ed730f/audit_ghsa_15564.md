@@ -1,0 +1,25 @@
+# [M] Reverb use after free vulnerability
+
+## Summary
+Severity: Medium
+Advisory: GHSA-w69q-w4h4-2fx8
+CVE: CVE-2024-8375
+CWE: CWE-416, CWE-502
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:C/C:L/I:H/A:N (CVSS_V3)
+Published: 2024-09-19
+Source: https://github.com/advisories/GHSA-w69q-w4h4-2fx8
+Type: github-advisory
+
+## Affected
+- PyPI: `dm-reverb` — affected >=0
+- PyPI: `dm-reverb-nightly` — affected >=0
+
+## Details
+There exists a use after free vulnerability in Reverb. Reverb supports the VARIANT datatype, which is supposed to represent an arbitrary object in C++. When a tensor proto of type VARIANT is unpacked, memory is first allocated to store the entire tensor, and a ctor is called on each instance. Afterwards, Reverb copies the content in tensor_content to the previously mentioned pre-allocated memory, which results in the bytes in tensor_content overwriting the vtable pointers of all the objects which were previously allocated. Reverb exposes 2 relevant gRPC endpoints: InsertStream and SampleStream. The attacker can insert this stream into the server’s database, then when the client next calls SampleStream they will unpack the tensor into RAM, and when any method on that object is called (including its destructor) the attacker gains control of the Program Counter. We recommend upgrading past git commit  https://github.com/google-deepmind/reverb/commit/6a0dcf4c9e842b7f999912f792aaa6f6bd261a25
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-8375
+- https://github.com/google-deepmind/reverb/issues/141
+- https://github.com/google-deepmind/reverb/commit/6a0dcf4c9e842b7f999912f792aaa6f6bd261a25
+- https://github.com/google-deepmind/reverb

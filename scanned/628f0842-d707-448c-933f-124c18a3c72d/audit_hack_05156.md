@@ -1,0 +1,123 @@
+# [M] Some chain tokens might not be refundable if both ERC-20 and native tokens are deposited
+
+## Summary
+Severity: Medium
+Reporter: clems4ever
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/DepositManager/Implementations/DepositManagerV1.sol#L54
+Type: audit-issue
+
+## Details
+# Some chain tokens might not be refundable if both ERC-20 and native tokens are deposited
+
+## Summary
+
+Nothing prevents a transaction where both ERC-20 and native tokens are provided however this will end up consuming both tokens but recording only a part of it in the deposit.
+
+## Vulnerability Detail
+
+OpenQ supports both native tokens and ERC-20. A funder can send those tokens using the following function
+
+```solidity
+function fundBountyToken(
+        address _bountyAddress,
+        address _tokenAddress,
+        uint256 _volume,
+        uint256 _expiration,
+        string memory funderUuid
+    ) external payable onlyProxy {
+        IBounty bounty = IBounty(payable(_bountyAddress));
+
+        if (!isWhitelisted(_tokenAddress)) {
+            require(
+                !tokenAddressLimitReached(_bountyAddress),
+                Errors.TOO_MANY_TOKEN_ADDRESSES
+            );
+        }
+
+        require(bountyIsOpen(_bountyAddress), Errors.CONTRACT_ALREADY_CLOSED);
+
+        (bytes32 depositId, uint256 volumeReceived) = bounty.receiveFunds{
+            value: msg.value
+        }(msg.sender, _tokenAddress, _volume, _expiration);
+
+        bytes memory funderUuidBytes = abi.encode(funderUuid);
+
+        emit TokenDepositReceived(
+            depositId,
+            _bountyAddress,
+            bounty.bountyId(),
+            bounty.organization(),
+            _tokenAddress,
+            block.timestamp,
+            msg.sender,
+            _expiration,
+            volumeReceived,
+            0,
+            funderUuidBytes,
+            VERSION_1
+        );
+    }
+```
+
+which eventually calls
+
+```solidity
+function receiveFunds(
+        address _funder,
+        address _tokenAddress,
+        uint256 _volume,
+        uint256 _expiration
+    )
+        external
+        payable
+        virtual
+        onlyDepositManager
+        nonReentrant
+        returns (bytes32, uint256)
+    {
+        require(_volume != 0, Errors.ZERO_VOLUME_SENT);
+        require(_expiration > 0, Errors.EXPIRATION_NOT_GREATER_THAN_ZERO);
+        require(status == OpenQDefinitions.OPEN, Errors.CONTRACT_IS_CLOSED);
+
+        bytes32 depositId = _generateDepositId();
+
+        uint256 volumeReceived;
+        if (_tokenAddress == address(0)) {    <========================only this branch will be executed if both protocol tokens and erc-20 is sent in the same transaction.
+            volumeReceived = msg.value;
+        } else {
+            volumeReceived = _receiveERC20(_tokenAddress, _funder, _volume);
+        }
+
+        funder[depositId] = _funder;
+        tokenAddress[depositId] = _tokenAddress;
+        volume[depositId] = volumeReceived;
+        depositTime[depositId] = block.timestamp;
+        expiration[depositId] = _expiration;
+        isNFT[depositId] = false;
+
+        deposits.push(depositId);
+        tokenAddresses.add(_tokenAddress);
+
+        return (depositId, volumeReceived);
+    }
+```
+
+As you can see, as a user I can approve a transfer of a certain amount of erc-20 token to the bounty and send a transaction calling `fundBountyToken` with both the address and volume of the ERC-20 token and some msg.value, only the ERC-20 branch of the if condition will execute meaning the volume of ERC-20 will be recorded but the amount of native token will not be recorded. So as the user, I won't be able to get a refund of everything I've sent to the contract.
+
+## Impact
+
+As a funder, some part of my investment (the native token) won't be refundable in any way.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/DepositManager/Implementations/DepositManagerV1.sol#L54
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/BountyCore.sol#L41
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Simply record the amount in msg.value as part of the deposit as well as the erc-20 part.
+However, note that you need to either record two deposits, i.e., one for each amount or have another variable in the deposit for recording the amount of protocol token specifically alongside the volume and address of the erc-20 token.

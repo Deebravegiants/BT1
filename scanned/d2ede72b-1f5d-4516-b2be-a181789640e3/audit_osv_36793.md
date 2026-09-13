@@ -1,0 +1,19 @@
+# [C] 3DP-MANAGER Uses Hard-coded Credentials
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-25803
+Aliases: GHSA-5x57-h7cw-9jmw
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-02-06
+Source: https://osv.dev/vulnerability/CVE-2026-25803
+Type: osv
+
+## Details
+3DP-MANAGER is an inbound generator for 3x-ui. In version 2.0.1 and prior, the application automatically creates an administrative account with known default credentials (admin/admin) upon the first initialization. Attackers with network access to the application's login interface can gain full administrative control, managing VPN tunnels and system settings. This issue will be patched in version 2.0.2.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/25xxx/CVE-2026-25803.json
+- https://github.com/denpiligrim/3dp-manager/security/advisories/GHSA-5x57-h7cw-9jmw
+- https://nvd.nist.gov/vuln/detail/CVE-2026-25803
+- https://github.com/denpiligrim/3dp-manager/commit/f568de41de97dd1b70a963708a1ee18e52b9d248

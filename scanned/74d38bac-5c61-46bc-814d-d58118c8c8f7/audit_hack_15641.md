@@ -1,0 +1,36 @@
+# [M] For upgrading contracts, implementation contracts not been initialized
+
+## Summary
+Severity: Medium
+Reporter: Muscular Chili Chicken
+Source: https://github.com/allo-protocol/allo-v2/blob/main/contracts/core/Allo.sol#L87
+Type: audit-issue
+
+## Details
+# For upgrading contracts, implementation contracts not been initialized
+For upgrading contracts, implementation contracts not been initialized
+
+## Vulnerability Detail
+An uninitialized implementation contract can be initialized by an attacker, and the attacker gets the owner , which may impact the proxy.
+
+
+## Impact
+An uninitialized implementation contract can be initialized by an attacker, and the attacker gets the owner , which may impact the proxy.
+
+## Code Snippet
+https://github.com/allo-protocol/allo-v2/blob/main/contracts/core/Allo.sol#L87
+https://github.com/allo-protocol/allo-v2/blob/main/contracts/core/Registry.sol#79
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+add _disableInitializers() each upgradable contracts:
+
+```solidity
+/// @custom:oz-upgrades-unsafe-allow 
+constructor constructor() { 
+     _disableInitializers(); 
+}
+```

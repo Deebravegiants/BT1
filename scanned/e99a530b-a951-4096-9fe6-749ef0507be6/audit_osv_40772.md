@@ -1,0 +1,20 @@
+# [M] libssh2 - Pre-Authentication DoS via SSH_MSG_EXT_INFO Handler
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-55199
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N)
+Published: 2026-06-17
+Source: https://osv.dev/vulnerability/CVE-2026-55199
+Type: osv
+
+## Details
+libssh2 through 1.11.1, fixed in commit 1762685, contains a pre-authentication denial of service vulnerability in the SSH_MSG_EXT_INFO handler in src/packet.c that allows a malicious SSH server to cause a client CPU exhaustion loop by sending a crafted extension count value. A malicious server can set nr_extensions to 0xFFFFFFFF during key exchange, causing the client to spin in a tight CPU loop for over 60 seconds because return values from _libssh2_get_string() are unchecked and the session timeout does not apply to CPU-bound loops.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/55xxx/CVE-2026-55199.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-55199
+- https://www.vulncheck.com/advisories/libssh2-pre-authentication-dos-via-ssh-msg-ext-info-handler
+- https://github.com/libssh2/libssh2/pull/1864
+- https://github.com/libssh2/libssh2/commit/17626857d20b3c9a1addfa45979dadcee1cd84a4
+- https://github.com/libssh2/libssh2

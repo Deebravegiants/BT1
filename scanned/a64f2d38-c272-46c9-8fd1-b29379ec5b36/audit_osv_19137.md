@@ -1,0 +1,15 @@
+# [H] CVE-2020-8144
+
+## Summary
+Severity: High
+Advisory: CVE-2020-8144
+CVSS: 8.4 (CVSS:3.1/AV:A/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:H)
+Published: 2020-04-01
+Source: https://osv.dev/vulnerability/CVE-2020-8144
+Type: osv
+
+## Details
+The UniFi Video Server v3.9.3 and prior (for Windows 7/8/10 x64) web interface Firmware Update functionality, under certain circumstances, does not validate firmware download destinations to ensure they are within the intended destination directory tree. It accepts a request with a URL to firmware update information. If the version field contains ..\ character sequences, the destination file path to save the firmware can be manipulated to be outside the intended destination directory tree. Fixed in UniFi Video Controller v3.10.3 and newer.
+
+## References
+- https://community.ui.com/releases/Security-advisory-bulletin-006-006/3cf6264e-e0e6-4e26-a331-1d271f84673e

@@ -1,0 +1,49 @@
+# [H] Using the onlyOwner modifier can potentially cause a loss in some cases
+
+## Summary
+Severity: High
+Reporter: dinesh
+Source: https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDController.sol#L357
+Type: audit-issue
+
+## Details
+# Using the onlyOwner modifier can potentially cause a loss in some cases
+
+## Summary
+The `onlyOwner` modifier in the provided code restricts the `_authorizeUpgrade` function to only be callable by the contract's owner. This means that only the account that deployed the contract will be able to call this function.
+Using the `onlyOwner` modifier can potentially cause a loss in some cases
+
+## Vulnerability Detail
+At https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDController.sol#L357
+
+```solidity
+    function _authorizeUpgrade(address)
+        internal
+        virtual
+        override
+        onlyOwner
+    // solhint-disable-next-line no-empty-blocks
+    {}
+```
+## Impact
+For example, if the contract owner loses access to their account (for example, if they lose their private keys), they will no longer be able to call the `_authorizeUpgrade` function or any other function with the `onlyOwner` modifier. This could prevent the contract from being upgraded or maintained, which could have negative consequences depending on the purpose of the contract.
+
+## Code Snippet
+
+```solidity
+    function _authorizeUpgrade(address)
+        internal
+        virtual
+        override
+        onlyOwner
+    // solhint-disable-next-line no-empty-blocks
+    {}
+```
+## Tool used
+
+Manual Review VS code
+
+## Recommendation
+
+Set a multisig as the owner and use a timelock.
+It is therefore important for a contract's owner to carefully consider the potential risks and consequences of using the onlyOwner modifier before using it in their contract. In some cases, it may be more appropriate to use a different mechanism for controlling access to certain functions, such as using a multisig contract or a contract with multiple authorized accounts.

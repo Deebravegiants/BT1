@@ -1,0 +1,19 @@
+# [H] OpenSift: SSRF risk in URL ingestion endpoint
+
+## Summary
+Severity: High
+Advisory: CVE-2026-27170
+Aliases: GHSA-3w2r-hj5p-h6pp
+CVSS: 7.1 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N)
+Published: 2026-02-20
+Source: https://osv.dev/vulnerability/CVE-2026-27170
+Type: osv
+
+## Details
+OpenSift is an AI study tool that sifts through large datasets using semantic search and generative AI. In versions 1.1.2-alpha and below, URL ingest allows overly permissive server-side fetch behavior and can be coerced into requesting unsafe targets. Potential access/probing of private/local network resources from the OpenSift host process when ingesting attacker-controlled URLs. This issue has been fixed in version 1.1.3-alpha. To workaround when using trusted local-only exceptions, use OPENSIFT_ALLOW_PRIVATE_URLS=true with caution.
+
+## References
+- https://github.com/OpenSift/OpenSift/releases/tag/v1.1.3-alpha
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/27xxx/CVE-2026-27170.json
+- https://github.com/OpenSift/OpenSift/security/advisories/GHSA-3w2r-hj5p-h6pp
+- https://nvd.nist.gov/vuln/detail/CVE-2026-27170

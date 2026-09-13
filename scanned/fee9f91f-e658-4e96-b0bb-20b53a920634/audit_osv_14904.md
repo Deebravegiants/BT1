@@ -1,0 +1,35 @@
+# [M] CVE-2019-12384
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-12384
+Aliases: GHSA-mph4-vhrx-mv67
+CVSS: 5.9 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N)
+Published: 2019-06-24
+Source: https://osv.dev/vulnerability/CVE-2019-12384
+Type: osv
+
+## Details
+FasterXML jackson-databind 2.x before 2.9.9.1 might allow attackers to have a variety of impacts by leveraging failure to block the logback-core class from polymorphic deserialization. Depending on the classpath content, remote code execution may be possible.
+
+## References
+- https://lists.apache.org/thread.html/0d4b630d9ee724aee50703397d9d1afa2b2befc9395ba7797d0ccea9%40%3Cdev.tomee.apache.org%3E
+- https://lists.apache.org/thread.html/2d2a76440becb610b9a9cb49b15eac3934b02c2dbcaacde1000353e4%40%3Cdev.tomee.apache.org%3E
+- https://lists.apache.org/thread.html/34717424b4d08b74f65c09a083d6dd1cb0763f37a15d6de135998c1d%40%3Cdev.tomee.apache.org%3E
+- https://lists.apache.org/thread.html/3f99ae8dcdbd69438cb733d745ee3ad5e852068490719a66509b4592%40%3Ccommits.cassandra.apache.org%3E
+- https://lists.apache.org/thread.html/519eb0fd45642dcecd9ff74cb3e71c20a4753f7d82e2f07864b5108f%40%3Cdev.drill.apache.org%3E
+- https://lists.apache.org/thread.html/56c8042873595b8c863054c7bfccab4bf2c01c6f5abedae249d914b9%40%3Cdev.tomee.apache.org%3E
+- https://lists.apache.org/thread.html/5ecc333113b139429f4f05000d4aa2886974d4df3269c1dd990bb319%40%3Cdev.tomee.apache.org%3E
+- https://lists.apache.org/thread.html/5fc0e16b7af2590bf1e97c76c136291c4fdb244ee63c65c485c9a7a1%40%3Cdev.tomee.apache.org%3E
+- https://lists.apache.org/thread.html/87e46591de8925f719664a845572d184027258c5a7af0a471b53c77b%40%3Cdev.tomee.apache.org%3E
+- https://lists.apache.org/thread.html/940b4c3fef002461b89a050935337056d4a036a65ef68e0bbd4621ef%40%3Cdev.struts.apache.org%3E
+- https://lists.apache.org/thread.html/b0656d359c7d40ec9f39c8cc61bca66802ef9a2a12ee199f5b0c1442%40%3Cdev.drill.apache.org%3E
+- https://lists.apache.org/thread.html/bcce5a9c532b386c68dab2f6b3ce8b0cc9b950ec551766e76391caa3%40%3Ccommits.nifi.apache.org%3E
+- https://lists.apache.org/thread.html/e0733058c0366b703e6757d8d2a7a04b943581f659e9c271f0841dfe%40%3Cnotifications.geode.apache.org%3E
+- https://lists.apache.org/thread.html/ee0a051428d2c719acfa297d0854a189ea5e284ef3ed491fa672f4be%40%3Cdev.tomee.apache.org%3E
+- https://lists.apache.org/thread.html/f9bc3e55f4e28d1dcd1a69aae6d53e609a758e34d2869b4d798e13cc%40%3Cissues.drill.apache.org%3E
+- https://lists.apache.org/thread.html/rca37935d661f4689cb4119f1b3b224413b22be161b678e6e6ce0c69b%40%3Ccommits.nifi.apache.org%3E
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/OVRZDN2T6AZ6DJCZJ3VSIQIVHBVMVWBL/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/TXRVXNRFHJSQWFHPRJQRI5UPMZ63B544/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/UKUALE2TUCKEKOHE2D342PQXN4MWCSLC/
+- https://access.redhat.com/errata/RHSA-2019:1820

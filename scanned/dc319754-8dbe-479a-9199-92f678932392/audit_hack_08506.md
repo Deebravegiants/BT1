@@ -1,0 +1,35 @@
+# [H] depositUnderlyingExternal() lacks slippage control, as a result, the user might lose funds due to frontrunning from other prime rate changing transactions.
+
+## Summary
+Severity: High
+Reporter: chaduke
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/balances/TokenHandler.sol#L176-L210
+Type: audit-issue
+
+## Details
+# depositUnderlyingExternal() lacks slippage control, as a result, the user might lose funds due to frontrunning from other prime rate changing transactions.
+
+## Summary
+``depositUnderlyingExternal()`` lacks slippage control, as a result, the user might lose funds due to frontrunning from other prime rate changing transactions. 
+
+## Vulnerability Detail
+The ``depositUnderlyingExternal()`` function allows a user to deposit an amount of underlying tokens to mint prime cash. 
+
+[https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/balances/TokenHandler.sol#L176-L210](https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/balances/TokenHandler.sol#L176-L210)
+
+However, the function lacks a slippage control, therefore, it might receive less prime cash than the user expected. For example, when a user Frank runs this function to deposit some underlying tokens, it might be front-run by other transactions that change the prime rate (other deposit/withdraw transactions or configuration change transaction such as the change of ``setRateOracleTimeWindow``.) 
+
+In summary, ``depositUnderlyingExternal()`` lacks slippage control, as a result, if it is front-run by other transactions that change the prime rate,  the user might receive less prime cash than expected. 
+
+## Impact
+``depositUnderlyingExternal()`` lacks slippage control, as a result, the user might lose funds due to frontrunning from other prime rate changing transactions. 
+
+## Code Snippet
+
+## Tool used
+VSCode
+
+Manual Review
+Add a slippage control for ``depositUnderlyingExternal()``. 
+
+## Recommendation

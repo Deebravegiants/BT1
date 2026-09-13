@@ -1,0 +1,97 @@
+# [H] mptcp: avoid deadlock on fallback while reinjecting
+
+## Summary
+Severity: High
+Advisory: CVE-2025-71126
+Ecosystem: Linux
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-01-14
+Source: https://osv.dev/vulnerability/CVE-2025-71126
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=0 <6.1.160, >=6.2.0 <6.6.120, >=6.7.0 <6.12.64, >=6.13.0 <6.18.3
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+mptcp: avoid deadlock on fallback while reinjecting
+
+Jakub reported an MPTCP deadlock at fallback time:
+
+ WARNING: possible recursive locking detected
+ 6.18.0-rc7-virtme #1 Not tainted
+ --------------------------------------------
+ mptcp_connect/20858 is trying to acquire lock:
+ ff1100001da18b60 (&msk->fallback_lock){+.-.}-{3:3}, at: __mptcp_try_fallback+0xd8/0x280
+
+ but task is already holding lock:
+ ff1100001da18b60 (&msk->fallback_lock){+.-.}-{3:3}, at: __mptcp_retrans+0x352/0xaa0
+
+ other info that might help us debug this:
+  Possible unsafe locking scenario:
+
+        CPU0
+        ----
+   lock(&msk->fallback_lock);
+   lock(&msk->fallback_lock);
+
+  *** DEADLOCK ***
+
+  May be due to missing lock nesting notation
+
+ 3 locks held by mptcp_connect/20858:
+  #0: ff1100001da18290 (sk_lock-AF_INET){+.+.}-{0:0}, at: mptcp_sendmsg+0x114/0x1bc0
+  #1: ff1100001db40fd0 (k-sk_lock-AF_INET#2){+.+.}-{0:0}, at: __mptcp_retrans+0x2cb/0xaa0
+  #2: ff1100001da18b60 (&msk->fallback_lock){+.-.}-{3:3}, at: __mptcp_retrans+0x352/0xaa0
+
+ stack backtrace:
+ CPU: 0 UID: 0 PID: 20858 Comm: mptcp_connect Not tainted 6.18.0-rc7-virtme #1 PREEMPT(full)
+ Hardware name: Bochs, BIOS Bochs 01/01/2011
+ Call Trace:
+  <TASK>
+  dump_stack_lvl+0x6f/0xa0
+  print_deadlock_bug.cold+0xc0/0xcd
+  validate_chain+0x2ff/0x5f0
+  __lock_acquire+0x34c/0x740
+  lock_acquire.part.0+0xbc/0x260
+  _raw_spin_lock_bh+0x38/0x50
+  __mptcp_try_fallback+0xd8/0x280
+  mptcp_sendmsg_frag+0x16c2/0x3050
+  __mptcp_retrans+0x421/0xaa0
+  mptcp_release_cb+0x5aa/0xa70
+  release_sock+0xab/0x1d0
+  mptcp_sendmsg+0xd5b/0x1bc0
+  sock_write_iter+0x281/0x4d0
+  new_sync_write+0x3c5/0x6f0
+  vfs_write+0x65e/0xbb0
+  ksys_write+0x17e/0x200
+  do_syscall_64+0xbb/0xfd0
+  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+ RIP: 0033:0x7fa5627cbc5e
+ Code: 4d 89 d8 e8 14 bd 00 00 4c 8b 5d f8 41 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 11 c9 c3 0f 1f 80 00 00 00 00 48 8b 45 10 0f 05 <c9> c3 83 e2 39 83 fa 08 75 e7 e8 13 ff ff ff 0f 1f 00 f3 0f 1e fa
+ RSP: 002b:00007fff1fe14700 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+ RAX: ffffffffffffffda RBX: 0000000000000005 RCX: 00007fa5627cbc5e
+ RDX: 0000000000001f9c RSI: 00007fff1fe16984 RDI: 0000000000000005
+ RBP: 00007fff1fe14710 R08: 0000000000000000 R09: 0000000000000000
+ R10: 0000000000000000 R11: 0000000000000202 R12: 00007fff1fe16920
+ R13: 0000000000002000 R14: 0000000000001f9c R15: 0000000000001f9c
+
+The packet scheduler could attempt a reinjection after receiving an
+MP_FAIL and before the infinite map has been transmitted, causing a
+deadlock since MPTCP needs to do the reinjection atomically from WRT
+fallback.
+
+Address the issue explicitly avoiding the reinjection in the critical
+scenario. Note that this is the only fallback critical section that
+could potentially send packets and hit the double-lock.
+
+## References
+- https://git.kernel.org/stable/c/0107442e82c0f8d6010e07e6030741c59c520d6e
+- https://git.kernel.org/stable/c/0ca9fb4335e726dab4f23b3bfe87271d8f005f41
+- https://git.kernel.org/stable/c/252892d5a6a2f163ce18f32716e46fa4da7d4e79
+- https://git.kernel.org/stable/c/50f47c02be419bf0a3ae94c118addf67beef359f
+- https://git.kernel.org/stable/c/ffb8c27b0539dd90262d1021488e7817fae57c42
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/71xxx/CVE-2025-71126.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-71126
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

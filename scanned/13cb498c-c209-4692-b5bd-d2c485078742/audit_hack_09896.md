@@ -1,0 +1,45 @@
+# [M] BaseOrderUtils.setExactOrderPrice() will always fail to set a price for a limit order when the trigger price is between min and max of the primary price.
+
+## Summary
+Severity: Medium
+Reporter: chaduke
+Source: https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/order/BaseOrderUtils.sol#L203-L269
+Type: audit-issue
+
+## Details
+# BaseOrderUtils.setExactOrderPrice() will always fail to set a price for a limit order when the trigger price is between min and max of the primary price.
+
+## Summary
+``BaseOrderUtils.setExactOrderPrice()`` will always fail to set a price for a limit order when the trigger price is between min and max of the primary price.  The main problem is that the function will pick from (min, max) the price that is in favor of the system as the primary price and then compare this primary price to the trigger price, which will always fail. The function never attempts to look at the alternative and thus miss the opportunity to fulfil a limit order that can be successfully fullfiled. 
+
+## Vulnerability Detail
+During a limit order, for example, in flow ``OrderHandler.executeOrder() -> _executeOrder() -> OrderUtils.executeOrder() -> BaseOrderUtils.setExactOrderPrice()``, 
+``BaseOrderUtils.setExactOrderPrice()`` is used to set the custom price for the index token during trading based on order type, isLong, and the trigger price for a limit order. 
+
+[https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/order/BaseOrderUtils.sol#L203-L269](https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/order/BaseOrderUtils.sol#L203-L269)
+
+However, the function  fails to set a price for a limit order when the trigger price is between min and max of the primary price. 
+
+For example, suppose the oracle primary price is (85, 90) and the trigger price is 88 and the acceptable price is 87. The trader is long using wnt as the collateral token.
+
+The function will:
+
+1. Pick 90 as the primary price since this is in favor of the system for long.
+2. Compare and check 90 < 88, which fails the trigger price check. 
+
+The function could have tried  the alternative and set a custom price (85, 88) which is the other subrange and allow a succesful limit order. However, due to failure of trying this alternatively, the function fails the trigger price check and miss the trade opportunity for the user. 
+
+
+
+## Impact
+``BaseOrderUtils.setExactOrderPrice()`` fails to set a price for a limit order when the trigger price is between min and max of the primary price.  As a result, when a limit order execution will always fail when the trigger price is like (min < trigger < max). 
+
+## Code Snippet
+
+## Tool used
+VScode
+
+Manual Review
+
+## Recommendation
+Try the alternative price range as well, similar to the implementation of getExecutionPrice(): try the best whenever we can, and then the next optimal solution when possible.

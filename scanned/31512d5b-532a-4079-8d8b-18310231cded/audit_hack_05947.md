@@ -1,0 +1,57 @@
+# [M] Possible DOS in `getPositionIdsByOwner()` function because of unbounded gas consumption
+
+## Summary
+Severity: Medium
+Reporter: SPYBOY
+Source: https://github.com/sherlock-audit/2023-02-blueberry/blob/main/contracts/BlueBerryBank.sol#L315-L333
+Type: audit-issue
+
+## Details
+# Possible DOS in `getPositionIdsByOwner()` function because of unbounded gas consumption
+
+## Summary
+
+In the `BlueBerryBank.sol` contract `getPositionIdsByOwner`  function is declared which returns the position ids of the position owner. We can only get this list of ids from the `getPositionIdsByOwner` view function.  There is no option to remove this ids from this array.  for loop inside `getPositionIdsByOwner()` will be running for each position until it finds `positions[i].owner == owner` . Every time this calculation is gas-consuming.
+
+## Vulnerability Detail
+
+## Impact
+This function fetched all elements of the list from storage, which is really gas-consuming and even can break the block gas limit in case the list is too large. Even though users don’t need to pay gas for the view function, this function is still failed if its gas cost larger than the block gas limit.
+
+Related sherlock report : https://github.com/sherlock-audit/2022-10-union-finance-judging/issues/69
+## Code Snippet
+https://github.com/sherlock-audit/2023-02-blueberry/blob/main/contracts/BlueBerryBank.sol#L315-L333
+```solidity
+function getPositionIdsByOwner(address owner)
+        external
+        view
+        returns (uint256[] memory ids)
+    {
+        uint256[] memory matchingIds = new uint256[](nextPositionId);
+        uint256 index;
+        for (uint256 i = 0; i < nextPositionId; i++) {
+            if (positions[i].owner == owner) {
+                matchingIds[index] = i;
+                index++;
+            }
+        }
+
+        ids = new uint256[](index);
+        for (uint256 i = 0; i < index; i++) {
+            ids[i] = matchingIds[i];
+        }
+    }
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+The function `getPositionIdsByOwner` should return an array in range or should iterate in range
+```solidity
+function getPositionIdsByOwner(address owner, unit range) external view returns (uint256[] memory ids)
+{
+......
+}
+```

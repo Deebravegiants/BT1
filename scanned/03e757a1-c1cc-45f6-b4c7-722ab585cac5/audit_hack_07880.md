@@ -1,0 +1,48 @@
+# [H] The sponsorSeries() transaction may fail
+
+## Summary
+Severity: High
+Reporter: Bauer
+Source: https://github.com/sherlock-audit/2023-03-sense/blob/main/sense-v1/pkg/core/src/Periphery.sol#L116-L125
+Type: audit-issue
+
+## Details
+# The sponsorSeries() transaction may fail
+
+## Summary
+If external AMM  does not allow 0 quantity trading, the `sponsorSeries()`  transaction may fail.
+
+## Vulnerability Detail
+The protocol allows anyone to sponsor a new Series in any adapter previously onboarded onto the Divider. Inside the `sponsorSeries()` function, the protocol first transfer stake token from msg.sender to its contract if the `quote.sellToken` is not ETH.
+ Then,call the swap function at 0x exchange protocol and swap the `quote.sellToken` to `quote.buyToken`. The exchange operations may be performed on uniswap v2, or v3 or other protocols. Actually there is no `quote.sellToken` in the Periphery contract, as the protocol only transfer stake token into the contract. Hence, the protocol will swap with 0 amount. If external AMM  does not allow 0 quantity trading, then the transaction will fail.Even if the swap transaction works, it will fail on the line ` if (boughtAmount == 0 || sellAmount == 0) revert Errors.ZeroSwapAmt();`
+```solidity
+    function sponsorSeries(
+        address adapter,
+        uint256 maturity,
+        bool withPool,
+        PermitData calldata permit,
+        SwapQuote calldata quote
+    ) external payable returns (address pt, address yt) {
+        (, address stake, uint256 stakeSize) = Adapter(adapter).getStakeAndTarget();
+        if (address(quote.sellToken) != ETH) _transferFrom(permit, stake, stakeSize);
+        if (address(quote.sellToken) != stake) _fillQuote(quote);
+`
+ ```
+## Impact
+The `sponsorSeries()` transaction may fail.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-sense/blob/main/sense-v1/pkg/core/src/Periphery.sol#L116-L125
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Inside the `_fillQuote()` function,add code:
+```solidity
+       if (sellAmount== 0) revert Errors.ZeroSwapAmt();
+       (bool success, bytes memory res) = quote.swapTarget.call{ value: msg.value }(quote.swapCallData);
+        // if (!success) revert(_getRevertMsg(res));
+        if (!success) revert Errors.ZeroExSwapFailed(res);
+```

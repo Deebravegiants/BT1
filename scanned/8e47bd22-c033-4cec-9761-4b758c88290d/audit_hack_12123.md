@@ -1,0 +1,34 @@
+# [H] The fallback function uses delegatecall. This can potentially allow arbitrary contract storage manipulation.
+
+## Summary
+Severity: High
+Reporter: yy
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/Diamond.sol#L43-L59
+Type: audit-issue
+
+## Details
+# The fallback function uses delegatecall. This can potentially allow arbitrary contract storage manipulation.
+
+## Summary
+The fallback function set as external which means everyone can call it. Also, the fallback function uses delegatecall. This can potentially allow arbitrary contract storage manipulation.
+
+## Vulnerability Detail
+```solidity
+let result := delegatecall(gas(), facet, 0, calldatasize(), 0, 0)
+```
+
+The delegatecall function is particularly powerful because it runs the code of the called contract (facet) in the context of the calling contract (Diamond), with the same storage. This means that if the called function manipulates storage, it's manipulating the storage of the calling contract, not its own.
+
+Also, because the delegatecall is done in a fallback function, it can potentially be triggered by anyone, not just the contract owner. 
+
+## Impact
+It is possible the attack can set it to an address of a malicious contract that they control, potentially changing state variables or draining funds, among other things.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/Diamond.sol#L43-L59
+
+## Tool used
+Manual Review
+
+## Recommendation
+Implement a whitelist of trusted facet addresses that are permitted to be interacted with via delegatecall. Any calls to facet addresses not on the whitelist would be rejected.

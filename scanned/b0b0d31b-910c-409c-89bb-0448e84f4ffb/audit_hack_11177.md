@@ -1,0 +1,26 @@
+# [M] Chainlink returned price not checked
+
+## Summary
+Severity: Medium
+Reporter: Delvir0
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/oracles/StableOracleDAI.sol#L48
+Type: audit-issue
+
+## Details
+# Chainlink returned price not checked
+
+## Summary
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/oracles/StableOracleDAI.sol#L48
+latestRoundData returned price is not checked. Price returned could be 0
+## Vulnerability Detail
+See above
+## Impact
+`getPriceUSD` could return incorrect value
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/oracles/StableOracleDAI.sol#L33C14-L54
+## Tool used
+
+Manual Review
+
+## Recommendation
+add: `require (price != 0);`

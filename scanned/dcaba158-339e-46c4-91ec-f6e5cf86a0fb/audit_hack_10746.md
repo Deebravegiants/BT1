@@ -1,0 +1,30 @@
+# [H] Protocol calculations breaking due to wrong Chainlink oracle hardcoded address
+
+## Summary
+Severity: High
+Reporter: TheNaubit
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/oracles/StableOracleWBTC.sol#L10
+Type: audit-issue
+
+## Details
+# Protocol calculations breaking due to wrong Chainlink oracle hardcoded address
+
+## Summary
+The protocol uses different oracles to calculate the current collateral rations, buying proportions... Basically every important function in the protocol relies on correct oracle values. But in the case of the BTC/USD oracle, it will always give a wrong price since it has hardcoded a wrong oracle address (the ETH/USD one) and because of that, the protocol rebalancing system will always break.
+
+## Vulnerability Detail
+The wBTC oracle has a hardcoded address for the AggregatorV3Interface of BTC/USD in Ethereum that is not correct. The right one is in a comment a few lines higher (https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/oracles/StableOracleWBTC.sol#L10) but in the constructor, is is using a wrong one (the one from ETH/USD in Ethereum):
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/oracles/StableOracleWBTC.sol#L17
+
+## Impact
+Having the wrong price feed in the oracle will make all the calculations using the price of BTC/USD to be wrong breaking the basic logic of the protocol, spending incorrect amounts of collateral funds when rebalancing and potentially breaking the protocol and making it unable to keep the peg of the stablecoin.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/oracles/StableOracleWBTC.sol#L17
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Fix the hardcoded address to the right one (BTC/USD in Ethereum) which is: `0xf4030086522a5beea4988f8ca5b36dbc97bee88c` [Source](https://data.chain.link/ethereum/mainnet/crypto-usd/btc-usd)

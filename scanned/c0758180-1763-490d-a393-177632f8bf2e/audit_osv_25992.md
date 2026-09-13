@@ -1,0 +1,23 @@
+# [H] Argument Injection in FFmpeg codec parameters in Jellyfin
+
+## Summary
+Severity: High
+Advisory: CVE-2023-49096
+Aliases: GHSA-866x-wj5j-2vf4
+CVSS: 7.7 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L)
+Published: 2023-12-06
+Source: https://osv.dev/vulnerability/CVE-2023-49096
+Type: osv
+
+## Details
+Jellyfin is a Free Software Media System for managing and streaming media. In affected versions there is an argument injection in the VideosController, specifically the `/Videos/<itemId>/stream` and `/Videos/<itemId>/stream.<container>` endpoints which are present in the current Jellyfin version. Additional endpoints in the AudioController might also be vulnerable, as they differ only slightly in execution. Those endpoints are reachable by an unauthenticated user. In order to exploit this vulnerability an unauthenticated attacker has to guess an itemId, which is a completely random GUID. It’s a very unlikely case even for a large media database with lots of items. Without an additional information leak, this vulnerability shouldn’t be directly exploitable, even if the instance is reachable from the Internet. There are a lot of query parameters that get accepted by the method. At least two of those, videoCodec and audioCodec are vulnerable to the argument injection. The values can be traced through a lot of code and might be changed in the process. However, the fallback is to always use them as-is, which means we can inject our own arguments. Those arguments land in the command line of FFmpeg. Because UseShellExecute is always set to false, we can’t simply terminate the FFmpeg command and execute our own. It should only be possible to add additional arguments to FFmpeg, which is powerful enough as it stands. There is probably a way of overwriting an arbitrary file with malicious content. This vulnerability has been addressed in version 10.8.13. Users are advised to upgrade. There are no known workarounds for this vulnerability.
+
+## References
+- https://cwe.mitre.org/data/definitions/88.html
+- https://en.wikipedia.org/wiki/Pass_the_hash
+- https://ffmpeg.org/ffmpeg-filters.html#drawtext-1
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/49xxx/CVE-2023-49096.json
+- https://github.com/jellyfin/jellyfin/security/advisories/GHSA-866x-wj5j-2vf4
+- https://nvd.nist.gov/vuln/detail/CVE-2023-49096
+- https://github.com/jellyfin/jellyfin/issues/5415
+- https://github.com/jellyfin/jellyfin/commit/a656799dc879d16d21bf2ce7ad412ebd5d45394a

@@ -1,0 +1,41 @@
+# [H] excess ETH isn't returned in safeBatchTransferFrom() function.
+
+## Summary
+Severity: High
+Reporter: PRAISE
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/actions/ERC1155Action.sol#L219-L225
+Type: audit-issue
+
+## Details
+# excess ETH isn't returned in safeBatchTransferFrom() function.
+
+## Summary
+safeBatchTransferFrom() function is payable.
+
+## Vulnerability Detail
+safeBatchTransferFrom() function is payable which means it can receive ETH.
+
+but there's no check to ensure that every amount corresponds with msg.value, so therefore the safeBatchTransferFrom() function
+can receive excess ETH.
+
+here's what the check should look like:
+```solidity
+require(amount==msg.value, `excess ETH`);
+```
+
+But the  main issue here now is that the excess ETH isn't returned back.
+like in a scenario where amounts[] contains values < msg.value
+
+`msg.value-amount` should be returned.
+
+## Impact
+excess ETH isn't returned in safeBatchTransferFrom() function.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/actions/ERC1155Action.sol#L219-L225
+## Tool used
+
+Manual Review
+
+## Recommendation
+implement a check to automatically send back excess ETH in safeBatchTransferFrom() function.

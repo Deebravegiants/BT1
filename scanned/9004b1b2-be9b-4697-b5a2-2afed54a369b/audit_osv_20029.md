@@ -1,0 +1,16 @@
+# [C] CVE-2021-29465
+
+## Summary
+Severity: Critical
+Advisory: CVE-2021-29465
+Aliases: GHSA-6pp2-rpj3-jcjx
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2021-04-22
+Source: https://osv.dev/vulnerability/CVE-2021-29465
+Type: osv
+
+## Details
+Discord-Recon is a bot for the Discord chat service. Versions of Discord-Recon 0.0.3 and prior contain a vulnerability in which a remote attacker is able to overwrite any file on the system with the command results. This can result in remote code execution when the user overwrite important files on the system. As a workaround, bot maintainers can edit their `setting.py` file then add `<` and `>` into the `RCE` variable inside of it to fix the issue without an update. The vulnerability is patched in version 0.0.4.
+
+## References
+- https://github.com/DEMON1A/Discord-Recon/security/advisories/GHSA-6pp2-rpj3-jcjx

@@ -1,0 +1,17 @@
+# [M] CVE-2017-9079
+
+## Summary
+Severity: Medium
+Advisory: CVE-2017-9079
+CVSS: 4.7 (CVSS:3.0/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2017-05-19
+Source: https://osv.dev/vulnerability/CVE-2017-9079
+Type: osv
+
+## Details
+Dropbear before 2017.75 might allow local users to read certain files as root, if the file has the authorized_keys file format with a command= option. This occurs because ~/.ssh/authorized_keys is read with root privileges and symlinks are followed.
+
+## References
+- http://www.debian.org/security/2017/dsa-3859
+- https://security.netapp.com/advisory/ntap-20191004-0006/
+- http://lists.ucc.gu.uwa.edu.au/pipermail/dropbear/2017q2/001985.html

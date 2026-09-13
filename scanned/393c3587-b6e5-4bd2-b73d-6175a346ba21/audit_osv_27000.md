@@ -1,0 +1,19 @@
+# [M] Double-free in libpcap before 1.10.5 with remote packet capture support.
+
+## Summary
+Severity: Medium
+Advisory: CVE-2023-7256
+CVSS: 4.4 (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H)
+Published: 2024-08-30
+Source: https://osv.dev/vulnerability/CVE-2023-7256
+Type: osv
+
+## Details
+In affected libpcap versions during the setup of a remote packet capture the internal function sock_initaddress() calls getaddrinfo() and possibly freeaddrinfo(), but does not clearly indicate to the caller function whether freeaddrinfo() still remains to be called after the function returns.  This makes it possible in some scenarios that both the function and its caller call freeaddrinfo() for the same allocated memory block.  A similar problem was reported in Apple libpcap, to which Apple assigned CVE-2023-40400.
+
+## References
+- https://github.com/the-tcpdump-group/libpcap/
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/7xxx/CVE-2023-7256.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-7256
+- https://github.com/the-tcpdump-group/libpcap/commit/262e4f34979872d822ccedf9f318ed89c4d31c03
+- https://github.com/the-tcpdump-group/libpcap/commit/2aa69b04d8173b18a0e3492e0c8f2f7fabdf642d

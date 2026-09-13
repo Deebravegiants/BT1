@@ -1,0 +1,40 @@
+# [M] erc721 uses transferFrom instead of safeTransferFrom which can cause loss of nft
+
+## Summary
+Severity: Medium
+Reporter: koxuan
+Source: https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Isomorph/contracts/Vault_Velo.sol#L638-L642
+Type: audit-issue
+
+## Details
+# erc721 uses transferFrom instead of safeTransferFrom which can cause loss of nft
+
+## Summary
+erc721 uses transferFrom in _returnAndSplitNFTs, if msg.sender is a smart contract that does not support erc721, the nft will be lost.
+
+## Vulnerability Detail
+
+## Impact
+Nft will be lost if receiver is a smart contract that does not support erc721.
+
+```solidity
+         depositReceipt.transferFrom(address(this), msg.sender, newId);
+
+         }
+         else{
+         userNFTs.ids[_loanNFTs.slots[i]] = 0;
+
+        depositReceipt.transferFrom(address(this), msg.sender, _loanNFTs.ids[i]);
+
+```
+
+## Code Snippet
+https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Isomorph/contracts/Vault_Velo.sol#L638-L642
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Use safeTransferFrom instead of transferFrom

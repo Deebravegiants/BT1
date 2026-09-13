@@ -1,0 +1,46 @@
+# [M] Wrong slippage control in `ERC5095.mint` will make user get less tokens than deserved
+
+## Summary
+Severity: Medium
+Reporter: kenzo
+Source: https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/Marketplace.sol#L361
+Type: audit-issue
+
+## Details
+# Wrong slippage control in `ERC5095.mint` will make user get less tokens than deserved
+
+## Summary
+When a user is buying iPTs using `ERC5095.mint` , `mint` tells `Marketplace` that the minimum amount out should be `assets - (assets / 100)` instead of `shares - (shares/ 100)`.
+
+## Vulnerability Detail
+Since iPTs trade at a discount, the assets supplied will always be less than the shares bought.
+By setting the slippage to use assets instead of shares, the user is "guaranteed" (by MEV bots) to get iPT *equal* to the amount of underlying assets he supplied. (Even a little less with the 1% slippage.)
+But **this negates the whole point of buying PTs**, as he didn't get any market discount on them. He simply exchanged his underlying for less PTs (99%) which are also worth less in the market. He can either have them locked until maturity not earning any yield, or sell them at a loss.
+
+## Impact
+User loses 1% of his underlying, and the rest is frozen until maturity or has to be sold for a loss.
+This negates the whole point of interacting with Illuminate, as described above.
+
+## Code Snippet
+`Marketplace.sellUnderlying` [takes](https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/Marketplace.sol#L361) the minimum amount of iPTs to be received as the 4th parameter:
+```solidity
+    /// @param s slippage cap, minimum number of PTs that must be received
+    function sellUnderlying(address u, uint256 m, uint128 a, uint128 s) external returns (uint128) {
+```
+
+But `ERC5095` [sends](https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/tokens/ERC5095.sol#L198) to `Marketplace` the asset amount in the slippage control, instead of the shares amount (`s`).
+```solidity
+        uint128 returned = IMarketPlace(marketplace).sellUnderlying(
+            underlying,
+            maturity,
+            assets,
+            assets - (assets / 100)
+        );
+```
+Therefore the abovementioned discrepancy happens.
+
+## Tool used
+Manual Review
+
+## Recommendation
+The 4th parameter to `sellUnderlying` should be changed to `s - (s / 100)`.

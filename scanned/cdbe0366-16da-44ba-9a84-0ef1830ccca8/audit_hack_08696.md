@@ -1,0 +1,36 @@
+# [M] Teller breaks when using Fee-On-Transfer ERC20 tokens
+
+## Summary
+Severity: Medium
+Reporter: dacian
+Source: https://github.com/teller-protocol/teller-protocol-v2/blob/cb66c9e348cdf1fd6d9b0416a49d663f5b6a693c/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L73
+Type: audit-issue
+
+## Details
+# Teller breaks when using Fee-On-Transfer ERC20 tokens
+
+## Summary
+Teller explicitly wants to support Fee-On-Transfer ERC20 tokens, but its internal accounting does not account for them.
+
+## Vulnerability Detail
+Teller doesn't account for fee on transfer because it doesn't record *actual* amount received, which will differ from parameter amount when using fee-on-transfer tokens.
+
+## Impact
+Teller's internal accounting will become corrupted as it records the amount parameter instead of the actual amount received, which will be less than the parameter due to the transfer fee. The impact is wide-ranging including receiving collateral, repaying loans; any time ERC20 tokens are transfered.
+
+## Code Snippet
+CollateralEscrowV1 [L73](https://github.com/teller-protocol/teller-protocol-v2/blob/cb66c9e348cdf1fd6d9b0416a49d663f5b6a693c/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L73)
+CollateralManager [L329-L339](https://github.com/teller-protocol/teller-protocol-v2/blob/cb66c9e348cdf1fd6d9b0416a49d663f5b6a693c/packages/contracts/contracts/CollateralManager.sol#L327-L339)
+TellerV2 [L719-L756](https://github.com/teller-protocol/teller-protocol-v2/blob/cb66c9e348cdf1fd6d9b0416a49d663f5b6a693c/packages/contracts/contracts/TellerV2.sol#L719-L756)
+
+Note that CollateralManager._deposit() transfers ERC20 tokens from borrower into CollateralManager, then calls CollateralEscrowV1.depositAsset() which will transfer ERC20 tokens from CollateralManager into CollateralEscrowV1 - this will incur 2 sets of fees, one for each transfer.
+
+## Tool used
+Manual Review
+
+## Recommendation
+Calculate & record actual amount received when receiving tokens into Teller system.
+
+uint balancePre = tokenContract.balanceOf(ADDRESS_THIS);
+SafeERC20.safeTransferFrom(tokenContract, msg.sender, ADDRESS_THIS, amount);
+uint actualAmount = tokenContract.balanceOf(ADDRESS_THIS) - balancePre;

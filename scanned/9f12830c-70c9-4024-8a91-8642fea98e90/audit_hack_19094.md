@@ -1,0 +1,38 @@
+# [H] AvailBridge.sol :: receiveAVAIL() has a wrong check in the if condition L219
+
+## Summary
+Severity: High
+Reporter: Interesting Dijon Moose
+Source: https://github.com/sherlock-audit/2023-12-avail/blob/main/contracts/src/AvailBridge.sol#L219
+Type: audit-issue
+
+## Details
+# AvailBridge.sol :: receiveAVAIL() has a wrong check in the if condition L219
+
+## Summary
+The function aims to enable AVAIL transfers from Avail to Ethereum
+
+## Vulnerability Detail
+https://github.com/sherlock-audit/2023-12-avail/blob/main/contracts/src/AvailBridge.sol#L219
+Incorrect Revert Condition: The vulnerability allows transactions with `assetId` equal to zero to proceed, contrary to the intended behavior.
+
+## Impact
+The contract might allow transactions with non-zero assetId values that should have been rejected. This could lead to unexpected behavior. 
+
+```solidity
+if (assetId != 0x0) {
+      revert InvalidAssetId();
+}
+```
+## Tool used
+
+Manual Review
+
+## Recommendation
+To replace the vulnerable code snippet with the below code snippet:
+
+```solidity
+if (assetId == 0x0) {
+    revert InvalidAssetId();
+}
+```

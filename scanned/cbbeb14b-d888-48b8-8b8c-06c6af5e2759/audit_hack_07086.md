@@ -1,0 +1,35 @@
+# [M] Use of magic numbers
+
+## Summary
+Severity: Medium
+Reporter: boredpukar
+Source: https://github.com/kairos-loan/kairos-contracts/blob/b2fd98d62cf0f25ee1db2bd551cd7b4606a5a988/src/AdminFacet.sol#L40
+Type: audit-issue
+
+## Details
+# Use of magic numbers
+
+## Summary
+Use of magic numbers 
+
+## Vulnerability Detail
+
+The code base uses magic number while calculating the setAuctionPriceFactor function. 
+`ONE.mul(5).div(2)`
+
+
+## Impact
+
+It is not preferable to use values explicitly in the smart contracts.
+
+## Code Snippet
+[Reference](https://github.com/kairos-loan/kairos-contracts/blob/b2fd98d62cf0f25ee1db2bd551cd7b4606a5a988/src/AdminFacet.sol#L40)
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Import the numbers required for the calculation from some other solidity files, instead of explicitly setting the values.

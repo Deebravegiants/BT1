@@ -1,0 +1,33 @@
+# [M] Signature Replay
+
+## Summary
+Severity: Medium
+Reporter: jnrlouis
+Source: https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumEscrow.sol#L53-L66
+Type: audit-issue
+
+## Details
+# Signature Replay
+
+## Summary
+
+Susceptible to Signature Replay Attack
+
+## Vulnerability Detail
+
+In the `footiumEscrow.sol` the `isValidSignature` function is prone to a replay attack as a malicious actor can call the function again with the signature and hash of a club owner,and get the `magic value` returned.
+
+## Impact
+
+Possible break in core logic.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumEscrow.sol#L53-L66
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider adding a nonce to prevent the possible attack.

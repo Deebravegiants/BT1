@@ -1,0 +1,52 @@
+# [M] deallocate() Lack of consideration for partyB deficits
+
+## Summary
+Severity: Medium
+Reporter: bin2chen
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacetImpl.sol#L54
+Type: audit-issue
+
+## Details
+# deallocate() Lack of consideration for partyB deficits
+
+## Summary
+`deallocate () ` will take  `partyA.unpl` as the amount of money that can be deallocated
+However, the current protocol does not consider whether the corresponding `partyB` is in a serious deficit
+As a result, when drastic price changes, `unpl` becomes large 
+`partyA`  may illegally deallocate additional funds
+
+## Vulnerability Detail
+
+As an example, suppose partyA has two quotes: (for simplicity,  ignore cva, lf)
+quote[1] = {partyB=B , lockedBalances = 100}
+quote[2] = {partyB=C, lockedBalances = 100}
+allocatedBalances[partyA] = 200
+allocatedBalances[partyA][partyB] = 100
+allocatedBalances[partyA][partyC] = 100
+
+Due to the sharp decline in price, suppose quote [1] .npl =+ 300, quote [2] .unpl = - 100    
+partyA Profit + 200, but since `allocatedBalances[partyA] [partyB]` is only 100, it is a serious deficit
+
+But `partyA` can still get all `allocatedBalances [partyA]` through  `deallocate ()`
+Because the current number of deallocatable is:
+`allocatedBalances [partyA] + partyA.upnl - lockedBalances [partyA] `
+= 200 + (300-100) - 200
+= 200
+
+After taking allocatedBalances [partyA] = 0, so that `partyC ` cannot be profitable normally
+
+
+## Impact
+illegally deallocate additional funds
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacetImpl.sol#L54
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+At present, `crypto_v3.js` does not take into account the problem of `partyB` deficit when calculating the `partyA.unpl`, so it is inaccurate to use `partyA.unpl`
+This will have problems in other places when uses `partyA.unpl `
+Suggest  `partyA.unpl` calculation needs to be added to take into account `partyB` deficit

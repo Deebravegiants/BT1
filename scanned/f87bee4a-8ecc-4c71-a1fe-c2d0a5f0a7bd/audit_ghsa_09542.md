@@ -1,0 +1,68 @@
+# [H] Github Actions issued GITHUB_TOKEN disclosure in GitHub Actions logs
+
+## Summary
+Severity: High
+Advisory: GHSA-f9f8-rm49-7jv2
+CVE: CVE-2026-45793
+CWE: CWE-200
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2026-05-19
+Source: https://github.com/advisories/GHSA-f9f8-rm49-7jv2
+Type: github-advisory
+
+## Affected
+- Packagist: `composer/composer` — affected >=2.3.0 <2.9.8
+- Packagist: `composer/composer` — affected >=2.0.0 <2.2.28
+- Packagist: `composer/composer` — affected >=1.0 <1.10.28
+
+## Details
+### Summary
+
+Composer leaks the full contents of tokens configured as GitHub OAuth tokens if they do not match Composer's expected format for such tokens to stderr. GitHub has introduced a new format for GitHub Actions GITHUB_TOKEN values. These tokens are validated in the same way by Composer on GitHub Actions. The new format including a `-` (hyphen) fails Composer's validation and leads to disclosure of the GITHUB_TOKEN in logs.
+
+Many widely-used Actions (e.g. `shivammathur/setup-php`) auto-register `GITHUB_TOKEN` into composer's global `auth.json`, so the leak triggers without any unusual user configuration.
+
+GitHub Actions tokens expire when the associated job finishes, and they are scoped to the respective repository only. So in most regular cases the Composer validation, which errors while leaking the token, also immediately ends the job, expiring the token immediately. Tokens expire at the very latest after 6 hours on GitHub-hosted runners. If you use self-hosted runner, expiration is at most 24 hours after creation. The new token format is being rolled out gradually, so not all repositories are affected yet, but will be soon.
+
+Classic `ghp_` PATs are not affected by the regex bug per se, but the same leak primitive applies to any future credential that fails validation for any reason.
+
+### Details
+
+When a GitHub token fails regular expression validation of the character set, the rejected token is interpolated verbatim into the `UnexpectedValueException` message thrown by `Composer\IO\BaseIO::loadConfiguration()`, which Symfony Console then prints. Validation reliably fails for any token containing a `-` (hyphen), which includes the modern `ghs_<id>_<base64url-JWT>` GitHub App installation token format, the same format used by GitHub Actions' built-in `GITHUB_TOKEN` and by `actions/create-github-app-token`. 
+
+Severity: medium. Pre-conditions are common in real-world CI. Practical blast radius is bounded by the leaked credential's scope and TTL (short for a workflow `GITHUB_TOKEN`, longer for App-minted tokens or user-issued credentials that happen to contain `-`).
+
+Vulnerable code, `src/Composer/IO/BaseIO.php` (line 139 on `main`, line 143 on 2.8.x), inside `loadConfiguration()`:
+
+```php
+// allowed chars for GH tokens are from https://github.blog/changelog/2021-03-04-authentication-token-format-updates/
+// plus dots which were at some point used for GH app integration tokens
+if (!Preg::isMatch('{^[.A-Za-z0-9_]+$}', $token)) {
+    throw new \UnexpectedValueException(
+        'Your github oauth token for '.$domain.' contains invalid characters: "'.$token.'"'
+    );
+}
+```
+
+Three issues combine to produce the leak:
+
+1. **The rejected token is interpolated into the exception message.** The exception bubbles up to Symfony Console's default error renderer, which writes it to stderr. Any environment that captures stderr (CI logs, log shippers, monitoring, support transcripts) now has the raw token.
+
+2. **The validation regex `^[.A-Za-z0-9_]+$` does not permit `-`.** GitHub's current `ghs_<numeric-id>_<base64url-JWT>` structured installation tokens routinely contain `-`, because base64url (RFC 4648 §5) uses `-` and `_` as URL-safe replacements for `+` and `/`. The regex was chosen in 2021 on the understanding that GitHub tokens use only `[A-Za-z0-9_]` plus `.`.
+
+3. **Detection / mitigation in upstream platforms is unreliable.** GitHub Actions' built-in secret masker matches registered values as exact substrings. When the exception message is rendered by Symfony Console it may wrap, embed in `In BaseIO.php line N:` framing, or interleave with ANSI control sequences. So the masker does not redact, and the plaintext token reaches the log.
+
+## References
+- https://github.com/composer/composer/security/advisories/GHSA-f9f8-rm49-7jv2
+- https://nvd.nist.gov/vuln/detail/CVE-2026-45793
+- https://github.com/composer/composer/pull/12853
+- https://github.com/composer/composer/pull/12855
+- https://github.com/composer/composer/commit/3f5e7f9fbfa541137d6d1d5643ec3b718e9d5039
+- https://github.com/composer/composer/commit/65e6390c49f1a11cd8b660d81822086db51fe2d1
+- https://github.com/composer/composer/commit/e66c8fdb7ff5409bd2f358c5f194038e49e93714
+- https://github.com/FriendsOfPHP/security-advisories/blob/master/composer/composer/CVE-2026-45793.yaml
+- https://github.com/composer/composer
+- https://github.com/composer/composer/releases/tag/1.10.28
+- https://github.com/composer/composer/releases/tag/2.2.28
+- https://github.com/composer/composer/releases/tag/2.9.8

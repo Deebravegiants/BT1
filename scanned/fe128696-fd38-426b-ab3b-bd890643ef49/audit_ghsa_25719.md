@@ -1,0 +1,26 @@
+# [H] MotionEye allows attackers to access sensitive information
+
+## Summary
+Severity: High
+Advisory: GHSA-2c7w-v459-cwgf
+CVE: CVE-2022-25568
+CWE: CWE-200
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2022-03-25
+Source: https://github.com/advisories/GHSA-2c7w-v459-cwgf
+Type: github-advisory
+
+## Affected
+- PyPI: `motioneye` — affected >=0 <0.43.1b1
+
+## Details
+MotionEye v0.42.1 and below allows attackers to access sensitive information via a GET request to /config/list. To exploit this vulnerability, a regular user password must be unconfigured.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2022-25568
+- https://github.com/ccrisan/motioneye/issues/2292
+- https://github.com/motioneye-project/motioneye/commit/c60b64af5bb8c09189071522a1f6796cb44340b0
+- https://github.com/motioneye-project/motioneye
+- https://github.com/pypa/advisory-database/tree/main/vulns/motioneye/PYSEC-2022-43141.yaml
+- https://www.pizzapower.me/2022/02/17/motioneye-config-info-disclosure

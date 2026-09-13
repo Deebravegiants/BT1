@@ -1,0 +1,17 @@
+# [H] CVE-2024-7545
+
+## Summary
+Severity: High
+Advisory: CVE-2024-7545
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2024-08-06
+Source: https://osv.dev/vulnerability/CVE-2024-7545
+Type: osv
+
+## Details
+oFono SimToolKit Heap-based Buffer Overflow Privilege Escalation Vulnerability. This vulnerability allows local attackers to execute arbitrary code on affected installations of oFono. An attacker must first obtain the ability to execute code on the target modem in order to exploit this vulnerability.
+
+The specific flaw exists within the parsing of STK command PDUs. The issue results from the lack of proper validation of the length of user-supplied data prior to copying it to a heap-based buffer. An attacker can leverage this vulnerability to execute code in the context of the service account. Was ZDI-CAN-23458.
+
+## References
+- https://www.zerodayinitiative.com/advisories/ZDI-24-1085/

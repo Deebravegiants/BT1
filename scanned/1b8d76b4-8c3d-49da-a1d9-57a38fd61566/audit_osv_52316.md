@@ -1,0 +1,33 @@
+# [H] CVE-2021-47321
+
+## Summary
+Severity: High
+Advisory: CVE-2021-47321
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2024-05-21
+Source: https://osv.dev/vulnerability/CVE-2021-47321
+Type: osv
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+watchdog: Fix possible use-after-free by calling del_timer_sync()
+
+This driver's remove path calls del_timer(). However, that function
+does not wait until the timer handler finishes. This means that the
+timer handler may still be running after the driver's remove function
+has finished, which would result in a use-after-free.
+
+Fix by calling del_timer_sync(), which makes sure the timer handler
+has finished, and unable to re-schedule itself.
+
+## References
+- https://git.kernel.org/stable/c/db222f1477ad5692cd454709b714949807e5d111
+- https://git.kernel.org/stable/c/ecd620e0fb1ff7f78fdb593379b2e6938c99707a
+- https://git.kernel.org/stable/c/4c05dac488a660fe2925c047ecb119e7afaaeb1e
+- https://git.kernel.org/stable/c/66ba9cf929b1c4fabf545bd4c18f6f64e23e46e4
+- https://git.kernel.org/stable/c/8bec568d7518b1504a602ed5376bb322e4dbb270
+- https://git.kernel.org/stable/c/d0212f095ab56672f6f36aabc605bda205e1e0bf
+- https://git.kernel.org/stable/c/1a053c4d716898a53c2e31c574a70ea0c37044a3
+- https://git.kernel.org/stable/c/58606882ad8ec6c39e0f40344b922921ef94ab4d
+- https://git.kernel.org/stable/c/ca96b8ea5e74956071154bdb456778cc3027e79f

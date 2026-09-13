@@ -1,0 +1,46 @@
+# [M] Payable deploy functions in Factory keep user funds without forwarding them along
+
+## Summary
+Severity: Medium
+Reporter: obront
+Source: https://github.com/sherlock-audit/2022-10-nftport/blob/main/evm-minting-master/contracts/Factory.sol#L133-L139
+Type: audit-issue
+
+## Details
+# Payable deploy functions in Factory keep user funds without forwarding them along
+
+## Summary
+
+Both `deploy()` functions in the Factory.sol contract that don't require a fee are still payable. This is a good decision, as you may implement future contract templates that require funding. However, in the current Factory implementation, any fees sent along with a deployment function are kept by the protocol.
+
+## Vulnerability Detail
+
+Both `deploy()` functions with signed messages are set to payable. However, if a user is to send funds to these functions, they are not passed along to the deployment and are instead kept in the Factory contract.
+
+This isn't a problem with the current implementation options. If a user sends funds, it is their error, as none of the implementations require funding by the deployer. However, in the future, you may want to release an option (such as a bonding curve with initial tokens minted) that would require initial funding being added to the contract.
+
+Presumably, these use cases are the reason why the `deploy()` function are set to payable. However, in the current implementation, `msg.value` is not passed along to the deployment or the `initialize()` call, and are left in Factory.sol.
+
+## Impact
+
+Users who want to send initial funding to their contracts will end up having their funds irretrievably kept by the protocol.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-10-nftport/blob/main/evm-minting-master/contracts/Factory.sol#L133-L139
+
+https://github.com/sherlock-audit/2022-10-nftport/blob/main/evm-minting-master/contracts/Factory.sol#L163-L176
+
+https://github.com/sherlock-audit/2022-10-nftport/blob/main/evm-minting-master/contracts/Factory.sol#L186-L205
+
+https://github.com/sherlock-audit/2022-10-nftport/blob/main/evm-minting-master/contracts/Factory.sol#L462-L479
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Pass along the `msg.value` to the `_deploy()` function, and then to the `_call()` function so that payment is included in the `initialize()` function.
+
+Similarly, the `deploy()` function for users who are paying fees should pass along `msg.value - deploymentFee`.

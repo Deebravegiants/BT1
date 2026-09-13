@@ -1,0 +1,76 @@
+# [H] Depositers will get less minted shares and lose their funds.
+
+## Summary
+Severity: High
+Reporter: CodingNameKiki
+Source: https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L682-L694
+Type: audit-issue
+
+## Details
+# Depositers will get less minted shares and lose their funds.
+
+## Summary
+Duo to a wrong calculation of the minted amount of shares, every user who deposits after the first depositer will be able to only redeem a certain amount of funds from his deposited amount in the first place.
+
+## Vulnerability Detail
+Example:
+The first depositer Jake calls the function `mint()` providing 10 000 Dai tokens:
+ `totalRedeemable += actualMintAmount` => `totalRedeemable += 10 000` => `totalRedeemable = 10 000`.
+`"exchangeRate" will be equal to "initialExchangeRateMantissa" for the first depositer when "tokenSupply = 0"`.
+`mintTokens = (actualMintAmount * WAD) / exchangeRate` => `(10 000 * 1e18) / 1e18` => `mintTokens = 10 000`.
+The function `mint()` will successfuly mint 10 000 uDai shares to Jake and after his deposit both `totalRedeemable` and `tokenSupply()` will be equal to 10 000.
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L682-L694
+
+// The issue described below will occur after the first depositer.
+// The problem here is that `exchangeRateStored()` returns `tokenSupply()` which includes the sum of old deposits without the new one Kiki will do, since `totalRedeemable` is updated before the `mintTokens` calculation and the `tokenSupply()` is the old one. 
+The calculation will be wrong and the function will mint less shares. 
+As you can see below the function `exchangeRateStored()` calls the function `tokenSupply()`, which sums all the deposits made to AssetManager. But in the function `mint()` the deposit to AssetManager is made at the end of the function, so `mintTokens` calculation will be based on the previous deposits and the already updated `totalRedeemable`.
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L455
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/asset/AssetManager.sol#L202
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L694
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L690-L691
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L456
+
+Kiki calls the function `mint()` and provides 10 000 Dai tokens as well. However this time instead of minting 10 000 uDai shares, the function will mint 5 000 shares and Kiki will lose his 5 000 Dai tokens. Duo to the fact that the function sums `actualMintAmount` to `totalRedeemable`, before it calculates the `mintTokens` and `exchangeRateStored()` returns the old `tokenSupply()`, 
+less shares will be minted to Kiki. The outcome from the formula calculating Kiki's shares will look like this:
+`exchangeRate = (totalRedeemable * WAD) / totalSupply_` => `(20 000 * 1e18) / 10 000` => `exchangeRate = 2 billion`
+`mintTokens = (actualMintAmount * WAD) / exchangeRate` => `(10 000 * 1e18) / 2 billion` => `mintTokens = 5 000`
+The function will mint 5000 uDai shares from Kiki's deposited amount of 10 000 Dai tokens.
+
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L689-L690
+
+Later when Kiki calls the function `redeem()` to withdraw his tokens, he will be able to get back only 5 000 Dai tokens.
+Since Kiki has only 5 000 shares, `amountIn` will be equal to 5 000 and his tokens will be calculated based on this:
+`exchangeRate = (totalRedeemable * WAD) / totalSupply_` => `(20 000 * 1e18) / 20 000` => `exchangeRate = 1 billion`
+`underlyingAmount = (amountIn * exchangeRate) / WAD` => `(5 000 * 1e18) / 1 billion` => `underlyingAmount => 5 000`
+The function `redeem()` will return only 5 000 Dai tokens to Kiki instead of the 10 000 Dai he deposited.
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L707-L737
+
+Following this scenario every user who deposits after the first depositer will lose a certain amount of his funds.
+
+## Impact
+With the issue described in "Vulnerability Detail", every user who deposits after the first depositer will lose a certain amount from his deposited funds.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L682-L697
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+The problem here is that in the `mint()` function `mintTokens` are calculated based on the already updated amount of `totalRedeemable` and the old `tokenSupply()`.
+
+To fix this problem consider summing `actualMintAmount` to `exchangeRateStored()` in the cache exchangeRate:
+https://gist.github.com/CodingNameKiki/dada0ac798e61816540e2a9d7b07e5a9
+
+However the fix will affect the first depositer, when the `tokenSupply()` equals zero and `exchangeRateStored()` returns `initialExchangeRateMantissa`. Consider adding 1 Dai token with the function `mint()`, which will always stay in AssetManager and then applying the recommended change.

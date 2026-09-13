@@ -1,0 +1,16 @@
+# [H] CVE-2016-3758
+
+## Summary
+Severity: High
+Advisory: CVE-2016-3758
+CVSS: 7.8 (CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2016-07-11
+Source: https://osv.dev/vulnerability/CVE-2016-3758
+Type: osv
+
+## Details
+Multiple buffer overflows in libdex/OptInvocation.cpp in DexClassLoader in Android 4.x before 4.4.4, 5.0.x before 5.0.2, 5.1.x before 5.1.1, and 6.x before 2016-07-01 allow attackers to gain privileges via a crafted application that provides a long filename, aka internal bug 27840771.
+
+## References
+- https://android.googlesource.com/platform/dalvik/+/338aeaf28e9981c15d0673b18487dba61eb5447c
+- http://source.android.com/security/bulletin/2016-07-01.html

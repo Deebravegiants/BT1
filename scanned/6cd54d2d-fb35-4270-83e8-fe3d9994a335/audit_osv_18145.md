@@ -1,0 +1,24 @@
+# [H] CVE-2020-24394
+
+## Summary
+Severity: High
+Advisory: CVE-2020-24394
+CVSS: 7.1 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N)
+Published: 2020-08-19
+Source: https://osv.dev/vulnerability/CVE-2020-24394
+Type: osv
+
+## Details
+In the Linux kernel before 5.7.8, fs/nfsd/vfs.c (in the NFS server) can set incorrect permissions on new filesystem objects when the filesystem lacks ACL support, aka CID-22cf8419f131. This occurs because the current umask is not considered.
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00007.html
+- https://cdn.kernel.org/pub/linux/kernel/v5.x/ChangeLog-5.7.8
+- https://security.netapp.com/advisory/ntap-20200904-0003/
+- https://usn.ubuntu.com/4465-1/
+- https://usn.ubuntu.com/4483-1/
+- https://usn.ubuntu.com/4485-1/
+- https://www.starwindsoftware.com/security/sw-20210325-0004/
+- https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=962254
+- https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=22cf8419f1319ff87ec759d0ebdff4cbafaee832
+- https://www.oracle.com/security-alerts/cpuApr2021.html

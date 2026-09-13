@@ -1,0 +1,54 @@
+# [M] ALPINE-CVE-2025-66199
+
+## Summary
+Severity: Medium
+Advisory: ALPINE-CVE-2025-66199
+Ecosystem: Alpine:v3.20, Alpine:v3.21, Alpine:v3.22, Alpine:v3.23, Alpine:v3.24
+CVSS: 5.9 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-01-27
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2025-66199
+Type: osv
+
+## Affected
+- Alpine:v3.20: `openssl` — affected >=3.3.0 <3.3.6-r0
+- Alpine:v3.21: `openssl` — affected >=3.3.0 <3.3.6-r0
+- Alpine:v3.22: `openssl` — affected >=3.3.0 <3.5.5-r0
+- Alpine:v3.23: `openssl` — affected >=3.3.0 <3.5.5-r0
+- Alpine:v3.24: `openssl` — affected >=3.3.0 <3.5.5-r0
+
+## Details
+Issue summary: A TLS 1.3 connection using certificate compression can be
+forced to allocate a large buffer before decompression without checking
+against the configured certificate size limit.
+
+Impact summary: An attacker can cause per-connection memory allocations of
+up to approximately 22 MiB and extra CPU work, potentially leading to
+service degradation or resource exhaustion (Denial of Service).
+
+In affected configurations, the peer-supplied uncompressed certificate
+length from a CompressedCertificate message is used to grow a heap buffer
+prior to decompression. This length is not bounded by the max_cert_list
+setting, which otherwise constrains certificate message sizes. An attacker
+can exploit this to cause large per-connection allocations followed by
+handshake failure. No memory corruption or information disclosure occurs.
+
+This issue only affects builds where TLS 1.3 certificate compression is
+compiled in (i.e., not OPENSSL_NO_COMP_ALG) and at least one compression
+algorithm (brotli, zlib, or zstd) is available, and where the compression
+extension is negotiated. Both clients receiving a server CompressedCertificate
+and servers in mutual TLS scenarios receiving a client CompressedCertificate
+are affected. Servers that do not request client certificates are not
+vulnerable to client-initiated attacks.
+
+Users can mitigate this issue by setting SSL_OP_NO_RX_CERTIFICATE_COMPRESSION
+to disable receiving compressed certificates.
+
+The FIPS modules in 3.6, 3.5, 3.4 and 3.3 are not affected by this issue,
+as the TLS implementation is outside the OpenSSL FIPS module boundary.
+
+OpenSSL 3.6, 3.5, 3.4 and 3.3 are vulnerable to this issue.
+
+OpenSSL 3.0, 1.1.1 and 1.0.2 are not affected by this issue.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2025-66199

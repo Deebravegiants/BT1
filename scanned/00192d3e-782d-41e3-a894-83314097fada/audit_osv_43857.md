@@ -1,0 +1,22 @@
+# [C] Apache Airflow FAB provider: FAB Azure AD OAuth: id_token issuer/audience not validated — cross-tenant authentication bypass
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-75156
+CVSS: 9.1 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N)
+Published: 2026-09-08
+Source: https://osv.dev/vulnerability/CVE-2026-75156
+Type: osv
+
+## Details
+Apache Airflow FAB provider versions 3.7.3 through 3.8.0 do not validate the issuer or audience of Azure AD `id_token`s during OAuth login. Deployments are affected only when the FAB auth manager is configured with Azure AD as an OAuth provider. Because the signing keys are fetched from Microsoft's **multi-tenant** JWKS endpoint, an `id_token` minted in *any* Azure tenant — including one the attacker creates — passes signature verification, and the username and role assignments are then read from that attacker-controlled token. Anyone able to register an Azure tenant can therefore authenticate to the Airflow UI with no prior access to the deployment.
+
+The fix for **CVE-2026-59243** was incomplete, and this advisory closes the remaining gap: that fix made the provider verify the `id_token` signature, but did not add issuer or audience checks. Operators who already applied the CVE-2026-59243 fix are **still affected and must upgrade again** — 3.7.3 is the release that shipped that fix, so every version containing it falls inside this affected range. Upgrade to apache-airflow-providers-fab `3.8.1` or later.
+
+## References
+- https://pypi.python.org
+- https://www.cve.org/CVERecord?id=CVE-2026-59243
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/75xxx/CVE-2026-75156.json
+- https://lists.apache.org/thread/n3l6z4jfdxj4p0t8l7m6olkq6xsc6f76
+- https://nvd.nist.gov/vuln/detail/CVE-2026-75156
+- https://github.com/apache/airflow/pull/71735

@@ -1,0 +1,41 @@
+# [H] nameConstraints DNS bypass via subject CommonName fallback in public_key hostname verification
+
+## Summary
+Severity: High
+Advisory: CVE-2026-42790
+Aliases: EEF-CVE-2026-42790, GHSA-22cw-4ph4-6447
+CVSS: 7.5 (CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:P/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N)
+Published: 2026-05-27
+Source: https://osv.dev/vulnerability/CVE-2026-42790
+Type: osv
+
+## Details
+Improper Certificate Validation vulnerability in Erlang OTP public_key (pubkey_cert and public_key modules) allows a DNS nameConstraints bypass via subject CommonName fallback in TLS hostname verification.
+
+Two flaws combine to allow a subordinate CA whose DNS nameConstraints are restricted (e.g. permitted;DNS:allowed.example.com) to issue a leaf certificate that an OTP TLS client accepts as a valid identity for an out-of-scope hostname (e.g. victim.example.com):
+
+First, pubkey_cert:validate_names/6 in lib/public_key/src/pubkey_cert.erl only checks SAN DNS entries against nameConstraints. Per RFC 5280, a permitted DNS subtree only restricts certificates that contain a DNS-typed name. A leaf with no subjectAltName therefore trivially satisfies any permitted;DNS:... constraint regardless of its subject commonName.
+
+Second, public_key:pkix_verify_hostname/3 in lib/public_key/src/public_key.erl falls back to the subject commonName when no subjectAltName is present, extracting id-at-commonName attributes as presented IDs and matching them against the reference hostname. The strict pkix_verify_hostname_match_fun(https) matcher does not suppress this fallback.
+
+The result is that path validation accepts a CN-only leaf under a DNS-constrained intermediate (no SAN means the nameConstraints are not triggered), and hostname verification then accepts it via the CN fallback. The bypass is reachable from stock ssl:connect with verify_peer, a trusted CA, SNI, and the canonical strict https hostname matcher.
+
+This issue affects OTP from OTP 19.3 before OTP 29.0.1, OTP 28.5.0.1, OTP 27.3.4.12 and OTP 26.2.5.21, corresponding to public_key from 1.4 before 1.21.1, 1.20.3.1, 1.17.1.3 and 1.15.1.7.
+
+## References
+- https://cna.erlef.org/cves/CVE-2026-42790.html
+- https://github.com
+- https://osv.dev/vulnerability/EEF-CVE-2026-42790
+- https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-42790.json
+- https://www.erlang.org/doc/system/versions.html#order-of-versions
+- https://access.redhat.com/errata/RHSA-2026:39809
+- https://access.redhat.com/errata/RHSA-2026:54757
+- https://access.redhat.com/security/cve/CVE-2026-42790
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/42xxx/CVE-2026-42790.json
+- https://github.com/erlang/otp/security/advisories/GHSA-22cw-4ph4-6447
+- https://nvd.nist.gov/vuln/detail/CVE-2026-42790
+- https://bugzilla.redhat.com/show_bug.cgi?id=2482286
+- https://github.com/erlang/otp/commit/0769050c69d73762672b0db1347b6993a5b31759
+- https://github.com/erlang/otp/commit/21abed64eb2026b5f82f432709e4e932f9be389a
+- https://github.com/erlang/otp/commit/fb67c6d1836f51105a96d8b769e71e4215a79457
+- https://github.com/erlang/otp

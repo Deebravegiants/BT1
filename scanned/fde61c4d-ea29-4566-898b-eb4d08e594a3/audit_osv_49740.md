@@ -1,0 +1,21 @@
+# [H] CVE-2019-18276
+
+## Summary
+Severity: High
+Advisory: CVE-2019-18276
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2019-11-28
+Source: https://osv.dev/vulnerability/CVE-2019-18276
+Type: osv
+
+## Details
+An issue was discovered in disable_priv_mode in shell.c in GNU Bash through 5.0 patch 11. By default, if Bash is run with its effective UID not equal to its real UID, it will drop privileges by setting its effective UID to its real UID. However, it does so incorrectly. On Linux and other systems that support "saved UID" functionality, the saved UID is not dropped. An attacker with command execution in the shell can use "enable -f" for runtime loading of a new builtin, which can be a shared object that calls setuid() and therefore regains privileges. However, binaries running with an effective UID of 0 are unaffected.
+
+## References
+- https://lists.apache.org/thread.html/rf9fa47ab66495c78bb4120b0754dd9531ca2ff0430f6685ac9b07772%40%3Cdev.mina.apache.org%3E
+- https://security.gentoo.org/glsa/202105-34
+- https://security.netapp.com/advisory/ntap-20200430-0003/
+- https://www.oracle.com/security-alerts/cpuapr2022.html
+- https://github.com/bminor/bash/commit/951bdaad7a18cc0dc1036bba86b18b90874d39ff
+- https://www.youtube.com/watch?v=-wGtxJ8opa8
+- http://packetstormsecurity.com/files/155498/Bash-5.0-Patch-11-Privilege-Escalation.html

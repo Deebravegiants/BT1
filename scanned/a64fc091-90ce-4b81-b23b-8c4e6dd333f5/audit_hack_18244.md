@@ -1,0 +1,43 @@
+# [M] Incomplete State Update: setTreasuryWeights Function
+
+## Summary
+Severity: Medium
+Reporter: Creamy Eggshell Pig
+Source: https://github.com/sherlock-audit/2023-12-arcadia/blob/main/lending-v2/src/LendingPool.sol?plain=1#L292
+Type: audit-issue
+
+## Details
+# Incomplete State Update: setTreasuryWeights Function
+
+## Summary
+
+In the setTreasuryWeights function of the LendingPool contract, there's a discrepancy between the event emission and variable updates.
+## Vulnerability Detail
+
+The setTreasuryWeights function fails to update the interestWeightTreasury and liquidationWeightTreasury variables before emitting the TreasuryWeightsUpdated event. The event reflects the updated weights, but the variables themselves remain unchanged, potentially leading to inconsistencies in the system state.
+
+## Impact
+
+This inconsistency could mislead users or other contracts relying on these values, potentially causing unexpected behavior or incorrect decision-making.
+
+## Code Snippet
+
+[Link to Line 292](https://github.com/sherlock-audit/2023-12-arcadia/blob/main/lending-v2/src/LendingPool.sol?plain=1#L292)
+
+function setTreasuryWeights(uint16 interestWeight_, uint16 liquidationWeight) external onlyOwner processInterests {
+
+
+    totalInterestWeight = totalInterestWeight - interestWeightTreasury + interestWeight_;
+    emit TreasuryWeightsUpdated(
+        interestWeightTreasury = interestWeight_, liquidationWeightTreasury = liquidationWeight
+    );
+}
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Ensure that the setTreasuryWeights function updates the interestWeightTreasury and liquidationWeightTreasury variables before emitting the TreasuryWeightsUpdated event to maintain consistency and avoid potential confusion.

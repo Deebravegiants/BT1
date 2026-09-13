@@ -1,0 +1,50 @@
+# [M] The internal function "_distributeToPlugins" won't be able to transfer the LINK tokens from the vault to the plugins, duo to silent failure.
+
+## Summary
+Severity: Medium
+Reporter: CodingNameKiki
+Source: https://github.com/sherlock-audit/2022-10-mycelium/blob/main/mylink-contracts/src/Vault.sol#L367-L373
+Type: audit-issue
+
+## Details
+# The internal function "_distributeToPlugins" won't be able to transfer the LINK tokens from the vault to the plugins, duo to silent failure.
+
+## Summary
+The fact that this issue leads to stucked LINK tokens in the vault, by failing to distribute the LINK tokens to the plugins.
+But can be fixed by calling one of the owner's functions `rebalancePlugins()`, which withdraws back the LINK tokens from the plugins to the vault and redistributes them again in the plugins.
+
+https://github.com/sherlock-audit/2022-10-mycelium/blob/main/mylink-contracts/src/Vault.sol#L367-L373
+
+l believe this to be medium risk, since the outcome can be fixed by the owner. However this issue should be avoided in the first place, so it doesn't need be handled by the owner himself at the end.
+
+## Vulnerability Detail
+The purpose of the internal function `_distributeToPlugins()` is to distribute all LINK tokens in the vault to the plugins, it is triggered by the functions `deposit()` and `onTokenTransfer()`, when LINK tokens are deposited into the vault.
+
+`_distributeToPlugins()` calls the internal function `_depositToPlugin()`, which leads to the function `deposit()` in the contract `BasePlugin`, which is the abstract contract of `IPlugin`.
+
+https://github.com/sherlock-audit/2022-10-mycelium/blob/main/mylink-contracts/src/plugins/BasePlugin.sol#L42-L47
+
+However the function uses `transferFrom()` that does not check the return value, if for some reason the IERC20 transfer is temporarily failing. As the return value of `transferFrom()` is not checked and returns only boolean value indicating success, if it has failed, the contract wouldn’t know about it, and the function will finish “successfully”.
+
+https://github.com/sherlock-audit/2022-10-mycelium/blob/main/mylink-contracts/src/plugins/BasePlugin.sol#L45
+
+Result;
+Duo to the unchecked return value of `transferFrom()`, it is possible for `_distributeToPlugins()` to silently fail, which will cause the LINK tokens to not be transferred successfuly into the plugins, and they will be stucked into the vault.
+
+
+## Impact
+The issue described in "Vulnerability Detail" will result into stucked funds in the vault, by failling to transfer the LINK tokens from the vault to the plugins with the internal function `_distributeToPlugins()`. 
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-10-mycelium/blob/main/mylink-contracts/src/Vault.sol#L456-L473
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+l suggest adding a check to ensure the `transferFrom()` happened and that the LINK tokens were distributed successfuly into the plugins, so if the exploit happens it doesn't need to be handled by the owner himself at the end by calling the function `rebalancePlugins()`. By adding a check in the function `deposit` in the contract `BasePlugin`, the function will revert if the transfer didn't happen.
+
+1.You can use require statement: https://gist.github.com/CodingNameKiki/970ba76c015ca98432c4f6d4d2affa98
+2.You can use openzeppelin's SafeERC20: https://gist.github.com/CodingNameKiki/62d3091f43d976101ab5f257a5603614

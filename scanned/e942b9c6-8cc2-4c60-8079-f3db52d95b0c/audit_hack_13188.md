@@ -1,0 +1,145 @@
+# [H] Option Tokens should not be repeatedly used for reclaiming
+
+## Summary
+Severity: High
+Reporter: Jiamin
+Source: https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L395-L437
+Type: audit-issue
+
+## Details
+# Option Tokens should not be repeatedly used for reclaiming
+
+## Summary
+
+Option Tokens should not be repeatedly used for reclaim, user's funds will be lost otherwise.
+
+## Vulnerability Detail
+
+Option Tokens are ERC20 tokens that represent the right to buy (call) or sell (put) a fixed amount of an asset (payout token) for an amount of another asset (quote token) between two timestamps (eligible and expiry).
+
+In order to create option tokens, an issuer must deploy the specific token configuration on the teller, and then provide collateral to the teller to mint option tokens. The collateral is required to guarantee that the option tokens can be exercised.
+
+After Expiry, the Receiver can reclaim collateral from unexercised options, this is done through function [reclaim(FixedStrikeOptionToken optionToken_)](https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L395-L437):
+```solidity
+    function reclaim(FixedStrikeOptionToken optionToken_) external override nonReentrant {
+        // Load option parameters
+        (
+            ERC20 payoutToken,
+            ERC20 quoteToken,
+            uint48 eligible,
+            uint48 expiry,
+            address receiver,
+            bool call,
+            uint256 strikePrice
+        ) = optionToken_.getOptionParameters();
+
+
+        // Retrieve the internally stored option token with this configuration
+        // Reverts internally if token doesn't exist
+        FixedStrikeOptionToken optionToken = getOptionToken(
+            payoutToken,
+            quoteToken,
+            eligible,
+            expiry,
+            receiver,
+            call,
+            strikePrice
+        );
+
+
+        // Revert if token does not match stored token
+        if (optionToken_ != optionToken) revert Teller_UnsupportedToken(address(optionToken_));
+
+
+        // Revert if not expired
+        if (uint48(block.timestamp) < expiry) revert Teller_NotExpired(expiry);
+
+
+        // Revert if caller is not receiver
+        if (msg.sender != receiver) revert Teller_NotAuthorized();
+
+
+        // Transfer remaining collateral to receiver
+        uint256 amount = optionToken.totalSupply();
+        if (call) {
+            payoutToken.safeTransfer(receiver, amount);
+        } else {
+            // Calculate amount of quote tokens equivalent to amount at strike price
+            uint256 quoteAmount = amount.mulDiv(strikePrice, 10 ** payoutToken.decimals());
+            quoteToken.safeTransfer(receiver, quoteAmount);
+        }
+    }
+```
+
+It is worth noting that there is no check on if Option Tokens have been used for reclaiming and receiver can reclaim even if he has already done so. Consider the following scenario:
+
+1. Alice deploys on the teller, provides collateral and mints some Option Tokens;
+2. Bob deploys on the teller, provides the same collateral and mints the same amount of Option Tokens;
+3. Bob's Option Tokens expire and Bob calls to reclaim and gets collateral back;
+4. Bob's Option Tokens are not removed, so Bob calls reclaim again, Alice's collateral is sent to Bob.
+
+The same can be verified in below test case:
+```solidity
+function test_reclaim_2_times() public {
+        uint256 amount = 100 * 10 ** abc.decimals();
+
+        // Deploy call option token with receiver being Alice
+        uint256 strikePrice = 5 * 10 ** def.decimals();
+        FixedStrikeOptionToken aliceOptionToken = teller.deploy(
+            abc, // ERC20 payoutToken
+            def, // ERC20 quoteToken
+            uint48(0), // uint48 eligible (timestamp) - today
+            uint48(block.timestamp + 8 days), // uint48 expiry (timestamp) - 20220109
+            alice, // address receiver
+            true, // bool call (true) or put (false)
+            strikePrice // uint256 strikePrice
+        );
+
+        // Mint option tokens as Alice
+        vm.prank(alice);
+        teller.create(aliceOptionToken, amount);
+
+        // Deploy call option token with receiver being Bob
+        FixedStrikeOptionToken bobOptionToken = teller.deploy(
+            abc, // ERC20 payoutToken
+            def, // ERC20 quoteToken
+            uint48(0), // uint48 eligible (timestamp) - today
+            uint48(block.timestamp + 8 days), // uint48 expiry (timestamp) - 20220109
+            bob, // address receiver
+            true, // bool call (true) or put (false)
+            strikePrice // uint256 strikePrice
+        );
+
+        // Mint option tokens as Bob
+        vm.prank(bob);
+        teller.create(bobOptionToken, amount);
+
+        // Warp forward past expiry
+        vm.warp(block.timestamp + 9 days);
+
+        uint256 bobPayoutStart = abc.balanceOf(bob);
+
+        // Reclaim collateral 2 times as Bob
+        vm.prank(bob);
+        teller.reclaim(bobOptionToken);
+        vm.prank(bob);
+        teller.reclaim(bobOptionToken);
+
+        // Bobs get twice amount of his provided collateral
+        assertEq(abc.balanceOf(bob), bobPayoutStart + 200 * 10 ** abc.decimals());
+    }
+```
+
+## Impact
+
+Loss of funds for users that have provided collateral for Option Tokens.
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Consider removing or burning Option Tokens after collateral has being reclaimed.

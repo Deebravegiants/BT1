@@ -1,0 +1,76 @@
+# [H] liquidatePartyB can be avoided by frontrunning
+
+## Summary
+Severity: High
+Reporter: volodya
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/libraries/LibMuon.sol#L152
+Type: audit-issue
+
+## Details
+# liquidatePartyB can be avoided by frontrunning
+
+## Summary
+Liquidation can be avoided by frontrunning and all the other functions that depend on `AccountStorage.layout().partyBNonces`
+inside `LibMuon` vulnerable as well
+## Vulnerability Detail
+Whenever the liquidator calls `liquidatePartyB` there is a hash check against `AccountStorage.layout().partyBNonces[partyB][partyA]` 
+```solidity
+    function verifyPartyBUpnl(
+        SingleUpnlSig memory upnlSig,
+        address partyB,
+        address partyA
+    ) internal view {
+        MuonStorage.Layout storage muonLayout = MuonStorage.layout();
+//        require(
+//            block.timestamp <= upnlSig.timestamp + muonLayout.upnlValidTime,
+//            "LibMuon: Expired signature"
+//        );
+        bytes32 hash = keccak256(
+            abi.encodePacked(
+                muonLayout.muonAppId,
+                upnlSig.reqId,
+                address(this),
+                partyB,
+                partyA,
+                AccountStorage.layout().partyBNonces[partyB][partyA],
+                upnlSig.upnl,
+                upnlSig.timestamp,
+                getChainId()
+            )
+        );
+        verifyTSSAndGateway(hash, upnlSig.sigs, upnlSig.gatewaySignature);
+    }
+
+```
+[symmio-core/contracts/libraries/LibMuon.sol#L152](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/libraries/LibMuon.sol#L152)
+but partyB can avoid being liquidated by moving funds to yourself thus increasing `accountLayout.partyBNonces[msg.sender][origin]` so `verifyPartyBUpnl` will be reverted
+
+```solidity
+    function transferAllocation(
+        uint256 amount,
+        address origin,
+        address recipient,
+        SingleUpnlSig memory upnlSig
+    ) internal {
+....
+        accountLayout.partyBNonces[msg.sender][origin] += 1;
+        accountLayout.partyBAllocatedBalances[msg.sender][origin] -= amount;
+        // allocate for recipient
+        accountLayout.partyBNonces[msg.sender][recipient] += 1;
+        accountLayout.partyBAllocatedBalances[msg.sender][recipient] += amount;
+    }
+
+```
+[contracts/facets/Account/AccountFacetImpl.sol#L101](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacetImpl.sol#L101)
+Or allocating and deallocating
+## Impact
+Liquidation can be avoided by frontrunning
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+I didn't figure out how to fix this issue

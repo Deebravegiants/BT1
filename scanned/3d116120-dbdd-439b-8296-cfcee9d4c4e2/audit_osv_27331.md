@@ -1,0 +1,17 @@
+# [H] CVE-2024-20342
+
+## Summary
+Severity: High
+Advisory: CVE-2024-20342
+CVSS: 8.6 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:H/A:N)
+Published: 2024-10-23
+Source: https://osv.dev/vulnerability/CVE-2024-20342
+Type: osv
+
+## Details
+Multiple Cisco products are affected by a vulnerability in the rate filtering feature of the Snort detection engine that could allow an unauthenticated, remote attacker to bypass a configured rate limiting filter.&nbsp;
+
+This vulnerability is due to an incorrect connection count comparison. An attacker could exploit this vulnerability by sending traffic through an affected device at a rate that exceeds a configured rate filter. A successful exploit could allow the attacker to successfully bypass the rate filter. This could allow unintended traffic to enter the network protected by the affected device.
+
+## References
+- https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-snort-rf-bypass-OY8f3pnM

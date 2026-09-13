@@ -1,0 +1,50 @@
+# [M] Missing to change the decimals
+
+## Summary
+Severity: Medium
+Reporter: Ch_301
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacet.sol#L74-L82
+Type: audit-issue
+
+## Details
+# Missing to change the decimals
+
+## Summary
+The purpose of collecting two functions in only one is to save users time and funds 
+[depositAndAllocateForPartyB()](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacet.sol#L74-L82) doing the same thing.by calling both [depositForPartyB()](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacetImpl.sol#L108-L117https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacetImpl.sol#L108-L117) and [allocateForPartyB()](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacetImpl.sol#L119-L132) in one transaction.
+ 
+## Vulnerability Detail
+Protocol saving and tracking all the balances and prices in 18 decimals.
+But in [depositAndAllocateForPartyB()](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacet.sol#L74-L82) there is a miss of adapting the decimals of the `amount` variable 
+so when a user set `amount = 100e6` of USDT which is $100. it will allocate only `100e6` which is `$1e-10`
+Now user needs to invoke `deallocateForPartyB()` separately to allocate the correct amount
+
+## Impact
+- Function fails to deliver promised
+- wasting users' funds (gas) by doubling the work
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/Account/AccountFacet.sol#L74-L82
+```solidity
+    function depositAndAllocateForPartyB(
+        uint256 amount,
+        address partyA
+    ) external whenNotPartyBActionsPaused onlyPartyB {
+        AccountFacetImpl.depositForPartyB(amount);
+        AccountFacetImpl.allocateForPartyB(amount, partyA, true);
+        emit DepositForPartyB(msg.sender, amount);
+        emit AllocateForPartyB(msg.sender, partyA, amount);
+    }
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+```diff
++        uint256 amountWith18Decimals = (amount * 1e18) /
++        (10 ** IERC20Metadata(GlobalAppStorage.layout().collateral).decimals());
++       AccountFacetImpl.allocateForPartyB(amountWith18Decimals , partyA, true);
+-        AccountFacetImpl.allocateForPartyB(amount, partyA, true);
+```

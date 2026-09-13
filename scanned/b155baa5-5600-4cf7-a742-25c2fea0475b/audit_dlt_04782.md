@@ -1,0 +1,35 @@
+# [H] Anyone can frontrun and initialize HardenedTopupProxy to become admin and perform admin activities
+
+## Summary
+Severity: High
+Chain: Smart contract
+Component: 2022-10-mover
+Published: 2022-10-28
+Source: https://github.com/sherlock-audit/2022-10-mover-judging/issues/79
+Type: sherlock-finding
+
+## Details
+cryptphi
+
+high
+
+# Anyone can frontrun and initialize HardenedTopupProxy to become admin and perform admin activities
+
+## Summary
+There is no access control on the initialize() function for HardenedTopupProxy contract. Due to this, the malicious user would become admin and perform admin controlled activities
+
+## Vulnerability Detail
+There is no access control on the initialize() function for HardenedTopupProxy contract. This would allow anyone to be able to frontrun contract deployer's call to HardenedTopupProxy.initialize() and the user would become admin and perform activities like setting the chainID during initialize call, make changes to state variables
+
+## Impact
+HardenedTopupProxy ownership takeover and state variable updates to benefit the malicious actor.
+
+## Code Snippet
+https://github.com/sherlock-audit/2022-10-mover/blob/main/cardtopup_contract/contracts/HardenedTopupProxy.sol#L146-L161
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Apply necessary access control check to ensure the function is called my an authorized actor.

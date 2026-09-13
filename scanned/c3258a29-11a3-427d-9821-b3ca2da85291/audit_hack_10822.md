@@ -1,0 +1,26 @@
+# [H] Sandwitch attack will happen because no check on slippage
+
+## Summary
+Severity: High
+Reporter: simon135
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+# Sandwitch attack will happen because no check on slippage
+
+## Summary
+Since amountOutMinimum 0 is saying we don't give us the token no matter the price/amount and since on Ethereum it will be moved and it can cause loss and dust in the protocol and an attacker can profit from rebalancing. Getting sandwiched is possible 
+## Vulnerability Detail
+A sandwich attack is possible with this and we can abuse it  and not get as much collateral back and the attacker  can call the rebalance and sandwich(buy contract->buy sell)
+
+## Impact
+Profit for the attacker and loss of collateral for the contract
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Compute the price and check with slippage or have the slippage amount computed  by the contract

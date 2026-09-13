@@ -1,0 +1,22 @@
+# [H] Fickling check_safety() bypass via unlisted standard library modules (_posixsubprocess, site, atexit)
+
+## Summary
+Severity: High
+Advisory: CVE-2026-14534
+Aliases: GHSA-m6fh-58r7-x697, PYSEC-2026-2149
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2026-07-04
+Source: https://osv.dev/vulnerability/CVE-2026-14534
+Type: osv
+
+## Details
+Trail of Bits fickling versions up to and including 0.1.10 do not include the Python standard library modules _posixsubprocess, site, and atexit in the UNSAFE_IMPORTS denylist (fickle.py). Because these modules are absent from the denylist, fickling's check_safety() function returns LIKELY_SAFE with zero findings for pickle payloads that invoke dangerous functions including _posixsubprocess.fork_exec (C-level process spawner capable of executing arbitrary binaries), site.execsitecustomize (executes arbitrary site customization code), and atexit._run_exitfuncs (triggers all registered exit handler callbacks). The fickling.load() API chains check_safety() into pickle.loads() as an explicit security gate; a LIKELY_SAFE verdict causes the payload to be deserialized and executed. This shares the same root cause as CVE-2026-22607 (cProfile), CVE-2025-67748 (pty), and CVE-2025-67747 (marshal/types). OvertlyBadEvals does not flag these modules because they are standard library imports. UnsafeImports does not flag them because they are not in the denylist. The UnusedVariables heuristic is defeated by the SETITEMS opcode pattern.
+
+## References
+- https://github.com/trailofbits/fickling/releases/tag/v0.1.11
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/14xxx/CVE-2026-14534.json
+- https://github.com/trailofbits/fickling/security/advisories/GHSA-m6fh-58r7-x697
+- https://nvd.nist.gov/vuln/detail/CVE-2026-14534
+- https://github.com/trailofbits/fickling/commit/e8408615b63adf034f891f653692ab9b51f0f5af
+- https://github.com/trailofbits/fickling/pull/272
+- https://pypi.org/project/fickling/

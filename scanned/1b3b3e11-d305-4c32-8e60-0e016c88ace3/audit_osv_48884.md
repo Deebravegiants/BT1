@@ -1,0 +1,17 @@
+# [C] CVE-2018-16947
+
+## Summary
+Severity: Critical
+Advisory: CVE-2018-16947
+CVSS: 9.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2018-09-12
+Source: https://osv.dev/vulnerability/CVE-2018-16947
+Type: osv
+
+## Details
+An issue was discovered in OpenAFS before 1.6.23 and 1.8.x before 1.8.2. The backup tape controller (butc) process accepts incoming RPCs but does not require (or allow for) authentication of those RPCs. Handling those RPCs results in operations being performed with administrator credentials, including dumping/restoring volume contents and manipulating the backup database. For example, an unauthenticated attacker can replace any volume's content with arbitrary data.
+
+## References
+- http://openafs.org/pages/security/OPENAFS-SA-2018-001.txt
+- https://lists.debian.org/debian-lts-announce/2018/09/msg00024.html
+- https://www.debian.org/security/2018/dsa-4302

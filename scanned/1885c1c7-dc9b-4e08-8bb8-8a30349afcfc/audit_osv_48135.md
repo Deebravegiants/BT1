@@ -1,0 +1,17 @@
+# [H] CVE-2017-18552
+
+## Summary
+Severity: High
+Advisory: CVE-2017-18552
+CVSS: 7.8 (CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2019-08-19
+Source: https://osv.dev/vulnerability/CVE-2017-18552
+Type: osv
+
+## Details
+An issue was discovered in net/rds/af_rds.c in the Linux kernel before 4.11. There is an out of bounds write and read in the function rds_recv_track_latency.
+
+## References
+- https://support.f5.com/csp/article/K02460950
+- https://support.f5.com/csp/article/K02460950?utm_source=f5support&amp%3Butm_medium=RSS
+- https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=780e982905bef61d13496d9af5310bf4af3a64d3

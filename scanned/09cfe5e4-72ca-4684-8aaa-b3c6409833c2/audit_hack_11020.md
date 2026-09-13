@@ -1,0 +1,27 @@
+# [M] USSD.sol mintRebalancer lose access control
+
+## Summary
+Severity: Medium
+Reporter: twcctop
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L204-L210
+Type: audit-issue
+
+## Details
+# USSD.sol mintRebalancer lose access control
+
+
+## Summary
+USSD.sol mintRebalancerlose,burnRebalancer lose  an  access control 
+## Vulnerability Detail
+  in function  SSD.sol mintRebalancerlose,burnRebalancer, there are no access control ,anyone can mint and burn token 
+## Impact
+USSD.sol  
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L204-L210
+## Tool used
+
+Manual Review
+
+## Recommendation
+add access control

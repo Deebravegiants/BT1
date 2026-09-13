@@ -1,0 +1,45 @@
+# [M] Can approve away their own club, getting tokens and the club stolen
+
+## Summary
+Severity: Medium
+Reporter: GalloDaSballo
+Source: https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumEscrow.sol#L95-L96
+Type: audit-issue
+
+## Details
+# Can approve away their own club, getting tokens and the club stolen
+
+## Summary
+
+Granting approvals for `FootiumClub` allows to temporarily become the owner of the club which allows stealing `FootiumPlayer`s
+
+
+## Vulnerability Detail
+
+The `FootiumEscrow` allows to grant approvals of tokens held inside of `FootiumEscrow`
+
+If `FootiumClub` is ever borrowed, even temporarily, for example via a flashloan, then the temporary owner will be able to bypass the check for ownership and they'll be able to grant approvals from the `FootiumEscrow` for all `FootiumPlayer`s
+
+
+## Impact
+
+Loss of players
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumEscrow.sol#L95-L96
+
+```solidity
+        erc721Contract.setApprovalForAll(to, approved);
+
+```
+
+Even by just having the ability to transfer, even if temporarily, the escrow will read a new owner, allowing to sweep away the players
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+It may be best for Owners to self-custody the `FootiumPlayers` as a way to avoid them getting their NFTs stolen via gotchas

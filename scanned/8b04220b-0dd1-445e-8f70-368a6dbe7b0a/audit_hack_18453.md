@@ -1,0 +1,36 @@
+# [M] Arbitrary from passed to transferFrom (or safeTransferFrom)
+
+## Summary
+Severity: Medium
+Reporter: Macho Pebble Lion
+Source: https://github.com/sherlock-audit/2023-12-ubiquity/blob/main/ubiquity-dollar/packages/contracts/src/dollar/libraries/LibUbiquityPool.sol
+Type: audit-issue
+
+## Details
+# Arbitrary from passed to transferFrom (or safeTransferFrom)
+
+## Summary
+
+Passing an arbitrary from address to transferFrom (or safeTransferFrom ) can lead to loss of funds, because anyone can transfer tokens from the from address if an approval is made.
+
+## Vulnerability Detail
+ #https://github.com/sherlock-audit/2023-12-ubiquity/blob/main/ubiquity-dollar/packages/contracts/src/dollar/libraries/LibUbiquityPool.sol
+https://github.com/sherlock-audit/2023-12-ubiquity/blob/main/ubiquity-dollar/packages/contracts/src/dollar/libraries/LibUbiquityPool.sol:L379
+
+
+## Impact
+
+## Code Snippet
+
+Found in ubiquity-dollar/packages/contracts/src/dollar/libraries/LibUbiquityPool.sol Line: 379
+```solidity
+            .safeTransferFrom(msg.sender, address(this), collateralNeeded);
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Avoid passing arbitrary from to transferFrom (or safeTransferFrom)

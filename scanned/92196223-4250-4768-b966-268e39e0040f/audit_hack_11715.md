@@ -1,0 +1,30 @@
+# [M] Closed products leads capital inefficiencies
+
+## Summary
+Severity: Medium
+Reporter: mstpr-brainbot
+Source: https://github.com/sherlock-audit/2023-05-perennial/blob/main/perennial-mono/packages/perennial-vaults/contracts/balanced/BalancedVault.sol#L472-L492
+Type: audit-issue
+
+## Details
+# Closed products leads capital inefficiencies
+
+## Summary
+When a product in a market closes, the vault correctly eliminates all its positions, considering there's no longer a need for hedging. However, the vault's continuous collateral deposit into the inactive market, without initiating any new positions, can result in capital inefficiencies. This inefficiency is particularly pronounced when the product is indefinitely closed.
+## Vulnerability Detail
+Upon the closure of a long or short product within a market, the vault appropriately disposes all its positions, as there is no longer any hedging requirement. However, an inefficiency arises as the vault continues to deposit collateral into the now closed market. Despite not opening any new positions, the vault persists in maintaining a collateral deposit. This practice may lead to capital inefficiencies, especially if the product is permanently closed.
+
+## Impact
+Vault can't retrieve its position which will lead to vault to have capital inefficiencies.
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-perennial/blob/main/perennial-mono/packages/perennial-vaults/contracts/balanced/BalancedVault.sol#L472-L492
+
+https://github.com/sherlock-audit/2023-05-perennial/blob/main/perennial-mono/packages/perennial/contracts/product/types/accumulator/VersionedAccumulator.sol#L66-L230
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+If a product is closed, don't deposit collateral since there is no point of doing so. If the product is opened after sometime then the vault can start depositing. If the vault is closed for good, vault should be taking all the funds to the contract balance

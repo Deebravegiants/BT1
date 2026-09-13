@@ -1,0 +1,21 @@
+# [H] CVE-2022-42333
+
+## Summary
+Severity: High
+Advisory: CVE-2022-42333
+CVSS: 8.6 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H)
+Published: 2023-03-21
+Source: https://osv.dev/vulnerability/CVE-2022-42333
+Type: osv
+
+## Details
+x86/HVM pinned cache attributes mis-handling T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] To allow cachability control for HVM guests with passed through devices, an interface exists to explicitly override defaults which would otherwise be put in place. While not exposed to the affected guests themselves, the interface specifically exists for domains controlling such guests. This interface may therefore be used by not fully privileged entities, e.g. qemu running deprivileged in Dom0 or qemu running in a so called stub-domain. With this exposure it is an issue that - the number of the such controlled regions was unbounded (CVE-2022-42333), - installation and removal of such regions was not properly serialized (CVE-2022-42334).
+
+## References
+- https://www.debian.org/security/2023/dsa-5378
+- https://xenbits.xenproject.org/xsa/advisory-428.txt
+- http://www.openwall.com/lists/oss-security/2023/03/21/2
+- http://xenbits.xen.org/xsa/advisory-428.html
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/5L6PM4RE7MUE6OWA32ZVOXCP235RM2TM/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/APBMS2Q6746AXAFAITNJMGBNFGNMVLWR/
+- https://security.gentoo.org/glsa/202402-07

@@ -1,0 +1,28 @@
+# [M] Black vulnerable to Regular Expression Denial of Service (ReDoS)
+
+## Summary
+Severity: Medium
+Advisory: GHSA-fj7x-q9j7-g6q6
+CVE: CVE-2024-21503
+CWE: CWE-1333, CWE-75
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L (CVSS_V3)
+Published: 2024-03-19
+Source: https://github.com/advisories/GHSA-fj7x-q9j7-g6q6
+Type: github-advisory
+
+## Affected
+- PyPI: `black` — affected >=0 <24.3.0
+
+## Details
+Versions of the package black before 24.3.0 are vulnerable to Regular Expression Denial of Service (ReDoS) via the lines_with_leading_tabs_expanded function in the strings.py file. An attacker could exploit this vulnerability by crafting a malicious input that causes a denial of service.
+
+Exploiting this vulnerability is possible when running Black on untrusted input, or if you habitually put thousands of leading tab characters in your docstrings.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-21503
+- https://github.com/psf/black/commit/f00093672628d212b8965a8993cee8bedf5fe9b8
+- https://github.com/psf/black
+- https://github.com/psf/black/releases/tag/24.3.0
+- https://github.com/pypa/advisory-database/tree/main/vulns/black/PYSEC-2024-48.yaml
+- https://security.snyk.io/vuln/SNYK-PYTHON-BLACK-6256273

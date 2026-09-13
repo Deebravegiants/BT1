@@ -1,0 +1,33 @@
+# [M] User may lose his token due to precision loss
+
+## Summary
+Severity: Medium
+Reporter: Damaged Mahogany Nightingale
+Source: https://github.com/sherlock-audit/2023-12-symm-io/blob/main/solver-vaults/contracts/SolverVaults.sol#L212-L217
+Type: audit-issue
+
+## Details
+# User may lose his token due to precision loss
+
+## Summary
+A user may lose his token due to precision loss.
+## Vulnerability Detail
+Suppose the collateralTokenDecimals(e.g. USDC) is 6 and the solverVaultTokenDecimals is 18, if a user requests a withdrawal with the amount `10**12-1`, the amountInCollateralDecimals will be zero after the token decimal conversion and the user lost `10**12-1` token forever.
+```solidity
+        uint256 amountInCollateralDecimals = collateralTokenDecimals >=
+            solverVaultTokenDecimals
+            ? amount *
+                (10 ** (collateralTokenDecimals - solverVaultTokenDecimals))
+            : amount /
+                (10 ** (solverVaultTokenDecimals - collateralTokenDecimals));
+```
+## Impact
+A user may lose his token due to precision loss
+## Code Snippet
+- https://github.com/sherlock-audit/2023-12-symm-io/blob/main/solver-vaults/contracts/SolverVaults.sol#L212-L217
+## Tool used
+
+Manual Review
+
+## Recommendation
+Recommend checking if `amountInCollateralDecimals` is greater than 0.

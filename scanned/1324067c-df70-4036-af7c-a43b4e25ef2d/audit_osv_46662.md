@@ -1,0 +1,34 @@
+# [M] CVE-2014-8086
+
+## Summary
+Severity: Medium
+Advisory: CVE-2014-8086
+CVSS: 4.7 (CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2014-10-13
+Source: https://osv.dev/vulnerability/CVE-2014-8086
+Type: osv
+
+## Details
+Race condition in the ext4_file_write_iter function in fs/ext4/file.c in the Linux kernel through 3.17 allows local users to cause a denial of service (file unavailability) via a combination of a write action and an F_SETFL fcntl operation for the O_DIRECT flag.
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2015-09/msg00004.html
+- http://rhn.redhat.com/errata/RHSA-2015-0290.html
+- http://rhn.redhat.com/errata/RHSA-2015-0694.html
+- http://www.openwall.com/lists/oss-security/2014/10/09/25
+- http://www.securityfocus.com/bid/70376
+- http://www.spinics.net/lists/linux-ext4/msg45683.html
+- http://www.spinics.net/lists/linux-ext4/msg45685.html
+- https://bugzilla.redhat.com/show_bug.cgi?id=1151353
+- https://exchange.xforce.ibmcloud.com/vulnerabilities/96922
+- https://lkml.org/lkml/2014/10/8/545
+- https://lkml.org/lkml/2014/10/9/129
+- http://lists.opensuse.org/opensuse-security-announce/2015-09/msg00004.html
+- http://www.openwall.com/lists/oss-security/2014/10/09/25
+- http://www.spinics.net/lists/linux-ext4/msg45683.html
+- http://www.spinics.net/lists/linux-ext4/msg45685.html
+- https://lkml.org/lkml/2014/10/8/545
+- https://lkml.org/lkml/2014/10/9/129
+- http://www.spinics.net/lists/linux-ext4/msg45683.html
+- https://lkml.org/lkml/2014/10/8/545
+- https://lkml.org/lkml/2014/10/9/129

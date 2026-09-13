@@ -1,0 +1,54 @@
+# [M] Curve related oracle's means of preventing reentrant may result in revert
+
+## Summary
+Severity: Medium
+Reporter: Tangy Carob Jay
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/oracles/providers/CurveV1StableEthOracle.sol#L135
+Type: audit-issue
+
+## Details
+# Curve related oracle's means of preventing reentrant may result in revert
+## Summary
+
+Curve has a well-known readability reentrant problem, and this protocol is designed to take this into account and add corresponding function calls to detect reentrant status.
+There are three most commonly used functions: remove_liquidity / claim_admin_fees / withdraw_admin_fees. This protocol supports the latter two types of oracle.
+The problem is that for some curve pools, claim_admin_fees / withdraw_admin_fees are only allowed to be called by the owner, which results in oracle reading the price revert and not being usable.
+
+## Vulnerability Detail
+
+Take ETH/stETH [pool](https://etherscan.io/address/0xdc24316b9ae028f1497c275eb9192a3ea0f67022#code) for example, withdraw_admin_fees is only allowed to be called by the owner.
+```vyper
+@external
+@nonreentrant('lock')
+def withdraw_admin_fees():
+    assert msg.sender == self.owner  # dev: only owner
+
+    amount: uint256 = self.admin_balances[0]
+    if amount != 0:
+        raw_call(msg.sender, b"", value=amount)
+
+    amount = self.admin_balances[1]
+    if amount != 0:
+        assert ERC20(self.coins[1]).transfer(msg.sender, amount)
+
+    self.admin_balances = empty(uint256[N_COINS])
+```
+
+## Impact
+
+For ETH related curve pools, reentrant detection needs to be carried out to avoid oracle price manipulation. 
+However, the related function claim_admin_fees / withdraw_admin_fees may only allow the owner to call, resulting in revert, and the oracle cannot work normally. 
+
+## Code Snippet
+
+- https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/oracles/providers/CurveV1StableEthOracle.sol#L135
+- https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/oracles/providers/CurveV2CryptoEthOracle.sol#L162
+- https://github.com/Tokemak/v2-core-audit-2023-07-14/blob/62445b8ee3365611534c96aef189642b721693bf/src/stats/calculators/CurveV1PoolRebasingStatsCalculator.sol#L21
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Consider adding remove_liquidity to detect reentrant status

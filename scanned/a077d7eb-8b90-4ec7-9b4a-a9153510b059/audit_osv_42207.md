@@ -1,0 +1,19 @@
+# [C] @fastify/express vulnerable to middleware bypass via non-string mount paths in prefixed plugins
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-6556
+Aliases: GHSA-3wf5-7852-vcfq
+CVSS: 9.1 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N)
+Published: 2026-06-30
+Source: https://osv.dev/vulnerability/CVE-2026-6556
+Type: osv
+
+## Details
+@fastify/express versions 4.0.6 and earlier only rewrite the plugin prefix for middleware mount paths when the path argument is a string. Non-string mount paths (arrays of paths and regular expressions) are left unprefixed inside prefixed plugin scopes, so middleware registered with those forms does not match the actual prefixed request path. Applications that use path-scoped middleware for authentication, authorization, rate limiting, or auditing on routes inside a prefixed scope can be bypassed by sending a request to the prefixed route, because Fastify still matches the route but the middleware is skipped. Patches: upgrade to @fastify/express 4.0.7. Workarounds: use string mount paths instead of arrays or regular expressions in prefixed plugins, or register one use call per path.
+
+## References
+- https://cna.openjsf.org/security-advisories.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/6xxx/CVE-2026-6556.json
+- https://github.com/fastify/fastify-express/security/advisories/GHSA-3wf5-7852-vcfq
+- https://nvd.nist.gov/vuln/detail/CVE-2026-6556

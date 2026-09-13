@@ -1,0 +1,22 @@
+# [H] SuiteCRM - CSV Injection in Accounts Module
+
+## Summary
+Severity: High
+Advisory: BIT-suitecrm-2021-25960
+Aliases: CVE-2021-25960
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-suitecrm-2021-25960
+Type: osv
+
+## Affected
+- Bitnami: `suitecrm` — affected >=7.11.18 <7.11.21
+
+## Details
+In “SuiteCRM” application, v7.11.18 through v7.11.19 and v7.10.29 through v7.10.31 are affected by “CSV Injection” vulnerability (Formula Injection). A low privileged attacker can use accounts module to inject payloads in the input fields. When an administrator access accounts module to export the data as a CSV file and opens it, the payload gets executed. This was not fixed properly as part of CVE-2020-15301, allowing the attacker to bypass the security measure.
+
+## References
+- https://github.com/salesagility/SuiteCRM/commit/7124482fe07ee164923d974456ed31e45f65e513
+- https://github.com/salesagility/SuiteCRM/commit/f463031bee59676d7d5be53bb32d551cd70a5648
+- https://www.whitesourcesoftware.com/vulnerability-database/CVE-2021-25960
+- https://nvd.nist.gov/vuln/detail/CVE-2021-25960

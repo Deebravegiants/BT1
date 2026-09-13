@@ -1,0 +1,57 @@
+# [H] arm64: errata: Mitigate TLBI errata on various Arm CPUs
+
+## Summary
+Severity: High
+Advisory: CVE-2026-53354
+Ecosystem: Linux
+CVSS: 8.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H)
+Published: 2026-07-01
+Source: https://osv.dev/vulnerability/CVE-2026-53354
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=3.7.0 <5.10.259, >=5.11.0 <5.15.210, >=5.16.0 <6.1.176, >=6.2.0 <6.6.143, >=6.7.0 <6.12.94, >=6.13.0 <6.18.36, >=6.19.0 <7.0.13, >=7.1.0 <7.1.1
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+arm64: errata: Mitigate TLBI errata on various Arm CPUs
+
+A number of CPUs developed by Arm suffer from errata whereby a broadcast
+TLBI;DSB sequence may complete before the global observation of writes
+which are translated by an affected TLB entry.
+
+These errata ONLY affect the completion of memory accesses which have
+been translated by an invalidated TLB entry, and these errata DO NOT
+affect the actual invalidation of TLB entries. TLB entries are removed
+correctly.
+
+This issue has been assigned CVE ID CVE-2025-10263.
+
+To mitigate this issue, Arm recommends that software follows any
+affected TLBI;DSB sequence with an additional TLBI;DSB, which will
+ensure that all memory write effects affected by the first TLBI have
+been globally observed. The additional TLBI can use any operation that
+is broadcast to affected CPUs, and the additional DSB can use any option
+that is sufficient to complete the additional TLBI.
+
+The ARM64_WORKAROUND_REPEAT_TLBI workaround is sufficient to mitigate
+the issue. Enable this workaround for affected CPUs, and update the
+silicon errata documentation accordingly.
+
+Note that due to the manner in which Arm develops IP and tracks errata,
+some CPUs share a common erratum number.
+
+## References
+- https://git.kernel.org/stable/c/1268c64e2bcb6e968152990e87bd10c440fcc9c0
+- https://git.kernel.org/stable/c/1b47b1e1d8675fdf5f6e11e7fa19c704d8c6f5cd
+- https://git.kernel.org/stable/c/4e7c80742e6dada9f8b9ad63f3a49c03af07ecb8
+- https://git.kernel.org/stable/c/7c3ad9365079e716b57d2363d3081ee7680cc18e
+- https://git.kernel.org/stable/c/8364384ae82fbffdf8968abaac3455ed854da18d
+- https://git.kernel.org/stable/c/925058203229403008d77a52b1e63e2ae5f4a3cf
+- https://git.kernel.org/stable/c/cfd391e74134db664feb499d43af286380b10ba8
+- https://git.kernel.org/stable/c/d4fd4282204044fdedd1e42abbe70a9206f74ec0
+- https://git.kernel.org/stable/c/e717a4d08779f1a28d6e0275e75040b12c33c753
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/53xxx/CVE-2026-53354.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-53354
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

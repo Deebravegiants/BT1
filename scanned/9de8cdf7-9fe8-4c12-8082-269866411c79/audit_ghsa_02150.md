@@ -1,0 +1,28 @@
+# [H] Double free in arenavec
+
+## Summary
+Severity: High
+Advisory: GHSA-955p-rc5h-hg6h
+CVE: CVE-2021-29931
+CWE: CWE-415
+Ecosystem: crates.io
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2021-08-25
+Source: https://github.com/advisories/GHSA-955p-rc5h-hg6h
+Type: github-advisory
+
+## Affected
+- crates.io: `arenavec` — affected >=0
+
+## Details
+Affected versions of this crate did not guard against potential panics that may happen from user-provided functions T::default() and T::drop().
+
+Panic within T::default() leads to dropping uninitialized T, when it is invoked from common::Slice::<T, H>::new(). Panic within T::drop() leads to double drop of T, when it is invoked either from common::SliceVec::<T, H>::resize_with() or common::SliceVec::<T, H>::resize()
+
+Either case causes memory corruption in the heap memory.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2021-29931
+- https://github.com/ibabushkin/arenavec/issues/1
+- https://github.com/ibabushkin/arenavec
+- https://rustsec.org/advisories/RUSTSEC-2021-0040.html

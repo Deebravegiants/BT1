@@ -1,0 +1,16 @@
+# [M] CVE-2020-9300
+
+## Summary
+Severity: Medium
+Advisory: CVE-2020-9300
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2020-11-09
+Source: https://osv.dev/vulnerability/CVE-2020-9300
+Type: osv
+
+## Details
+The Access Control issues include allowing a regular user to view a restricted incident, user role escalation to admin, users adding themselves as a participant in a restricted incident, and users able to view restricted incidents via the search feature. If your install has followed the secure deployment guidelines the risk of this is lowered, as this may only be exploited by an authenticated user.
+
+## References
+- https://github.com/Netflix/dispatch/releases/tag/v20201106
+- https://github.com/Netflix/security-bulletins/blob/master/advisories/nflx-2020-005.md

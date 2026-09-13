@@ -1,0 +1,25 @@
+# [H] The normalized target unit can be set to zero
+
+## Summary
+Severity: High
+Reporter: Great Chrome Crane
+Source: https://github.com/sherlock-audit/2023-06-Index/blob/main/index-protocol/contracts/protocol/modules/v1/AuctionRebalanceModuleV1.sol#L1121C1-L1134
+Type: audit-issue
+
+## Details
+# The normalized target unit can be set to zero
+
+## Summary
+The _getNormalizedTargetUnit function doesn’t check for a zero target unit.
+## Vulnerability Detail
+If the _getNormalizedTargetUnit function is used to calculate a position's target unit in a rebalance, and the target unit is set to zero, it will  result in division by zero or incorrect position calculations.
+## Impact
+It will cause issues when calculating quantities, determining auction sizes and directions, or checking if rebalance targets are met potentially resulting in loss of funds 
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-Index/blob/main/index-protocol/contracts/protocol/modules/v1/AuctionRebalanceModuleV1.sol#L1121C1-L1134
+## Tool used
+
+Manual Review
+
+## Recommendation
+A check should be added to the _getNormalizedTargetUnit function to ensure that the target unit is not set to zero.

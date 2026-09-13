@@ -1,0 +1,18 @@
+# [H] CVE-2018-20542
+
+## Summary
+Severity: High
+Advisory: CVE-2018-20542
+CVSS: 8.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2018-12-28
+Source: https://osv.dev/vulnerability/CVE-2018-20542
+Type: osv
+
+## Details
+There is a heap-based buffer-overflow at generator_spgemm_csc_reader.c (function libxsmm_sparse_csc_reader) in LIBXSMM 1.10, a different vulnerability than CVE-2018-20541 (which is in a different part of the source code and is seen at a different address).
+
+## References
+- https://bugzilla.redhat.com/show_bug.cgi?id=1652633
+- https://bugzilla.redhat.com/show_bug.cgi?id=1652635
+- https://github.com/hfp/libxsmm/issues/287
+- https://github.com/hfp/libxsmm/commit/151481489192e6d1997f8bde52c5c425ea41741d

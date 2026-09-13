@@ -1,0 +1,85 @@
+# [H] FreeCollateral#_getPortfolioAndNTokenAssetValue() might return zero for netPortfolioValue instead of the correct value during LiquidationCurrencyActtion#LiquidateLocalCurrency()
+
+## Summary
+Severity: High
+Reporter: chaduke
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/valuation/FreeCollateral.sol#L107-L147
+Type: audit-issue
+
+## Details
+# FreeCollateral#_getPortfolioAndNTokenAssetValue() might return zero for netPortfolioValue instead of the correct value during LiquidationCurrencyActtion#LiquidateLocalCurrency()
+
+## Summary
+ ``FreeCollateral#_getPortfolioAndNTokenAssetValue()`` might return zero for netPortfolioValue instead of the correct value during ``LiquidationCurrencyActtion#LiquidateLocalCurrency()``
+
+## Vulnerability Detail
+To see this, let's consider the flow
+``LiquidationCurrencyActtion#LiquidateLocalCurrency()->_localCurrencyLiqudation()->LiquidationHelpers.preLiquidationActions() -> FreeCollateralExternal#getLiquidationFactors()->FreeCollateral#getLiquidationFactors() -> _calculateLiquidationAssetValue() -> _getPortfolioAndNTokenAssetValue()``. 
+
+This flow essentially needs to calculate the free collateral of the account that needs to be liquidated.  ``_getPortfolioAndNTokenAssetValue()`` calculates portfolio and/or nToken values while using the supplied cash groups and markets
+
+[https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/valuation/FreeCollateral.sol#L107-L147](https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/valuation/FreeCollateral.sol#L107-L147)
+
+The problem here is that the function only calculates when ``factors.portfolio[factors.portfolioIndex].currencyId == factors.cashGroup.currencyId``. This is a problem since ``factors.portfolioIndex`` is initially zero and the currency in question ``factors.cashGroup.currencyId`` might not be the first currency.  The function should have started to search from zero index rather than from  ``factors.portfolioIndex`` and eliminate the if-condition. 
+
+In summary, ``_getPortfolioAndNTokenAssetValue()`` might fail the condition of ``factors.portfolio[factors.portfolioIndex].currencyId == factors.cashGroup.currencyId``, and return the wrong (zero) value for ``netPortfolioValue``. 
+
+## Impact
+FreeCollateral#_getPortfolioAndNTokenAssetValue() might not return the needed netPortfolioValue correctly during LiquidationCurrencyActtion#LiquidateLocalCurrency()
+
+
+## Code Snippet
+
+
+## Tool used
+VSCode
+
+Manual Review
+
+## Recommendation
+Eliminate the if-condition and search from zero index. 
+
+```diff
+function _getPortfolioAndNTokenAssetValue(
+        FreeCollateralFactors memory factors,
+        int256 nTokenBalance,
+        uint256 blockTime
+    )
+        private
+        view
+        returns (
+            int256 netPortfolioValue,
+            int256 nTokenHaircutPrimeValue,
+            bytes6 nTokenParameters
+        )
+    {
+-        // If the next asset matches the currency id then we need to calculate the cash group -value
+-        if (
+-            factors.portfolioIndex < factors.portfolio.length &&
+-            factors.portfolio[factors.portfolioIndex].currencyId == factors.cashGroup.currencyId
+-        ) {
+-            // netPortfolioValue is in asset cash
+            (netPortfolioValue, factors.portfolioIndex) = AssetHandler.getNetCashGroupValue(
+                factors.portfolio,
+                factors.cashGroup,
+                blockTime,
+-                factors.portfolioIndex
++             0
+            );
+-        } else {
+-            netPortfolioValue = 0;
+-        }
+
+        if (nTokenBalance > 0) {
+            (nTokenHaircutPrimeValue, nTokenParameters) = _getNTokenHaircutPrimePV(
+                factors.cashGroup,
+                factors.nToken,
+                nTokenBalance,
+                blockTime
+            );
+        } else {
+            nTokenHaircutPrimeValue = 0;
+            nTokenParameters = 0;
+        }
+    }
+```

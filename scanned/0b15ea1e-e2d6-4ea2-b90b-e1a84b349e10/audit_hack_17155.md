@@ -1,0 +1,25 @@
+# [H] checks to see if an address is in the gaugeaddress before removal
+
+## Summary
+Severity: High
+Reporter: Delightful Felt Pangolin
+Source: https://github.com/sherlock-audit/2023-11-convergence/blob/main/sherlock-cvg/contracts/Rewards/CvgRewards.sol#L139-L154
+Type: audit-issue
+
+## Details
+# checks to see if an address is in the gaugeaddress before removal
+
+## Summary
+there is no checks for presence of a gaugeaddress before it is removed
+## Vulnerability Detail
+an unregistered address can be called with the remove this unfortunately removes the lastGuage address  instead
+## Impact
+protocol insolvency
+## Code Snippet
+https://github.com/sherlock-audit/2023-11-convergence/blob/main/sherlock-cvg/contracts/Rewards/CvgRewards.sol#L139-L154
+## Tool used
+
+Manual Review
+
+## Recommendation
+checks to see presence of address  before trying to remove

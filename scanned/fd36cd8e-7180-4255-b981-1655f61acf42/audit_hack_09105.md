@@ -1,0 +1,27 @@
+# [H] GeneralRepay allows users tokens to be stolen.
+
+## Summary
+Severity: High
+Reporter: Jigsaw
+Source: https://github.com/sherlock-audit/2023-04-jojo/blob/main/JUSDV1/src/Impl/flashloanImpl/GeneralRepay.sol#L32-L54
+Type: audit-issue
+
+## Details
+# GeneralRepay allows users tokens to be stolen.
+
+## Summary
+Same as FlashloanLiquidate.sol, FlashloanRepay.sol, DepositStableCoinToDealer.sol
+
+## Vulnerability Detail
+see https://github.com/sherlock-audit/2023-04-jojo-getjiggy/issues/1
+Allows malicious actor to send arbitrary data to an arbitrary address. Anyone who leaves approvals open on this contract will have funds at risk.
+## Impact
+your users get rekt. 
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-jojo/blob/main/JUSDV1/src/Impl/flashloanImpl/GeneralRepay.sol#L32-L54
+## Tool used
+
+Manual Review
+
+## Recommendation
+Hardcode an aggregator address and validate calldata function selector or drop allowing users to swap altogether.

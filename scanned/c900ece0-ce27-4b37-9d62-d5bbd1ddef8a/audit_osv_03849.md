@@ -1,0 +1,19 @@
+# [M] ALPINE-CVE-2026-56416
+
+## Summary
+Severity: Medium
+Advisory: ALPINE-CVE-2026-56416
+Ecosystem: Alpine:v3.24
+CVSS: 4.8 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:L)
+Published: 2026-07-22
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2026-56416
+Type: osv
+
+## Affected
+- Alpine:v3.24: `unbound` — affected >=0 <1.25.2-r0
+
+## Details
+In NLnet Labs Unbound up to and including version 1.25.1, when the validator builds the canonical RDATA form for an RRSIG-covered PX/RP/MINFO/SOA RRset, it computes the address of the second embedded domain name as 'datstart + dname_valid(datstart, ...)' and passes it straight to 'query_dname_tolower()' without checking that a second name is actually present in the RDATA. The wire-format parser accepts multi-dname RRs whose RDATA ends after the first name, so an attacker who runs a DNSSEC-signed authoritative server can deliver a record with an absent second domain name (e.g. SOA record) and cause 'query_dname_tolower()' to walk label-by-label through stale bytes in the per-worker 'env->scratch_buffer', past the end of that heap allocation if 'msg-buffer-size' has been lowered from the default. This leads to heap buffer overflow and on a release build the outcome relies heavily on the contents of the buffer tail and the adjacent heap chunk.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2026-56416

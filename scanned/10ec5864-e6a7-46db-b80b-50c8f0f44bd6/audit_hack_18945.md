@@ -1,0 +1,25 @@
+# [M] division before multiplication
+
+## Summary
+Severity: Medium
+Reporter: Fun Opal Squid
+Source: https://github.com/sherlock-audit/2023-12-truflation/blob/main/truflation-contracts/src/token/TrufVesting.sol#L184
+Type: audit-issue
+
+## Details
+# division before multiplication
+
+## Summary
+Here we are using division before multiplication which will cause a truncation.
+## Vulnerability Detail
+uint64 timeElapsed = ((uint64(block.timestamp) - startTime) / info.unit) * info.unit;
+## Impact
+This will cause a rounding down.
+## Code Snippet
+https://github.com/sherlock-audit/2023-12-truflation/blob/main/truflation-contracts/src/token/TrufVesting.sol#L184
+## Tool used
+
+Manual Review
+
+## Recommendation
+use multiplication before division

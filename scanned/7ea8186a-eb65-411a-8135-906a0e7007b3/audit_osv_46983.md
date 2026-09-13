@@ -1,0 +1,34 @@
+# [M] CVE-2015-8660
+
+## Summary
+Severity: Medium
+Advisory: CVE-2015-8660
+CVSS: 6.7 (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H)
+Published: 2015-12-28
+Source: https://osv.dev/vulnerability/CVE-2015-8660
+Type: osv
+
+## Details
+The ovl_setattr function in fs/overlayfs/inode.c in the Linux kernel through 4.3.3 attempts to merge distinct setattr operations, which allows local users to bypass intended access restrictions and modify the attributes of arbitrary overlay files via a crafted application.
+
+## References
+- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=acff81ec2c79492b180fade3c2894425cd35a545
+- http://lists.opensuse.org/opensuse-security-announce/2016-03/msg00039.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-03/msg00040.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-03/msg00043.html
+- http://packetstormsecurity.com/files/135151/Ubuntu-14.04-LTS-15.10-overlayfs-Local-Root.html
+- http://rhn.redhat.com/errata/RHSA-2016-1532.html
+- http://rhn.redhat.com/errata/RHSA-2016-1539.html
+- http://rhn.redhat.com/errata/RHSA-2016-1541.html
+- http://www.openwall.com/lists/oss-security/2015/12/23/5
+- http://www.oracle.com/technetwork/topics/security/linuxbulletinjul2016-3090544.html
+- http://www.oracle.com/technetwork/topics/security/ovmbulletinjul2016-3090546.html
+- http://www.securityfocus.com/bid/79671
+- http://www.securitytracker.com/id/1034548
+- http://www.ubuntu.com/usn/USN-2857-1
+- http://www.ubuntu.com/usn/USN-2857-2
+- http://www.ubuntu.com/usn/USN-2858-1
+- http://www.ubuntu.com/usn/USN-2858-2
+- http://www.ubuntu.com/usn/USN-2858-3
+- https://bugzilla.redhat.com/show_bug.cgi?id=1291329
+- https://github.com/torvalds/linux/commit/acff81ec2c79492b180fade3c2894425cd35a545

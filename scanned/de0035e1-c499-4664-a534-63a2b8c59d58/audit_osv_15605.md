@@ -1,0 +1,25 @@
+# [M] CVE-2019-17567
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-17567
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N)
+Published: 2021-06-10
+Source: https://osv.dev/vulnerability/CVE-2019-17567
+Type: osv
+
+## Details
+Apache HTTP Server versions 2.4.6 to 2.4.46 mod_proxy_wstunnel configured on an URL that is not necessarily Upgraded by the origin server was tunneling the whole connection regardless, thus allowing for subsequent requests on the same connection to pass through with no HTTP validation, authentication or authorization possibly configured.
+
+## References
+- https://lists.apache.org/thread.html/r7f2b70b621651548f4b6f027552f1dd91705d7111bb5d15cda0a68dd%40%3Cdev.httpd.apache.org%3E
+- https://lists.apache.org/thread.html/r90f693a5c9fb75550ef1412436d5e682a5f845beb427fa6f23419a3c%40%3Cannounce.httpd.apache.org%3E
+- https://lists.debian.org/debian-lts-announce/2024/05/msg00013.html
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/SPBR6WUYBJNACHKE65SPL7TJOHX7RHWD/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZNCYSR3BXT36FFF4XTCPL3HDQK4VP45R/
+- http://httpd.apache.org/security/vulnerabilities_24.html
+- http://www.openwall.com/lists/oss-security/2021/06/10/2
+- https://lists.apache.org/thread.html/re026d3da9d7824bd93b9f871c0fdda978d960c7e62d8c43cba8d0bf3%40%3Ccvs.httpd.apache.org%3E
+- https://security.gentoo.org/glsa/202107-38
+- https://security.netapp.com/advisory/ntap-20210702-0001/
+- https://www.oracle.com/security-alerts/cpuoct2021.html

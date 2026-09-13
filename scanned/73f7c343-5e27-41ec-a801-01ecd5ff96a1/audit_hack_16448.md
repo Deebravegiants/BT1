@@ -1,0 +1,38 @@
+# [H] In `takeOverDebt`, wrong parameter `borrowingKey` is used to call `_addKeysAndLoansInfo`
+
+## Summary
+Severity: High
+Reporter: Careful Seafoam Bat
+Source: https://github.com/sherlock-audit/2023-10-real-wagmi/blob/main/wagmi-leverage/contracts/LiquidityBorrowingManager.sol#L441
+Type: audit-issue
+
+## Details
+# In `takeOverDebt`, wrong parameter `borrowingKey` is used to call `_addKeysAndLoansInfo`
+## Summary
+
+In `takeOverDebt`, wrong parameter `borrowingKey` is used to call `_addKeysAndLoansInfo`
+
+## Vulnerability Detail
+
+The original purpose of the function `takeOverDebt` is taking over debt by transferring ownership of a borrowing to the current caller. So it uses `_addKeysAndLoansInfo` to add the oldLoans to the new caller. However, it uses wrong parameter `borrowingKey` which is the old borrowingkey.
+
+## Impact
+
+New caller loses the loans.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-10-real-wagmi/blob/main/wagmi-leverage/contracts/LiquidityBorrowingManager.sol#L441
+
+```solidity
+     // Add the new borrowing key and old loans to the newBorrowing
+        _addKeysAndLoansInfo(newBorrowing.borrowedAmount > 0, borrowingKey, oldLoans);
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Replace `borrowingKey` with `newBorrowingKey`

@@ -1,0 +1,30 @@
+# [M] `claimAssets` should not increase `Checkpoint.count`
+
+## Summary
+Severity: Medium
+Reporter: Happy Mocha Worm
+Source: https://github.com/sherlock-audit/2023-07-perennial/blob/main/perennial-v2/packages/perennial-vault/contracts/Vault.sol#L238-L279
+Type: audit-issue
+
+## Details
+# `claimAssets` should not increase `Checkpoint.count`
+
+## Vulnerability Detail
+
+Beacuse a user who `claimAssets` will not split the `settlementFee` with the other users who deposit and redeem.
+
+## Impact
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-07-perennial/blob/main/perennial-v2/packages/perennial-vault/contracts/Vault.sol#L238-L279
+
+https://github.com/sherlock-audit/2023-07-perennial/blob/main/perennial-v2/packages/perennial-vault/contracts/types/Checkpoint.sol#L62-L69
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+`CheckpointLib.update()` should only increase the count when `deposit` or `redemption` > 0.

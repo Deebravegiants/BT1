@@ -1,0 +1,36 @@
+# [M] [NAZ-M3] Value Range Validity for Fee Setters
+
+## Summary
+Severity: Medium
+Chain: Smart contract
+Component: 2022-10-nftport
+Published: 2022-10-31
+Source: https://github.com/sherlock-audit/2022-10-nftport-judging/issues/108
+Type: sherlock-finding
+
+## Details
+0xNazgul
+
+medium
+
+# [NAZ-M3] Value Range Validity for Fee Setters
+
+## Summary
+These functions doesn't have any checks to ensure that the variables being set is within some kind of value range. 
+
+## Vulnerability Detail
+Fees can be set to high numbers by the owner to steal funds from users. Especially since excess `msg.value` can be sent with these functions an owner can front-run those users and they wouldn't even notice.
+
+## Impact
+Contract owners can front-run users and increase fees.
+
+## Code Snippet
+[`Factory.sol#L310`](https://github.com/sherlock-audit/2022-10-nftport/blob/main/evm-minting-master/contracts/Factory.sol#L310), [`Factory.sol#L319`](https://github.com/sherlock-audit/2022-10-nftport/blob/main/evm-minting-master/contracts/Factory.sol#L319)
+
+## Tool used
+Manual Review
+
+## Recommendation
+Each variable input parameter updated should have it's own value range checks to ensure their validity and prevent malicious owner from stealing from users.
+
+Duplicate of #111

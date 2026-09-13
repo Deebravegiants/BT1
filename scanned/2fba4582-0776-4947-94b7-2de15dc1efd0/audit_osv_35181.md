@@ -1,0 +1,35 @@
+# [H] ksmbd: fix buffer validation by including null terminator size in EA length
+
+## Summary
+Severity: High
+Advisory: CVE-2025-68806
+Ecosystem: Linux
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N)
+Published: 2026-01-13
+Source: https://osv.dev/vulnerability/CVE-2025-68806
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=0 <6.1.160, >=6.2.0 <6.6.120, >=6.6.0 <6.12.64, >=6.7.0 <6.18.3
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+ksmbd: fix buffer validation by including null terminator size in EA length
+
+The smb2_set_ea function, which handles Extended Attributes (EA),
+was performing buffer validation checks that incorrectly omitted the size
+of the null terminating character (+1 byte) for EA Name.
+This patch fixes the issue by explicitly adding '+ 1' to EaNameLength where
+the null terminator is expected to be present in the buffer, ensuring
+the validation accurately reflects the total required buffer size.
+
+## References
+- https://git.kernel.org/stable/c/6dc8cf6e7998ef7aeb9383a4c2904ea5d22fa2e4
+- https://git.kernel.org/stable/c/95d7a890e4b03e198836d49d699408fd1867cb55
+- https://git.kernel.org/stable/c/a28a375a5439eb474e9f284509a407efb479c925
+- https://git.kernel.org/stable/c/cae52c592a07e1d3fa3338a5f064a374a5f26750
+- https://git.kernel.org/stable/c/d26af6d14da43ab92d07bc60437c62901dc522e6
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/68xxx/CVE-2025-68806.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-68806
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

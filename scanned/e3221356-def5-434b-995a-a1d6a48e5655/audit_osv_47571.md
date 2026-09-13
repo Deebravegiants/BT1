@@ -1,0 +1,19 @@
+# [M] CVE-2016-8611
+
+## Summary
+Severity: Medium
+Advisory: CVE-2016-8611
+CVSS: 6.5 (CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2018-07-31
+Source: https://osv.dev/vulnerability/CVE-2016-8611
+Type: osv
+
+## Details
+A vulnerability was found in Openstack Glance. No limits are enforced within the Glance image service for both v1 and v2 `/images` API POST method for authenticated users, resulting in possible denial of service attacks through database table saturation.
+
+## References
+- https://h20566.www2.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-c05333384
+- http://seclists.org/oss-sec/2016/q4/266
+- http://www.securityfocus.com/bid/94378
+- http://www.securitytracker.com/id/1037312
+- https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2016-8611

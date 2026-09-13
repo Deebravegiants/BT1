@@ -1,0 +1,27 @@
+# [H] The Manager contract will call any external function
+
+## Summary
+Severity: High
+Reporter: Expert Azure Vulture
+Source: https://github.com/sherlock-audit/2023-09-nounsbuilder/blob/main/nouns-protocol/src/manager/Manager.sol#L172-L191
+Type: audit-issue
+
+## Details
+# The Manager contract will call any external function
+
+## Summary
+The `manager` contract will call any external contract, because the `token` address in the `setMetadataRenderer` function is not necessarily trustworthy, which will bring huge risks to users.
+## Vulnerability Detail
+Although the function `setMetadataRenderer` checks whether the `owner` of the token is `msg.sender`, it does not determine whether the token is legal.
+
+An attacker can create a malicious `token` contract, which contains the `owner` function and the `setMetadataRenderer` function and runs normally. Obviously this is not the original meaning of this function.
+## Impact
+Bringing huge potential dangers to users, such as phishing attacks, etc...
+## Code Snippet
+[Bringing huge potential dangers to users, such as phishing attacks, etc...](https://github.com/sherlock-audit/2023-09-nounsbuilder/blob/main/nouns-protocol/src/manager/Manager.sol#L172-L191)
+## Tool used
+
+Manual Review
+
+## Recommendation
+Determine whether the token is legal and trustworthy.

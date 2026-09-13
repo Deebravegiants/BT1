@@ -1,0 +1,18 @@
+# [M] CVE-2017-11722
+
+## Summary
+Severity: Medium
+Advisory: CVE-2017-11722
+CVSS: 6.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2017-07-28
+Source: https://osv.dev/vulnerability/CVE-2017-11722
+Type: osv
+
+## Details
+The WriteOnePNGImage function in coders/png.c in GraphicsMagick 1.3.26 allows remote attackers to cause a denial of service (out-of-bounds read and application crash) via a crafted file, because the program's actual control flow was inconsistent with its indentation. This resulted in a logging statement executing outside of a loop, and consequently using an invalid array index corresponding to the loop's exit condition.
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/PF62B5PJA2JDUOCKJGUQO3SPL74BEYSV/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/WHIKB4TP6KBJWT2UIPWL5MWMG5QXKGEJ/
+- https://www.debian.org/security/2018/dsa-4321
+- http://hg.code.sf.net/p/graphicsmagick/code/rev/f423ba88ca4e

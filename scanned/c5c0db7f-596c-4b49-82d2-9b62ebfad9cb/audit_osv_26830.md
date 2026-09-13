@@ -1,0 +1,83 @@
+# [H] btrfs: fix incorrect splitting in btrfs_drop_extent_map_range
+
+## Summary
+Severity: High
+Advisory: CVE-2023-54121
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2025-12-24
+Source: https://osv.dev/vulnerability/CVE-2023-54121
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=2.6.33 <6.1.47, >=6.2.0 <6.4.12
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+btrfs: fix incorrect splitting in btrfs_drop_extent_map_range
+
+In production we were seeing a variety of WARN_ON()'s in the extent_map
+code, specifically in btrfs_drop_extent_map_range() when we have to call
+add_extent_mapping() for our second split.
+
+Consider the following extent map layout
+
+	PINNED
+	[0 16K)  [32K, 48K)
+
+and then we call btrfs_drop_extent_map_range for [0, 36K), with
+skip_pinned == true.  The initial loop will have
+
+	start = 0
+	end = 36K
+	len = 36K
+
+we will find the [0, 16k) extent, but since we are pinned we will skip
+it, which has this code
+
+	start = em_end;
+	if (end != (u64)-1)
+		len = start + len - em_end;
+
+em_end here is 16K, so now the values are
+
+	start = 16K
+	len = 16K + 36K - 16K = 36K
+
+len should instead be 20K.  This is a problem when we find the next
+extent at [32K, 48K), we need to split this extent to leave [36K, 48k),
+however the code for the split looks like this
+
+	split->start = start + len;
+	split->len = em_end - (start + len);
+
+In this case we have
+
+	em_end = 48K
+	split->start = 16K + 36K       // this should be 16K + 20K
+	split->len = 48K - (16K + 36K) // this overflows as 16K + 36K is 52K
+
+and now we have an invalid extent_map in the tree that potentially
+overlaps other entries in the extent map.  Even in the non-overlapping
+case we will have split->start set improperly, which will cause problems
+with any block related calculations.
+
+We don't actually need len in this loop, we can simply use end as our
+end point, and only adjust start up when we find a pinned extent we need
+to skip.
+
+Adjust the logic to do this, which keeps us from inserting an invalid
+extent map.
+
+We only skip_pinned in the relocation case, so this is relatively rare,
+except in the case where you are running relocation a lot, which can
+happen with auto relocation on.
+
+## References
+- https://git.kernel.org/stable/c/9f68e2105dd96cf0fafffffafb2337fbd0fbae1f
+- https://git.kernel.org/stable/c/b43a4c99d878cf5e59040e45c96bb0a8358bfb3b
+- https://git.kernel.org/stable/c/c962098ca4af146f2625ed64399926a098752c9c
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/54xxx/CVE-2023-54121.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-54121
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

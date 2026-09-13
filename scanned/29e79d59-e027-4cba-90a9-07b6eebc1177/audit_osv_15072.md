@@ -1,0 +1,18 @@
+# [M] CVE-2019-13227
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-13227
+CVSS: 5.5 (CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N)
+Published: 2019-07-04
+Source: https://osv.dev/vulnerability/CVE-2019-13227
+Type: osv
+
+## Details
+In GUI mode, deepin-clone before 1.1.3 creates a log file at the fixed path /tmp/.deepin-clone.log as root, and follows symlinks there. An unprivileged user can prepare a symlink attack there to create or overwrite files in arbitrary file system locations. The content is not attacker controlled.
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/TCHGRJV5CWTMYEE5B5C2FNMCFVP45S7H/
+- http://www.openwall.com/lists/oss-security/2019/07/04/1
+- https://bugzilla.suse.com/show_bug.cgi?id=1130388
+- https://github.com/linuxdeepin/deepin-clone/commit/e079f3e2712b4f8c28e3e63e71ba1a1f90fce1ab

@@ -1,0 +1,30 @@
+# [M] drm/amdgpu: Reset IH OVERFLOW_CLEAR bit
+
+## Summary
+Severity: Medium
+Advisory: CVE-2024-26915
+Ecosystem: Linux
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2024-04-17
+Source: https://osv.dev/vulnerability/CVE-2024-26915
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=4.2.0 <5.15.152, >=5.16.0 <6.1.82, >=6.2.0 <6.6.18, >=6.7.0 <6.7.6
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+drm/amdgpu: Reset IH OVERFLOW_CLEAR bit
+
+Allows us to detect subsequent IH ring buffer overflows as well.
+
+## References
+- https://git.kernel.org/stable/c/2827633c9dab6304ec4cdbf369363219832e605d
+- https://git.kernel.org/stable/c/7330256268664ea0a7dd5b07a3fed363093477dd
+- https://git.kernel.org/stable/c/8983397951b4b0bd51bb4b4ba9749424e1ccbb70
+- https://git.kernel.org/stable/c/9a9d00c23d170d4ef5a1b28e6b69f5c85dd12bc1
+- https://git.kernel.org/stable/c/a28f4d1e0bed85943d309ac243fd1c200f8af9a2
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/26xxx/CVE-2024-26915.json
+- https://nvd.nist.gov/vuln/detail/CVE-2024-26915
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

@@ -1,0 +1,26 @@
+# [H] Taipy contains a path traversal vulnerability
+
+## Summary
+Severity: High
+Advisory: GHSA-28gh-q3gw-pvx8
+CVE: CVE-2026-48544
+CWE: CWE-22
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2026-05-27
+Source: https://github.com/advisories/GHSA-28gh-q3gw-pvx8
+Type: github-advisory
+
+## Affected
+- PyPI: `taipy` — affected >=0
+
+## Details
+Taipy 4.1.1, fixed in commit 129fd40, contains a path traversal vulnerability in the ElementLibrary.get_resource() method in taipy/gui/extension/library.py that allows unauthenticated attackers to escape the intended module directory by exploiting an incomplete path containment check using str.startswith() without a trailing path separator. Attackers can send crafted GET requests with path traversal segments targeting a prefix-matching sibling directory on disk, bypassing the directory containment check because Flask's path converter and Werkzeug's WSGI layer preserve the traversal segments while the resolved path still satisfies the flawed startswith comparison, enabling unauthorized file access outside the intended library directory.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2026-48544
+- https://github.com/Avaiga/taipy/issues/2868
+- https://github.com/Avaiga/taipy/pull/2871
+- https://github.com/Avaiga/taipy/commit/129fd407ffca49ee4ab853772c88d0c873e038dd
+- https://github.com/Avaiga/taipy
+- https://www.vulncheck.com/advisories/taipy-path-traversal-via-elementlibrary-get-resource

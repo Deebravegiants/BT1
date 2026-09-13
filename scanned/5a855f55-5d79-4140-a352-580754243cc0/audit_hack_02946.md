@@ -1,0 +1,29 @@
+# [M] Excess ETH is not refunded
+
+## Summary
+Severity: Medium
+Reporter: csanuragjain
+Source: https://github.com/sherlock-audit/2022-10-mover/blob/main/cardtopup_contract/contracts/ExchangeProxy.sol#L131
+Type: audit-issue
+
+## Details
+# Excess ETH is not refunded
+
+## Summary
+It was observed that executeSwapDirect function is not refunding any excess eth which has been mistakenly passed by the user
+
+## Vulnerability Detail
+1. Observe the [executeSwapDirect function](https://github.com/sherlock-audit/2022-10-mover/blob/main/cardtopup_contract/contracts/ExchangeProxy.sol#L131)
+2. Observe even if user has provided msg.value>ethValue then also contract will not be refunding msg.value-ethValue back to the user
+
+## Impact
+User can lose their eth
+
+## Code Snippet
+https://github.com/sherlock-audit/2022-10-mover/blob/main/cardtopup_contract/contracts/ExchangeProxy.sol#L168
+
+## Tool used
+Manual Review
+
+## Recommendation
+Refund any excess eth (msg.value-ethValue) which user has accidentally provided while calling executeSwapDirect function

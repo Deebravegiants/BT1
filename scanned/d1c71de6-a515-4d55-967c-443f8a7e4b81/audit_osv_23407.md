@@ -1,0 +1,49 @@
+# [C] tipc: improve size validations for received domain records
+
+## Summary
+Severity: Critical
+Advisory: CVE-2022-48711
+Ecosystem: Linux
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2024-06-20
+Source: https://osv.dev/vulnerability/CVE-2022-48711
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=4.8.0 <4.9.301, >=4.10.0 <4.14.266, >=4.15.0 <4.19.229, >=4.20.0 <5.4.179, >=5.5.0 <5.10.100, >=5.11.0 <5.15.23, >=5.16.0 <5.16.9
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+tipc: improve size validations for received domain records
+
+The function tipc_mon_rcv() allows a node to receive and process
+domain_record structs from peer nodes to track their views of the
+network topology.
+
+This patch verifies that the number of members in a received domain
+record does not exceed the limit defined by MAX_MON_DOMAIN, something
+that may otherwise lead to a stack overflow.
+
+tipc_mon_rcv() is called from the function tipc_link_proto_rcv(), where
+we are reading a 32 bit message data length field into a uint16.  To
+avert any risk of bit overflow, we add an extra sanity check for this in
+that function.  We cannot see that happen with the current code, but
+future designers being unaware of this risk, may introduce it by
+allowing delivery of very large (> 64k) sk buffers from the bearer
+layer.  This potential problem was identified by Eric Dumazet.
+
+This fixes CVE-2022-0435
+
+## References
+- https://git.kernel.org/stable/c/175db196e45d6f0e6047eccd09c8ba55465eb131
+- https://git.kernel.org/stable/c/1f1788616157b0222b0c2153828b475d95e374a7
+- https://git.kernel.org/stable/c/3c7e5943553594f68bbc070683db6bb6f6e9e78e
+- https://git.kernel.org/stable/c/59ff7514f8c56f166aadca49bcecfa028e0ad50f
+- https://git.kernel.org/stable/c/9aa422ad326634b76309e8ff342c246800621216
+- https://git.kernel.org/stable/c/d692e3406e052dbf9f6d9da0cba36cb763272529
+- https://git.kernel.org/stable/c/f1af11edd08dd8376f7a84487cbb0ea8203e3a1d
+- https://git.kernel.org/stable/c/fde4ddeadd099bf9fbb9ccbee8e1b5c20d530a2d
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/48xxx/CVE-2022-48711.json
+- https://nvd.nist.gov/vuln/detail/CVE-2022-48711
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

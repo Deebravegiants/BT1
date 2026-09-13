@@ -1,0 +1,20 @@
+# [M] Discourse DoS via 2FA and Security Key Names
+
+## Summary
+Severity: Medium
+Advisory: BIT-discourse-2023-40588
+Aliases: CVE-2023-40588, GHSA-2hg5-3xm3-9vvx
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-discourse-2023-40588
+Type: osv
+
+## Affected
+- Bitnami: `discourse` — affected >=0 <3.1.1
+
+## Details
+Discourse is an open-source discussion platform. Prior to version 3.1.1 of the `stable` branch and version 3.2.0.beta1 of the `beta` and `tests-passed` branches, a malicious user could add a 2FA or security key with a carefully crafted name to their account and cause a denial of service for other users. The issue is patched in version 3.1.1 of the `stable` branch and version 3.2.0.beta1 of the `beta` and `tests-passed` branches. There are no known workarounds.
+
+## References
+- https://github.com/discourse/discourse/security/advisories/GHSA-2hg5-3xm3-9vvx
+- https://nvd.nist.gov/vuln/detail/CVE-2023-40588

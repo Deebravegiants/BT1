@@ -1,0 +1,48 @@
+# [M] l1Eco.notifyGenerationIncrease and L1ECOBridge.rebase should be called in the same tx
+
+## Summary
+Severity: Medium
+Reporter: nobody2018
+Source: https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L1ECOBridge.sol#L335
+Type: audit-issue
+
+## Details
+# l1Eco.notifyGenerationIncrease and L1ECOBridge.rebase should be called in the same tx
+
+## Summary
+
+From the [[code](https://etherscan.io/address/0x8dBF9A4c99580fC7Fd4024ee08f3994420035727)](https://etherscan.io/address/0x8dBF9A4c99580fC7Fd4024ee08f3994420035727) of l1Eco, we can see the implementation of `ERC20.balanceOf`/`totalSupply`. No matter how the linearInflation changes, the value stored in the `ERC20._balances` mapping will not change. When tokens are transferred between L1 and L2, the amount sent is `amount*inflationMultiplier`([[1](https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L1ECOBridge.sol#L335)](https://github.com/sherlock-audit/[2](https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L2ECOBridge.sol#L240)023-05-ecoprotocol-securitygrid/blob/main/op-eco/contracts/bridge/L1ECOBridge.sol#L335),[2](https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L2ECOBridge.sol#L240)), which is the value in `ERC20._balances`. **Because calling `l1Eco.notifyGenerationIncrease` and `L1ECOBridge.rebase` are not in the same tx**, this may cause user losses or profits, depending on the change direction of linearInflation.
+
+## Vulnerability Detail
+
+Suppose linearInflation is updated from 1e18 to 2e18. The calling sequence is as follows:
+
+1.  EOA calls `l1Eco.notifyGenerationIncrease`, linearInflation becomes 2e18. At this time, `L1ECOBridge.inflationMultiplier` is still 1e18. Bob noticed this tx.
+2.  Bob calls `L1ECOBridge.depositERC20` to deposit 100e18 l1Eco. This function internally calls `sendCrossDomainMessage` send calldata into L2, encoding `amount=100e18*L1ECOBridge.inflationMultiplier=100e36`. **This value is stale, the correct value should be equal to 200e36**.
+3.  EOA calls `L1ECOBridge.rebase`. This function internally updates `L1ECOBridge.inflationMultiplier` to 2e18, and calls `sendCrossDomainMessage` to send a message to update `IL2ECOBridge.inflationMultiplier`.
+
+Bob loses half of token.
+
+**On the contrary**, suppose linearInflation is updated from 1e18 to 0.5e18. The calling sequence is as follows:
+
+1.  EOA calls `l1Eco.notifyGenerationIncrease`, linearInflation becomes 0.5e18. At this time, `L1ECOBridge.inflationMultiplier` is still 1e18. Bob noticed this tx.
+2.  Bob calls `L1ECOBridge.depositERC20` to deposit 100e18 l1Eco. This function internally calls `sendCrossDomainMessage` send calldata into L2, encoding `amount=100e18*L1ECOBridge.inflationMultiplier=100e36`. **This value is stale, the correct value should be equal to 50e36**.
+3.  EOA calls `L1ECOBridge.rebase`. This function internally updates `L1ECOBridge.inflationMultiplier` to 0.5e18, and calls `sendCrossDomainMessage` to send a message to update `IL2ECOBridge.inflationMultiplier`.
+
+Bob got double the token.
+
+## Impact
+
+When rebasing, users may suffer losses or arbitrage. Since the readme states that rebases are infrequent, I marked this issue as Medium. **But once the rebase occurs, there may be a significant loss of funds (if the linearInflation becomes smaller).**
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L1ECOBridge.sol#L296-L307
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Upgrade the implement of l1Eco, add `L1ECOBridge.rebase` in `l1Eco.notifyGenerationIncrease`. This maintains the consistency of inflationMultiplier between L1ECOBridge and l1Eco.

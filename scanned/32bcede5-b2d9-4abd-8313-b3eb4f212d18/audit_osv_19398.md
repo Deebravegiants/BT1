@@ -1,0 +1,17 @@
+# [M] CVE-2021-2087
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-2087
+CVSS: 4.4 (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H)
+Published: 2021-01-20
+Source: https://osv.dev/vulnerability/CVE-2021-2087
+Type: osv
+
+## Details
+Vulnerability in the MySQL Server product of Oracle MySQL (component: Server: DML). Supported versions that are affected are 8.0.22 and prior. Easily exploitable vulnerability allows high privileged attacker with logon to the infrastructure where MySQL Server executes to compromise MySQL Server. Successful attacks of this vulnerability can result in unauthorized ability to cause a hang or frequently repeatable crash (complete DOS) of MySQL Server. CVSS 3.1 Base Score 4.4 (Availability impacts). CVSS Vector: (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:H).
+
+## References
+- https://security.gentoo.org/glsa/202105-27
+- https://security.netapp.com/advisory/ntap-20210219-0003/
+- https://www.oracle.com/security-alerts/cpujan2021.html

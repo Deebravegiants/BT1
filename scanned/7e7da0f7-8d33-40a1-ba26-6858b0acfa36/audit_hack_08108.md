@@ -1,0 +1,31 @@
+# [M] `roundFeePercentage` can be greater than `DENOMINATOR` (i.e., 100%)
+
+## Summary
+Severity: Medium
+Reporter: 0xd1r4cde17a
+Source: https://github.com/sherlock-audit/2023-03-Gitcoin/blob/main/contracts/contracts/round/RoundImplementation.sol#L289-L292
+Type: audit-issue
+
+## Details
+# `roundFeePercentage` can be greater than `DENOMINATOR` (i.e., 100%)
+
+## Summary
+
+There is no check for `newFeePercentage` in `updateRoundFeePercentage`
+https://github.com/sherlock-audit/2023-03-Gitcoin/blob/main/contracts/contracts/round/RoundImplementation.sol#L289-L292
+
+See https://github.com/sherlock-audit/2023-03-Gitcoin/blob/main/contracts/contracts/settings/AlloSettings.sol#L42 for how this percentage is checked in `updateProtocolFeePercentage`
+
+## Vulnerability Detail
+
+## Impact
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add a `require` statement checking that `newFeePercentage <= DENOMINATOR`

@@ -1,0 +1,64 @@
+# [H] Liquidation of a partyB be stuck, definitely bricking allocated funds
+
+## Summary
+Severity: High
+Reporter: cergyk
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L318-L330
+Type: audit-issue
+
+## Details
+# Liquidation of a partyB be stuck, definitely bricking allocated funds
+
+## Summary
+A partyB liquidation may end up indefinitely stuck, bricking allocated funds on partyB and partyA's side
+
+## Vulnerability Detail
+We can see that for a partyB liquidation to proceed, some conditions need to be verified on the timestamps:
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L318-L330
+
+However if the liquidator is unable to call `liquidatePositionsPartyB` shortly enough after having initiated liquidation through `liquidatePartyB`, the call to `liquidatePositionsPartyB` may revert indefinitely.
+
+We can see that if:
+`priceSig.timestamp > maLayout.partyBLiquidationTimestamp[partyB][partyA] + maLayout.liquidationTimeout`
+
+the call reverts.
+
+Also if:
+`block.timestamp > priceSig.timestamp + maLayout.liquidationTimeout`
+
+the call also reverts.
+
+Which means that if `block.timestamp > maLayout.partyBLiquidationTimestamp[partyB][partyA] + 2*maLayout.liquidationTimeout`
+
+The call will always revert, the liquidation process is stuck, and allocated funds for the quote are bricked.
+
+And with `maLayout.liquidationTimeout` default being 600 (10 min), we can see that this can be quite likely, since the liquidator bot only has to incur 20 min downtime max to miss the window:
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/control/ControlFacet.sol#L30
+
+## Impact
+Allocated funds for a quote in liquidation process end up bricked
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Change the condition:
+```solidity
+require(
+    block.timestamp <= priceSig.timestamp + maLayout.liquidationTimeout,
+    "LiquidationFacet: Expired price sig"
+);
+```
+
+to:
+
+```solidity
+require(
+    maLayout.partyBLiquidationTimestamp[partyB][partyA] <= priceSig.timestamp + maLayout.liquidationTimeout,
+    "LiquidationFacet: Expired price sig"
+);
+```
+Since we only want to enforce that the price is fresh enough with reference to the liquidation

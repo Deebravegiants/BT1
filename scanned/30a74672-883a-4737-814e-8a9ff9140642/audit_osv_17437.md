@@ -1,0 +1,17 @@
+# [M] CVE-2020-15168
+
+## Summary
+Severity: Medium
+Advisory: CVE-2020-15168
+Aliases: GHSA-w7rc-rwvf-8q5r
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L)
+Published: 2020-09-10
+Source: https://osv.dev/vulnerability/CVE-2020-15168
+Type: osv
+
+## Details
+node-fetch before versions 2.6.1 and 3.0.0-beta.9 did not honor the size option after following a redirect, which means that when a content size was over the limit, a FetchError would never get thrown and the process would end without failure. For most people, this fix will have a little or no impact. However, if you are relying on node-fetch to gate files above a size, the impact could be significant, for example: If you don't double-check the size of the data after fetch() has completed, your JS thread could get tied up doing work on a large file (DoS) and/or cost you money in computing.
+
+## References
+- https://github.com/node-fetch/node-fetch/security/advisories/GHSA-w7rc-rwvf-8q5r
+- https://www.npmjs.com/package/node-fetch

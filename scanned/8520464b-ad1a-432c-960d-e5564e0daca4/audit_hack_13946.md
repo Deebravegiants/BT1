@@ -1,0 +1,40 @@
+# [M] Hardcoded deadline as block.timestamp
+
+## Summary
+Severity: Medium
+Reporter: Nutty Admiral Scorpion
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/swapper/adapters/UniV3Swap.sol#L59
+Type: audit-issue
+
+## Details
+# Hardcoded deadline as block.timestamp
+## Summary
+Hardcoded deadline as block.timestamp
+
+## Vulnerability Detail
+
+As shown below, in the function `swap` from the UniV3Swap contract, it is passing block.timestamp to a pool, which means that whenever the miner decides to include the txn in a block, it will be valid at that time, since block.timestamp will be the current timestamp.
+
+```solidity
+     IUniswapV3SwapRouter.ExactInputParams memory params = IUniswapV3SwapRouter.ExactInputParams({
+            path: data,
+            recipient: address(this),
+            deadline: block.timestamp, 
+            amountIn: sellAmount,
+            amountOutMinimum: minBuyAmount
+        });
+```
+A malicious miner can hold the transaction until maximum slippage is incurred.
+
+## Impact
+A malicious miner can hold the transaction until maximum slippage is incurred.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/swapper/adapters/UniV3Swap.sol#L59
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Pass the deadline as a parameter in the function so you are able to specify it.

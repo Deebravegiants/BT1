@@ -1,0 +1,18 @@
+# [H] Zed Extension Sandbox Escape via Tar Symlink Following
+
+## Summary
+Severity: High
+Advisory: CVE-2026-27976
+Aliases: GHSA-59p4-3mhm-qm3r
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2026-02-25
+Source: https://osv.dev/vulnerability/CVE-2026-27976
+Type: osv
+
+## Details
+Zed, a code editor, has an extension installer allows tar/gzip downloads. Prior to version 0.224.4, the tar extractor (`async_tar::Archive::unpack`) creates symlinks from the archive without validation, and the path guard (`writeable_path_from_extension`) only performs lexical prefix checks without resolving symlinks. An attacker can ship a tar that first creates a symlink inside the extension workdir pointing outside (e.g., `escape -> /`), then writes files through the symlink, causing writes to arbitrary host paths. This escapes the extension sandbox and enables code execution. Version 0.224.4 patches the issue.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/27xxx/CVE-2026-27976.json
+- https://github.com/zed-industries/zed/security/advisories/GHSA-59p4-3mhm-qm3r
+- https://nvd.nist.gov/vuln/detail/CVE-2026-27976

@@ -1,0 +1,37 @@
+# [H] Contract contains payable multicall
+
+## Summary
+Severity: High
+Reporter: Furry Lavender Monkey
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14//src/utils/Multicall.sol#L16-L18
+Type: audit-issue
+
+## Details
+# Contract contains payable multicall
+## Summary
+
+## Vulnerability Detail
+Incorporating multiple delegate calls or ordinary calls in a single payable function can pose significant security risks, especially concerning the potential drainage of funds. Each call in a function can potentially make use of `msg.value` (the amount of Ether sent with the function call).
+
+## Impact
+if there's no explicit control over the division of `msg.value` across these calls, a user could intentionally or inadvertently trigger a condition where funds are drained from the contract in unexpected ways.
+
+## Code Snippet
+
+```solidity
+File: /src/utils/Multicall.sol
+
+16:         for (uint256 i = 0; i < data.length; i++) {
+                // slither-disable-next-line delegatecall-loop,low-level-calls
+                (bool success, bytes memory result) = address(this).delegatecall(data[i]);
+
+```
+[Link to code](https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14//src/utils/Multicall.sol#L16-L18)
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+To mitigate these risks, it's crucial to implement rigorous checks and explicit control mechanisms over how `msg.value` is used. This may involve ensuring that `msg.value` is divided as intended across multiple calls or including checks to prevent recursive or reentrant calls. Additionally, using a 'pull over push' payment design can also provide added security, wherein instead of the contract sending out payments, recipients request withdrawals. This method can limit the amount of Ether that leaves the contract during a single function call and provide better control over funds.

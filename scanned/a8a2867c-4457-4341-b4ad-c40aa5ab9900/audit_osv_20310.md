@@ -1,0 +1,21 @@
+# [H] CVE-2021-32765
+
+## Summary
+Severity: High
+Advisory: CVE-2021-32765
+Aliases: GHSA-hfm9-39pp-55p2
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2021-10-04
+Source: https://osv.dev/vulnerability/CVE-2021-32765
+Type: osv
+
+## Details
+Hiredis is a minimalistic C client library for the Redis database. In affected versions Hiredis is vulnurable to integer overflow if provided maliciously crafted or corrupted `RESP` `mult-bulk` protocol data. When parsing `multi-bulk` (array-like) replies, hiredis fails to check if `count * sizeof(redisReply*)` can be represented in `SIZE_MAX`. If it can not, and the `calloc()` call doesn't itself make this check, it would result in a short allocation and subsequent buffer overflow. Users of hiredis who are unable to update may set the [maxelements](https://github.com/redis/hiredis#reader-max-array-elements) context option to a value small enough that no overflow is possible.
+
+## References
+- https://github.com/redis/hiredis/security/advisories/GHSA-hfm9-39pp-55p2
+- https://lists.debian.org/debian-lts-announce/2021/10/msg00007.html
+- https://security.gentoo.org/glsa/202210-32
+- https://security.netapp.com/advisory/ntap-20211104-0003/
+- https://wiki.sei.cmu.edu/confluence/display/c/MEM07-C.+Ensure+that+the+arguments+to+calloc%28%29%2C+when+multiplied%2C+do+not+wrap
+- https://github.com/redis/hiredis/commit/76a7b10005c70babee357a7d0f2becf28ec7ed1e

@@ -1,0 +1,90 @@
+# [C] KVM: x86/mmu: WARN and clear role.invalid when creating a child shadow page
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-80726
+Ecosystem: Linux
+CVSS: 9.3 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H)
+Published: 2026-09-03
+Source: https://osv.dev/vulnerability/CVE-2026-80726
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=2.6.30 <6.1.183, >=6.2.0 <6.6.152, >=6.7.0 <6.12.104, >=6.13.0 <6.18.45, >=6.19.0 <7.1.9
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+KVM: x86/mmu: WARN and clear role.invalid when creating a child shadow page
+
+Explicitly clear role.invalid when deriving a child shadow page's role from
+its parent to harden against bugs elsewhere in KVM, as violating KVM's
+invariant that invalid pages are NOT on the list of active MMU pages leads
+to use-after-free due to __kvm_mmu_prepare_zap_page() using list_add()
+instead of list_move() when processing an invalid shadow page, i.e. makes a
+bad situation far worse.
+
+Yell loudly if the parent is invalid, as it means KVM has missed a validity
+check, i.e. KVM is attempting to map memory using an invalid/obsolete root,
+but continue on as the child is otherwise still a valid shadow page.
+
+  ==================================================================
+  BUG: KASAN: slab-use-after-free in __kvm_mmu_get_shadow_page+0x1817/0x1860 [kvm]
+  Write of size 8 at addr ff11000153dd1368 by task repro/853
+
+  CPU: 1 UID: 1000 PID: 853 Comm: repro Not tainted 7.2.0-rc2-3aec122bdcaf-next-vm #5 PREEMPT
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 0.0.0 02/06/2015
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x4b/0x70
+   print_report+0x153/0x49c
+   kasan_report+0xbc/0xf0
+   __kvm_mmu_get_shadow_page+0x1817/0x1860 [kvm]
+   mmu_alloc_root+0x141/0x320 [kvm]
+   kvm_mmu_load+0x612/0x20f0 [kvm]
+   kvm_arch_vcpu_ioctl_run+0x3dd5/0x6150 [kvm]
+   kvm_vcpu_ioctl+0x5e4/0x10d0 [kvm]
+   __x64_sys_ioctl+0x131/0x1b0
+   do_syscall_64+0x67/0x5f0
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+   </TASK>
+
+  Allocated by task 853:
+   kasan_save_stack+0x20/0x40
+   kasan_save_track+0x14/0x30
+   __kasan_slab_alloc+0x5f/0x70
+   kmem_cache_alloc_noprof+0xfe/0x2e0
+   __kvm_mmu_topup_memory_cache+0x135/0x530 [kvm]
+   paging64_page_fault+0x318/0x1e30 [kvm]
+   kvm_mmu_do_page_fault+0x21d/0x630 [kvm]
+   kvm_mmu_page_fault+0x18c/0x17b0 [kvm]
+   kvm_arch_vcpu_ioctl_run+0x1f35/0x6150 [kvm]
+   kvm_vcpu_ioctl+0x5e4/0x10d0 [kvm]
+   __x64_sys_ioctl+0x131/0x1b0
+   do_syscall_64+0x67/0x5f0
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+
+  Freed by task 853:
+   kasan_save_stack+0x20/0x40
+   kasan_save_track+0x14/0x30
+   kasan_save_free_info+0x3b/0x60
+   __kasan_slab_free+0x43/0x70
+   kmem_cache_free+0xe2/0x400
+   kvm_mmu_commit_zap_page.part.0+0x1e2/0x310 [kvm]
+   kvm_mmu_free_roots+0x283/0x560 [kvm]
+   kvm_arch_vcpu_ioctl_run+0x33c8/0x6150 [kvm]
+   kvm_vcpu_ioctl+0x5e4/0x10d0 [kvm]
+   __x64_sys_ioctl+0x131/0x1b0
+   do_syscall_64+0x67/0x5f0
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+
+## References
+- https://git.kernel.org/stable/c/0af4711862c5b818204d40b21f0859ad51c230e9
+- https://git.kernel.org/stable/c/5ec42d57655c690234c14aece6dd3f209778c1d8
+- https://git.kernel.org/stable/c/66bc868a33cf1de43f22a94acd8857e0fe33393f
+- https://git.kernel.org/stable/c/9b7984692c18b22d6d61af3f53887fca7fddb0f1
+- https://git.kernel.org/stable/c/9f7760a2e962cbda0d096a27d394d14ad4d22928
+- https://git.kernel.org/stable/c/f33ecb89d352348ed5e625f6747ac51ede254e1b
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/80xxx/CVE-2026-80726.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-80726
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

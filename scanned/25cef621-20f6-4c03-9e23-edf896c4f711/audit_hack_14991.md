@@ -1,0 +1,47 @@
+# [H] clearRequest sends funds to Owner not to the  borrower
+
+## Summary
+Severity: High
+Reporter: Steep Bamboo Elk
+Source: https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L271C9-L271C66
+Type: audit-issue
+
+## Details
+# clearRequest sends funds to Owner not to the  borrower
+## Summary
+
+clearRequest should send funds to the person who requested the loan. Instead it goes to `owner()`
+
+## Vulnerability Detail
+
+In the cooler contract, a borrower requests a loan and are required to send their own tokens as collateral to the contract.
+
+Reasonable you would expect that when their request is cleared, they get their tokens the person who requested the loan put up collateral and requested to borrow.
+
+Instead, in `clearRequest`, the funds are sent to the owner:
+
+```solidity
+debt().safeTransferFrom(msg.sender, owner(), req.amount);
+```
+
+## Impact
+
+- The borrower does not get funds for their collateral
+- The borrower can't repay their loan because they never got paid in the first place
+- Funds are sent to the wrong address
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L271C9-L271C66
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add `borrower` to the loan struct. Then change the transfer to this line:
+
+```solidity
+debt().safeTransferFrom(msg.sender, loan.borrower, req.amount);
+```

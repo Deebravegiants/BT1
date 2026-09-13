@@ -1,0 +1,32 @@
+# [M] `RFPSimpleStrategy#_distribute` does not check the status of `milestone` as `pending`, which allows rejected (`Status.Rejected`) or unsubmitted milestones to still be paid.
+
+## Summary
+Severity: Medium
+Reporter: Tart Citron Platypus
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol#L417-L450
+Type: audit-issue
+
+## Details
+# `RFPSimpleStrategy#_distribute` does not check the status of `milestone` as `pending`, which allows rejected (`Status.Rejected`) or unsubmitted milestones to still be paid.
+
+## Vulnerability Detail
+
+As the pool may have many managers, this may result in one manager mistakenly distributing funds to a recipient who has their most recent milestone rejected by another pool manager.
+
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol#L417-L450
+
+## Impact
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Check `milestone.milestoneStatus` when distributing:
+
+```solidity
+ require(milestone.milestoneStatus == Status.Pending, "Only submitted milstone");
+```

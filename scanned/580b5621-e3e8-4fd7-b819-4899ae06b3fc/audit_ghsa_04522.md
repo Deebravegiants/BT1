@@ -1,0 +1,47 @@
+# [M] quic-go: HTTP/3 QPACK Trailer Expansion Memory Exhaustion 
+
+## Summary
+Severity: Medium
+Advisory: GHSA-vvgj-x9jq-8cj9
+CVE: CVE-2026-40898
+CWE: CWE-770
+Ecosystem: Go
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L (CVSS_V3)
+Published: 2026-06-03
+Source: https://github.com/advisories/GHSA-vvgj-x9jq-8cj9
+Type: github-advisory
+
+## Affected
+- Go: `github.com/quic-go/quic-go` — affected >=0 <0.59.1
+
+## Details
+## Summary
+
+An attacker can cause excessive memory allocation in quic-go's HTTP/3 client and server implementations by sending a QPACK-encoded HEADERS frame that decodes into a large trailer field section with many unique field names and/or large values. The implementation builds an `http.Header` for the corresponding `http.Request` or `http.Response`, while only enforcing limits on the size of the QPACK-compressed HEADERS frame, not on the decoded field section. This can lead to memory exhaustion.
+
+This is very similar to CVE-2025-64702. The difference is that this issue uses HTTP trailers, rather than HTTP headers, as the attack vector.
+
+## Impact
+
+A misbehaving or malicious peer can cause a denial-of-service (DoS) attack against quic-go's HTTP/3 servers or clients by triggering excessive memory allocation, potentially leading to crashes or resource exhaustion. This affects both servers and clients due to symmetric header construction.
+
+## Details
+
+In HTTP/3, field sections are compressed using QPACK (RFC 9204). Field sections are used for both HTTP headers and trailers. quic-go's HTTP/3 server and client decode the QPACK-encoded HEADERS frame into header fields, then construct an `http.Request` or `http.Response`.
+
+`http3.Server.MaxHeaderBytes` and `http3.Transport.MaxResponseHeaderBytes` limit the encoded HEADERS frame size, with defaults of 1 MB for servers and 10 MB for clients. However, they did not limit the decoded field section size. A maliciously crafted HEADERS frame carrying trailers can expand to about 50x the encoded size using QPACK static table entries with long names and/or values.
+
+RFC 9114 requires endpoints to enforce decoded field section size limits via SETTINGS, which quic-go did not do for trailers.
+
+## The Fix
+
+quic-go now enforces RFC 9114 decoded field section size limits for trailers as well. It incrementally decodes QPACK entries and checks the field section size after each entry, aborting the stream if an entry causes the limit to be exceeded.
+
+## References
+- https://github.com/quic-go/quic-go/security/advisories/GHSA-vvgj-x9jq-8cj9
+- https://nvd.nist.gov/vuln/detail/CVE-2026-40898
+- https://github.com/quic-go/quic-go/pull/5642
+- https://github.com/quic-go/quic-go/commit/c56e8c79d1627cc1ed6005b421b4b0adadd83665
+- https://github.com/advisories/GHSA-g754-hx8w-x2g6
+- https://github.com/quic-go/quic-go
+- https://github.com/quic-go/quic-go/releases/tag/v0.59.1

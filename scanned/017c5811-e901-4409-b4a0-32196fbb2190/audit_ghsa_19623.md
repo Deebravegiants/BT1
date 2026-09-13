@@ -1,0 +1,26 @@
+# [M] Flask-CORS vulnerable to Improper Handling of Case Sensitivity
+
+## Summary
+Severity: Medium
+Advisory: GHSA-43qf-4rqw-9q2g
+CVE: CVE-2024-6866
+CWE: CWE-178
+Ecosystem: PyPI
+CVSS: CVSS:3.0/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2025-03-20
+Source: https://github.com/advisories/GHSA-43qf-4rqw-9q2g
+Type: github-advisory
+
+## Affected
+- PyPI: `flask-cors` — affected >=0 <6.0.0
+
+## Details
+corydolphin/flask-cors version 5.0.1 contains a vulnerability where the request path matching is case-insensitive due to the use of the `try_match` function, which is originally intended for matching hosts. This results in a mismatch because paths in URLs are case-sensitive, but the regex matching treats them as case-insensitive. This misconfiguration can lead to significant security vulnerabilities, allowing unauthorized origins to access paths meant to be restricted, resulting in data exposure and potential data leaks.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-6866
+- https://github.com/corydolphin/flask-cors/commit/eb39516a3c96b90d0ae5f51293972395ec3ef358
+- https://github.com/corydolphin/flask-cors
+- https://github.com/corydolphin/flask-cors/blob/4.0.1/flask_cors/extension.py#L195
+- https://huntr.com/bounties/808c11af-faee-43a8-824b-b5ab4f62b9e6
+- https://lists.debian.org/debian-lts-announce/2025/05/msg00049.html

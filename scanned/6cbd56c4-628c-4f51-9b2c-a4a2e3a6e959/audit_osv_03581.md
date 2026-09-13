@@ -1,0 +1,19 @@
+# [H] ALPINE-CVE-2026-32740
+
+## Summary
+Severity: High
+Advisory: ALPINE-CVE-2026-32740
+Ecosystem: Alpine:v3.23
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2026-05-19
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2026-32740
+Type: osv
+
+## Affected
+- Alpine:v3.23: `libheif` — affected >=0 <1.23.0-r0
+
+## Details
+libheif is a HEIF and AVIF file format decoder and encoder. Versions 1.21.2 and prior contain a heap-buffer-overflow (write) vulnerability in the grid tile compositing, allowing an attacker to write 64 bytes of fully attacker-controlled data past the end of a chroma plane heap allocation by crafting a HEIF/AVIF file with a 1×4 grid of odd-height tiles. The overflow is triggered during normal image decoding with default build configuration. The written bytes are chroma (Cb/Cr) pixel values from the attacking tile, giving the attacker full control over the overflow content. This issue has been fixed in version 1.22.0.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2026-32740

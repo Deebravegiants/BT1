@@ -1,0 +1,18 @@
+# [C] CVE-2016-4473
+
+## Summary
+Severity: Critical
+Advisory: CVE-2016-4473
+CVSS: 9.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2017-06-08
+Source: https://osv.dev/vulnerability/CVE-2016-4473
+Type: osv
+
+## Details
+/ext/phar/phar_object.c in PHP 7.0.7 and 5.6.x allows remote attackers to execute arbitrary code.  NOTE: Introduced as part of an incomplete fix to CVE-2015-6833.
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2016-10/msg00007.html
+- http://rhn.redhat.com/errata/RHSA-2016-2750.html
+- http://www.securityfocus.com/bid/98999
+- https://bugzilla.redhat.com/show_bug.cgi?id=1347772

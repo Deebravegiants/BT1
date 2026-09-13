@@ -1,0 +1,34 @@
+# [M] spotSwapper should be initialized in PerpDepository initializer
+
+## Summary
+Severity: Medium
+Reporter: clems4ever
+Source: https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L507
+Type: audit-issue
+
+## Details
+# spotSwapper should be initialized in PerpDepository initializer
+
+## Summary
+
+If `spotSwapper` is not initialized, it would prevent any call to `_rebalanceNegativePnlWithSwap()` because it would revert. This would prevent holding a delta-neutral state.
+
+## Vulnerability Detail
+
+## Impact
+
+Protocol not fulfilling its objectives
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L507
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L154
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Initialize `spotSwapper` in the initializer of `PerpDepository`

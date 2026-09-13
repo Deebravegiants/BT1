@@ -1,0 +1,51 @@
+# [H] can: peak_usb: peak_usb_start(): fix double free of transfer buffer on URB submit error
+
+## Summary
+Severity: High
+Advisory: CVE-2026-74456
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-08-15
+Source: https://osv.dev/vulnerability/CVE-2026-74456
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=3.4.0 <5.10.265, >=5.11.0 <5.15.216, >=5.16.0 <6.1.183, >=6.2.0 <6.6.151, >=6.7.0 <6.12.103, >=6.13.0 <6.18.44, >=6.19.0 <7.1.8
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+can: peak_usb: peak_usb_start(): fix double free of transfer buffer on URB submit error
+
+In peak_usb_start(), each RX URB transfer buffer is allocated with kmalloc()
+and the URB is flagged URB_FREE_BUFFER so that the final usb_free_urb() also
+frees the transfer buffer.
+
+If usb_submit_urb() fails, the error path frees the buffer explicitly with
+kfree(buf) and then calls usb_free_urb(urb). Because URB_FREE_BUFFER is set,
+usb_free_urb() -> urb_destroy() frees the same buffer a second time, a double
+free of the transfer buffer.
+
+  BUG: KASAN: double-free in usb_free_urb.part.0+0x91/0xb0
+  Free of addr ffff8881069ccb80 by task trigger.sh/285
+
+  Call Trace:
+   kfree+0x113/0x3c0
+   usb_free_urb.part.0+0x91/0xb0
+
+Drop the redundant kfree(buf); usb_free_urb() already releases the transfer
+buffer. This mirrors commit 03819abbeb11 ("net: usb: lan78xx: Fix double free
+issue with interrupt buffer allocation").
+
+## References
+- https://git.kernel.org/stable/c/4bb3325075138dd5346b71589a959878b564dc0b
+- https://git.kernel.org/stable/c/525640b93d3e5f82f4ebea4730f4e0cf799522ba
+- https://git.kernel.org/stable/c/5f2fa5840c34d3a558c57855781be75e03bef752
+- https://git.kernel.org/stable/c/914c3b8fa175acf8476ad31cf04e308638e3578e
+- https://git.kernel.org/stable/c/92d0de80ca2223b9c7da78020155b6cb27824cc0
+- https://git.kernel.org/stable/c/9b3d5a6d952c38bbcf07f903cbeadefdb56b9bc9
+- https://git.kernel.org/stable/c/b9088d581fff971a7eb1628f8dcc30df6cfef4dc
+- https://git.kernel.org/stable/c/dfb17bf04a764462000f11258a7c06aa92d1f261
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/74xxx/CVE-2026-74456.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-74456
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

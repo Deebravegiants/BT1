@@ -1,0 +1,21 @@
+# [M] Hurl: Cookies in Cookies section leak when redirecting to a different host
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-63481
+Aliases: GHSA-7w2g-9mf9-324m
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N)
+Published: 2026-08-20
+Source: https://osv.dev/vulnerability/CVE-2026-63481
+Type: osv
+
+## Details
+Hurl is a command line tool that runs and tests HTTP requests defined in plain text files. In version 8.0.1 and earlier, the redirect handling in packages/hurl/src/http/client.rs strips Authorization and Cookie headers and basic-auth credentials when a redirect changes host, but it carries RequestSpec.cookies created from the dedicated [Cookies] section into the redirected request. An attacker-controlled redirect can therefore receive authentication or session cookies that should remain scoped to the original host. Cookies supplied through a raw Cookie header are stripped and are not affected by this specific path. This issue is reported as fixed in version 8.1.0.
+
+## References
+- https://github.com/Orange-OpenSource/hurl/releases/tag/8.0.1
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/63xxx/CVE-2026-63481.json
+- https://github.com/Orange-OpenSource/hurl/security/advisories/GHSA-7w2g-9mf9-324m
+- https://nvd.nist.gov/vuln/detail/CVE-2026-63481
+- https://github.com/Orange-OpenSource/hurl/commit/ed91c894c2cf11704422010554037e3ba70b446e
+- https://github.com/Orange-OpenSource/hurl/pull/5119

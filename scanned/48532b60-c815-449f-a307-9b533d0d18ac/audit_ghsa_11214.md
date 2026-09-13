@@ -1,0 +1,43 @@
+# [H] Ruby LSP has arbitrary code execution through branch setting
+
+## Summary
+Severity: High
+Advisory: GHSA-c4r5-fxqw-vh93
+CVE: CVE-2026-34060
+CWE: CWE-94
+Ecosystem: RubyGems
+CVSS: CVSS:4.0/AV:L/AC:L/AT:P/PR:N/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N (CVSS_V4)
+Published: 2026-03-27
+Source: https://github.com/advisories/GHSA-c4r5-fxqw-vh93
+Type: github-advisory
+
+## Affected
+- RubyGems: `ruby-lsp` — affected >=0 <0.26.9
+
+## Details
+**Summary**
+
+The `rubyLsp.branch` VS Code workspace setting was interpolated without sanitization into a generated Gemfile, allowing arbitrary Ruby code execution when a user opens a project containing a malicious `.vscode/settings.json`.
+
+Other editors that support workspace setting that get automatically applied upon opening the editor and trusting the workspace are also impacted since the server is the component that performs the interpolation.
+
+**Details**
+
+The `branch` CLI argument passed to the `ruby-lsp` server was interpolated in the generated `.ruby-lsp/Gemfile` without sanitization. Editors that allow defining settings saved at the workspace level (e.g.: `.vscode/settings.json`) that gets automatically applied open the possibility to craft a malicious repository that once opened and trusted in the editor would run arbitrary code.
+
+**Impact**
+
+Code execution with the privileges of the user who opens the malicious project. Ruby LSP assumes workspace code is trusted and so opening the editor on an untrusted workspace can lead to executing potentially dangerous code.
+
+**Remediation**
+
+The `rubyLsp.branch` setting has been removed entirely. VS Code extensions auto-update by default, so most users will receive the fix without action. Users who have disabled auto-updates should update to extension version >= 0.10.2.
+
+The `branch` CLI flag was also entirely removed from the `ruby-lsp` gem. For users that don't add `ruby-lsp` to their Gemfiles, the server should auto-update. Users with the `ruby-lsp` in the Gemfile and locked to a specific version should update to >= 0.26.9.
+
+## References
+- https://github.com/Shopify/ruby-lsp/security/advisories/GHSA-c4r5-fxqw-vh93
+- https://nvd.nist.gov/vuln/detail/CVE-2026-34060
+- https://github.com/Shopify/ruby-lsp
+- https://github.com/Shopify/ruby-lsp/releases/tag/v0.26.9
+- https://github.com/rubysec/ruby-advisory-db/blob/master/gems/ruby-lsp/CVE-2026-34060.yml

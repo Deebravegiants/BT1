@@ -1,0 +1,51 @@
+# [H] Roll Function has no access control
+
+## Summary
+Severity: High
+Reporter: Cryptor
+Source: https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L129-L147
+Type: audit-issue
+
+## Details
+# Roll Function has no access control
+
+## Summary
+Roll function has no access control and can be called by anyone
+
+## Vulnerability Detail
+The following roll function has no access control and be called by anyone
+
+
+## Impact
+Since anyone can call the roll function, a bad actor can roll over any and every rollable loan in existence. A bad actor can also ensure that he never pays his debt as he can roll any rollable loan forever 
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L129-L147
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+There should be access control to restrict who can roll over a loan. For example, only the borrower of a loan can roll it over.  One way this could be done is by adding another parameter to the struct  i.e. a borrower 
+```solidity 
+struct Loan { // A request is converted to a loan when a lender clears it.
+        Request request; // The terms of the loan are saved, along with:
+        ...
+        address borrower; //additional parameter
+    }
+
+
+
+```
+
+Then in the roll function, you can have a require or custom error handling statement like this 
+
+```solidity 
+ function roll (uint256 loanID) external {
+        Loan storage loan = loans[loanID];
+        require (msg.sender == loan.borrower, "not borrower");
+       ...
+       }
+```

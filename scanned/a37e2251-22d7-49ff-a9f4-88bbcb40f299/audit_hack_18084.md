@@ -1,0 +1,25 @@
+# [M] `collateral` should approve `jusdBank` to 0 first because collateral can be USDT
+
+## Summary
+Severity: Medium
+Reporter: Cheesy Caramel Chameleon
+Source: https://github.com/sherlock-audit/2023-12-jojo-exchange-update/blob/main/smart-contract-EVM/src/FundingRateArbitrage.sol#L77
+Type: audit-issue
+
+## Details
+# `collateral` should approve `jusdBank` to 0 first because collateral can be USDT
+
+## Summary
+USDT needs approvals to be set to 0 first
+## Vulnerability Detail
+`collateral` can be USDT and the collateral doesn't approve `jusdBank` to 0 first before setting it to uint256.max
+## Impact
+since collateral doesn't set `jusdBank` to 0 first USDT is incompatible as a collateral.
+## Code Snippet
+https://github.com/sherlock-audit/2023-12-jojo-exchange-update/blob/main/smart-contract-EVM/src/FundingRateArbitrage.sol#L77
+## Tool used
+
+Manual Review
+
+## Recommendation
+make `collateral` approve `jusdBank` to 0 first because collateral can be USDT

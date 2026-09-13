@@ -1,0 +1,19 @@
+# [M] CVE-2026-48682
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-48682
+CVSS: 5.9 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N)
+Published: 2026-06-02
+Source: https://osv.dev/vulnerability/CVE-2026-48682
+Type: osv
+
+## Details
+FastNetMon Community Edition through 1.2.9 contains an out-of-bounds read in the IPv4 packet parser. In src/simple_packet_parser_ng.cpp, after validating that the packet contains at least sizeof(ipv4_header_t) bytes (20 bytes), the code advances the local_pointer by '4 * ipv4_header->get_ihl()' (line 164) without validating that (a) IHL >= 5 (the minimum valid value per RFC 791), or (b) 4 * IHL bytes are actually available in the packet. The IHL field is 4 bits, allowing values 0-15, so the advance can be 0-60 bytes. An IHL value of 15 with only 20 bytes validated causes a 40-byte over-read. An IHL of 0-4 causes the pointer to not advance past the IP header, resulting in the TCP/UDP header being parsed from IP header data (type confusion). This vulnerability is reachable via any packet capture interface.
+
+## References
+- https://github.com/pavel-odintsov/fastnetmon/blob/master/src/simple_packet_parser_ng.cpp
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/48xxx/CVE-2026-48682.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-48682
+- https://github.com/pavel-odintsov/fastnetmon
+- https://lorikeetsecurity.com/blog/fastnetmon-cve-2026-48682-ipv4-parser-oob

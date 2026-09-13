@@ -1,0 +1,91 @@
+# [M] Wrong check condition for setLimit() because it fails to recognize the real effective ohm minting limit is ohmLimit +  circulatingOhmBurned!
+
+## Summary
+Severity: Medium
+Reporter: chaduke
+Source: https://github.com/sherlock-audit/2023-03-olympus/blob/main/sherlock-olympus/src/policies/BoostedLiquidity/BLVaultManagerLido.sol#L239-L249
+Type: audit-issue
+
+## Details
+# Wrong check condition for setLimit() because it fails to recognize the real effective ohm minting limit is ohmLimit +  circulatingOhmBurned!
+
+## Summary
+Wrong check condition for setLimit(). This is because setLimit() fails to consider the effect of ``circulatingOhmBurned``, which is considered by ``mintOhmToVault()`` when minting Ohm. The effective limit is not ``ohmLimit`` but ``ohmLimit +  circulatingOhmBurned``. 
+
+Due to the wrongly used condition, sometimes when we want to lower the limit, it will be rejected wrongly, resulting in a higher limit then intended.  In the edge case of ``deployedOhm =  0``, the update of ohhLimit is totally frozen, and we cannot even change ``ohhLimit`` to zero in this case. As a result, we end up a limit that is much higher than intended (the original limit). 
+
+## Vulnerability Detail
+First, let's look at the function ``mintOhmToVault``, the amount of Ohm that can be minted as constrained by the following condition, inferred from L241.
+
+[https://github.com/sherlock-audit/2023-03-olympus/blob/main/sherlock-olympus/src/policies/BoostedLiquidity/BLVaultManagerLido.sol#L239-L249](https://github.com/sherlock-audit/2023-03-olympus/blob/main/sherlock-olympus/src/policies/BoostedLiquidity/BLVaultManagerLido.sol#L239-L249)
+
+```javascript
+deployedOhm + amount_ <= ohmLimit + circulatingOhmBurned
+```
+
+As a result, we have 
+```javascript
+deployeeOhm <= ohmLimit + circulatingOhmBurned
+```
+
+In other words, the real minting limit is ``ohmLimit + circulatingOhmBurned``, not ``ohmLimit``!
+
+However, the following condition for ``setLimit()`` is not consistent with the above condition:
+
+```javascript
+function setLimit(uint256 newLimit_) external override onlyRole("liquidityvault_admin") {
+        if (newLimit_ < deployedOhm) revert BLManagerLido_InvalidLimit();
+        ohmLimit = newLimit_;
+    }
+```
+It fails to consider the effect of ``circulatingOhmBurned``. The effective limit is not ``ohmLimit`` but ``ohmLimit +  circulatingOhmBurned``.  The correction should be:
+
+```diff
+function setLimit(uint256 newLimit_) external override onlyRole("liquidityvault_admin") {
+-        if (newLimit_ < deployedOhm) revert BLManagerLido_InvalidLimit();
++       if (newLimit_+ circulatingOhmBurned < deployedOhm) revert BLManagerLido_InvalidLimit();
+        ohmLimit = newLimit_;
+    }
+```
+
+The impact is that sometimes, we cannnot lower the limit as we want (what we want is also legitimate). In other words, the wrong condition provides some "resistance" to lower the limit, and pushing the limit higher than necessary. The following example shows that we are not able to lower the limit due to this wrong condition. As a result, we end up in a limit HIGHER then we want. With a correct condition, we would be able to lower the limit.
+
+
+For example, suppose oldLimit = 1,000,000e18 and circulatingOhmBurned = 500,000e18 and deployedOhm = 1,400,000e18. Since ``deployedOhm < oldLimit + circulatingOhmBurned``, there is no violation. 
+
+Now suppose want to lower the limit to newLimit = 950,000e18, since we still have c + circulatingOhmBurned``, there is no violation either. 
+
+However, the function ``setLimit()`` will use condition ``deployedOhm < oldLimit`` to 
+reject this decrease of ohmLimit, even though there is no violation. We should be able to lower the limit to 950,000e18 if we use the correct limit/condition.
+
+As a result, since we are not be able to  lower the limit, we have to accept the original higher limit since we could not lower the limit.
+
+In the edge case of ``deployedOhm =  0``, the update of ohhLimit is totally frozen, and we cannot even change ``ohhLimit`` to zero in this case. As a result, we end up a limit that is much higher than intended (the original limit).  This is a much serious issue since ``ohhLimit`` might be a large value and there might be a need to reduce this large limit.
+
+
+## Impact
+setLimit() fails to consider the real/effective limit is ``newLimit_+circulatingOhmBurned``, not just ``newLimit``.  As a result, ``setLimit()`` might fail even when it is not supposed to. As a result, one need to set the limit unnecessary high!
+
+If ``deployedOhm =  0``, one cannot lower the limit at all, the update of limit is totally frozen. As a result, one has to use the original limit, even though it is a very high limit!
+
+
+
+## Code Snippet
+See above
+
+## Tool used
+VScode
+
+
+Manual Review
+
+## Recommendation
+Correction, the effective limit is ``newLimit+circulatingOhmBurned``:
+
+```diff
+function setLimit(uint256 newLimit_) external override onlyRole("liquidityvault_admin") {
+-        if (newLimit_ < deployedOhm) revert BLManagerLido_InvalidLimit();
++       if (newLimit_+ circulatingOhmBurned < deployedOhm) revert BLManagerLido_InvalidLimit();
+        ohmLimit = newLimit_;
+    }
+```

@@ -1,0 +1,21 @@
+# [M] Mercado Pago Node.js SDK through 3.4.0 Path Injection via Unencoded Identifiers in Payment Clients
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-76842
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:L/VA:N/SC:N/SI:N/SA:N)
+Published: 2026-08-24
+Source: https://osv.dev/vulnerability/CVE-2026-76842
+Type: osv
+
+## Details
+The Mercado Pago Node.js SDK interpolates caller-supplied identifiers into API request paths without percent-encoding them, so characters that are structural in a URL survive into the outgoing request. The payment (get, capture, cancel), paymentRefund (create, total, list, get), advancedPayment (get, capture, cancel, update, updateReleaseDate) and disbursementRefund (create, createAll, listAll) clients build their path as a template literal, for example RestClient.fetch(`/v1/payments/${id}`, ...) in src/clients/payment/get/index.ts. A dot-dot or slash sequence in the identifier is normalised by the WHATWG URL parser and redirects the request to a different endpoint, and a question mark appends attacker-chosen query parameters, in both cases carrying the merchant's own access token. An application that forwards an identifier influenced by an untrusted party into one of these methods without an ownership check therefore allows that party to reach other resources within the merchant's token scope. The repository already contains the intended helper, encodePathParam in src/utils/path.ts, which pull request 451 applied to roughly 29 other clients while leaving these unchanged.
+
+## References
+- https://www.npmjs.com/package/mercadopago
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/76xxx/CVE-2026-76842.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-76842
+- https://www.vulncheck.com/advisories/mercado-pago-node-js-sdk-through-path-injection-via-unencoded-identifiers-in-payment-clients
+- https://github.com/mercadopago/sdk-nodejs/pull/451
+- https://github.com/mercadopago/sdk-nodejs
+- https://github.com/mercadopago/sdk-nodejs/blob/3.4.0/src/clients/payment/get/index.ts

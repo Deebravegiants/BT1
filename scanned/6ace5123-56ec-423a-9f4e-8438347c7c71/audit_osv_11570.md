@@ -1,0 +1,17 @@
+# [C] CVE-2017-8805
+
+## Summary
+Severity: Critical
+Advisory: CVE-2017-8805
+CVSS: 9.1 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N)
+Published: 2017-10-17
+Source: https://osv.dev/vulnerability/CVE-2017-8805
+Type: osv
+
+## Details
+Debian ftpsync before 20171017 does not use the rsync --safe-links option, which allows remote attackers to conduct directory traversal attacks via a crafted upstream mirror.
+
+## References
+- https://lists.debian.org/debian-mirrors/2017/10/msg00017.html
+- http://www.openwall.com/lists/oss-security/2017/10/17/2
+- https://anonscm.debian.org/cgit/mirror/archvsync.git/commit/?id=d1ca2ab2210990b6dfb664cd6776a41b71c48016

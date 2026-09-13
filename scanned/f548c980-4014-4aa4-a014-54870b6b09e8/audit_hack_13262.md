@@ -1,0 +1,93 @@
+# [M] Functions of OracleStrikeOTLM could not be performed for certain strike price
+
+## Summary
+Severity: Medium
+Reporter: caventa
+Source: https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L142-L144
+Type: audit-issue
+
+## Details
+# Functions of OracleStrikeOTLM could not be performed for certain strike price
+
+## Summary
+Functions of OracleStrikeOTLM could not be performed for certain strike price. This is because Oracle's strike price cannot be controlled by admin. It can be go up or go down.
+
+## Vulnerability Detail
+OTLM#_startNewEpoch() is responsible to deploy a call option and it is used by
+
+1) OTLM#triggerNextEpoch
+2) OTLM#setRewardRate
+3) OTLM#tryNewEpoch() modifier which is also used by OTLM#stake, OTLM#unstake, OTLM#unstakeAll and OTLM#claimRewards
+
+The call option could be deployed in previous epoch but then it is unable to be deployed in the next epoch in certain scenario where the strike price drops or increases. This is because new strike price provide new ```priceDecimals``` value which will fail the following if condition (See FixedStrikeOptionTeller.sol#L143)
+ 
+ ```solidity
+ if (strikePrice_ == 0 || priceDecimals > int8(9) || priceDecimals < int8(-9))
+            revert Teller_InvalidParams(6, abi.encodePacked(strikePrice_));
+```     
+
+Every option deployment from OTLM will call FixedStrikeOptionTeller#deploy and execute the following code
+
+```solidity
+   int8 priceDecimals = _getPriceDecimals(strikePrice_, quoteToken_.decimals()); // @audit determine if this external call to provided quote token is an issue
+        if (strikePrice_ == 0 || priceDecimals > int8(9) || priceDecimals < int8(-9))
+            revert Teller_InvalidParams(6, abi.encodePacked(strikePrice_));
+```
+
+Also, see the FixedStrikeOptionTeller#_getPriceDecimals internal function,
+
+```solidity
+    function _getPriceDecimals(uint256 price_, uint8 tokenDecimals_) internal pure returns (int8) {
+        int8 decimals;
+        while (price_ >= 10) {
+            price_ = price_ / 10;
+            decimals++;
+        }
+
+        // Subtract the stated decimals from the calculated decimals to get the relative price decimals.
+        // Required to do it this way vs. normalizing at the beginning since price decimals can be negative.
+        return decimals - int8(tokenDecimals_);
+    }
+``` 
+
+From 
+
+```solidity
+priceDecimals > int8(9) || priceDecimals < int8(-9)
+```
+
+if clause, we know that decimals - int8(tokenDecimals_) need to be >=-9 and <= 9
+
+The validation could be problematic in certain conditions when 
+(Scenario 1) strike price go down 
+(Scenario 2) strike price go up
+  
+See example for scenario 1,
+
+First epoch, call option deployed successfully with 
+strikePrice_ = 10 and quoteToken_.decimals() = 10 [decimals will be 1 and 1 - 10 = -9]
+
+Second epoch, the strike price drops from 10 to 9. Call option will be unable to be deployed
+because strikePrice_ = 9 and quoteToken_.decimals() = 10  [decimals will be 0 and 0 - 10 = -10]
+
+See example for scenario 2,
+
+First epoch, call option deployed successfully with 
+strikePrice_ = 999_999_999 and quoteToken_.decimals() = 0 [decimals will be 9 and 9 - 0 = 9]
+
+Second epoch, the strike price increase from 999_999_999 to 1_000_000_000. Call option will be unable to be deployed because strikePrice_ = 1_000_000_000 and quoteToken_.decimals() = 0  [decimals will be 10 and 10 - 0 = 10]
+
+Both scenarios will fail because it does not satisfy the if clause
+
+## Impact
+Functions of OTLM could not be performed for certain strike price
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L142-L144
+https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L678-L688
+
+## Tool used
+Manual Review
+
+## Recommendation
+Remove the validation.

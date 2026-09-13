@@ -1,0 +1,15 @@
+# [H] CVE-2019-19902
+
+## Summary
+Severity: High
+Advisory: CVE-2019-19902
+CVSS: 7.2 (CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H)
+Published: 2019-12-19
+Source: https://osv.dev/vulnerability/CVE-2019-19902
+Type: osv
+
+## Details
+An issue was discovered in Backdrop CMS 1.13.x before 1.13.5 and 1.14.x before 1.14.2. It allows the upload of entire-site configuration archives through the user interface or command line. It does not sufficiently check uploaded archives for invalid data, allowing non-configuration scripts to potentially be uploaded to the server. This issue is mitigated by the fact that the attacker would be required to have the "Synchronize, import, and export configuration" permission, a permission that only trusted administrators should be given. Other measures in the product prevent the execution of PHP scripts, so another server-side scripting language must be accessible on the server to execute code.
+
+## References
+- https://backdropcms.org/security/backdrop-sa-core-2019-016

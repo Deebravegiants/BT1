@@ -1,0 +1,25 @@
+# [M] Violation of code intention in Game.basketTotalAllocatedTokens - missing onlyBasketOwner() modifier
+
+## Summary
+Severity: Medium
+Reporter: Delvir0
+Source: https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Game.sol#L191-L193
+Type: audit-issue
+
+## Details
+# Violation of code intention in Game.basketTotalAllocatedTokens - missing onlyBasketOwner() modifier
+
+## Summary
+Comments indicate that "Only the owner of the basket can view this."
+## Vulnerability Detail
+Violation of code intention
+## Impact
+Users can view nrOfAllocatedTokens of other users's basketId
+## Code Snippet
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Game.sol#L191-L193
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add the onlyBasketOwner() modifier

@@ -1,0 +1,34 @@
+# [M] CVE-2016-0774
+
+## Summary
+Severity: Medium
+Advisory: CVE-2016-0774
+CVSS: 6.8 (CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:H)
+Published: 2016-04-27
+Source: https://osv.dev/vulnerability/CVE-2016-0774
+Type: osv
+
+## Details
+The (1) pipe_read and (2) pipe_write implementations in fs/pipe.c in a certain Linux kernel backport in the linux package before 3.2.73-2+deb7u3 on Debian wheezy and the kernel package before 3.10.0-229.26.2 on Red Hat Enterprise Linux (RHEL) 7.1 do not properly consider the side effects of failed __copy_to_user_inatomic and __copy_from_user_inatomic calls, which allows local users to cause a denial of service (system crash) or possibly gain privileges via a crafted application, aka an "I/O vector array overrun." NOTE: this vulnerability exists because of an incorrect fix for CVE-2015-1805.
+
+## References
+- http://www.oracle.com/technetwork/topics/security/linuxbulletinapr2016-2952096.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00025.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00027.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00029.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00031.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00036.html
+- http://www.securityfocus.com/bid/84126
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00026.html
+- https://security-tracker.debian.org/tracker/CVE-2016-0774
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00037.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00030.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00032.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00034.html
+- http://source.android.com/security/bulletin/2016-05-01.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00028.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00033.html
+- http://rhn.redhat.com/errata/RHSA-2016-0617.html
+- http://www.debian.org/security/2016/dsa-3503
+- http://www.ubuntu.com/usn/USN-2967-1
+- http://www.ubuntu.com/usn/USN-2967-2

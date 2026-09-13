@@ -1,0 +1,31 @@
+# [M] There are missing checks in the function setMintSettings/resetMintSettings.
+
+## Summary
+Severity: Medium
+Reporter: Proud Brown Octopus
+Source: https://github.com/sherlock-audit/2023-09-nounsbuilder/blob/main/nouns-protocol/src/minters/MerkleReserveMinter.sol#L216
+Type: audit-issue
+
+## Details
+# There are missing checks in the function setMintSettings/resetMintSettings.
+
+## Summary
+
+Missing input validation in the function setMintSettings/resetMintSettings will lead to unexpected behaviour. 
+
+## Vulnerability Detail
+When the owner calls the  function setMintSettings with parameter MerkleMinterSettings, there is no check that mintEnd must be greater than mintStart, mintStart must be greater than block.timestamp. There are also no check bytes(0) for merkleRoot.
+
+When the function resetMintSettings is called, there is no check that block.timestamp must be greater than mintEnd. 
+
+## Impact
+Protocol properties will behave unexpectedly.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-09-nounsbuilder/blob/main/nouns-protocol/src/minters/MerkleReserveMinter.sol#L216
+## Tool used
+
+Manual Review
+
+## Recommendation
+Validate all inputs of the function setMintSettings/resetMintSettings properly .

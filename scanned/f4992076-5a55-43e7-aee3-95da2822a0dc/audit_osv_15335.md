@@ -1,0 +1,15 @@
+# [M] CVE-2019-15580
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-15580
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2019-12-18
+Source: https://osv.dev/vulnerability/CVE-2019-15580
+Type: osv
+
+## Details
+An information exposure vulnerability exists in gitlab.com <v12.3.2, <v12.2.6, and <v12.1.10 when using the blocking merge request feature, it was possible for an unauthenticated user to see the head pipeline data of a public project even though pipeline visibility was restricted.
+
+## References
+- https://hackerone.com/reports/667408

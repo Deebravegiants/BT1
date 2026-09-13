@@ -1,0 +1,18 @@
+# [M] CVE-2020-12638
+
+## Summary
+Severity: Medium
+Advisory: CVE-2020-12638
+CVSS: 6.8 (CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N)
+Published: 2020-07-23
+Source: https://osv.dev/vulnerability/CVE-2020-12638
+Type: osv
+
+## Details
+An encryption-bypass issue was discovered on Espressif ESP-IDF devices through 4.2, ESP8266_NONOS_SDK devices through 3.0.3, and ESP8266_RTOS_SDK devices through 3.3. Broadcasting forged beacon frames forces a device to change its authentication mode to OPEN, effectively disabling its 802.11 encryption.
+
+## References
+- https://github.com/espressif/ESP8266_NONOS_SDK
+- https://github.com/espressif/ESP8266_RTOS_SDK
+- https://github.com/espressif/esp-idf
+- https://lbsfilm.at/blog/wpa2-authenticationmode-downgrade-in-espressif-microprocessors

@@ -1,0 +1,31 @@
+# [H] Reentrancy attack on the The `delegateTo` and `fallback`
+
+## Summary
+Severity: High
+Reporter: Shallow Syrup Snake
+Source: https://github.com/sherlock-audit/2024-01-olympus-on-chain-governance/blob/main/bophades/src/external/governance/GovernorBravoDelegator.sol#L65
+Type: audit-issue
+
+## Details
+# Reentrancy attack on the The `delegateTo` and `fallback`
+
+## Summary
+
+## Vulnerability Detail
+loss of funds
+
+## Impact
+loss of funds 
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2024-01-olympus-on-chain-governance/blob/main/bophades/src/external/governance/GovernorBravoDelegator.sol#L65
+
+https://github.com/sherlock-audit/2024-01-olympus-on-chain-governance/blob/main/bophades/src/external/governance/GovernorBravoDelegator.sol#L22
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+add Reentrancy protection and

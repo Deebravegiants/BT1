@@ -1,0 +1,41 @@
+# [M] Fulfill a small quantity portion of the order will affect the income of the protocol
+
+## Summary
+Severity: Medium
+Reporter: kutugu
+Source: https://github.com/sherlock-audit/2023-06-bond/blob/fce1809f83728561dc75078d41ead6d60e15d065/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L347
+Type: audit-issue
+
+## Details
+# Fulfill a small quantity portion of the order will affect the income of the protocol
+
+## Summary
+
+The fee calculation should not be calculated every time, which will cause the precision error of division to accumulate and affect the protocol income.
+In FixedStrikeOptionTeller, order fee up to 5%. Fulfill a small quantity portion of the order may get 0 fee. 
+In both cases, the protocol income decreases, and the protocol is designed to support any ERC20 token, so for high value tokens and L2, this is more common.
+
+## Vulnerability Detail
+
+The general process is as follows:
+1. The protocolFee is 5%, assume that there are two tokens with a price ratio of 1:1, high unit price and low decimals
+2. Alice create a order: 1000 payoutToken -> 1000 quoteToken, receive 1000 optionToken
+3. Others may fill part of the order with a quantity of 19 quoteToken every time, in which case the protocolFee is 0 
+4. The protocol lost 50 quotetokens fee in total
+
+## Impact
+
+Fulfill a small quantity portion of the order will affect the income of the protocol 
+
+## Code Snippet
+
+- https://github.com/sherlock-audit/2023-06-bond/blob/fce1809f83728561dc75078d41ead6d60e15d065/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L347
+- https://github.com/sherlock-audit/2023-06-bond/blob/fce1809f83728561dc75078d41ead6d60e15d065/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L364
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+It is considered to calculate the fee for the total completed quantity instead of calculating the fee corresponding to part of the quantity each time, so that there will be only one accuracy error

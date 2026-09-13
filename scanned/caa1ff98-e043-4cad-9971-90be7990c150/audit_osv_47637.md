@@ -1,0 +1,21 @@
+# [H] CVE-2016-9755
+
+## Summary
+Severity: High
+Advisory: CVE-2016-9755
+CVSS: 7.8 (CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2016-12-28
+Source: https://osv.dev/vulnerability/CVE-2016-9755
+Type: osv
+
+## Details
+The netfilter subsystem in the Linux kernel before 4.9 mishandles IPv6 reassembly, which allows local users to cause a denial of service (integer overflow, out-of-bounds write, and GPF) or possibly have unspecified other impact via a crafted application that makes socket, connect, and writev system calls, related to net/ipv6/netfilter/nf_conntrack_reasm.c and net/ipv6/netfilter/nf_defrag_ipv6_hooks.c.
+
+## References
+- http://www.securityfocus.com/bid/94626
+- https://groups.google.com/forum/#%21topic/syzkaller/GFbGpX7nTEo
+- https://bugzilla.redhat.com/show_bug.cgi?id=1400904
+- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=9b57da0630c9fd36ed7a20fc0f98dc82cc0777fa
+- https://github.com/torvalds/linux/commit/9b57da0630c9fd36ed7a20fc0f98dc82cc0777fa
+- https://www.spinics.net/lists/netdev/msg407525.html
+- http://www.openwall.com/lists/oss-security/2016/12/01/10

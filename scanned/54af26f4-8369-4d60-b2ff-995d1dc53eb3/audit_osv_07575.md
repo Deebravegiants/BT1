@@ -1,0 +1,25 @@
+# [M] Apache Superset: Improper Authorization in Chart Update allowing Dashboard Modification
+
+## Summary
+Severity: Medium
+Advisory: BIT-superset-2026-23981
+Aliases: CVE-2026-23981
+Ecosystem: Bitnami
+Published: 2026-08-17
+Source: https://osv.dev/vulnerability/BIT-superset-2026-23981
+Type: osv
+
+## Affected
+- Bitnami: `superset` — affected >=0 <6.0.0
+
+## Details
+An Improper Authorization vulnerability exists in Apache Superset allowing an authenticated user with permissions to update charts to modify dashboards they do not own. When updating a chart's properties via the REST API, a user can provide a list of dashboard IDs (dashboards) to associate the chart with. The validation logic in the UpdateChartCommand failed to verify that the user had write permissions for the target dashboards specified in the request body. 
+
+This issue affects Apache Superset: before 6.0.0.
+
+Users are recommended to upgrade to version 6.0.0, which fixes the issue.
+
+## References
+- http://www.openwall.com/lists/oss-security/2026/07/30/6
+- https://lists.apache.org/thread/k7q9z27t901xvqnkwgyns1l7w1dj3csf
+- https://nvd.nist.gov/vuln/detail/CVE-2026-23981

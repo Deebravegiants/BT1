@@ -1,0 +1,20 @@
+# [C] FreeScout's Mass Assignment in Mailbox Connection Settings Enables Silent Email Exfiltration
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-40569
+Aliases: GHSA-hmqm-33wp-858j
+CVSS: 9.0 (CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:C/C:H/I:H/A:L)
+Published: 2026-04-21
+Source: https://osv.dev/vulnerability/CVE-2026-40569
+Type: osv
+
+## Details
+FreeScout is a free self-hosted help desk and shared mailbox. Versions prior to 1.8.213 have a mass assignment vulnerability in the mailbox connection settings endpoints of FreeScout (`connectionIncomingSave()` at `app/Http/Controllers/MailboxesController.php:468` and `connectionOutgoingSave()` at line 398). Both methods pass `$request->all()` directly to `$mailbox->fill()` without any field allowlisting, allowing an authenticated admin to overwrite any of the 32 fields in the Mailbox model's `$fillable` array -- including security-critical fields that do not belong to the connection settings form, such as `auto_bcc`, `out_server`, `out_password`, `signature`, `auto_reply_enabled`, and `auto_reply_message`. Validation in `connectionIncomingSave()` is entirely commented out, and the validator in `connectionOutgoingSave()` only checks value formats for SMTP fields without stripping extra parameters. An authenticated admin user can exploit this by appending hidden parameters (e.g., `auto_bcc=attacker@evil.com`) to a legitimate connection settings save request. Because the `auto_bcc` field is not displayed on the connection settings form (it only appears on the general mailbox settings page), the injection is invisible to other administrators reviewing connection settings. Once set, every outgoing email from the affected mailbox is silently BCC'd to the attacker via the `SendReplyToCustomer` job. The same mechanism allows redirecting outgoing SMTP through an attacker-controlled server, injecting tracking pixels or phishing links into email signatures, and enabling attacker-crafted auto-replies -- all from a single HTTP request. This is particularly dangerous in multi-admin environments where one admin can silently surveil mailboxes managed by others, and when an admin session is compromised via a separate vulnerability (e.g., XSS), the attacker gains persistent email exfiltration that survives session expiry. Version 1.8.213 fixes the issue.
+
+## References
+- https://github.com/freescout-help-desk/freescout/releases/tag/1.8.213
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/40xxx/CVE-2026-40569.json
+- https://github.com/freescout-help-desk/freescout/security/advisories/GHSA-hmqm-33wp-858j
+- https://nvd.nist.gov/vuln/detail/CVE-2026-40569
+- https://github.com/freescout-help-desk/freescout/commit/f45b9105d43b0352c08fcca154e8ae6177c3d860

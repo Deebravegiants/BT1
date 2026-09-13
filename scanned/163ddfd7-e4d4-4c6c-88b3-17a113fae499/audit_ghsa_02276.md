@@ -1,0 +1,29 @@
+# [C] Use after free in nano_arena
+
+## Summary
+Severity: Critical
+Advisory: GHSA-wp34-mqw5-jj85
+CVE: CVE-2021-28032
+CWE: CWE-416
+Ecosystem: crates.io
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2021-08-25
+Source: https://github.com/advisories/GHSA-wp34-mqw5-jj85
+Type: github-advisory
+
+## Affected
+- crates.io: `nano_arena` — affected >=0 <0.5.2
+
+## Details
+Affected versions of this crate assumed that Borrow<Idx> was guaranteed to return the same value on .borrow(). The borrowed index value was used to retrieve a mutable reference to a value.
+
+If the Borrow<Idx> implementation returned a different index, the split arena would allow retrieving the index as a mutable reference creating two mutable references to the same element. This violates Rust's aliasing rules and allows for memory safety issues such as writing out of bounds and use-after-frees.
+
+The flaw was corrected in commit `6b83f9d` by storing the .borrow() value in a temporary variable.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2021-28032
+- https://github.com/bennetthardwick/nano-arena/issues/1
+- https://github.com/bennetthardwick/nano-arena/commit/6b83f9d0708337a9f8b709c1624a8587021ceba2
+- https://github.com/bennetthardwick/nano-arena
+- https://rustsec.org/advisories/RUSTSEC-2021-0031.html

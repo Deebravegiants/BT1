@@ -1,0 +1,26 @@
+# [M] Stream doesn't have ability to rescue native token
+
+## Summary
+Severity: Medium
+Reporter: rvierdiiev
+Source: https://github.com/sherlock-audit/2022-11-nounsdao/blob/main/src/Stream.sol#L268-L272
+Type: audit-issue
+
+## Details
+# Stream doesn't have ability to rescue native token
+
+## Summary
+Stream doesn't have ability to rescue native token
+## Vulnerability Detail
+Stream.rescueERC20 function allows payer to rescue tokens that he sent by mistake.
+But it doesn't have function to rescue native tokens that are sent by mistake.
+## Impact
+Payer can't withdraw native tokens that are sent by mistake.
+## Code Snippet
+https://github.com/sherlock-audit/2022-11-nounsdao/blob/main/src/Stream.sol#L268-L272
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add ability to withdraw native token from Stream.

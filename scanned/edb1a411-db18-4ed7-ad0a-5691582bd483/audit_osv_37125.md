@@ -1,0 +1,19 @@
+# [C] FOSSBilling: Server-side template injection in Twig template rendering enables information disclosure and RCE
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-28496
+CVSS: 9.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H)
+Published: 2026-06-23
+Source: https://osv.dev/vulnerability/CVE-2026-28496
+Type: osv
+
+## Details
+FOSSBilling is a free, open-source billing and client management system. Versions prior to 0.8.0 have a Server-Side Template Injection (SSTI) vulnerability in the template rendering system. Administrators with access to features that render Twig templates (email templates, mass mail campaigns, custom payment adapters, and the `string_render` API endpoint) can inject arbitrary Twig expressions, leading to information disclosure and remote code execution. The vulnerability exists because Twig templates are rendered without a sandbox, allowing access to the full Twig environment, API context, and the application's dependency injection container. Version 0.8.0 patches the issue. Some workarounds are available. Audit existing email templates for suspicious Twig expressions, rotate all admin and client API tokens, and/or block external access to /api/system/* at reverse proxy/WAF to mitigate chaining with GHSA-78x5-c8gw-8279.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/28xxx/CVE-2026-28496.json
+- https://github.com/FOSSBilling/FOSSBilling/security/advisories/GHSA-57mv-jm88-66jc
+- https://github.com/FOSSBilling/FOSSBilling/security/advisories/GHSA-78x5-c8gw-8279
+- https://nvd.nist.gov/vuln/detail/CVE-2026-28496
+- https://www.vulncheck.com/blog/fossbilling-auth-bypass-ssti-rce

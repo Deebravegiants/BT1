@@ -1,0 +1,24 @@
+# [M] `QVSimpleStrategy`  don't support  native token
+
+## Summary
+Severity: Medium
+Reporter: Rhythmic Marigold Jay
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/qv-simple/QVSimpleStrategy.sol#L1-L152
+Type: audit-issue
+
+## Details
+# `QVSimpleStrategy`  don't support  native token
+`QVSimpleStrategy`  don't support  native token, native token transfer will fail.
+## Vulnerability Detail
+ In `QVBaseStrategy`  and  `QVSimpleStrategy` , there  is no  `receive() external payable {}` ,  so  `_fundpool` will fail if  using native token. 
+## Impact
+`QVSimpleStrategy`  don't support  native token
+## Code Snippet
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/qv-simple/QVSimpleStrategy.sol#L1-L152
+## Tool used
+
+Manual Review
+
+## Recommendation
+add 
+`receive() external payable {}`   in   `QVBaseStrategy`  or  `QVSimpleStrategy`

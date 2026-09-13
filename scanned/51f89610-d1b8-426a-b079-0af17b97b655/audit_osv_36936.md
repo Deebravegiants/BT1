@@ -1,0 +1,22 @@
+# [H] Strimzi: All CAs from a custom CA chain consisting of multiple CAs are trusted for mTLS user autentication
+
+## Summary
+Severity: High
+Advisory: CVE-2026-27134
+Aliases: GHSA-2qwx-rq6j-8r6j
+CVSS: 8.1 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-02-20
+Source: https://osv.dev/vulnerability/CVE-2026-27134
+Type: osv
+
+## Details
+Strimzi provides a way to run an Apache Kafka cluster on Kubernetes or OpenShift in various deployment configurations. In versions  0.49.0 through 0.50.0, when using a custom Cluster or Clients CA with a multistage CA chain consisting of multiple CAs, Strimzi incorrectly configures the trusted certificates for mTLS authentication on the internal as well as user-configured listeners. All CAs from the CA chain will be trusted. And users with certificates signed by any of the CAs in the chain will be able to authenticate. This issue affects only users using a custom Cluster or Clients CA with a multistage CA chain consisting of multiple CAs. It does not affect users using the Strimzi-managed Cluster and Clients CAs. It also does not affect users using custom Cluster or Clients CA with only a single CA (i.e., no CA chain with multiple CAs). This issue has been fixed in version 0.50.1. To workaround this issue, instead of providing the full CA chain as the custom CA, users can provide only the single CA that should be used.
+
+## References
+- https://github.com/strimzi/strimzi-kafka-operator/releases/tag/0.50.1
+- https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-27134.json
+- https://access.redhat.com/security/cve/CVE-2026-27134
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/27xxx/CVE-2026-27134.json
+- https://github.com/strimzi/strimzi-kafka-operator/security/advisories/GHSA-2qwx-rq6j-8r6j
+- https://nvd.nist.gov/vuln/detail/CVE-2026-27134
+- https://bugzilla.redhat.com/show_bug.cgi?id=2441564

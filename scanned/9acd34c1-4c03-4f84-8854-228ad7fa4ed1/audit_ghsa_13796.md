@@ -1,0 +1,35 @@
+# [C] Ray has arbitrary code execution via jobs submission API
+
+## Summary
+Severity: Critical
+Advisory: GHSA-6wgj-66m2-xxp2
+CVE: CVE-2023-48022
+CWE: CWE-829, CWE-918
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2023-11-28
+Source: https://github.com/advisories/GHSA-6wgj-66m2-xxp2
+Type: github-advisory
+
+## Affected
+- PyPI: `ray` — affected >=0
+
+## Details
+Anyscale Ray allows a remote attacker to execute arbitrary code via the job submission API. NOTE: the vendor's position is that this report is irrelevant because Ray, as stated in its documentation, is not intended for use outside of a strictly controlled network environment.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2023-48022
+- https://github.com/ray-project/ray/commit/978947083b1e192dba61ef653c863b11d56b0936
+- https://atlas.mitre.org/studies/AML.CS0023
+- https://bishopfox.com/blog/ray-versions-2-6-3-2-8-0
+- https://console.vulncheck.com/cve/CVE-2023-48022
+- https://docs.ray.io/en/latest/ray-security/index.html
+- https://docs.ray.io/en/latest/ray-security/token-auth.html
+- https://github.com/advisories/GHSA-xg2h-7cxj-3gvh
+- https://github.com/honysyang/Ray
+- https://github.com/ray-project/ray
+- https://www.anyscale.com/blog/update-on-ray-cve-2023-48022-new-verification-tooling-available
+- https://www.oligo.security/blog/shadowray-attack-ai-workloads-actively-exploited-in-the-wild
+- https://www.vicarius.io/vsociety/posts/shadowray-cve-2023-48022-exploit
+- https://www.vicarius.io/vsociety/posts/the-story-of-shadowray-cve-2023-48022
+- https://www.vulncheck.com/blog/initial-access-intelligence-august-2024

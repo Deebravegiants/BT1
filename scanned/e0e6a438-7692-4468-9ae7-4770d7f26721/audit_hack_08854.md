@@ -1,0 +1,83 @@
+# [M] Unable to withdraw partial amount from CollateralEscrow
+
+## Summary
+Severity: Medium
+Reporter: sinarette
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+# Unable to withdraw partial amount from CollateralEscrow
+
+## Summary
+The `_withdrawCollateral` internal function of CollateralEscrowV1 supports withdrawal of different types of collateral assets. It takes the withdrawal amount as an input, but it would be ignored and always the full amount would be withdrawn. However, the collateral balance is calculated with the input value, not the actual transferred amount.
+
+## Vulnerability Detail
+```solidity
+/* CollateralEscrowV1.sol */
+    function _withdrawCollateral(
+        Collateral memory _collateral,
+        address _collateralAddress,
+        uint256 _amount,
+        address _recipient
+    ) internal {
+        // Withdraw ERC20
+        if (_collateral._collateralType == CollateralType.ERC20) {
+            IERC20Upgradeable(_collateralAddress).transfer(
+                _recipient,
+                _collateral._amount //@audit should be _amount instead
+            );
+        }
+```
+When the collateral asset type is ERC20, the function always transfers the full `_collateral._amount`, ignoring the input value `_amount`.
+
+You can compare it with the ERC1155 case, where it's well implemented with `amount`.
+```solidity
+        else if (_collateral._collateralType == CollateralType.ERC1155) {
+            bytes memory data;
+
+            IERC1155Upgradeable(_collateralAddress).safeTransferFrom(
+                address(this),
+                _recipient,
+                _collateral._tokenId,
+                _amount,
+                data
+            );
+        }
+```
+
+This causes problem in accounting, where the input value is used to calculate the collateral amount used.
+
+```solidity
+/* CollateralEscrowV1 # withdraw */
+    _withdrawCollateral(
+        collateral,
+        _collateralAddress,
+        _amount,
+        _recipient
+    );
+    collateral._amount -= _amount;
+```
+Here, if `collateral._amount != _amount`, then it would lead to a gap in `collateral._amount` and the actual collateral left.
+
+## Impact
+Accounting errors in collateral amounts, which may enable duplicate withdrawals
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-teller-sinarette/teller-protocol-v2/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L168
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Use `_amount` instead
+```solidity
+    if (_collateral._collateralType == CollateralType.ERC20) {
+        IERC20Upgradeable(_collateralAddress).transfer(
+            _recipient,
+-           _collateral._amount
++           _amount
+        );
+    }
+```

@@ -1,0 +1,15 @@
+# [M] CVE-2024-56170
+
+## Summary
+Severity: Medium
+Advisory: CVE-2024-56170
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)
+Published: 2024-12-18
+Source: https://osv.dev/vulnerability/CVE-2024-56170
+Type: osv
+
+## Details
+A validation integrity issue was discovered in Fort through 1.6.4 before 2.0.0. RPKI manifests are listings of relevant files that clients are supposed to verify. Assuming everything else is correct, the most recent version of a manifest should be prioritized over other versions, to prevent replays, accidental or otherwise. Manifests contain the manifestNumber and thisUpdate fields, which can be used to gauge the relevance of a given manifest, when compared to other manifests. The former is a serial-like sequential number, and the latter is the date on which the manifest was created. However, the product does not compare the up-to-dateness of the most recently fetched manifest against the cached manifest. As such, it's prone to a rollback to a previous version if it's served a valid outdated manifest. This leads to outdated route origin validation.
+
+## References
+- https://nicmx.github.io/FORT-validator/CVE.html

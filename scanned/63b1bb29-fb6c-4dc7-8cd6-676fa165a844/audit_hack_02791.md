@@ -1,0 +1,29 @@
+# [H] an early user/attacker can manipulate the myLink share price take an unfair share of future users' deposits
+
+## Summary
+Severity: High
+Reporter: ak1
+Source: https://github.com/sherlock-audit/2022-10-mycelium/blob/main/mylink-contracts/src/Vault.sol#L614-L619
+Type: audit-issue
+
+## Details
+# an early user/attacker can manipulate the myLink share price take an unfair share of future users' deposits
+
+## Summary
+an early user/attacker can manipulate the myLink share price take an unfair share of future users' deposits
+## Vulnerability Detail
+Refer the link for similar kind of attack vector.
+https://github.com/sherlock-audit/2022-08-sentiment-judging
+
+## Impact
+User cat not get the equivalent amount of shares for their LINK deposit.
+
+## Code Snippet
+https://github.com/sherlock-audit/2022-10-mycelium/blob/main/mylink-contracts/src/Vault.sol#L614-L619
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Limit the number of shared for first user. Follow the same method that was mentioned in the shared link.

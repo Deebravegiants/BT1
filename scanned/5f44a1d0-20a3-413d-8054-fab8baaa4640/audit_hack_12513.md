@@ -1,0 +1,50 @@
+# [H] Incorrect calculation of the lower and upper tick.
+
+## Summary
+Severity: High
+Reporter: shealtielanz
+Source: https://github.com/sherlock-audit/2023-06-real-wagmi/blob/main/concentrator/contracts/Multipool.sol#L253C1-L270C6
+Type: audit-issue
+
+## Details
+# Incorrect calculation of the lower and upper tick.
+
+## Summary
+due to multiplication before division the floorTick is prone to loss of precision, 
+## Vulnerability Detail
+```solidity
+    function _getTicksForPosition(
+        int24 tick,
+        int24 positionRange,
+        int24 tickSpacingOffset,
+        int24 tickSpacing
+    ) private pure returns (int24 lowerTick, int24 upperTick) {
+        int24 floorTick = (tick / tickSpacing) * tickSpacing;
+        if (tickSpacingOffset == 0) {
+            lowerTick = floorTick - (positionRange - tickSpacing) / 2;
+            upperTick = floorTick + (positionRange + tickSpacing) / 2;
+        } else if (tickSpacingOffset > 0) {
+            lowerTick = floorTick + tickSpacing * tickSpacingOffset;
+            upperTick = lowerTick + positionRange;
+        } else {
+            upperTick = floorTick + tickSpacing * tickSpacingOffset;
+            lowerTick = upperTick - positionRange;
+        }
+    }
+```
+as you can see the floorTick is used to get the upper and lower tick, when there is precision loss on the floorTick there will be incorrect calculation of the upper and lower ticks
+## Impact
+this will lead to incorrect calculation of the upper and lower tick breaking the liquidity positions that a Liquidity Provider provided liquidity into,  where the LiquidityProvider's liquidity is used in certain price ranges they didn't provide liquidity to.
+## Code Snippet
+- _getTicksForPosition Function ~ https://github.com/sherlock-audit/2023-06-real-wagmi/blob/main/concentrator/contracts/Multipool.sol#L253C1-L270C6
+- Line of Bug ~ https://github.com/sherlock-audit/2023-06-real-wagmi/blob/main/concentrator/contracts/Multipool.sol#L259
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+The Calculation to get the floorTick should go like this
+```solidity
+int24 floorTick =(tickSpacing * tickSpacing) / tick;
+```

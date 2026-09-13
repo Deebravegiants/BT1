@@ -1,0 +1,79 @@
+# [C] tipc: fix out-of-bounds read in broadcast Gap ACK blocks
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-64450
+Ecosystem: Linux
+CVSS: 9.1 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H)
+Published: 2026-07-25
+Source: https://osv.dev/vulnerability/CVE-2026-64450
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.8.0 <5.10.261, >=5.11.0 <5.15.212, >=5.16.0 <6.1.178, >=6.2.0 <6.6.145, >=6.7.0 <6.12.96, >=6.13.0 <6.18.39, >=6.19.0 <7.1.4
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+tipc: fix out-of-bounds read in broadcast Gap ACK blocks
+
+A broadcast PROTOCOL/STATE_MSG can carry a Gap ACK blocks record in its
+data area. tipc_get_gap_ack_blks() only verifies that the record's len
+field is self-consistent with its ugack_cnt/bgack_cnt counts
+(sz == struct_size(p, gacks, ugack_cnt + bgack_cnt)); it does not check
+that the record actually fits in the message data area, msg_data_sz().
+
+The unicast caller tipc_link_proto_rcv() bounds it ("if (glen > dlen)
+break;"), but the broadcast caller tipc_bcast_sync_rcv() discards the
+returned size, so tipc_link_advance_transmq() copies the record off the
+receive skb with an attacker-controlled count:
+
+	this_ga = kmemdup(ga, struct_size(ga, gacks, ga->bgack_cnt),
+			  GFP_ATOMIC);
+
+A TIPC neighbour that negotiated TIPC_GAP_ACK_BLOCK triggers it with one
+ordinary broadcast STATE_MSG (msg_bc_ack_invalid() clear), sized so its
+data area is short, carrying a Gap ACK record with len = 0x400,
+bgack_cnt = 0xff and ugack_cnt = 0. len then equals
+struct_size(p, gacks, 255), so the consistency check passes and ga is
+non-NULL; kmemdup() reads struct_size(ga, gacks, 255) = 1024 bytes out
+of the much smaller skb:
+
+  BUG: KASAN: slab-out-of-bounds in kmemdup_noprof+0x48/0x60
+  Read of size 1024 at addr ffff0000c7030d38 by task poc864/69
+  Call trace:
+   kmemdup_noprof+0x48/0x60
+   tipc_link_advance_transmq+0x86c/0xb80
+   tipc_link_bc_ack_rcv+0x19c/0x1e0
+   tipc_bcast_sync_rcv+0x1c4/0x2c4
+   tipc_rcv+0x85c/0x1340
+   tipc_l2_rcv_msg+0xac/0x104
+  The buggy address belongs to the object at ffff0000c7030d00
+   which belongs to the cache skbuff_small_head of size 704
+  The buggy address is located 56 bytes inside of
+   allocated 704-byte region [ffff0000c7030d00, ffff0000c7030fc0)
+
+The copied-out bytes are subsequently consumed as gap/ack values, but
+the read is already out of bounds at the kmemdup() regardless of how
+they are used.
+
+The unicast STATE path drops such a message: "if (glen > dlen) break;"
+skips the rest of STATE_MSG handling and the skb is freed. Make the
+broadcast path drop it too. tipc_bcast_sync_rcv() now bounds the record
+against msg_data_sz() and, when it does not fit, reports it back through
+tipc_node_bc_sync_rcv() to tipc_rcv() so the skb is discarded rather than
+processed. ga is not cleared on this path: ga == NULL already means
+"legacy peer without Selective ACK", a distinct legitimate state.
+
+## References
+- https://git.kernel.org/stable/c/016f5995c37a5a2c45198308f830f244517d70b7
+- https://git.kernel.org/stable/c/055663d21dc4336f67933ab26bef3c5934be6324
+- https://git.kernel.org/stable/c/2b66974a1b6134a4bbc3bfed181f7418f688eb54
+- https://git.kernel.org/stable/c/2de42e268174766cb2e2b90721afdfdff70e0d8d
+- https://git.kernel.org/stable/c/74b45af86a767594ba52330cd440ea84e24d700d
+- https://git.kernel.org/stable/c/9a51115fcdc78687c8852bf93a1db3951dbb223b
+- https://git.kernel.org/stable/c/a21ed5064217cc33726da6c7ef1a520eba43aea1
+- https://git.kernel.org/stable/c/f333b6851bdf326fd2134133272dbbed0c94d921
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/64xxx/CVE-2026-64450.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-64450
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

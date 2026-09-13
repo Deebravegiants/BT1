@@ -1,0 +1,29 @@
+# [M] CVE-2016-0821
+
+## Summary
+Severity: Medium
+Advisory: CVE-2016-0821
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N)
+Published: 2016-03-12
+Source: https://osv.dev/vulnerability/CVE-2016-0821
+Type: osv
+
+## Details
+The LIST_POISON feature in include/linux/poison.h in the Linux kernel before 4.3, as used in Android 6.0.1 before 2016-03-01, does not properly consider the relationship to the mmap_min_addr value, which makes it easier for attackers to bypass a poison-pointer protection mechanism by triggering the use of an uninitialized list entry, aka Android internal bug 26186802, a different vulnerability than CVE-2015-3636.
+
+## References
+- http://source.android.com/security/bulletin/2016-03-01.html
+- http://www.openwall.com/lists/oss-security/2015/05/02/6
+- http://www.securityfocus.com/bid/84260
+- http://www.ubuntu.com/usn/USN-2968-2
+- http://www.ubuntu.com/usn/USN-2967-1
+- http://www.ubuntu.com/usn/USN-2967-2
+- http://www.ubuntu.com/usn/USN-2968-1
+- http://www.ubuntu.com/usn/USN-2969-1
+- http://www.ubuntu.com/usn/USN-2970-1
+- http://www.ubuntu.com/usn/USN-2971-2
+- http://www.debian.org/security/2016/dsa-3607
+- http://www.ubuntu.com/usn/USN-2971-1
+- http://www.ubuntu.com/usn/USN-2971-3
+- https://github.com/torvalds/linux/commit/8a5e5e02fc83aaf67053ab53b359af08c6c49aaf
+- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=8a5e5e02fc83aaf67053ab53b359af08c6c49aaf
