@@ -1,0 +1,16 @@
+# [M] CVE-2024-25741
+
+## Summary
+Severity: Medium
+Advisory: CVE-2024-25741
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2024-02-12
+Source: https://osv.dev/vulnerability/CVE-2024-25741
+Type: osv
+
+## Details
+printer_write in drivers/usb/gadget/function/f_printer.c in the Linux kernel through 6.7.4 does not properly call usb_ep_queue, which might allow attackers to cause a denial of service or have unspecified other impact.
+
+## References
+- https://lists.debian.org/debian-lts-announce/2025/01/msg00001.html
+- https://www.spinics.net/lists/linux-usb/msg252167.html

@@ -1,0 +1,26 @@
+# [M] ArrakisV2Router doesn't allow to interact with vaults that doesn't have restricted mint
+
+## Summary
+Severity: Medium
+Reporter: rvierdiiev
+Source: https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-periphery/contracts/ArrakisV2Router.sol#L53
+Type: audit-issue
+
+## Details
+# ArrakisV2Router doesn't allow to interact with vaults that doesn't have restricted mint
+
+## Summary
+ArrakisV2Router doesn't allow to interact with vaults that doesn't have restricted mint.
+## Vulnerability Detail
+`ArrakisV2Router._addLiquidity` function and all another external functions use `whenNotPaused` modifier. This modifier will pause adding liquidity for all vaults. But part of them doesn't have restricted mint, which means that they are not paused actually and user can interact with vault directly. But user can't interact with it through the router now, which is not good for UX as not all users know how to interact with contracts directly.
+
+## Impact
+Participants of vaults that are not restricted for minting by router will not be able to work with vault through router.
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-periphery/contracts/ArrakisV2Router.sol#L53
+## Tool used
+
+Manual Review
+
+## Recommendation
+You can pause only those vaults that have restricted mint.

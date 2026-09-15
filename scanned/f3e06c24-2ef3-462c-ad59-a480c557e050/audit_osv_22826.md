@@ -1,0 +1,21 @@
+# [M] GoCD server secret encryption/decryption key leaked to agents during material serialization
+
+## Summary
+Severity: Medium
+Advisory: CVE-2022-39309
+Aliases: GHSA-f9qg-xcxq-cgv9
+CVSS: 4.9 (CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:N)
+Published: 2022-10-14
+Source: https://osv.dev/vulnerability/CVE-2022-39309
+Type: osv
+
+## Details
+GoCD is a continuous delivery server. GoCD helps you automate and streamline the build-test-release cycle for continuous delivery of your product. GoCD versions prior to 21.1.0 leak the symmetric key used to encrypt/decrypt any secure variables/secrets in GoCD configuration to authenticated agents. A malicious/compromised agent may then expose that key from memory, and potentially allow an attacker the ability to decrypt secrets intended for other agents/environments if they also are able to obtain access to encrypted configuration values from the GoCD server. This issue is fixed in GoCD version 21.1.0. There are currently no known workarounds.
+
+## References
+- https://github.com/gocd/gocd/releases/tag/21.1.0
+- https://www.gocd.org/releases/#21-1-0
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/39xxx/CVE-2022-39309.json
+- https://github.com/gocd/gocd/security/advisories/GHSA-f9qg-xcxq-cgv9
+- https://nvd.nist.gov/vuln/detail/CVE-2022-39309
+- https://github.com/gocd/gocd/commit/691b479f1310034992da141760e9c5d1f5b60e8a

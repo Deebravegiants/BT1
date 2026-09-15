@@ -1,0 +1,18 @@
+# [M] CVE-2021-39196
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-39196
+Aliases: GHSA-3r67-fxpr-p2qx
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2021-09-07
+Source: https://osv.dev/vulnerability/CVE-2021-39196
+Type: osv
+
+## Details
+pcapture is an open source dumpcap web service interface . In affected versions this vulnerability allows an authenticated but unprivileged user to use the REST API to capture and download packets with no capture filter and without adequate permissions. This is important because the capture filters can effectively limit the scope of information that a user can see in the data captures. If no filter is present, then all data on the local network segment where the program is running can be captured and downloaded. v3.12 fixes this problem. There is no workaround, you must upgrade to v3.12 or greater.
+
+## References
+- https://github.com/jdhwpgmbca/pcapture/security/advisories/GHSA-3r67-fxpr-p2qx
+- https://github.com/jdhwpgmbca/pcapture/commit/0f74f431e0970a2e5784dbd955cfa4760e3b1ef7
+- https://github.com/jdhwpgmbca/pcapture/issues/7

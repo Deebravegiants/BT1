@@ -1,0 +1,25 @@
+# [H] no check _amout is equal to msg.value
+
+## Summary
+Severity: High
+Reporter: bulej93
+Source: https://github.com/sherlock-audit/2023-03-Gitcoin/blob/main/contracts/contracts/votingStrategy/QuadraticFundingStrategy/QuadraticFundingVotingStrategyImplementation.sol#L76
+Type: audit-issue
+
+## Details
+# no check _amout is equal to msg.value
+
+## Summary
+when voting there is no check that if _amount is equal to msg.value for native tokens
+## Vulnerability Detail
+when voting with native tokens a user can specify how much native token they want to vote with, they specify this with the _amount found in encodedVotes.
+## Impact
+the msg.value could be 0 while the amount is 100 ETH thus taking advantage of the protocol
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-Gitcoin/blob/main/contracts/contracts/votingStrategy/QuadraticFundingStrategy/QuadraticFundingVotingStrategyImplementation.sol#L76
+## Tool used
+
+Manual Review
+
+## Recommendation
+amend this line to read AddressUpgradeable.sendValue(payable(_grantAddress), {value:msg.value});

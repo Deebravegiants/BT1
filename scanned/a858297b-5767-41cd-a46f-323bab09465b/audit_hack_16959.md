@@ -1,0 +1,39 @@
+# [M] Reward.sol - Missing exchange rate check
+
+## Summary
+Severity: Medium
+Reporter: Fresh Concrete Cougar
+Source: https://github.com/sherlock-audit/2023-10-perennial/blob/main/perennial-v2/packages/perennial-reward/contracts/Reward.sol#L28
+Type: audit-issue
+
+## Details
+# Reward.sol - Missing exchange rate check
+
+## Summary
+Missing exchange rate check can lead to users not able to redeedm underlying token
+
+## Vulnerability Detail
+`exchangeRate` can be 0. 
+https://github.com/sherlock-audit/2023-10-perennial/blob/main/perennial-v2/packages/perennial-reward/contracts/Reward.sol#L28
+
+If `exchangeRate` is 0 when `redeem` is called, users receive 0 `underlying` token
+https://github.com/sherlock-audit/2023-10-perennial/blob/main/perennial-v2/packages/perennial-reward/contracts/Reward.sol#L54
+
+## Impact
+Non-redeemable underlying token
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Constructor should check that `exchangeRate` is > 0
+
+```solidity
+constructor(Token18 underlying_, UFixed18 exchangeRate_) ERC20("Reward", "") {
+   require(exchangeRate.unwrap() > 0);
+   // more code
+}
+```

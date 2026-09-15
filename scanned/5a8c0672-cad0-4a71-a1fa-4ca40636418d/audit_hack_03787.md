@@ -1,0 +1,25 @@
+# [H] Wrong value assignment
+
+## Summary
+Severity: High
+Reporter: pzeus
+Source: https://github.com/sherlock-audit/2022-11-opyn/blob/main/crab-netting/src/CrabNetting.sol#L744
+Type: audit-issue
+
+## Details
+# Wrong value assignment
+
+## Summary
+Usage of a wrong variable 
+## Vulnerability Detail
+There is a wrong assignment of a variable which causes emitting wrong value for an event
+## Impact
+High
+## Code Snippet
+https://github.com/sherlock-audit/2022-11-opyn/blob/main/crab-netting/src/CrabNetting.sol#L744
+## Tool used
+
+Manual Review
+
+## Recommendation
+Change `auctionTwapPeriod` to `otcPriceTolerance`

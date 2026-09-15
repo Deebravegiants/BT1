@@ -1,0 +1,50 @@
+# [H] both parties care about each other solvency on closing position
+
+## Summary
+Severity: High
+Reporter: volodya
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/libraries/LibSolvency.sol#L99
+Type: audit-issue
+
+## Details
+# both parties care about each other solvency on closing position
+
+## Summary
+Both parties agree to take risks in sending a quote and opening a position respectively. But parties care about each other solvency in the closing position.
+## Vulnerability Detail
+```solidity
+    function isSolventAfterClosePosition(
+        uint256 quoteId,
+        uint256 filledAmount,
+        uint256 closedPrice,
+        PairUpnlAndPriceSig memory upnlSig
+    ) internal view returns (bool) {
+        Quote storage quote = QuoteStorage.layout().quotes[quoteId];
+        uint256 unlockedAmount = (filledAmount * (quote.lockedValues.cva + quote.lockedValues.lf)) /
+            LibQuote.quoteOpenAmount(quote);
+
+        int256 partyBAvailableBalance = LibAccount.partyBAvailableBalanceForLiquidation(
+            upnlSig.upnlPartyB,
+            quote.partyB,
+            quote.partyA
+        ) + int256(unlockedAmount);
+
+        int256 partyAAvailableBalance = LibAccount.partyAAvailableBalanceForLiquidation(
+            upnlSig.upnlPartyA,
+            quote.partyA
+        ) + int256(unlockedAmount);
+....
+```
+[symmio-core/contracts/libraries/LibSolvency.sol#L99](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/libraries/LibSolvency.sol#L99)
+
+I believe it's not fair for both parties that they cannot close a position when they can make a profit at the expense of the other party being insolvent when they both agreed to open a position and send a quote.
+## Impact
+Not fair for users who can make a profit thus losing funds to them
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+I believe there should be `isSolventAfterClosePositionForPartyA` `isSolventAfterClosePositionForPartyB` and put them inside `PartyAFacetImpl`, `PartyBFacetImpl` instead `isSolventAfterClosePosition` respectively so they will be able to make a profit at the expense of the other party becoming liquidate-able

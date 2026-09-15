@@ -1,0 +1,38 @@
+# [M] When the reward rate changes, all the past rewards accrued will be treated with the current rate.
+
+## Summary
+Severity: Medium
+Reporter: Nutty Admiral Scorpion
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/rewarders/AbstractRewarder.sol#L221-L224
+Type: audit-issue
+
+## Details
+# When the reward rate changes, all the past rewards accrued will be treated with the current rate.
+## Summary
+When the reward rate changes, all the past rewards accrued will be treated with the current rate. 
+
+## Vulnerability Detail
+When updating your reward in any of the rewarder contracts, the `rewardPerToken();` function is called, which calculates the staking rewards based on `rewardRate`. 
+
+```solidity
+ return rewardPerTokenStored + ((lastBlockRewardApplicable() - lastUpdateBlock) * rewardRate * 1e18 / total);
+```
+
+When the `rewardRate` changes, all the past rewards not claimed will be treated with the current rate. Making losses for users that have unclaimed rewards if the rate goes lower
+```solidity
+    function setNewRewardRate(uint256 _newRewardRate) external hasRole(Roles.DV_REWARD_MANAGER_ROLE) {
+        newRewardRatio = _newRewardRate;
+        emit NewRewardRateUpdated(_newRewardRate);
+    }
+```
+## Impact
+Users will get fewer rewards even though those were already accrued, losing previous unclaimed rewards
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/rewarders/AbstractRewarder.sol#L221-L224
+## Tool used
+
+Manual Review
+
+## Recommendation
+Users should be able to redeem the rewards to the ratio they were accrued at.

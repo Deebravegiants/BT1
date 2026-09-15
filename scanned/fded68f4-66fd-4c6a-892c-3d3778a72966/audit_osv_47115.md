@@ -1,0 +1,34 @@
+# [M] CVE-2015-8958
+
+## Summary
+Severity: Medium
+Advisory: CVE-2015-8958
+CVSS: 6.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2017-04-20
+Source: https://osv.dev/vulnerability/CVE-2015-8958
+Type: osv
+
+## Details
+coders/sun.c in ImageMagick before 6.9.0-4 Beta allows remote attackers to cause a denial of service (out-of-bounds read and application crash) via a crafted SUN file.
+
+## References
+- http://www.imagemagick.org/discourse-server/viewtopic.php?f=3&t=26857
+- http://www.openwall.com/lists/oss-security/2016/09/22/2
+- http://www.securityfocus.com/bid/93124
+- https://github.com/ImageMagick/ImageMagick/commit/1aa0c6dab6dcef4d9bc3571866ae1c1ddbec7d8f
+- https://github.com/ImageMagick/ImageMagick/commit/6b4aff0f117b978502ee5bcd6e753c17aec5a961
+- https://github.com/ImageMagick/ImageMagick/commit/8ea44b48a182dd46d018f4b4f09a5e2ee9638105
+- https://github.com/ImageMagick/ImageMagick/commit/b8f17d08b7418204bf8a05a5c24e87b2fc395b75
+- http://www.openwall.com/lists/oss-security/2016/09/22/2
+- http://www.imagemagick.org/discourse-server/viewtopic.php?f=3&t=26857
+- http://www.openwall.com/lists/oss-security/2016/09/22/2
+- https://bugzilla.redhat.com/show_bug.cgi?id=1378736
+- https://github.com/ImageMagick/ImageMagick/commit/1aa0c6dab6dcef4d9bc3571866ae1c1ddbec7d8f
+- https://github.com/ImageMagick/ImageMagick/commit/6b4aff0f117b978502ee5bcd6e753c17aec5a961
+- https://github.com/ImageMagick/ImageMagick/commit/8ea44b48a182dd46d018f4b4f09a5e2ee9638105
+- https://github.com/ImageMagick/ImageMagick/commit/b8f17d08b7418204bf8a05a5c24e87b2fc395b75
+- https://bugzilla.redhat.com/show_bug.cgi?id=1378736
+- https://github.com/ImageMagick/ImageMagick/commit/1aa0c6dab6dcef4d9bc3571866ae1c1ddbec7d8f
+- https://github.com/ImageMagick/ImageMagick/commit/6b4aff0f117b978502ee5bcd6e753c17aec5a961
+- https://github.com/ImageMagick/ImageMagick/commit/8ea44b48a182dd46d018f4b4f09a5e2ee9638105
+- https://github.com/ImageMagick/ImageMagick/commit/b8f17d08b7418204bf8a05a5c24e87b2fc395b75

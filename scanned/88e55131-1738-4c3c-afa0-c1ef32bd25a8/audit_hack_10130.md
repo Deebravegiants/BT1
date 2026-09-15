@@ -1,0 +1,28 @@
+# [M] ERC20 transfer and approval return value not managed
+
+## Summary
+Severity: Medium
+Reporter: alexzoid
+Source: https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L212
+Type: audit-issue
+
+## Details
+# ERC20 transfer and approval return value not managed
+
+## Summary
+The return value of ERC20 transfer and approval is not managed
+
+## Vulnerability Detail
+
+## Impact
+transfer() / approve() can fail slienlty
+
+## Code Snippet
+- https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L212
+- https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L394
+
+## Tool used
+Manual Review
+
+## Recommendation
+Use Openzeppelin's SafeTransfer and SafeApprove

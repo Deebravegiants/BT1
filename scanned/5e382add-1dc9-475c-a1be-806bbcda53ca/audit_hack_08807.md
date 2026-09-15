@@ -1,0 +1,62 @@
+# [M] Market owners can either profit from borrowers or grief them by frontrunning bid submissions
+
+## Summary
+Severity: Medium
+Reporter: ck
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L376-L378
+Type: audit-issue
+
+## Details
+# Market owners can either profit from borrowers or grief them by frontrunning bid submissions
+
+## Summary
+
+Market owners can either profit from borrowers or grief them by frontrunning bid submissions
+
+## Vulnerability Detail
+
+When a borrower is submitting a bid, the `bidDefaultDuration` is gotten from the `marketRegistry`
+
+```solidity
+        bidDefaultDuration[bidId] = marketRegistry.getPaymentDefaultDuration(
+            _marketplaceId
+        );
+```
+
+A market owner can frontrun bids and change the `paymentDefaultDuration` by calling the `setPaymentDefaultDuration` function and set it to a very low value.
+
+```solidity
+    function setPaymentDefaultDuration(uint256 _marketId, uint32 _duration)
+        public
+        ownsMarket(_marketId)
+    {
+        if (_duration != markets[_marketId].paymentDefaultDuration) {
+            markets[_marketId].paymentDefaultDuration = _duration;
+
+            emit SetPaymentDefaultDuration(_marketId, _duration);
+        }
+    }
+```
+
+The market owner would then immediately accept the bid before the borrower can cancel it.
+After this the borrower will have to make payments every 24 hours to prevent liquidation as the liquidation delay is 86400 seconds.
+
+This is costly for the borrower both financially, time wise and as an inconvenience. There is also the added risk that some unsuspecting borrower may not notice the manipulation and have their collateral liquidated within 24 hours.
+
+## Impact
+
+Financial implication in terms of the borrower having to make repayments every day. Fast liquidation of unsuspecting buyers. 
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L376-L378
+
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/MarketRegistry.sol#L591-L600
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add a delay period before a bid can be accepted to allow borrowers the chance to cancel bids if manipulation is done.

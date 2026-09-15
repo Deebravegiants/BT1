@@ -1,0 +1,21 @@
+# [M] CVE-2017-14132
+
+## Summary
+Severity: Medium
+Advisory: CVE-2017-14132
+CVSS: 6.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2017-09-04
+Source: https://osv.dev/vulnerability/CVE-2017-14132
+Type: osv
+
+## Details
+JasPer 1.900.8, 1.900.9, 1.900.10, 1.900.11, 1.900.12, 1.900.13, 1.900.14, 1.900.15, 1.900.16, 1.900.17, 1.900.18, 1.900.19, 1.900.20, 1.900.21, 1.900.22, 1.900.23, 1.900.24, 1.900.25, 1.900.26, 1.900.27, 1.900.28, 1.900.29, 1.900.30, 1.900.31, 2.0.0, 2.0.1, 2.0.2, 2.0.3, 2.0.4, 2.0.5, 2.0.6, 2.0.7, 2.0.8, 2.0.9, 2.0.10, 2.0.11, 2.0.12, 2.0.13, 2.0.14, 2.0.15, 2.0.16 allows remote attackers to cause a denial of service (heap-based buffer over-read and application crash) via a crafted image, related to the jas_image_ishomosamp function in libjasper/base/jas_image.c.
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00082.html
+- http://lists.opensuse.org/opensuse-security-announce/2020-09/msg00085.html
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/N4ALB4SXHURLVWKAOKYRNJXPABW3M22M/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/UPOVZTSIQPW2H4AFLMI3LHJEZGBVEQET/
+- https://lists.debian.org/debian-lts-announce/2018/11/msg00023.html
+- https://security.gentoo.org/glsa/201908-03
+- https://github.com/mdadams/jasper/issues/147

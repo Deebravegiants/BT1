@@ -1,0 +1,22 @@
+# [M] CVE-2016-9262
+
+## Summary
+Severity: Medium
+Advisory: CVE-2016-9262
+CVSS: 5.5 (CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2017-03-23
+Source: https://osv.dev/vulnerability/CVE-2016-9262
+Type: osv
+
+## Details
+Multiple integer overflows in the (1) jas_realloc function in base/jas_malloc.c and (2) mem_resize function in base/jas_stream.c in JasPer before 1.900.22 allow remote attackers to cause a denial of service via a crafted image, which triggers use after free vulnerabilities.
+
+## References
+- https://usn.ubuntu.com/3693-1/
+- http://www.openwall.com/lists/oss-security/2016/11/10/4
+- http://www.securityfocus.com/bid/94224
+- https://access.redhat.com/errata/RHSA-2017:1208
+- https://blogs.gentoo.org/ago/2016/11/07/jasper-use-after-free-in-jas_realloc-jas_malloc-c
+- https://security.gentoo.org/glsa/201707-07
+- https://bugzilla.redhat.com/show_bug.cgi?id=1393882
+- https://github.com/mdadams/jasper/commit/634ce8e8a5accc0fa05dd2c20d42b4749d4b2735

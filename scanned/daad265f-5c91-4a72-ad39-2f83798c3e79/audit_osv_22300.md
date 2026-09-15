@@ -1,0 +1,22 @@
+# [H] Databasir 1.01 has Use of Hard-coded Cryptographic Key vulnerability.
+
+## Summary
+Severity: High
+Advisory: CVE-2022-24860
+Aliases: GHSA-9prp-5jc9-jpgg
+CVSS: 7.4 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N)
+Published: 2022-04-19
+Source: https://osv.dev/vulnerability/CVE-2022-24860
+Type: osv
+
+## Details
+Databasir is a team-oriented relational database model document management platform. Databasir 1.01 has Use of Hard-coded Cryptographic Key vulnerability. An attacker can use hard coding to generate login credentials of any user and log in to the service background located at different IP addresses.
+
+## References
+- https://github.com/vran-dev/databasir/blob/master/core/src/main/java/com/databasir/core/infrastructure/jwt/JwtTokens.java
+- https://user-images.githubusercontent.com/75008428/163742517-ecc1c787-1ef6-4df9-bdf2-407b2b31e111.png
+- https://user-images.githubusercontent.com/75008428/163742566-a69c91e8-db20-4058-8967-1cfe86facc6d.png
+- https://user-images.githubusercontent.com/75008428/163742596-5c13153a-be8f-4ce3-9681-bc68b5f7e9c5.png
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/24xxx/CVE-2022-24860.json
+- https://github.com/vran-dev/databasir/security/advisories/GHSA-9prp-5jc9-jpgg
+- https://nvd.nist.gov/vuln/detail/CVE-2022-24860

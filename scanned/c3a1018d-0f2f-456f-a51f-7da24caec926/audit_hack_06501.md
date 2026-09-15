@@ -1,0 +1,34 @@
+# [M] Oracle price is insufficiently validated, price without tolerance check
+
+## Summary
+Severity: Medium
+Reporter: SunSec
+Source: https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Oracle/CustomPriceOracle/CustomPriceOracle.sol#L53-L59
+Type: audit-issue
+
+## Details
+# Oracle price is insufficiently validated, price without tolerance check
+
+## Summary
+
+## Vulnerability Detail
+When an oracle price is insufficiently validated, it means that the price provided by the oracle is not properly checked for accuracy or reliability before it is used to execute a smart contract.
+## Impact
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Oracle/CustomPriceOracle/CustomPriceOracle.sol#L53-L59 
+```solidity
+    function updatePrice(uint256 _newPrice) external isTrusted {
+        lastPrice = currentPrice;
+        currentPrice = _newPrice;  //@audit no tolerance checks
+        lastUpdateTimestamp = block.timestamp;
+
+        emit PriceUpdated(address(this), currentPrice, lastUpdateTimestamp);
+    }
+```
+## Tool used
+
+Manual Review
+
+## Recommendation
+it is important to implement appropriate tolerance checks in smart contracts that rely on oracle prices.

@@ -1,0 +1,37 @@
+# [H] Market owner steals lender&borrower using malicious trusted market forwarder
+
+## Summary
+Severity: High
+Reporter: n33k
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2Context.sol#L70-L96
+Type: audit-issue
+
+## Details
+# Market owner steals lender&borrower using malicious trusted market forwarder
+
+## Summary
+
+The trusted market forwarder address is set by market owner and he can set it to a contract he controls. Although lender&borrower need to approve it, market owner can set it to a 
+goodwill upgradable contract, wait for lender&borrower to approve it, then upgrade to a malicious one to steal funds.
+
+## Vulnerability Detail
+
+A trusted market forwarder can steal funds from approved borrowers&lenders. He can palce a bid on behalf of the borrower with all of borrower's approved assets as collatoral for 0 principal&short loanDuration. Accept the bid and liquidate borrower to steal borrower. Or he can palace bid with 0 value collatoral and accept the bid on behalf of lender to hack lender.
+
+The problem is that the trusted market forwarder address is set by market owner (check the code snippet). As described in Summary, market owner can set and upgrade this contract to do the above malicious actions.
+
+## Impact
+
+Market owner steals lender&borrower.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2Context.sol#L70-L96
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Do not let market owner set the forwarder and use a whitelisted forwarder contract.

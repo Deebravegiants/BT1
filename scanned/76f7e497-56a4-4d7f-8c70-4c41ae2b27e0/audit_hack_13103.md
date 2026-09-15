@@ -1,0 +1,38 @@
+# [H] BuyOrderIssuer.sol#_fillBuyOrder parameter wrongly passed
+
+## Summary
+Severity: High
+Reporter: twcctop
+Source: https://github.com/sherlock-audit/2023-06-dinari/blob/main/sbt-contracts/src/issuer/BuyOrderIssuer.sol#L189
+Type: audit-issue
+
+## Details
+# BuyOrderIssuer.sol#_fillBuyOrder parameter wrongly passed
+
+## Summary
+ `BuyOrderIssuer.sol#_fillBuyOrder`  parameter wrongly passed
+## Vulnerability Detail
+  It seems that **`BuyOrderIssuer.sol#_fillBuyOrder`**
+ ```solidity
+IMintBurn(orderRequest.assetToken).mint(orderRequest.recipient, receivedAmount);
+```
+
+ parameter `receivedAmount`  is wrongly passed ,     compare to   `SellOrderProcessor.sol#_fillOrderAccounting `  
+
+  ```solidity
+IMintBurn(orderRequest.assetToken).burn(fillAmount);
+ 
+```  
+ `BuyOrderIssuer.sol#_fillBuyOrder`    mint token with the wrong parameter.  
+
+## Impact
+ `BuyOrderIssuer.sol#_fillBuyOrder`  can mint  infinite  `assetToken`  without any transfer logic and any check
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-dinari/blob/main/sbt-contracts/src/issuer/BuyOrderIssuer.sol#L189  
+ https://github.com/sherlock-audit/2023-06-dinari/blob/main/sbt-contracts/src/issuer/SellOrderProcessor.sol#L115
+## Tool used
+
+Manual Review
+
+## Recommendation
+ change parameter receivedAmount to fillAmount in mint logic

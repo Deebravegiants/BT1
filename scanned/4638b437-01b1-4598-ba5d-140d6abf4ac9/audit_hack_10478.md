@@ -1,0 +1,30 @@
+# [M] `UniV3SwapInput` doesn't check results
+
+## Summary
+Severity: Medium
+Reporter: Delvir0
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L227C14-L239
+Type: audit-issue
+
+## Details
+# `UniV3SwapInput` doesn't check results
+
+## Summary
+UniV3SwapInput could return unexpected amount out.
+## Vulnerability Detail
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L227C14-L239
+
+Above code calls the following at then end:
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L239
+
+It does not check the return value which could be an unexpected amountOut. 
+## Impact
+UniV3SwapInput could return less than expected
+## Code Snippet
+Mentioned above
+## Tool used
+
+Manual Review
+
+## Recommendation
+Implement a require check that checks the return value of `uniRouter.exactInput(params);` to be in an accepted range

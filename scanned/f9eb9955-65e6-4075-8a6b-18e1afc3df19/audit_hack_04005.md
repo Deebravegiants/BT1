@@ -1,0 +1,40 @@
+# [M] missing deadline and deadline checker in xTransfer() and swapStableCoins()
+
+## Summary
+Severity: Medium
+Reporter: PRAISE
+Source: https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/XProvider.sol#L133-L161
+Type: audit-issue
+
+## Details
+# missing deadline and deadline checker in xTransfer() and swapStableCoins()
+
+## Summary
+the transactions can potentially remain pending indefinitely, if there are network issues or other problems.
+
+
+## Vulnerability Detail
+These functions should have a deadline and deadline checker implemented to ensure that the transaction is completed within a reasonable amount of time since it transfers funds from one chain to another like the xTransfer()
+the transaction can potentially remain pending indefinitely, if there are network issues or other problems.
+
+
+i think it's the same case for swapStableCoin()
+
+## Impact
+The xTransfer() function appears to be transferring tokens using the Connext protocol, which likely involves exchanging tokens across different blockchains. In this case, it may be beneficial to include a deadline and deadline checker to ensure that the transaction is completed within a reasonable amount of time, because the transaction can potentially remain pending indefinitely, if there are network issues or other problems.
+
+
+Same for the swapStableCoins() function which swaps stable coins on curve.
+Without a deadline and deadline checker, there is a risk that the transaction may take longer than expected
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/XProvider.sol#L133-L161
+
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/libraries/Swap.sol#L36-L58
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+implement a deadline and deadline checker so that users can have control over the duration of the tx, because users can be helpless in situations where the tx is stuck in the mempool due to network issues or other problems.

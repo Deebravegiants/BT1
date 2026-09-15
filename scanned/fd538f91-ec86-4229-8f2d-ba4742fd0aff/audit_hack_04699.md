@@ -1,0 +1,54 @@
+# [H] Transfering non standard ERC20 could fail without revert
+
+## Summary
+Severity: High
+Reporter: pandadefi
+Source: https://github.com/UXDProtocol/uxd-evm/blob/sherlock-audit/contracts/core/UXDController.sol#L195
+Type: audit-issue
+
+## Details
+# Transfering non standard ERC20 could fail without revert
+
+## Summary
+
+Transferring non-standard ERC20 could fail without revert.
+
+## Vulnerability Detail
+
+It's possible to mint UXD tokens without spending non-standard ERC20 tokens with non-reverting transfers.
+On [UXDController.sol#L195](https://github.com/UXDProtocol/uxd-evm/blob/sherlock-audit/contracts/core/UXDController.sol#L195) a token XYZ with non-reverting transfers, if added to the whitelist of tokens, can fail to transfer due to a balance/approval not being sufficient. The execution of the code will continue and reach the mint function minting UXD tokens without any XYZ being transferred.
+ 
+ A similar issue exists in [PerpDepository.sol#L626](https://github.com/UXDProtocol/uxd-evm/blob/sherlock-audit/contracts/integrations/perp/PerpDepository.sol#L626) with the possibility for an attacker to drain assets.
+ 
+ For example [lido](https://etherscan.io/token/0x5a98fcbea516cf06857215779fd812ca3bef1b32#code) transferFrom returns false without a failing transaction if allowance isn't sufficient.
+
+## Impact
+
+High
+
+## Code Snippet
+
+```solidity
+collateral.transferFrom(
+            account,
+            depository,
+            assetAmount
+        );
+
+        InternalMintParams memory mintParams = InternalMintParams({
+            assetToken: assetToken,
+            assetAmount: assetAmount,
+            minAmountOut: minAmountOut,
+            receiver: receiver,
+            depository: depository
+        });
+        return _mint(mintParams);
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Use SafeERC20 transfer functions.

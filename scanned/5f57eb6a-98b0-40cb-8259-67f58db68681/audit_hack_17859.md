@@ -1,0 +1,29 @@
+# [M] make if (quotedAmount < minAmountOut) in delayedorder:announceStableDeposit (quotedAmount <= minAmountOut)
+
+## Summary
+Severity: Medium
+Reporter: Glamorous Mahogany Hornet
+Source: https://github.com/sherlock-audit/2023-12-flatmoney/blob/main/flatcoin-v1/src/DelayedOrder.sol#L83
+Type: audit-issue
+
+## Details
+# make if (quotedAmount < minAmountOut) in delayedorder:announceStableDeposit (quotedAmount <= minAmountOut)
+
+## Summary
+make if (quotedAmount < minAmountOut) in delayedorder:announceStableDeposit (quotedAmount <= minAmountOut)
+
+## Vulnerability Detail
+this will enable trade execute when price is also exactly at slippage
+
+## Impact
+Enable trade execution at exactly slippage
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-12-flatmoney/blob/main/flatcoin-v1/src/DelayedOrder.sol#L83
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+change < to <=

@@ -1,0 +1,42 @@
+# [H] Constructor Usage For Upgradable Contract
+
+## Summary
+Severity: High
+Chain: Smart contract
+Component: 2022-11-float-capital
+Published: 2022-11-11
+Source: https://github.com/sherlock-audit/2022-11-float-capital-judging/issues/17
+Type: sherlock-finding
+
+## Details
+0x0
+
+high
+
+# Constructor Usage For Upgradable Contract
+
+## Summary
+
+Upgradable contracts must not use traditional constructors.
+
+## Vulnerability Detail
+
+`MarketExtended` has a [constructor](https://github.com/sherlock-audit/2022-11-float-capital/blob/main/contracts/market/template/MarketExtended.sol#L13). State that is set via a traditional constructor will not be executed within the context of the contract.
+
+## Impact
+
+- State set at deployment time will not be valid in the context of the contract for market storage.
+
+## Code Snippet
+
+```solidity
+constructor(address _paymentToken, IRegistry _registry) initializer MarketStorage(_paymentToken, _registry) {}
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+- Assign the MarketStorage state within the `initialize()` function

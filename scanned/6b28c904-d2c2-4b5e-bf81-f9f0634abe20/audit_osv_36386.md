@@ -1,0 +1,59 @@
+# [H] wifi: cfg80211: cancel rfkill_block work in wiphy_unregister()
+
+## Summary
+Severity: High
+Advisory: CVE-2026-23336
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-03-25
+Source: https://osv.dev/vulnerability/CVE-2026-23336
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=2.6.31 <5.10.253, >=5.11.0 <5.15.203, >=5.16.0 <6.1.167, >=6.2.0 <6.6.130, >=6.7.0 <6.12.77, >=6.13.0 <6.18.17, >=6.19.0 <6.19.7
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+wifi: cfg80211: cancel rfkill_block work in wiphy_unregister()
+
+There is a use-after-free error in cfg80211_shutdown_all_interfaces found
+by syzkaller:
+
+BUG: KASAN: use-after-free in cfg80211_shutdown_all_interfaces+0x213/0x220
+Read of size 8 at addr ffff888112a78d98 by task kworker/0:5/5326
+CPU: 0 UID: 0 PID: 5326 Comm: kworker/0:5 Not tainted 6.19.0-rc2 #2 PREEMPT(voluntary)
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+Workqueue: events cfg80211_rfkill_block_work
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x116/0x1f0
+ print_report+0xcd/0x630
+ kasan_report+0xe0/0x110
+ cfg80211_shutdown_all_interfaces+0x213/0x220
+ cfg80211_rfkill_block_work+0x1e/0x30
+ process_one_work+0x9cf/0x1b70
+ worker_thread+0x6c8/0xf10
+ kthread+0x3c5/0x780
+ ret_from_fork+0x56d/0x700
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+
+The problem arises due to the rfkill_block work is not cancelled when wiphy
+is being unregistered. In order to fix the issue cancel the corresponding
+work in wiphy_unregister().
+
+Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
+
+## References
+- https://git.kernel.org/stable/c/57e39fe8da573435fa35975f414f4dc17d9f8449
+- https://git.kernel.org/stable/c/584279ad9ff1e8e7c5494b9fce286201f7d1f9e2
+- https://git.kernel.org/stable/c/767d23ade706d5fa51c36168e92a9c5533c351a1
+- https://git.kernel.org/stable/c/82a35356b5c1f75fe6a8a561db44e8d0e49da8f9
+- https://git.kernel.org/stable/c/b2e9626a9d16b9bbbd06498c9e73c93be354dc7a
+- https://git.kernel.org/stable/c/cd2f52944c7b95dcdfe0d87f385a2d96458a3ae5
+- https://git.kernel.org/stable/c/eeea8da43ab86ac0a6b9cec225eec91564346940
+- https://git.kernel.org/stable/c/fa18639deab4a3662d543200c5bfc29bf4e23173
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/23xxx/CVE-2026-23336.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-23336
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

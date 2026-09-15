@@ -1,0 +1,39 @@
+# [M] unchecked return value of transfer()
+
+## Summary
+Severity: Medium
+Reporter: PRAISE
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/liquidators/NotionalV2FlashLiquidator.sol#L213
+Type: audit-issue
+
+## Details
+# unchecked return value of transfer()
+
+## Summary
+The return value of a transfer wasn't checked in withdraw() function found in NotionalV2FlashLiquidator.sol. 
+
+## Vulnerability Detail
+users that want to withdraw their tokens will lose their tokens in a situation where the transfer fails for unseen reasons. As the transfer tx won't be able to revert.
+```solidity
+  IERC20(token).transfer(owner, amount);
+```
+## Impact
+users can lose their token due to unchecked return value of transfer()
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/liquidators/NotionalV2FlashLiquidator.sol#L213
+
+Also in NotionalV2ManualLiquidator.sol
+https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/liquidators/NotionalV2ManualLiquidator.sol#L117
+
+https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/liquidators/NotionalV2ManualLiquidator.sol#L219
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+pls check the return value of transfers by putting the transfer in a require statement.
+
+That will ensure the transfer reverts on failure.

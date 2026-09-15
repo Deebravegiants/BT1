@@ -1,0 +1,39 @@
+# [H] No assignment to the state variable `tokenIdToBorrowingKeys`
+
+## Summary
+Severity: High
+Reporter: Careful Seafoam Bat
+Source: https://github.com/sherlock-audit/2023-10-real-wagmi/blob/main/wagmi-leverage/contracts/LiquidityBorrowingManager.sol#L101C41-L101C41
+Type: audit-issue
+
+## Details
+# No assignment to the state variable `tokenIdToBorrowingKeys`
+## Summary
+
+No assignment to the state variable `tokenIdToBorrowingKeys`
+
+## Vulnerability Detail
+
+In contract, there is no assignment to the state variable `tokenIdToBorrowingKeys`, causing all borrowingKeys obtained through the `tokenIdToBorrowingKeys` is empty.
+
+## Impact
+
+DOS
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-10-real-wagmi/blob/main/wagmi-leverage/contracts/LiquidityBorrowingManager.sol#L101C41-L101C41
+
+```solidity
+    /// NonfungiblePositionManager tokenId => BorrowingKeys[]
+    mapping(uint256 => bytes32[]) public tokenIdToBorrowingKeys;
+```
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add the corresponding assignment

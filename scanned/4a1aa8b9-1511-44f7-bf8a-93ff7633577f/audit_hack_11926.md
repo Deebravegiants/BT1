@@ -1,0 +1,31 @@
+# [H] User funds are locked forever because no one can complete the liquidation
+
+## Summary
+Severity: High
+Reporter: Ch_301
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L34-L44
+Type: audit-issue
+
+## Details
+# User funds are locked forever because no one can complete the liquidation
+
+## Summary
+`liquidationTimeout` is initialized in `ControlFacet.sol` to `600`
+
+## Vulnerability Detail
+In case [setSymbolsPrice()](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L34-L44) reverted with `LiquidationFacet: Expired signature`
+so the `liquidationTimeout` is reached and no one can continue the liquidation process or use a new signature to update the `maLayout.liquidationTimestamp[partyA]` in `liquidatePartyA()` because this `notLiquidatedPartyA(partyA)` modifier will revert 
+
+## Impact
+- The liquidation will stack in this phase and no one can invoke `setSymbolsPrice()` to continue it.
+- Both PartyA and PartyB have no power over their funds and positions 
+- User funds are locked forever
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add some logic to reset the `maLayout.liquidationStatus[partyA]` to `false` in this case

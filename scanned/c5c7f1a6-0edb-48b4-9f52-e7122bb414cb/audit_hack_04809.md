@@ -1,0 +1,29 @@
+# [M] Everyone can call Cooler.roll and increase debt of owner
+
+## Summary
+Severity: Medium
+Reporter: rvierdiiev
+Source: https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L140
+Type: audit-issue
+
+## Details
+# Everyone can call Cooler.roll and increase debt of owner
+
+## Summary
+Everyone can call Cooler.roll and increase debt of owner.
+## Vulnerability Detail
+Cooler.roll function allows to prolong loan on same conditions. If you prolong loan then you [pay interests](https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L140) for new period. Also msg.sender should collateralize new loan amount.
+
+Currently anyone can call this function and as result increase debt of owner.
+Of course owner can repay only the part of debt that he asked in request, but also in this case owner takes some reputation risks. As in case if he will not repay this prolonged loan, it's possible that lender will not work with him in future anymore.
+As result owner will need to decide to repay more funds or take reputation risk.
+## Impact
+Loss of funds or reputation for owner.
+## Code Snippet
+https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L140
+## Tool used
+
+Manual Review
+
+## Recommendation
+Allow to call this function by owner only.

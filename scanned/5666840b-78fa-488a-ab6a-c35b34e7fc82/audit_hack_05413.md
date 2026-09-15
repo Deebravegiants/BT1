@@ -1,0 +1,56 @@
+# [M] bountyIsOpen::_bountyId arequires some additional validation to ensure that the input received is a valid id string
+
+## Summary
+Severity: Medium
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+yongkiws
+
+false
+
+# bountyIsOpen::_bountyId arequires some additional validation to ensure that the input received is a valid id string
+
+## Summary
+bountyIsOpen calls from the closeOngoing function. to ensure that the bountyId received as input is a valid string, so as not to encounter another error. Therefore, it is very important to validate before calling
+
+## Vulnerability Detail
+Summary
+
+## Impact
+``` solidity
+OpenQ\Implementations\OpenQV1.sol
+356:     function bountyIsOpen(string calldata _bountyId)
+357:         public
+358:         view
+359:         returns (bool)
+360:     {
+361:     
+362:         IBounty bounty = getBounty(_bountyId);
+363:         bool isOpen = bounty.status() == OpenQDefinitions.OPEN;
+364:         return isOpen;
+365:     }
+```
+
+## Code Snippet
+``` solidity
+OpenQ\Implementations\OpenQV1.sol
+356:     function bountyIsOpen(string calldata _bountyId)
+357:         public
+358:         view
+359:         returns (bool)
+360:     {
+361:     
+362:         IBounty bounty = getBounty(_bountyId);
+363:         bool isOpen = bounty.status() == OpenQDefinitions.OPEN;
+364:         return isOpen;
+365:     }
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+added validation to ensure that the string _bountyId is not empty

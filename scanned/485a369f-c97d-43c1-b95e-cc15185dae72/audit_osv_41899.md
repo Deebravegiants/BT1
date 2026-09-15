@@ -1,0 +1,58 @@
+# [C] netfs: Fix early put of sink folio in netfs_read_gaps()
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-64061
+Ecosystem: Linux
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-07-19
+Source: https://osv.dev/vulnerability/CVE-2026-64061
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=6.12.0 <6.12.92, >=6.13.0 <6.18.34, >=6.19.0 <7.0.11
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+netfs: Fix early put of sink folio in netfs_read_gaps()
+
+Fix netfs_read_gaps() to release the sink page it uses after waiting for
+the request to complete.  The way the sink page is used is that an
+ITER_BVEC-class iterator is created that has the gaps from the target folio
+at either end, but has the sink page tiled over the middle so that a single
+read op can fill in both gaps.
+
+The bug was found by KASAN detecting a UAF on the generic/075 xfstest in
+the cifsd kernel thread that handles reception of data from the TCP socket:
+
+ BUG: KASAN: use-after-free in _copy_to_iter+0x48a/0xa20
+ Write of size 885 at addr ffff888107f92000 by task cifsd/1285
+ CPU: 2 UID: 0 PID: 1285 Comm: cifsd Not tainted 7.0.0 #6 PREEMPT(lazy)
+ Call Trace:
+  dump_stack_lvl+0x5d/0x80
+  print_report+0x17f/0x4f1
+  kasan_report+0x100/0x1e0
+  kasan_check_range+0x10f/0x1e0
+  __asan_memcpy+0x3c/0x60
+  _copy_to_iter+0x48a/0xa20
+  __skb_datagram_iter+0x2c9/0x430
+  skb_copy_datagram_iter+0x6e/0x160
+  tcp_recvmsg_locked+0xce0/0x1130
+  tcp_recvmsg+0xeb/0x300
+  inet_recvmsg+0xcf/0x3a0
+  sock_recvmsg+0xea/0x100
+  cifs_readv_from_socket+0x3a6/0x4d0 [cifs]
+  cifs_read_iter_from_socket+0xdd/0x130 [cifs]
+  cifs_readv_receive+0xaad/0xb10 [cifs]
+  cifs_demultiplex_thread+0x1148/0x1740 [cifs]
+  kthread+0x1cf/0x210
+
+## References
+- https://git.kernel.org/stable/c/2a39d49c8d97df8cb8fa80c10859bc1ba7358c6b
+- https://git.kernel.org/stable/c/3e5dd91b87a8b1450217b56a336bee315f40da7d
+- https://git.kernel.org/stable/c/412e8bad48967fd34295866636c028befd27d8b9
+- https://git.kernel.org/stable/c/d4f4bc87c76511cf2532448b0fa40c25e894bd7d
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/64xxx/CVE-2026-64061.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-64061
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

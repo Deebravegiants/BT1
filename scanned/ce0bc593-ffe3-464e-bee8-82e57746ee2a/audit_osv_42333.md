@@ -1,0 +1,22 @@
+# [M] Pivotick - Stack Exhaustion Denial of Service via Deep or Cyclic Graph Data
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-66920
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:N/VA:H/SC:N/SI:N/SA:H)
+Published: 2026-07-28
+Source: https://osv.dev/vulnerability/CVE-2026-66920
+Type: osv
+
+## Details
+Pivotick contains an uncontrolled-recursion vulnerability when processing caller-supplied graph and node data. The affected graph algorithms recursively traversed graph edges, while the JSON viewer recursively processed each level of a node’s data structure. A specially crafted graph containing an excessively long path, deeply nested properties, or circular object references could therefore exhaust the JavaScript call stack when Pivotick calculates a layout or displays a node in the inspection modal.
+
+Successful exploitation may cause an uncaught exception, freeze the affected page, or crash the browser tab, resulting in a client-side denial of service. No confidentiality or integrity impact has been identified.
+
+The patch replaces the recursive graph traversals with iterative stack-based implementations and limits the reachability calculation to 1,000,000 edge traversals. It also limits JSON rendering to 64 levels and detects circular references before descending further into an object.
+
+## References
+- https://github.com/Pivotick/Pivotick/
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/66xxx/CVE-2026-66920.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-66920
+- https://github.com/Pivotick/Pivotick/commit/66373141eb7892fc29a3b42cfb2c160af16765fe

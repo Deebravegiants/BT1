@@ -1,0 +1,86 @@
+# [H] GPToke distributes rewards to expired locks
+
+## Summary
+Severity: High
+Reporter: Virtual Tawny Ape
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/staking/GPToke.sol#L266-L316
+Type: audit-issue
+
+## Details
+# GPToke distributes rewards to expired locks
+## Summary
+A user is still awarded tokens after their lock has expired.
+
+## Vulnerability Detail
+```sol
+    /// @dev See {IGPToke-collectRewards}.
+    function _collectRewards(address user, bool distribute) internal returns (uint256) {
+        // calculate user's new rewards per share (current minus claimed)
+        uint256 netRewardsPerShare = accRewardPerShare - rewardDebtPerShare[user];
+        // calculate amount of actual rewards
+        uint256 netRewards = (balanceOf(user) * netRewardsPerShare) / REWARD_FACTOR;
+        // get reference to user's pending (sandboxed) rewards
+        uint256 pendingRewards = unclaimedRewards[user];
+
+        // update checkpoint to current
+        rewardDebtPerShare[user] = accRewardPerShare;
+
+        // if nothing to claim, bail
+        if (netRewards == 0 && pendingRewards == 0) {
+            return 0;
+        }
+
+        if (distribute) {
+            //
+            // if asked for actual distribution, transfer all earnings
+            //
+
+            // reset sandboxed rewards
+            unclaimedRewards[user] = 0;
+
+            // get total amount by adding new rewards and previously sandboxed
+            uint256 totalClaiming = netRewards + pendingRewards;
+
+            // update running totals
+            totalRewardsClaimed += totalClaiming;
+            rewardsClaimed[user] += totalClaiming;
+
+            emit RewardsClaimed(user, totalClaiming);
+
+            // send rewards to user
+            weth.safeTransfer(user, totalClaiming);
+
+            // return total amount claimed
+            return totalClaiming;
+        }
+
+        if (netRewards > 0) {
+            // Save (sandbox) to their account for later transfer
+            unclaimedRewards[user] += netRewards;
+
+            emit RewardsCollected(user, netRewards);
+        }
+
+        // nothing collected
+        return 0;
+    }
+```
+
+Anybody who holds GPToke shares is able to earn rewards. You get shares by staking your tokens. But, even if your lock expires, your shares are not removed. Thus, you'll continue to earn rewards without having your tokens locked for a given duration. You're able to withdraw at any time while collecting rewards.
+
+This is also to the detriment of other stakers because their share of the rewards decreases.
+
+## Impact
+A user is still awarded tokens after their locks have expired.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/staking/GPToke.sol#L266-L316
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+You need to force people to unstake their funds whenever the lock expires. Even if you don't allow them to claim if they have no active lock, you'd still assign rewards to those GPToke shares.
+
+The easiest way is to allow anybody to unstake expired positions for a small reward of the underlying funds. For example, 1 week after a lock has expired, anybody can unstake the position and earn 10% of its funds

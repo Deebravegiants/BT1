@@ -1,0 +1,151 @@
+# [H] Ongoing bounties can be closed without the rewards being distributed
+
+## Summary
+Severity: High
+Reporter: clems4ever
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/ClaimManager/Implementations/ClaimManagerV1.sol#L31
+Type: audit-issue
+
+## Details
+# Ongoing bounties can be closed without the rewards being distributed
+
+## Summary
+
+In the case of Atomic the payouts get distributed in the same transaction which closes the bounty.
+In the case of both tiered bounties, each claim is done per tier and for each tier there is a check to verify whether the claim has already been made but there is no check against the status of the bounty (open/close) which is fine in this case.
+
+However, for the ongoing bounty, the close function (OpenQV1::closeOngoing) is a separate external function that can be called by the issuer before the claims are made. The thing is that claims would revert if the bounty is closed...
+
+## Vulnerability Detail
+
+When a claim is made for an ongoing bounty, the status is checked and the transaction would revert if the status is closed.
+
+```solidity
+function _eligibleToClaimOngoingBounty(
+        IOngoingBounty bounty,
+        address _closer,
+        bytes memory _closerData
+    ) internal view {
+        require(
+            bounty.status() == OpenQDefinitions.OPEN,  <========================
+            Errors.CONTRACT_IS_NOT_CLAIMABLE
+        );
+
+        (, string memory claimant, , string memory claimantAsset) = abi.decode(
+            _closerData,
+            (address, string, address, string)
+        );
+
+        bytes32 claimId = bounty.generateClaimId(claimant, claimantAsset);
+
+        if (bounty.invoiceRequired()) {
+            require(
+                bounty.invoiceComplete(claimId),
+                Errors.INVOICE_NOT_COMPLETE
+            );
+        }
+
+        if (bounty.supportingDocumentsRequired()) {
+            require(
+                bounty.supportingDocumentsComplete(claimId),
+                Errors.SUPPORTING_DOCS_NOT_COMPLETE
+            );
+        }
+
+        if (bounty.kycRequired()) {
+            require(hasKYC(_closer), Errors.ADDRESS_LACKS_KYC);
+        }
+    }
+```
+
+The oracle is supposed to claim the rewards for the claimants in
+
+```solidity
+function claimBounty(
+        address _bountyAddress,
+        address _closer,
+        bytes calldata _closerData
+    ) external onlyOracle onlyProxy {
+        IBounty bounty = IBounty(payable(_bountyAddress));
+        uint256 _bountyType = bounty.bountyType();
+
+        if (_bountyType == OpenQDefinitions.ATOMIC) {
+            // Decode to ensure data meets closerData schema before emitting any events
+            abi.decode(_closerData, (address, string, address, string));
+
+            _claimAtomicBounty(bounty, _closer, _closerData);
+            bounty.close(_closer, _closerData);
+
+            emit BountyClosed(
+                bounty.bountyId(),
+                _bountyAddress,
+                bounty.organization(),
+                _closer,
+                block.timestamp,
+                bounty.bountyType(),
+                _closerData,
+                VERSION_1
+            );
+        } else if (_bountyType == OpenQDefinitions.ONGOING) {
+            _claimOngoingBounty(bounty, _closer, _closerData);
+        } else if (_bountyType == OpenQDefinitions.TIERED_PERCENTAGE) {
+            _claimTieredPercentageBounty(bounty, _closer, _closerData);
+        } else if (_bountyType == OpenQDefinitions.TIERED_FIXED) {
+            _claimTieredFixedBounty(bounty, _closer, _closerData);
+        } else {
+            revert(Errors.UNKNOWN_BOUNTY_TYPE);
+        }
+
+        emit ClaimSuccess(block.timestamp, _bountyType, _closerData, VERSION_1);
+    }
+```
+
+But since the issuer can just close the bounty even when no claim has been made yet by calling the following function.
+
+```solidity
+    function closeOngoing(string calldata _bountyId) external {
+        require(bountyIsOpen(_bountyId), Errors.CONTRACT_ALREADY_CLOSED);
+        require(
+            bountyType(_bountyId) == OpenQDefinitions.ONGOING,
+            Errors.NOT_AN_ONGOING_CONTRACT
+        );
+
+        IBounty bounty = IBounty(payable(bountyIdToAddress[_bountyId]));
+
+        require(msg.sender == bounty.issuer(), Errors.CALLER_NOT_ISSUER);
+
+        bounty.closeOngoing(msg.sender);
+
+        emit BountyClosed(
+            _bountyId,
+            bountyIdToAddress[_bountyId],
+            bounty.organization(),
+            address(0),
+            block.timestamp,
+            bounty.bountyType(),
+            new bytes(0),
+            VERSION_1
+        );
+    }
+```
+The funds that would be claimable by claimants cannot be claimed anymore since the transaction from the oracle would always revert. Therefore the claimants would never receive their funds if the issuer makes a mistake, is malicious or gets his/her keys stolen...
+
+## Impact
+
+Ongoing Bounty rewards not distributed leading to pissed off developers.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/ClaimManager/Implementations/ClaimManagerV1.sol#L31
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/ClaimManager/Implementations/ClaimManagerV1.sol#L462
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/OpenQ/Implementations/OpenQV1.sol#L328
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+I think we have multiple choices here:
+- Either we make sure close cannot be called as long as there is funds to distribute or refund within the contract.
+- Or probably better, we make sure that the oracle claims the rewards for all claimants and close the bounty in the same transaction as for all other bounties. This is feasible if the number of claimants is not too high though otherwise the transaction could also revert during the iteration over all claimants. Depends on the max number of claimants you might have. If you consider it unknown, solution one might be better.

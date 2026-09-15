@@ -1,0 +1,62 @@
+# [M] Hardcoded value used in getMetadataURI function.
+
+## Summary
+Severity: Medium
+Reporter: foxb868
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L244-L247
+Type: audit-issue
+
+## Details
+# Hardcoded value used in getMetadataURI function.
+
+## Summary
+The `getMetadataURI` function uses a hardcoded value in #L244-L247 for the empty string instead of using the `type(uint256).max` value, this could lead to issues if the value is changed in the future.
+
+If a malicious actor is able to change the hardcoded value to a different hash value without being detected, they could potentially exploit the vulnerability to compromise the security of the system. For example, they could change the hash value to match a different string, which could allow them to bypass certain security checks or access protected data.
+
+## Vulnerability Detail
+Affected Line that uses the hardcorded value: [TellerV2.sol#L244-L247](https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L244-L247)
+```solidity
+        if (
+            keccak256(abi.encodePacked(metadataURI_)) ==
+            0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 // hardcoded constant of keccak256('')
+        ) {
+```
+We see in the function `getMetadataURI` uses a hardcoded value for the empty string (keccak256('')) instead of using `type(uint256).max` value.
+Affected code block for the [getMetadataURI function: TellerV2.sol#L232-L256](https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L236-L252)
+```solidity
+    function getMetadataURI(uint256 _bidId)
+        public
+        view
+        returns (string memory metadataURI_)
+    {
+        // Check uri mapping first
+        metadataURI_ = uris[_bidId];
+        // If the URI is not present in the mapping
+        if (
+            keccak256(abi.encodePacked(metadataURI_)) ==
+            0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470 // hardcoded constant of keccak256('')
+        ) {
+            // Return deprecated bytes32 uri as a string
+            uint256 convertedURI = uint256(bids[_bidId]._metadataURI);
+            metadataURI_ = StringsUpgradeable.toHexString(convertedURI, 32);
+        }
+    }
+```
+If a malicious actor changes the `hardcoded` value to a different hash value, it could cause the contract to incorrectly identify valid metadata `URIs` as invalid and vice versa. This could result in the contract denying legitimate bids or approving fraudulent bids, leading to losses for both lenders and borrowers.
+
+For example, imagine a scenario where a legitimate borrower submits a bid with a valid metadata URI, but the malicious actor has changed the `hardcoded` value to a different hash value. The contract would incorrectly identify the metadata URI as invalid and deny the bid, causing the borrower to lose out on the opportunity to borrow the assets they need. This could also cause lenders to miss out on potential profits and lead to a loss of trust in the TellerV2 system as a whole.
+
+## Impact
+The use of `hardcoded` values in contracts is not recommended as they can cause issues in the future when the value is changed. In this case, the `hardcoded` value is used to compare with the metadata `URI` for a bid in case it is not present in the mapping, If the `hardcoded` value is changed in the future, it lead to incorrect behavior of the contract and compromise the security of the system.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L244-L247
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L236-L252
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+The function should use the `type(uint256).max` value instead of the hardcoded value.

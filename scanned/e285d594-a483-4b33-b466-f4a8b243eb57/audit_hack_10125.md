@@ -1,0 +1,40 @@
+# [M] Does not use `safeApprove`
+
+## Summary
+Severity: Medium
+Reporter: J4de
+Source: https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L267
+Type: audit-issue
+
+## Details
+# Does not use `safeApprove`
+
+## Summary
+
+Does not use `safeApprove`
+
+## Vulnerability Detail
+
+Did not use `safeTransfer` and did not check the return value of `approve`
+
+## Impact
+
+It may cause some token approve fail
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L267
+
+https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L309
+
+https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L330
+
+https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L394
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+use `safeApprove`

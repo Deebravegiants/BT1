@@ -1,0 +1,15 @@
+# [M] CVE-2018-7452
+
+## Summary
+Severity: Medium
+Advisory: CVE-2018-7452
+CVSS: 5.5 (CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2018-02-24
+Source: https://osv.dev/vulnerability/CVE-2018-7452
+Type: osv
+
+## Details
+A NULL pointer dereference in JPXStream::fillReadBuf in JPXStream.cc in xpdf 4.00 allows attackers to launch denial of service via a specific pdf file, as demonstrated by pdftohtml.
+
+## References
+- https://forum.xpdfreader.com/viewtopic.php?f=3&t=613

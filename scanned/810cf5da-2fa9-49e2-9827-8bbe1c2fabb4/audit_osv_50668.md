@@ -1,0 +1,21 @@
+# [M] CVE-2020-27674
+
+## Summary
+Severity: Medium
+Advisory: CVE-2020-27674
+CVSS: 5.3 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L)
+Published: 2020-10-22
+Source: https://osv.dev/vulnerability/CVE-2020-27674
+Type: osv
+
+## Details
+An issue was discovered in Xen through 4.14.x allowing x86 PV guest OS users to gain guest OS privileges by modifying kernel memory contents, because invalidation of TLB entries is mishandled during use of an INVLPG-like attack technique.
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/PZAM3LYJ5TZLSSNL3KXFILM46QKVTOUA/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/U3U4LNKKXU4UP4Z5XP6TMIWSML3QODPE/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/XIK57QJOVOPWH6RFRNMGOBCROBCKMDG2/
+- http://www.openwall.com/lists/oss-security/2021/01/19/5
+- https://security.gentoo.org/glsa/202011-06
+- https://www.debian.org/security/2020/dsa-4804
+- https://xenbits.xen.org/xsa/advisory-286.html

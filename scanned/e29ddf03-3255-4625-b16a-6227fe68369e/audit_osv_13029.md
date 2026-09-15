@@ -1,0 +1,15 @@
+# [H] CVE-2018-16961
+
+## Summary
+Severity: High
+Advisory: CVE-2018-16961
+CVSS: 7.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N)
+Published: 2019-05-02
+Source: https://osv.dev/vulnerability/CVE-2018-16961
+Type: osv
+
+## Details
+An issue was discovered in Open XDMoD through 7.5.0. html/gui/general/dl_publication.php allows Path traversal via the file parameter, allowing remote attackers to read PDF files in arbitrary directories.
+
+## References
+- https://github.com/grymer/CVE/blob/master/CVE-2018-16961.md

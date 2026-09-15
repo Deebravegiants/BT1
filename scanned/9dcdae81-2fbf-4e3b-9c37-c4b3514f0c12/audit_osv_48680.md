@@ -1,0 +1,21 @@
+# [M] CVE-2018-10981
+
+## Summary
+Severity: Medium
+Advisory: CVE-2018-10981
+CVSS: 6.5 (CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H)
+Published: 2018-05-10
+Source: https://osv.dev/vulnerability/CVE-2018-10981
+Type: osv
+
+## Details
+An issue was discovered in Xen through 4.10.x allowing x86 HVM guest OS users to cause a denial of service (host OS infinite loop) in situations where a QEMU device model attempts to make invalid transitions between states of a request.
+
+## References
+- https://security.gentoo.org/glsa/201810-06
+- https://www.debian.org/security/2018/dsa-4201
+- http://www.securityfocus.com/bid/104149
+- https://lists.debian.org/debian-lts-announce/2018/05/msg00015.html
+- https://lists.debian.org/debian-lts-announce/2018/10/msg00021.html
+- https://xenbits.xen.org/xsa/advisory-262.html
+- http://openwall.com/lists/oss-security/2018/05/08/3

@@ -1,0 +1,17 @@
+# [H] CVE-2018-10859
+
+## Summary
+Severity: High
+Advisory: CVE-2018-10859
+Aliases: HSEC-2023-0011
+CVSS: 7.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N)
+Published: 2018-07-16
+Source: https://osv.dev/vulnerability/CVE-2018-10859
+Type: osv
+
+## Details
+git-annex is vulnerable to an Information Exposure when decrypting files. A malicious server for a special remote could trick git-annex into decrypting a file that was encrypted to the user's gpg key. This attack could be used to expose encrypted data that was never stored in git-annex
+
+## References
+- https://lists.debian.org/debian-lts-announce/2018/09/msg00004.html
+- https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2018-10859

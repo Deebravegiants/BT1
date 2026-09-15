@@ -1,0 +1,36 @@
+# [H] Lack of validation for recipient address in requestOrder()
+
+## Summary
+Severity: High
+Reporter: mau
+Source: https://github.com/sherlock-audit/2023-06-dinari/blob/4851cb7ebc86a7bc26b8d0d399a7dd7f9520f393/sbt-contracts/src/issuer/BuyOrderIssuer.sol#L189
+Type: audit-issue
+
+## Details
+# Lack of validation for recipient address in requestOrder()
+
+## Summary
+
+The contract fails to validate the recipient address `orderRequest.recipient` during order fulfillment or creation. As a result, if the address is set to zero (0x0), the funds intended for the recipient will be lost, as the minting operation will proceed without error.
+
+## Vulnerability Detail
+
+In the `_fillBuyOrder()` function in `BuyOrderIssuer` the contract fails to validate the recipient address `orderRequest.recipient` during order fulfillment or in previously step order creation. As a result, if the address is set to zero (0x0), the funds intended for the recipient will be lost, as the minting operation will proceed without error.
+
+## Impact
+
+The recipient address in the `orderRequest` parameter is set to zero, the funds that should have been transferred to the recipient will be lost irretrievably. This can lead to financial losses for the affected user.
+ 
+## Code Snippet
+ 
+ `IMintBurn(orderRequest.assetToken).mint(orderRequest.recipient, receivedAmount);`
+ 
+https://github.com/sherlock-audit/2023-06-dinari/blob/4851cb7ebc86a7bc26b8d0d399a7dd7f9520f393/sbt-contracts/src/issuer/BuyOrderIssuer.sol#L189
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+It is crucial to incorporate proper validation for the recipient address during order creation or fulfillment.

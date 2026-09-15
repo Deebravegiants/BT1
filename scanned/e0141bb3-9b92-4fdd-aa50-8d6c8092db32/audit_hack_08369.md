@@ -1,0 +1,41 @@
+# [H] Borrower can't repay but can be liquidated as token whitelist can prevent existing positions from repaying
+
+## Summary
+Severity: High
+Reporter: dacian
+Source: https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L487-L491
+Type: audit-issue
+
+## Details
+# Borrower can't repay but can be liquidated as token whitelist can prevent existing positions from repaying
+
+## Summary
+Borrower can't repay but can be liquidated as token whitelist can prevent existing positions from repaying.
+
+## Vulnerability Detail
+BlueBerryBank.repay() has onlyWhitelistedToken() modifier, while BlueBerryBank.liquidate() does not; both end up calling _repay(). If Borrower has an existing position and then the token is removed from the whitelist, Borrower is unable to repay but can still be liquidated.
+
+## Impact
+Borrower with existing position can't repay their loan but can be liquidated - this severely disadvantages the Borrower guaranteeing their liquidation with no possibility to repay.
+
+## Code Snippet
+BlueBerryBank.liquidate() [L487-491](https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L487-L491) vs BlueBerryBank.repay() [L718-721](https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L718-L721)
+
+## Tool used
+Weaponized Autism (I read through every single c4/sherlock lending/borrowing contest and examined every single high/medium finding, since the beginning. Kinda crazy right?)
+
+## Recommendation
+First please consider [Repayments Paused While Liquidations Enabled](https://dacian.me/lending-borrowing-defi-attacks#heading-repayments-paused-while-liquidations-enabled) from BlueBerry's first audit finding. BlueBerry addressed this issue by having liquidate() call isRepayAllowed() [L492](https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L492)
+
+However the same state can also be reached due to the inconsistent use of onlyWhitelistedToken() modifier between repay() and liquidate(). So one potential fix is to have liquidate() also use onlyWhitelistedToken() modifier, therefore at least if the Borrower can't repay, they also can't be liquidated.
+
+Now secondly please consider [Collateral Pause Stops Existing Repayment & Liquidation](https://dacian.me/lending-borrowing-defi-attacks#heading-collateral-pause-stops-existing-repayment-andamp-liquidation), a [high finding](https://github.com/sherlock-audit/2022-11-isomorph-judging/issues/57) from Sherlock's Isomorph Audit. In this audit it was judged that if governance disallowed a previously allowed token and if this causes *existing* positions to not be able to be repaid & liquidated, this was also a *high* finding, as governance disallowing a token should only apply to *new* positions, but existing positions should be allowed to continue to be repaid and liquidated, even if the token is no longer approved by governance.
+
+So ideally neither repay() nor liquidate() would have onlyWhitelistedToken() - this is fair to all market participants and is the most consistent fix in line with the precedent set by the judging in Sherlock's Isomorph audit. I have submitted as High since that is what Sherlock's Isomorph audit classified the same bug. If my submission is downgraded to medium, kindly please explain why the same issue was High in Isomorph but is only medium here.
+
+My submission actually combines 2 distinct issues which have been recognized separately in previous Sherlock competitions:
+
+* Borrower can't repay but can be liquidated
+* Governance token disallow prevents existing positions from repay (and in other contests from liquidation)
+
+However because the primary goal of the audit is to benefit the sponsor, and because the ideal solution (remove onlyWhitelistedToken() from repay()) resolves both issues, I have combined them into this single issue to keep all discussion concentrated in the one place. I do hope that this won't disadvantage me in judging, and at the very least combining both issues into one submission should uphold this submission as a high finding.

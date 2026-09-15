@@ -1,0 +1,35 @@
+# [H] _opentrade() function has reentrancy vulnerability
+
+## Summary
+Severity: High
+Reporter: BugHunter101
+Source: https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L257
+Type: audit-issue
+
+## Details
+# _opentrade() function has reentrancy vulnerability
+
+## Summary
+
+The _opentrade() function has reentrancy vulnerability. Because it use call() function and it does not use modifier nonreentrant
+
+## Vulnerability Detail
+
+The _opentrade() function has reentrancy vulnerability. Because it use call() function and it does not use modifier nonreentrant.
+The executeOperation() function will call the _opentrade() with onlyLendingPool .If LendingPool is unsafe , it will cause reentrancy vulnerability.
+
+## Impact
+
+reentrancy vulnerability
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L257
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add modifier nonreentrant

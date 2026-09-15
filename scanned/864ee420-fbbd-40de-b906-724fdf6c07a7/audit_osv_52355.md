@@ -1,0 +1,34 @@
+# [M] CVE-2021-47362
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-47362
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2024-05-21
+Source: https://osv.dev/vulnerability/CVE-2021-47362
+Type: osv
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+drm/amd/pm: Update intermediate power state for SI
+
+Update the current state as boot state during dpm initialization.
+During the subsequent initialization, set_power_state gets called to
+transition to the final power state. set_power_state refers to values
+from the current state and without current state populated, it could
+result in NULL pointer dereference.
+
+For ex: on platforms where PCI speed change is supported through ACPI
+ATCS method, the link speed of current state needs to be queried before
+deciding on changing to final power state's link speed. The logic to query
+ATCS-support was broken on certain platforms. The issue became visible
+when broken ATCS-support logic got fixed with commit
+f9b7f3703ff9 ("drm/amdgpu/acpi: make ATPX/ATCS structures global (v2)").
+
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1698
+
+## References
+- https://git.kernel.org/stable/c/06a18e64256f7aecb5a27df02faa3568fcd3c105
+- https://git.kernel.org/stable/c/68d4fbe6220cd1f3d07cab0a4901e62f8c12cc68
+- https://git.kernel.org/stable/c/ab39d3cef526ba09c4c6923b4cd7e6ec1c5d4faa

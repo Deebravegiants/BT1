@@ -1,0 +1,43 @@
+# [M] Missing cap on `outdated` value in setOutdated function could lead to stale oracle data
+
+## Summary
+Severity: Medium
+Reporter: eyexploit
+Source: https://github.com/sherlock-audit/2023-06-arrakis/blob/9594cf930307ebbfe5cae4f8ad9e9b40b26c9fec/v2-manager-templates/contracts/oracles/ChainLinkOracle.sol#L60-L64
+Type: audit-issue
+
+## Details
+# Missing cap on `outdated` value in setOutdated function could lead to stale oracle data
+
+## Summary
+If the `outdated` set to 24 hours or more. The oracle date might be stale one. 
+
+## Vulnerability Detail
+In ChainLinkOracle.sol#setOutdated() and ChainLinkOraclePivot.sol#setOutdated(), `outdated` do not poses a upperLimit which means if the `outdated` set to high enough(say 24 hours). It could have devastating impact on the protocol, say token price fall very quickly during chainlink price feeds are stopped or not working.
+
+Last year it happend with UST, when Chainlink paused it's oracle for it on around $0.20 but the price was much lower, resulting in loss of million dollars for some DeFi protocols. 
+
+## Impact
+Stale oracle data
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-arrakis/blob/9594cf930307ebbfe5cae4f8ad9e9b40b26c9fec/v2-manager-templates/contracts/oracles/ChainLinkOracle.sol#L60-L64
+
+https://github.com/sherlock-audit/2023-06-arrakis/blob/9594cf930307ebbfe5cae4f8ad9e9b40b26c9fec/v2-manager-templates/contracts/oracles/ChainLinkOraclePivot.sol#L66-L70
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Since the price of oracle could vary in the time gap of 3 hours, putting 3 hour cap could be less riskier. 
+
+```solidity
+    function setOutdated(uint256 outdated_) external onlyOwner {
+        require(outdated_ <= 3 hours, "invalid beat");
+
+        uint256 oldOutdated = outdated;
+        outdated = outdated_;
+        emit LogSetOutdated(address(this), oldOutdated, outdated_);
+    }
+```

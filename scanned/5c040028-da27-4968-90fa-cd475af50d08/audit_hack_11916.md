@@ -1,0 +1,119 @@
+# [H] Solvency is not being checked correctly on opening position
+
+## Summary
+Severity: High
+Reporter: volodya
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/libraries/LibSolvency.sol#L33
+Type: audit-issue
+
+## Details
+# Solvency is not being checked correctly on opening position
+
+## Summary
+I think an open position might be liquidated right after opening due to an incorrect solvency check
+## Vulnerability Detail
+Whevener partyA opens a position there is a call to `openPosition`. There is a check for solvency `LibSolvency.isSolventAfterOpenPosition(quoteId, filledAmount, upnlSig)`
+lockedValues there is not the same as what is actually being added to locked values after the solvency check, follow the code that is being added to `lockedBalances`.  Please look at the recommendation to see what I mean as well
+
+```solidity
+        if (quote.orderType == OrderType.LIMIT) {
+            lockedAmount =
+                (filledAmount * (quote.lockedValues.cva + quote.lockedValues.lf)) /
+                quote.quantity;
+            lockedMM = (filledAmount * quote.lockedValues.mm) / quote.quantity;
+        } else {
+            lockedAmount = quote.lockedValues.cva + quote.lockedValues.lf;
+            lockedMM = quote.lockedValues.mm;
+        }
+
+        partyAAvailableBalance -= int256(lockedAmount);
+        partyBAvailableBalance -= int256(lockedAmount);
+```
+[/symmio-core/contracts/libraries/LibSolvency.sol#L33](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/libraries/LibSolvency.sol#L33)
+
+Tracking `lockedBalances`
+```solidity
+            if (quote.orderType == OrderType.LIMIT) {
+                quote.lockedValues.mul(openedPrice).div(quote.requestedOpenPrice);
+            }
+            accountLayout.lockedBalances[quote.partyA].addQuote(quote);
+            accountLayout.partyBLockedBalances[quote.partyB][quote.partyA].addQuote(quote);
+        }
+        // partially fill
+        else {
+...
+            LockedValues memory filledLockedValues = LockedValues(
+                (quote.lockedValues.cva * filledAmount) / quote.quantity,
+                (quote.lockedValues.mm * filledAmount) / quote.quantity,
+                (quote.lockedValues.lf * filledAmount) / quote.quantity
+            );
+            LockedValues memory appliedFilledLockedValues = filledLockedValues;
+            appliedFilledLockedValues = appliedFilledLockedValues.mulMem(openedPrice);
+            appliedFilledLockedValues = appliedFilledLockedValues.divMem(quote.requestedOpenPrice);
+...
+            quote.lockedValues = appliedFilledLockedValues;
+...
+            accountLayout.lockedBalances[quote.partyA].addQuote(quote);
+  
+```
+[facets/PartyB/PartyBFacetImpl.sol#L159](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/PartyB/PartyBFacetImpl.sol#L159)
+## Impact
+A position might be liquidated after creation or a position will not be opened when it should
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+I've followed the computation after the solvency check for `lockedBalances`, here is how I think it should be
+
+```diff
+    function isSolventAfterOpenPosition(
+        uint256 quoteId,
+        uint256 filledAmount,
+        PairUpnlAndPriceSig memory upnlSig
+    ) internal view returns (bool) {
+        Quote storage quote = QuoteStorage.layout().quotes[quoteId];
+        int256 partyBAvailableBalance = LibAccount.partyBAvailableBalance(
+            upnlSig.upnlPartyB,
+            quote.partyB,
+            quote.partyA
+        );
+        int256 partyAAvailableBalance = LibAccount.partyAAvailableBalance(
+            upnlSig.upnlPartyA,
+            quote.partyA
+        );
+        uint256 lockedAmount;
+        uint256 lockedMM;
+-        if (quote.orderType == OrderType.LIMIT) {
+-            lockedAmount =
+-                (filledAmount * (quote.lockedValues.cva + quote.lockedValues.lf)) /
+-                quote.quantity;
+-            lockedMM = (filledAmount * quote.lockedValues.mm) / quote.quantity;
+-        } else {
+-            lockedAmount = quote.lockedValues.cva + quote.lockedValues.lf;
+-            lockedMM = quote.lockedValues.mm;
+-        }
+
++        if (quote.quantity == filledAmount) {
++            lockedAmount = quote.lockedValues.cva + quote.lockedValues.lf;
++            lockedMM = quote.lockedValues.mm;
++            if (quote.orderType == OrderType.LIMIT) {
++                lockedAmount = lockedAmount *openedPrice / quote.requestedOpenPrice;
++                lockedMM = lockedMM *openedPrice / quote.requestedOpenPrice;
++            }
++        }
++        // partially fill
++        else {
++            lockedAmount =(filledAmount * (quote.lockedValues.cva + quote.lockedValues.lf)) / quote.quantity;
++            lockedMM = (filledAmount * quote.lockedValues.mm) / quote.quantity;
++
++            lockedAmount = lockedAmount * openedPrice / requestedOpenPrice;
++            lockedMM = lockedAmount * openedPrice / requestedOpenPrice;
++        }
+
+        partyAAvailableBalance -= int256(lockedAmount);
+        partyBAvailableBalance -= int256(lockedAmount);
+
+```

@@ -1,0 +1,40 @@
+# [M] fund could be stuck in MerklePayoutStrategy if payout is set to be ready before updateDistribution
+
+## Summary
+Severity: Medium
+Reporter: 0xGoodess
+Source: https://github.com/sherlock-audit/2023-03-Gitcoin/blob/main/contracts/contracts/payoutStrategy/MerklePayoutStrategy/MerklePayoutStrategyImplementation.sol#L64
+Type: audit-issue
+
+## Details
+# fund could be stuck in MerklePayoutStrategy if payout is set to be ready before updateDistribution
+
+## Summary
+fund could be stuck in MerklePayoutStrategy if payout is set to be ready before updateDistribution
+
+## Vulnerability Detail
+`updateDistribution()` can only be called after RoundHasEnded, but before the `isReadyForPayout` bool is set to be true;
+However, the `isReadyForPayout` could be set to true anytime after the RoundHasEnded returns true and the roundOperator call the `setReadyForPayout`. 
+
+## Impact
+Fund could be stuck in the payoutStrategy, if the `setReadyForPayout` is called before the updateDistribution is finalised. There is no control or protection against such scenario, nor fund recoverable.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-Gitcoin/blob/main/contracts/contracts/payoutStrategy/MerklePayoutStrategy/MerklePayoutStrategyImplementation.sol#L64
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Create an additional boolean check on `setReadyForPayout` to make sure distribution is updated:
+
+```solidity
+  function setReadyForPayout() external payable isRoundContract roundHasEnded {
+    require(isReadyForPayout == false, "isReadyForPayout already set");
++++    require(isDistributionUpdated, "DistributionNotReady");
+    isReadyForPayout = true;
+    emit ReadyForPayout();
+  }
+```

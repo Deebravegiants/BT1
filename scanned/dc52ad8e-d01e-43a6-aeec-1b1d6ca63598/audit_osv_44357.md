@@ -1,0 +1,19 @@
+# [M] verify-usb before 1.4.9 Symlink Directory Traversal Code Execution
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-81690
+Aliases: GHSA-hw7h-wqf5-6crx, PYSEC-2026-3796
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N)
+Published: 2026-08-27
+Source: https://osv.dev/vulnerability/CVE-2026-81690
+Type: osv
+
+## Details
+openssl-encrypt (pip package) before 1.4.9 contains a symlink-following flaw in its verify-usb v2 added-file allowlist scan. The scan enumerated the drive with rglob(), which in CPython does not descend into symlinked directories and treats the symlink as an ordinary directory, while O_NOFOLLOW on the hash side binds only the final path component. An evil-maid attacker with physical access to the removable drive could replace a tool-tree directory with a symlink to a copy containing byte-identical files plus a planted __pycache__/*.pyc file (which CPython loads in preference to recompiling the clean .py). The planted file is never enumerated, added_files stays 0, and verify-usb reports PASSED, resulting in code execution when the victim runs the portable install. Fixed in 1.4.9 (affects both 1.4.x and 1.5.x lines).
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/81xxx/CVE-2026-81690.json
+- https://github.com/jahlives/openssl_encrypt/security/advisories/GHSA-hw7h-wqf5-6crx
+- https://nvd.nist.gov/vuln/detail/CVE-2026-81690
+- https://www.vulncheck.com/advisories/verify-usb-before-1.4.9-symlink-directory-traversal-code-execution
