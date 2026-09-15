@@ -1,0 +1,24 @@
+# [C] H2O has an External Control of File Name or Path vulnerability
+
+## Summary
+Severity: Critical
+Advisory: GHSA-wj3h-wx8g-x699
+CVE: CVE-2024-5986
+CWE: CWE-73
+Ecosystem: Maven, PyPI
+CVSS: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H (CVSS_V3)
+Published: 2026-02-02
+Source: https://github.com/advisories/GHSA-wj3h-wx8g-x699
+Type: github-advisory
+
+## Affected
+- Maven: `ai.h2o:h2o-core` — affected >=0
+- PyPI: `h2o` — affected >=0
+
+## Details
+A vulnerability in h2oai/h2o-3 version 3.46.0.1 allows remote attackers to write arbitrary data to any file on the server. This is achieved by exploiting the `/3/Parse` endpoint to inject attacker-controlled data as the header of an empty file, which is then exported using the `/3/Frames/framename/export` endpoint. The impact of this vulnerability includes the potential for remote code execution and complete access to the system running h2o-3, as attackers can overwrite critical files such as private SSH keys or script files.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-5986
+- https://github.com/h2oai/h2o-3
+- https://huntr.com/bounties/64ff5319-6ac3-4447-87f7-b53495d4d5a3

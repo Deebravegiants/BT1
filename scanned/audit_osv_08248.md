@@ -1,0 +1,27 @@
+# [C] CVE-2016-1903
+
+## Summary
+Severity: Critical
+Advisory: CVE-2016-1903
+CVSS: 9.1 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:H)
+Published: 2016-01-19
+Source: https://osv.dev/vulnerability/CVE-2016-1903
+Type: osv
+
+## Details
+The gdImageRotateInterpolated function in ext/gd/libgd/gd_interpolation.c in PHP before 5.5.31, 5.6.x before 5.6.17, and 7.x before 7.0.2 allows remote attackers to obtain sensitive information or cause a denial of service (out-of-bounds read and application crash) via a large bgd_color argument to the imagerotate function.
+
+## References
+- http://lists.opensuse.org/opensuse-updates/2016-01/msg00099.html
+- http://lists.opensuse.org/opensuse-updates/2016-02/msg00037.html
+- http://www.openwall.com/lists/oss-security/2016/01/14/8
+- http://www.securityfocus.com/bid/79916
+- http://www.securitytracker.com/id/1034608
+- http://www.slackware.com/security/viewer.php?l=slackware-security&y=2016&m=slackware-security.461720
+- https://h20566.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c05240731
+- http://rhn.redhat.com/errata/RHSA-2016-2750.html
+- http://www.php.net/ChangeLog-5.php
+- http://www.php.net/ChangeLog-7.php
+- http://www.ubuntu.com/usn/USN-2952-1
+- http://www.ubuntu.com/usn/USN-2952-2
+- https://bugs.php.net/bug.php?id=70976

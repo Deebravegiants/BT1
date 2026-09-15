@@ -1,0 +1,60 @@
+# [H] i18next-http-middleware: Prototype pollution and path traversal via user-controlled language and namespace parameters
+
+## Summary
+Severity: High
+Advisory: GHSA-5fgg-jcpf-8jjw
+CVE: CVE-2026-41690
+CWE: CWE-1321, CWE-22
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:L (CVSS_V3)
+Published: 2026-04-22
+Source: https://github.com/advisories/GHSA-5fgg-jcpf-8jjw
+Type: github-advisory
+
+## Affected
+- npm: `i18next-http-middleware` — affected >=0 <3.9.3
+
+## Details
+### Summary
+
+Versions of `i18next-http-middleware` prior to 3.9.3 pass user-controlled `lng` and `ns` parameters to two internal paths that use them in ways that enable prototype pollution and, depending on the configured backend, path traversal or SSRF.
+
+The vulnerable entry points are unauthenticated HTTP handlers that are part of the middleware's public API:
+
+- `getResourcesHandler` — reads `lng`/`ns` from query parameters or route params and passes them unvalidated to:
+  - `utils.setPath(resources, [lng, ns], ...)` — the `setPath` helper did not guard against `__proto__`, `constructor`, or `prototype` keys, writing into `Object.prototype` when those values were supplied.
+  - `i18next.services.backendConnector.load(languages, namespaces, ...)` — depending on the configured backend, unvalidated path segments enabled filesystem path traversal (e.g. with `i18next-fs-backend`) or SSRF (e.g. with `i18next-http-backend`).
+  - A `namespaces.forEach(ns => i18next.options.ns.push(ns))` loop additionally performed permanent, unbounded growth of the shared singleton namespace list.
+- `missingKeyHandler` — iterated the incoming request body with `for...in`, which traverses inherited prototype-chain properties. A POST body like `{"__proto__": {"isAdmin": true}}` was forwarded into `saveMissing`.
+
+### Impact
+
+- **Prototype pollution** — a single unauthenticated request of the form `GET /locales/resources.json?lng=__proto__&ns=isAdmin` writes into `Object.prototype`, affecting every plain object created subsequently in the Node.js process. This can break authorization checks (`if (user.isAdmin)`), cause denial of service via type confusion, or be chained into RCE depending on what downstream code reads from polluted objects.
+- **Path traversal / SSRF** — with filesystem or HTTP backends that interpolate `lng`/`ns` into paths or URLs, attacker-controlled values like `ns=../../etc/passwd` or `lng=internal-service` could reach resources outside the intended scope.
+- **Denial of service** — the unbounded `i18next.options.ns` growth, plus repeated backend load calls, enabled memory and CPU exhaustion from unique namespace payloads.
+
+### Affected versions
+
+`< 3.9.3`.
+
+### Patch
+
+Fixed in **3.9.3**. The patch:
+
+1. Blocks `__proto__`, `constructor`, and `prototype` keys in `utils.setPath`.
+2. Replaces the `for...in` body iteration in `missingKeyHandler` with `Object.keys()` plus an explicit dangerous-keys guard.
+3. Introduces a `utils.isSafeIdentifier` helper (denylist approach — still permits any legitimate i18next language code shape) that filters `lng`/`ns` values for path-traversal, path separators, control characters, prototype keys, and over-long inputs before they reach the backend connector and before they are pushed into `i18next.options.ns`.
+
+### Workarounds
+
+No workaround short of upgrading. Front-proxying the middleware with a WAF rule that rejects requests containing `__proto__`, `constructor`, `prototype`, `..`, or control characters in `lng`/`ns` query parameters or body keys is a partial mitigation.
+
+### Credits
+
+Discovered via an internal security audit of the i18next ecosystem.
+
+## References
+- https://github.com/i18next/i18next-http-middleware/security/advisories/GHSA-5fgg-jcpf-8jjw
+- https://nvd.nist.gov/vuln/detail/CVE-2026-41690
+- https://github.com/i18next/i18next-http-middleware
+- https://www.i18next.com/how-to/faq#how-should-the-language-codes-be-formatted

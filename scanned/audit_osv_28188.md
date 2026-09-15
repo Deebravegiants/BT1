@@ -1,0 +1,19 @@
+# [M] Apache CloudStack: The extraconfig feature can be abused to load hypervisor resources on a VM instance
+
+## Summary
+Severity: Medium
+Advisory: CVE-2024-29008
+CVSS: 6.4 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:L/I:N/A:L)
+Published: 2024-04-04
+Source: https://osv.dev/vulnerability/CVE-2024-29008
+Type: osv
+
+## Details
+A problem has been identified in the CloudStack additional VM configuration (extraconfig) feature which can be misused by anyone who has privilege to deploy a VM instance or configure settings of an already deployed VM instance, to configure additional VM configuration even when the feature is not explicitly enabled by the administrator. In a KVM based CloudStack environment, an attacker can exploit this issue to attach host devices such as storage disks, and PCI and USB devices such as network adapters and GPUs, in a regular VM instance that can be further exploited to gain access to the underlying network and storage infrastructure resources, and access any VM instance disks on the local storage.
+
+Users are advised to upgrade to version 4.18.1.1 or 4.19.0.1, which fixes this issue.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/29xxx/CVE-2024-29008.json
+- https://lists.apache.org/thread/82f46pv7mvh95ybto5hn8wlo6g8jhjvp
+- https://nvd.nist.gov/vuln/detail/CVE-2024-29008

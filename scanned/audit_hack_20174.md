@@ -1,0 +1,30 @@
+# [H] no slippage protection on _increase and _decreaseLiquidity
+
+## Summary
+Severity: High
+Reporter: Icy Bronze Mammoth
+Source: https://github.com/sherlock-audit/2024-02-leverage-contracts/blob/main/wagmi-leverage/contracts/abstract/LiquidityManager.sol#L353
+Type: audit-issue
+
+## Details
+# no slippage protection on _increase and _decreaseLiquidity
+
+## Summary
+no slippage protection on _increase and _decreaseLiquidity
+
+## Vulnerability Detail
+Protocol doesn't check the amount received in _decreaseLiquidity meaning 0  can be returned
+
+## Impact
+Users can mev the protocol themselves
+
+## Code Snippet
+https://github.com/sherlock-audit/2024-02-leverage-contracts/blob/main/wagmi-leverage/contracts/abstract/LiquidityManager.sol#L353
+https://github.com/sherlock-audit/2024-02-leverage-contracts/blob/main/wagmi-leverage/contracts/abstract/LiquidityManager.sol#L385
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Always add slippage protection

@@ -1,0 +1,32 @@
+# [C] UEFI Firmware Parser has a heap out-of-bounds write in tiano decompressor ReadCLen
+
+## Summary
+Severity: Critical
+Advisory: GHSA-hm2w-vr2p-hq7w
+CVE: CVE-2026-54334
+CWE: CWE-787
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2026-04-16
+Source: https://github.com/advisories/GHSA-hm2w-vr2p-hq7w
+Type: github-advisory
+
+## Affected
+- PyPI: `uefi-firmware` — affected >=0
+
+## Details
+`uefi-firmware` contains a heap out-of-bounds write vulnerability in the native tiano/EFI decompressor. in `uefi_firmware/compression/Tiano/Decompress.c`, `ReadCLen()` reads `Number = GetBits(Sd, CBIT)` with `CBIT = 9`, so `Number` can be as large as `511`, while the destination array `Sd->mCLen` has `NC = 510` elements. the loop writes while `Index < Number` without enforcing `Index < NC`. additionally, the `CharC == 2` run-length path performs `GetBits(Sd, 9) + 20`, allowing up to `531` zero writes through `Sd->mCLen[Index++] = 0`.
+
+Reachability is through the normal parsing path: `CompressedSection.process()` -> `efi_compressor.TianoDecompress()` -> `TianoDecompress()` -> `DecodeC()` -> `ReadCLen()`.
+
+Minimum impact is a deterministic crash; depending on build/runtime details, the heap memory corruption may be exploitable for code execution in the context of the parsing process. this project shipped its own copy of the decompressor without the upstream EDK2 hardening for this bug class.
+
+- PR: <https://github.com/theopolis/uefi-firmware-parser/pull/145>
+- fix commit: <https://github.com/theopolis/uefi-firmware-parser/commit/bf3dfaa8a05675bae6ea0cbfa082ddcebfcde23e>
+- upstream related fixes: CVE-2017-5731, CVE-2017-5732, CVE-2017-5733, CVE-2017-5734, CVE-2017-5735
+
+## References
+- https://github.com/theopolis/uefi-firmware-parser/security/advisories/GHSA-hm2w-vr2p-hq7w
+- https://github.com/theopolis/uefi-firmware-parser/pull/145
+- https://github.com/theopolis/uefi-firmware-parser/commit/bf3dfaa8a05675bae6ea0cbfa082ddcebfcde23e
+- https://github.com/theopolis/uefi-firmware-parser

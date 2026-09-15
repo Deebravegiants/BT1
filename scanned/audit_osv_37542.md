@@ -1,0 +1,18 @@
+# [H] cpp-httplib Affected by Remote Process Crash via Malformed Content-Length Response Header
+
+## Summary
+Severity: High
+Advisory: CVE-2026-31870
+Aliases: GHSA-39q5-hh6x-jpxx
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-03-11
+Source: https://osv.dev/vulnerability/CVE-2026-31870
+Type: osv
+
+## Details
+cpp-httplib is a C++11 single-file header-only cross platform HTTP/HTTPS library. Prior to 0.37.1, when a cpp-httplib client uses the streaming API (httplib::stream::Get, httplib::stream::Post, etc.), the library calls std::stoull() directly on the Content-Length header value received from the server with no input validation and no exception handling. std::stoull throws std::invalid_argument for non-numeric strings and std::out_of_range for values exceeding ULLONG_MAX. Since nothing catches these exceptions, the C++ runtime calls std::terminate(), which kills the process with SIGABRT. Any server the client connects to — including servers reached via HTTP redirects, third-party APIs, or man-in-the-middle positions can crash the client application with a single HTTP response. No authentication is required. No interaction from the end user is required. The crash is deterministic and immediate. This vulnerability is fixed in 0.37.1.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/31xxx/CVE-2026-31870.json
+- https://github.com/yhirose/cpp-httplib/security/advisories/GHSA-39q5-hh6x-jpxx
+- https://nvd.nist.gov/vuln/detail/CVE-2026-31870

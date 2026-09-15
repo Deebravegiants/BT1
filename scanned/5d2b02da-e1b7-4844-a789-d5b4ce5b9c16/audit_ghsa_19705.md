@@ -1,0 +1,24 @@
+# [M] SageMaker Workflow component allows possibility of MD5 hash collisions
+
+## Summary
+Severity: Medium
+Advisory: GHSA-32g6-mg92-ghm2
+CVE: CVE-2025-0508
+CWE: CWE-328, CWE-440
+Ecosystem: PyPI
+CVSS: CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N (CVSS_V3)
+Published: 2025-03-20
+Source: https://github.com/advisories/GHSA-32g6-mg92-ghm2
+Type: github-advisory
+
+## Affected
+- PyPI: `sagemaker` — affected >=0 <2.237.3
+
+## Details
+A vulnerability in the SageMaker Workflow component of aws/sagemaker-python-sdk allows for the possibility of MD5 hash collisions in all versions. This can lead to workflows being inadvertently replaced due to the reuse of results from different configurations that produce the same MD5 hash. This issue can cause integrity problems within the pipeline, potentially leading to erroneous processing outcomes.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2025-0508
+- https://github.com/aws/sagemaker-python-sdk/commit/dcdd99f911e8b1a05d19cf1ad939b0fefae47864
+- https://github.com/aws/sagemaker-python-sdk
+- https://huntr.com/bounties/eb056818-5b81-466f-81ee-916058d34af2

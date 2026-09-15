@@ -1,0 +1,39 @@
+# [M] Mismatched data type (uint8->int256)
+
+## Summary
+Severity: Medium
+Reporter: Oxsadeeq
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/markets/CashGroup.sol#L71
+Type: audit-issue
+
+## Details
+# Mismatched data type (uint8->int256)
+
+---
+name: Audit item
+about:Mismatched data type (uint8->int256)
+title: "Expected Return type doesn't match actual return type in the contract "
+
+assignees: ""
+---
+
+## Summary:
+
+## Vulnerability Detail:Return argument type is not  convertible to Expected type.In the function getReserveFeeShare() which purpose is to calculate the percentage of the trading fee that goes to reserve,the expected return type is Int256 while the argument returns a Uint8.Int256 and Uint8 are not implicitly convertible, so the function call will fail.
+##link:https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/markets/CashGroup.sol#L71
+## Impact:All calls to the function internally or from child contracts will always revert
+
+## Code Snippet:  function getReserveFeeShare(CashGroupParameters memory cashGroup)
+        internal
+        pure
+        returns (int256)
+    {
+        return uint8(uint256(cashGroup.data >> RESERVE_FEE_SHARE));
+    }
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation:Explicitly convert uint8 -> int256 or change the expected type to uint8

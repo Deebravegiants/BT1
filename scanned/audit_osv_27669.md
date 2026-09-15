@@ -1,0 +1,18 @@
+# [C] RaspberryMatic Unauthenticated Remote Code Execution vulnerability through HMServer File Upload
+
+## Summary
+Severity: Critical
+Advisory: CVE-2024-24578
+Aliases: GHSA-q967-q4j8-637h
+CVSS: 10.0 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H)
+Published: 2024-03-18
+Source: https://osv.dev/vulnerability/CVE-2024-24578
+Type: osv
+
+## Details
+RaspberryMatic is an open-source operating system for HomeMatic internet-of-things devices. RaspberryMatic / OCCU prior to version 3.75.6.20240316 contains a unauthenticated remote code execution (RCE) vulnerability, caused by multiple issues within the Java based `HMIPServer.jar` component. RaspberryMatric includes a Java based `HMIPServer`, that can be accessed through URLs starting with `/pages/jpages`. The `FirmwareController` class does however not perform any session id checks, thus this feature can be accessed without a valid session. Due to this issue, attackers can gain remote code execution as root user, allowing a full system compromise. Version 3.75.6.20240316 contains a patch.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/24xxx/CVE-2024-24578.json
+- https://github.com/jens-maus/RaspberryMatic/security/advisories/GHSA-q967-q4j8-637h
+- https://nvd.nist.gov/vuln/detail/CVE-2024-24578

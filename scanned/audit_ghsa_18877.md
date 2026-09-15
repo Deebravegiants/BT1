@@ -1,0 +1,24 @@
+# [M] phppgadmin contains a SQL injection vulnerability
+
+## Summary
+Severity: Medium
+Advisory: GHSA-927w-vq5c-8gc3
+CVE: CVE-2025-60797
+CWE: CWE-89
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N (CVSS_V3)
+Published: 2025-11-20
+Source: https://github.com/advisories/GHSA-927w-vq5c-8gc3
+Type: github-advisory
+
+## Affected
+- Packagist: `phppgadmin/phppgadmin` — affected >=0
+
+## Details
+phpPgAdmin 7.13.0 and earlier contains a SQL injection vulnerability in dataexport.php at line 118. The application directly executes user-supplied SQL queries from the $_REQUEST['query'] parameter without any sanitization or parameterization via $data->conn->Execute($_REQUEST['query']). An authenticated attacker can exploit this vulnerability to execute arbitrary SQL commands, potentially leading to complete database compromise, data theft, or privilege escalation.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2025-60797
+- https://github.com/phppgadmin/phppgadmin
+- https://github.com/phppgadmin/phppgadmin/blob/master/dataexport.php#L118
+- https://github.com/pr0wl1ng/security-advisories/blob/main/CVE-2025-60797.md

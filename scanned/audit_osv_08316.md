@@ -1,0 +1,34 @@
+# [M] CVE-2016-2188
+
+## Summary
+Severity: Medium
+Advisory: CVE-2016-2188
+CVSS: 4.6 (CVSS:3.0/AV:P/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2016-05-02
+Source: https://osv.dev/vulnerability/CVE-2016-2188
+Type: osv
+
+## Details
+The iowarrior_probe function in drivers/usb/misc/iowarrior.c in the Linux kernel before 4.5.1 allows physically proximate attackers to cause a denial of service (NULL pointer dereference and system crash) via a crafted endpoints value in a USB device descriptor.
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2016-08/msg00038.html
+- http://www.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.5.1
+- https://www.exploit-db.com/exploits/39556/
+- http://lists.opensuse.org/opensuse-security-announce/2016-05/msg00060.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-06/msg00052.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-06/msg00056.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-07/msg00005.html
+- http://www.ubuntu.com/usn/USN-2968-2
+- https://github.com/torvalds/linux/commit/4ec0ef3a82125efc36173062a50624550a900ae0
+- http://lists.opensuse.org/opensuse-security-announce/2016-06/msg00059.html
+- http://www.ubuntu.com/usn/USN-2971-2
+- http://www.ubuntu.com/usn/USN-2971-3
+- http://www.ubuntu.com/usn/USN-2996-1
+- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=4ec0ef3a82125efc36173062a50624550a900ae0
+- http://seclists.org/bugtraq/2016/Mar/118
+- http://www.ubuntu.com/usn/USN-2968-1
+- http://www.ubuntu.com/usn/USN-2969-1
+- http://www.ubuntu.com/usn/USN-2970-1
+- http://www.ubuntu.com/usn/USN-2971-1
+- http://www.ubuntu.com/usn/USN-2997-1

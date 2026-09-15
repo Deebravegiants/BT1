@@ -1,0 +1,21 @@
+# [M] CVE-2020-1730
+
+## Summary
+Severity: Medium
+Advisory: CVE-2020-1730
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L)
+Published: 2020-04-13
+Source: https://osv.dev/vulnerability/CVE-2020-1730
+Type: osv
+
+## Details
+A flaw was found in libssh versions before 0.8.9 and before 0.9.4 in the way it handled AES-CTR (or DES ciphers if enabled) ciphers. The server or client could crash when the connection hasn't been fully initialized and the system tries to cleanup the ciphers when closing the connection. The biggest threat from this vulnerability is system availability.
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2A7BIFKUYIYKTY7FX4BEWVC2OHS5DPOU/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/VLSWHBQ3EPKGTGLQNH554Z746BJ3C554/
+- https://security.netapp.com/advisory/ntap-20200424-0001/
+- https://usn.ubuntu.com/4327-1/
+- https://www.libssh.org/security/advisories/CVE-2020-1730.txt
+- https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-1730
+- https://www.oracle.com/security-alerts/cpuoct2020.html

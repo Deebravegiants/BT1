@@ -1,0 +1,25 @@
+# [M] new points minted are less than what the staker should receive
+
+## Summary
+Severity: Medium
+Reporter: Smooth Boysenberry Gerbil
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/staking/GPToke.sol#L177C3-L177C3
+Type: audit-issue
+
+## Details
+# new points minted are less than what the staker should receive
+## Summary
+the amount minted during stake extension is less
+## Vulnerability Detail
+when a staker extends their stake, they are minted new points. this is calculated by subracting the new points from the old points.
+this is however wrong. stakers should receive their new points in full as the previewPoints method where the amount of points is calculated treats the extension period as a new stake.
+## Impact
+stakers end up losing their voting power
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/staking/GPToke.sol#L177C3-L177C3
+## Tool used
+
+Manual Review
+
+## Recommendation
+ùse `_mint(msg.sender, newPoints );`

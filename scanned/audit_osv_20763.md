@@ -1,0 +1,17 @@
+# [M] CVE-2021-36749
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-36749
+Aliases: GHSA-9p5g-vg43-mj5r
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2021-09-24
+Source: https://osv.dev/vulnerability/CVE-2021-36749
+Type: osv
+
+## Details
+In the Druid ingestion system, the InputSource is used for reading data from a certain data source. However, the HTTP InputSource allows authenticated users to read data from other sources than intended, such as the local file system, with the privileges of the Druid server process. This is not an elevation of privilege when users access Druid directly, since Druid also provides the Local InputSource, which allows the same level of access. But it is problematic when users interact with Druid indirectly through an application that allows users to specify the HTTP InputSource, but not the Local InputSource. In this case, users could bypass the application-level restriction by passing a file URL to the HTTP InputSource. This issue was previously mentioned as being fixed in 0.21.0 as per CVE-2021-26920 but was not fixed in 0.21.0 or 0.21.1.
+
+## References
+- https://lists.apache.org/thread.html/r304dfe56a5dfe1b2d9166b24d2c74ad1c6730338b20aef77a00ed2be%40%3Cannounce.apache.org%3E
+- https://lists.apache.org/thread.html/rc9400a70d0ec5cdb8a3486fc5ddb0b5282961c0b63e764abfbcb9f5d%40%3Cdev.druid.apache.org%3E

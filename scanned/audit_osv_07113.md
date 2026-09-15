@@ -1,0 +1,32 @@
+# [H] BIT-node-2020-8277
+
+## Summary
+Severity: High
+Advisory: BIT-node-2020-8277
+Aliases: BIT-node-min-2020-8277, CVE-2020-8277
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-node-2020-8277
+Type: osv
+
+## Affected
+- Bitnami: `node` — affected >=15.0.0 <15.2.1
+
+## Details
+A Node.js application that allows an attacker to trigger a DNS request for a host of their choice could trigger a Denial of Service in versions < 15.2.1, < 14.15.1, and < 12.19.1 by getting the application to resolve a DNS record with a larger number of responses. This is fixed in 15.2.1, 14.15.1, and 12.19.1.
+
+## References
+- https://hackerone.com/reports/1033107
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/A7WH7W46OZSEUHWBHD7TCH3LRFY52V6Z/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/BEJBY3RJB3XWUOJFGZM5E3EMQ7MFM3UT/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/EEIV4CH6KNVZK63Y6EKVN2XDW7IHSJBJ/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/VXLJY4764LYVJPC7NCDLE2UMQ3QC5OI2/
+- https://nodejs.org/en/blog/vulnerability/november-2020-security-releases/
+- https://security.gentoo.org/glsa/202012-11
+- https://security.gentoo.org/glsa/202101-07
+- https://www.oracle.com//security-alerts/cpujul2021.html
+- https://www.oracle.com/security-alerts/cpuApr2021.html
+- https://www.oracle.com/security-alerts/cpuapr2022.html
+- https://www.oracle.com/security-alerts/cpujan2021.html
+- https://www.oracle.com/security-alerts/cpuoct2021.html
+- https://nvd.nist.gov/vuln/detail/CVE-2020-8277

@@ -1,0 +1,40 @@
+# [M] MarketUtils.getPnlToPoolFactor() will NOT minimize the returned factor when maximize == false.
+
+## Summary
+Severity: Medium
+Reporter: chaduke
+Source: https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/market/MarketUtils.sol#L1177-L1189
+Type: audit-issue
+
+## Details
+# MarketUtils.getPnlToPoolFactor() will NOT minimize the returned factor when maximize == false.
+
+## Summary
+MarketUtils.getPnlToPoolFactor() allows one to get the PnlToPool factor, either minimized or maximized. However, when maximize == false, the returned result is actually not minimized. 
+
+## Vulnerability Detail
+MarketUtils.getPnlToPoolFactor() allows one to get the PnlToPool factor, either minimized or maximized.
+
+[https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/market/MarketUtils.sol#L1177-L1189](https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/market/MarketUtils.sol#L1177-L1189)
+
+However, when maximize == false, the returned result is actually not minimized. To minimize the result for maximize == false, we need to minimize the numerator, Pnl, which is done below; at the same time, we need to maximize the denominator, the Pool value, which is NOT done.
+
+[https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/market/MarketUtils.sol#L1201-L1223](https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/market/MarketUtils.sol#L1201-L1223)
+
+As a matter of fact, the calculation of Pool value is minimized:
+
+[https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/market/MarketUtils.sol#L266-L276](https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/market/MarketUtils.sol#L266-L276)
+
+As a result, MarketUtils.getPnlToPoolFactor() will NOT minimize the returned factor when maximize == false.
+
+## Impact
+
+## Code Snippet
+
+## Tool used
+VSCode
+
+Manual Review
+
+## Recommendation
+We need to minimize the returned factor when maximize == false by maximing the pool value in this case.

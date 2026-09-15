@@ -1,0 +1,17 @@
+# [M] CVE-2023-21986
+
+## Summary
+Severity: Medium
+Advisory: CVE-2023-21986
+CVSS: 5.7 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:L/A:L)
+Published: 2023-04-18
+Source: https://osv.dev/vulnerability/CVE-2023-21986
+Type: osv
+
+## Details
+Vulnerability in the Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: Native Image).  Supported versions that are affected are Oracle GraalVM Enterprise Edition: 20.3.9, 21.3.5 and  22.3.1. Easily exploitable vulnerability allows unauthenticated attacker with logon to the infrastructure where Oracle GraalVM Enterprise Edition executes to compromise Oracle GraalVM Enterprise Edition.  While the vulnerability is in Oracle GraalVM Enterprise Edition, attacks may significantly impact additional products (scope change).  Successful attacks of this vulnerability can result in  unauthorized update, insert or delete access to some of Oracle GraalVM Enterprise Edition accessible data and unauthorized ability to cause a partial denial of service (partial DOS) of Oracle GraalVM Enterprise Edition. CVSS 3.1 Base Score 5.7 (Integrity and Availability impacts).  CVSS Vector: (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:L/A:L).
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/21xxx/CVE-2023-21986.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-21986
+- https://www.oracle.com/security-alerts/cpuapr2023.html

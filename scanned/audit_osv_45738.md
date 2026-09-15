@@ -1,0 +1,78 @@
+# [M] Issue summary: An OpenSSL TLS 1.3 server may fail to negotiate the expected preferred key exchange...
+
+## Summary
+Severity: Medium
+Advisory: JLSEC-2026-271
+Ecosystem: Julia
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L)
+Published: 2026-04-27
+Source: https://osv.dev/vulnerability/JLSEC-2026-271
+Type: osv
+
+## Affected
+- Julia: `AppBundler` — affected >=1.0.0 <1.0.1
+- Julia: `OpenSSL_jll` — affected >=3.5.0+0 <3.5.6+0
+- Julia: `Openresty_jll` — affected >=1.29.203+0
+
+## Details
+Issue summary: An OpenSSL TLS 1.3 server may fail to negotiate the expected
+preferred key exchange group when its key exchange group configuration includes
+the default by using the 'DEFAULT' keyword.
+
+Impact summary: A less preferred key exchange may be used even when a more
+preferred group is supported by both client and server, if the group
+was not included among the client's initial predicated keyshares.
+This will sometimes be the case with the new hybrid post-quantum groups,
+if the client chooses to defer their use until specifically requested by
+the server.
+
+If an OpenSSL TLS 1.3 server's configuration uses the 'DEFAULT' keyword to
+interpolate the built-in default group list into its own configuration, perhaps
+adding or removing specific elements, then an implementation defect causes the
+'DEFAULT' list to lose its 'tuple' structure, and all server-supported groups
+were treated as a single sufficiently secure 'tuple', with the server not
+sending a Hello Retry Request (HRR) even when a group in a more preferred tuple
+was mutually supported.
+
+As a result, the client and server might fail to negotiate a mutually supported
+post-quantum key agreement group, such as 'X25519MLKEM768', if the client's
+configuration results in only 'classical' groups (such as 'X25519' being the
+only ones in the client's initial keyshare prediction).
+
+OpenSSL 3.5 and later support a new syntax for selecting the most preferred TLS
+1.3 key agreement group on TLS servers.  The old syntax had a single 'flat'
+list of groups, and treated all the supported groups as sufficiently secure.
+If any of the keyshares predicted by the client were supported by the server
+the most preferred among these was selected, even if other groups supported by
+the client, but not included in the list of predicted keyshares would have been
+more preferred, if included.
+
+The new syntax partitions the groups into distinct 'tuples' of roughly
+equivalent security.  Within each tuple the most preferred group included among
+the client's predicted keyshares is chosen, but if the client supports a group
+from a more preferred tuple, but did not predict any corresponding keyshares,
+the server will ask the client to retry the ClientHello (by issuing a Hello
+Retry Request or HRR) with the most preferred mutually supported group.
+
+The above works as expected when the server's configuration uses the built-in
+default group list, or explicitly defines its own list by directly defining the
+various desired groups and group 'tuples'.
+
+No OpenSSL FIPS modules are affected by this issue, the code in question lies
+outside the FIPS boundary.
+
+OpenSSL 3.6 and 3.5 are vulnerable to this issue.
+
+OpenSSL 3.6 users should upgrade to OpenSSL 3.6.2 once it is released.
+OpenSSL 3.5 users should upgrade to OpenSSL 3.5.6 once it is released.
+
+OpenSSL 3.4, 3.3, 3.0, 1.0.2 and 1.1.1 are not affected by this issue.
+
+## References
+- http://www.openwall.com/lists/oss-security/2026/03/13/3
+- https://cert-portal.siemens.com/productcert/html/ssa-032379.html
+- https://github.com/advisories/GHSA-wj64-gh9j-xm82
+- https://github.com/openssl/openssl/commit/2157c9d81f7b0bd7dfa25b960e928ec28e8dd63f
+- https://github.com/openssl/openssl/commit/85977e013f32ceb96aa034c0e741adddc1a05e34
+- https://nvd.nist.gov/vuln/detail/CVE-2026-2673
+- https://openssl-library.org/news/secadv/20260313.txt

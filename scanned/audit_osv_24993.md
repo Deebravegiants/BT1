@@ -1,0 +1,18 @@
+# [M] Adobe Commerce Guest Cart Shipping Address Overwrite IDOR
+
+## Summary
+Severity: Medium
+Advisory: CVE-2023-29290
+Aliases: GHSA-qw5m-vmp3-f553
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N)
+Published: 2023-06-15
+Source: https://osv.dev/vulnerability/CVE-2023-29290
+Type: osv
+
+## Details
+Adobe Commerce versions 2.4.6 (and earlier), 2.4.5-p2 (and earlier) and 2.4.4-p3 (and earlier) are affected by an Incorrect Authorization vulnerability that could result in a security feature bypass. An attacker could leverage this vulnerability to bypass a minor functionality. Exploitation of this issue does not require user interaction.
+
+## References
+- https://helpx.adobe.com/security/products/magento/apsb23-35.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/29xxx/CVE-2023-29290.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-29290

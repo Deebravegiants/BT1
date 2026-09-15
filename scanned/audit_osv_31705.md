@@ -1,0 +1,78 @@
+# [M] btrfs: avoid NULL pointer dereference if no valid extent tree
+
+## Summary
+Severity: Medium
+Advisory: CVE-2025-21658
+Ecosystem: Linux
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2025-01-21
+Source: https://osv.dev/vulnerability/CVE-2025-21658
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.11.0 <6.6.72, >=6.7.0 <6.12.10
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+btrfs: avoid NULL pointer dereference if no valid extent tree
+
+[BUG]
+Syzbot reported a crash with the following call trace:
+
+  BTRFS info (device loop0): scrub: started on devid 1
+  BUG: kernel NULL pointer dereference, address: 0000000000000208
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  PGD 106e70067 P4D 106e70067 PUD 107143067 PMD 0
+  Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
+  CPU: 1 UID: 0 PID: 689 Comm: repro Kdump: loaded Tainted: G           O       6.13.0-rc4-custom+ #206
+  Tainted: [O]=OOT_MODULE
+  Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS unknown 02/02/2022
+  RIP: 0010:find_first_extent_item+0x26/0x1f0 [btrfs]
+  Call Trace:
+   <TASK>
+   scrub_find_fill_first_stripe+0x13d/0x3b0 [btrfs]
+   scrub_simple_mirror+0x175/0x260 [btrfs]
+   scrub_stripe+0x5d4/0x6c0 [btrfs]
+   scrub_chunk+0xbb/0x170 [btrfs]
+   scrub_enumerate_chunks+0x2f4/0x5f0 [btrfs]
+   btrfs_scrub_dev+0x240/0x600 [btrfs]
+   btrfs_ioctl+0x1dc8/0x2fa0 [btrfs]
+   ? do_sys_openat2+0xa5/0xf0
+   __x64_sys_ioctl+0x97/0xc0
+   do_syscall_64+0x4f/0x120
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+   </TASK>
+
+[CAUSE]
+The reproducer is using a corrupted image where extent tree root is
+corrupted, thus forcing to use "rescue=all,ro" mount option to mount the
+image.
+
+Then it triggered a scrub, but since scrub relies on extent tree to find
+where the data/metadata extents are, scrub_find_fill_first_stripe()
+relies on an non-empty extent root.
+
+But unfortunately scrub_find_fill_first_stripe() doesn't really expect
+an NULL pointer for extent root, it use extent_root to grab fs_info and
+triggered a NULL pointer dereference.
+
+[FIX]
+Add an extra check for a valid extent root at the beginning of
+scrub_find_fill_first_stripe().
+
+The new error path is introduced by 42437a6386ff ("btrfs: introduce
+mount option rescue=ignorebadroots"), but that's pretty old, and later
+commit b979547513ff ("btrfs: scrub: introduce helper to find and fill
+sector info for a scrub_stripe") changed how we do scrub.
+
+So for kernels older than 6.6, the fix will need manual backport.
+
+## References
+- https://git.kernel.org/stable/c/24b85a8b0310e0144da9ab30be42e87e6476638a
+- https://git.kernel.org/stable/c/6aecd91a5c5b68939cf4169e32bc49f3cd2dd329
+- https://git.kernel.org/stable/c/aee5f69f3e6cd82bfefaca1b70b40b6cd8f3f784
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/21xxx/CVE-2025-21658.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-21658
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

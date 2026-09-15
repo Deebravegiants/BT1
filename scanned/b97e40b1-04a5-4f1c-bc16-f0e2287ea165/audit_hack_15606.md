@@ -1,0 +1,32 @@
+# [H] `__BaseStrategy_init()` has a `onlyAllo` modifier, it will cause revert
+
+## Summary
+Severity: High
+Reporter: Low Corduroy Cow
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/BaseStrategy.sol#L141
+Type: audit-issue
+
+## Details
+# `__BaseStrategy_init()` has a `onlyAllo` modifier, it will cause revert
+
+`__BaseStrategy_init()` has a `onlyAllo` modifier. However, this is internal function, and the caller is `address(this)`, it will cause revert
+
+## Vulnerability Detail
+
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/BaseStrategy.sol#L141
+
+## Impact
+
+It will cause the strategy contract init fail and revert.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/BaseStrategy.sol#L141
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+remove the `onlyAllo` modifier

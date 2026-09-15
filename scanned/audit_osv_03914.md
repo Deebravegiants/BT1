@@ -1,0 +1,28 @@
+# [M] ALPINE-CVE-2026-6472
+
+## Summary
+Severity: Medium
+Advisory: ALPINE-CVE-2026-6472
+Ecosystem: Alpine:v3.20, Alpine:v3.21, Alpine:v3.22, Alpine:v3.23, Alpine:v3.24
+CVSS: 5.4 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N)
+Published: 2026-05-14
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2026-6472
+Type: osv
+
+## Affected
+- Alpine:v3.20: `postgresql15` — affected >=0 <15.18-r0
+- Alpine:v3.20: `postgresql16` — affected >=0 <16.14-r0
+- Alpine:v3.21: `postgresql16` — affected >=0 <16.14-r0
+- Alpine:v3.22: `postgresql16` — affected >=0 <16.14-r0
+- Alpine:v3.21: `postgresql17` — affected >=0 <17.10-r0
+- Alpine:v3.22: `postgresql17` — affected >=0 <17.10-r0
+- Alpine:v3.23: `postgresql17` — affected >=0 <17.10-r0
+- Alpine:v3.24: `postgresql17` — affected >=0 <17.10-r0
+- Alpine:v3.23: `postgresql18` — affected >=0 <18.4-r0
+- Alpine:v3.24: `postgresql18` — affected >=0 <18.4-r0
+
+## Details
+Missing authorization in PostgreSQL CREATE TYPE allows an object creator to hijack other queries that use search_path to find user-defined types, including extension-defined types.  That is to say, the victim will execute arbitrary SQL functions of the attacker's choice.  Versions before PostgreSQL 18.4, 17.10, 16.14, 15.18, and 14.23 are affected.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2026-6472

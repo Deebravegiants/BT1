@@ -1,0 +1,23 @@
+# [C] ProFTPD mod_sftp Heap Buffer Overflow via SFTP Packet Reassembly
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-63090
+CVSS: 9.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N)
+Published: 2026-07-20
+Source: https://osv.dev/vulnerability/CVE-2026-63090
+Type: osv
+
+## Details
+ProFTPD before 1.3.9c and 1.3.10rc3 contains a heap-based buffer overflow vulnerability in the mod_sftp module that allows authenticated low-privilege attackers to achieve arbitrary code execution by sending crafted SFTP packet fragments exceeding the 16 KB reassembly buffer in the fxp.c component. Attackers can supply oversized fragments to trigger an incorrectly conditioned reallocation, corrupt pool freelist metadata, overwrite the root_fs BSS global pointer to reference a fake filesystem struct, and redirect pr_fsio_stat() to system() via a crafted RENAME request.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/63xxx/CVE-2026-63090.json
+- https://github.com/proftpd/proftpd/blob/master/RELEASE_NOTES
+- https://nvd.nist.gov/vuln/detail/CVE-2026-63090
+- https://www.vulncheck.com/advisories/proftpd-mod-sftp-heap-buffer-overflow-via-sftp-packet-reassembly
+- https://github.com/proftpd/proftpd/issues/2190
+- https://github.com/proftpd/proftpd/commit/4ee8701bcf425f11b3b2116e634ff3e655d918b1
+- https://github.com/proftpd/proftpd/releases/tag/v1.3.10rc3-3
+- https://github.com/proftpd/proftpd/releases/tag/v1.3.9c
+- https://github.com/proftpd/proftpd

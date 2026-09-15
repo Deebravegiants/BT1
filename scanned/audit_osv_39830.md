@@ -1,0 +1,20 @@
+# [M] APIFold Vulnerable to Unauthenticated Webhook Event Injection
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-47769
+Aliases: GHSA-x82h-9r8v-m672
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N)
+Published: 2026-07-23
+Source: https://osv.dev/vulnerability/CVE-2026-47769
+Type: osv
+
+## Details
+APIFold reads an OpenAPI 3.x or Swagger 2.x specification and generates a live, production-ready MCP server endpoint. Prior to commit 7f19b52280f414f57af2b79a95333d1c8fbeece5, the `/webhooks/:serverSlug/:eventName` endpoint accepts arbitrary unauthenticated JSON and stores it in Redis and the `webhook_events` PostgreSQL table without any signature check or authentication requirement. The root cause is that `createWebhookRouter` is called at `server.ts:188` without a `validators` map, so `receivers.ts:80`'s optional-chaining guard evaluates to `undefined` and the signature-validation block (`receiver.ts:81–95`) is unconditionally skipped. Any unauthenticated network client that knows a valid server slug can inject arbitrary payloads, which are subsequently served as trusted resource state to legitimate MCP clients. Commit 7f19b52280f414f57af2b79a95333d1c8fbeece5 patches the issue.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/47xxx/CVE-2026-47769.json
+- https://github.com/Work90210/APIFold/security/advisories/GHSA-x82h-9r8v-m672
+- https://nvd.nist.gov/vuln/detail/CVE-2026-47769
+- https://github.com/Work90210/APIFold/commit/7f19b52280f414f57af2b79a95333d1c8fbeece5
+- https://github.com/Work90210/APIFold/pull/235

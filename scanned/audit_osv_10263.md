@@ -1,0 +1,15 @@
+# [C] CVE-2017-14636
+
+## Summary
+Severity: Critical
+Advisory: CVE-2017-14636
+CVSS: 9.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2017-09-22
+Source: https://osv.dev/vulnerability/CVE-2017-14636
+Type: osv
+
+## Details
+Because of an integer overflow in sam2p 0.49.3, a loop executes 0xffffffff times, ending with an invalid read of size 1 in the Image::Indexed::sortPal function in image.cpp. However, this also causes memory corruption because of an attempted write to the invalid d[0xfffffffe] array element.
+
+## References
+- https://github.com/pts/sam2p/issues/14

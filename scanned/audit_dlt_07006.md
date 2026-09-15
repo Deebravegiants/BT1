@@ -1,0 +1,43 @@
+# [M] M-07 Unmitigated
+
+## Summary
+Severity: Medium
+Chain: Smart contract
+Component: 2023-10-asymmetry-mitigation
+Published: 2023-10-25
+Source: https://github.com/code-423n4/2023-10-asymmetry-mitigation-findings/issues/40
+Type: code-finding
+
+## Details
+# Lines of code
+
+
+
+
+# Vulnerability details
+
+# Mitigation of M-07: Mitigation Error, see comments
+
+Link to Issue: https://github.com/code-423n4/2023-09-asymmetry-findings/issues/38
+
+## Comments
+
+The changes related to this issue are:
+
+- Access control has been added to `AfEth::depositRewards()` using the `onlyVotiumOrRewarder` modifier. This function can now be called only by the rewarder or the VotiumStrategy.
+- Access control has been added to `VotiumStrategy::depositRewards()` using the `onlyManager`. This function can now be called only by the manager role (AfEth).
+- `AfEth::depositRewards()` now uses `msg.value` instead of receiving an `amount` parameter that might not match the sent `callvalue`.
+
+This mitigates the issue, but there is still an edge related to an error introduced in the implementation of the `onlyManager` modifier.
+
+```solidity
+90:     modifier onlyManager() {
+91:         if (address(manager) != address(0) && msg.sender != manager)
+92:             revert NotManager();
+93:         _;
+94:     }
+```
+
+Access is still allowed if the `manager` address is uninitialized or has the default value of `address(0)`.
+
+The issue is expanded in detail in [ADRIRO-NEW-M-01] (_Manager authorization in VotiumStrategy still leaves room for unprotected access_).

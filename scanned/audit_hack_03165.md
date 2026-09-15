@@ -1,0 +1,40 @@
+# [M] Chainlink Oracle's `latestRoundData()` function may return price data which is not fresh or incorrect price data in results
+
+## Summary
+Severity: Medium
+Reporter: 0xmuxyz
+Source: https://github.com/sherlock-audit/2022-11-float-capital/blob/main/contracts/market/template/MarketExtended.sol#L37
+Type: audit-issue
+
+## Details
+# Chainlink Oracle's `latestRoundData()` function may return price data which is not fresh or incorrect price data in results
+
+## Summary
+- Chainlink's `latestRoundData()` function is used but there is no check if the return value indicates price data which is not fresh. This could lead to getting price data which is not fresh. 
+  (This is according to the Chainlink documentation: https://docs.chain.link/docs/historical-price-data/#historical-rounds )
+
+## Vulnerability Detail
+- Chainlink Oracle's `latestRoundData()` function  is used in the `initializePools()` function in the MarketExtended.sol for getting the latest price. 
+  - However, there is no check if the return value indicates the price data which is not fresh.
+
+## Impact
+- The result of calling `oracleManager.chainlinkOracle().latestRoundData()` could return price data which is not fresh. Then, the price data which is not fresh will be assigned into the variable of `"initialAssetPrice"` . 
+  (Also, it will be emitted when the `SeparateMarketLaunchedAndSeeded()` event will be emitted in the `initializePools()` function in the MarketExtended.sol)
+
+## Code Snippet
+- https://github.com/sherlock-audit/2022-11-float-capital/blob/main/contracts/market/template/MarketExtended.sol#L37
+```solidity
+    (uint80 latestRoundId, int256 initialAssetPrice, , , ) = oracleManager.chainlinkOracle().latestRoundData();
+```
+
+## Tool used
+- Manual Review
+
+## Recommendation
+- In order to avoid getting the price data which is not fresh, I recommend adding checks whether returned-price data is fresh or not like below:  
+```solidity
+(uint80 latestRoundId, int256 initialAssetPrice, , uint256 updatedAt, uint80 answeredInRound) = oracleManager.chainlinkOracle().latestRoundData();
+
+require(answeredInRound >= latestRoundId, "Price is not fresh");
+require(block.timestamp - updatedAt < PRICE_ORACLE_THRESHOLD_WHICH_IS_NOT_FRESH, "Price round incomplete");
+```
