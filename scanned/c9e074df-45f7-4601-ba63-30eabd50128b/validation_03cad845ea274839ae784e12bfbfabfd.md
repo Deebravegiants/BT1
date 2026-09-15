@@ -1,1 +1,0 @@
-Now let me check the actual `RejectJobProposalSpec` mutation resolver in `core/web/resolver/mutation.go` to confirm the authorization check is present.
