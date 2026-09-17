@@ -1,0 +1,75 @@
+# [H] Anyone can steal `AMMToken` from **Depositer** contract
+
+## Summary
+Severity: High
+Reporter: rotcivegaf
+Source: https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/DepositReceipt_Base.sol#L111
+Type: audit-issue
+
+## Details
+# Anyone can steal `AMMToken` from **Depositer** contract
+
+## Summary
+
+With the function `withdrawFromGauge` an attacker can steal `AMMToken` funds of the **Depositer** contract and burn the **DepositReceipt_USDC** ERC721 token of the owner
+
+## Vulnerability Detail
+
+When a normal user deploy a **Depositor** contract and deposit with `depositToGauge`, the contract creates a NFT to manage the deposit
+The function `withdrawFromGauge` is used to burn this NFT and take the rewards from the gauge and the deposit `AMMToken` amount
+To use this function the owner of the NFT [need approves the **Depositor** contract to manage it](https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/DepositReceipt_Base.sol#L111) to be able to use the function `withdrawFromGauge`, in that moment an attacker have the possibility to execute the function `withdrawFromGauge` and take the deposit `AMMToken` amount for himself and with this burn the NFT and the owner stop receive rewards
+> Note: the rewards still can be recuperate by the owner with the function `claimRewards`
+
+## Impact
+
+An attacker can steal `AMMToken` funds of the **Depositer** contract and burn the **DepositReceipt_USDC** ERC721 token of the owner
+
+## Code Snippet
+
+- https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/Depositor.sol#L113-L127
+
+- https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/DepositReceipt_Base.sol#L104-L115
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add `isApprovedOrOwner` check:
+
+```diff
+@@ -110,6 +110,8 @@ contract Depositor is Ownable {
+         
+     }
+ 
++    error SenderIsNotApprovedOrOwner();
++
+     /**
+     *    @notice burns the NFT related to the ID and withdraws the owed pooledtokens from Gauge and sends to user.  
+     *    @param _NFTId the ID of the DepositReceipt you wish to burn and reclaim the pooledTokens relating to
+@@ -117,6 +119,7 @@ contract Depositor is Ownable {
+     *    
+     **/
+     function withdrawFromGauge(uint256 _NFTId, address[] memory _tokens)  public  {
++        if (!depositReceipt.isApprovedOrOwner(_NFTId)) revert SenderIsNotApprovedOrOwner();
+         uint256 amount = depositReceipt.pooledTokens(_NFTId);
+         depositReceipt.burn(_NFTId);
+         gauge.getReward(address(this), _tokens);
+```
+
+```diff
+@@ -64,7 +64,11 @@ abstract contract DepositReceipt_Base is  ERC721Enumerable, AccessControl {
+         require(hasRole(ADMIN_ROLE, msg.sender), "Caller is not an admin");
+         _;
+     }
+-    
++
++    function isApprovedOrOwner(uint256 _NFTId) external view returns (bool) {
++        return _isApprovedOrOwner(msg.sender, _NFTId);
++    }
++
+     function addMinter(address _account) external onlyAdmin{
+         _setupRole(MINTER_ROLE, _account);
+         emit AddNewMinter(_account,  msg.sender);
+```

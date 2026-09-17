@@ -1,0 +1,48 @@
+# [M] Check balance in submitBid is unable to ensure there is enough balance in collateral address in acceptBid
+
+## Summary
+Severity: Medium
+Reporter: caventa
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L303-L332
+Type: audit-issue
+
+## Details
+# Check balance in submitBid is unable to ensure there is enough balance in collateral address in acceptBid
+
+## Summary
+Check balance in submitBid is unable to ensure there is enough balance in collateral address in acceptBid
+
+## Vulnerability Detail
+When submitBid with collateral, system does check if borrower has enough ERC20, ERC721 or ERC1155 collateral token balance amount.
+
+Then, when acceptBid, system will transfer the same collateral token balance amount from borrower to the lender.
+
+It seems correct, but if dive deep actually it is impossible to know if the balance is enough because the borrower may transfer out their collateral to another address
+
+=> AFTER submitBid and BEFORE acceptBid!
+
+which will reduce his balance and cause the balance not enough for accept bid
+
+## Impact
+Borrower may not have enough collateral token when their bid is accepted.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L303-L332
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L117-L130
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L138-L147
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L426-L442
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L450-L504
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L470-L558
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L316-L386
+
+## Tool used
+Manual Review
+
+## Recommendation
+Check balance is redundant. The only way to guarantee the transferred amount is enough or not is to transfer the collateral token immediately.
+
+I would suggest
+
+When submitBid, transfer the collateral token from borrower to lender
+When cancelBid, transfer back collateral token from lender to borrower 
+When acceptBid, don't do any transfer

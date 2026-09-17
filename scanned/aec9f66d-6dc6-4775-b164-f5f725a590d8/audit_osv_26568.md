@@ -1,0 +1,72 @@
+# [H] skbuff: skb_segment, Call zero copy functions before using skbuff frags
+
+## Summary
+Severity: High
+Advisory: CVE-2023-53354
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2025-09-17
+Source: https://osv.dev/vulnerability/CVE-2023-53354
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=4.16.0 <4.19.295, >=4.20.0 <5.4.257, >=5.5.0 <5.10.195, >=5.11.0 <5.15.132, >=5.16.0 <6.1.53, >=6.2.0 <6.4.16, >=6.5.0 <6.5.3
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+skbuff: skb_segment, Call zero copy functions before using skbuff frags
+
+Commit bf5c25d60861 ("skbuff: in skb_segment, call zerocopy functions
+once per nskb") added the call to zero copy functions in skb_segment().
+The change introduced a bug in skb_segment() because skb_orphan_frags()
+may possibly change the number of fragments or allocate new fragments
+altogether leaving nrfrags and frag to point to the old values. This can
+cause a panic with stacktrace like the one below.
+
+[  193.894380] BUG: kernel NULL pointer dereference, address: 00000000000000bc
+[  193.895273] CPU: 13 PID: 18164 Comm: vh-net-17428 Kdump: loaded Tainted: G           O      5.15.123+ #26
+[  193.903919] RIP: 0010:skb_segment+0xb0e/0x12f0
+[  194.021892] Call Trace:
+[  194.027422]  <TASK>
+[  194.072861]  tcp_gso_segment+0x107/0x540
+[  194.082031]  inet_gso_segment+0x15c/0x3d0
+[  194.090783]  skb_mac_gso_segment+0x9f/0x110
+[  194.095016]  __skb_gso_segment+0xc1/0x190
+[  194.103131]  netem_enqueue+0x290/0xb10 [sch_netem]
+[  194.107071]  dev_qdisc_enqueue+0x16/0x70
+[  194.110884]  __dev_queue_xmit+0x63b/0xb30
+[  194.121670]  bond_start_xmit+0x159/0x380 [bonding]
+[  194.128506]  dev_hard_start_xmit+0xc3/0x1e0
+[  194.131787]  __dev_queue_xmit+0x8a0/0xb30
+[  194.138225]  macvlan_start_xmit+0x4f/0x100 [macvlan]
+[  194.141477]  dev_hard_start_xmit+0xc3/0x1e0
+[  194.144622]  sch_direct_xmit+0xe3/0x280
+[  194.147748]  __dev_queue_xmit+0x54a/0xb30
+[  194.154131]  tap_get_user+0x2a8/0x9c0 [tap]
+[  194.157358]  tap_sendmsg+0x52/0x8e0 [tap]
+[  194.167049]  handle_tx_zerocopy+0x14e/0x4c0 [vhost_net]
+[  194.173631]  handle_tx+0xcd/0xe0 [vhost_net]
+[  194.176959]  vhost_worker+0x76/0xb0 [vhost]
+[  194.183667]  kthread+0x118/0x140
+[  194.190358]  ret_from_fork+0x1f/0x30
+[  194.193670]  </TASK>
+
+In this case calling skb_orphan_frags() updated nr_frags leaving nrfrags
+local variable in skb_segment() stale. This resulted in the code hitting
+i >= nrfrags prematurely and trying to move to next frag_skb using
+list_skb pointer, which was NULL, and caused kernel panic. Move the call
+to zero copy functions before using frags and nr_frags.
+
+## References
+- https://git.kernel.org/stable/c/04c3eee4e13f60bf6f9a366ad39f88a01a57166e
+- https://git.kernel.org/stable/c/2ea35288c83b3d501a88bc17f2df8f176b5cc96f
+- https://git.kernel.org/stable/c/6c26ed3c6abe86ddab0510529000b970b05c9b40
+- https://git.kernel.org/stable/c/8836c266201c29a5acb4f582227686f47b65ad61
+- https://git.kernel.org/stable/c/d44403ec0676317b7f7edf2a035bb219fee3304e
+- https://git.kernel.org/stable/c/d5790386595d06ea9decfd9ba5f1ea48cf09aa02
+- https://git.kernel.org/stable/c/f99006e840a4dbc8f5a34cecc6b5b26c73ef49bb
+- https://git.kernel.org/stable/c/fcab3f661dbfd88e27ddbbe65368f3fa2d823175
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/53xxx/CVE-2023-53354.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-53354
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

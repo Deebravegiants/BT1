@@ -1,0 +1,44 @@
+# [M] Integer Overflow or Wraparound in Apache Tomcat
+
+## Summary
+Severity: Medium
+Advisory: GHSA-475f-74wp-pqv5
+CVE: CVE-2014-0075
+CWE: CWE-190, CWE-400
+Ecosystem: Maven
+Published: 2022-05-14
+Source: https://github.com/advisories/GHSA-475f-74wp-pqv5
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.tomcat:tomcat` — affected >=0 <6.0.40
+- Maven: `org.apache.tomcat:tomcat` — affected >=7.0.0 <7.0.53
+- Maven: `org.apache.tomcat:tomcat` — affected >=8.0.0 <8.0.4
+- Maven: `org.apache.tomcat:tomcat-coyote` — affected >=0 <6.0.40
+- Maven: `org.apache.tomcat:tomcat-coyote` — affected >=7.0.0 <7.0.53
+- Maven: `org.apache.tomcat:tomcat-coyote` — affected >=8.0.0 <8.0.4
+
+## Details
+Integer overflow in the parseChunkHeader function in java/org/apache/coyote/http11/filters/ChunkedInputFilter.java in Apache Tomcat before 6.0.40, 7.x before 7.0.53, and 8.x before 8.0.4 allows remote attackers to cause a denial of service (resource consumption) via a malformed chunk size in chunked transfer coding of a request during the streaming of data.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2014-0075
+- https://github.com/apache/tomcat/commit/b6974571c122f6a1e7ec74a90fa212976fa7b0ed
+- https://github.com/apache/tomcat/commit/f646a5acd5e32d6f5a2d9bf1d94ca66b65477675
+- https://github.com/apache/tomcat80/commit/d49a03728ac7e3c800b1b0ce0eeccd8a5a21bb91
+- https://lists.apache.org/thread.html/r9136ff5b13e4f1941360b5a309efee2c114a14855578c3a2cbe5d19c@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r9136ff5b13e4f1941360b5a309efee2c114a14855578c3a2cbe5d19c%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r587e50b86c1a96ee301f751d50294072d142fd6dc08a8987ae9f3a9b@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r587e50b86c1a96ee301f751d50294072d142fd6dc08a8987ae9f3a9b%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r03c597a64de790ba42c167efacfa23300c3d6c9fe589ab87fe02859c@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r03c597a64de790ba42c167efacfa23300c3d6c9fe589ab87fe02859c%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/b8a1bf18155b552dcf9a928ba808cbadad84c236d85eab3033662cfb@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/b8a1bf18155b552dcf9a928ba808cbadad84c236d85eab3033662cfb%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/b84ad1258a89de5c9c853c7f2d3ad77e5b8b2930be9e132d5cef6b95@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/b84ad1258a89de5c9c853c7f2d3ad77e5b8b2930be9e132d5cef6b95%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/39ae1f0bd5867c15755a6f959b271ade1aea04ccdc3b2e639dcd903b@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/39ae1f0bd5867c15755a6f959b271ade1aea04ccdc3b2e639dcd903b%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/37220405a377c0182d2afdbc36461c4783b2930fbeae3a17f1333113@%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/37220405a377c0182d2afdbc36461c4783b2930fbeae3a17f1333113%40%3Cdev.tomcat.apache.org%3E
+- https://h20564.www2.hpe.com/portal/site/hpsc/public/kb/docDisplay?docId=emr_na-c04851013
+- https://github.com/apache/tomcat

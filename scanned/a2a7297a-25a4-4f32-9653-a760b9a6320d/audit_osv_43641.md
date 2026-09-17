@@ -1,0 +1,72 @@
+# [C] KVM: x86: Cancel delayed I/O APIC EOI handling before destroying vCPUs
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-74517
+Ecosystem: Linux
+CVSS: 9.3 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H)
+Published: 2026-08-15
+Source: https://osv.dev/vulnerability/CVE-2026-74517
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=0 <6.12.105, >=6.13.0 <6.18.46, >=6.14.0 <7.1.8
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+KVM: x86: Cancel delayed I/O APIC EOI handling before destroying vCPUs
+
+Cancel (and flush) the I/O APIC's delayed EOI handling work during the
+"pre VM destroy" phase, before vCPUs are destroyed, as processing the EOI
+broadcast will inject another IRQ if the line is asserted, i.e. will try
+to deliver an IRQ to the target vCPU(s).  Canceling the work after vCPUs
+are destroyed leads to UAF if the delayed work is processed after vCPUs are
+destroyed.
+
+  BUG: KASAN: slab-use-after-free in __kvm_irq_delivery_to_apic_fast+0x9bf/0xa20 arch/x86/kvm/lapic.c:1250
+  Read of size 8 at addr ffff8880499abea0 by task kworker/1:2/1218
+
+  CPU: 1 UID: 0 PID: 1218 Comm: kworker/1:2 Not tainted 7.1.0-rc7 #5 PREEMPT(lazy)
+  Hardware name: QEMU Ubuntu 25.10 PC v2 (i440FX + PIIX, + 10.1 machine, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+  Workqueue: events kvm_ioapic_eoi_inject_work
+  Call Trace:
+   <TASK>
+   __dump_stack lib/dump_stack.c:94
+   dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+   print_address_description mm/kasan/report.c:378
+   print_report+0x139/0x4ad mm/kasan/report.c:482
+   kasan_report+0xe4/0x1d0 mm/kasan/report.c:595
+   __kvm_irq_delivery_to_apic_fast+0x9bf/0xa20 arch/x86/kvm/lapic.c:1250
+   __kvm_irq_delivery_to_apic+0xd8/0xbf0 arch/x86/kvm/lapic.c:1345
+   kvm_irq_delivery_to_apic arch/x86/kvm/lapic.h:129
+   ioapic_service+0x308/0x590 arch/x86/kvm/ioapic.c:492
+   kvm_ioapic_eoi_inject_work+0x13c/0x190 arch/x86/kvm/ioapic.c:532
+   process_one_work+0xa59/0x19a0 kernel/workqueue.c:3314
+   process_scheduled_works kernel/workqueue.c:3397
+   worker_thread+0x5eb/0xe50 kernel/workqueue.c:3478
+   kthread+0x370/0x450 kernel/kthread.c:436
+   ret_from_fork+0x72b/0xd30 arch/x86/kernel/process.c:158
+   ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+   </TASK>
+
+Note, the VM is unreachable once kvm_destroy_vm() starts, and scheduling
+new work via kvm_ioapic_send_eoi() can only be done via KVM_RUN, i.e.
+requires a live vCPU.
+
+Alternatively, KVM could simply destroy the I/O APIC during the "pre" phase
+of VM destruction, but that gets more than a bit sketchy as KVM expects the
+I/O APIC to exist if ioapic_in_kernel() is true, and nested virtualization
+in particular has a bad habit of touching VM-scope state during vCPU
+destruction.  E.g. attempting to free the PIC during the pre phase would
+lead to a NULL pointer dereference in kvm_cpu_has_extint(), and it's not
+hard to imagine the I/O APIC having a similar flaw.
+
+## References
+- https://git.kernel.org/stable/c/5f0a99ea721203a4063618aafcca32abf573cb96
+- https://git.kernel.org/stable/c/69d040448067cebdd5598684db36ce7d8fb2f43e
+- https://git.kernel.org/stable/c/9910e835580fef3bef53b70241dd00c4bffad693
+- https://git.kernel.org/stable/c/ed56a6b58222f9c1f4115a0bd2788dd6ed6022e2
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/74xxx/CVE-2026-74517.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-74517
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

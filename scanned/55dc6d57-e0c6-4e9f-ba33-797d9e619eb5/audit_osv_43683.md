@@ -1,0 +1,112 @@
+# [H] mm/slab: prevent unbounded recursion in free path with new kmalloc type
+
+## Summary
+Severity: High
+Advisory: CVE-2026-74576
+Ecosystem: Linux
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-08-15
+Source: https://osv.dev/vulnerability/CVE-2026-74576
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=6.10.0 <6.12.103, >=6.13.0 <6.18.44, >=6.19.0 <7.1.8
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+mm/slab: prevent unbounded recursion in free path with new kmalloc type
+
+Commit 280ea9c3154b ("mm/slab: avoid allocating slabobj_ext array from
+its own slab") avoided recursive allocation of obj_exts from kmalloc
+caches of the same size, by bumping the obj_exts array's allocation
+size whenever the array size equals the size of the object being
+allocated.
+
+However, as reported by Danielle Costantino and Shakeel Butt,
+even slabs from kmalloc caches of different sizes can form a cycle
+by allocating obj_exts arrays from each other [1]:
+
+  What happened: a KMALLOC_NORMAL slab's obj_exts array (used by
+  allocation profiling / memcg accounting) is itself kmalloc()'d from a
+  KMALLOC_NORMAL cache, so the "slab holds another slab's obj_exts array"
+  relation can form cycles. With sizeof(struct slabobj_ext) == 16 and
+  the host's geometry:
+
+  - kmalloc-512 has 64 objects/slab -> array is 64*16 == 1024 bytes,
+    served from kmalloc-1k;
+  - kmalloc-1k  has 32 objects/slab -> array is 32*16 ==  512 bytes,
+    served from kmalloc-512.
+
+  A kmalloc-512 slab and a kmalloc-1k slab therefore hold each other's
+  obj_exts array.  Discarding one frees the other's array, which empties
+  and discards that slab, which frees the first's array, and so on:
+  __free_slab() -> free_slab_obj_exts() -> kfree() -> discard_slab() ->
+  __free_slab() recurses along the cycle until the stack is exhausted.
+
+With memory allocation profiling, this allows unbounded recursion
+in the free path and led to a stack overflow on a production host in
+the Meta fleet [1]:
+
+  BUG: TASK stack guard page was hit
+  Oops: stack guard page
+  RIP: 0010:kfree+0x8/0x5d0
+  Call Trace:
+   __free_slab+0x66/0xc0
+   kfree+0x3f0/0x5d0
+   ... ( ~125x __free_slab <-> kfree ) ...
+   <kernel driver freeing a resource>
+   do_syscall_64
+
+It is proposed [1] to resolve this issue by always serving the obj_exts
+array allocation from kmalloc caches (or large kmalloc) of sizes larger
+than the object size. However, as pointed out by Vlastimil Babka [2],
+this can waste an excessive amount of memory as slabs from large
+kmalloc sizes (e.g. kmalloc-8k) generally need obj_exts arrays much
+smaller than the object size.
+
+Therefore, rather than bumping the size, let us take a different
+approach; disallow formation of cycles between kmalloc types when
+allocating obj_exts arrays. Currently, all obj_exts arrays are served
+from normal kmalloc caches. Cycles cannot be created if obj_exts arrays
+of normal kmalloc caches are served from a special kmalloc type that can
+never have obj_exts arrays.
+
+To achieve this, create a new kmalloc type called KMALLOC_NO_OBJ_EXT.
+KMALLOC_NO_OBJ_EXT caches are created with SLAB_NO_OBJ_EXT flag when
+either 1) memory allocation profiling is not permanently disabled,
+or 2) kmalloc types with a priority higher than KMALLOC_CGROUP are
+aliased with KMALLOC_NORMAL.
+
+Sheaf bootstrapping for KMALLOC_NO_OBJ_EXT caches now must be deferred
+because allocation of a barn can trigger obj_exts array allocation of
+normal kmalloc caches when the KMALLOC_NO_OBJ_EXT cache for that size
+is not ready yet. For simplicity, perform bootstrapping of sheaves for
+all kmalloc caches later.
+
+Introduce a new slab alloc flag, SLAB_ALLOC_NO_OBJ_EXT, to prevent
+allocation of obj_exts arrays, and let kmalloc_slab() override the type
+to KMALLOC_NO_OBJ_EXT when specified. Note that kmalloc_type() remains
+unchanged because kmalloc_flags() bypasses the kmalloc fastpath.
+
+Do not pass SLAB_ALLOC_NO_RECURSE to kmalloc_flags() in
+alloc_slab_obj_exts() and instead use SLAB_ALLOC_NO_OBJ_EXT only when
+the objects are allocated from normal kmalloc caches. While this
+prevents unbounded recursive allocation of obj_exts, it allows
+KMALLOC_NO_OBJ_EXT caches to have sheaves.
+
+Since sheaf allocations specify SLAB_ALLOC_NO_RECURSE that prevents
+allocation of both sheaves and obj_exts arrays, the recursion depth
+is bounded.
+
+obj_exts arrays for non-
+---truncated---
+
+## References
+- https://git.kernel.org/stable/c/3e71bfbdd3fd81ee9fefd867fdb2be62bade4140
+- https://git.kernel.org/stable/c/d01e88d421a6d07f35235600a43fbd0e551cf292
+- https://git.kernel.org/stable/c/d9e6a7623938968e3752b67e37eaff097e559a54
+- https://git.kernel.org/stable/c/ebefca49e4c69df24ba9307bfe0806230301d5c6
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/74xxx/CVE-2026-74576.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-74576
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

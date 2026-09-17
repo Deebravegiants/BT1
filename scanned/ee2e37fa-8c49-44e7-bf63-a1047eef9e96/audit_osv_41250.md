@@ -1,0 +1,19 @@
+# [M] Contiki-NG LwM2M TLV Parser Out-of-Bounds Read via Unchecked Buffer Length in lwm2m_tlv_read
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-5855
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N)
+Published: 2026-08-06
+Source: https://osv.dev/vulnerability/CVE-2026-5855
+Type: osv
+
+## Details
+Contiki-NG's LwM2M TLV parser lwm2m_tlv_read() in os/services/lwm2m/lwm2m-tlv.c ignores its caller-supplied buffer length argument and reads up to six bytes from the input buffer with no bounds check. The caller in lwm2m-engine.c iterates while there is at least one byte remaining, so a crafted CoAP WRITE to any LwM2M endpoint whose final TLV supplies exactly one byte triggers up to five out-of-bounds reads of heap memory adjacent to the CoAP input buffer, disclosing memory contents (including key material and peer addresses) through the parsed tlv->id, tlv->length, and tlv->value fields. Corrupted tlv_len derived from the out-of-bounds memory further corrupts the caller's parse offset. In LwM2M NoSec mode, the default for constrained devices, no authentication is required.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/5xxx/CVE-2026-5855.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-5855
+- https://github.com/contiki-ng/contiki-ng/pull/3165
+- https://github.com/contiki-ng/contiki-ng/commit/f1673b5766d4d4d514cefb8a0350f43653574997
+- https://github.com/contiki-ng/contiki-ng

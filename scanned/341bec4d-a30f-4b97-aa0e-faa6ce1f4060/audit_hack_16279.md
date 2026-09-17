@@ -1,0 +1,33 @@
+# [M] Use `safeTransferFrom` while transferring token
+
+## Summary
+Severity: Medium
+Reporter: Puny Coffee Crocodile
+Source: https://github.com/sherlock-audit/2023-09-nounsbuilder/blob/main/nouns-protocol/src/auction/Auction.sol#L280
+Type: audit-issue
+
+## Details
+# Use `safeTransferFrom` while transferring token
+
+## Summary
+Use `safeTransferFrom` while transferring token instead of `transferFrom`
+
+## Vulnerability Detail
+`Auction::_settleAuction` function is transferring nft from `Auction` contract to `highestBidder` address using `transferFrom`
+```solidity
+
+            // Transfer the token to the highest bidder
+         @>   token.transferFrom(address(this), _auction.highestBidder, _auction.tokenId);
+```
+
+## Impact
+Potential lose of token
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-09-nounsbuilder/blob/main/nouns-protocol/src/auction/Auction.sol#L280
+
+## Tool used
+Manual Review
+
+## Recommendation
+Use `safeTransferFrom` instead of `transferFrom`

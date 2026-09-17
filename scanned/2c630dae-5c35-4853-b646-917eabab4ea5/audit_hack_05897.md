@@ -1,0 +1,34 @@
+# [M] `ContractFactory` does not reserve space for upgrades
+
+## Summary
+Severity: Medium
+Reporter: ck
+Source: https://github.com/sherlock-audit/2023-02-carapace/blob/main/contracts/core/ContractFactory.sol#L28-L58
+Type: audit-issue
+
+## Details
+# `ContractFactory` does not reserve space for upgrades
+
+## Summary
+
+`ContractFactory` does not reserve space for upgrades
+
+## Vulnerability Detail
+
+`ContractFactory` is `UUPSUpgradeableBase`. Due to the fact that upgrades in future may require possibility of adding new variables, a storage gap should be added to prevent storage collision in future.
+
+## Impact
+
+Storage collisions in case an upgrade requires additional storage variables.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-02-carapace/blob/main/contracts/core/ContractFactory.sol#L28-L58
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add `uint256[50] private __gap;` to prevent possible storage collision during an upgrade.

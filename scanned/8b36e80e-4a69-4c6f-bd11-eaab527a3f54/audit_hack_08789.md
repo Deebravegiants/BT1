@@ -1,0 +1,36 @@
+# [M] The protocol should use SafeERC20Upgradeable.safeTransferFrom.
+
+## Summary
+Severity: Medium
+Reporter: 0x2e
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L327
+Type: audit-issue
+
+## Details
+# The protocol should use SafeERC20Upgradeable.safeTransferFrom.
+
+## Summary
+
+The protocol should use SafeERC20Upgradeable.safeTransferFrom.
+
+## Vulnerability Detail
+
+`_deposit` doesn't use `SafeERC20Upgradeable.safeTransferFrom`, it may suffer from losing tokens.
+
+## Impact
+
+It may suffer from losing tokens.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L327
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Use `SafeERC20Upgradeable.safeTransferFrom`.
+
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L119

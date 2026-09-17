@@ -1,0 +1,34 @@
+# [M] No return check in an asset transferFrom() function
+
+## Summary
+Severity: Medium
+Reporter: zaevlad
+Source: https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDController.sol#L195
+Type: audit-issue
+
+## Details
+# No return check in an asset transferFrom() function
+
+## Summary
+
+UXDController.sol. No transfer return check.
+
+## Vulnerability Detail
+
+No return check in an asset transferFrom() function. If there will be any issues during the transfer that will end up with no token transfer, user still will get his minted UXD tokens. 
+
+## Impact
+
+Users can mint tokens with asset transfer errors.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDController.sol#L195
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Make return checks or user safeTransferFrom.

@@ -1,0 +1,41 @@
+# [H] Use a phantom vault to approve to yourself when calling withdrawToDeposit and redeemToDeposit
+
+## Summary
+Severity: High
+Reporter: Nutty Admiral Scorpion
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/vault/LMPVaultRouterBase.sol#L60-L70
+Type: audit-issue
+
+## Details
+# Use a phantom vault to approve to yourself when calling withdrawToDeposit and redeemToDeposit
+## Summary
+Use a phantom vault to approve to yourself when calling withdrawToDeposit and redeemToDeposit
+
+## Vulnerability Detail
+When using the `LMPVaultRouter` contract you can interact with all the vaults from tokemak. Specially when calling the `withdrawToDeposit` function you can approve to yourself the tokens from the vault. You can achieve this because there is no input validation on the addresses of the vaults. Therefore, an attcker would pass a valid address of the vault to withdraw from `ILMPVault fromVault,` and their own deployed fake vault that has the same interface as ` ILMPVault toVault,`. This "fake" vault will return false in this statement `sharesOut = vault.deposit(amount, to)) < minSharesOut` so the transaction does not fail and all the funds will be approved to the attacker's fake vault, where there will be a specific function that calls `safeTransferFrom` from the correct  `ILMPVault fromVault,`to steal the funds whenever the attacker wants.
+
+```solidity
+function _deposit( 
+        ILMPVault vault,
+        address to,
+        uint256 amount,
+        uint256 minSharesOut
+    ) internal returns (uint256 sharesOut) {
+        approve(IERC20(vault.asset()), address(vault), amount); 
+        if ((sharesOut = vault.deposit(amount, to)) < minSharesOut) {
+            revert MinSharesError();
+        }
+    }
+
+```
+## Impact
+Attacker can steal funds form the vault
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/vault/LMPVaultRouterBase.sol#L60-L70
+## Tool used
+
+Manual Review
+
+## Recommendation
+Pre-check that the address of the vault is indeed a vault controlled by tokemak

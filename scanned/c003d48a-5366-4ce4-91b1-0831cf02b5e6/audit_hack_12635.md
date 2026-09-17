@@ -1,0 +1,27 @@
+# [M] contracts  not work with token does not comply with the ERC-20 standard
+
+## Summary
+Severity: Medium
+Reporter: jprod15
+Source: https://github.com/sherlock-audit/2023-06-dodo/blob/main/new-dodo-v3/contracts/DODOV3MM/D3Pool/D3Funding.sol#L22
+Type: audit-issue
+
+## Details
+# contracts  not work with token does not comply with the ERC-20 standard
+
+## Summary
+Tokens like USDT don’t work because they don’t comply with the ERC-20 standard and they don’t return true or false.
+## Vulnerability Detail
+Tokens like USDT don’t work because they don’t comply with the ERC-20 standard and they don’t return true or false.return true o false
+## Impact
+transfer, approvals  can fail 
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-dodo/blob/main/new-dodo-v3/contracts/DODOV3MM/D3Pool/D3Funding.sol#L22
+
+https://github.com/sherlock-audit/2023-06-dodo/blob/main/new-dodo-v3/contracts/DODOV3MM/D3Vault/D3VaultLiquidation.sol#L59
+## Tool used
+
+Manual Review
+
+## Recommendation
+use safe from openzeppeling

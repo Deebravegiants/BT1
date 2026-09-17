@@ -1,0 +1,16 @@
+# [H] CVE-2018-12256
+
+## Summary
+Severity: High
+Advisory: CVE-2018-12256
+CVSS: 8.8 (CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2018-08-16
+Source: https://osv.dev/vulnerability/CVE-2018-12256
+Type: osv
+
+## Details
+admin/vqmods.app/vqmods.inc.php in LiteCart before 2.1.3 allows remote authenticated attackers to upload a malicious file (resulting in remote code execution) by using the text/xml or application/xml Content-Type in a public_html/admin/?app=vqmods&doc=vqmods request.
+
+## References
+- https://www.litecart.net/download
+- https://github.com/litecart/litecart/commit/2305368eb70a26cab34c772c9ae88787f4c3e669

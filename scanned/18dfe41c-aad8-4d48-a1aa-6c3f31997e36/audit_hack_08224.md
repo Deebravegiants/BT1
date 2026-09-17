@@ -1,0 +1,71 @@
+# [M] Creating a diversifier in `paused` state doesn't pause all components
+
+## Summary
+Severity: Medium
+Reporter: obront
+Source: https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-diversifier/src/DiversifierFactory.sol#L30-L35
+Type: audit-issue
+
+## Details
+# Creating a diversifier in `paused` state doesn't pause all components
+
+## Summary
+
+Users who call `createDiversifier()` with the `paused` flag set to true will expect a fully paused diversifier. Instead, all Swappers included as a part of the system will automatically be set to `unpaused`, which can lead to unwanted behavior, unwanted swapping costs, etc.
+
+## Vulnerability Detail
+
+When a user calls `createDiversifier()`, they pass the following struct with the function params:
+```solidity
+struct CreateDiversifierParams {
+    address owner;
+    bool paused;
+    OracleParams oracleParams;
+    RecipientParams[] recipientParams;
+}
+```
+The `paused` argument should be used to determine whether the diversifier is paused.
+
+In fact, this parameter is used when setting the state for the `passThroughWallet`:
+```solidity
+PassThroughWalletImpl passThroughWallet = passThroughWalletFactory.createPassThroughWallet(
+    PassThroughWalletImpl.InitParams({owner: address(this), paused: params_.paused, passThrough: ADDRESS_ZERO})
+);
+```
+But it is ignored when creating the Swappers, which will automatically be unpaused:
+```solidity
+swapperFactory.createSwapper(
+    SwapperFactory.CreateSwapperParams({
+        owner: diversifier_,
+        paused: false,
+        beneficiary: recipientParams.createSwapperParams.beneficiary,
+        tokenToBeneficiary: recipientParams.createSwapperParams.tokenToBeneficiary,
+        oracleParams: swapperOracleParams
+    })
+)
+```
+This leads to unexpected behavior, where a user who has intended to pause their entire `diversifier` will end up with portions of the diversifier active, which could lead to issues such as someone paying directly to the split and ending up charging them for swaps. 
+
+As a simple example of a problem this could cause: A user may intend to set up an override so that identical tokens don't pay a swap fee. If their system can be accessed early, bots could charge them a full swap fee for sending them tokens already in their `$tokenToBeneficiary` without performing any swap.
+
+This is a simple example, but there may be uses where the unpause time is critical, and it is important that the whole system is paused if that's what the user intends.
+
+## Impact
+
+Users may end up paying fees for unwanted swaps or otherwise having an active system when they explicitly set the `paused` parameter to true.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-diversifier/src/DiversifierFactory.sol#L30-L35
+
+https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-diversifier/src/DiversifierFactory.sol#L68-L70
+
+https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-diversifier/src/DiversifierFactory.sol#L114-L122
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Either pass `params_.paused` into the `createSwapper()` function, or specify a separate parameter in the input struct (perhaps within `CreateSwapperParams`) to define specifically whether they want their Swappers to be paused.

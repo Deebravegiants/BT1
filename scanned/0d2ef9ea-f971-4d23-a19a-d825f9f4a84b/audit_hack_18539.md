@@ -1,0 +1,27 @@
+# [M] use SafeTransfer() instead of transfer() in  SecondaryRewarder.reward().
+
+## Summary
+Severity: Medium
+Reporter: Shiny Raspberry Nightingale
+Source: https://github.com/sherlock-audit/2023-12-notional-update-5/blob/main/contracts-v3/contracts/external/adapters/SecondaryRewarder.sol#L157
+Type: audit-issue
+
+## Details
+# use SafeTransfer() instead of transfer() in  SecondaryRewarder.reward().
+
+## Summary
+transfer() isn't compatible with some tokens and also its return value isn't checked.
+## Vulnerability Detail
+The return value of transfer() isn't checked in SecondaryRewarder.reward(). 
+
+Also if token to recover is a token like USDT that doesn't return any value there will be issues as they're not compatible.
+## Impact
+transfer is not compatible with some tokens, there will be issue when handling incompatible tokens like USDT.
+## Code Snippet
+https://github.com/sherlock-audit/2023-12-notional-update-5/blob/main/contracts-v3/contracts/external/adapters/SecondaryRewarder.sol#L157
+## Tool used
+
+Manual Review
+
+## Recommendation
+Use openzeppelin's safeTransfer instead

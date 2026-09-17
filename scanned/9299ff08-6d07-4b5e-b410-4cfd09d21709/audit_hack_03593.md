@@ -1,0 +1,63 @@
+# [M] transfer return value not checked
+
+## Summary
+Severity: Medium
+Reporter: __141345__
+Source: https://github.com/sherlock-audit/2022-11-buffer/blob/main/contracts/contracts/core/BufferBinaryOptions.sol#L141
+Type: audit-issue
+
+## Details
+# transfer return value not checked
+
+## Summary
+
+According to the "On-chain context" description, any ERC20 should be supported. 
+
+> DEPLOYMENT: arbitrum
+> ERC20: any
+> ERC721: none
+> ADMIN: trusted
+
+But some ERC20 does not fully comply with the standard, such as USDT. The transferFrom doesn’t revert upon failure but returns false.
+
+Even USDC could change, since it is upgradable. Deviate from the ERC20 standard is one possibility.
+
+
+## Vulnerability Detail
+
+The following fee transfer return value is not checked and could potentially incur fund loss: 
+- `settlementFee`
+- `referrerFee`
+- `totalFee`
+- `totalFee` refund (`queuedTrade.totalFee - revisedFee`)
+- `revisedFee`
+
+
+## Impact
+
+Some fee could not be received and lost, the protocol and users both could be affected
+
+
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-11-buffer/blob/main/contracts/contracts/core/BufferBinaryOptions.sol#L141
+
+https://github.com/sherlock-audit/2022-11-buffer/blob/main/contracts/contracts/core/BufferBinaryOptions.sol#L477
+
+https://github.com/sherlock-audit/2022-11-buffer/blob/main/contracts/contracts/core/BufferRouter.sol#L86-L90
+
+https://github.com/sherlock-audit/2022-11-buffer/blob/main/contracts/contracts/core/BufferRouter.sol#L331-L339
+
+
+https://github.com/sherlock-audit/2022-11-buffer/blob/main/contracts/contracts/core/BufferRouter.sol#L361-L364
+
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Use the OpenZeppelin's transfer wrapper for token transfer.

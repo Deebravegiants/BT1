@@ -1,0 +1,33 @@
+# [H] CVE-2019-25160
+
+## Summary
+Severity: High
+Advisory: CVE-2019-25160
+CVSS: 7.1 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:H)
+Published: 2024-02-26
+Source: https://osv.dev/vulnerability/CVE-2019-25160
+Type: osv
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+netlabel: fix out-of-bounds memory accesses
+
+There are two array out-of-bounds memory accesses, one in
+cipso_v4_map_lvl_valid(), the other in netlbl_bitmap_walk().  Both
+errors are embarassingly simple, and the fixes are straightforward.
+
+As a FYI for anyone backporting this patch to kernels prior to v4.8,
+you'll want to apply the netlbl_bitmap_walk() patch to
+cipso_v4_bitmap_walk() as netlbl_bitmap_walk() doesn't exist before
+Linux v4.8.
+
+## References
+- https://git.kernel.org/stable/c/c61d01faa5550e06794dcf86125ccd325bfad950
+- https://git.kernel.org/stable/c/dc18101f95fa6e815f426316b8b9a5cee28a334e
+- https://git.kernel.org/stable/c/e3713abc4248aa6bcc11173d754c418b02a62cbb
+- https://git.kernel.org/stable/c/fbf9578919d6c91100ec63acf2cba641383f6c78
+- https://git.kernel.org/stable/c/fcfe700acdc1c72eab231300e82b962bac2b2b2c
+- https://git.kernel.org/stable/c/1c973f9c7cc2b3caae93192fdc8ecb3f0b4ac000
+- https://git.kernel.org/stable/c/5578de4834fe0f2a34fedc7374be691443396d1f
+- https://git.kernel.org/stable/c/97bc3683c24999ee621d847c9348c75d2fe86272

@@ -1,0 +1,19 @@
+# [M] CVE-2014-10401
+
+## Summary
+Severity: Medium
+Advisory: CVE-2014-10401
+CVSS: 6.1 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:L)
+Published: 2020-09-11
+Source: https://osv.dev/vulnerability/CVE-2014-10401
+Type: osv
+
+## Details
+An issue was discovered in the DBI module before 1.632 for Perl. DBD::File drivers can open files from folders other than those specifically passed via the f_dir attribute.
+
+## References
+- https://github.com/perl5-dbi/dbi/commit/caedc0d7d602f5b2ae5efc1b00f39efeafb7b05a
+- https://metacpan.org/pod/distribution/DBI/Changes#Changes-in-DBI-1.632-9th-Nov-2014
+- https://rt.cpan.org/Public/Bug/Display.html?id=99508
+- https://usn.ubuntu.com/4509-1/
+- https://github.com/perl5-dbi/dbi/commit/caedc0d7d602f5b2ae5efc1b00f39efeafb7b05a

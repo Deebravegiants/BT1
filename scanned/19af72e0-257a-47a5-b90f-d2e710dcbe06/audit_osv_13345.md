@@ -1,0 +1,21 @@
+# [C] CVE-2018-19486
+
+## Summary
+Severity: Critical
+Advisory: CVE-2018-19486
+CVSS: 9.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2018-11-23
+Source: https://osv.dev/vulnerability/CVE-2018-19486
+Type: osv
+
+## Details
+Git before 2.19.2 on Linux and UNIX executes commands from the current working directory (as if '.' were at the end of $PATH) in certain cases involving the run_command() API and run-command.c, because there was a dangerous change from execvp to execv during 2017.
+
+## References
+- https://access.redhat.com/errata/RHSA-2018:3800
+- https://git.kernel.org/pub/scm/git/git.git/tree/Documentation/RelNotes/2.19.2.txt
+- https://security.gentoo.org/glsa/201904-13
+- https://usn.ubuntu.com/3829-1/
+- http://www.securityfocus.com/bid/106020
+- http://www.securitytracker.com/id/1042166
+- https://git.kernel.org/pub/scm/git/git.git/commit/?id=321fd82389742398d2924640ce3a61791fd27d60

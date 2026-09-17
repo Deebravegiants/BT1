@@ -1,0 +1,20 @@
+# [M] CVE-2022-42314
+
+## Summary
+Severity: Medium
+Advisory: CVE-2022-42314
+CVSS: 6.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H)
+Published: 2022-11-01
+Source: https://osv.dev/vulnerability/CVE-2022-42314
+Type: osv
+
+## Details
+Xenstore: guests can let run xenstored out of memory T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Malicious guests can cause xenstored to allocate vast amounts of memory, eventually resulting in a Denial of Service (DoS) of xenstored. There are multiple ways how guests can cause large memory allocations in xenstored: - - by issuing new requests to xenstored without reading the responses, causing the responses to be buffered in memory - - by causing large number of watch events to be generated via setting up multiple xenstore watches and then e.g. deleting many xenstore nodes below the watched path - - by creating as many nodes as allowed with the maximum allowed size and path length in as many transactions as possible - - by accessing many nodes inside a transaction
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/YTMITQBGC23MSDHUCAPCVGLMVXIBXQTQ/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/YZVXG7OOOXCX6VIPEMLFDPIPUTFAYWPE/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZLI2NPNEH7CNJO3VZGQNOI4M4EWLNKPZ/
+- https://www.debian.org/security/2022/dsa-5272
+- https://xenbits.xenproject.org/xsa/advisory-326.txt
+- http://xenbits.xen.org/xsa/advisory-326.html

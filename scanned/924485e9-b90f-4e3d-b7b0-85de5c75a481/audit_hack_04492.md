@@ -1,0 +1,43 @@
+# [M] Lack of storage gaps for upgradable contracts
+
+## Summary
+Severity: Medium
+Reporter: ak1
+Source: https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDControllerStorage.sol
+Type: audit-issue
+
+## Details
+# Lack of storage gaps for upgradable contracts
+
+## Summary
+
+The UXD protocol has UUPS upgradable contract implementation. Though the current implementation does not pose any risk due to upgrade, there is open danger state that could cause any issue due to incorrect upgrade in the future.
+The following contract has the state variables that can occupy the well defined state when the contract deployed. This all possible when there are no storage gaps.
+
+As per OZ, it is recommended that the upgradable contract need to have storage gaps in order to avoid storage Collison between the state variables.
+
+UXDControllerStorage.sol
+PerpDepositoryStorage.sol
+RageDnDepositoryStorage.sol
+
+## Vulnerability Detail
+
+## Impact
+Any incorrect upgrade could halt the entire protocol.
+
+## Code Snippet
+
+[UXDControllerStorage.sol](https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDControllerStorage.sol)
+
+[PerpDepositoryStorage.sol](https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepositoryStorage.sol)
+
+[RageDnDepositoryStorage.sol](https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/rage-trade/RageDnDepositoryStorage.sol)
+
+Example, 
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/rage-trade/RageDnDepositoryStorage.sol#L9-L32
+
+## Tool used
+
+Manual Review
+
+## Recommendation

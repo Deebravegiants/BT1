@@ -1,0 +1,73 @@
+# [M] OpenList: Arbitrary File Read via Path Prefix Confusion in Share Creation API
+
+## Summary
+Severity: Medium
+Advisory: GHSA-86cx-wwf4-phq4
+CVE: CVE-2026-69160
+CWE: CWE-639
+Ecosystem: Go
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2026-07-24
+Source: https://github.com/advisories/GHSA-86cx-wwf4-phq4
+Type: github-advisory
+
+## Affected
+- Go: `github.com/OpenListTeam/OpenList/v4` — affected >=0 <4.2.4
+
+## Details
+### Summary
+An authorization bypass vulnerability exists in the file sharing mechanism of `Openlist`. Due to a flawed, non-separator-aware path validation check, an authenticated user can create share links for files outside their restricted base directory. This allows an attacker to bypass tenant/user isolation and gain unauthorized read access to arbitrary files within the system.
+
+### Details
+When a user attempts to create or update a file share, the application must verify that the requested file path falls within the user's assigned `BasePath`. However, in `server/handles/sharing.go`, this authorization check relies on a simple string prefix function: `strings.HasPrefix(requested_path, user.BasePath)`.
+
+Because `strings.HasPrefix` does not account for directory separators (e.g., `/`), an attacker whose `BasePath` is assigned to `/base` can supply a target path like `/base2/secret_document.txt`. The validation `strings.HasPrefix("/base2/secret_document.txt", "/base")` evaluates to `true`, successfully passing the authorization filter. 
+
+Once the share is created, the public share download/list handlers unwrap and serve the file based on the stored absolute path without re-verifying the creator's current directory scope, granting the attacker horizontal access to unauthorized data.
+
+### PoC
+**Prerequisites:**
+1. A system with at least two distinct directories at the root level: `/base` and `/base2`.
+2. A sensitive file exists at `/base2/secret.txt`.
+3. An attacker account with the `CanShare` permission enabled and its `Base path` strictly limited to `/base`.
+
+**Exploitation Steps:**
+1. Log in as the attacker account and obtain the JWT authorization token.
+2. Send a `POST` request to create a new share, intentionally targeting the unauthorized sibling directory `/base2`:
+
+```http
+POST /api/share/create HTTP/1.1
+Host: <your-openlist-host>
+Authorization: <attacker-jwt-token>
+Content-Type: application/json
+
+{
+  "files": ["/base2/secret.txt"],
+  "pwd": "",
+  "max_accessed": 0
+}
+```
+Observe the bypass: The API accepts the request and responds with a successful share creation message, returning a `share_id`.
+
+The attacker can now access the public share endpoint (e.g., via the web UI or API `/api/fs/list` / `/sd/<share-id>/...`) to download or view `/base2/secret.txt`, completely bypassing their directory restrictions.
+
+<img width="2457" height="1307" alt="7b0bd29c9d12ad0b7b84a4a156559a5b" src="https://github.com/user-attachments/assets/415e4915-dbc2-4738-8c53-8174998b42a9" />
+
+<img width="1937" height="856" alt="90b16bf15b6e8bfb87f16c4ab8864ea7" src="https://github.com/user-attachments/assets/8dc5205e-2ac6-4f4f-9d40-e1e9d72229d5" />
+
+### Impact
+This is a High-severity Horizontal and Vertical Privilege Escalation vulnerability. A malicious user with basic sharing privileges can weaponize this path confusion to expose, read, and download any file from other users' directories or internal application paths, provided the target path shares the same string prefix as their own directory. This completely breaks the data isolation guarantees of the application.
+
+### Remediation Recommendations
+Canonical Path Containment: Replace the raw `strings.HasPrefix` check with a robust, separator-aware path containment validation. Ensure both paths are normalized, and use logic such as: `target == base || strings.HasPrefix(target, base + "/")`.
+
+Centralized Validation Utility: Implement a dedicated function (e.g., `utils.IsSubPath(base, target)`) and apply it consistently across share creation, updating, and viewing handlers to prevent regressions.
+
+### Credits
+- Thai Son Dinh from VinSOC Labs (R&D)
+
+## References
+- https://github.com/OpenListTeam/OpenList/security/advisories/GHSA-86cx-wwf4-phq4
+- https://github.com/OpenListTeam/OpenList/commit/59bd3431408578f420895457554700cc9a52375a
+- https://github.com/OpenListTeam/OpenList
+- https://github.com/OpenListTeam/OpenList/releases/tag/v4.2.4

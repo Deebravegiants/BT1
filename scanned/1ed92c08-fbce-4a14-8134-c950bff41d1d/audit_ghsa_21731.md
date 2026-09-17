@@ -1,0 +1,27 @@
+# [H] Authentication Bypass in Apache Cassandra
+
+## Summary
+Severity: High
+Advisory: GHSA-2vxm-vp4c-fjfw
+CVE: CVE-2020-17516
+CWE: CWE-290
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2022-02-09
+Source: https://github.com/advisories/GHSA-2vxm-vp4c-fjfw
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.cassandra:cassandra-all` — affected >=2.1.0 <3.0.24
+- Maven: `org.apache.cassandra:cassandra-all` — affected >=3.11.0 <3.11.10
+
+## Details
+Apache Cassandra versions 2.1.0 to 2.1.22, 2.2.0 to 2.2.19, 3.0.0 to 3.0.23, and 3.11.0 to 3.11.9, when using 'dc' or 'rack' internode_encryption setting, allows both encrypted and unencrypted internode connections. A misconfigured node or a malicious user can use the unencrypted connection despite not being in the same rack or dc, and bypass mutual TLS requirement.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2020-17516
+- https://lists.apache.org/thread.html/r81243a412a37a22211754936a13856af07cc68a93d728c52807486e9@%3Ccommits.cassandra.apache.org%3E
+- https://lists.apache.org/thread.html/rcb16f36cafa184dd159e94033f87d0fc274c4752d467f3a09f2ceae4@%3Ccommits.cassandra.apache.org%3E
+- https://lists.apache.org/thread.html/rd84bec24907617bdb72f7ec907cd7437a0fd5a8886eb55aa84dd1eb8@%3Ccommits.cassandra.apache.org%3E
+- https://security.netapp.com/advisory/ntap-20210521-0002
+- http://mail-archives.apache.org/mod_mbox/cassandra-user/202102.mbox/%3c6E4340A5-D7BE-4D33-9EC5-3B505A626D8D@apache.org%3e

@@ -1,0 +1,19 @@
+# [C] RT: Privilege escalation and information disclosure via REST 2.0 user collection endpoint
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-44231
+Aliases: GHSA-7rx2-x357-wv74
+CVSS: 9.1 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:L/A:L)
+Published: 2026-07-20
+Source: https://osv.dev/vulnerability/CVE-2026-44231
+Type: osv
+
+## Details
+RT is an open source, enterprise-grade issue and ticket tracking system. Versions prior to 5.0.10, 6.0.0 and above, prior to 6.0.3 contain an information disclosure and privilege escalation vulnerability in the REST 2.0 API. A privileged (non-administrative) user can obtain authentication credentials belonging to other users — including users with administrative privileges — and use those credentials to read data as those users via RT's feed endpoints. The same request that exposes the credentials also rotates them, invalidating previously-distributed feed URLs across the instance. This issue has been fixed in versions 5.0.10 and 6.0.3.
+
+## References
+- https://github.com/bestpractical/rt/releases/tag/rt-6.0.3
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/44xxx/CVE-2026-44231.json
+- https://github.com/bestpractical/rt/security/advisories/GHSA-7rx2-x357-wv74
+- https://nvd.nist.gov/vuln/detail/CVE-2026-44231

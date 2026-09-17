@@ -1,0 +1,51 @@
+# [H] Owner Can Steal Loan Requesters Tokens by Calling rescindRequest
+
+## Summary
+Severity: High
+Reporter: Steep Bamboo Elk
+Source: https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L138C14-L138C93
+Type: audit-issue
+
+## Details
+# Owner Can Steal Loan Requesters Tokens by Calling rescindRequest
+## Summary
+
+A borrower can request a loan which requires them to send tokens to this contract, but the rescindRequest function sends those tokens to the owner() rather than the borrower.
+
+## Vulnerability Detail
+
+When a borrower requests a loan, they are supposed to be able to cancel it through `rescindRequest`.
+
+However the access controls are actually set to restrict rescind to owner(). The owner() is found from the calldata which corresponds to the address that created this contract.
+
+```solidity
+    function rescindRequest(uint256 reqID_) external {
+        if (msg.sender != owner()) revert OnlyApproved();
+```
+
+The `rescindLoan` function transfers funds from the contract to owner() rather than the borrower. This assumes that the borrower is always the creator of the loan. However this is not the case as anybody can request a loan. 
+
+```solidity
+collateral().safeTransfer(owner(), collateralFor(req.amount, req.loanToCollateral));
+```
+
+Therefore the borrower never gets their funds back because they are sent to the owner. The owner can purposely do this to rugpull the borrower. 
+
+## Impact
+
+- Owner can steal all of prospective borrowers tokens by calling rescindRequest on their loans
+- Borrower cannot rescind their own loans
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L138C14-L138C93
+
+https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L129-L130
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Change collateral.safeTransfer from `owner()` to the person who made the loan request.

@@ -1,0 +1,18 @@
+# [M] CVE-2017-5644
+
+## Summary
+Severity: Medium
+Advisory: CVE-2017-5644
+Aliases: GHSA-78vv-qj73-h9m5
+CVSS: 5.5 (CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2017-03-24
+Source: https://osv.dev/vulnerability/CVE-2017-5644
+Type: osv
+
+## Details
+Apache POI in versions prior to release 3.15 allows remote attackers to cause a denial of service (CPU consumption) via a specially crafted OOXML file, aka an XML Entity Expansion (XEE) attack.
+
+## References
+- http://www.securityfocus.com/bid/96983
+- https://www.oracle.com/security-alerts/cpuoct2020.html
+- http://poi.apache.org/#20+March+2017+-+CVE-2017-5644+-+Possible+DOS+%28Denial+of+Service%29+in+Apache+POI+versions+prior+to+3.15

@@ -1,0 +1,25 @@
+# [M] No space for slippage in swaps
+
+## Summary
+Severity: Medium
+Reporter: Met
+Source: https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/libraries/Swap.sol#L42-L43
+Type: audit-issue
+
+## Details
+# No space for slippage in swaps
+
+## Summary
+The function for stablecoin swaps on Curve leaves no space for slippage or imperfect conversion rate.
+## Vulnerability Detail
+
+## Impact
+Swaps will fail frequently if not always, blocking some contract functionality.
+## Code Snippet
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/libraries/Swap.sol#L42-L43
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add some leeway to the min out amount, few % perhaps.

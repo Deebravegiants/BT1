@@ -1,0 +1,16 @@
+# [M] CVE-2019-20334
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-20334
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2020-01-04
+Source: https://osv.dev/vulnerability/CVE-2019-20334
+Type: osv
+
+## Details
+In Netwide Assembler (NASM) 2.14.02, stack consumption occurs in expr# functions in asm/eval.c. This potentially affects the relationships among expr0, expr1, expr2, expr3, expr4, expr5, and expr6 (and stdscan in asm/stdscan.c). This is similar to CVE-2019-6290 and CVE-2019-6291.
+
+## References
+- https://bugzilla.nasm.us/show_bug.cgi?id=3392548#c4
+- https://bugzilla.nasm.us/show_bug.cgi?id=3392638

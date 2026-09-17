@@ -1,0 +1,36 @@
+# [M] Gas grieffing an functions with  loops
+
+## Summary
+Severity: Medium
+Reporter: zaevlad
+Source: https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDController.sol#L143
+Type: audit-issue
+
+## Details
+# Gas grieffing an functions with  loops
+
+## Summary
+
+UXDController.sol. Problems with loops inside functions.
+
+## Vulnerability Detail
+
+If there will be too many of whitelisted tokens loops inside _addAsset() and _removeAsset() functions will use all available gas and stuck.
+
+## Impact
+
+No more actions with tokens can be possible made. 
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDController.sol#L143
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDController.sol#L153
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Consider keep value of loop.length in a storage variable and update it when a task is added or updated accordingly.

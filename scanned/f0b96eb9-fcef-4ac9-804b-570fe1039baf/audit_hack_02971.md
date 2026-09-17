@@ -1,0 +1,29 @@
+# [M] Consider adding minAmount to extendLock/increaseLock/deposit for slippage control
+
+## Summary
+Severity: Medium
+Reporter: cccz
+Source: https://github.com/sherlock-audit/2022-10-merit-circle/blob/main/merit-liquidity-mining/contracts/TimeLockPool.sol#L85-L107
+Type: audit-issue
+
+## Details
+# Consider adding minAmount to extendLock/increaseLock/deposit for slippage control
+
+## Summary
+Consider adding minAmount to extendLock/increaseLock/deposit for slippage control
+## Vulnerability Detail
+There is no minimum limit to the number of tokens that are minted (or burned) in the extendLock/increaseLock/deposit functions, which may result in the user receiving less tokens than expected if the transactions calling these functions occur in the same block as the transactions calling the setCurvePoint/setCurve functions.
+## Impact
+This may result in the user receiving less tokens than expected.
+## Code Snippet
+https://github.com/sherlock-audit/2022-10-merit-circle/blob/main/merit-liquidity-mining/contracts/TimeLockPool.sol#L85-L107
+https://github.com/sherlock-audit/2022-10-merit-circle/blob/main/merit-liquidity-mining/contracts/TimeLockPool.sol#L148-L179
+https://github.com/sherlock-audit/2022-10-merit-circle/blob/main/merit-liquidity-mining/contracts/TimeLockPool.sol#L197-L220
+https://github.com/sherlock-audit/2022-10-merit-circle/blob/main/merit-liquidity-mining/contracts/TimeLockPool.sol#L233-L246
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Consider adding minAmount to extendLock/increaseLock/deposit for slippage control

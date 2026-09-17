@@ -1,0 +1,19 @@
+# [H] ALPINE-CVE-2021-22926
+
+## Summary
+Severity: High
+Advisory: ALPINE-CVE-2021-22926
+Ecosystem: Alpine:v3.11
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2021-08-05
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2021-22926
+Type: osv
+
+## Affected
+- Alpine:v3.11: `curl` — affected >=7.33.0 <7.67.0-r5
+
+## Details
+libcurl-using applications can ask for a specific client certificate to be used in a transfer. This is done with the `CURLOPT_SSLCERT` option (`--cert` with the command line tool).When libcurl is built to use the macOS native TLS library Secure Transport, an application can ask for the client certificate by name or with a file name - using the same option. If the name exists as a file, it will be used instead of by name.If the appliction runs with a current working directory that is writable by other users (like `/tmp`), a malicious user can create a file name with the same name as the app wants to use by name, and thereby trick the application to use the file based cert instead of the one referred to by name making libcurl send the wrong client certificate in the TLS connection handshake.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2021-22926

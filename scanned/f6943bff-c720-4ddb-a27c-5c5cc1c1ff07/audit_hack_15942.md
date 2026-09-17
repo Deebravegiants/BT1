@@ -1,0 +1,22 @@
+# [H] Incompatibility With Rebasing Tokens
+
+## Summary
+Severity: High
+Reporter: Precise Ceramic Falcon
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+# Incompatibility With Rebasing Tokens
+If we are using a rebasing token, there will be a difference in the amount accounted in the pool, and the actual amount held by it, whenever the token rebases (mints/burns) in the future.
+## Vulnerability Detail
+If we have for example deposited 1000e18 rebase tokens, but in the future the amount has rebased to 1200e18, we will only be able to withdraw the 1000e18 since that is the value stored in the `poolAmount`. In that case, the tokens will be stuck in the strategy contract, there is no way to get them out and value is lost.
+## Impact
+Value is lost for strategy pool.
+## Code Snippet
+Not needed
+## Tool used
+VSCode
+Manual Review
+## Recommendation
+Add functionality considering rebasing tokens, or create a whitelist without them included.

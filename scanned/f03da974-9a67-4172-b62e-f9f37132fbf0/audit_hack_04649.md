@@ -1,0 +1,30 @@
+# [M] no reentrancy guard on safeTransferFrom() function that has a callback
+
+## Summary
+Severity: Medium
+Reporter: dinesh
+Source: https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/uniswap/Uniswapper.sol#L28
+Type: audit-issue
+
+## Details
+# no reentrancy guard on safeTransferFrom() function that has a callback
+
+## Summary
+no reentrancy guard on safeTransferFrom() function that has a callback
+
+## Vulnerability Detail
+At https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/uniswap/Uniswapper.sol#L28
+no reentrancy guard on safeTransferFrom() function that has a callback
+
+## Impact
+In Uniswapper.sol, the `safeTransferFrom()` function calls `swapExactInput` which has a callback to the "to" address argument. Functions with callbacks should have reentrancy guards in place for protection against possible malicious actors both from inside and outside the protocol.
+
+## Code Snippet
+```solidity
+        TransferHelper.safeTransferFrom(params.tokenIn, msg.sender, address(this), params.amountIn);
+```
+## Tool used
+Manual Review
+
+## Recommendation
+Add a reentrancy guard modifier on the `safeTransferFrom()` function in `Uniswapper.sol`

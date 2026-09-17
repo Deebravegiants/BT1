@@ -1,0 +1,19 @@
+# [H] Spigot Command Exploit in Triton
+
+## Summary
+Severity: High
+Advisory: CVE-2023-30859
+Aliases: GHSA-8vj5-jccf-q25r
+CVSS: 7.2 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:N/A:L)
+Published: 2023-05-01
+Source: https://osv.dev/vulnerability/CVE-2023-30859
+Type: osv
+
+## Details
+Triton is a Minecraft plugin for Spigot and BungeeCord that helps you translate your Minecraft server. The CustomPayload packet allows you to execute commands on the spigot/bukkit console. When you enable bungee mode in the config it will enable the bungee bridge and the server will begin to broadcast the 'triton:main' plugin channel. Using this plugin channel you are able to send a payload packet containing a byte (2) and a string (any spigot command). This could be used to make yourself a server operator and be used to extract other user information through phishing (pretending to be an admin), many servers use essentials so the /geoip command could be available to them, etc. This could also be modified to allow you to set the servers language, set another players language, etc. This issue affects those who have bungee enabled in config. This issue has been fixed in version 3.8.4.
+
+## References
+- https://github.com/tritonmc/Triton/releases/tag/v3.8.4
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/30xxx/CVE-2023-30859.json
+- https://github.com/tritonmc/Triton/security/advisories/GHSA-8vj5-jccf-q25r
+- https://nvd.nist.gov/vuln/detail/CVE-2023-30859

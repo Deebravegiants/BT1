@@ -1,0 +1,31 @@
+# [H] DBI versions before 1.650 for Perl are vulnerable to code injection via caller-influenced Profile
+
+## Summary
+Severity: High
+Advisory: CVE-2026-14380
+Aliases: GHSA-ch8w-hxc2-v557
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-07-07
+Source: https://osv.dev/vulnerability/CVE-2026-14380
+Type: osv
+
+## Details
+DBI versions before 1.650 for Perl are vulnerable to code injection via caller-influenced Profile.
+
+When a string is assigned to a DBI handle's Profile attribute, DBI splits it into path, package and arguments, and interpolates the package part in a string eval with no validation of the package name.
+
+Any caller-influenced value that reaches the Profile attribute is therefore arbitrary Perl code execution, including calls to run system commands.
+
+The Profile attribute can be set from three different sources that can carry untrusted data: the DBI_PROFILE environment variable, a direct attribute assignment, and a DSN driver-attribute clause dbi:Driver(Profile=>SPEC):db.
+
+An attacker controlling any of those inputs runs arbitrary Perl in the host process. The strongest remote position is a network-exposed DBI::Gofer / DBI::ProxyServer whose per-request DSN reaches the Profile attribute, letting a client execute code on the broker host.
+
+## References
+- http://www.openwall.com/lists/oss-security/2026/07/07/16
+- https://cpan.org/modules
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/14xxx/CVE-2026-14380.json
+- https://github.com/perl5-dbi/dbi/security/advisories/GHSA-ch8w-hxc2-v557
+- https://metacpan.org/release/HMBRAND/DBI-1.650/changes
+- https://nvd.nist.gov/vuln/detail/CVE-2026-14380
+- https://github.com/perl5-dbi/dbi/commit/b73d5d9901767fc1d16b6661ef08fbed4532e259.patch
+- https://github.com/perl5-dbi/dbi

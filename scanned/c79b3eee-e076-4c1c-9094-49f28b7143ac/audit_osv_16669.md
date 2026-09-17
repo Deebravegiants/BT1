@@ -1,0 +1,15 @@
+# [H] CVE-2019-9004
+
+## Summary
+Severity: High
+Advisory: CVE-2019-9004
+CVSS: 7.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2019-02-22
+Source: https://osv.dev/vulnerability/CVE-2019-9004
+Type: osv
+
+## Details
+In Eclipse Wakaama (formerly liblwm2m) 1.0, core/er-coap-13/er-coap-13.c in lwm2mserver in the LWM2M server mishandles invalid options, leading to a memory leak. Processing of a single crafted packet leads to leaking (wasting) 24 bytes of memory. This can lead to termination of the LWM2M server after exhausting all available memory.
+
+## References
+- https://github.com/eclipse/wakaama/issues/425

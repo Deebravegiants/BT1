@@ -1,0 +1,19 @@
+# [M] CVE-2021-42327
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-42327
+CVSS: 6.7 (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H)
+Published: 2021-10-21
+Source: https://osv.dev/vulnerability/CVE-2021-42327
+Type: osv
+
+## Details
+dp_link_settings_write in drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c in the Linux kernel through 5.14.14 allows a heap-based buffer overflow by an attacker who can write a string to the AMD GPU display drivers debug filesystem. There are no checks on size within parse_write_buffer_into_params when it uses the size of copy_from_user to copy a userspace buffer into a 40-byte heap buffer.
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/RDDEW4APTYKJK365HC2JZIVXYUV7ZRN7/
+- https://www.mail-archive.com/amd-gfx%40lists.freedesktop.org/msg69080.html
+- https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=f23750b5b3d98653b31d4469592935ef6364ad67
+- https://security.netapp.com/advisory/ntap-20211118-0005/
+- https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c

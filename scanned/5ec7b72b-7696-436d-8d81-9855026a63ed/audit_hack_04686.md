@@ -1,0 +1,39 @@
+# [M] Insurance funds can be locked in PrepDepository
+
+## Summary
+Severity: Medium
+Reporter: clems4ever
+Source: https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L301
+Type: audit-issue
+
+## Details
+# Insurance funds can be locked in PrepDepository
+
+## Summary
+
+In some cases, the `transfer()` function of an ERC20 token might fail without reverting therefore it's important to check the returned bool value.
+
+Here https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L301
+the transfer might fail leading the protocol in a bad state where the funds have been withdrawn from the vault but not properly transfered afterwards and consequently the funds can get locked in the contract.
+
+## Vulnerability Detail
+
+## Impact
+
+Locked insurance funds.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L301
+
+Also in
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L639
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Check the return value of the `transfer()` function.

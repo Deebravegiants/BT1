@@ -1,0 +1,26 @@
+# [M] Provided trade data array is not checked for matching length
+
+## Summary
+Severity: Medium
+Reporter: Delvir0
+Source: https://github.com/sherlock-audit/2023-04-jojo/blob/main/smart-contract-EVM/contracts/impl/JOJOExternal.sol#L140
+Type: audit-issue
+
+## Details
+# Provided trade data array is not checked for matching length
+
+## Summary
+`orderList` and `signatureList` are basically checked if they match by checking `order.signer` and recovered signer in `signatureList`
+This is not the case for `matchPaperAmount`
+## Vulnerability Detail
+If the arrays are are incorrectly passed e.g. `orderList` and `signatureList` array length = 5 and `matchPaperAmount` = 4 , the last order will receive 0 values, creating incorrect positions.
+## Impact
+Incorrect positions created
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-jojo/blob/main/smart-contract-EVM/contracts/impl/JOJOExternal.sol#L140
+## Tool used
+
+Manual Review
+
+## Recommendation
+Check if  `matchPaperAmount` matches the length of `orderList` and/ or `signatureList`

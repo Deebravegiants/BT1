@@ -1,0 +1,15 @@
+# [M] CVE-2017-9220
+
+## Summary
+Severity: Medium
+Advisory: CVE-2017-9220
+CVSS: 5.5 (CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2017-06-27
+Source: https://osv.dev/vulnerability/CVE-2017-9220
+Type: osv
+
+## Details
+The mp4ff_read_stco function in common/mp4ff/mp4atom.c in Freeware Advanced Audio Decoder 2 (FAAD2) 2.7 allows remote attackers to cause a denial of service (memory allocation error) via a crafted mp4 file.
+
+## References
+- http://seclists.org/fulldisclosure/2017/Jun/32

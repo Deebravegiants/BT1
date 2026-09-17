@@ -1,0 +1,15 @@
+# [H] CVE-2017-7892
+
+## Summary
+Severity: High
+Advisory: CVE-2017-7892
+CVSS: 7.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2017-04-17
+Source: https://osv.dev/vulnerability/CVE-2017-7892
+Type: osv
+
+## Details
+Sandstorm Cap'n Proto before 0.5.3.1 allows remote crashes related to a compiler optimization. A remote attacker can trigger a segfault in a 32-bit libcapnp application because Cap'n Proto relies on pointer arithmetic calculations that overflow. An example compiler with optimization that elides a bounds check in such calculations is Apple LLVM version 8.1.0 (clang-802.0.41). The attack vector is a crafted far pointer within a message.
+
+## References
+- https://github.com/sandstorm-io/capnproto/blob/master/security-advisories/2017-04-17-0-apple-clang-elides-bounds-check.md

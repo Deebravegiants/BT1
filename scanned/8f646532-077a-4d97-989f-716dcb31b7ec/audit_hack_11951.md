@@ -1,0 +1,51 @@
+# [M] Liquidation fee can be very small for liquidators
+
+## Summary
+Severity: Medium
+Reporter: mstpr-brainbot
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L64-L88
+Type: audit-issue
+
+## Details
+# Liquidation fee can be very small for liquidators
+
+## Summary
+The process of liquidating unhealthy positions by liquidators is hampered by insufficient incentives. The current calculation method for the liquidation fee often results in too small an amount to motivate liquidators, especially when the difference between the negative value of availableBalance and the liquidationFee is minuscule or when there's no liquidation fee at all in certain liquidation types.
+## Vulnerability Detail
+In the process of opening a quote by partyA, there exists a limit on the liquidation fee. This limit serves as an incentive for liquidators to monitor and liquidate unhealthy positions in exchange for the liquidation fee. However, the actual amount of the liquidation fee received by the liquidator is determined by a distinct calculation method. In a majority of scenarios, the liquidation fee falls short in incentivizing liquidators to liquidate positions.
+
+The relevant code indicates that the liquidation fee is only present when the negative value of availableBalance is less than or equal to the liquidationFee, the difference of which might be too minuscule to incentivize a liquidator. For other types of liquidations, there isn't even a liquidation fee, leading to situations where the incentives for liquidators are generally insufficient.
+
+```solidity
+else if (uint256(-availableBalance) < accountLayout.lockedBalances[partyA].lf) {
+                uint256 remainingLf = accountLayout.lockedBalances[partyA].lf -
+                    uint256(-availableBalance);
+                accountLayout.liquidationDetails[partyA].liquidationType = LiquidationType.NORMAL;
+                accountLayout.liquidationDetails[partyA].liquidationFee = remainingLf;
+            } else if (
+                uint256(-availableBalance) <=
+                accountLayout.lockedBalances[partyA].lf + accountLayout.lockedBalances[partyA].cva
+            ) {
+                uint256 deficit = uint256(-availableBalance) -
+                    accountLayout.lockedBalances[partyA].lf;
+                accountLayout.liquidationDetails[partyA].liquidationType = LiquidationType.LATE;
+                accountLayout.liquidationDetails[partyA].deficit = deficit;
+            } else {
+                uint256 deficit = uint256(-availableBalance) -
+                    accountLayout.lockedBalances[partyA].lf -
+                    accountLayout.lockedBalances[partyA].cva;
+                accountLayout.liquidationDetails[partyA].liquidationType = LiquidationType.OVERDUE;
+                accountLayout.liquidationDetails[partyA].deficit = deficit;
+            }
+```
+ as we can observe liquidation fee is only there when the -availableBalance <= liquidationFee and we take the difference between these two which can be quite small for a liquidator to be incentivized. On other liquidation types there are not even a liquidation fee so almost every time the incentives for liquidators are too small. 
+           
+## Impact
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L64-L88
+## Tool used
+
+Manual Review
+
+## Recommendation

@@ -1,0 +1,448 @@
+# [M] RequestWithdrawal/Withdraw is not accounted for in leverage ratio calculation
+
+## Summary
+Severity: Medium
+Reporter: ktg
+Source: https://github.com/sherlock-audit/2023-02-carapace/blob/main/contracts/core/pool/ProtectionPool.sol#L1061-#L1097
+Type: audit-issue
+
+## Details
+# RequestWithdrawal/Withdraw is not accounted for in leverage ratio calculation
+
+## Summary
+RequestWithdrawal/Withdraw is not accounted for in leverage ratio calculation.
+When a user request a withdrawal, this withdrawal amount is not included in leverage ratio calculation.
+This can lead to the situation when all underlying token in the protection pool is withdrawn but still has active
+protection to cover (meaning there is no money to pay for active protections in case of defaults).
+
+## Vulnerability Detail
+Currently, to prevent leverage ratio from breaching, the protection pool implement these restrictions (`leverageRatio = totalStokenUnderlying/totalProtection` ):
+- When someone deposits, leverageRatio must be < leverageRatioCeiling 
+- When someone buys/renews protection, leverageRatio must be > leverageRatioFloor
+However, function `requestWithdrawal` and `withdraw` does not account for leverageRatio, this can lead to the situation when all underlying token in the protection pool is withdrawn but still has active. For example:
+
+    - In cycle 1: user1 deposit 100K, enough to get through minRequiredCapital and move to OpenToBuyers phase; he then request withdrawal all his Stoken; so he can actually withdraw token in cycle 3.
+    - In cycle 2: user2 bought protection with end time = end of cycle 3
+    - In cycle 3: user1 withdraw all his token, now protection pool has no underlying token but still has 1 active protection to cover; meaning no money to pay in the event of default.
+
+Here is a POC:
+```typescript
+import { BigNumber } from "@ethersproject/bignumber";
+import { expect } from "chai";
+import { Contract, Signer, ContractFactory } from "ethers";
+import { ethers, network, upgrades } from "hardhat";
+import { parseEther } from "ethers/lib/utils";
+import {
+  ProtectionPool,
+  ProtectionInfoStructOutput
+} from "../../typechain-types/contracts/core/pool/ProtectionPool";
+import { ProtectionPoolInfoStructOutput } from "../../typechain-types/contracts/interfaces/IProtectionPool";
+import { ReferenceLendingPools } from "../../typechain-types/contracts/core/pool/ReferenceLendingPools";
+import { ProtectionPurchaseParamsStruct } from "../../typechain-types/contracts/interfaces/IReferenceLendingPools";
+import { ProtectionPoolCycleManager } from "../../typechain-types/contracts/core/ProtectionPoolCycleManager";
+import {
+  getDaysInSeconds,
+  getLatestBlockTimestamp,
+  moveForwardTimeByDays,
+  setNextBlockTimestamp
+} from "../utils/time";
+import {
+  parseUSDC,
+  getUsdcContract,
+  impersonateCircle,
+  transferAndApproveUsdc
+} from "../utils/usdc";
+import { ITranchedPool } from "../../typechain-types/contracts/external/goldfinch/ITranchedPool";
+import { payToLendingPool, payToLendingPoolAddress } from "../utils/goldfinch";
+import { DefaultStateManager } from "../../typechain-types/contracts/core/DefaultStateManager";
+import { ZERO_ADDRESS } from "../utils/constants";
+import { getGoldfinchLender1 } from "../utils/goldfinch";
+import { ProtectionPoolV2 } from "../../typechain-types/contracts/test/ProtectionPoolV2";
+import slug = Mocha.utils.slug;
+import {address} from "hardhat/internal/core/config/config-validation";
+
+const testProtectionPoolLeverageRatio: Function = (
+    deployer: Signer,
+    owner: Signer,
+    buyer: Signer,
+    seller: Signer,
+    account4: Signer,
+    protectionPool: ProtectionPool,
+    protectionPoolImplementation: ProtectionPool,
+    referenceLendingPools: ReferenceLendingPools,
+    protectionPoolCycleManager: ProtectionPoolCycleManager,
+    defaultStateManager: DefaultStateManager,
+    getPoolContractFactory: Function
+) => {
+  describe("ProtectionPool", () => {
+    const PROTECTION_BUYER1_ADDRESS =
+        "0x008c84421da5527f462886cec43d2717b686a7e4";
+
+    const _newFloor: BigNumber = parseEther("0.4");
+    const _newCeiling: BigNumber = parseEther("1.1");
+    let deployerAddress: string;
+    let sellerAddress: string;
+    let account4Address: string;
+    let buyerAddress: string;
+    let ownerAddress: string;
+    let USDC: Contract;
+    let poolInfo: ProtectionPoolInfoStructOutput;
+    let before1stDepositSnapshotId: string;
+    let snapshotId2: string;
+    let _protectionBuyer1: Signer;
+    let _protectionBuyer2: Signer;
+    let _protectionBuyer3: Signer;
+    let _protectionBuyer4: Signer;
+    let _circleAccount: Signer;
+    let _goldfinchLendingPools: string[];
+    let _lendingPool1: string;
+    let _lendingPool2: string;
+
+    const calculateTotalSellerDeposit = async () => {
+      // seller deposit should total sToken underlying - premium accrued
+      const [
+        _totalSTokenUnderlying,
+        _totalProtection,
+        _totalPremium,
+        _totalPremiumAccrued
+      ] = await protectionPool.getPoolDetails();
+      return _totalSTokenUnderlying.sub(_totalPremiumAccrued);
+    };
+
+    const depositAndRequestWithdrawal = async (
+        _account: Signer,
+        _accountAddress: string,
+        _depositAmount: BigNumber,
+        _withdrawalAmount: BigNumber
+    ) => {
+      await USDC.connect(_account).approve(
+          protectionPool.address,
+          _depositAmount
+      );
+
+      await protectionPool
+          .connect(_account)
+          .depositAndRequestWithdrawal(_depositAmount, _withdrawalAmount);
+    };
+
+    const verifyWithdrawal = async (
+        _account: Signer,
+        _sTokenWithdrawalAmt: BigNumber
+    ) => {
+      const accountAddress = await _account.getAddress();
+      const sTokenBalanceBefore = await protectionPool.balanceOf(
+          accountAddress
+      );
+      const usdcBalanceBefore = await USDC.balanceOf(accountAddress);
+      const poolUsdcBalanceBefore = await USDC.balanceOf(
+          protectionPool.address
+      );
+      const poolTotalSTokenUnderlyingBefore = (
+          await protectionPool.getPoolDetails()
+      )[0];
+
+      const expectedUsdcWithdrawalAmt =
+          await protectionPool.convertToUnderlying(_sTokenWithdrawalAmt);
+
+      // withdraw sTokens
+      await expect(
+          protectionPool
+              .connect(_account)
+              .withdraw(_sTokenWithdrawalAmt, accountAddress)
+      )
+          .to.emit(protectionPool, "WithdrawalMade")
+          .withArgs(accountAddress, _sTokenWithdrawalAmt, accountAddress);
+
+      const sTokenBalanceAfter = await protectionPool.balanceOf(accountAddress);
+      expect(sTokenBalanceBefore.sub(sTokenBalanceAfter)).to.eq(
+          _sTokenWithdrawalAmt
+      );
+
+      const usdcBalanceAfter = await USDC.balanceOf(accountAddress);
+      expect(usdcBalanceAfter.sub(usdcBalanceBefore)).to.be.eq(
+          expectedUsdcWithdrawalAmt
+      );
+
+      const poolUsdcBalanceAfter = await USDC.balanceOf(protectionPool.address);
+      expect(poolUsdcBalanceBefore.sub(poolUsdcBalanceAfter)).to.eq(
+          expectedUsdcWithdrawalAmt
+      );
+
+      const poolTotalSTokenUnderlyingAfter = (
+          await protectionPool.getPoolDetails()
+      )[0];
+      expect(
+          poolTotalSTokenUnderlyingBefore.sub(poolTotalSTokenUnderlyingAfter)
+      ).to.eq(expectedUsdcWithdrawalAmt);
+    };
+
+    const transferAndApproveUsdcToPool = async (
+        _buyer: Signer,
+        _amount: BigNumber
+    ) => {
+      await transferAndApproveUsdc(_buyer, _amount, protectionPool.address);
+    };
+
+    const verifyPoolState = async (
+        expectedCycleIndex: number,
+        expectedState: number
+    ) => {
+      await protectionPoolCycleManager.calculateAndSetPoolCycleState(
+          protectionPool.address
+      );
+      const currentPoolCycle =
+          await protectionPoolCycleManager.getCurrentPoolCycle(
+              protectionPool.address
+          );
+      expect(currentPoolCycle.currentCycleIndex).to.equal(expectedCycleIndex);
+      expect(currentPoolCycle.currentCycleState).to.eq(expectedState);
+    };
+
+    const getActiveProtections = async () => {
+      const allProtections = await protectionPool.getAllProtections();
+      return allProtections.filter((p: any) => p.expired === false);
+    };
+
+    const depositAndVerify = async (
+        _account: Signer,
+        _depositAmount: string
+    ) => {
+      const _underlyingAmount: BigNumber = parseUSDC(_depositAmount);
+      const _accountAddress = await _account.getAddress();
+      let _totalSTokenUnderlyingBefore = (
+          await protectionPool.getPoolDetails()
+      )[0];
+      let _poolUsdcBalanceBefore = await USDC.balanceOf(protectionPool.address);
+      let _sTokenBalanceBefore = await protectionPool.balanceOf(
+          _accountAddress
+      );
+
+      await transferAndApproveUsdcToPool(_account, _underlyingAmount);
+      await expect(
+          protectionPool
+              .connect(_account)
+              .deposit(_underlyingAmount, _accountAddress)
+      )
+          .to.emit(protectionPool, "ProtectionSold")
+          .withArgs(_accountAddress, _underlyingAmount);
+
+      // Seller should receive same sTokens shares as the deposit because of no premium accrued
+      let _sTokenBalanceAfter = await protectionPool.balanceOf(_accountAddress);
+      const _sTokenReceived = _sTokenBalanceAfter.sub(_sTokenBalanceBefore);
+      expect(_sTokenReceived).to.eq(parseEther(_depositAmount));
+
+      // Verify the pool's total sToken underlying is updated correctly
+      let _totalSTokenUnderlyingAfter = (
+          await protectionPool.getPoolDetails()
+      )[0];
+      expect(
+          _totalSTokenUnderlyingAfter.sub(_totalSTokenUnderlyingBefore)
+      ).to.eq(_underlyingAmount);
+
+      // Verify the pool's USDC balance is updated correctly
+      let _poolUsdcBalanceAfter = await USDC.balanceOf(protectionPool.address);
+      expect(_poolUsdcBalanceAfter.sub(_poolUsdcBalanceBefore)).to.eq(
+          _underlyingAmount
+      );
+
+      // Seller should receive same USDC amt as deposited because no premium accrued
+      expect(
+          await protectionPool.convertToUnderlying(_sTokenReceived)
+      ).to.be.eq(_underlyingAmount);
+    };
+
+    const verifyMaxAllowedProtectionDuration = async () => {
+      const currentTimestamp = await getLatestBlockTimestamp();
+      const currentPoolCycle =
+          await protectionPoolCycleManager.getCurrentPoolCycle(
+              protectionPool.address
+          );
+
+      // max duration = next cycle's end timestamp - currentTimestamp
+      expect(
+          await protectionPool.calculateMaxAllowedProtectionDuration()
+      ).to.eq(
+          currentPoolCycle.currentCycleStartTime
+              .add(currentPoolCycle.params.cycleDuration.mul(2))
+              .sub(currentTimestamp)
+      );
+    };
+
+    before("setup", async () => {
+      deployerAddress = await deployer.getAddress();
+      sellerAddress = await seller.getAddress();
+      buyerAddress = await buyer.getAddress();
+      ownerAddress = await owner.getAddress();
+      account4Address = await account4.getAddress();
+      poolInfo = await protectionPool.getPoolInfo();
+      USDC = getUsdcContract(deployer);
+
+      // Impersonate CIRCLE account and transfer some USDC to test accounts
+      _circleAccount = await impersonateCircle();
+      USDC.connect(_circleAccount).transfer(
+          deployerAddress,
+          parseUSDC("1000000")
+      );
+      USDC.connect(_circleAccount).transfer(ownerAddress, parseUSDC("20000"));
+      USDC.connect(_circleAccount).transfer(sellerAddress, parseUSDC("20000"));
+      USDC.connect(_circleAccount).transfer(
+          account4Address,
+          parseUSDC("20000")
+      );
+
+      // 420K principal for token 590
+      _protectionBuyer1 = await getGoldfinchLender1();
+
+      USDC.connect(_circleAccount).transfer(
+          PROTECTION_BUYER1_ADDRESS,
+          parseUSDC("1000000")
+      );
+
+      // these lending pools have been already added to referenceLendingPools instance
+      // Lending pool details: https://app.goldfinch.finance/pools/0xd09a57127bc40d680be7cb061c2a6629fe71abef
+      // Lending pool tokens: https://lark.market/?attributes%5BPool+Address%5D=0xd09a57127bc40d680be7cb061c2a6629fe71abef
+      _goldfinchLendingPools = await referenceLendingPools.getLendingPools();
+      _lendingPool1 = _goldfinchLendingPools[0];
+      _lendingPool2 = _goldfinchLendingPools[1];
+    });
+
+    describe("...vulnerability: leverage ratio calculation does not account for withdrawal", async () => {
+        //
+      const _depositAmount = "100000"; // 100 K deposit
+        describe("...deposit and withdrawal", async () => {
+          // deployer deposit 120K and he decides to request withdrawal in this cycle
+          it("...deposit and withdrawal", async () => {
+            await depositAndVerify(deployer, _depositAmount);
+            const expectedWithdrawalIndex = 2;
+            const withdrawalAmount = parseEther("100000"); // 100K Stoken withdrawal
+            await expect(
+                protectionPool.requestWithdrawal(withdrawalAmount)
+            ).to.emit(protectionPool, "WithdrawalRequested")
+                .withArgs(
+                    deployerAddress,
+                    withdrawalAmount,
+                    expectedWithdrawalIndex
+                );
+
+            // Move 11 days - past the open state and lock the cycle
+            await moveForwardTimeByDays(11);
+            await protectionPoolCycleManager.calculateAndSetPoolCycleState(
+                protectionPool.address);
+            expect(await protectionPoolCycleManager.getCurrentCycleState(protectionPool.address)
+            ).to.equal(2); // 2 = Locked
+
+
+            // Move 20 days to cycle 2, and move phase to OpenToBuyers
+            await moveForwardTimeByDays(20);
+            await protectionPoolCycleManager.calculateAndSetPoolCycleState(
+                protectionPool.address
+            );
+            expect(await protectionPoolCycleManager.getCurrentCycleState(protectionPool.address)
+            ).to.equal(1); // 1 = Open
+            expect(await protectionPoolCycleManager.getCurrentCycleIndex(protectionPool.address))
+                .to.eq(1); // index = 1 - cycle 2
+            await protectionPool.movePoolPhase();
+            expect((await protectionPool.getPoolInfo()).currentPhase)
+                .to.eq(1); // phase = 1 - OpenToBuyers
+
+            // protectionBuyer1: 420K principal for token 590
+            await transferAndApproveUsdcToPool(
+                _protectionBuyer1,
+                parseUSDC("2500")
+            );
+            const _approvedAmt = parseUSDC("2500");
+            expect(
+                await USDC.connect(_protectionBuyer1).approve(
+                    protectionPool.address,
+                    _approvedAmt
+                )
+            )
+                .to.emit(USDC, "Approval")
+                .withArgs(
+                    PROTECTION_BUYER1_ADDRESS,
+                    protectionPool.address,
+                    _approvedAmt
+                );
+
+            const _protectionAmount = parseUSDC("100000"); // 100K USDC
+            const _initialBuyerAccountId: BigNumber = BigNumber.from(1);
+            let _purchaseParams: ProtectionPurchaseParamsStruct;
+            _purchaseParams = {
+              lendingPoolAddress: _lendingPool2,
+              nftLpTokenId: 590,
+              protectionAmount: _protectionAmount,
+              protectionDurationInSeconds: getDaysInSeconds(40)
+            };
+            expect(
+                await protectionPool
+                    .connect(_protectionBuyer1)
+                    .buyProtection(_purchaseParams, parseUSDC("10000"))
+            )
+                .emit(protectionPool, "PremiumAccrued")
+                .to.emit(protectionPool, "BuyerAccountCreated")
+                .withArgs(PROTECTION_BUYER1_ADDRESS, _initialBuyerAccountId)
+                .to.emit(protectionPool, "CoverageBought")
+                .withArgs(
+                    PROTECTION_BUYER1_ADDRESS,
+                    _lendingPool2,
+                    _protectionAmount
+                );
+
+            // Move 11 days - past the open state and lock the cycle
+            await moveForwardTimeByDays(11);
+            await protectionPoolCycleManager.calculateAndSetPoolCycleState(
+                protectionPool.address);
+            expect(await protectionPoolCycleManager.getCurrentCycleState(protectionPool.address)
+            ).to.equal(2); // 2 = Locked
+
+            // Move 20 days to cycle 3, and move phase to Open
+            await moveForwardTimeByDays(20);
+            await protectionPoolCycleManager.calculateAndSetPoolCycleState(
+                protectionPool.address
+            );
+            expect(await protectionPoolCycleManager.getCurrentCycleState(protectionPool.address)
+            ).to.equal(1); // 1 = Open
+            expect(await protectionPoolCycleManager.getCurrentCycleIndex(protectionPool.address))
+                .to.eq(2); // index = 2 - cycle 3
+            await protectionPool.movePoolPhase();
+            expect((await protectionPool.getPoolInfo()).currentPhase)
+                .to.eq(2); // phase = 2 - Open
+
+
+            // deployer withdraw
+            await expect(
+                protectionPool
+                    .withdraw(withdrawalAmount, deployerAddress)
+            )
+                .to.emit(protectionPool, "WithdrawalMade")
+                .withArgs(deployerAddress, withdrawalAmount, deployerAddress);
+
+            // Leverage ratio is now 0
+            expect (await protectionPool.calculateLeverageRatio()).to.eq(0);
+            // But there is still 1 active protection
+            expect(
+                (await protectionPool.getAllProtections()).length
+            ).to.eq(1);
+            const poolDetails = await protectionPool.getPoolDetails();
+            expect(poolDetails[0]).to.eq(0); // totalSTokenUnderlying = 0
+            expect(poolDetails[1]).to.eq(parseUSDC("100000")) // totalProtection = 100K USDC
+          });
+        });
+    });
+  });
+};
+
+export { testProtectionPoolLeverageRatio };
+
+```
+## Impact
+- Leverage Ratio is breached, protection pool has no money to cover protection
+## Code Snippet
+https://github.com/sherlock-audit/2023-02-carapace/blob/main/contracts/core/pool/ProtectionPool.sol#L1061-#L1097
+## Tool used
+
+Manual Review
+
+## Recommendation
+I recommend implementing a logic to account for leverage ratio when someone request withdrawal and
+make sure we maintain a safe leverage ratio.

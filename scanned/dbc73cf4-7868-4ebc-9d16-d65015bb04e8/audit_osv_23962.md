@@ -1,0 +1,68 @@
+# [M] fbdev: smscufx: fix error handling code in ufx_usb_probe
+
+## Summary
+Severity: Medium
+Advisory: CVE-2022-49741
+Ecosystem: Linux
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2025-03-27
+Source: https://osv.dev/vulnerability/CVE-2022-49741
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=0 <5.4.232, >=5.5.0 <5.10.168, >=5.11.0 <5.15.93, >=5.16.0 <6.1.11
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+fbdev: smscufx: fix error handling code in ufx_usb_probe
+
+The current error handling code in ufx_usb_probe have many unmatching
+issues, e.g., missing ufx_free_usb_list, destroy_modedb label should
+only include framebuffer_release, fb_dealloc_cmap only matches
+fb_alloc_cmap.
+
+My local syzkaller reports a memory leak bug:
+
+memory leak in ufx_usb_probe
+
+BUG: memory leak
+unreferenced object 0xffff88802f879580 (size 128):
+  comm "kworker/0:7", pid 17416, jiffies 4295067474 (age 46.710s)
+  hex dump (first 32 bytes):
+    80 21 7c 2e 80 88 ff ff 18 d0 d0 0c 80 88 ff ff  .!|.............
+    00 d0 d0 0c 80 88 ff ff e0 ff ff ff 0f 00 00 00  ................
+  backtrace:
+    [<ffffffff814c99a0>] kmalloc_trace+0x20/0x90 mm/slab_common.c:1045
+    [<ffffffff824d219c>] kmalloc include/linux/slab.h:553 [inline]
+    [<ffffffff824d219c>] kzalloc include/linux/slab.h:689 [inline]
+    [<ffffffff824d219c>] ufx_alloc_urb_list drivers/video/fbdev/smscufx.c:1873 [inline]
+    [<ffffffff824d219c>] ufx_usb_probe+0x11c/0x15a0 drivers/video/fbdev/smscufx.c:1655
+    [<ffffffff82d17927>] usb_probe_interface+0x177/0x370 drivers/usb/core/driver.c:396
+    [<ffffffff82712f0d>] call_driver_probe drivers/base/dd.c:560 [inline]
+    [<ffffffff82712f0d>] really_probe+0x12d/0x390 drivers/base/dd.c:639
+    [<ffffffff8271322f>] __driver_probe_device+0xbf/0x140 drivers/base/dd.c:778
+    [<ffffffff827132da>] driver_probe_device+0x2a/0x120 drivers/base/dd.c:808
+    [<ffffffff82713c27>] __device_attach_driver+0xf7/0x150 drivers/base/dd.c:936
+    [<ffffffff82710137>] bus_for_each_drv+0xb7/0x100 drivers/base/bus.c:427
+    [<ffffffff827136b5>] __device_attach+0x105/0x2d0 drivers/base/dd.c:1008
+    [<ffffffff82711d36>] bus_probe_device+0xc6/0xe0 drivers/base/bus.c:487
+    [<ffffffff8270e242>] device_add+0x642/0xdc0 drivers/base/core.c:3517
+    [<ffffffff82d14d5f>] usb_set_configuration+0x8ef/0xb80 drivers/usb/core/message.c:2170
+    [<ffffffff82d2576c>] usb_generic_driver_probe+0x8c/0xc0 drivers/usb/core/generic.c:238
+    [<ffffffff82d16ffc>] usb_probe_device+0x5c/0x140 drivers/usb/core/driver.c:293
+    [<ffffffff82712f0d>] call_driver_probe drivers/base/dd.c:560 [inline]
+    [<ffffffff82712f0d>] really_probe+0x12d/0x390 drivers/base/dd.c:639
+    [<ffffffff8271322f>] __driver_probe_device+0xbf/0x140 drivers/base/dd.c:778
+
+Fix this bug by rewriting the error handling code in ufx_usb_probe.
+
+## References
+- https://git.kernel.org/stable/c/1b4c08844628dfc8d72d3f51b657f2a5e63b7b4b
+- https://git.kernel.org/stable/c/3931014367ef31d26af65386a4ca496f50f0cfdf
+- https://git.kernel.org/stable/c/3b3d3127f5b4291ae4caaf50f7b66089ad600480
+- https://git.kernel.org/stable/c/64fa364ad3245508d393e16ed4886f92d7eb423c
+- https://git.kernel.org/stable/c/b76449ee75e21acfe9fa4c653d8598f191ed7d68
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/49xxx/CVE-2022-49741.json
+- https://nvd.nist.gov/vuln/detail/CVE-2022-49741
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

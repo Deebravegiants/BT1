@@ -1,0 +1,27 @@
+# [M] `LatestRoundata` timestamp is not valiated
+
+## Summary
+Severity: Medium
+Reporter: simon135
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+# `LatestRoundata` timestamp is not valiated
+
+## Summary
+`latestRoundData` does not have checks to ensure that the Oracle timestamp is validated. This in turn will likely lead to stale prices in the Oracle return values.
+## Vulnerability Detail
+There is no check in the code for the timestamp of the Oracle which can lead to the wrong price 
+## Impact
+stale price not checked, which will cause wrong calculations for accounting.
+## Code Snippet
+```solidity
+      (, int256 price, , , ) = priceFeed.latestRoundData();
+```
+## Tool used
+
+Manual Review
+
+## Recommendation
+check the `lastTimestamp - timestamp  < n` n = how long the timestamp can be wait/stale

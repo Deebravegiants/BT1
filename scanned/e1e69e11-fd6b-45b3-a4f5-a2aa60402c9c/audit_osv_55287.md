@@ -1,0 +1,15 @@
+# [H] CVE-2025-25748
+
+## Summary
+Severity: High
+Advisory: CVE-2025-25748
+CVSS: 7.3 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:L)
+Published: 2025-03-11
+Source: https://osv.dev/vulnerability/CVE-2025-25748
+Type: osv
+
+## Details
+A CSRF vulnerability in the gestione_utenti.php endpoint of HotelDruid 3.0.7 allows attackers to perform unauthorized actions (e.g., modifying user passwords) on behalf of authenticated users by exploiting the lack of origin or referrer validation and the absence of CSRF tokens. NOTE: this is disputed because there is an id_sessione CSRF token.
+
+## References
+- https://www.huyvo.net/post/cve-2025-25748-cross-site-request-forgery-csrf-vulnerability-in-hoteldruid-3-0-7

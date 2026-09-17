@@ -1,0 +1,25 @@
+# [M] Liferay Portal and Liferay DXP vulnerable to theft of hashed password
+
+## Summary
+Severity: Medium
+Advisory: GHSA-xq4r-4xfh-vch8
+CVE: CVE-2024-26270
+CWE: CWE-201
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2024-02-20
+Source: https://github.com/advisories/GHSA-xq4r-4xfh-vch8
+Type: github-advisory
+
+## Affected
+- Maven: `com.liferay.portal:release.portal.bom` — affected >=7.4.3.76 <7.4.3.100
+- Maven: `com.liferay.portal:release.dxp.bom` — affected >=2023.Q3 <2023.Q3.5
+- Maven: `com.liferay.portal:release.dxp.bom` — affected >=7.4.0
+
+## Details
+The Account Settings page in Liferay Portal 7.4.3.76 through 7.4.3.99, and Liferay DXP 2023.Q3 before patch 5, and 7.4 update 76 through 92 embeds the user’s hashed password in the page’s HTML source, which allows man-in-the-middle attackers to steal a user's hashed password.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-26270
+- https://github.com/liferay/liferay-portal
+- https://liferay.dev/portal/security/known-vulnerabilities/-/asset_publisher/jekt/content/cve-2024-26270

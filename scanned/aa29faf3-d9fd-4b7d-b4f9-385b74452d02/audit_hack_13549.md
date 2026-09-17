@@ -1,0 +1,82 @@
+# [H] queueRewards will be locked in the contract and will not be distributed.
+
+## Summary
+Severity: High
+Reporter: Macho Shamrock Huskie
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/rewarders/AbstractRewarder.sol#L235-L261
+Type: audit-issue
+
+## Details
+# queueRewards will be locked in the contract and will not be distributed.
+## Summary
+`queueRewards` will be locked in the contract and will not be distributed.
+
+Meanwhile, liquidation will also be subjected to DoS.
+## Vulnerability Detail
+The code for `queueNewRewards` is as follows:
+
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/rewarders/AbstractRewarder.sol#L235-L261
+```solidity
+    function queueNewRewards(uint256 newRewards) external onlyWhitelisted {
+        uint256 startingQueuedRewards = queuedRewards;
+        uint256 startingNewRewards = newRewards;
+
+        newRewards += startingQueuedRewards;
+
+        if (block.number >= periodInBlockFinish) {
+            notifyRewardAmount(newRewards);
+            queuedRewards = 0;
+        } else {
+            uint256 elapsedBlock = block.number - (periodInBlockFinish - durationInBlock);
+            uint256 currentAtNow = rewardRate * elapsedBlock;
+            uint256 queuedRatio = currentAtNow * 1000 / newRewards;
+
+            if (queuedRatio < newRewardRatio) {
+                notifyRewardAmount(newRewards);
+                queuedRewards = 0;
+            } else {
+                queuedRewards = newRewards;
+            }
+        }
+
+        emit QueuedRewardsUpdated(startingQueuedRewards, startingNewRewards, queuedRewards);
+
+        //Transfer the new rewards from the caller to this contract.
+        IERC20(rewardToken).safeTransferFrom(msg.sender, address(this), newRewards);
+    }
+```
+
+The key point lies in these three lines:
+```solidity
+        uint256 startingQueuedRewards = queuedRewards;
+        newRewards += startingQueuedRewards;
+        ...
+        IERC20(rewardToken).safeTransferFrom(msg.sender, address(this), newRewards);
+```
+
+When dealing with `queueRewards`, it is still necessary to transfer tokens to the contract equal to or greater than the quantity of `queueRewards`. However, the tokens in the queue have already been transferred during the previous `queueNewRewards` and should not be transferred again.
+
+The specific scenarios are as follows:
+1. First, execute `queueNewRewards(10)`. Assuming `queuedRewards` was 0 before this and `queuedRatio >= newRewardRatio`, this will make `queuedRewards` become 10 and transfer 10 tokens to the contract.
+2. If you want `queuedRewards` to be notified, you need to execute `queueNewRewards(0)` once.
+3. In `queueNewRewards(0)`, `newRewards == queuedRewards == 10`, which means that there is still a need to transfer 10 tokens in the end. However, these 10 tokens should not be transferred because the `queueRewards` to be processed has already been transferred in the first `queueNewRewards(10)` operation.
+
+## Impact
+Tokens placed in the queue through `queueNewRewards` will not be distributed and will remain locked in the contract.
+
+Furthermore, this vulnerability will cause the liquidator to revert when executing `queueNewRewards` because it does not have additional assets to transfer to the rewarder.
+
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/liquidation/LiquidationRow.sol#L275-L277
+```solidity
+            // approve main rewarder to pull the tokens
+            LibAdapter._approve(IERC20(params.buyTokenAddress), address(mainRewarder), amount);
+            mainRewarder.queueNewRewards(amount);
+```
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/rewarders/AbstractRewarder.sol#L235-L261
+## Tool used
+
+Manual Review
+
+## Recommendation
+If `startingQueuedRewards > 0`, the transfer amount during the final transfer should be `newRewards - startingQueuedRewards.`

@@ -1,0 +1,58 @@
+# [H] f2fs: fix to drop all dirty pages during umount() if cp_error is set
+
+## Summary
+Severity: High
+Advisory: CVE-2023-54124
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2025-12-24
+Source: https://osv.dev/vulnerability/CVE-2023-54124
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=4.19.0 <4.19.284, >=4.20.0 <5.4.244, >=5.5.0 <5.10.181, >=5.11.0 <5.15.113, >=5.16.0 <6.1.30, >=6.2.0 <6.3.4
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+f2fs: fix to drop all dirty pages during umount() if cp_error is set
+
+xfstest generic/361 reports a bug as below:
+
+f2fs_bug_on(sbi, sbi->fsync_node_num);
+
+kernel BUG at fs/f2fs/super.c:1627!
+RIP: 0010:f2fs_put_super+0x3a8/0x3b0
+Call Trace:
+ generic_shutdown_super+0x8c/0x1b0
+ kill_block_super+0x2b/0x60
+ kill_f2fs_super+0x87/0x110
+ deactivate_locked_super+0x39/0x80
+ deactivate_super+0x46/0x50
+ cleanup_mnt+0x109/0x170
+ __cleanup_mnt+0x16/0x20
+ task_work_run+0x65/0xa0
+ exit_to_user_mode_prepare+0x175/0x190
+ syscall_exit_to_user_mode+0x25/0x50
+ do_syscall_64+0x4c/0x90
+ entry_SYSCALL_64_after_hwframe+0x72/0xdc
+
+During umount(), if cp_error is set, f2fs_wait_on_all_pages() should
+not stop waiting all F2FS_WB_CP_DATA pages to be writebacked, otherwise,
+fsync_node_num can be non-zero after f2fs_wait_on_all_pages() causing
+this bug.
+
+In this case, to avoid deadloop in f2fs_wait_on_all_pages(), it needs
+to drop all dirty pages rather than redirtying them.
+
+## References
+- https://git.kernel.org/stable/c/4ceedc2f8bdffb82e40b7d1bb912304f8e157cb1
+- https://git.kernel.org/stable/c/7741ddc882a0c806a6508ba8203c55a779db7a21
+- https://git.kernel.org/stable/c/82c3d6e9db41cbd3af1d4f90bdb441740b5fad10
+- https://git.kernel.org/stable/c/92575f05a32dafb16348bfa5e62478118a9be069
+- https://git.kernel.org/stable/c/ad87bd313f70b51e48019d5ce2d02d73152356b3
+- https://git.kernel.org/stable/c/c9b3649a934d131151111354bcbb638076f03a30
+- https://git.kernel.org/stable/c/d8f4ad5f3979dbd8e6251259562f12472717883a
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/54xxx/CVE-2023-54124.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-54124
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

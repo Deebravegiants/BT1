@@ -1,0 +1,20 @@
+# [C] GHSL-2024-094: GStreamer has an OOB-write in isomp4/qtdemux.c
+
+## Summary
+Severity: Critical
+Advisory: CVE-2024-47537
+CVSS: 9.0 (CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N)
+Published: 2024-12-11
+Source: https://osv.dev/vulnerability/CVE-2024-47537
+Type: osv
+
+## Details
+GStreamer is a library for constructing graphs of media-handling components. The program attempts to reallocate the memory pointed to by stream->samples to accommodate stream->n_samples + samples_count elements of type QtDemuxSample. The problem is that samples_count is read from the input file. And if this value is big enough, this can lead to an integer overflow during the addition. As a consequence, g_try_renew might allocate memory for a significantly smaller number of elements than intended. Following this, the program iterates through samples_count elements and attempts to write samples_count number of elements, potentially exceeding the actual allocated memory size and causing an OOB-write. This vulnerability is fixed in 1.24.10.
+
+## References
+- https://gstreamer.freedesktop.org/security/sa-2024-0005.html
+- https://lists.debian.org/debian-lts-announce/2025/02/msg00035.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/47xxx/CVE-2024-47537.json
+- https://nvd.nist.gov/vuln/detail/CVE-2024-47537
+- https://securitylab.github.com/advisories/GHSL-2024-094_Gstreamer/
+- https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8059.patch

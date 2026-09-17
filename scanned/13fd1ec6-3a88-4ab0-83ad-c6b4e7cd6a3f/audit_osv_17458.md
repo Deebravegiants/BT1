@@ -1,0 +1,18 @@
+# [M] CVE-2020-15224
+
+## Summary
+Severity: Medium
+Advisory: CVE-2020-15224
+Aliases: GHSA-525h-wxcc-f66m
+CVSS: 6.8 (CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N)
+Published: 2020-10-14
+Source: https://osv.dev/vulnerability/CVE-2020-15224
+Type: osv
+
+## Details
+In Open Enclave before version 0.12.0, an information disclosure vulnerability exists when an enclave application using the syscalls provided by the sockets.edl is loaded by a malicious host application. An attacker who successfully exploited the vulnerability could read privileged data from the enclave heap across trust boundaries. To exploit this vulnerability, an attacker would have to log on to an affected system and run a specially crafted application. The vulnerability would not allow an attacker to elevate user rights directly, but it could be used to obtain information otherwise considered confidential in an enclave, which could be used in further compromises. The issue has been addressed in version 0.12.0 and the current master branch. Users will need to to recompile their applications against the patched libraries to be protected from this vulnerability.
+
+## References
+- https://github.com/openenclave/openenclave/blob/master/CHANGELOG.md#v0120
+- https://github.com/openenclave/openenclave/security/advisories/GHSA-525h-wxcc-f66m
+- https://github.com/openenclave/openenclave/commit/bcac8e7acb514429fee9e0b5d0c7a0308fd4d76b

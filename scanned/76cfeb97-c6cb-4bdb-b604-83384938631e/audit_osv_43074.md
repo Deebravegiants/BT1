@@ -1,0 +1,60 @@
+# [H] netfilter: nf_conncount: prevent connlimit drops for early confirmed ct
+
+## Summary
+Severity: High
+Advisory: CVE-2026-72418
+Ecosystem: Linux
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-08-15
+Source: https://osv.dev/vulnerability/CVE-2026-72418
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=0 <5.10.261, >=5.11.0 <5.15.212, >=5.16.0 <6.1.178, >=6.2.0 <6.6.145, >=6.7.0 <6.12.97, >=6.13.0 <6.18.40, >=6.19.0 <7.1.5
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+netfilter: nf_conncount: prevent connlimit drops for early confirmed ct
+
+Commit 69894e5b4c5e ("netfilter: nft_connlimit: update the count if add
+was skipped") introduced a regression where packets for valid
+connections are dropped when using connlimit for soft-limiting
+scenarios.
+
+The issue occurs when a new connection reuses a socket currently in
+the TIME_WAIT state. In this scenario, the connection tracking entry
+is evaluated as already confirmed. Previously, __nf_conncount_add()
+assumed that if a connection was confirmed and did not originate from
+the loopback interface, it should skip the addition and return -EEXIST.
+
+Skipping the addition triggers a garbage collection run that cleans up
+the TIME_WAIT connection. Consequently, the active connection count
+drops to 0, which xt_connlimit mishandles, leading to the false rejection
+of the perfectly valid new connection.
+
+Fix this by replacing the interface check with protocol-agnostic state
+checks. We now skip the tree insertion and preserve the lockless garbage
+collection optimization only if the connection is IPS_ASSURED. This
+allows early-confirmed setup packets (such as reused TIME_WAIT sockets
+or locally generated SYN-ACKs) to be properly evaluated and counted
+without falsely dropping. The goto check_connections path is maintained
+to ensure these setup packets are deduplicated correctly.
+
+This has been tested with slowhttptest and HTTP server configured
+locally to ensure we are not breaking soft-limiting scenarios for local
+or external connections. In addition, it was tested with a OVS zone
+limit too.
+
+## References
+- https://git.kernel.org/stable/c/000ac6830b56499d6b65fd91486ce6689eb02be4
+- https://git.kernel.org/stable/c/329f2626ee5cb8fafdf6b58b624311529c57cb45
+- https://git.kernel.org/stable/c/3793d24de224943e0a6016bbeffb6f5c4cea2e3d
+- https://git.kernel.org/stable/c/abef7f817217fcb62c11821d6b895063eadb2828
+- https://git.kernel.org/stable/c/be52572c6d55f677ba76869d3c63805c0d4891a3
+- https://git.kernel.org/stable/c/c8b6f36f766991e3ebebec6596daee4b04dcbc49
+- https://git.kernel.org/stable/c/cbe2d14a7c5b1fc71821fbfee5c4963917411e92
+- https://git.kernel.org/stable/c/ebfe8249ba79e4ff0f1e3aad8787b992ef27f026
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/72xxx/CVE-2026-72418.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-72418
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

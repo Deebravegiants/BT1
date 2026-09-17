@@ -1,0 +1,18 @@
+# [M] CVE-2021-32716
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-32716
+Aliases: GHSA-68v9-3jjq-rvp4
+CVSS: 4.9 (CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:N)
+Published: 2021-06-24
+Source: https://osv.dev/vulnerability/CVE-2021-32716
+Type: osv
+
+## Details
+Shopware is an open source eCommerce platform. In versions prior to 6.4.1.1 the admin api has exposed some internal hidden fields when an association has been loaded with a to many reference. Users are recommend to update to version 6.4.1.1. You can get the update to 6.4.1.1 regularly via the Auto-Updater or directly via the download overview. For older versions of 6.1, 6.2, and 6.3, corresponding security measures are also available via a plugin.
+
+## References
+- https://docs.shopware.com/en/shopware-6-en/security-updates/security-update-06-2021
+- https://github.com/shopware/platform/security/advisories/GHSA-gpmh-g94g-qrhr
+- https://github.com/shopware/platform/commit/b5c3ce3e93bd121324d72aa9d367cb636ff1c0eb

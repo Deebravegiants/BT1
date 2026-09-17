@@ -1,0 +1,43 @@
+# [H] comedi: Flush partial mappings in error case
+
+## Summary
+Severity: High
+Advisory: CVE-2024-53148
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2024-12-24
+Source: https://osv.dev/vulnerability/CVE-2024-53148
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=2.6.29 <5.4.287, >=5.5.0 <5.10.231, >=5.11.0 <5.15.174, >=5.16.0 <6.1.120, >=6.2.0 <6.6.64, >=6.7.0 <6.11.11, >=6.12.0 <6.12.2
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+comedi: Flush partial mappings in error case
+
+If some remap_pfn_range() calls succeeded before one failed, we still have
+buffer pages mapped into the userspace page tables when we drop the buffer
+reference with comedi_buf_map_put(bm). The userspace mappings are only
+cleaned up later in the mmap error path.
+
+Fix it by explicitly flushing all mappings in our VMA on the error path.
+
+See commit 79a61cc3fc04 ("mm: avoid leaving partial pfn mappings around in
+error case").
+
+## References
+- https://git.kernel.org/stable/c/16c507df509113c037cdc0ba642b9ab3389bd26c
+- https://git.kernel.org/stable/c/297f14fbb81895f4ccdb0ad25d196786d6461e00
+- https://git.kernel.org/stable/c/57f048c2d205b85e34282a9b0b0ae177e84c2f44
+- https://git.kernel.org/stable/c/8797b7712de704dc231f9e821d8eb3b9aeb3a032
+- https://git.kernel.org/stable/c/9b07fb464eb69a752406e78e62ab3a60bfa7b00d
+- https://git.kernel.org/stable/c/b9322408d83accc8b96322bc7356593206288c56
+- https://git.kernel.org/stable/c/c6963a06ce5c61d3238751ada04ee1569663a828
+- https://git.kernel.org/stable/c/ce8f9fb651fac95dd41f69afe54d935420b945bd
+- https://lists.debian.org/debian-lts-announce/2025/03/msg00001.html
+- https://lists.debian.org/debian-lts-announce/2025/03/msg00002.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/53xxx/CVE-2024-53148.json
+- https://nvd.nist.gov/vuln/detail/CVE-2024-53148
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

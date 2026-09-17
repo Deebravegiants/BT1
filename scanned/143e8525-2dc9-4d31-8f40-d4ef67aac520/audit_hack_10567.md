@@ -1,0 +1,26 @@
+# [M] modifier onlyControl  can not work
+
+## Summary
+Severity: Medium
+Reporter: twcctop
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L84-L109
+Type: audit-issue
+
+## Details
+# modifier onlyControl  can not work
+
+## Summary
+modifier onlyControl can not work  
+## Vulnerability Detail
+modifier onlyControl can not work because in contract  USSD.sol  no one gets the  access
+## Impact
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L84-L109
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+give  STABLE_CONTROL_ROLE role to deployer  or other people

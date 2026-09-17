@@ -1,0 +1,32 @@
+# [M] BountyCore.receiveFunds() fails to verify that the token funded is the ``_payoutTokenAddress`` required by the issuer of the bounty
+
+## Summary
+Severity: Medium
+Reporter: chaduke
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/BountyCore.sol#L21-L58
+Type: audit-issue
+
+## Details
+# BountyCore.receiveFunds() fails to verify that the token funded is the ``_payoutTokenAddress`` required by the issuer of the bounty
+
+## Summary
+``BountyCore.receiveFunds()`` fails to verify that the token funded is the ``_payoutTokenAddress`` required by the issuer of the bounty.
+
+## Vulnerability Detail
+``BountyCore.receiveFunds()`` does not check that the token funded is the ``_payoutTokenAddress`` required by the issuer of the bounty. As a result, the deposit manager might deposit different kinds of tokens.
+
+[https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/BountyCore.sol#L21-L58](https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/BountyCore.sol#L21-L58)
+
+## Impact
+The deposit manager might deposit different kinds of tokens.
+
+## Code Snippet
+See above
+
+## Tool used
+Remix
+
+Manual Review
+
+## Recommendation
+Make sure ``tokenAddress = _payoutTokenAddress``;

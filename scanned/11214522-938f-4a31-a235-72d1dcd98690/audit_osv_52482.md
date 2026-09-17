@@ -1,0 +1,76 @@
+# [H] CVE-2021-47497
+
+## Summary
+Severity: High
+Advisory: CVE-2021-47497
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2024-05-22
+Source: https://osv.dev/vulnerability/CVE-2021-47497
+Type: osv
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+nvmem: Fix shift-out-of-bound (UBSAN) with byte size cells
+
+If a cell has 'nbits' equal to a multiple of BITS_PER_BYTE the logic
+
+ *p &= GENMASK((cell->nbits%BITS_PER_BYTE) - 1, 0);
+
+will become undefined behavior because nbits modulo BITS_PER_BYTE is 0, and we
+subtract one from that making a large number that is then shifted more than the
+number of bits that fit into an unsigned long.
+
+UBSAN reports this problem:
+
+ UBSAN: shift-out-of-bounds in drivers/nvmem/core.c:1386:8
+ shift exponent 64 is too large for 64-bit type 'unsigned long'
+ CPU: 6 PID: 7 Comm: kworker/u16:0 Not tainted 5.15.0-rc3+ #9
+ Hardware name: Google Lazor (rev3+) with KB Backlight (DT)
+ Workqueue: events_unbound deferred_probe_work_func
+ Call trace:
+  dump_backtrace+0x0/0x170
+  show_stack+0x24/0x30
+  dump_stack_lvl+0x64/0x7c
+  dump_stack+0x18/0x38
+  ubsan_epilogue+0x10/0x54
+  __ubsan_handle_shift_out_of_bounds+0x180/0x194
+  __nvmem_cell_read+0x1ec/0x21c
+  nvmem_cell_read+0x58/0x94
+  nvmem_cell_read_variable_common+0x4c/0xb0
+  nvmem_cell_read_variable_le_u32+0x40/0x100
+  a6xx_gpu_init+0x170/0x2f4
+  adreno_bind+0x174/0x284
+  component_bind_all+0xf0/0x264
+  msm_drm_bind+0x1d8/0x7a0
+  try_to_bring_up_master+0x164/0x1ac
+  __component_add+0xbc/0x13c
+  component_add+0x20/0x2c
+  dp_display_probe+0x340/0x384
+  platform_probe+0xc0/0x100
+  really_probe+0x110/0x304
+  __driver_probe_device+0xb8/0x120
+  driver_probe_device+0x4c/0xfc
+  __device_attach_driver+0xb0/0x128
+  bus_for_each_drv+0x90/0xdc
+  __device_attach+0xc8/0x174
+  device_initial_probe+0x20/0x2c
+  bus_probe_device+0x40/0xa4
+  deferred_probe_work_func+0x7c/0xb8
+  process_one_work+0x128/0x21c
+  process_scheduled_works+0x40/0x54
+  worker_thread+0x1ec/0x2a8
+  kthread+0x138/0x158
+  ret_from_fork+0x10/0x20
+
+Fix it by making sure there are any bits to mask out.
+
+## References
+- https://git.kernel.org/stable/c/60df06bbdf497e37ed25ad40572c362e5b0998df
+- https://git.kernel.org/stable/c/abcb8d33e4d2215ccde5ab5ccf9f730a59d79d97
+- https://git.kernel.org/stable/c/eb0fc8e7170e61eaf65d28dee4a8baf4e86b19ca
+- https://git.kernel.org/stable/c/0594f1d048d8dc338eb9a240021b1d00ae1eb082
+- https://git.kernel.org/stable/c/0e822e5413da1af28cca350cb1cb42b6133bdcae
+- https://git.kernel.org/stable/c/2df6c023050205c4d04ffc121bc549f65cb8d1df
+- https://git.kernel.org/stable/c/57e48886401b14cd351423fabfec2cfd18df4f66
+- https://git.kernel.org/stable/c/5d388fa01fa6eb310ac023a363a6cb216d9d8fe9

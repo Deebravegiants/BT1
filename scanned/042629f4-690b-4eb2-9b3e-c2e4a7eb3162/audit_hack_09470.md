@@ -1,0 +1,34 @@
+# [M] JOJOFlashLoan() in FlashLoanLiquidate.sol and FlashLoanRepay.sol does not check if the collateral isn’t USDC before swapping to USDC
+
+## Summary
+Severity: Medium
+Reporter: RaymondFam
+Source: https://github.com/sherlock-audit/2023-04-jojo/blob/main/JUSDV1/src/Impl/flashloanImpl/FlashLoanLiquidate.sol#L52-L70
+Type: audit-issue
+
+## Details
+# JOJOFlashLoan() in FlashLoanLiquidate.sol and FlashLoanRepay.sol does not check if the collateral isn’t USDC before swapping to USDC
+
+## Summary
+The collateral asset can be anything (ETH, BTC, USDC etc)  which registers in the system. Unlike GeneralRepay.sol, a check if `asset != USDC` is not implemented prior to swapping the collateral asset to USDC.
+
+## Vulnerability Detail
+If asset were to equal USDC in these contracts, the contracts would attempt to swap USDC for USDC. Depending on the specific implementation of the swapTarget contract, this could have a few different outcomes:
+
+1. If the swap contract is designed to handle this gracefully, then the swap would essentially have no effect. The contract would still pay any associated gas costs for the swap operation, but the state of the contract wouldn't change.
+
+2. If the swap contract isn't designed to handle this case, then it could potentially revert the transaction. This would prevent `JOJOFlashLoan()` from completing successfully.
+
+## Impact
+In a worst-case scenario, if the swap contract is designed poorly, it could potentially result in a loss of funds. This would be a significant security issue, but it's also highly unlikely if the swap contract is implemented correctly.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-jojo/blob/main/JUSDV1/src/Impl/flashloanImpl/FlashLoanLiquidate.sol#L52-L70
+https://github.com/sherlock-audit/2023-04-jojo/blob/main/JUSDV1/src/Impl/flashloanImpl/FlashLoanRepay.sol#L41-L52
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider including a check for `asset != USDC` prior to attempting the swap, similar to what's done in the `GeneralRepay` contract. This would prevent unnecessary operations and potential issues if `USDC` is passed as the asset parameter.

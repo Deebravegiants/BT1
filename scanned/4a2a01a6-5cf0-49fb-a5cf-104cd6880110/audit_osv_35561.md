@@ -1,0 +1,28 @@
+# [M] Use-after-free race in SNTP async client when closing the socket while the socket service is still polling it
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-10655
+Aliases: GHSA-34wr-cg29-c4mw
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:H)
+Published: 2026-06-30
+Source: https://osv.dev/vulnerability/CVE-2026-10655
+Type: osv
+
+## Details
+The asynchronous SNTP client in Zephyr (subsys/net/lib/sntp/sntp.c, sntp_close_async) closed the UDP socket file descriptor directly from the calling thread immediately after detaching it from the network socket service, without synchronizing with the socket-service poll thread.
+
+The socket service thread polls each socket via zvfs_poll, which (in zsock_poll_prepare_ctx) registers a k_poll_event pointing into the socket's net_context (&ctx->recv_q) and then blocks in k_poll without holding a reference or lock. net_context objects are allocated from a fixed pool (contexts[CONFIG_NET_MAX_CONTEXTS]) and reused after close.
+
+When sntp_close_async is invoked from a different thread than the poll thread (in the in-tree consumer subsys/net/lib/config/init_clock_sntp.c, the SNTP timeout handler runs on the system workqueue while the socket service thread is blocked in poll on the same fd), the close frees and may reuse the net_context while the poll thread still has a poller node linked into the freed object, resulting in a use-after-free / object confusion of kernel poll structures.
+
+The SNTP timeout path is the normal no-response failure mode, so a network peer or off-path attacker who drops or delays the SNTP/NTP response can drive the racing close repeatedly (and periodically with NET_CONFIG_SNTP_INIT_RESYNC). The most likely consequence is a crash of the networking thread (denial of service), with potential memory corruption when the freed context slot is reallocated.
+
+The fix defers the close to the socket service thread itself via net_socket_service_close (NET_SOCKET_SERVICE_CLOSE_SOCKETS), so the same thread that polls performs the close, eliminating the race. Affected releases: v4.2.0 through v4.4.0.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/10xxx/CVE-2026-10655.json
+- https://github.com/zephyrproject-rtos/zephyr/security/advisories/GHSA-34wr-cg29-c4mw
+- https://nvd.nist.gov/vuln/detail/CVE-2026-10655
+- https://github.com/zephyrproject-rtos/zephyr/commit/ef47bdf328b4206ac3b3922ec09184f7a6f7412a
+- https://github.com/zephyrproject-rtos/zephyr

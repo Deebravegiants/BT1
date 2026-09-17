@@ -1,0 +1,21 @@
+# [M] libtiff's tiffcrop tool has a `uint32_t` underflow which leads to out of bounds read and write in...
+
+## Summary
+Severity: Medium
+Advisory: JLSEC-2025-278
+Ecosystem: Julia
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2025-11-25
+Source: https://osv.dev/vulnerability/JLSEC-2025-278
+Type: osv
+
+## Affected
+- Julia: `Libtiff_jll` — affected >=0 <4.4.0+0
+
+## Details
+libtiff's tiffcrop tool has a `uint32_t` underflow which leads to out of bounds read and write in the extractContigSamples8bits routine. An attacker who supplies a crafted file to tiffcrop could trigger this flaw, most likely by tricking a user into opening the crafted file with tiffcrop. Triggering this flaw could cause a crash or potentially further exploitation.
+
+## References
+- https://bugzilla.redhat.com/show_bug.cgi?id=2118869
+- https://lists.debian.org/debian-lts-announce/2023/01/msg00018.html
+- https://www.debian.org/security/2023/dsa-5333

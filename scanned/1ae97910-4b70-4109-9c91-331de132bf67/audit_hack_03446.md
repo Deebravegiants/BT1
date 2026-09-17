@@ -1,0 +1,40 @@
+# [M] Over payment should be returned
+
+## Summary
+Severity: Medium
+Reporter: __141345__
+Source: https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L492
+Type: audit-issue
+
+## Details
+# Over payment should be returned
+
+
+## Summary
+
+In `buyPosition()`, `msg.value` can be more than the `sellOrder.price`. If the user pay more than the required amount by mistake, the fund is lost.
+
+
+## Vulnerability Detail
+
+If the payment amount is more than, the excess fund will not be returned. This situation could happen when the user mistakenly send more `msg.value` than needed.
+
+
+## Impact
+
+User might lose fund due to overpayment.
+
+
+## Code Snippet
+
+
+https://github.com/sherlock-audit/2022-11-bullvbear/blob/main/bvb-protocol/src/BvbProtocol.sol#L492
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Return the excess payment to the user.

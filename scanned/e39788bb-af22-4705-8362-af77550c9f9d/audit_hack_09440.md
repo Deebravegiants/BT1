@@ -1,0 +1,24 @@
+# [H] max deposit total can be bypassed
+
+## Summary
+Severity: High
+Reporter: bulej93
+Source: https://github.com/sherlock-audit/2023-04-jojo/blob/main/JUSDV1/src/Impl/JUSDBank.sol#L266-L269
+Type: audit-issue
+
+## Details
+# max deposit total can be bypassed
+
+## Summary
+max deposit total can be bypassed
+## Vulnerability Detail
+there is a maximum amount that the conctract has to hold at any given time. this value is used to determine other services on the platform. however it can be bypassed by users as the check whether the value has been reached happens after the deposits have been done. this value should not be confused with the max amount per account.
+## Impact
+reserves will be inflated
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-jojo/blob/main/JUSDV1/src/Impl/JUSDBank.sol#L266-L269
+## Tool used
+
+Manual Review
+
+## Recommendation

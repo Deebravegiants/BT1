@@ -1,0 +1,16 @@
+# [M] CVE-2018-1196
+
+## Summary
+Severity: Medium
+Advisory: CVE-2018-1196
+Aliases: GHSA-xx65-cc7g-9pfp
+CVSS: 5.9 (CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N)
+Published: 2018-03-19
+Source: https://osv.dev/vulnerability/CVE-2018-1196
+Type: osv
+
+## Details
+Spring Boot supports an embedded launch script that can be used to easily run the application as a systemd or init.d linux service. The script included with Spring Boot 1.5.9 and earlier and 2.0.0.M1 through 2.0.0.M7 is susceptible to a symlink attack which allows the "run_user" to overwrite and take ownership of any file on the same system. In order to instigate the attack, the application must be installed as a service and the "run_user" requires shell access to the server. Spring Boot application that are not installed as a service, or are not using the embedded launch script are not susceptible.
+
+## References
+- https://pivotal.io/security/cve-2018-1196

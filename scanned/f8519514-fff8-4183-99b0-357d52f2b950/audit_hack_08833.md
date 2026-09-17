@@ -1,0 +1,38 @@
+# [H] borrower escapes from depositing collateral
+
+## Summary
+Severity: High
+Reporter: mahdikarimi
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L138-L147
+Type: audit-issue
+
+## Details
+# borrower escapes from depositing collateral
+
+## Summary
+Borrower can escape from depositing commited collateral by make a new commitment for that collateral but lower commit amount , since the address of commited collateral is same with old commitment, instead of adding new commit the old commit will be replaced by new commit , so borrower can front-run acceptBid and change the commitment to any amount higher than zero and use arbitrary amount of collateral for loan . 
+## Vulnerability Detail
+Consider a Borrower committed 10 WETH as collateral for bid then a lender accepts the bid and borrower front-runs accept bid and calls commitCollateral and makes a new commitment for 1 WETH , since in the following line of code `at()` will just return false if the collateral address exists before, so no change will happen in addresses and also the new collateral info will be replaced previous . 
+
+``CollateralInfo storage collateral = _bidCollaterals[_bidId];
+        collateral.collateralAddresses.add(_collateralInfo._collateralAddress);
+        collateral.collateralInfo[
+            _collateralInfo._collateralAddress
+        ] = _collateralInfo;``
+
+Now borrower deposits 1 WETH for collateral instead of 10 WETH and lender pays the loan without knowing that loan has less collateral than expected . 
+this enables borrower to pay arbitrary amount of collateral more than zero , so he can take loans with almost no collateral .
+## Impact
+Borrower takes under-collateralized loans 
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L138-L147
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L426-L442
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L184-L195
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L510
+## Tool used
+
+Manual Review
+
+## Recommendation
+Use the following line of code in _commitCollateral function
+``require(collateral.collateralAddresses.add(_collateralInfo._collateralAddress));``

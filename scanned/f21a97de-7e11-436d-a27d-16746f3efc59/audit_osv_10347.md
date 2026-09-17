@@ -1,0 +1,17 @@
+# [H] CVE-2017-15055
+
+## Summary
+Severity: High
+Advisory: CVE-2017-15055
+Aliases: GHSA-7ghm-6p42-h226
+CVSS: 8.1 (CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N)
+Published: 2017-11-27
+Source: https://osv.dev/vulnerability/CVE-2017-15055
+Type: osv
+
+## Details
+TeamPass before 2.1.27.9 does not properly enforce item access control when requesting items.queries.php. It is then possible to copy any arbitrary item into a directory controlled by the attacker, edit any item within a read-only directory, delete an arbitrary item, delete the file attachments of an arbitrary item, copy the password of an arbitrary item to the copy/paste buffer, access the history of an arbitrary item, and edit attributes of an arbitrary directory. To exploit the vulnerability, an authenticated attacker must tamper with the requests sent directly, for example by changing the "item_id" parameter when invoking "copy_item" on items.queries.php.
+
+## References
+- https://github.com/nilsteampassnet/TeamPass/commit/5f16f6bb132138ee04eb1e0debf2bdc7d7b7a15f
+- http://blog.amossys.fr/teampass-multiple-cve-01.html

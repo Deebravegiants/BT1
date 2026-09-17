@@ -1,0 +1,35 @@
+# [C] ALPINE-CVE-2019-14813
+
+## Summary
+Severity: Critical
+Advisory: ALPINE-CVE-2019-14813
+Ecosystem: Alpine:v3.10, Alpine:v3.11, Alpine:v3.12, Alpine:v3.13, Alpine:v3.14, Alpine:v3.15, Alpine:v3.16, Alpine:v3.17, Alpine:v3.18, Alpine:v3.19, Alpine:v3.20, Alpine:v3.21, Alpine:v3.22, Alpine:v3.23, Alpine:v3.7, Alpine:v3.8, Alpine:v3.9
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2019-09-06
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2019-14813
+Type: osv
+
+## Affected
+- Alpine:v3.10: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.11: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.12: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.13: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.14: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.15: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.16: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.17: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.18: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.19: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.20: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.21: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.22: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.23: `ghostscript` — affected >=9.00 <9.27-r3
+- Alpine:v3.7: `ghostscript` — affected >=9.00 <9.26-r4
+- Alpine:v3.8: `ghostscript` — affected >=9.00 <9.26-r4
+- Alpine:v3.9: `ghostscript` — affected >=9.00 <9.26-r4
+
+## Details
+A flaw was found in ghostscript, versions 9.x before 9.50, in the setsystemparams procedure where it did not properly secure its privileged calls, enabling scripts to bypass `-dSAFER` restrictions. A specially crafted PostScript file could disable security protection and then have access to the file system, or execute arbitrary commands.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2019-14813

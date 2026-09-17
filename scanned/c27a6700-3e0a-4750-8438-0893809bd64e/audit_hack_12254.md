@@ -1,0 +1,37 @@
+# [M] Failed Update On Manager Blacklist
+
+## Summary
+Severity: Medium
+Reporter: dannyg-GuardianAudits
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+# Failed Update On Manager Blacklist
+
+## Summary
+When the manager is blacklisted for a token that supports blacklist like USDC, manager update will be prevented.
+## Vulnerability Detail
+Upon a call to `setManager`, the manager balance is withdrawn. However, if the manager is blacklisted, the update cannot happen and the manager loses out on earned assets (fees). 
+## Impact
+
+- The manager cannot be upgraded.
+- Vault cannot accrue retrievable fees from the point of the blacklist onwards.
+
+## Code Snippet
+```solidity
+/// @notice set manager
+/// @param manager_ manager address.
+/// @dev only callable by owner.
+function setManager(address manager_) external onlyOwner {
+    _withdrawManagerBalance();  <---- will revert here
+    manager = manager_;
+    emit LogSetManager(manager_);
+}
+ ```
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider sending funds to a holding address if the manager is blacklisted to be claimed later.

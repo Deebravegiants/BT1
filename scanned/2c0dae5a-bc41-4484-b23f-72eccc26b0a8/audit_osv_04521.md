@@ -1,0 +1,21 @@
+# [M] Discourse: Insufficient topic visibility check allows unauthorized poll manipulation in private categories
+
+## Summary
+Severity: Medium
+Advisory: BIT-discourse-2026-32619
+Aliases: CVE-2026-32619, GHSA-wq58-pvf6-w4p8
+Ecosystem: Bitnami
+Published: 2026-04-07
+Source: https://osv.dev/vulnerability/BIT-discourse-2026-32619
+Type: osv
+
+## Affected
+- Bitnami: `discourse` — affected >=2026.2.0 <2026.2.2
+
+## Details
+Discourse is an open-source discussion platform. From versions 2026.1.0 to before 2026.1.3, and 2026.2.0 to before 2026.2.2, users who lost access to a topic (e.g., removed from a private category group) could still interact with polls in that topic, including voting and toggling poll status. No content was exposed, but users could modify poll state in topics they should no longer have access to. This issue has been patched in versions 2026.1.3, 2026.2.2, and 2026.3.0.
+
+## References
+- https://github.com/discourse/discourse/commit/d74ff25db994f06aa27e3466684f613b4e986ba6
+- https://github.com/discourse/discourse/security/advisories/GHSA-wq58-pvf6-w4p8
+- https://nvd.nist.gov/vuln/detail/CVE-2026-32619

@@ -1,0 +1,26 @@
+# [H] `marginDepositedTotal` can be negative.
+
+## Summary
+Severity: High
+Reporter: Upbeat Sand Chicken
+Source: https://github.com/sherlock-audit/2023-12-flatmoney/blob/main/flatcoin-v1/src/FlatcoinVault.sol#L216-L237
+Type: audit-issue
+
+## Details
+# `marginDepositedTotal` can be negative.
+
+kekba
+## Summary
+
+## Vulnerability Detail
+In the `settleFundingFees` function, there is a check to ensure that the `marginDepositedTotal` is not negative after applying the funding fees. However,this could potentially lead to a negative `marginDepositedTotal` if the funding fees are too high.
+## Impact
+Negative `marginDepositedTotal`
+## Code Snippet
+https://github.com/sherlock-audit/2023-12-flatmoney/blob/main/flatcoin-v1/src/FlatcoinVault.sol#L216-L237
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add a check before applying the funding fees to ensure that the `marginDepositedTotal` is not negative.

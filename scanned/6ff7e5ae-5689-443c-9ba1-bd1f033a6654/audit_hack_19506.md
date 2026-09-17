@@ -1,0 +1,28 @@
+# [M] Unlike ERC20, where users can specify an amount to minimize the loss in rounding down during division, users participating with NFT suffer loss
+
+## Summary
+Severity: Medium
+Reporter: Elegant Raisin Woodpecker
+Source: https://github.com/sherlock-audit/2024-01-looksrare/blob/main/contracts-yolo/contracts/YoloV2.sol#L1102
+Type: audit-issue
+
+## Details
+# Unlike ERC20, where users can specify an amount to minimize the loss in rounding down during division, users participating with NFT suffer loss
+
+## Summary
+Unlike ERC20, where users can specify an amount to minimize the loss in rounding down during division, users participating with NFT suffer loss
+
+## Vulnerability Detail
+In `_deposit()` it is dividing the floor price of the NFT collection with `valuePerEntry`, unlike ERC20, where users can specify an amount to minimize the loss in rounding down during division, NFT floor price is directly divided by `valuePerEntry`, and in Solidity the result of division will be rounded down, and the `entriesCount` the user have will be worth less than the floor price of the NFT collection
+
+## Impact
+Users entering to a round with NFT suffer loss
+
+## Code Snippet
+https://github.com/sherlock-audit/2024-01-looksrare/blob/main/contracts-yolo/contracts/YoloV2.sol#L1102
+
+## Tool used
+Manual Review
+
+## Recommendation
+Use a smaller value to divide the price to get the `entriesCount` to minimize the loss

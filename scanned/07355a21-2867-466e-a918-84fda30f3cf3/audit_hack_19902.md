@@ -1,0 +1,32 @@
+# [M] Swappers and fillers can execute partial trade on orders that has no decay
+
+## Summary
+Severity: Medium
+Reporter: Polished Cinnabar Cougar
+Source: https://github.com/sherlock-audit/2024-02-rubicon-finance/blob/main/gladius-contracts-internal/src/reactors/BaseGladiusReactor.sol#L256
+Type: audit-issue
+
+## Details
+# Swappers and fillers can execute partial trade on orders that has no decay
+
+## Summary
+Swappers and fillers can execute partial trade on orders that has no decay
+
+## Vulnerability Detail
+As soon [here](https://github.com/sherlock-audit/2024-02-rubicon-finance/blob/main/gladius-contracts-internal/src/reactors/BaseGladiusReactor.sol#L256), resolve function should revert on any order-type-specific validation errors
+
+>  /// @dev should revert on any order-type-specific validation errors
+
+However in the resolve function, `_validateOrder(order)` doesn't check if both inputs and output don't decay (that is, startAmount and endAmount of both input and output remain the same), this allows swappers and fillers to use GladiousReactor from what it's intended to do
+
+## Impact
+Swappers and fillers can use GladiousReactor for executing partial trade on orders that has no decay
+
+## Code Snippet
+https://github.com/sherlock-audit/2024-02-rubicon-finance/blob/main/gladius-contracts-internal/src/reactors/GladiusReactor.sol#L135
+
+## Tool used
+Visual Studio Code
+
+## Recommendation
+In the `_validateOrder()` function, validate that startAmount and endAmount of both input and output don't remain the same.

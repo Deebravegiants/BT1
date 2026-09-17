@@ -1,0 +1,15 @@
+# [H] CVE-2021-33929
+
+## Summary
+Severity: High
+Advisory: CVE-2021-33929
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2021-09-02
+Source: https://osv.dev/vulnerability/CVE-2021-33929
+Type: osv
+
+## Details
+Buffer overflow vulnerability in function pool_disabled_solvable in src/repo.h in libsolv before 0.7.17 allows attackers to cause a Denial of Service.
+
+## References
+- https://github.com/openSUSE/libsolv/issues/417

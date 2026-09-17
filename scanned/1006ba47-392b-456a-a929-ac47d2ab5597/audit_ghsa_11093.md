@@ -1,0 +1,46 @@
+# [H] OpenClaw: Sandbox dangling-symlink alias handling could bypass workspace-only write boundary
+
+## Summary
+Severity: High
+Advisory: GHSA-qcc4-p59m-p54m
+CWE: CWE-367, CWE-59
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2026-03-12
+Source: https://github.com/advisories/GHSA-qcc4-p59m-p54m
+Type: github-advisory
+
+## Affected
+- npm: `openclaw` — affected >=0 <2026.2.26
+
+## Details
+### Summary
+A sandbox boundary-validation gap in symlink alias handling allowed certain workspace-only write paths to be treated as in-boundary even when they could resolve outside the workspace/sandbox root.
+
+### Affected Packages / Versions
+- Package: npm `openclaw`
+- Affected versions: `<= 2026.2.25`
+- Latest published npm version included in affected range: `2026.2.25` (checked on February 26, 2026)
+- Patched version (pre-set for release): `2026.2.26`
+
+### Technical Details
+In affected versions, dangling symlink hops could be accepted during boundary checks under missing-target conditions. For workspace-only write flows (including `apply_patch`), this could allow writes to resolve outside the configured workspace/sandbox boundary.
+
+The fix resolves symlink targets through existing ancestors and fails closed when canonical resolution escapes the configured boundary.
+
+### Impact
+- Boundary-confined write operations could be redirected outside the configured workspace/sandbox root.
+- Primary impact is integrity of host-side files reachable from that path resolution.
+
+### Fix Commit(s)
+- `4fd29a35bb85a1898ebff518364c467058b50e14`
+
+### Release Process Note
+`patched_versions` is pre-set to the planned next release (`2026.2.26`) so once npm `2026.2.26` is published, the advisory can be published without further field edits.
+
+Thanks @tdjackey for reporting.
+
+## References
+- https://github.com/openclaw/openclaw/security/advisories/GHSA-qcc4-p59m-p54m
+- https://github.com/openclaw/openclaw/commit/4fd29a35bb85a1898ebff518364c467058b50e14
+- https://github.com/openclaw/openclaw

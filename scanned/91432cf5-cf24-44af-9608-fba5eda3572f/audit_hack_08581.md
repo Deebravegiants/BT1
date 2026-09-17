@@ -1,0 +1,28 @@
+# [M] nTokenRedeem(address,uint16,uint96,bool,bool)
+
+## Summary
+Severity: Medium
+Reporter: jefestar
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/actions/AccountAction.sol#L224-L270
+Type: audit-issue
+
+## Details
+# nTokenRedeem(address,uint16,uint96,bool,bool)
+
+## Summary
+Missing input validation
+
+## Vulnerability Detail
+The function nTokenRedeem does not have input validation for the currencyId
+
+## Impact
+medium
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/actions/AccountAction.sol#L224-L270
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add a require statement to check if the currencyId is within the valid range
