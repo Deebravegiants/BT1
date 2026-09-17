@@ -4,11 +4,11 @@ import os
 from decouple import config
 
 # todo: if scope_files is: 500 > 50, 300 > 30 , 100 > 10
-MAX_REPO = 25
-# todo: the path from https://github.com/polytope-labs/hyperbridge
-SOURCE_REPO = "polytope-labs/hyperbridge"
+MAX_REPO = 10
+# todo: the path from https://github.com/raydium-io/raydium-amm
+SOURCE_REPO = "raydium-io/raydium-amm"
 # todo: the name of the repository
-REPO_NAME = "hyperbridge"
+REPO_NAME = "raydium-amm"
 run_number = os.environ.get('GITHUB_RUN_NUMBER') or os.environ.get('CI_PIPELINE_IID', '0')
 
 
@@ -45,223 +45,50 @@ else:
     else:
         BASE_URL = f"https://deepwiki.com/{SOURCE_REPO}"
 
+
 scope_files = [
     # =================================================================================
-    # EVM host: the permissionless dispatch and delivery surface on every connected chain
+    # Instruction handlers: every entrypoint any wallet can call on the deployed AMM
     # =================================================================================
-    "evm/src/core/EvmHost.sol",
-    "evm/src/core/HandlerV2.sol",
-    "evm/src/core/HostManager.sol",
-    "evm/src/utils/CallDispatcher.sol",
-    "sdk/packages/core/contracts/libraries/Message.sol",
-    "sdk/packages/core/contracts/libraries/StateMachine.sol",
-    "sdk/packages/core/contracts/interfaces/IDispatcher.sol",
-    "sdk/packages/core/contracts/interfaces/IHost.sol",
-    "sdk/packages/core/contracts/interfaces/IHandlerV2.sol",
-    "sdk/packages/core/contracts/interfaces/IApp.sol",
-    "sdk/packages/core/contracts/interfaces/ICallDispatcher.sol",
-    "sdk/packages/core/contracts/apps/HyperApp.sol",
+    "program/src/processor.rs",
+    "program/src/instruction.rs",
+    "program/src/entrypoint.rs",
 
     # =================================================================================
-    # EVM consensus verification: the only thing standing between a proof and a state root
+    # Pool accounting math: swap curve, decimal normalization, LP and pnl arithmetic
     # =================================================================================
-    "evm/src/consensus/EcdsaBeefy.sol",
-    "evm/src/consensus/SP1Beefy.sol",
-    "evm/src/consensus/ConsensusRouter.sol",
-    "evm/src/consensus/Codec.sol",
-    "evm/src/consensus/Types.sol",
-    "sdk/packages/core/contracts/interfaces/IConsensusV2.sol",
+    "program/src/math.rs",
 
     # =================================================================================
-    # EVM apps custodying user funds: token bridge, intents, bandwidth, paymaster, oracle
+    # Pool state: AmmInfo, AmmConfig, TargetOrders loaders, status/state and fee gates
     # =================================================================================
-    "sdk/packages/core/contracts/apps/HyperFungibleToken.sol",
-    "sdk/packages/core/contracts/apps/HyperFungibleTokenUpgradeable.sol",
-    "sdk/packages/core/contracts/apps/WrappedHyperFungibleToken.sol",
-    "sdk/packages/core/contracts/apps/WrappedHyperFungibleTokenUpgradeable.sol",
-    "sdk/packages/core/contracts/interfaces/IHyperFungibleToken.sol",
-    "evm/src/utils/HyperFungibleTokenImpl.sol",
-    "evm/src/apps/IntentGatewayV2.sol",
-    "evm/src/apps/intentsv2/IntentsBase.sol",
-    "evm/src/apps/intentsv2/ExtrinsicIntents.sol",
-    "evm/src/apps/intentsv2/IntrinsicIntents.sol",
-    "evm/src/apps/intentsv2/SolverAccount.sol",
-    "sdk/packages/core/contracts/apps/IntentGatewayV2.sol",
-    "sdk/packages/core/contracts/apps/IntentPriceOracle.sol",
-    "evm/src/apps/BandwidthManager.sol",
-    "evm/src/utils/SimplexPaymaster.sol",
-    "evm/src/utils/VWAPOracle.sol",
-    "evm/src/utils/uniswapv2/UniV3UniswapV2Wrapper.sol",
-    "evm/src/utils/uniswapv2/UniV4UniswapV2Wrapper.sol",
-    "evm/src/utils/uniswapv2/GnosisUniswapV2Wrapper.sol",
-    "sdk/packages/core/contracts/vaults/StreamingYieldVault.sol",
-    "sdk/packages/lz-endpoint/contracts/HyperbridgeLzEndpoint.sol",
+    "program/src/state.rs",
 
     # =================================================================================
-    # ISMP core: message identity, commitments, and the request/response/timeout handlers
+    # CPI wrappers moving vault tokens, LP supply and lamports under the AMM authority
     # =================================================================================
-    "modules/ismp/core/src/handlers.rs",
-    "modules/ismp/core/src/handlers/request.rs",
-    "modules/ismp/core/src/handlers/response.rs",
-    "modules/ismp/core/src/handlers/timeout.rs",
-    "modules/ismp/core/src/handlers/consensus.rs",
-    "modules/ismp/core/src/messaging.rs",
-    "modules/ismp/core/src/router.rs",
-    "modules/ismp/core/src/dispatcher.rs",
-    "modules/ismp/core/src/consensus.rs",
-    "modules/ismp/core/src/host.rs",
-    "modules/ismp/core/src/module.rs",
-    "modules/ismp/core/src/abi.rs",
-    "modules/ismp/core/src/events.rs",
-    "modules/ismp/core/src/error.rs",
+    "program/src/invokers.rs",
 
     # =================================================================================
-    # pallet-ismp: the unsigned extrinsic anyone submits to move messages through Hyperbridge
+    # Program wiring, errors and on-chain logs consumed by integrators
     # =================================================================================
-    "modules/pallets/ismp/src/lib.rs",
-    "modules/pallets/ismp/src/impls.rs",
-    "modules/pallets/ismp/src/child_trie.rs",
-    "modules/pallets/ismp/src/dispatcher.rs",
-    "modules/pallets/ismp/src/fee_handler.rs",
-    "modules/pallets/ismp/src/host.rs",
-    "modules/pallets/ismp/src/utils.rs",
-    "modules/pallets/ismp/src/events.rs",
-    "modules/pallets/ismp/src/errors.rs",
-    "modules/pallets/ismp/src/offchain.rs",
-    "modules/pallets/call-decompressor/src/lib.rs",
-
-    # =================================================================================
-    # MMR: the accumulator whose root every outbound Hyperbridge message is proven against
-    # =================================================================================
-    "modules/pallets/mmr/src/lib.rs",
-    "modules/pallets/mmr/src/mmr/mmr.rs",
-    "modules/pallets/mmr/src/mmr/mod.rs",
-    "modules/pallets/mmr/src/mmr/storage.rs",
-    "modules/pallets/mmr/primitives/src/lib.rs",
-    "modules/pallets/beefy-consensus-proofs/src/lib.rs",
-    "modules/pallets/beefy-consensus-proofs/src/types.rs",
-
-    # =================================================================================
-    # Hyperbridge pallets holding user balances, relayer fees and cross-chain accounting
-    # =================================================================================
-    "modules/pallets/hyper-fungible-token/src/lib.rs",
-    "modules/pallets/hyper-fungible-token/src/module.rs",
-    "modules/pallets/hyper-fungible-token/src/impls.rs",
-    "modules/pallets/hyper-fungible-token/src/types.rs",
-    "modules/pallets/hyper-fungible-token/src/error.rs",
-    "modules/pallets/relayer/src/lib.rs",
-    "modules/pallets/relayer/src/accumulate.rs",
-    "modules/pallets/relayer/src/withdrawal.rs",
-    "modules/pallets/relayer/src/outbound_request.rs",
-    "modules/pallets/relayer/src/outbound_consensus.rs",
-    "modules/pallets/messaging-incentives/src/lib.rs",
-    "modules/pallets/consensus-incentives/src/lib.rs",
-    "modules/pallets/consensus-incentives/src/impls.rs",
-    "modules/pallets/intents-coprocessor/src/lib.rs",
-    "modules/pallets/intents-coprocessor/src/types.rs",
-    "modules/pallets/state-coprocessor/src/lib.rs",
-    "modules/pallets/state-coprocessor/src/impls.rs",
-    "modules/pallets/bandwidth/src/lib.rs",
-    "modules/pallets/bandwidth/src/abi.rs",
-    "modules/pallets/bandwidth/src/types.rs",
-    "modules/pallets/fishermen/src/lib.rs",
-    "modules/pallets/fishermen/src/extension.rs",
-    "modules/pallets/host-executive/src/lib.rs",
-    "modules/pallets/collator-manager/src/lib.rs",
-
-    # =================================================================================
-    # Consensus clients: anyone may submit a consensus update for any tracked chain
-    # =================================================================================
-    "modules/ismp/clients/beefy/src/lib.rs",
-    "modules/ismp/clients/beefy/src/consensus.rs",
-    "modules/ismp/clients/grandpa/src/lib.rs",
-    "modules/ismp/clients/grandpa/src/consensus.rs",
-    "modules/ismp/clients/grandpa/src/messages.rs",
-    "modules/ismp/clients/parachain/client/src/lib.rs",
-    "modules/ismp/clients/parachain/client/src/consensus.rs",
-    "modules/ismp/clients/sync-committee/src/lib.rs",
-    "modules/ismp/clients/sync-committee/src/pallet.rs",
-    "modules/ismp/clients/sync-committee/src/beacon_client.rs",
-    "modules/ismp/clients/sync-committee/src/types.rs",
-    "modules/ismp/clients/casper-ffg/src/lib.rs",
-    "modules/ismp/clients/bsc/src/lib.rs",
-    "modules/ismp/clients/bsc/src/pallet.rs",
-    "modules/ismp/clients/optimism/src/lib.rs",
-    "modules/ismp/clients/ismp-optimism/src/lib.rs",
-    "modules/ismp/clients/ismp-optimism/src/pallet.rs",
-    "modules/ismp/clients/arbitrum/src/lib.rs",
-    "modules/ismp/clients/ismp-arbitrum/src/lib.rs",
-    "modules/ismp/clients/ismp-arbitrum/src/pallet.rs",
-    "modules/ismp/clients/polygon/src/lib.rs",
-    "modules/ismp/clients/tendermint/src/lib.rs",
-    "modules/ismp/clients/tendermint/src/pallet.rs",
-    "modules/ismp/clients/pharos/src/lib.rs",
-
-    # =================================================================================
-    # Consensus verifiers: signature, threshold, fork and finality checks on submitted proofs
-    # =================================================================================
-    "modules/consensus/beefy/verifier/src/lib.rs",
-    "modules/consensus/beefy/verifier/src/sp1.rs",
-    "modules/consensus/beefy/primitives/src/lib.rs",
-    "modules/consensus/grandpa/verifier/src/lib.rs",
-    "modules/consensus/grandpa/primitives/src/lib.rs",
-    "modules/consensus/grandpa/primitives/src/justification.rs",
-    "modules/consensus/sync-committee/verifier/src/lib.rs",
-    "modules/consensus/sync-committee/verifier/src/crypto.rs",
-    "modules/consensus/sync-committee/primitives/src/lib.rs",
-    "modules/consensus/sync-committee/primitives/src/types.rs",
-    "modules/consensus/sync-committee/primitives/src/util.rs",
-    "modules/consensus/sync-committee/primitives/src/ssz/mod.rs",
-    "modules/consensus/sync-committee/primitives/src/ssz/byte_list.rs",
-    "modules/consensus/sync-committee/primitives/src/consensus_types.rs",
-    "modules/consensus/bsc/verifier/src/lib.rs",
-    "modules/consensus/bsc/verifier/src/primitives.rs",
-    "modules/consensus/tendermint/verifier/src/lib.rs",
-    "modules/consensus/tendermint/verifier/src/verifier.rs",
-    "modules/consensus/tendermint/verifier/src/hashing.rs",
-    "modules/consensus/tendermint/primitives/src/verifier.rs",
-    "modules/consensus/tendermint/ics23-primitives/src/lib.rs",
-    "modules/consensus/pharos/verifier/src/lib.rs",
-    "modules/consensus/pharos/verifier/src/state_proof.rs",
-    "modules/consensus/pharos/primitives/src/spv.rs",
-    "modules/consensus/geth-primitives/src/lib.rs",
-
-    # =================================================================================
-    # State proof verification: membership and non-membership behind every delivered message
-    # =================================================================================
-    "modules/ismp/state-machines/evm/src/lib.rs",
-    "modules/ismp/state-machines/evm/src/utils.rs",
-    "modules/ismp/state-machines/evm/src/types.rs",
-    "modules/ismp/state-machines/evm/src/presets.rs",
-    "modules/ismp/state-machines/evm/src/substrate_evm.rs",
-    "modules/ismp/state-machines/evm/src/tendermint.rs",
-    "modules/ismp/state-machines/substrate/src/lib.rs",
-    "modules/ismp/state-machines/pharos/src/lib.rs",
-    "modules/trees/ethereum/src/lib.rs",
-    "modules/trees/ethereum/src/node_codec.rs",
-    "modules/trees/ethereum/src/storage_proof.rs",
-    "modules/utils/crypto/src/lib.rs",
-    "modules/utils/bls-utils/src/lib.rs",
-
-    # =================================================================================
-    # Runtime wiring: module routing, fee config and consensus client registration
-    # =================================================================================
-    "parachain/runtimes/nexus/src/ismp.rs",
-    "parachain/runtimes/gargantua/src/ismp.rs",
+    "program/src/lib.rs",
+    "program/src/error.rs",
+    "program/src/log.rs",
 ]
 
 
 target_scopes = [
-    "Critical. An attacker delivers a cross-chain message that was never dispatched on the claimed source chain, letting them mint or withdraw funds from any Hyperbridge app: handlePostRequests and handleGetResponses in evm/src/core/HandlerV2.sol, dispatchIncoming and requestReceipts in evm/src/core/EvmHost.sol, encode and hash in sdk/packages/core/contracts/libraries/Message.sol, handle in modules/ismp/core/src/handlers/request.rs and response.rs, verify_membership and verify_state_proof in modules/ismp/state-machines/evm/src/lib.rs, or trie node decoding in modules/trees/ethereum/src/storage_proof.rs and node_codec.rs accept a proof whose storage key, slot layout, source StateMachine or commitment does not actually bind to a real dispatched request.",
-    "Critical. An attacker submits a consensus proof that installs an attacker-chosen state root, so every subsequent message proof against it verifies and all bridged funds become stealable: verify, verifyMmrUpdateProof, verifyMmrLeaf, verifyParachainHeaderProof, leafIndex and checkParticipationThreshold in evm/src/consensus/EcdsaBeefy.sol, verifyConsensus in SP1Beefy.sol, verify in ConsensusRouter.sol, update_client in modules/ismp/core/src/handlers/consensus.rs, verify_sync_committee_attestation in modules/consensus/sync-committee/verifier/src/lib.rs, or the verifiers in modules/consensus/beefy, grandpa, bsc, tendermint and pharos mishandle signature aggregation, participation thresholds, authority-set rotation, fork versions or MMR leaf indexing on a self-supplied proof.",
-    "Critical. The cross-chain token supply stops being conserved, so an attacker mints unbacked tokens or a victim's deposit is burned without a payout: send, onAccept and onPostRequestTimeout in sdk/packages/core/contracts/apps/HyperFungibleToken.sol and WrappedHyperFungibleToken.sol, evm/src/utils/HyperFungibleTokenImpl.sol, the OnAccept, OnResponse and OnTimeout impls in modules/pallets/hyper-fungible-token/src/module.rs, and convert_to_balance and convert_to_erc20 in impls.rs let asset id, decimals, redeem flag or beneficiary be chosen so the burn on one side and the mint on the other do not match.",
-    "Critical. An attacker drains intent escrow without delivering the promised outputs, or blocks a solver from ever being paid for a fill they performed: placeOrder, fillOrder, cancelOrder and select in evm/src/apps/IntentGatewayV2.sol, _execute, _withdraw, _select, _sweepDust, _calculateCommitmentSlotHash and DOMAIN_SEPARATOR in evm/src/apps/intentsv2/IntentsBase.sol, ExtrinsicIntents.sol, IntrinsicIntents.sol and SolverAccount.sol, place_bid and retract_bid in modules/pallets/intents-coprocessor/src/lib.rs, or recordSpread and onAccept in evm/src/utils/VWAPOracle.sol let an order commitment, fill proof, bid or price feed be forged, replayed or reused across chains and deployments.",
-    "Critical. The timeout path pays out for a message that was in fact delivered, or refuses to pay out for one that never was, letting an attacker double-spend escrowed value: handlePostRequestTimeouts and handleGetRequestTimeouts in evm/src/core/HandlerV2.sol, dispatchTimeOut in evm/src/core/EvmHost.sol, handle in modules/ismp/core/src/handlers/timeout.rs, timed_out and get_timeout in modules/ismp/core/src/router.rs, verify_non_membership in modules/ismp/state-machines/evm/src/lib.rs and substrate/src/lib.rs, or the receipt lookups they rely on treat an absent receipt, a zero timeout, or a proof taken at an attacker-chosen height as proof of non-delivery.",
-    "Critical. An attacker claims relayer fees, incentives or protocol balances they never earned, or makes an honest relayer's accrued fees unwithdrawable: accumulate_fees and withdraw_fees in modules/pallets/relayer/src/lib.rs, withdraw and message in withdrawal.rs, claim_outbound_request_delivery_reward and claim_outbound_consensus_delivery_reward with outbound_request.rs and outbound_consensus.rs, accumulate.rs fee crediting, fee_handler.rs and fund_message in modules/pallets/ismp/src, recordEpoch and relayerOf in evm/src/core/EvmHost.sol, or modules/pallets/messaging-incentives and consensus-incentives credit a self-declared relayer address, double-count a delivery, or let a withdrawal be replayed on another chain.",
-    "Critical. An attacker impersonates a trusted peer module or the host itself, so an app executes privileged cross-chain instructions on attacker calldata: the restrict and notFrozen modifiers, updateHostParams, withdraw, setFrozenState and _bytesToAddress in evm/src/core/EvmHost.sol, onAccept in evm/src/core/HostManager.sol, dispatch in evm/src/utils/CallDispatcher.sol, sdk/packages/core/contracts/apps/HyperApp.sol source and sender checks, onAccept and purchase in evm/src/apps/BandwidthManager.sol, onAccept and _validatePaymasterUserOp in evm/src/utils/SimplexPaymaster.sol, or the Router and module id resolution in parachain/runtimes/nexus/src/ismp.rs and modules/ismp/core/src/module.rs fail to bind a delivered request to the exact source chain and source module allowed to send it.",
-    "Critical. Hyperbridge's own outbound commitments are corrupted, so a proof verifies for a message that was never dispatched or an honestly dispatched message can never be proven: push, finalize and generate_proof in modules/pallets/mmr/src/lib.rs with mmr/mmr.rs and mmr/storage.rs, request and response commitment keys in modules/pallets/ismp/src/child_trie.rs, the dispatcher in modules/pallets/ismp/src/dispatcher.rs, handle_unsigned in modules/pallets/state-coprocessor/src/lib.rs and impls.rs, or modules/pallets/beefy-consensus-proofs/src/lib.rs let an attacker's dispatched request collide with, displace or be omitted from the leaf set the BEEFY root commits to.",
-    "High. A single attacker-submitted message or consensus update permanently stops a route from delivering messages, freezing user funds already in flight: update_client and freeze_client in modules/ismp/core/src/handlers/consensus.rs, insert_bounded_state_commitment, insert_bounded_update_time, state_machine_commitment_cap and update_commitment_caps in modules/pallets/ismp/src/lib.rs, storeStateMachineCommitment, deleteStateMachineCommitment and setFrozenState in evm/src/core/EvmHost.sol, veto_state_commitment, blacklist_dispute_game and blacklist_arbitrum_claim in modules/pallets/fishermen/src/lib.rs, or the height and timestamp monotonicity checks in the sync-committee, bsc, arbitrum, optimism and parachain clients let a client be wedged, rolled back or evicted so no later proof can ever be accepted.",
-    "Critical/High blind spot. An ordinary message dispatcher, relayer, token bridger or intent solver abuses an assumption Hyperbridge never wrote down: a commitment that is unique under one encoding but collides under abi.rs versus Message.sol or across GET and POST, a StateMachine identifier that two distinct chains can both encode to, a proof checked against one state root but consumed after a newer or vetoed commitment replaced it, a fee, nonce or receipt read again after the check that authorized it, a limit enforced on the EVM host but not in pallet-ismp or on one consensus client but not its L2 twin, escrow or storage deposits stranded on an error path that still emits the event, or value carried across a runtime migration, decimals update or params change that was only proven safe on one side - yielding theft or permanent freezing of user funds, an unbacked mint, or a route that can never deliver messages again.",
+    "Critical. An attacker drains a pool's coin or pc vault by passing accounts the handler never binds to the loaded AmmInfo: the next_account_info ordering and check_assert_eq guards over amm_coin_vault, amm_pc_vault, amm_lp_mint, amm_authority and token_program in Processor::process_swap_base_in, process_swap_base_out, process_swap_base_in_v2, process_swap_base_out_v2, process_deposit and process_withdraw in program/src/processor.rs, Processor::authority_id and Processor::unpack_token_account, or Invokers::token_transfer_with_authority in program/src/invokers.rs let an attacker-owned token account, a fake mint, a spoofed token program or a mismatched nonce/bump stand in for a pool account and still be signed for by the AMM PDA.",
+    "Critical. An attacker mints LP tokens that are not backed by deposited reserves, or deposits into one pool and redeems from another: Processor::process_deposit and process_withdraw in program/src/processor.rs, InvariantPool::exchange_token_to_pool and exchange_pool_to_token and InvariantToken::exchange_coin_to_pc/exchange_pc_to_coin in program/src/math.rs, and Invokers::token_mint_to / token_burn let the LP amount be computed from a supply, vault balance or deducted-pnl figure the attacker influences in the same transaction, so lp_mint.supply stops tracking the vault reserves.",
+    "Critical. A swap leaves the pool with less value than it started with, letting an attacker extract reserves over one or a few transactions: Calculator::swap_token_amount_base_in and swap_token_amount_base_out, checked_ceil_div for u128 and U128, to_u64/to_u128, normalize_decimal, normalize_decimal_v2 and restore_decimal in program/src/math.rs, or the swap_fee computation and SwapDirection selection in the four swap handlers in program/src/processor.rs round, truncate, saturate or convert so that x*y after the swap is below x*y before it, or the fee is charged on the wrong side or skipped entirely.",
+    "Critical. An attacker withdraws value belonging to LPs or the protocol through the pnl path: Processor::calc_take_pnl, process_withdrawpnl and the need_take_pnl_coin/need_take_pnl_pc accounting in StateData in program/src/state.rs let self-supplied vault balances, a stale or attacker-shaped TargetOrders account, or an unchecked pnl owner/config binding credit pnl that was never earned, double-count it across calls, or subtract it from the swap reserve twice so LP withdrawals become unbacked.",
+    "Critical. An attacker permanently freezes a pool's deposits: a value that makes Processor::process_swap_base_in/out, process_deposit or process_withdraw always fail (an overflow or divide-by-zero on the next call, a zero or one-sided reserve, an lp supply forced to zero, a status or pool_open_time left in a non-swappable AmmStatus/AmmState), or a TargetOrders/AmmInfo field written on an error path, makes every later user transaction on that AmmInfo revert with no recovery available to an unprivileged holder of LP tokens.",
+    "Critical. An attacker hijacks pool creation so a live pool is controlled or pre-drained by them: Processor::process_initialize2, TargetOrders::check_init, AmmInfo::initialize, StateData::initialize, Processor::get_associated_address_and_bump_seed and Invokers::create_ata_spl_token / token_set_authority in program/src/invokers.rs let the amm PDA, target_orders, lp_mint, vaults or authority nonce be supplied or seeded so an existing pool is re-initialized, an attacker-held mint authority survives, or the initial LP mint and the coin/pc amounts actually escrowed do not match.",
+    "Critical. An attacker forges the AmmInfo, AmmConfig or TargetOrders account a handler trusts: AmmInfo::load_mut_checked and load_checked, AmmConfig::load_mut_checked and load_checked, TargetOrders::load_mut_checked and load_checked in program/src/state.rs, and the owner/data_len/status/discriminator checks around them accept an account of the right size owned by the program but never initialized, a config PDA that is not the AMM_CONFIG_SEED derivation, or a TargetOrders whose owner field does not point at the loaded AmmInfo, so pool parameters and balances are read from attacker-chosen bytes.",
+    "Critical. An attacker reaches a state transition or admin-only effect without the required signer: the is_signer and config_feature::amm_owner / pnl_owner / collect_lamports comparisons in Processor::process_set_params, process_create_config, process_update_config, process_withdrawpnl and process_withdraw_excess_lamports in program/src/processor.rs, Fees::validate and AmmStatus::valid_status / AmmState::valid_state in program/src/state.rs, or the implicit status promotion from WaitingTrade to SwapOnly inside the swap handlers let an ordinary caller flip status, fees, pool_open_time or the config account, or move lamports out of accounts whose rent-exempt minimum they then break.",
+    "High. An attacker steals from every other user of a pool by desynchronizing the reserves the curve reads from the tokens the vaults actually hold: Calculator::calc_total_without_take_pnl_no_orderbook in program/src/math.rs, the unpack_token_account/unpack_mint reads in program/src/processor.rs, direct donations to a vault, a wrapped-SOL vault resynced mid-instruction by Processor::withdraw_excess_lamports_from_token, or a coin/pc mint whose decimals or supply changes after AmmInfo::initialize make the swap, deposit or withdraw math price a trade off balances that are not the post-transfer truth.",
+    "Critical/High blind spot. An ordinary swapper, liquidity provider or pool creator abuses an assumption the Raydium AMM never wrote down: a first or last liquidity provider taking a rounding or minimum-LP edge that the formula only proved safe for a funded pool, an AmmInfo field read again after the check that authorized it (reserves, lp supply, status, recent_epoch), a guard enforced in process_swap_base_in but missing in its _v2 twin or in the base_out variant, self-swap or self-transfer where user_source and user_destination alias each other or a vault, a decimals or sys_decimal_value assumption that breaks for extreme-decimal or fee-on-transfer-like mints, reentry through a token program supplied by the caller, dust or lamports stranded on an error path that still emits an encode_ray_log event integrators trust, or state left inconsistent by a partially applied instruction - yielding theft of user funds, unbacked LP minting, pool insolvency, or a pool that can never be swapped or withdrawn from again.",
 ]
 
 
@@ -271,50 +98,50 @@ scope_scan = [
 
 def question_generator(target_file: str) -> str:
     """
-    Generate exploit-focused audit and fuzzing questions for one Hyperbridge target.
+    Generate exploit-focused audit and fuzzing questions for one Raydium AMM target.
 
     ```
     target_file format:
-    "'File Name: modules/ismp/core/src/handlers/request.rs -> Scope: Critical. ...'"
+    "'File Name: program/src/processor.rs -> Scope: Critical. ...'"
     """
 
     prompt = f"""
     ```
 
-    Generate exploit-focused security audit questions for this exact Hyperbridge target:
+    Generate exploit-focused security audit questions for this exact Raydium AMM target:
 
     {target_file}
 
     Project focus:
-    Hyperbridge is a permissionless cross-chain interoperability coprocessor. Focus only on what an ordinary user reaches: dispatching POST/GET requests and responses through EvmHost or pallet-ismp, relaying (anyone may relay, with no stake or whitelist) by calling HandlerV2.handleConsensus/handlePostRequests/handleGetResponses/handlePostRequestTimeouts/handleGetRequestTimeouts with self-supplied consensus and state proofs or submitting pallet_ismp handle_unsigned, bridging tokens through HyperFungibleToken and pallet-hyper-fungible-token, placing/filling/cancelling intent orders and bids, purchasing bandwidth, and claiming relayer fees and delivery rewards. Downstream of that: consensus client updates, state commitment storage, membership and non-membership proof verification, MMR accumulation, and app onAccept/onTimeout callbacks.
+    raydium-amm is the Solana constant-product AMM program deployed at 675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8. Focus only on what an ordinary wallet reaches: sending Initialize2, Deposit, Withdraw, SwapBaseIn, SwapBaseOut, SwapBaseInV2 and SwapBaseOutV2 instructions with account lists and instruction data they fully choose, creating their own mints, token accounts and pools, and composing these calls with other programs inside one transaction. Downstream of that: AmmInfo/AmmConfig/TargetOrders loading, swap and LP math, pnl accounting, and the SPL token CPIs signed by the AMM authority PDA.
 
     Rules:
     * Treat `File Name:` as the exact file/module.
     * Treat `Scope:` as the ONLY impact to target.
     * Assume full repo context is accessible.
     * Do not ask for code or say anything is missing.
-    * Use exact symbols (Rust fn/struct/enum/trait impl, or Solidity function/modifier/struct/storage var) when possible.
-    * Attacker is unprivileged only: anyone who funds an EOA or Hyperbridge account and submits transactions or extrinsics, deploys and calls their own ISMP module contract, dispatches requests and responses, relays any message or consensus update with proofs they construct, bridges tokens, or places bids and orders. They control only their own keys.
-    * Attacker is NOT an admin, owner, host manager, governance origin, collator, validator, fisherman with privileged origin, node operator, prover or host owner, and holds no other user's key. Never assume a malicious peer, malicious node, malicious collator, p2p/gossip/sync attacker, network-level DoS, leaked key, compromised host, non-default config, or social engineering.
-    * Out of scope, never ask about: p2p networking and peer handling, collator selection and block production, the tesseract relayer daemon and its config, RPC/runtime-api/offchain-index endpoints used only for indexing, CLI, logging, deployment and infra, dependency versions.
-    * Ignore test files, mocks, benchmarks, weights, docs, generated files, and config-only findings.
-    * Every question must describe a real transaction, extrinsic, dispatched request, relayed message with proof, token transfer, order or bid the attacker actually submits through a valid entrypoint. No generic unbounded-allocation, memory-growth, storage-growth or resource-exhaustion speculation; no "what if the input is huge" without a concrete submitted payload and a concrete broken invariant.
+    * Use exact Rust symbols (fn, struct, enum, impl, field or const) when possible.
+    * Attacker is unprivileged only: anyone who funds a Solana wallet and sends transactions, creates mints, token accounts and pools, provides or withdraws liquidity, swaps, and passes any account list and instruction data the program will accept. They control only their own keys.
+    * Attacker is NOT the amm_owner, pnl_owner, collect_lamports authority, config admin, a validator or a leader, and holds no other user's key. Never assume a malicious validator, leaked key, privileged signer, non-default config_feature build, or social engineering.
+    * Out of scope, never ask about: Solana runtime or SPL token program bugs, client SDKs, off-chain services, RPC, logging and monitoring, deployment, dependency versions, 51%/sybil/centralization, lack of liquidity, pure MEV ordering, and oracle data simply being wrong.
+    * Ignore test files, mocks, benchmarks, docs, generated files, and config-only findings.
+    * Every question must describe a real transaction the attacker actually submits: named instruction, the account list and data they supply, the pool and mints they rely on. No generic unbounded-allocation, memory-growth, compute-exhaustion or "what if the input is huge" speculation without a concrete payload and a concrete broken invariant.
     * Generate 40 to 80 high-signal questions.
-    * At least 70% must target theft or permanent freezing of user funds, an unbacked mint, delivery of a message that was never dispatched, acting on an app or account without its keys, a forged state commitment, or a route that can never deliver messages again.
-    * Every question must be testable by a `cargo test -p <crate>` unit test, a pallet testsuite test, a `forge test` against the EVM contracts, or an ISMP end-to-end flow test.
+    * At least 70% must target theft of user funds, permanent freezing of pool funds, unbacked LP minting, or pool insolvency.
+    * Every question must be testable by a `cargo test` unit test over the math/state types or a `cargo test-sbf` / solana-program-test transaction against the program.
     * Avoid generic checklist questions and repeated root causes.
 
     Core invariants:
-    * Message authenticity: a request, response or timeout is acted on only when a verified consensus state and state proof bind it to a commitment actually dispatched by the named source module on the named source chain.
-    * Exactly-once delivery: every commitment is delivered at most once, timed out at most once, and never both; commitments are collision-free across POST, GET, response and chain.
-    * Value conservation: tokens minted on one chain are backed by tokens burned or escrowed on another, fees and rewards are paid once to the party that earned them, and no path strands or duplicates escrowed value.
-    * Consensus soundness: a state commitment is stored only when the submitted proof meets the client's signature, threshold, finality and authority-set rules for the claimed height.
-    * Liveness of valid users: no submitted message, proof or order can permanently stop a consensus client from advancing or an in-flight message from being delivered or refunded.
+    * Account binding: every account a handler acts on is the one recorded in the loaded AmmInfo (or derived from program_id and its nonce), and privileged effects require the configured signer.
+    * Curve soundness: after a swap, reserves times reserves never decreases against the pool, and the fee is charged once on the input side.
+    * LP backing: lp_mint.supply always corresponds to the coin and pc actually escrowed in the vaults, minus recorded pnl, for every deposit and withdraw path.
+    * Pnl integrity: pnl is credited once, only from realized pool surplus, and never from principal an LP can still withdraw.
+    * User liveness: no user-submitted transaction can leave a pool in a state where swapping or withdrawing reverts forever.
 
     Each question must include:
     1. target function/method;
-    2. attacker action (a concrete transaction, extrinsic, dispatched request, relayed proof, token transfer, order or bid: fields, chain, calldata);
-    3. preconditions (accounts, balance, deployed modules, tracked chains the attacker relies on);
+    2. attacker action (a concrete instruction: accounts, mints, amounts, data);
+    3. preconditions (wallet balance, pool state, mints or token accounts the attacker created);
     4. execution sequence;
     5. invariant tested;
     6. scoped impact;
@@ -323,7 +150,7 @@ def question_generator(target_file: str) -> str:
     Output only valid Python. No markdown. No explanations.
 
     questions = [
-    "[File: {target_file}] [Function: symbol_or_method] Can an unprivileged ATTACKER_ACTION under PRECONDITIONS trigger EXECUTION_SEQUENCE, violating INVARIANT, causing scoped impact: SCOPE_IMPACT? Proof idea: cargo test / pallet testsuite / forge test / ISMP end-to-end test PARAMETERS and assert MESSAGE_AUTHENTICITY, EXACTLY_ONCE_DELIVERY, VALUE_CONSERVATION, CONSENSUS_SOUNDNESS, or USER_LIVENESS.",
+    "[File: {target_file}] [Function: symbol_or_method] Can an unprivileged ATTACKER_ACTION under PRECONDITIONS trigger EXECUTION_SEQUENCE, violating INVARIANT, causing scoped impact: SCOPE_IMPACT? Proof idea: cargo test / cargo test-sbf solana-program-test PARAMETERS and assert ACCOUNT_BINDING, CURVE_SOUNDNESS, LP_BACKING, PNL_INTEGRITY, or USER_LIVENESS.",
     ]
     """
     return prompt
@@ -331,7 +158,7 @@ def question_generator(target_file: str) -> str:
 
 def audit_format(security_question: str) -> str:
     """
-    Generate a focused Hyperbridge exploit-validation prompt.
+    Generate a focused Raydium AMM exploit-validation prompt.
     """
 
     prompt = f"""# SECURITY AUDIT PROMPT
@@ -341,18 +168,18 @@ def audit_format(security_question: str) -> str:
 
 ## Rules
 - Use existing repo context only. Analyze only this question and scoped impact.
-- Attacker is unprivileged only: anyone who dispatches requests or responses, relays any message or consensus update with self-supplied proofs, deploys and calls their own ISMP module, bridges tokens, places orders or bids, or claims relayer fees. No admin, owner, host manager, governance origin, collator, validator, prover, node, host, or foreign-key access.
-- Reject malicious-admin, malicious-governance, malicious-collator, malicious-peer, malicious-node, p2p/gossip/sync, network-DoS, leaked-key, host-level, and misconfiguration-only paths.
-- Reject 51%-style, sybil and centralization claims, third-party oracle data simply being wrong with no manipulation path, and monitoring, CLI, logging, deployment, tesseract-daemon, dependency-only, and test/mock/bench/generated/config-only findings.
-- Reject generic unbounded-allocation or storage-growth claims with no concrete submitted payload and no broken invariant.
-- Focus on real chain impact: theft or permanent freezing of user funds, an unbacked mint or broken supply conservation, delivery of a message never dispatched on the source chain, a forged or unsound state commitment, acting on an app without authorization, or a route permanently unable to deliver messages.
+- Attacker is unprivileged only: anyone who funds a wallet and sends AMM instructions with account lists and data they choose, creates their own mints, token accounts and pools, provides liquidity, or swaps. No amm_owner, pnl_owner, collect_lamports authority, config admin, validator, or foreign-key access.
+- Reject privileged-signer, leaked-key, malicious-validator, non-default config_feature build, off-chain, RPC, client-SDK, deployment and misconfiguration-only paths.
+- Reject Solana runtime and SPL token program bugs, 51%-style, sybil and centralization claims, lack of liquidity, pure MEV ordering, third-party oracle data simply being wrong with no manipulation path, best-practice critiques, and test/mock/docs/generated/config-only findings.
+- Reject generic compute-exhaustion or allocation claims with no concrete instruction payload and no broken invariant.
+- Focus on real on-chain impact: theft of user or LP funds, permanent freezing of pool funds, unbacked LP minting, pnl or reserve accounting that makes the pool insolvent, or an unauthorized state/parameter change.
 
 ## Validate
-- Trace the exact reachable path from the attacker's transaction, extrinsic, dispatched request, relayed proof, token transfer or order into the affected function.
-- Check whether consensus verification, challenge period and unstaking period, state-proof membership checks, request/response receipts and commitment maps, nonce and timeout checks, source-chain and source-module authorization, or existing error handling already stop it.
-- Confirm the path is reachable on current mainnet (nexus) configuration and the deployed EvmHost/HandlerV2 wiring.
-- Accept only concrete fund loss or freezing, unbacked mint, forged message delivery, unsound commitment, unauthorized app action, or a lasting inability to deliver messages.
-- Require exact file/function support and a reproducible cargo test, pallet testsuite test, forge test, or ISMP end-to-end PoC.
+- Trace the exact reachable path from the attacker's transaction into the affected function, including the account list they supply.
+- Check whether AmmInfo/AmmConfig/TargetOrders load_checked owner and status checks, check_assert_eq account bindings, authority_id PDA derivation, is_signer and config_feature owner checks, AmmStatus permission gates, Fees::validate, checked arithmetic and overflow-checks, or slippage checks already stop it.
+- Confirm the path is reachable on the current mainnet build (default features, program id 675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8) with the openbook orderbook path removed.
+- Accept only concrete fund loss or freezing, unbacked LP mint, insolvent pool accounting, or an unauthorized privileged effect.
+- Require exact file/function support and a reproducible cargo test or cargo test-sbf / solana-program-test PoC.
 
 ## Output
 If valid, output exactly:
@@ -364,19 +191,19 @@ If valid, output exactly:
 [2-3 sentences]
 
 ### Finding Description
-[Code path, root cause, attacker payload, exploit flow, and why checks fail]
+[Code path, root cause, attacker instruction and accounts, exploit flow, and why checks fail]
 
 ### Impact Explanation
-[Concrete scoped impact and severity: Critical (direct theft or permanent freezing of user funds, unbacked mint or supply inflation, delivery of a message never dispatched, forged state commitment, protocol insolvency) or High (a route or consensus client permanently unable to deliver messages, corruption of committed commitments, honest nodes diverging on Hyperbridge state)]
+[Concrete scoped impact and severity: Critical (direct theft of user or LP funds, permanent freezing of funds, unbacked LP minting, protocol insolvency) or High (theft of unclaimed pnl or fees, temporary freezing of pool funds)]
 
 ### Likelihood Explanation
-[Preconditions, accounts and balance needed, feasibility, repeatability]
+[Preconditions, wallet funding, pool state needed, feasibility, repeatability]
 
 ### Recommendation
 [Specific fix]
 
 ### Proof of Concept
-[cargo test / pallet testsuite / forge test / ISMP end-to-end test plan with expected assertions]
+[cargo test / cargo test-sbf solana-program-test plan with expected assertions]
 
 If invalid, output exactly:
 #NoVulnerability found for this question.
@@ -388,7 +215,7 @@ No extra text.
 
 def scan_format(report: str) -> str:
     """
-    Generate a short cross-project analog scan prompt for Hyperbridge.
+    Generate a short cross-project analog scan prompt for the Raydium AMM.
     """
     prompt = f"""# ANALOG SCAN PROMPT
 
@@ -396,16 +223,16 @@ def scan_format(report: str) -> str:
 {report}
 
 ## Rules
-- Use in-scope production repo context only. Do not ask for code or claim missing files.
+- Use in-scope production program context only. Do not ask for code or claim missing files.
 - Use the external report only as a bug-class hint, not as proof.
-- Keep only analogs an unprivileged message dispatcher, relayer, token bridger, intent solver or bandwidth purchaser can reach: EvmHost and HandlerV2 dispatch and delivery, Message encoding and commitment hashing, consensus verification (BEEFY, SP1, sync-committee, GRANDPA, BSC, Tendermint, Pharos, L2 clients), state membership and non-membership proofs, pallet-ismp handle_unsigned and child-trie commitments, MMR accumulation, token bridge mint/burn, intents escrow and bids, or relayer fee and reward accounting.
-- Reject malicious-admin, malicious-governance, malicious-collator, malicious-peer, malicious-node, p2p/sync, network-DoS, leaked-key, prover-only, monitoring, CLI, deployment, tesseract-daemon, mocked-only paths, dependency-only bugs, and no-impact analogs.
-- Medium, High and Critical only; no low, or resource-only analogs.
+- Keep only analogs an unprivileged swapper, liquidity provider or pool creator can reach: Initialize2, Deposit, Withdraw and the four swap instructions, account-binding and PDA authority checks, AmmInfo/AmmConfig/TargetOrders loading, swap and LP math, decimal normalization, pnl accounting, or the SPL token CPIs in invokers.rs.
+- Reject privileged-signer, leaked-key, malicious-validator, non-default build, off-chain, RPC, client-SDK, deployment, Solana-runtime, SPL-token-program, dependency-only, mocked-only paths, and no-impact analogs.
+- Medium, High and Critical only; no low, best-practice, or compute-only analogs.
 
 ## Validate
-- Map the bug class to the strongest reachable Hyperbridge path from a single submitted transaction, extrinsic, dispatched request, relayed proof, token transfer or order.
+- Map the bug class to the strongest reachable path from a single submitted transaction with attacker-chosen accounts and data.
 - Prove root cause with exact file/function support.
-- Accept only concrete theft or permanent freezing of funds, unbacked mint, forged message delivery, unsound state commitment, unauthorized app action, or a route unable to deliver messages.
+- Accept only concrete theft or permanent freezing of user or LP funds, unbacked LP minting, insolvent pool accounting, or an unauthorized privileged effect.
 
 ## Output (Strict)
 If valid analog exists, output:
@@ -430,7 +257,7 @@ No extra text.
 
 def validation_format(report: str) -> str:
     """
-    Generate a strict bounty-style validation prompt for Hyperbridge security claims.
+    Generate a strict bounty-style validation prompt for Raydium AMM security claims.
     """
     prompt = f"""# VALIDATION PROMPT
 
@@ -440,34 +267,35 @@ def validation_format(report: str) -> str:
 ## Rules
 - Validate only the submitted claim.
 - Check SECURITY.md and Researcher.Md for scope, exclusions, and valid impact classes.
+- Scope is the deployed AMM program only: program/src/lib.rs, entrypoint.rs, instruction.rs, error.rs, invokers.rs, log.rs, math.rs, processor.rs, state.rs. Anything outside the on-chain program (SDKs, UI, off-chain services) is out of scope.
 - Do not create a new vulnerability if the submitted claim is weak or invalid.
 - Do not upgrade severity unless the provided evidence proves the higher impact.
-- Focus on High and Critical; reject informational, best-practice, and resource-only reports.
-- Reject malicious-admin, malicious-governance, malicious-collator, malicious-validator, malicious-peer, malicious-node, p2p/gossip/sync, network-level DoS, monitoring endpoints, CLI, logging, deployment and infra, tesseract-daemon, dependency-only, docs/style, generated-file, and test/mock/bench/weights/config-only issues.
-- Reject if the exploit needs admin, owner, host-manager, governance, collator, validator, prover, node, host, database, or privileged origin access, another user's key, victim social engineering, a non-default config, or anything outside what an unprivileged user can put in a transaction, extrinsic, dispatched request, relayed proof, token transfer, order or bid.
-- Reject 51%-style majority attacks, sybil and centralization claims, and third-party oracle data being wrong without a manipulation path.
+- Focus on Critical and High; Medium is in scope only as Immunefi V2.3 defines it (contract unable to operate from lack of token funds, block stuffing, unprofitable griefing, theft of gas). Reject informational, best-practice and low findings.
+- Reject malicious-admin, malicious-validator, leaked-key, privileged-signer, non-default config_feature build, off-chain, RPC, client-SDK, monitoring, logging, deployment, dependency-only, docs/style, generated-file, and test/mock/config-only issues.
+- Reject if the exploit needs the amm_owner, pnl_owner, collect_lamports authority, config admin, a validator, another user's key, victim social engineering, or anything outside what an unprivileged wallet can put in a transaction's accounts and instruction data.
+- Reject Solana runtime and SPL token program bugs, 51%-style majority attacks, sybil and centralization claims, lack of liquidity, pure MEV ordering the team already knows of, UI bugs, and third-party oracle data being wrong without a manipulation path.
 - Reject if the bug was fixed, acknowledged, or publicly disclosed already, per the eligibility rules.
-- A valid report must be triggerable by an unprivileged dispatcher, relayer, token bridger, solver or bidder, unless the claim proves escalation from that starting point.
-- The final impact must map to an in-scope category: Critical - direct theft or permanent freezing of user or escrowed funds, unbacked mint or broken cross-chain supply conservation, delivery of a message never dispatched on the source chain, a forged or unsound state commitment, acting on an app or account without authorization, or protocol insolvency; High - a route or consensus client permanently unable to deliver messages, corruption of committed commitments or MMR leaves, or honest nodes diverging on Hyperbridge state.
-- Prefer #NoVulnerability over speculative reports.
+- A valid report must be triggerable by an unprivileged swapper, liquidity provider or pool creator, unless the claim proves escalation from that starting point.
+- The final impact must map to an in-scope category: Critical - direct theft of user or LP funds, permanent freezing of funds, unbacked or unauthorized LP minting, or protocol insolvency; High - theft of unclaimed yield or pnl, or temporary freezing of funds; Medium - the pool unable to operate, unprofitable griefing, or theft of gas.
+- A PoC is mandatory: prose alone is not accepted. Prefer #NoVulnerability over speculative reports.
 
 ## Required Validation Checks
 All must pass:
 1. Exact in-scope file, function, and line/code references.
-2. Clear root cause and broken message-authenticity, exactly-once-delivery, value-conservation, consensus-soundness, or user-liveness invariant.
-3. Reachable exploit path: preconditions (attacker accounts, balance, deployed modules, tracked chains) -> submitted transaction, extrinsic, dispatched request, relayed proof, token transfer or order -> trigger -> bad result.
-4. Existing consensus verification, challenge and unstaking periods, state-proof checks, receipts and commitment maps, nonce and timeout checks, source-chain and source-module authorization, and error handling reviewed and shown insufficient.
-5. Concrete in-scope High/Critical impact with realistic likelihood.
-6. Reproducible proof path: cargo test unit PoC, pallet testsuite test, forge test, or exact steps in an ISMP end-to-end flow.
+2. Clear root cause and broken account-binding, curve-soundness, LP-backing, pnl-integrity, or user-liveness invariant.
+3. Reachable exploit path: preconditions (wallet funding, pool state, attacker-created mints or token accounts) -> submitted instruction with its account list and data -> trigger -> bad result.
+4. Existing load_checked owner and status checks, check_assert_eq account bindings, authority_id PDA derivation, is_signer and config_feature owner checks, AmmStatus gates, Fees::validate, checked arithmetic and slippage checks reviewed and shown insufficient.
+5. Concrete in-scope Critical/High (or clearly-argued Medium) impact with realistic likelihood.
+6. Reproducible proof path: cargo test unit PoC or cargo test-sbf / solana-program-test transaction sequence.
 7. No obvious rejection reason from SECURITY.md, known issues, privilege assumptions, or scope exclusions.
 
 ## Silent Triage Questions
 Before output, internally answer:
-- Can an ordinary user trigger this by dispatching a request, relaying a message or consensus update with proofs they build, bridging tokens, or placing an order or bid, without admin, governance, collator, prover, host, or foreign-key access?
-- Does the code actually behave as claimed on current mainnet (nexus) configuration and the deployed host wiring?
-- Is the impact caused by this code, not by a privileged actor, a peer, or a dependency?
-- Is the fund loss, unbacked mint, forged delivery, or halt concrete rather than hypothetical?
-- Would a bridge-protocol triager accept the proof-of-concept?
+- Can an ordinary wallet trigger this by sending an AMM instruction with accounts and data it chooses, without any configured authority or foreign key?
+- Does the code actually behave as claimed on the current mainnet build, with the openbook orderbook path removed?
+- Is the impact caused by this program, not by the Solana runtime, the SPL token program, or a privileged actor?
+- Is the fund loss, unbacked mint, insolvency or freeze concrete rather than hypothetical?
+- Would an Immunefi triager accept the proof-of-concept?
 - What exact test would prove it?
 
 ## Output
@@ -485,16 +313,16 @@ Audit Report
 [Exact code path, root cause, exploit flow, and why existing checks fail]
 
 ## Impact Explanation
-[Concrete in-scope impact, severity rationale, and Hyperbridge bounty category]
+[Concrete in-scope impact, severity rationale, and Immunefi V2.3 category]
 
 ## Likelihood Explanation
-[Attacker capability, accounts and balance required, feasibility, repeatability]
+[Attacker capability, funding and pool state required, feasibility, repeatability]
 
 ## Recommendation
 [Specific fix guidance]
 
 ## Proof of Concept
-[Minimal reproducible steps or cargo test / pallet testsuite / forge test / ISMP end-to-end test plan]
+[Minimal reproducible steps or cargo test / cargo test-sbf solana-program-test plan]
 
 If invalid, output exactly:
 #NoVulnerability found for this question.
