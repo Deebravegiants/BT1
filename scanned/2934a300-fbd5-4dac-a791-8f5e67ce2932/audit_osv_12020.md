@@ -1,0 +1,19 @@
+# [M] CVE-2018-1000654
+
+## Summary
+Severity: Medium
+Advisory: CVE-2018-1000654
+CVSS: 5.5 (CVSS:3.0/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2018-08-20
+Source: https://osv.dev/vulnerability/CVE-2018-1000654
+Type: osv
+
+## Details
+GNU Libtasn1-4.13 libtasn1-4.13 version libtasn1-4.13, libtasn1-4.12 contains a DoS, specifically CPU usage will reach 100% when running asn1Paser against the POC due to an issue in _asn1_expand_object_id(p_tree), after a long time, the program will be killed. This attack appears to be exploitable via parsing a crafted file.
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00009.html
+- http://lists.opensuse.org/opensuse-security-announce/2019-06/msg00018.html
+- https://lists.apache.org/thread.html/rf9fa47ab66495c78bb4120b0754dd9531ca2ff0430f6685ac9b07772%40%3Cdev.mina.apache.org%3E
+- http://www.securityfocus.com/bid/105151
+- https://gitlab.com/gnutls/libtasn1/issues/4

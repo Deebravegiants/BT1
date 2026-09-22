@@ -1,0 +1,186 @@
+# [H] Withdraw timelock can be bypassed easily in JOJODealer.sol
+
+## Summary
+Severity: High
+Reporter: ctf_sec
+Source: https://github.com/sherlock-audit/2023-04-jojo/blob/6090fef68932b5577abf6b5aa26eb1e579353c57/smart-contract-EVM/contracts/lib/Funding.sol#L83-L101
+Type: audit-issue
+
+## Details
+# Withdraw timelock can be bypassed easily in JOJODealer.sol
+
+## Summary
+
+Withdraw timelock can be bypassed 
+
+## Vulnerability Detail
+
+We have JOJODealer.sol contract
+
+```solidity
+contract JOJODealer is JOJOExternal, JOJOOperation, JOJOView {
+    constructor(address _primaryAsset) JOJOStorage() {
+        state.primaryAsset = _primaryAsset;
+    }
+
+    function version() external pure returns (string memory) {
+        return "JOJODealer V1.0";
+    }
+}
+```
+
+all external call is handled by JOJOExternal
+
+when user deposit, the user credit is implemented
+
+```solidity
+function deposit(
+	uint256 primaryAmount,
+	uint256 secondaryAmount,
+	address to
+) external nonReentrant {
+	Funding.deposit(state, primaryAmount, secondaryAmount, to);
+}
+```
+
+calling
+
+```solidity
+  function deposit(
+        Types.State storage state,
+        uint256 primaryAmount,
+        uint256 secondaryAmount,
+        address to
+    ) external {
+        if (primaryAmount > 0) {
+            IERC20(state.primaryAsset).safeTransferFrom(
+                msg.sender,
+                address(this),
+                primaryAmount
+            );
+            state.primaryCredit[to] += SafeCast.toInt256(primaryAmount);
+        }
+        if (secondaryAmount > 0) {
+            IERC20(state.secondaryAsset).safeTransferFrom(
+                msg.sender,
+                address(this),
+                secondaryAmount
+            );
+            state.secondaryCredit[to] += secondaryAmount;
+        }
+        emit Deposit(to, msg.sender, primaryAmount, secondaryAmount);
+    }
+```
+
+when user withdraw, first user needs to call requestWithdraw
+
+```solidity
+function requestWithdraw(uint256 primaryAmount, uint256 secondaryAmount)
+	external
+	nonReentrant
+{
+	Funding.requestWithdraw(state, primaryAmount, secondaryAmount);
+}
+```
+
+calling
+
+```solidity
+  function requestWithdraw(
+        Types.State storage state,
+        uint256 primaryAmount,
+        uint256 secondaryAmount
+    ) external {
+        state.pendingPrimaryWithdraw[msg.sender] = primaryAmount;
+        state.pendingSecondaryWithdraw[msg.sender] = secondaryAmount;
+        state.withdrawExecutionTimestamp[msg.sender] =
+            block.timestamp +
+            state.withdrawTimeLock;
+        emit RequestWithdraw(
+            msg.sender,
+            primaryAmount,
+            secondaryAmount,
+            state.withdrawExecutionTimestamp[msg.sender]
+        );
+    }
+```
+
+then when withdraw is executed, 
+
+```solidity
+
+    function executeWithdraw(
+        Types.State storage state,
+        address to,
+        bool isInternal
+    ) external {
+        require(
+            state.withdrawExecutionTimestamp[msg.sender] <= block.timestamp,
+            Errors.WITHDRAW_PENDING
+        );
+        uint256 primaryAmount = state.pendingPrimaryWithdraw[msg.sender];
+        uint256 secondaryAmount = state.pendingSecondaryWithdraw[msg.sender];
+        state.pendingPrimaryWithdraw[msg.sender] = 0;
+        state.pendingSecondaryWithdraw[msg.sender] = 0;
+        // No need to change withdrawExecutionTimestamp, because we set pending
+        // withdraw amount to 0.
+        _withdraw(
+            state,
+            msg.sender,
+            to,
+            primaryAmount,
+            secondaryAmount,
+            isInternal
+        );
+    }
+```
+
+we notice the issue, the request withdraw uses
+
+```solidity
+state.pendingPrimaryWithdraw[msg.sender]
+```
+
+and
+
+```solidity
+state.pendingSecondaryWithdraw[msg.sender]
+```
+
+to track the pending withdraw and it is different from credit tracking 
+
+```solidity
+ state.primaryCredit[msg.sender]
+```
+
+and the request withdraw never validate the amount of requested fund and make sure the withdraw amount is less than the available user balance
+
+for example,
+
+user only use 100 USDC credit
+
+user request withdraw for 1000 USDC credit,
+
+then after the timelock, combing with the fact that the withdrawal request never expires and user can withdraw any time
+
+let us say he make a trade and make 1000 USDC, or someone deposit for him another 900 USDC
+
+the user can executeWithdraw immediately and withdraw 1000 USDC
+
+instead of withdraw 100 USDC first and create another withdrawal request and wait for the timelock
+
+## Impact
+
+Withdraw timelock can be bypassed easily, allow user to game the withdraw mechanism 
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-04-jojo/blob/6090fef68932b5577abf6b5aa26eb1e579353c57/smart-contract-EVM/contracts/lib/Funding.sol#L83-L101
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+We recommend the protocol validate the requested withdrawal amount

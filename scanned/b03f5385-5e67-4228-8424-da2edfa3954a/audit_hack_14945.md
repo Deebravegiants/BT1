@@ -1,0 +1,24 @@
+# [H] If a loan defaults, the lender may lose the unclaimed amount.
+
+## Summary
+Severity: High
+Reporter: Chilly Malachite Hare
+Source: https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L320
+Type: audit-issue
+
+## Details
+# If a loan defaults, the lender may lose the unclaimed amount.
+## Summary
+claimDefaulted removes the loan, causing the loss of any unclaimed amount that was saved in the loan and preventing the lender from claiming it.
+## Vulnerability Detail
+The claimRepaid function transfers unclaimed loans to the lender, while claimDefaulted deletes the loan (```delete loans[loanID_];```). If the lender has any unclaimed amount, it will be lost.
+## Impact
+Lender asset loss.
+## Code Snippet
+https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L320
+## Tool used
+
+Manual Review
+
+## Recommendation
+Transfer the unclaimed amount to the lender before deleting the loan.

@@ -1,0 +1,51 @@
+# [M] Oracles don't consume chainlink price feeds safely
+
+## Summary
+Severity: Medium
+Reporter: 0xRobocop
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/6d7a9fdfb1f1ed838632c25b6e1b01748d0bafda/ussd-contracts/contracts/oracles/StableOracleDAI.sol#L48
+Type: audit-issue
+
+## Details
+# Oracles don't consume chainlink price feeds safely
+
+## Summary
+
+Oracles that use Chainlink do not do sanity checks nor staleness checks on the returned data such as `StableOracleDai.sol`, `StableOracleWBTC.sol` and `StableOracleWETH.sol` oracle contracts.
+
+## Vulnerability Detail
+
+See Summary.
+
+## Impact
+
+Using invalid data can cause incorrect pricing of collateral when minting USSD which may lead to a loss for the user or loss for the protocol
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-05-USSD/blob/6d7a9fdfb1f1ed838632c25b6e1b01748d0bafda/ussd-contracts/contracts/oracles/StableOracleDAI.sol#L48
+
+https://github.com/sherlock-audit/2023-05-USSD/blob/6d7a9fdfb1f1ed838632c25b6e1b01748d0bafda/ussd-contracts/contracts/oracles/StableOracleWETH.sol#L23
+
+https://github.com/sherlock-audit/2023-05-USSD/blob/6d7a9fdfb1f1ed838632c25b6e1b01748d0bafda/ussd-contracts/contracts/oracles/StableOracleWBTC.sol#L23
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+When calling `latestRoundData()` on Chalink price feeds do:
+
+```solidity
+
+(uint80 roundID, int256 price,  , uint256 updatedAt,  ) = priceAggregator.latestRoundData();
+
+// Sanity Check
+require(
+   roundID != 0 && price >= 0 && updatedAt != 0 && updatedAt <= block.timestamp
+);
+
+// Staleness Check
+require(block.timestamp - updatedAt > TIMEOUT);
+```

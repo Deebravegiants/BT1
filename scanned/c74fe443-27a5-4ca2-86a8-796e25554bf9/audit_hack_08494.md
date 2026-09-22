@@ -1,0 +1,55 @@
+# [H] A bad liquidator can abuse LiquidationHelpers#calculateLiquidationAmount() by double-liquidation to overly liquidate an account.
+
+## Summary
+Severity: High
+Reporter: chaduke
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/liquidation/LiquidationHelpers.sol#L87-L119
+Type: audit-issue
+
+## Details
+# A bad liquidator can abuse LiquidationHelpers#calculateLiquidationAmount() by double-liquidation to overly liquidate an account.
+
+## Summary
+A bad liquidator can abuse LiquidationHelpers#calculateLiquidationAmount() by double-liquidation to overly liquidate an account. A bad liquidator can play double-liquidation trick to liquidate as much as  ``liquidateAmountRequired-1+defaultAllowedAmount`` instead of ``liquidateAmountRequired`` collateral assets, which is around 40% of the remaining collateral value (see more explanation below).
+
+## Vulnerability Detail
+
+``LiquidationHelpers#calculateLiquidationAmount()`` calculates the amount of collateral assets that a liquidator can purchase during liquidation: 
+
+[https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/liquidation/LiquidationHelpers.sol#L87-L119](https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/liquidation/LiquidationHelpers.sol#L87-L119)
+
+There are two cases: 
+1.  ``liquidateAmountRequired >=  defaultAllowedAmount``, then a liquidator can purchase  ``liquidateAmountRequired`` collateral assets. The idea here is that a liquidator will not overly liquidate an account.
+
+2.  ``liquidateAmountRequired < defaultAllowedAmount``, then a liquidator can purchase ``defaultAllowedAmount``, which is set to 40% of ``maxTotalBalance``. The idea here is that the profit of the liquidator can be ensured to encourage a liquidator to liquidate an account in a timely fashion.
+
+For both cases, it is upbounded by ``maxTotalBalance`` and ``userSpecifiedMaximum``.
+
+However, a bad liquidator can get around such restrictions  by a double-liquidation in one transaction as follows:
+
+1. Liquidate ``liquidateAmountRequired - 1`` first,  as a result, the account is still liquitable due to negative free collateral;
+
+2. Liquidate ``defaultAllowedAmount`` second, since a liquidator is ensured to purchase at least ``defaultAllowedAmount`` collateral assets. 
+
+As a result, the liquidator actually purchase ``liquidateAmountRequired-1+defaultAllowedAmount`` collateral assets.  In other words, the bad liquidator can always purchase ``defaultAllowedAmount`` more, around 40% of the remaining collateral value. This is a very significant difference. 
+
+Example: suppose ``maxTotalBalance = 100,000,000`` and ``liquidateAmountRequired = 40,000,000``:
+
+1. For the first liquidation, the liquidator will purchase ``liquidateAmountRequired-1`` collateral assets (by specifying ``userSpecifiedMaximum``) , so the remaining new ``maxTotalBalance = 60,000,001``. 
+
+2. For the second liquidation, the liquidator can purchase up to 40% of the collateral assets, which is ``60,000,001 * 40% = 24,000,000``. 
+
+3. In total, the liquidator is able to purchase up to 64,000,000 collateral assets instead of 40,000,000 assets. The 24,000,000 collateral assets is the extra amount that a bad liquidator can purchase by playing this double-liquidation trick!
+
+## Impact
+A bad liquidator can abuse ``LiquidationHelpers#calculateLiquidationAmount()`` by double-liquidation to overly liquidate an account.
+
+## Code Snippet
+
+## Tool used
+VSCode
+
+Manual Review
+
+## Recommendation
+There should be a restriction on how often the benefit of ``defaultAllowedAmount`` can be used. The described attack takes advantage of the fact that such benefit is honored in each liquidation. One can record when the last time a ``defaultAllowedAmount`` is used, and introduce a limit such that only after a certain time window, this benefit can be used again.

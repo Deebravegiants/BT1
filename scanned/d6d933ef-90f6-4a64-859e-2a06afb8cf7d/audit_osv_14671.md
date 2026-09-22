@@ -1,0 +1,15 @@
+# [M] CVE-2019-10670
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-10670
+CVSS: 6.1 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N)
+Published: 2019-09-09
+Source: https://osv.dev/vulnerability/CVE-2019-10670
+Type: osv
+
+## Details
+An issue was discovered in LibreNMS through 1.47. Many of the scripts rely on the function mysqli_escape_real_string for filtering data. However, this is particularly ineffective when returning user supplied input in an HTML or a JavaScript context, resulting in unsafe data being injected into these contexts, leading to attacker controlled JavaScript executing in the browser. One example of this is the string parameter in html/pages/inventory.inc.php.
+
+## References
+- https://www.darkmatter.ae/xen1thlabs/librenms-multiple-reflected-cross-site-scripting-vulnerability-xl-19-021/

@@ -1,0 +1,69 @@
+# [M] ERC20Token has missing inheritance
+
+## Summary
+Severity: Medium
+Reporter: ravikiran.web3
+Source: https://github.com/sherlock-audit/2023-04-unitasprotocol/blob/main/Unitas-Protocol/src/ERC20Token.sol#L12
+Type: audit-issue
+
+## Details
+# ERC20Token has missing inheritance
+
+## Summary
+ERC20Token has a missing inheritance. The project as IERC20Token Interface which ERC20Token is implementing, but the actual in hesitance is missing on the ERC20Token contract.
+
+
+## Vulnerability Detail
+The vulnerability is low or more informational.
+But, it is desirable to follow patterns and honour them in right spirit. So, it is advised to make this correction.
+
+## Impact
+Accesses as no impact in terms of functioning of the contract, but pattern is broken.
+
+## Code Snippet
+
+**ERC20Token contract does not derive from IERC20TokenInterface**
+https://github.com/sherlock-audit/2023-04-unitasprotocol/blob/main/Unitas-Protocol/src/ERC20Token.sol#L12
+
+```solidity
+contract ERC20Token is ERC20, Pausable, AccessControl {
+    bytes32 public constant GOVERNOR_ROLE = keccak256("GOVERNOR_ROLE");
+    bytes32 public constant GUARDIAN_ROLE = keccak256("GUARDIAN_ROLE");
+    bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
+    mapping (address => bool) internal isBlackListed;
+    
+    event Mint(address indexed to, uint256 amount);
+....
+ ```
+
+ERC20Interface
+https://github.com/sherlock-audit/2023-04-unitasprotocol/blob/main/Unitas-Protocol/src/interfaces/IERC20Token.sol#L10-L27
+
+```solidity
+    interface IERC20Token is IERC20Metadata {
+    function GOVERNOR_ROLE() external view returns (bytes32);
+    function GUARDIAN_ROLE() external view returns (bytes32);
+    function MINTER_ROLE() external view returns (bytes32);
+    function setGovernor(address newGovernor, address oldGovernor) external;
+    function revokeGovernor(address oldGovernor) external;
+    function setGuardian(address newGuardian, address oldGuardian) external;
+    function revokeGuardian(address oldGuardian) external;
+    function setMinter(address newMinter, address oldMinter) external;
+    function revokeMinter(address oldMinter) external;
+    function pause() external;
+    function unpause() external;
+    function mint(address account, uint256 amount) external;
+    function burn(address burner, uint256 amount) external;
+    function addBlackList(address evilUser) external;
+    function removeBlackList(address clearedUser) external;
+    function getBlacklist(address addr) external view returns (bool);
+}
+```
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Fix the inheritance  in ERC20Token contract

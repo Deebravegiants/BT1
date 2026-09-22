@@ -1,0 +1,17 @@
+# [M] CVE-2021-29437
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-29437
+Aliases: GHSA-gvpg-23fh-8g75
+CVSS: 6.8 (CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:N)
+Published: 2021-04-13
+Source: https://osv.dev/vulnerability/CVE-2021-29437
+Type: osv
+
+## Details
+ScratchOAuth2 is an Oauth implementation for Scratch. Any ScratchOAuth2-related data normally accessible and modifiable by a user can be read and modified by a third party. 1. Scratch user visits 3rd party site. 2. 3rd party site asks user for Scratch username. 3. 3rd party site pretends to be user and gets login code from ScratchOAuth2. 4. 3rd party site gives code to user and instructs them to post it on their profile. 5. User posts code on their profile, not knowing it is a ScratchOAuth2 login code. 6. 3rd party site completes login with ScratchOAuth2. 7. 3rd party site has full access to anything the user could do if they directly logged in. See referenced GitHub security advisory for patch notes and workarounds.
+
+## References
+- https://github.com/ScratchVerifier/ScratchOAuth2/commit/9220c2a77eda3df37a84486ad722f1ad0985d8e7
+- https://github.com/ScratchVerifier/ScratchOAuth2/security/advisories/GHSA-gvpg-23fh-8g75

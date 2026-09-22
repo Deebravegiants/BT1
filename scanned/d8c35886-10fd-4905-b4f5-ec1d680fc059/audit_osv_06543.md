@@ -1,0 +1,32 @@
+# [H] MariaDB: wsrep SST unsafe parameter handling on the donor side
+
+## Summary
+Severity: High
+Advisory: BIT-mariadb-2026-44168
+Aliases: BIT-mariadb-min-2026-44168, BIT-mysql-client-2026-44168, CVE-2026-44168, GHSA-vwf7-w26c-9w5h
+Ecosystem: Bitnami
+Published: 2026-06-16
+Source: https://osv.dev/vulnerability/BIT-mariadb-2026-44168
+Type: osv
+
+## Affected
+- Bitnami: `mariadb` — affected >=12.3.1 <12.3.2
+
+## Details
+MariaDB server is a community developed fork of MySQL server. From versions 10.6.1 to before 10.6.26, 10.11.1 to before 10.11.17, 11.4.1 to before 11.4.11, 11.8.1 to before 11.8.7, and 12.3.1, during the SST the donor node is interpolating parameters that the joiner sent into the command line. Not all parameters were properly validated which could allow a malicious joiner to execute arbitrary shell commands on the donor side via the mariabackup SST method. This issue has been patched in versions 10.6.26, 10.11.17, 11.4.11, 11.8.7, and 12.3.2.
+
+## References
+- https://github.com/MariaDB/server/security/advisories/GHSA-vwf7-w26c-9w5h
+- https://jira.mariadb.org/browse/MDEV-39413
+- https://nvd.nist.gov/vuln/detail/CVE-2026-44168
+- https://access.redhat.com/errata/RHSA-2026:25143
+- https://access.redhat.com/errata/RHSA-2026:25145
+- https://access.redhat.com/errata/RHSA-2026:33093
+- https://access.redhat.com/errata/RHSA-2026:33412
+- https://access.redhat.com/errata/RHSA-2026:33464
+- https://access.redhat.com/errata/RHSA-2026:33481
+- https://access.redhat.com/errata/RHSA-2026:33482
+- https://access.redhat.com/security/cve/CVE-2026-44168
+- https://bugzilla.redhat.com/show_bug.cgi?id=2488450
+- https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-44168.json
+- https://access.redhat.com/errata/RHSA-2026:49522

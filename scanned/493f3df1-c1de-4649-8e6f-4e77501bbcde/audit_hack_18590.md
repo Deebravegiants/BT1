@@ -1,0 +1,36 @@
+# [M] The Arbitrum isn't supported PUSH0
+
+## Summary
+Severity: Medium
+Reporter: Abundant Alabaster Pigeon
+Source: https://github.com/sherlock-audit/2023-12-symm-io/blob/main/solver-vaults/contracts/SolverVaultToken.sol#L5
+Type: audit-issue
+
+## Details
+# The Arbitrum isn't supported PUSH0
+
+## Summary
+
+The `SolverVault.sol` can't deploy on the Arbitrum 
+## Vulnerability Detail
+
+Solidity 0.8.20 introduces the PUSH0(0x5f) opcode which is not supported on other chains like Arbitrum.
+## Impact
+The `SolverVault.sol` can't deploy on the Arbitrum 
+
+## Code Snippet
+
+```soldity
+pragma solidity ^0.8.20;
+```
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Consider using 0.8.19.
+
+## Links
+https://github.com/sherlock-audit/2023-12-symm-io/blob/main/solver-vaults/contracts/SolverVaultToken.sol#L5
+https://github.com/sherlock-audit/2023-12-symm-io/blob/main/solver-vaults/contracts/SolverVaults.sol#L5

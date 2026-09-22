@@ -1,0 +1,27 @@
+# [H] ALPINE-CVE-2021-32761
+
+## Summary
+Severity: High
+Advisory: ALPINE-CVE-2021-32761
+Ecosystem: Alpine:v3.11, Alpine:v3.12, Alpine:v3.13, Alpine:v3.14, Alpine:v3.15, Alpine:v3.16, Alpine:v3.17, Alpine:v3.18, Alpine:v3.19
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2021-07-21
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2021-32761
+Type: osv
+
+## Affected
+- Alpine:v3.11: `redis` — affected >=2.2.0 <5.0.13-r0
+- Alpine:v3.12: `redis` — affected >=2.2.0 <5.0.13-r0
+- Alpine:v3.13: `redis` — affected >=2.2.0 <6.0.13-r0
+- Alpine:v3.14: `redis` — affected >=2.2.0 <6.2.5-r0
+- Alpine:v3.15: `redis` — affected >=2.2.0 <6.2.5-r0
+- Alpine:v3.16: `redis` — affected >=2.2.0 <6.2.5-r0
+- Alpine:v3.17: `redis` — affected >=2.2.0 <6.2.5-r0
+- Alpine:v3.18: `redis` — affected >=2.2.0 <6.2.5-r0
+- Alpine:v3.19: `redis` — affected >=2.2.0 <6.2.5-r0
+
+## Details
+Redis is an in-memory database that persists on disk. A vulnerability involving out-of-bounds read and integer overflow to buffer overflow exists starting with version 2.2 and prior to versions 5.0.13, 6.0.15, and 6.2.5. On 32-bit systems, Redis `*BIT*` command are vulnerable to integer overflow that can potentially be exploited to corrupt the heap, leak arbitrary heap contents or trigger remote code execution. The vulnerability involves changing the default `proto-max-bulk-len` configuration parameter to a very large value and constructing specially crafted commands bit commands. This problem only affects Redis on 32-bit platforms, or compiled as a 32-bit binary. Redis versions 5.0.`3m 6.0.15, and 6.2.5 contain patches for this issue. An additional workaround to mitigate the problem without patching the `redis-server` executable is to prevent users from modifying the `proto-max-bulk-len` configuration parameter. This can be done using ACL to restrict unprivileged users from using the CONFIG SET command.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2021-32761

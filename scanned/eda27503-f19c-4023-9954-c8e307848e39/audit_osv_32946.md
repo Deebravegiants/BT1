@@ -1,0 +1,67 @@
+# [H] spi: spi-qpic-snand: reallocate BAM transactions
+
+## Summary
+Severity: High
+Advisory: CVE-2025-38398
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2025-07-25
+Source: https://osv.dev/vulnerability/CVE-2025-38398
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=6.15.0 <6.15.6
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+spi: spi-qpic-snand: reallocate BAM transactions
+
+Using the mtd_nandbiterrs module for testing the driver occasionally
+results in weird things like below.
+
+1. swiotlb mapping fails with the following message:
+
+  [   85.926216] qcom_snand 79b0000.spi: swiotlb buffer is full (sz: 4294967294 bytes), total 512 (slots), used 0 (slots)
+  [   85.932937] qcom_snand 79b0000.spi: failure in mapping desc
+  [   87.999314] qcom_snand 79b0000.spi: failure to write raw page
+  [   87.999352] mtd_nandbiterrs: error: write_oob failed (-110)
+
+  Rebooting the board after this causes a panic due to a NULL pointer
+  dereference.
+
+2. If the swiotlb mapping does not fail, rebooting the board may result
+   in a different panic due to a bad spinlock magic:
+
+  [  256.104459] BUG: spinlock bad magic on CPU#3, procd/2241
+  [  256.104488] Unable to handle kernel paging request at virtual address ffffffff0000049b
+  ...
+
+Investigating the issue revealed that these symptoms are results of
+memory corruption which is caused by out of bounds access within the
+driver.
+
+The driver uses a dynamically allocated structure for BAM transactions,
+which structure must have enough space for all possible variations of
+different flash operations initiated by the driver. The required space
+heavily depends on the actual number of 'codewords' which is calculated
+from the pagesize of the actual NAND chip.
+
+Although the qcom_nandc_alloc() function allocates memory for the BAM
+transactions during probe, but since the actual number of 'codewords'
+is not yet know the allocation is done for one 'codeword' only.
+
+Because of this, whenever the driver does a flash operation, and the
+number of the required transactions exceeds the size of the allocated
+arrays the driver accesses memory out of the allocated range.
+
+To avoid this, change the code to free the initially allocated BAM
+transactions memory, and allocate a new one once the actual number of
+'codewords' required for a given NAND chip is known.
+
+## References
+- https://git.kernel.org/stable/c/86fb36de1132b560f9305f0c78fa69f459fa0980
+- https://git.kernel.org/stable/c/d85d0380292a7e618915069c3579ae23c7c80339
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/38xxx/CVE-2025-38398.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-38398
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

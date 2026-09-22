@@ -1,0 +1,23 @@
+# [H] Possible DDOS by establishing keep-alive connections with anonymous HTTP clients in MinIO
+
+## Summary
+Severity: High
+Advisory: BIT-minio-2022-31028
+Aliases: CVE-2022-31028, GHSA-qrpr-r3pw-f636
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-minio-2022-31028
+Type: osv
+
+## Affected
+- Bitnami: `minio` — affected >=2019.09.25 <2022.06.02
+
+## Details
+MinIO is a multi-cloud object storage solution. Starting with version RELEASE.2019-09-25T18-25-51Z and ending with version RELEASE.2022-06-02T02-11-04Z, MinIO is vulnerable to an unending go-routine buildup while keeping connections established due to HTTP clients not closing the connections. Public-facing MinIO deployments are most affected. Users should upgrade to RELEASE.2022-06-02T02-11-04Z to receive a patch. One possible workaround is to use a reverse proxy to limit the number of connections being attempted in front of MinIO, and actively rejecting connections from such malicious clients.
+
+## References
+- https://gist.github.com/harshavardhana/2d00e6f909054d2d2524c71485ad02e1
+- https://github.com/minio/minio/pull/14995
+- https://github.com/minio/minio/releases/tag/RELEASE.2022-06-03T01-40-53Z
+- https://github.com/minio/minio/security/advisories/GHSA-qrpr-r3pw-f636
+- https://nvd.nist.gov/vuln/detail/CVE-2022-31028

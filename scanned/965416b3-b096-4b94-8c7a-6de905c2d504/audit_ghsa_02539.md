@@ -1,0 +1,29 @@
+# [H] HTTP Request Smuggling in actix-http
+
+## Summary
+Severity: High
+Advisory: GHSA-8928-2fgm-6x9x
+CVE: CVE-2021-38512
+CWE: CWE-444
+Ecosystem: crates.io
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2021-08-25
+Source: https://github.com/advisories/GHSA-8928-2fgm-6x9x
+Type: github-advisory
+
+## Affected
+- crates.io: `actix-http` — affected >=0 <2.2.1
+
+## Details
+Affected versions of this crate did not properly detect invalid requests that could allow HTTP/1 request smuggling (HRS) attacks when running alongside a vulnerable front-end proxy server. This can result in leaked internal and/or user data, including credentials, when the front-end proxy is also vulnerable.
+
+Popular front-end proxies and load balancers already mitigate HRS attacks so it is recommended that they are also kept up to date; check your specific set up. You should upgrade even if the front-end proxy receives exclusively HTTP/2 traffic and connects to the back-end using HTTP/1; several downgrade attacks are known that can also expose HRS vulnerabilities.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2021-38512
+- https://github.com/actix/actix-web/pull/2363
+- https://github.com/actix/actix-web/commit/e965d8298f421e9c89fe98b1300b8361e948c324
+- https://github.com/actix/actix-web
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/67URRW4K47SR6LNQB4YALPLGGQMQK7HO
+- https://raw.githubusercontent.com/rustsec/advisory-db/main/crates/actix-http/RUSTSEC-2021-0081.md
+- https://rustsec.org/advisories/RUSTSEC-2021-0081.html

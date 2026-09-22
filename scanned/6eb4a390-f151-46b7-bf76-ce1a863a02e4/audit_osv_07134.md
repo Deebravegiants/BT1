@@ -1,0 +1,27 @@
+# [H] BIT-node-2023-30585
+
+## Summary
+Severity: High
+Advisory: BIT-node-2023-30585
+Aliases: BIT-node-min-2023-30585, CVE-2023-30585
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-node-2023-30585
+Type: osv
+
+## Affected
+- Bitnami: `node` — affected >=20.0.0 <20.3.1
+
+## Details
+A vulnerability has been identified in the Node.js (.msi version) installation process, specifically affecting Windows users who install Node.js using the .msi installer. This vulnerability emerges during the repair operation, where the "msiexec.exe" process, running under the NT AUTHORITY\SYSTEM context, attempts to read the %USERPROFILE% environment variable from the current user's registry.
+
+The issue arises when the path referenced by the %USERPROFILE% environment variable does not exist. In such cases, the "msiexec.exe" process attempts to create the specified path in an unsafe manner, potentially leading to the creation of arbitrary folders in arbitrary locations.
+
+The severity of this vulnerability is heightened by the fact that the %USERPROFILE% environment variable in the Windows registry can be modified by standard (or "non-privileged") users. Consequently, unprivileged actors, including malicious entities or trojans, can manipulate the environment variable key to deceive the privileged "msiexec.exe" process. This manipulation can result in the creation of folders in unintended and potentially malicious locations.
+
+It is important to note that this vulnerability is specific to Windows users who install Node.js using the .msi installer. Users who opt for other installation methods are not affected by this particular issue.
+
+## References
+- https://nodejs.org/en/blog/vulnerability/june-2023-security-releases
+- https://nvd.nist.gov/vuln/detail/CVE-2023-30585
+- https://security.netapp.com/advisory/ntap-20241101-0011/

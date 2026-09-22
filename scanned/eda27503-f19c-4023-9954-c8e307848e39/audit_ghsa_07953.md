@@ -1,0 +1,32 @@
+# [H] melange affected by potential host command execution via license-check YAML mode patch pipeline 
+
+## Summary
+Severity: High
+Advisory: GHSA-rf4g-89h5-crcr
+CVE: CVE-2026-25143
+CWE: CWE-78
+Ecosystem: Go
+CVSS: CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2026-02-04
+Source: https://github.com/advisories/GHSA-rf4g-89h5-crcr
+Type: github-advisory
+
+## Affected
+- Go: `chainguard.dev/melange` — affected >=0.10.0 <0.40.3
+
+## Details
+An attacker who can influence inputs to the patch pipeline could execute arbitrary shell commands on the build host. The patch pipeline in pkg/build/pipelines/patch.yaml embeds input-derived values (series paths, patch filenames, and numeric parameters) into shell scripts without proper quoting or validation, allowing shell metacharacters to break out of their intended context.                                                                                                                                                               
+                                                                                                                                                                                        
+The vulnerability affects the built-in patch pipeline which can be invoked through melange build and melange license-check operations. An attacker who can control patch-related inputs (e.g., through pull request-driven CI, build-as-a-service, or by influencing melange configurations) can inject shell metacharacters such as backticks, command substitutions  $(…), semicolons, pipes, or redirections to execute arbitrary commands with the privileges of the melange build process.                                                              
+
+Fix: Fixed in [bd132535](https://github.com/chainguard-dev/melange/commit/bd132535cd9f57d4bd39d9ead0633598941af030) ,  Released in 0.40.3.
+                                                                                                                                                                                 
+Acknowledgements                                                                                                                                                                      
+                                                                                                                                                                                        
+melange thanks Oleh Konko (@1seal) from 1seal for discovering and reporting this issue.
+
+## References
+- https://github.com/chainguard-dev/melange/security/advisories/GHSA-rf4g-89h5-crcr
+- https://nvd.nist.gov/vuln/detail/CVE-2026-25143
+- https://github.com/chainguard-dev/melange/commit/bd132535cd9f57d4bd39d9ead0633598941af030
+- https://github.com/chainguard-dev/melange

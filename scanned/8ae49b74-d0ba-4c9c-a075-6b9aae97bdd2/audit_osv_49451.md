@@ -1,0 +1,20 @@
+# [M] CVE-2019-12381
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-12381
+CVSS: 5.5 (CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2019-05-28
+Source: https://osv.dev/vulnerability/CVE-2019-12381
+Type: osv
+
+## Details
+An issue was discovered in ip_ra_control in net/ipv4/ip_sockglue.c in the Linux kernel through 5.1.5. There is an unchecked kmalloc of new_ra, which might allow an attacker to cause a denial of service (NULL pointer dereference and system crash). NOTE: this is disputed because new_ra is never used if it is NULL
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/J36BIJTKEPUOZKJNHQBUZA47RQONUKOI/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/KLGWJKLMTBBB53D5QLS4HOY2EH246WBE/
+- http://www.securityfocus.com/bid/108473
+- https://bugzilla.redhat.com/show_bug.cgi?id=1715501
+- https://git.kernel.org/pub/scm/linux/kernel/git/davem/net.git/commit/?id=425aa0e1d01513437668fa3d4a971168bbaa8515
+- https://lkml.org/lkml/2019/5/25/230

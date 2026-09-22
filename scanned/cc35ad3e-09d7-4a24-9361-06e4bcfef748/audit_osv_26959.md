@@ -1,0 +1,19 @@
+# [M] DeepFaceLab DFLJPG.py deserialization
+
+## Summary
+Severity: Medium
+Advisory: CVE-2023-6656
+CVSS: 5.0 (CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:L)
+Published: 2023-12-10
+Source: https://osv.dev/vulnerability/CVE-2023-6656
+Type: osv
+
+## Details
+** UNSUPPORTED WHEN ASSIGNED ** A vulnerability was found in DeepFaceLab pretrained DF.wf.288res.384.92.72.22. It has been rated as critical. Affected by this issue is some unknown functionality of the file DFLIMG/DFLJPG.py. The manipulation leads to deserialization. The attack may be launched remotely. The complexity of an attack is rather high. The exploitation is known to be difficult. The identifier of this vulnerability is VDB-247364. NOTE: This vulnerability only affects products that are no longer supported by the maintainer.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/6xxx/CVE-2023-6656.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-6656
+- https://vuldb.com/?id.247364
+- https://vuldb.com/?ctiid.247364
+- https://github.com/bayuncao/vul-cve-1

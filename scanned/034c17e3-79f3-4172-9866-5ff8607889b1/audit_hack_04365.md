@@ -1,0 +1,38 @@
+# [M] Circuit breaker expiry should include the current block timestamp
+
+## Summary
+Severity: Medium
+Reporter: caventa
+Source: https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Isomorph/contracts/Vault_Lyra.sol#L54
+Type: audit-issue
+
+## Details
+# Circuit breaker expiry should include the current block timestamp
+
+## Summary
+Circuit breaker expiry should include the current block timestamp.
+
+## Vulnerability Detail
+Collateral should not be active if the current block timestamp = circuitBreakerExpiry.
+
+## Impact
+if current block timestamp = circuitBreakerExpiry, collateral is treated as active (Which is incorrect)
+
+## Code Snippet
+https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Isomorph/contracts/Vault_Lyra.sol#L54
+
+## Tool used
+Manual Review
+
+## Recommendation
+Change 
+
+```solidity
+require(circuitBreakerExpiry < block.timestamp, "Lyra Circuit Breakers active, can't trade");
+```
+
+to
+
+```solidity
+require(circuitBreakerExpiry <= block.timestamp, "Lyra Circuit Breakers active, can't trade");
+```

@@ -1,0 +1,30 @@
+# [M] lock funds indefinitely or make challenging impractical due to challengePeriod .
+
+## Summary
+Severity: Medium
+Reporter: Brilliant Burlap Ant
+Source: https://github.com/sherlock-audit/2024-01-telcoin/blob/main/telcoin-audit/contracts/protocol/core/TelcoinDistributor.sol#L210
+Type: audit-issue
+
+## Details
+# lock funds indefinitely or make challenging impractical due to challengePeriod .
+
+## Summary
+The challengePeriod is set during construction and can be updated by the owner, but there is no check to prevent setting it to an unreasonably high or low value, which could either lock funds indefinitely or make challenging impractical.
+
+## Vulnerability Detail
+ function setChallengePeriod(uint256 newPeriod) public onlyOwner {
+        //update period
+        challengePeriod = newPeriod;
+        // Emitting an event for new period
+        emit ChallengePeriodUpdated(challengePeriod);
+    }
+## Impact
+there is no check to prevent setting it to an unreasonably high or low value, which could either lock funds indefinitely or make challenging impractical.
+## Code Snippet
+https://github.com/sherlock-audit/2024-01-telcoin/blob/main/telcoin-audit/contracts/protocol/core/TelcoinDistributor.sol#L210
+## Tool used
+
+Manual Review
+
+## Recommendation

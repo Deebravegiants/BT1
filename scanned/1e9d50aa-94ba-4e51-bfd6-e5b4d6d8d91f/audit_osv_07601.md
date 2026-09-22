@@ -1,0 +1,21 @@
+# [M] CHECK-fail in tf.raw_ops.EncodePng
+
+## Summary
+Severity: Medium
+Advisory: BIT-tensorflow-2021-29531
+Aliases: CVE-2021-29531, GHSA-3qxp-qjq7-w4hf, PYSEC-2021-168, PYSEC-2021-459, PYSEC-2021-657
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-tensorflow-2021-29531
+Type: osv
+
+## Affected
+- Bitnami: `tensorflow` — affected >=2.4.0 <2.4.2
+
+## Details
+TensorFlow is an end-to-end open source platform for machine learning. An attacker can trigger a `CHECK` fail in PNG encoding by providing an empty input tensor as the pixel data. This is because the implementation(https://github.com/tensorflow/tensorflow/blob/e312e0791ce486a80c9d23110841525c6f7c3289/tensorflow/core/kernels/image/encode_png_op.cc#L57-L60) only validates that the total number of pixels in the image does not overflow. Thus, an attacker can send an empty matrix for encoding. However, if the tensor is empty, then the associated buffer is `nullptr`. Hence, when calling `png::WriteImageToBuffer`(https://github.com/tensorflow/tensorflow/blob/e312e0791ce486a80c9d23110841525c6f7c3289/tensorflow/core/kernels/image/encode_png_op.cc#L79-L93), the first argument (i.e., `image.flat<T>().data()`) is `NULL`. This then triggers the `CHECK_NOTNULL` in the first line of `png::WriteImageToBuffer`(https://github.com/tensorflow/tensorflow/blob/e312e0791ce486a80c9d23110841525c6f7c3289/tensorflow/core/lib/png/png_io.cc#L345-L349). Since `image` is null, this results in `abort` being called after printing the stacktrace. Effectively, this allows an attacker to mount a denial of service attack. The fix will be included in TensorFlow 2.5.0. We will also cherrypick this commit on TensorFlow 2.4.2, TensorFlow 2.3.3, TensorFlow 2.2.3 and TensorFlow 2.1.4, as these are also affected and still in supported range.
+
+## References
+- https://github.com/tensorflow/tensorflow/commit/26eb323554ffccd173e8a79a8c05c15b685ae4d1
+- https://github.com/tensorflow/tensorflow/security/advisories/GHSA-3qxp-qjq7-w4hf
+- https://nvd.nist.gov/vuln/detail/CVE-2021-29531

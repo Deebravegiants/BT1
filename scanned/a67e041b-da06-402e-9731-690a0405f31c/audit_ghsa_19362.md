@@ -1,0 +1,31 @@
+# [H] Langroid has a Code Injection vulnerability in LanceDocChatAgent through vector_store
+
+## Summary
+Severity: High
+Advisory: GHSA-22c2-9gwg-mj59
+CVE: CVE-2025-46725
+CWE: CWE-94
+Ecosystem: PyPI
+CVSS: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U (CVSS_V4)
+Published: 2025-05-20
+Source: https://github.com/advisories/GHSA-22c2-9gwg-mj59
+Type: github-advisory
+
+## Affected
+- PyPI: `langroid` — affected >=0 <0.53.15
+
+## Details
+### Summary
+[LanceDocChatAgent](https://github.com/langroid/langroid/blob/main/langroid/agent/special/lance_doc_chat_agent.py#L158) uses pandas eval() through `compute_from_docs()`:
+https://github.com/langroid/langroid/blob/18667ec7e971efc242505196f6518eb19a0abc1c/langroid/vector_store/base.py#L136-L150
+
+As a result, an attacker may be able to make the agent run malicious commands through [QueryPlan.dataframe_calc](https://github.com/langroid/langroid/blob/main/langroid/agent/special/lance_tools.py#L16) compromising the host system.
+
+### Fix 
+Langroid 0.53.15 sanitizes input to the affected function by default to tackle the most common attack vectors, and added several warnings about the risky behavior in the project documentation.
+
+## References
+- https://github.com/langroid/langroid/security/advisories/GHSA-22c2-9gwg-mj59
+- https://nvd.nist.gov/vuln/detail/CVE-2025-46725
+- https://github.com/langroid/langroid/commit/0d9e4a7bb3ae2eef8d38f2e970ff916599a2b2a6
+- https://github.com/langroid/langroid

@@ -1,0 +1,33 @@
+# [M] Eco Protocol - Use safeERC20::safeTransferFrom() instead of TransferFrom()
+
+## Summary
+Severity: Medium
+Reporter: Dliteofficial
+Source: https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L1ECOBridge.sol#L333
+Type: audit-issue
+
+## Details
+# Eco Protocol - Use safeERC20::safeTransferFrom() instead of TransferFrom()
+
+## Summary
+Eco protocol should use safeTransferFrom instead of transferFrom to secure the protocol from failed ERC20 transfers which can cause a user to get free L2ECO tokens without sending the equivalent L1ECO tokens.
+
+## Vulnerability Detail
+Not every ERC20::transferFrom() operation reverts on error; some ERC20 tokens return false. Hence, the need to always check for the return values of ERC20 transfer operations. ECO token is one token that does not revert on error; instead, it returns a boolean to indicate the operation's success. 
+
+L1ECOBridge calls _initializeERC20Deposit during the execution of the depositERC20 or depositERC20To, and this function attempts to transfer the L1ECO token into the contract using ERC20::transferFrom before relaying the message to L2. Unfortunately, the function failed to assess the return value of the transferFrom operation. This transfer might go through or not and can have an effect on the sustainability of the bridge.
+
+## Impact
+When the transferFrom operation fails, the user will effectively get L2ECO tokens without transferring any L1ECO tokens. The deposit and withdrawal of L1ECO and L2ECO tokens, respectively, depend on how much of the tokens are transferred into the contract or minted/burned by the contract. The frequent occurrence of a failed transfer function hinders the last user from withdrawing his L2ECO tokens. 
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/bridge/L1ECOBridge.sol#L333
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+There are two recommendations here:
+1. Use a low-level call for token transfer which is similar to what was done in L1ERCOBridge::finalizeERC20Withdrawal.
+2. Alternatively, use safeTransferFrom from Openzeppelin's safeERC20 contract rather than ERC20::transferFrom()

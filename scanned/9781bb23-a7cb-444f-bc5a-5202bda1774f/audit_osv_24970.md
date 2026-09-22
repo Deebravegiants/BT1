@@ -1,0 +1,19 @@
+# [M] Uncontrolled recursion due to insufficient validation of the IPv6 source routing header in Contiki-NG
+
+## Summary
+Severity: Medium
+Advisory: CVE-2023-29001
+Aliases: GHSA-7p75-mf53-ffwm
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N)
+Published: 2024-11-27
+Source: https://osv.dev/vulnerability/CVE-2023-29001
+Type: osv
+
+## Details
+Contiki-NG is an open-source, cross-platform operating system for IoT devices. The Contiki-NG operating system processes source routing headers (SRH) in its two alternative RPL protocol implementations. The IPv6 implementation uses the results of this processing to determine whether an incoming packet should be forwarded to another host. Because of missing validation of the resulting next-hop address, an uncontrolled recursion may occur in the tcpip_ipv6_output function in the os/net/ipv6/tcpip.c module when receiving a packet with a next-hop address that is a local address. Attackers that have the possibility to send IPv6 packets to the Contiki-NG host can therefore trigger deeply nested recursive calls, which can cause a stack overflow. The vulnerability has not been patched in the current release of Contiki-NG, but is expected to be patched in the next release. The problem can be fixed by applying the patch in Contiki-NG pull request #2264. Users are advised to either apply the patch manually or to wait for the next release. There are no known workarounds for this vulnerability.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/29xxx/CVE-2023-29001.json
+- https://github.com/contiki-ng/contiki-ng/security/advisories/GHSA-7p75-mf53-ffwm
+- https://nvd.nist.gov/vuln/detail/CVE-2023-29001
+- https://github.com/contiki-ng/contiki-ng/pull/2264

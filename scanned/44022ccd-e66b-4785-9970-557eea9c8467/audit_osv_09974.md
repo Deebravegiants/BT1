@@ -1,0 +1,15 @@
+# [H] CVE-2017-12473
+
+## Summary
+Severity: High
+Advisory: CVE-2017-12473
+CVSS: 7.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2018-02-07
+Source: https://osv.dev/vulnerability/CVE-2017-12473
+Type: osv
+
+## Details
+ccnl_ccntlv_bytes2pkt in CCN-lite allows context-dependent attackers to cause a denial of service (application crash) via vectors involving packets with "wrong L values."
+
+## References
+- https://github.com/cn-uofbasel/ccn-lite/issues/139

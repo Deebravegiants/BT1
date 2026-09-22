@@ -1,0 +1,212 @@
+# [H] [Fund stuck] The fund would be stuck if one of the individual payout schedules for tier percentage bounty is 0.
+
+## Summary
+Severity: High
+Reporter: caventa
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/TieredPercentageBountyV1.sol#L26-L97
+Type: audit-issue
+
+## Details
+# [Fund stuck] The fund would be stuck if one of the individual payout schedules for tier percentage bounty is 0.
+
+## Summary
+The fund would be stuck if one of the individual payout schedules for tier percentage bounty is 0.
+
+## Vulnerability Detail
+Let's take an example
+
+1. Reset the schedule to 0, 90, 10
+2. Deposit 600
+3. Claim for the first tier, Nothing happen
+
+Modified the test units in TierPercentageBounty.test.js
+
+```solidity
+it.only('should transfer volume of tokenAddress balance based on payoutSchedule', async () => {
+	await tieredContract.setPayoutSchedule([0, 90, 10]);
+	let initialPayoutSchedule = await tieredContract.getPayoutSchedule();
+
+	let payoutToString = await initialPayoutSchedule.map(thing => thing.toString());
+
+	expect(payoutToString[0]).to.equal('0');
+	expect(payoutToString[1]).to.equal('90');
+	expect(payoutToString[2]).to.equal('10');
+
+	const [, firstPlace] = await ethers.getSigners();
+	await tieredContract.connect(depositManager).receiveFunds(owner.address, mockLink.address, 600, Constants.thirtyDays); // 600
+	{
+		const firstPlaceTokenBalance = (await mockLink.balanceOf(firstPlace.address)).toString();
+		expect(firstPlaceTokenBalance).to.equal('0'); // user has 0 LINK
+
+		const bountyMockTokenBalance = (await mockLink.balanceOf(tieredContract.address)).toString();
+		expect(bountyMockTokenBalance).to.equal('600'); // contract has 600 Link
+	}
+
+	const deposits = await tieredContract.getDeposits();
+	const linkDepositId = deposits[0];
+	await tieredContract.connect(claimManager).closeCompetition();
+	await tieredContract.connect(claimManager).claimTiered(firstPlace.address, 0, mockLink.address);
+
+	{
+		const firstPlaceTokenBalance = (await mockLink.balanceOf(firstPlace.address)).toString();
+		expect(firstPlaceTokenBalance).to.equal('0'); // user still has 0 LINK
+
+		const bountyMockTokenBalance = (await mockLink.balanceOf(tieredContract.address)).toString();
+		expect(bountyMockTokenBalance).to.equal('600'); // contract still has 600 Link. Here the token will stuck in the contract forever!
+	}
+});
+
+```
+
+## Impact
+If the payout schedule is 0, no payout will be transferred for that particular tier when it was claimed.
+
+```solidity
+   function claimTiered(
+        address _payoutAddress,
+        uint256 _tier,
+        address _tokenAddress
+    ) external onlyClaimManager nonReentrant returns (uint256) {
+        require(
+            bountyType == OpenQDefinitions.TIERED_PERCENTAGE,
+            Errors.NOT_A_TIERED_BOUNTY
+        );
+        require(!tierClaimed[_tier], Errors.TIER_ALREADY_CLAIMED);
+
+        uint256 claimedBalance = (payoutSchedule[_tier] *
+            fundingTotals[_tokenAddress]) / 100;
+
+        console.log(claimedBalance); => This will return 0
+
+        _transferToken(_tokenAddress, claimedBalance, _payoutAddress);
+        return claimedBalance;
+    }
+```
+## Code Snippet
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/TieredPercentageBountyV1.sol#L26-L97
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/TieredPercentageBountyV1.sol#L141-L179
+
+## Tool used
+Manual and test unit added.
+
+## Recommendation
+Change TierPercentageBountyV1.sol
+
+```solidity
+function initialize(
+    string memory _bountyId,
+    address _issuer,
+    string memory _organization,
+    address _openQ,
+    address _claimManager,
+    address _depositManager,
+    OpenQDefinitions.InitOperation memory _operation
+) external initializer {
+    require(bytes(_bountyId).length != 0, Errors.NO_EMPTY_BOUNTY_ID);
+    require(bytes(_organization).length != 0, Errors.NO_EMPTY_ORGANIZATION);
+
+    __ReentrancyGuard_init();
+
+    __OnlyOpenQ_init(_openQ);
+    __ClaimManagerOwnable_init(_claimManager);
+    __DepositManagerOwnable_init(_depositManager);
+
+    bountyId = _bountyId;
+    issuer = _issuer;
+    organization = _organization;
+    bountyCreatedTime = block.timestamp;
+    nftDepositLimit = 5;
+
+    (
+        uint256[] memory _payoutSchedule,
+        bool _hasFundingGoal,
+        address _fundingToken,
+        uint256 _fundingGoal,
+        bool _invoiceRequired,
+        bool _kycRequired,
+        bool _supportingDocumentsRequired,
+        string memory _issuerExternalUserId,
+        ,
+
+    ) = abi.decode(
+            _operation.data,
+            (
+                uint256[],
+                bool,
+                address,
+                uint256,
+                bool,
+                bool,
+                bool,
+                string,
+                string,
+                string
+            )
+        );
+
+    uint256 sum;
+    for (uint256 i = 0; i < _payoutSchedule.length; i++) {
+        +++ require(_payoutSchedule[i] > 0, 'Payout schedule should be larger than 0');
+        sum += _payoutSchedule[i];
+    }
+    require(sum == 100, Errors.PAYOUT_SCHEDULE_MUST_ADD_TO_100);
+    payoutSchedule = _payoutSchedule;
+
+    bountyType = OpenQDefinitions.TIERED_PERCENTAGE;
+    hasFundingGoal = _hasFundingGoal;
+    fundingToken = _fundingToken;
+    fundingGoal = _fundingGoal;
+    invoiceRequired = _invoiceRequired;
+    kycRequired = _kycRequired;
+    supportingDocumentsRequired = _supportingDocumentsRequired;
+    issuerExternalUserId = _issuerExternalUserId;
+
+    // Initialize metadata arrays to same number of tiers
+    tierWinners = new string[](_payoutSchedule.length);
+    invoiceComplete = new bool[](_payoutSchedule.length);
+    supportingDocumentsComplete = new bool[](_payoutSchedule.length);
+}
+```
+
+```solidity
+function setPayoutSchedule(uint256[] calldata _payoutSchedule)
+    external
+    onlyOpenQ
+{
+    require(
+        bountyType == OpenQDefinitions.TIERED_PERCENTAGE,
+        Errors.NOT_A_TIERED_BOUNTY
+    );
+    uint256 sum;
+    for (uint256 i = 0; i < _payoutSchedule.length; i++) {
+        +++ require(_payoutSchedule[i] > 0, 'Payout schedule should be larger than 0');
+        sum += _payoutSchedule[i];
+    }
+    require(sum == 100, Errors.PAYOUT_SCHEDULE_MUST_ADD_TO_100);
+
+    payoutSchedule = _payoutSchedule;
+
+    // Resize metadata arrays and copy current members to new array
+    // NOTE: If resizing to fewer tiers than previously, the final indexes will be removed
+    string[] memory newTierWinners = new string[](payoutSchedule.length);
+    bool[] memory newInvoiceComplete = new bool[](payoutSchedule.length);
+    bool[] memory newSupportingDocumentsCompleted = new bool[](
+        payoutSchedule.length
+    );
+
+    for (uint256 i = 0; i < tierWinners.length; i++) {
+        newTierWinners[i] = tierWinners[i];
+    }
+    tierWinners = newTierWinners;
+
+    for (uint256 i = 0; i < invoiceComplete.length; i++) {
+        newInvoiceComplete[i] = invoiceComplete[i];
+    }
+    invoiceComplete = newInvoiceComplete;
+
+    for (uint256 i = 0; i < supportingDocumentsComplete.length; i++) {
+        newSupportingDocumentsCompleted[i] = supportingDocumentsComplete[i];
+    }
+    supportingDocumentsComplete = newSupportingDocumentsCompleted;
+}
+```

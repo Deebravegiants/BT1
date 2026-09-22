@@ -1,0 +1,29 @@
+# [H] requests cannot be fufilled by lenders
+
+## Summary
+Severity: High
+Reporter: 0xdevPed
+Source: https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L179
+Type: audit-issue
+
+## Details
+# requests cannot be fufilled by lenders
+
+## Summary
+Requests cannot be fufilled by lenders.
+
+## Vulnerability Detail
+The function clear should allow the lender send the amount requested of the borrower, but it uses transferFrom which will require an approval and the borrower triggering the transferFrom function leading to errors 
+## Impact
+Protocol Malfunction
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L179
+
+## Tool used
+
+Manual Review
+
+## Recommendation 
+use transfer 
+debt.transfer(owner,req.amount)

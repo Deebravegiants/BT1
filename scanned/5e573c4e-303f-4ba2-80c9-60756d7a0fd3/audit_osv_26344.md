@@ -1,0 +1,53 @@
+# [H] nfc: pn533: Wait for out_urb's completion in pn533_usb_send_frame()
+
+## Summary
+Severity: High
+Advisory: CVE-2023-52907
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2024-08-21
+Source: https://osv.dev/vulnerability/CVE-2023-52907
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=3.1.0 <4.14.303, >=4.15.0 <4.19.270, >=4.20.0 <5.4.229, >=5.5.0 <5.10.164, >=5.11.0 <5.15.89, >=5.16.0 <6.1.7
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+nfc: pn533: Wait for out_urb's completion in pn533_usb_send_frame()
+
+Fix a use-after-free that occurs in hcd when in_urb sent from
+pn533_usb_send_frame() is completed earlier than out_urb. Its callback
+frees the skb data in pn533_send_async_complete() that is used as a
+transfer buffer of out_urb. Wait before sending in_urb until the
+callback of out_urb is called. To modify the callback of out_urb alone,
+separate the complete function of out_urb and ack_urb.
+
+Found by a modified version of syzkaller.
+
+BUG: KASAN: use-after-free in dummy_timer
+Call Trace:
+ memcpy (mm/kasan/shadow.c:65)
+ dummy_perform_transfer (drivers/usb/gadget/udc/dummy_hcd.c:1352)
+ transfer (drivers/usb/gadget/udc/dummy_hcd.c:1453)
+ dummy_timer (drivers/usb/gadget/udc/dummy_hcd.c:1972)
+ arch_static_branch (arch/x86/include/asm/jump_label.h:27)
+ static_key_false (include/linux/jump_label.h:207)
+ timer_expire_exit (include/trace/events/timer.h:127)
+ call_timer_fn (kernel/time/timer.c:1475)
+ expire_timers (kernel/time/timer.c:1519)
+ __run_timers (kernel/time/timer.c:1790)
+ run_timer_softirq (kernel/time/timer.c:1803)
+
+## References
+- https://git.kernel.org/stable/c/0ca78c99656f5c448567db1e148367aa3b01c80a
+- https://git.kernel.org/stable/c/321db5131c92983dac4f3338e8fbb6df214238c0
+- https://git.kernel.org/stable/c/35529d6b827eedb6bf7e81130e4b7e0aba9e58d2
+- https://git.kernel.org/stable/c/39ae73e581112cfe27ba50aecb1c891ce57cecb1
+- https://git.kernel.org/stable/c/8998db5021a28ad67aa8d627bdb4226e4046ccc4
+- https://git.kernel.org/stable/c/9424d2205fe94a095fb9365ec0c6137f0b394a2b
+- https://git.kernel.org/stable/c/9dab880d675b9d0dd56c6428e4e8352a3339371d
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/52xxx/CVE-2023-52907.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-52907
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

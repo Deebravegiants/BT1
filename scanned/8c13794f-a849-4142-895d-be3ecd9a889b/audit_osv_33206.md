@@ -1,0 +1,58 @@
+# [M] wifi: ath12k: fix memory leak in ath12k_service_ready_ext_event
+
+## Summary
+Severity: Medium
+Advisory: CVE-2025-39890
+Ecosystem: Linux
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2025-09-24
+Source: https://osv.dev/vulnerability/CVE-2025-39890
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=6.3.0 <6.6.94, >=6.7.0 <6.12.34, >=6.13.0 <6.15.3
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+wifi: ath12k: fix memory leak in ath12k_service_ready_ext_event
+
+Currently, in ath12k_service_ready_ext_event(), svc_rdy_ext.mac_phy_caps
+is not freed in the failure case, causing a memory leak. The following
+trace is observed in kmemleak:
+
+unreferenced object 0xffff8b3eb5789c00 (size 1024):
+ comm "softirq", pid 0, jiffies 4294942577
+ hex dump (first 32 bytes):
+   00 00 00 00 01 00 00 00 00 00 00 00 7b 00 00 10  ............{...
+   01 00 00 00 00 00 00 00 01 00 00 00 1f 38 00 00  .............8..
+ backtrace (crc 44e1c357):
+   __kmalloc_noprof+0x30b/0x410
+   ath12k_wmi_mac_phy_caps_parse+0x84/0x100 [ath12k]
+   ath12k_wmi_tlv_iter+0x5e/0x140 [ath12k]
+   ath12k_wmi_svc_rdy_ext_parse+0x308/0x4c0 [ath12k]
+   ath12k_wmi_tlv_iter+0x5e/0x140 [ath12k]
+   ath12k_service_ready_ext_event.isra.0+0x44/0xd0 [ath12k]
+   ath12k_wmi_op_rx+0x2eb/0xd70 [ath12k]
+   ath12k_htc_rx_completion_handler+0x1f4/0x330 [ath12k]
+   ath12k_ce_recv_process_cb+0x218/0x300 [ath12k]
+   ath12k_pci_ce_workqueue+0x1b/0x30 [ath12k]
+   process_one_work+0x219/0x680
+   bh_worker+0x198/0x1f0
+   tasklet_action+0x13/0x30
+   handle_softirqs+0xca/0x460
+   __irq_exit_rcu+0xbe/0x110
+   irq_exit_rcu+0x9/0x30
+
+Free svc_rdy_ext.mac_phy_caps in the error case to fix this memory leak.
+
+Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.4.1-00199-QCAHKSWPL_SILICONZ-1
+
+## References
+- https://git.kernel.org/stable/c/1089f65b2de78c7837ef6b4f26146a5a5b0b9749
+- https://git.kernel.org/stable/c/3a392f874ac83a77ad0e53eb8aafdbeb787c9298
+- https://git.kernel.org/stable/c/89142d34d5602c7447827beb181fa06eb08b9d5c
+- https://git.kernel.org/stable/c/99dbad1b01d3b2f361a9db55c1af1212be497a3d
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/39xxx/CVE-2025-39890.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-39890
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

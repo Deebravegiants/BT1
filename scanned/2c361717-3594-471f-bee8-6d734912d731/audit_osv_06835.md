@@ -1,0 +1,24 @@
+# [H] BIT-modsecurity-2020-15598
+
+## Summary
+Severity: High
+Advisory: BIT-modsecurity-2020-15598
+Aliases: BIT-modsecurity2-2020-15598, CVE-2020-15598
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-modsecurity-2020-15598
+Type: osv
+
+## Affected
+- Bitnami: `modsecurity` — affected >=3.0.0 <3.0.5
+
+## Details
+Trustwave ModSecurity 3.x through 3.0.4 allows denial of service via a special request. NOTE: The discoverer reports "Trustwave has signaled they are disputing our claims." The CVE suggests that there is a security issue with how ModSecurity handles regular expressions that can result in a Denial of Service condition. The vendor does not consider this as a security issue because1) there is no default configuration issue here. An attacker would need to know that a rule using a potentially problematic regular expression was in place, 2) the attacker would need to know the basic nature of the regular expression itself to exploit any resource issues. It's well known that regular expression usage can be taxing on system resources regardless of the use case. It is up to the administrator to decide on when it is appropriate to trade resources for potential security benefit
+
+## References
+- http://packetstormsecurity.com/files/159185/ModSecurity-3.0.x-Denial-Of-Service.html
+- http://seclists.org/fulldisclosure/2020/Sep/32
+- https://coreruleset.org/20200914/cve-2020-15598/
+- https://www.debian.org/security/2020/dsa-4765
+- https://www.modsecurity.org
+- https://nvd.nist.gov/vuln/detail/CVE-2020-15598

@@ -1,0 +1,39 @@
+# [M] `BalancerUtils::_normalizeBalances` will silently underflow if decimals are bigger than 18
+
+## Summary
+Severity: Medium
+Reporter: lemonmon
+Source: https://github.com/sherlock-audit/2022-09-notional/blob/main/leveraged-vaults/contracts/vaults/balancer/internal/pool/BalancerUtils.sol#L38-L63
+Type: audit-issue
+
+## Details
+# `BalancerUtils::_normalizeBalances` will silently underflow if decimals are bigger than 18
+
+## Summary
+
+If `primaryDecimals` or `secondaryDecimals` is bigger than 18, the `BalancerUtils::_normalizeBalances` will silently underflow and gives very wrong number.
+
+## Vulnerability Detail
+
+If `primaryDecimals` or `secondaryDecimals` is bigger than 18, the `BalancerUtils::_normalizeBalances` will silently underflow and gives very wrong number.
+For example, if the primaryDecimals is 24, the `18 - primaryDecimals` will wrap around within uint8 and be 250, then the `decimalAdjust` will be 103127329476984736549117908523362667931818580092836127347641910757047631085568.
+
+[Some erc20 tokens have bigger than 18 decimals](https://github.com/d-xo/weird-erc20#high-decimals)
+
+
+## Impact
+
+The `_normalizeBalances` will return incorrect values for tokens with bigger than 18 decimals.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-09-notional/blob/main/leveraged-vaults/contracts/vaults/balancer/internal/pool/BalancerUtils.sol#L38-L63
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Even if the contract is not meant to be used with bigger than 18 decimals, add a check to revert if the decimals are too big.

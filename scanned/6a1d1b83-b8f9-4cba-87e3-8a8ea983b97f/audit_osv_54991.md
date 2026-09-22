@@ -1,0 +1,16 @@
+# [H] CVE-2024-7972
+
+## Summary
+Severity: High
+Advisory: CVE-2024-7972
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2024-08-21
+Source: https://osv.dev/vulnerability/CVE-2024-7972
+Type: osv
+
+## Details
+Inappropriate implementation in V8 in Google Chrome prior to 128.0.6613.84 allowed a remote attacker to potentially perform out of bounds memory access via a crafted HTML page. (Chromium security severity: Medium)
+
+## References
+- https://chromereleases.googleblog.com/2024/08/stable-channel-update-for-desktop_21.html
+- https://issues.chromium.org/issues/345960102

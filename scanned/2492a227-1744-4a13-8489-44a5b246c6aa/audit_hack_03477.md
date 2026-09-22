@@ -1,0 +1,46 @@
+# [M] `protocolFeeNumerator` & `protocolFeeDenominator` don't init
+
+## Summary
+Severity: Medium
+Reporter: neila
+Source: https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/src/VaultImplementation.sol
+Type: audit-issue
+
+## Details
+# `protocolFeeNumerator` & `protocolFeeDenominator` don't init
+
+## Summary
+protocolFeeNumerator & protocolFeeDenominator don't init
+found by [Tomosuke0930](https://github.com/Tomosuke0930)
+
+## Vulnerability Detail
+The values of `protocolFeeNumerator` and `protocolFeeDenominator` are not initialized, and there is no function to set these values.
+
+## Impact
+1. `getProtocolFee` always returns 0.
+2. This function will prevent the associated function from working properly
+
+e.g.) `commitToLien()`, `_requestLienAndIssuePayout()`, `_handleProtocolFee()`
+https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/src/VaultImplementation.sol
+
+
+## Code Snippet
+https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/src/AstariaRouter.sol#L66-L67
+```solidity
+  uint256 public protocolFeeNumerator;
+  uint256 public protocolFeeDenominator;
+```
+
+https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/src/AstariaRouter.sol#L441-L443
+```solidity
+  function getProtocolFee(uint256 amountIn) external view returns (uint256) {
+    return amountIn.mulDivDown(protocolFeeNumerator, protocolFeeDenominator);
+  }
+```
+
+
+## Tool used
+Manual Review
+
+## Recommendation
+These values should initialize in the constructor or create a function to set the value to these variables.

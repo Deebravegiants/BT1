@@ -1,0 +1,16 @@
+# [H] CVE-2017-20086
+
+## Summary
+Severity: High
+Advisory: CVE-2017-20086
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2022-06-23
+Source: https://osv.dev/vulnerability/CVE-2017-20086
+Type: osv
+
+## Details
+A vulnerability, which was classified as critical, was found in VaultPress Plugin 1.8.4. This affects an unknown part. The manipulation leads to code injection. It is possible to initiate the attack remotely.
+
+## References
+- https://vuldb.com/?id.97383
+- http://seclists.org/fulldisclosure/2017/Feb/95

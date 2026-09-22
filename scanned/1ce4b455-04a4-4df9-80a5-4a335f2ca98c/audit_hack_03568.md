@@ -1,0 +1,85 @@
+# [H] Wrong design of `createBid` leads to all funds of this contract loss
+
+## Summary
+Severity: High
+Reporter: neila
+Source: https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/lib/astaria-gpl/src/AuctionHouse.sol#L93-L159
+Type: audit-issue
+
+## Details
+# Wrong design of `createBid` leads to all funds of this contract loss
+
+## Summary
+Bidder pays the wrong value. This leads to the loss of all funds of this contract.
+found by[Tomosuke0930](https://github.com/Tomosuke0930)
+
+## Vulnerability Detail
+- This contract has 50 WETH
+
+1. Alice pays 5 WETH as a first bidder
+2. Eve executes `createBid` with the amount is 6 but Eve pays only 1 WETH
+3. And soon, Eve executes `createBid` with the amount is 7 but Eve pays only 1 WETH and Eve gets 6 WETH as a refund
+4. Repeat this and Eve will get all of the funds in this contract
+
+
+## Impact
+New bidders only have to pay the `amount - currentBid` to this contract instead of `amount`
+
+## Code Snippet
+https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/lib/astaria-gpl/src/AuctionHouse.sol#L93-L159
+```solidity
+  function createBid(uint256 tokenId, uint256 amount) external override {
+    /* ... */
+    // If it's not, then we should refund the last bidder
+    uint256 vaultPayment = (amount - currentBid);
+
+    // @audit-issue  vaultPayment = newAmount - lastAmount
+    _handleIncomingPayment(tokenId, vaultPayment, address(msg.sender));
+
+    auctions[tokenId].currentBid = amount;
+    auctions[tokenId].bidder = address(msg.sender);
+    /* ... */
+  }
+```
+https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/main/lib/astaria-gpl/src/AuctionHouse.sol#L253-L307
+
+```solidity
+ function _handleIncomingPayment(
+    uint256 tokenId,
+    uint256 transferAmount,
+    address payer
+  ) internal {
+    uint256 initiatorPayment = transferAmount.mulDivDown(
+      auction.initiatorFee,
+      100
+    ); //maybe consider making protocl computed like other fees
+    /* ... */
+    TRANSFER_PROXY.tokenTransferFrom(
+      weth,
+      payer,
+      auction.initiator,
+      initiatorPayment
+    );
+    /* ... */
+    transferAmount -= initiatorPayment;
+    /* ... */
+    if (payment > 0) {
+          LIEN_TOKEN.makePayment(tokenId, payment, lien.position, payer/* newBidder */ );
+        }
+      }
+    } else {
+      TRANSFER_PROXY.tokenTransferFrom(
+        weth,
+        payer,// newBidder
+        COLLATERAL_TOKEN.ownerOf(tokenId),// collateralTokenのowner
+        transferAmount
+      );
+    }
+  }
+```
+
+## Tool used
+Manual Review
+
+## Recommendation
+Make the bidder pay the inputted amount

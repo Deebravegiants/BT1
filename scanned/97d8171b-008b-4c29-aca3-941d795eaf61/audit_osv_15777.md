@@ -1,0 +1,19 @@
+# [M] CVE-2019-19627
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-19627
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)
+Published: 2019-12-06
+Source: https://osv.dev/vulnerability/CVE-2019-19627
+Type: osv
+
+## Details
+SROS 2 0.8.1 (after CVE-2019-19625 is mitigated) leaks ROS 2 node-related information regardless of the rtps_protection_kind configuration. (SROS2 provides the tools to generate and distribute keys for Robot Operating System 2 and uses the underlying security plugins of DDS from ROS 2.)
+
+## References
+- https://asciinema.org/a/yuGkBlaPC33wqL4qABRlgxBkd
+- https://github.com/ros-swg/turtlebot3_demo
+- https://github.com/ros2/sros2/issues/172
+- https://ros-swg.github.io/ROSCon19_Security_Workshop/
+- https://github.com/aliasrobotics/RVD/issues/922

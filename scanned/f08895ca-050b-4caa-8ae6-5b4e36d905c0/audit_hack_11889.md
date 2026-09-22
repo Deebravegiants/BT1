@@ -1,0 +1,72 @@
+# [M] A PartyB manager can not remove (revoke) a PartyB's address even if the PartyB's address is a malicious address
+
+## Summary
+Severity: Medium
+Reporter: 0xmuxyz
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/control/ControlFacet.sol#L66-L67
+Type: audit-issue
+
+## Details
+# A PartyB manager can not remove (revoke) a PartyB's address even if the PartyB's address is a malicious address
+
+## Summary
+A PartyB manager, who has a `PARTY_B_MANAGER_ROLE`, can register an address as a `partyB` via the ControlFacet#`registerPartyB()`. 
+
+However, there is no function (logic) for the PartyB manager to remove (revoke) the existing PartyB address. 
+Therefore, once a PartyB manager registered a PartyB's address, the PartyB manager can not remove (revoke) the PartyB's address even if the PartyB's address is a malicious address.
+
+## Vulnerability Detail
+Within the ControlFacet#`registerPartyB()`, a PartyB manager, who has a `PARTY_B_MANAGER_ROLE`, can register an address as a `partyB`. And then, `True` would be assigned into the `partyBStatus` storage of the address. Finally, the address would be added to the `partyBList` array storage like this:
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/control/ControlFacet.sol#L66-L67
+```solidity
+    function registerPartyB(
+        address partyB
+    ) external onlyRole(LibAccessibility.PARTY_B_MANAGER_ROLE) {
+        require(
+            !MAStorage.layout().partyBStatus[partyB],
+            "ControlFacet: Address is already registered"
+        );
+        MAStorage.layout().partyBStatus[partyB] = true; /// @audit
+        MAStorage.layout().partyBList.push(partyB);  /// @audit
+        emit RegisterPartyB(partyB);
+    }
+```
+
+After a PartyB manager registered a PartyB address, it is supposed to be removed (revoked) by the PartyB manager if it would be revealed that the PartyB address registered is a malicious user.
+
+However, there is no function (logic) for the PartyB manager to remove (revoke) the existing PartyB address. 
+Therefore, once a PartyB manager registered a PartyB's address, the PartyB manager can not remove (revoke) the PartyB's address even if the PartyB's address is a malicious address.
+
+## Impact
+Once a PartyB manager registered a PartyB's address, the PartyB manager can not remove (revoke) the PartyB's address even if the PartyB's address is a malicious address. 
+
+If the malicious PartyB's address can remain as a PartyB, they can keep acting with some actions (lockQuote, etc) and therefore they may be a bad influence for the PartyAs.
+
+## Code Snippet
+- https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/control/ControlFacet.sol#L66-L67
+
+## Tool used
+Manual Review
+
+## Recommendation
+Within the ControlFacet contract, consider adding a function (logic) for the PartyB manager to remove (revoke) the existing PartyB address like this:
+```solidity
++   function removePartyB(
++       address partyB
++   ) external onlyRole(LibAccessibility.PARTY_B_MANAGER_ROLE) {
++       require(
++           MAStorage.layout().partyBStatus[partyB],
++           "ControlFacet: Address must already be registered"
++       );
++       MAStorage.layout().partyBStatus[partyB] = false;
++       for(uint256 i=0; i < MAStorage.layout().partyBList.length; i++) {
++           if (MAStorage.layout().partyBList[i] == partyB) {
++               MAStorage.layout().partyBList[i] = MAStorage.layout().partyBList[MAStorage.layout().partyBList.length - 1];
++               MAStorage.layout().partyBList.pop();
++               break;
++           }
++       }
++
++       emit PartyBRemoved(partyB);
++   }
+```

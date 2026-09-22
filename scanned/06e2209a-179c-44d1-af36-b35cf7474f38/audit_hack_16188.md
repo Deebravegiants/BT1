@@ -1,0 +1,42 @@
+# [M] Transfering wrong voting weight
+
+## Summary
+Severity: Medium
+Reporter: Clean Purple Penguin
+Source: https://github.com/sherlock-audit/2023-09-nounsbuilder/blob/main/nouns-protocol/src/lib/token/ERC721Votes.sol#L192
+Type: audit-issue
+
+## Details
+# Transfering wrong voting weight
+
+## Summary
+
+Incorrect value transfer issue.
+
+## Vulnerability Detail
+
+In the contract comments, it is stated that voting power should be transferred from the previous delegate to the new delegate. However, the current implementation transfers the voting power from the sender (`_from`) instead of the previous delegate (`prevDelegate`).
+
+## Impact
+
+```solidity
+// Incorrectly transferring voting weight from the sender to the new delegate
+_moveDelegateVotes(prevDelegate, _to, balanceOf(_from));
+```
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-09-nounsbuilder/blob/main/nouns-protocol/src/lib/token/ERC721Votes.sol#L192
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+```solidity
+// Transfer voting weight from the previous delegate to the new delegate
+_moveDelegateVotes(prevDelegate, _to, balanceOf(prevDelegate));
+```
+
+Ensure that the correct delegate's voting weight is transferred to the new delegate to maintain the intended functionality and security of the contract.

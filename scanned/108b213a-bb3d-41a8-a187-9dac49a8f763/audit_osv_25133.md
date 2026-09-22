@@ -1,0 +1,21 @@
+# [M] CVE-2023-31290
+
+## Summary
+Severity: Medium
+Advisory: CVE-2023-31290
+CVSS: 5.9 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N)
+Published: 2023-04-27
+Source: https://osv.dev/vulnerability/CVE-2023-31290
+Type: osv
+
+## Details
+Trust Wallet Core before 3.1.1, as used in the Trust Wallet browser extension before 0.0.183, allows theft of funds because the entropy is 32 bits, as exploited in the wild in December 2022 and March 2023. This occurs because the mt19937 Mersenne Twister takes a single 32-bit value as an input seed, resulting in only four billion possible mnemonics. The affected versions of the browser extension are 0.0.172 through 0.0.182. To steal funds efficiently, an attacker can identify all Ethereum addresses created since the 0.0.172 release, and check whether they are Ethereum addresses that could have been created by this extension. To respond to the risk, affected users need to upgrade the product version and also move funds to a new wallet address.
+
+## References
+- https://community.trustwallet.com/t/browser-extension-wasm-vulnerability-postmortem/750787
+- https://community.trustwallet.com/t/wasm-vulnerability-incident-update-and-recommended-actions/750786
+- https://github.com/trustwallet/wallet-core/compare/3.1.0...3.1.1
+- https://twitter.com/TrustWallet/status/1649699428733947906
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/31xxx/CVE-2023-31290.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-31290
+- https://blog.ledger.com/Funds-of-every-wallet-created-with-the-Trust-Wallet-browser-extension-could-have-been-stolen/

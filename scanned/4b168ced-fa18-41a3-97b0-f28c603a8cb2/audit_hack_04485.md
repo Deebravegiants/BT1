@@ -1,0 +1,45 @@
+# [M] the protocol interest update 12 hours can cause problem
+
+## Summary
+Severity: Medium
+Reporter: Avci
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+# the protocol interest update 12 hours can cause problem
+
+## Summary
+the contract erc20pool uses updateinterest function which updates interest after 12 hours and if protocol is paused the borrowers should pay more interest than real interest
+## Vulnerability Detail
+
+## Impact
+users pays unnecessary money to protocol 
+
+## Code Snippet
+ ```function _updateInterestState(
+        PoolState memory poolState_,
+        uint256 lup_
+    ) internal {
+        // if it has been more than 12 hours since the last interest rate update, call updateInterestRate function
+       if (block.timestamp - interestState.interestRateUpdate > 12 hours) {
+            PoolCommons.updateInterestRate(interestState, deposits, poolState_, lup_);
+        }
+
+        // update pool inflator
+        if (poolState_.isNewInterestAccrued) {
+            inflatorState.inflator       = uint208(poolState_.inflator);
+            inflatorState.inflatorUpdate = uint48(block.timestamp);
+        // if the debt in the current pool state is 0, also update the inflator and inflatorUpdate fields in inflatorState
+        // slither-disable-next-line incorrect-equality
+        } else if (poolState_.debt == 0) {
+            inflatorState.inflator       = uint208(Maths.WAD);
+            inflatorState.inflatorUpdate = uint48(block.timestamp);
+        }
+    } ```
+## Tool used
+
+Manual Review
+
+## Recommendation
+pause interest update when the protocol is paused.

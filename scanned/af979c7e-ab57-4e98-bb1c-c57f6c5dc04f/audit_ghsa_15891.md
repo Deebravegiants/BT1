@@ -1,0 +1,28 @@
+# [M] Quarkus CXF logs passwords and other secrets
+
+## Summary
+Severity: Medium
+Advisory: GHSA-jqh2-ch7p-xwxh
+CVE: CVE-2024-9621
+CWE: CWE-532
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N (CVSS_V3)
+Published: 2024-10-08
+Source: https://github.com/advisories/GHSA-jqh2-ch7p-xwxh
+Type: github-advisory
+
+## Affected
+- Maven: `io.quarkiverse.cxf:quarkus-cxf` — affected >=0 <3.15.2
+
+## Details
+A vulnerability was found in Quarkus CXF. Passwords and other secrets may appear in the  application log in spite of the user configuring them to be hidden. This issue requires some special configuration to be vulnerable, such as SOAP logging enabled, application set client, and endpoint logging properties, and the attacker must have access to the application log.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-9621
+- https://github.com/quarkiverse/quarkus-cxf/issues/1533
+- https://github.com/quarkiverse/quarkus-cxf/commit/8ed72cab8db8e5659e294b05529d2b45557859bd
+- https://access.redhat.com/errata/RHSA-2024:10035
+- https://access.redhat.com/security/cve/CVE-2024-9621
+- https://bugzilla.redhat.com/show_bug.cgi?id=2317130
+- https://docs.quarkiverse.io/quarkus-cxf/dev/release-notes/3.15.2.html
+- https://github.com/quarkiverse/quarkus-cxf

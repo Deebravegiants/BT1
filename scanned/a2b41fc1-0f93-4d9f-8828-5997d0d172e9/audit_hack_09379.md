@@ -1,0 +1,29 @@
+# [H] `depositStablecoin` will revert for USDT (it's expected to support USDT)
+
+## Summary
+Severity: High
+Reporter: n1punp
+Source: https://github.com/sherlock-audit/2023-04-jojo/blob/main/smart-contract-EVM/contracts/stableCoin/DepositStableCoinToDealer.sol#L34-L35
+Type: audit-issue
+
+## Details
+# `depositStablecoin` will revert for USDT (it's expected to support USDT)
+
+## Summary
+When the user wants to deposit USDT, `depositStablecoin` function will end up reverting.
+
+## Vulnerability Detail
+- USDT's `approve` doesn't return a boolean, which is expected from the IERC20 interface, so the tx will revert -- trying to decode the no-return value.
+
+## Impact
+USDT or any other expected tokens that may have mis-implemented the IERC20 interface (e.g. doesn't have return value), will make the tx revert.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-jojo/blob/main/smart-contract-EVM/contracts/stableCoin/DepositStableCoinToDealer.sol#L34-L35
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+- Use `safeApprove` instead of `approve`

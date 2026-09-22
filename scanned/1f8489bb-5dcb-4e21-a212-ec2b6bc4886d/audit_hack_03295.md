@@ -1,0 +1,84 @@
+# [H] First depositer can mint 100 million uDai shares for free.
+
+## Summary
+Severity: High
+Reporter: CodingNameKiki
+Source: https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L750-L760
+Type: audit-issue
+
+## Details
+# First depositer can mint 100 million uDai shares for free.
+
+## Summary
+// Note - it doesn't have to be the first depositer, it's just that the first depositer will be able to steal how much he wants.
+// The attack can happen even in one of the first deposits, but the attacker will receive less stolen shares.
+
+The outcome of this exploit can be different, it depends on how many tokens the attacker will use. 
+The bigger the amount is, the bigger the minted shares will be and etc:
+Attacker uses 2 000 Dai tokens => close to 10 million shares of uDai minted.
+Attacker uses 20 000 Dai tokens => close to 100 million shares of uDai minted.
+Attacker uses 100 000 Dai tokens => close to 500 million shares of uDai minted
+
+l am just giving an example, when the attacker spends 20 000 Dai tokens to get 99 999 999 million uDai shares. 
+In the end the attacker redeem back his 20 000 Dai tokens and has 99 979 999 million uDai shares left as well.
+Everything will work as usual after the attack and any deposited amount of Dai with the function `mint()` will be stolen by the attacker.
+
+## Vulnerability Detail
+
+An exploit can occur, when the `tokenSupply()` equals to zero.
+
+// Jake is the attacker.
+
+The first depositer Jake calls the function `mint()` providing 1 Dai token:
+`totalRedeemable += actualMintAmount => totalRedeemable += 1 => totalRedeemable = 1.`
+`"exchangeRate" will be equal to "initialExchangeRateMantissa" for the first depositer when "tokenSupply = 0"`
+`mintTokens = (actualMintAmount * WAD) / exchangeRate => (1 * 1e18) / 1e18 => mintTokens = 1.`
+The function `mint()` will successfuly mint 1 uDai share to Jake and after his deposit both `totalRedeemable` and `tokenSupply()` will be equal to 1.
+
+Then Jake calls the function `addReserves()` and deposits 10 000 Dai tokens to AssetManager, this will inflate the `tokenSupply()` to 10 001.
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L750-L760
+
+After that Jake calls the function `mint()` providing 9999 Dai tokens. 
+Since the `tokenSupply()` equals 10 001 and `totalRedeemable` is only 1, the outcome of `exchangeRateStored()` calculation will be:
+`exchangeRate = (totalRedeemable * WAD) / totalSupply_` => `(1 * 1e18) / 10 001` => `exchangeRate = 99 990 000 999 900`
+`mintTokens = (actualMintAmount * WAD) / exchangeRate` => `(9999 * 1e18) / exchangeRate` => `mintTokens = 99 999 999`
+The function `mint()` will successfuly mint 99 999 999 million uDai shares.
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L682-L694
+
+The 100 million uDai shares are already minted to Jake, all left he has to do is to redeem his 20 000 tokens back.
+So Jake calls the function `redeem()`, he provides 20 000 uDai shares for `amountIn` out of his 100 million shares,
+and the calculation will look like this:
+`exchangeRate = (totalRedeemable * WAD) / totalSupply_` => `(20 000 * 1e18) / 20 000` => `exchangeRate = 1e18`
+`uTokenAmount = amountIn` => `uTokenAmount = 20 000`
+`underlyingAmount = (amountIn * exchangeRate) / WAD` => `(20 000 * 1e18) / 1e18` => `underlyingAmount = 20 000`
+
+`totalRedeemable -= underlyingAmount` => `20 000 -= 20 000` => `totalRedeemable = 0`
+`_burn(msg.sender, uTokenAmount)` => `_burn(msg.sender, 20 000)`
+
+Jake will successfuly withdraw his 20 000 tokens back, and both `totalRedeemable` and `tokenSupply()` will be equal to 0.
+// Everything will be back to normal and will work as usual.
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L707-L737
+
+Following this scenario Jake will be able to steal 99 979 999 million uDai shares for free and any deposited amount of Dai with the function `mint()` will be stolen by him.
+
+## Impact
+With the issue described in "Vulnerability Detail", a malicious attacker will be able to mint 100 million uDai shares, redeem his funds back and after that steal any amount of Dai deposited with the function `mint()`.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L682-L694
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L750-L760
+
+https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/market/UToken.sol#L707-L737
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider changing the function `addReserves()` to be callable only by Admin, like the function `removeReserves()`.
+As how it is right now an attacker can take advantage of the function `addReserves()` and do the exploit.

@@ -1,0 +1,19 @@
+# [C] NovumOS has Privilege Escalation in the Syscall Interface
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-40317
+Aliases: GHSA-xjx3-gjh9-45fm
+CVSS: 9.3 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H)
+Published: 2026-04-18
+Source: https://osv.dev/vulnerability/CVE-2026-40317
+Type: osv
+
+## Details
+NovumOS is a custom 32-bit operating system written in Zig and x86 Assembly. In versions prior to 0.24, Syscall 12 (JumpToUser) accepts an arbitrary entry point address from user-space registers without validation, allowing any Ring 3 user-mode process to jump to kernel addresses and execute arbitrary code in Ring 0 context, resulting in local privilege escalation. This issue has been fixed in version 0.24. If developers are unable to immediately update, they should restrict syscall access by running the system in single-user mode without Ring 3, and disable user-mode processes by only running kernel shell with no user processes. This issue has been fixed in version 0.24.
+
+## References
+- https://github.com/MinecAnton209/NovumOS/releases/tag/v0.24
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/40xxx/CVE-2026-40317.json
+- https://github.com/MinecAnton209/NovumOS/security/advisories/GHSA-xjx3-gjh9-45fm
+- https://nvd.nist.gov/vuln/detail/CVE-2026-40317

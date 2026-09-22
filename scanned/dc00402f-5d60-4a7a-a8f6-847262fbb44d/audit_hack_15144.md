@@ -1,0 +1,27 @@
+# [M] `RFPSimpleStrategy.setPoolActive()` is missing the `onlyPoolManager(msg.sender)` modifier
+
+## Summary
+Severity: Medium
+Reporter: Cuddly Pewter Shark
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol#L216-L222
+Type: audit-issue
+
+## Details
+# `RFPSimpleStrategy.setPoolActive()` is missing the `onlyPoolManager(msg.sender)` modifier
+Anybody can call the `RFPSimpleStrategy.setPoolActive()` to set the status of the contract.
+
+## Vulnerability Detail
+`RFPSimpleStrategy.setPoolActive()` is missing the `onlyPoolManager(msg.sender)` modifier, though it is mentioned in the comment above the function as:
+> 'msg.sender' must be a pool manager to close the pool
+
+## Impact
+Due to the missed modifier, anybody can close or open the pool at any moment.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol#L216-L222
+
+## Tool used
+Manual Review
+
+## Recommendation
+Add the the `onlyPoolManager(msg.sender)` modifier.

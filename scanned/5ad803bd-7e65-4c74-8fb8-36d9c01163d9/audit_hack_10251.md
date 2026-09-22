@@ -1,0 +1,70 @@
+# [M] Updating the TokenRoleAdmin in L2ECO should have validations
+
+## Summary
+Severity: Medium
+Reporter: ravikiran.web3
+Source: https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/token/L2ECO.sol#L220-L222
+Type: audit-issue
+
+## Details
+# Updating the TokenRoleAdmin in L2ECO should have validations
+
+## Summary
+TokenRoleAdmin in L2ECO is a crucial role and understand it is trusted. But, there is a potential for human error and since such error is irrecoverable, it is warranted to take a defensive approach.
+
+The updateTokenRoleAdmin accepts an address which could be zero address and once assigned to storage variable will permanently impact the working of the contract.
+So, while assuming that current admin will act responsibily,  a preventive logic to not set address(0x0) will help.
+
+## Vulnerability Detail
+Loosing Admin role with invalid address permanently removes the ability to manage minters, burners and rebasers and hence critical role should have more checks.
+
+## Impact
+Once lost, cannot add or remove minters, burners and rebasers.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-ecoprotocol/blob/main/op-eco/contracts/token/L2ECO.sol#L220-L222
+
+```solidity
+ function updateTokenRoleAdmin(address _newAdmin) public onlyTokenRoleAdmin {
+        tokenRoleAdmin = _newAdmin;
+    }
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+
+1) Validate for non zero atleast.
+
+```solidity
+ function updateTokenRoleAdmin(address _newAdmin) public onlyTokenRoleAdmin {
+       require(_newAdmin!=address(0x0),"Invalid Address");
+        tokenRoleAdmin = _newAdmin;
+    }
+```
+
+2) Make this update a two step process:
+  a) add a state variable as newAdminToUpdate
+  b) in the updateTokenRoleAdmin, instead of updating the tokenRoleAdmin, update newAdminToUpdate.
+  c)  current admin can now view the newAdminToUpdate and also has the role as Admin,
+  d) add appoveNewAdmin function, that set the tokenRoleAdmin with new value and reset the newAdminToUpdate to address(0x0)
+
+```solidity
+  newAdminToUpdate = address(0x0);
+
+
+  function updateTokenRoleAdmin(address _newAdmin) public onlyTokenRoleAdmin {
+       require(_newAdmin!=address(0x0),"Invalid Address");
+        newAdminToUpdate = _newAdmin;
+   }
+
+ function appoveNewAdmin() public onlyTokenRoleAdmin {
+    require(newAdminToUpdate!=address(0x0),"Invalid Address"); // newAdmin should not be zero address
+    tokenRoleAdmin = newAdminToUpdate;
+    newAdminToUpdate = address(0x0);
+ }
+
+```

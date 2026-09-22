@@ -1,0 +1,29 @@
+# [M] repeat deposit/withdraw to earn lot of FMP
+
+## Summary
+Severity: Medium
+Reporter: Icy Lava Cyborg
+Source: https://github.com/sherlock-audit/2023-12-flatmoney/blob/main/flatcoin-v1/src/StableModule.sol#L61-L87
+Type: audit-issue
+
+## Details
+# repeat deposit/withdraw to earn lot of FMP
+
+## Summary
+repeat deposit/withdraw to earn lot of FMP
+
+## Vulnerability Detail
+When users deposit rETH, users will receive FMP as reward. However, when users withdraw rETH, there is no any punishment or time lock for withdraw. Users can repeat deposit/withdraw operations to gain lots of FMP.
+
+## Impact
+Users can get more FMP than expected.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-12-flatmoney/blob/main/flatcoin-v1/src/StableModule.sol#L61-L87
+
+https://github.com/sherlock-audit/2023-12-flatmoney/blob/main/flatcoin-v1/src/StableModule.sol#L96-L140
+## Tool used
+
+Manual Review
+
+## Recommendation

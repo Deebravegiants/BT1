@@ -1,0 +1,19 @@
+# [M] AutoGPT has a DoS vulnerability in ReadRSSFeedBlock
+
+## Summary
+Severity: Medium
+Advisory: CVE-2025-32393
+Aliases: GHSA-5cqw-g779-9f9x
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N)
+Published: 2026-02-05
+Source: https://osv.dev/vulnerability/CVE-2025-32393
+Type: osv
+
+## Details
+AutoGPT is a platform that allows users to create, deploy, and manage continuous artificial intelligence agents that automate complex workflows. Prior to autogpt-platform-beta-v0.6.32, there is a DoS vulnerability in ReadRSSFeedBlock. In RSSBlock, feedparser.parser is called to obtain the XML file according to the URL input by the user, parse the XML, and finally obtain the parsed result. However, during the parsing process, there is no limit on the parsing time and the resources that can be allocated for parsing. When a malicious user lets RSSBlock parse a carefully constructed, deep XML, it will cause memory resources to be exhausted, eventually causing DoS. This issue has been patched in autogpt-platform-beta-v0.6.32.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/32xxx/CVE-2025-32393.json
+- https://github.com/Significant-Gravitas/AutoGPT/security/advisories/GHSA-5cqw-g779-9f9x
+- https://nvd.nist.gov/vuln/detail/CVE-2025-32393
+- https://github.com/Significant-Gravitas/AutoGPT/commit/57a06f70883ce6be18738c6ae8bb41085c71e266

@@ -1,0 +1,31 @@
+# [M] Sensitive information written to logs by Snowflake drivers
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-86597
+CVSS: 6.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N)
+Published: 2026-09-08
+Source: https://osv.dev/vulnerability/CVE-2026-86597
+Type: osv
+
+## Details
+Insertion of sensitive information into log files in the Snowflake Python, Go, JDBC, Node.js, PHP PDO, and ODBC drivers allowed authentication tokens, query-result encryption keys, pre-signed cloud-storage URLs, and SAML assertions to be written to diagnostic logs in circumstances where the available log redaction did not cover all affected log paths and data types. An attacker with read access to the log destination, whether the local filesystem, a log aggregation service, or a CI/CD artifact store, could obtain credentials and decryption keys that, if still valid at the time of access, could be used to authenticate to the corresponding Snowflake account or cloud-storage object. Successful exploitation requires read access to the log destination, and impact is bounded by credential lifetime and object scope. The fix is available in Snowflake Connector for Python v4.7.3, Snowflake Go Driver v2.2.0, Snowflake JDBC Driver v4.3.4 (including the snowflake-jdbc-fips and snowflake-jdbc-thin), Snowflake Node.js Driver v3.3.0, Snowflake PHP PDO Driver v4.2.0, and Snowflake ODBC Driver v3.20.0. Users must manually upgrade and should securely delete previously generated diagnostic logs containing sensitive information where retention is not required.
+
+## References
+- https://docs.snowflake.com/en/release-notes/clients-drivers/golang-2026#version-220-sep-03-2026
+- https://docs.snowflake.com/en/release-notes/clients-drivers/jdbc-2026#version-434-sep-03-2026
+- https://docs.snowflake.com/en/release-notes/clients-drivers/nodejs-2026#version-330-september-3-2026
+- https://docs.snowflake.com/en/release-notes/clients-drivers/odbc-2026#version-3200-sep-3-2026
+- https://docs.snowflake.com/en/release-notes/clients-drivers/php-pdo-2026#version-420-sep-3-2026
+- https://github.com/snowflakedb/snowflake-connector-python/releases/tag/v4.7.3
+- https://pkg.go.dev
+- https://pypi.org
+- https://registry.npmjs.org
+- https://repo.maven.apache.org/maven2
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/86xxx/CVE-2026-86597.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-86597
+- https://github.com/snowflakedb/gosnowflake
+- https://github.com/snowflakedb/pdo_snowflake
+- https://github.com/snowflakedb/snowflake-connector-nodejs
+- https://github.com/snowflakedb/snowflake-connector-python
+- https://github.com/snowflakedb/snowflake-jdbc

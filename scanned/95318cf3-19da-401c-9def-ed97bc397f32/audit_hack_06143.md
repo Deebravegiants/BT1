@@ -1,0 +1,50 @@
+# [M] HardVault supports ERC20 token instead of ERC1155 tokens
+
+## Summary
+Severity: Medium
+Reporter: Cryptor
+Source: https://github.com/sherlock-audit/2023-02-blueberry/blob/main/contracts/vault/HardVault.sol#L75-L78
+Type: audit-issue
+
+## Details
+# HardVault supports ERC20 token instead of ERC1155 tokens
+
+## Summary
+
+HardVault uses the incorrect ERC token interface according to the docs. This means that there is no way for a user to deposit ERC1155 tokens.
+
+## Vulnerability Detail
+The docs state that the hard vault is designed for users to lend ERC1155 shown here
+<img width="573" alt="image" src="https://user-images.githubusercontent.com/29849840/219579343-c2d89711-e499-4b98-91eb-e8b553903423.png">
+
+However, the code displays the underlying token as an ERC20 implementation instead of the ERC1155 as shown in the docs shown here 
+
+https://github.com/sherlock-audit/2023-02-blueberry/blob/main/contracts/vault/HardVault.sol#L75-L78
+
+Here under line 77, the function asks the user to supply ERC20 token (uToken) to deposit instead of ERC1155 tokens as per the docs.
+
+This same issue is also found in the function lend in the blueberry bank contract
+
+https://github.com/sherlock-audit/2023-02-blueberry/blob/main/contracts/BlueBerryBank.sol#L646-L657
+
+as well as withdrawlend
+
+https://github.com/sherlock-audit/2023-02-blueberry/blob/main/contracts/BlueBerryBank.sol#L703
+
+
+
+## Impact
+The code in the protocol does not match its intended design in the docs, meaning that there is no way for users to lend ERC1155 tokens 
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-02-blueberry/blob/main/contracts/vault/HardVault.sol#L75-L78
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Change the ERC20 interface in the HardVault and other references to it to ERC1155 to match the docs and the intended design

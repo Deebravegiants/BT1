@@ -1,0 +1,48 @@
+# [M] Not calling `approve(0)` before setting a new approval may cause the call to revert
+
+## Summary
+Severity: Medium
+Reporter: ck
+Source: https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/rage-trade/RageDnDepository.sol#L108
+Type: audit-issue
+
+## Details
+# Not calling `approve(0)` before setting a new approval may cause the call to revert
+
+## Summary
+
+There are instances where the `IERC20.approve()` function is called only once without setting the allowance to zero. Some tokens, like USDT , require first reducing the address’ allowance to zero by calling `IERC20(assetToken).approve(address(vault), 0);` .
+
+## Vulnerability Detail
+
+There are instances where the `IERC20.approve()` function is called only once without setting the allowance to zero. Some tokens, like USDT , require first reducing the address’ allowance to zero by calling `IERC20(assetToken).approve(address(vault), 0);` .
+
+Contracts affected include: `RageDnDepository, PerpDepository`
+
+This would affect depositories that use asset tokens that require setting the allowance to zero. 
+
+## Impact
+
+Transactions will revert when using an unsupported token like USDT.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/rage-trade/RageDnDepository.sol#L108
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L198
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L286
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L394
+
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/integrations/perp/PerpDepository.sol#L627
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Use `IERC20(assetToken).approve(address(vault), 0);` before each of the existing `approve()` calls.
+Alternatively Use `OpenZeppelin’s SafeERC20 ’s safeTransfer()` instead.

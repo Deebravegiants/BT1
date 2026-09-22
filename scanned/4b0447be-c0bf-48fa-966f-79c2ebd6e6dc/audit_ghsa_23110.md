@@ -1,0 +1,27 @@
+# [M] snapcraft Access Restriction Bypass
+
+## Summary
+Severity: Medium
+Advisory: GHSA-qxm5-vx5j-pp6w
+CVE: CVE-2020-27348
+CWE: CWE-427
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:L (CVSS_V3)
+Published: 2022-05-24
+Source: https://github.com/advisories/GHSA-qxm5-vx5j-pp6w
+Type: github-advisory
+
+## Affected
+- PyPI: `snapcraft` — affected >=0 <4.4.4
+
+## Details
+In some conditions, a snap package built by snapcraft includes the current directory in `LD_LIBRARY_PATH`, allowing a malicious snap to gain code execution within the context of another snap if both plug the home interface or similar. This issue affects snapcraft versions prior to 4.4.4, prior to 2.43.1+16.04.1, and prior to 2.43.1+18.04.1.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2020-27348
+- https://github.com/snapcore/snapcraft/pull/3345
+- https://github.com/snapcore/snapcraft/commit/a0ceca9d531a34c979251030ed67b5fa2abfdd9a
+- https://bugs.launchpad.net/bugs/1901572
+- https://github.com/pypa/advisory-database/tree/main/vulns/snapcraft/PYSEC-2020-109.yaml
+- https://github.com/snapcore/snapcraft
+- https://usn.ubuntu.com/usn/usn-4661-1

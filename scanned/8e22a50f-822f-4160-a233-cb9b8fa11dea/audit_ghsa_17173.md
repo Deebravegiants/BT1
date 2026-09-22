@@ -1,0 +1,73 @@
+# [H] WP Crontrol vulnerable to possible RCE when combined with a pre-condition
+
+## Summary
+Severity: High
+Advisory: GHSA-9xvf-cjvf-ff5q
+CVE: CVE-2024-28850
+CWE: CWE-494
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:H (CVSS_V3)
+Published: 2024-03-25
+Source: https://github.com/advisories/GHSA-9xvf-cjvf-ff5q
+Type: github-advisory
+
+## Affected
+- Packagist: `johnbillion/wp-crontrol` — affected >=0 <1.16.2
+
+## Details
+### Impact
+
+WP Crontrol includes a feature that allows administrative users to create events in the WP-Cron system that store and execute PHP code [subject to the restrictive security permissions documented here](https://wp-crontrol.com/docs/php-cron-events/). While there is _no known vulnerability in this feature on its own_, there exists potential for this feature to be vulnerable to RCE if it were specifically targeted via vulnerability chaining that exploited a separate SQLi (or similar) vulnerability.
+
+This is exploitable on a site if one of the below preconditions are met:
+
+* The site is vulnerable to a writeable SQLi vulnerability in any plugin, theme, or WordPress core
+* The site's database is compromised at the hosting level
+* The site is vulnerable to a method of updating arbitrary options in the `wp_options` table
+* The site is vulnerable to a method of triggering an arbitrary action, filter, or function with control of the parameters
+
+### Patches
+
+As a hardening measure, WP Crontrol version 1.16.2 ships with a new feature that prevents tampering of the code stored in a PHP cron event.
+
+All PHP cron events are now secured via an integrity check that makes use of an HMAC to store a hash of the code alongside it when the event is saved. When the event runs, the hash is verified to ensure the code has not been tampered with. WP Crontrol will not execute the PHP code if the hash cannot be verified or if a stored hash is not present. If an attacker with database-level access were to modify the code in an event in an attempt to execute arbitrary code, the code would no longer execute.
+
+Any PHP cron events that exist in the database prior to updating to version 1.16.2 will cease to execute until an administrative user re-saves them from the Cron Events screen in the admin area. A notice will be shown in the admin area informing administrative users if this is the case.
+
+### Workarounds
+
+Given that one or more of the preconditions listed above are met, there are no known workarounds for this issue other than to update WP Crontrol to version 1.16.2 or later.
+
+Note that neither the `DISALLOW_FILE_MODS` constant nor the `DISALLOW_FILE_EDIT` constant prevent this from being exploitable because these constants do not prevent PHP cron events from being _executed_. It's an intended feature of WP Crontrol that PHP cron events in the database will continue to run according to their schedule even if editing PHP cron events is disabled due to one of these constants being defined.
+
+### FAQ
+
+#### Is my site at risk?
+
+Your site is only at risk if at least one of the preconditions listed above are met and an attacker is actively attacking your site in order to exploit this. There is no known vulnerability in this feature on its own.
+
+#### Why is this classified as high severity?
+
+The CVSS score is used to classify the severity of a vulnerability in isolation, which in this case is high due to the possibility of RCE. The actual risk is likely to be low and is dependent entirely on one of the preconditions being met.
+
+#### How is this any different to an SQLi vulnerability that would allow an attacker to create an Administrator user and then access the theme or plugin editor?
+
+The difference is in the handling of the `DISALLOW_FILE_MODS` and `DISALLOW_FILE_EDIT` constants. With either one of these constants defined in your wp-config.php file then the plugin and theme editors are disabled. In WP Crontrol the ability to _edit_ PHP cron events in WP Crontrol is also disabled in this case, however PHP cron events in the database will continue to run according to their schedule.
+
+### Thanks
+
+This issue was identified by John Blackbourn, the author of the WP Crontrol plugin.
+
+Thanks go to:
+
+* Calvin Alkan for researching and reporting many vulnerabilities in WordPress plugins and for [publishing the details on the snicco blog](https://snicco.io/vulnerability-disclosure). Calvin's work prompted me to investigate whether the PHP cron event functionality in WP Crontrol could be exploited when attacked via with vulnerability chaining, and he collaborated on this security advisory.
+* Joe Hoyle for collaborating on this advisory.
+
+## References
+- https://github.com/johnbillion/wp-crontrol/security/advisories/GHSA-9xvf-cjvf-ff5q
+- https://github.com/johnbillion/wp-crontrol/commit/6d1fadcf6dfdd54e55feef27f916b0cfcd602405
+- https://github.com/johnbillion/wp-crontrol
+- https://github.com/johnbillion/wp-crontrol/releases/tag/1.16.2
+- https://snicco.io/vulnerability-disclosure
+- https://wp-crontrol.com/docs/php-cron-events
+- https://wp-crontrol.com/help/check-php-cron-events

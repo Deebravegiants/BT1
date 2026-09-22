@@ -1,0 +1,94 @@
+# [H] [Stuck fund] Token may stuck forever in percentage bounty that apply to more than 1 token address
+
+## Summary
+Severity: High
+Reporter: caventa
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/TieredPercentageBountyV1.sol#L104-L120
+Type: audit-issue
+
+## Details
+# [Stuck fund] Token may stuck forever in percentage bounty that apply to more than 1 token address
+
+## Summary
+The token may be stuck forever in a percentage bounty that applies to more than 1 token address
+
+## Vulnerability Detail
+Let's say a percentage bounty fund with
+
+token A = 600
+token B = 300
+token C = 100
+
+deposited 
+
+And payout schedule is 60, 30, 10
+
+Payout 1 = 60 / 100 * 600 =  360 token A
+Payout 2 = 30 / 100 * 300 = 90 token B
+Payout 3 = 10 / 100 * 100 =  10 token C
+
+For the first claim of payout 1, the claimer can get 360 token A
+However, for the next claim, it is 360 again and this time the protocol will reject the claim as there is insufficient fund as there is only 240 left (600 - 240)
+
+Added a test unit to TieredPercentageBounty.js
+
+```solidity
+it.only('should transfer volume of tokenAddress balance based on payoutSchedule', async () => {
+	let initialPayoutSchedule = await tieredContract.getPayoutSchedule();
+
+	let payoutToString = initialPayoutSchedule.map(thing => thing.toString());
+	expect(payoutToString[0]).to.equal('60');
+	expect(payoutToString[1]).to.equal('30');
+	expect(payoutToString[2]).to.equal('10');
+
+	// ARRANGE
+	const [, firstPlace] = await ethers.getSigners();
+
+	await tieredContract.connect(depositManager).receiveFunds(owner.address, mockLink.address, 600, Constants.thirtyDays); // 600
+
+	{
+		const firstPlaceTokenBalance = (await mockLink.balanceOf(firstPlace.address)).toString();
+		expect(firstPlaceTokenBalance).to.equal('0'); // user has 0 LINK
+
+		const bountyMockTokenBalance = (await mockLink.balanceOf(tieredContract.address)).toString();
+		expect(bountyMockTokenBalance).to.equal('600'); // contract has 600 Link
+	}
+
+	const deposits = await tieredContract.getDeposits();
+	const linkDepositId = deposits[0];
+
+	await tieredContract.connect(claimManager).closeCompetition();
+
+	await tieredContract.connect(claimManager).claimTiered(firstPlace.address, 0, mockLink.address);
+
+	{
+		const firstPlaceTokenBalance = (await mockLink.balanceOf(firstPlace.address)).toString();
+		expect(firstPlaceTokenBalance).to.equal('360'); // user has 360 LINK
+
+		const bountyMockTokenBalance = (await mockLink.balanceOf(tieredContract.address)).toString();
+		expect(bountyMockTokenBalance).to.equal('240'); // contract has 240 LINK
+	}
+
+	await expect(tieredContract.connect(claimManager).claimTiered(firstPlace.address, 0, mockLink.address)).to.be.revertedWith('ERC20: transfer amount exceeds balance'); // Unable to transfer
+
+	{
+		const firstPlaceTokenBalance = (await mockLink.balanceOf(firstPlace.address)).toString();
+		expect(firstPlaceTokenBalance).to.equal('360'); // user still has 360 LINK
+
+		const bountyMockTokenBalance = (await mockLink.balanceOf(tieredContract.address)).toString();
+		expect(bountyMockTokenBalance).to.equal('240'); // contract still has 240 LINK
+	}
+});
+
+```
+## Impact
+Token A may be stuck in the percentage bounty contract forever
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/TieredPercentageBountyV1.sol#L104-L120
+
+## Tool used
+Manual Review and added a test unit
+
+## Recommendation
+There are several ways to solve this problem. What I would suggest is allowing the owner to transfer out the excessive protocol token and ERC20 token that could be locked in the contract

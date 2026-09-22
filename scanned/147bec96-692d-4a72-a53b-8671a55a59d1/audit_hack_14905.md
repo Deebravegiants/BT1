@@ -1,0 +1,58 @@
+# [H] LendToCooler access control can be bypassed
+
+## Summary
+Severity: High
+Reporter: Steep Bamboo Elk
+Source: https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Clearinghouse.sol#L133
+Type: audit-issue
+
+## Details
+# LendToCooler access control can be bypassed
+## Summary
+
+The check for the `lendToCooler() `function is meant to restrict it to only Coolers created by the factory. This can be bypassed by creating a Cooler which conforms to the interface but returns a factory where `.created()` returns `true`
+
+## Vulnerability Detail
+
+There is a check in `lendToCooler` which is meant to restrict the cooler inputs to only coolers created by the ClearingHouse. (this check is also in. the `claimDefault` and `rollLoan` functions so this bug affects those functions too):
+
+```solidity
+ if (!factory.created(address(cooler_))) revert OnlyFromFactory();
+```
+- factory calls the factory function in the cooler contract that ClearingHouse inherited from. This is supposed to return the factory which created the Cooler, which is obtained through the calldata when creating this contract.
+- Note that the cooler implements "Clones", which sets important parameters through the calldata when creating a contract instead of using a constructor. You can see these arguments being called here, where `getArgAddresses` fetches the past calldata:
+
+```solidity
+    function factory() public pure returns (CoolerFactory _factory) {
+        return CoolerFactory(_getArgAddress(0x3c));
+    }
+```
+
+-This particular use of clones means that is that these inputs have NO input validation. A malicious cooler can also use a different malicious factory with unexpected properties.
+
+- `.created` checks the created boolean variable in the factory. As long as this returns true, the access control can be bypassed
+
+As long as you have:
+1. a malicious cooler which returns a malicious factory
+2. a malicious factory which conforms to the implicit interface but returns true for the check  `if (!factory.created(address(cooler_))) revert OnlyFromFactory();`
+
+the check can by bypassed
+
+Once the check is bypassed malicious loans can be created which set interestRate, LoanToCollateral and Duration which is extremely unfavorable to the ClearingHouse, thus draining the contract.
+
+## Impact
+
+- The contract can be drained through malicious loans
+- The ClearingHouse is forced to take loans from malicious coolers
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Clearinghouse.sol#L133
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Have the correct cooler addresses stored in the ClearingHouse contract and have a check that the Cooler input corresponds to these stored addresses.

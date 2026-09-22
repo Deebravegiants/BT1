@@ -1,0 +1,16 @@
+# [M] CVE-2020-10791
+
+## Summary
+Severity: Medium
+Advisory: CVE-2020-10791
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N)
+Published: 2020-03-25
+Source: https://osv.dev/vulnerability/CVE-2020-10791
+Type: osv
+
+## Details
+app/Plugin/GrafanaModule/Controller/GrafanaConfigurationController.php in openITCOCKPIT before 3.7.3 allows remote authenticated users to trigger outbound TCP requests (aka SSRF) via the Test Connection feature (aka testGrafanaConnection) of the Grafana Module.
+
+## References
+- https://openitcockpit.io/2020/2020/03/23/openitcockpit-3-7-3-released/
+- https://github.com/it-novum/openITCOCKPIT/commit/50722befae4cfedd0103f9b0ec2a7e22530b2385

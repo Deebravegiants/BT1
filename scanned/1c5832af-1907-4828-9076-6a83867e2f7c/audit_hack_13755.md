@@ -1,0 +1,54 @@
+# [M] LMPVault.setPerformanceFeeBps should accrue fees
+
+## Summary
+Severity: Medium
+Reporter: Broad Tweed Tiger
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/vault/LMPVault.sol#L248-L269
+Type: audit-issue
+
+## Details
+# LMPVault.setPerformanceFeeBps should accrue fees
+## Summary
+LMPVault.setPerformanceFeeBps should accrue fees, otherwise fees will be lost.
+## Vulnerability Detail
+`LMPVault.setPerformanceFeeBps` function is used to change profit fee for the protocol.
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/vault/LMPVault.sol#L248-L269
+```solidity
+    function setPerformanceFeeBps(uint256 fee) external nonReentrant hasRole(Roles.LMP_FEE_SETTER_ROLE) {
+        if (fee >= MAX_FEE_BPS) {
+            revert InvalidFee(fee);
+        }
+
+
+        performanceFeeBps = fee;
+
+
+        // Set the high mark when we change the fee so we aren't able to go farther back in
+        // time than one debt reporting and claim fee's against past profits
+        uint256 supply = totalSupply();
+        if (supply > 0) {
+            navPerShareHighMark = (totalAssets() * MAX_FEE_BPS) / supply;
+        } else {
+            // The default high mark is 1:1. We don't want to be able to take
+            // fee's before the first debt reporting
+            // Before a rebalance, everything will be in idle and we don't want to take
+            // fee's on pure idle
+            navPerShareHighMark = MAX_FEE_BPS;
+        }
+
+
+        emit PerformanceFeeSet(fee);
+    }
+```
+
+As you can see in case if totalSupply is not 0, then this function doesn't accrue fee, that was generated before changing. As result those fee will be lost.
+## Impact
+Protocol looses fee
+## Code Snippet
+VsCode
+## Tool used
+
+Manual Review
+
+## Recommendation
+Accrue fees when change fee percentage.

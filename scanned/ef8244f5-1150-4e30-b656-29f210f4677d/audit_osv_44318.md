@@ -1,0 +1,22 @@
+# [H] mcp-router CLI before 0.6.3 Binds the MCP Aggregator to All Interfaces Without Requiring Authentication
+
+## Summary
+Severity: High
+Advisory: CVE-2026-81094
+Aliases: GHSA-rx55-5c7h-r56r
+CVSS: 7.5 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N)
+Published: 2026-08-27
+Source: https://osv.dev/vulnerability/CVE-2026-81094
+Type: osv
+
+## Details
+The mcp-router CLI served its MCP aggregator on every interface and enforced authentication only when the operator asked for it. The serve command in apps/cli/src/commands/serve.ts defaulted its host to the all-interfaces address on a fixed port, and required a token only when the corresponding flag was supplied, so a default invocation exposed the aggregator, and every MCP server it fronted, to anyone able to reach the port. Release 0.6.3 defaults the host to the loopback address and refuses to start without a token whenever the host it is given is not a loopback address; no earlier release carries either check.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/81xxx/CVE-2026-81094.json
+- https://github.com/mcp-router/mcp-router/security/advisories/GHSA-rx55-5c7h-r56r
+- https://nvd.nist.gov/vuln/detail/CVE-2026-81094
+- https://www.vulncheck.com/advisories/mcp-router-cli-before-0.6.3-binds-the-mcp-aggregator-to-all-interfaces-without-requiring-authentication
+- https://github.com/mcp-router/mcp-router/commit/4c4642cfd274097ec8b33ecd3047390829c79d35
+- https://github.com/mcp-router/mcp-router
+- https://github.com/mcp-router/mcp-router/blob/v0.6.3/apps/cli/src/commands/serve.ts#L105

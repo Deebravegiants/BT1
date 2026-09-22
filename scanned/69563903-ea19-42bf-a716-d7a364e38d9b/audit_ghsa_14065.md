@@ -1,0 +1,29 @@
+# [C] ruby-saml vulnerable to XPath injection
+
+## Summary
+Severity: Critical
+Advisory: GHSA-r364-2pj4-pf7f
+CVE: CVE-2015-20108
+CWE: CWE-77
+Ecosystem: RubyGems
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2023-05-27
+Source: https://github.com/advisories/GHSA-r364-2pj4-pf7f
+Type: github-advisory
+
+## Affected
+- RubyGems: `ruby-saml` — affected >=0 <1.0.0
+
+## Details
+`xml_security.rb` in the ruby-saml gem before 1.0.0 for Ruby allows XPath injection and code execution because prepared statements are not used.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2015-20108
+- https://github.com/SAML-Toolkits/ruby-saml/pull/225
+- https://github.com/SAML-Toolkits/ruby-saml/commit/9853651b96b99653ea8627d757d46bfe62ab6448
+- https://github.com/SAML-Toolkits/ruby-saml
+- https://github.com/SAML-Toolkits/ruby-saml/compare/v0.9.2...v1.0.0
+- https://github.com/rubysec/ruby-advisory-db/blob/master/gems/ruby-saml/CVE-2015-20108.yml
+- https://github.com/rubysec/ruby-advisory-db/blob/master/gems/ruby-saml/OSVDB-124991.yml
+- https://security.netapp.com/advisory/ntap-20230703-0003
+- https://security.snyk.io/vuln/SNYK-RUBY-RUBYSAML-20217

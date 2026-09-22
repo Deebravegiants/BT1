@@ -1,0 +1,16 @@
+# [C] CVE-2024-32491
+
+## Summary
+Severity: Critical
+Advisory: CVE-2024-32491
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2024-04-29
+Source: https://osv.dev/vulnerability/CVE-2024-32491
+Type: osv
+
+## Details
+An issue was discovered in Znuny and Znuny LTS 6.0.31 through 6.5.7 and Znuny 7.0.1 through 7.0.16 where a logged-in user can upload a file (via a manipulated AJAX Request) to an arbitrary writable location by traversing paths. Arbitrary code can be executed if this location is publicly available through the web server.
+
+## References
+- https://znuny.com
+- https://www.znuny.org/en/advisories/zsa-2024-01

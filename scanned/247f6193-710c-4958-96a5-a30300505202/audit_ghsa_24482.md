@@ -1,0 +1,31 @@
+# [H] Improper Input Validation in Apache Kafka
+
+## Summary
+Severity: High
+Advisory: GHSA-47w3-66wq-cpxg
+CVE: CVE-2018-17196
+CWE: CWE-20
+Ecosystem: Maven
+CVSS: CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2022-05-24
+Source: https://github.com/advisories/GHSA-47w3-66wq-cpxg
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.kafka:kafka` — affected >=0.11.0.0 <2.1.1
+
+## Details
+In Apache Kafka versions between 0.11.0.0 and 2.1.0, it is possible to manually craft a Produce request which bypasses transaction/idempotent ACL validation. Only authenticated clients with Write permission on the respective topics are able to exploit this vulnerability. Users should upgrade to 2.1.1 or later where this vulnerability has been fixed.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2018-17196
+- https://lists.apache.org/thread.html/519eb0fd45642dcecd9ff74cb3e71c20a4753f7d82e2f07864b5108f@%3Cdev.drill.apache.org%3E
+- https://lists.apache.org/thread.html/b0656d359c7d40ec9f39c8cc61bca66802ef9a2a12ee199f5b0c1442@%3Cdev.drill.apache.org%3E
+- https://lists.apache.org/thread.html/d1581fb6464c9bec8a72575c01f5097d68e2fbb230aff24622622a58@%3Ccommits.kafka.apache.org%3E
+- https://lists.apache.org/thread.html/f9bc3e55f4e28d1dcd1a69aae6d53e609a758e34d2869b4d798e13cc@%3Cissues.drill.apache.org%3E
+- https://lists.apache.org/thread.html/r8890b8f18f1de821595792b58b968a89692a255bc20d86d395270740@%3Ccommits.druid.apache.org%3E
+- https://lists.apache.org/thread.html/rc27d424d0bdeaf31081c3e246db3c66e882243ae3f342dfa845e0261@%3Ccommits.kafka.apache.org%3E
+- https://www.mail-archive.com/dev@kafka.apache.org/msg99277.html
+- https://www.oracle.com/security-alerts/cpujul2020.html
+- https://www.oracle.com/security-alerts/cpuoct2020.html
+- http://www.securityfocus.com/bid/109139

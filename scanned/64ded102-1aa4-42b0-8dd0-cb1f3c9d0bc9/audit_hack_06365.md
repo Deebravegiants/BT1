@@ -1,0 +1,75 @@
+# [H] TAU burnFrom lowers wrong currentMinted value
+
+## Summary
+Severity: High
+Reporter: cducrest-brainbot
+Source: https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/TAU.sol#L71-L83
+Type: audit-issue
+
+## Details
+# TAU burnFrom lowers wrong currentMinted value
+
+## Summary
+
+The TAU contract lowers the `currentMinted` using the `currentMinted` value of the wrong address when using `burnFrom`. It uses the address of the account we withdraw the token from while it should use `msg.sender`. It should consider that `msg.sender` withdraws the token from `account` and `msg.sender` then burns the token.
+
+This lead to wrong accounting of `currentMinted` for vaults which will escalate into bigger accounting error over time and inevitably lead to reaching the mint limit set by `TAU.sol` prematurely.
+
+## Vulnerability Detail
+
+The TAU token contract has limits set for each vault for the maximum amount of TAU that can be minted by the vault. This limit is set by the governance address.
+
+When a vault mints token, the tracked amount of TAU minted by the vault is increased and the mint reverts if the amount exceeds the vault's limit. When a vault burns token using `burn()`, `currentMinted[vault]` decreases by the burned amount. However when a vault calls `burnFrom(user, amount)` the value of `currentMinted[user]` is wrongly used in the computation of the resulting `currentMinted` value.
+
+`burnFrom()` is used when a user repays its debt, when a liquidator repays the debt of another user's position, or when the `TauDripFeed` receives TAU rewards from an external source and uses this reward to repay user debt. It is clear that in these situations the amount of TAU the vault is responsible for minting should be lowered and not the amount of TAU minted by the user / liquidator / reward sender.
+
+## Impact
+
+When users open position with a debt of x and immediately close it, the value of `currentMinted[vault]` will be increased by x and never lowered. After a number of these operations, the `currentMinted[vault]` will reach `mintLimit[vault]` defined by governance in TAU and the vault will no longer be able to mint TAU for new positions. i.e. the vault cannot create new debt.
+
+Any user can abuse this system any number of times with low costs (only gas costs) to DOS a vault until governance sets the `mintLimit[vault]` to a value that cannot be reached, disabling this security.
+
+## Code Snippet
+
+burnFrom uses `currentMinted[account]` accountMinted value (L79):
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/TAU.sol#L71-L83
+
+the currentMinted is continuously increased in `mint` and reverts upon reaching limit:
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/TAU.sol#L35-L47
+
+burnFrom used in distributeRewards:
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/TauDripFeed.sol#L51-L53
+
+burnFrom used to repay debts / liquidate in baseVault:
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L300
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L376
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Use `msg.sender` to decrease account minted in burnFrom:
+
+```diff
+    function burnFrom(address account, uint256 amount) public virtual override {
+        super.burnFrom(account, amount);
+-       _decreaseCurrentMinted(account, amount);
++       _decreaseCurrentMinted(msg.sender, amount);
+    }
+```
+
+Or use msg.sender in `_decreaseCurrentMinted`:
+
+```diff
+    function _decreaseCurrentMinted(address account, uint256 amount) internal virtual {
+        // If the burner is a vault, subtract burnt TAU from its currentMinted.
+        // This has a few highly unimportant edge cases which can generally be rectified by increasing the relevant vault's mintLimit.
+-       uint256 accountMinted = currentMinted[account];
++       uint256 accountMinted = currentMinted[msg.sender];
+        if (accountMinted >= amount) {
+            currentMinted[msg.sender] = accountMinted - amount;
+        }
+    }
+```

@@ -1,0 +1,62 @@
+# [H] User can loss fund with mint function
+
+## Summary
+Severity: High
+Reporter: Blunt Inky Yeti
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/utils/PeripheryPayments.sol#L58
+Type: audit-issue
+
+## Details
+# User can loss fund with mint function
+## Summary
+The user can loss fund if `LMPVaultRouterBase.sol.mint` function get used with `msg.value > 0`.
+
+## Vulnerability Detail
+The `mint` function in the `LMPVaultRouterBase` contract is using in order to mint exact provided `share` amount from the user for the user and user can pay needed amount of asset with `ETH` or `erc20 Token`. As you can see this function is `payable`. 
+
+```Solidity
+    function mint(
+        ILMPVault vault,
+        address to,
+        uint256 shares,
+        uint256 maxAmountIn
+    ) public payable virtual override returns (uint256 amountIn) {
+        // handle possible eth
+        _processEthIn(vault);
+
+        IERC20 vaultAsset = IERC20(vault.asset());
+        uint256 assets = vault.previewMint(shares);
+        pullToken(vaultAsset, assets, address(this));
+        vaultAsset.safeApprove(address(vault), assets);
+
+        amountIn = vault.mint(shares, to);
+        if (amountIn > maxAmountIn) {
+            revert MaxAmountError();
+        }
+    }
+```
+Assume that the `vaultAsset` is `wETH` and user want to call this function with `msg.value = 1 ETH`. anyone who has approved the contract for `wETH` token, if call this function with for example `msg.value = 1 ETH`, will pay duble cost for this process. first from native ETH that attached to the transaction and next is from `pullToken` function that is called from `PeripheryPayments.sol`.
+
+```solidity
+    function pullToken(IERC20 token, uint256 amount, address recipient) public payable {
+        token.safeTransferFrom(msg.sender, recipient, amount);
+    }
+```
+
+A malicious user can steal it with `sweepToken` from `PeripheryPayments.sol`.
+- https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/utils/PeripheryPayments.sol#L58
+
+
+## Impact
+Anyone who has approved the `LMPVaultRouter.sol` for `wETH` token, If using `mint` function with `msg.value` < `approved value`, then will pay duble cost for this process.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/vault/LMPVaultRouterBase.sol#L30
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/utils/PeripheryPayments.sol#L55
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/vault/LMPVaultRouterBase.sol#L51C1-L54C54
+
+## Tool used
+Manual Review
+
+## Recommendation
+Function should not use `pullToken` if user sent in eth.

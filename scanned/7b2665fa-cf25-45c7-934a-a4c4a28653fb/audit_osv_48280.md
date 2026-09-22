@@ -1,0 +1,20 @@
+# [M] CVE-2017-5550
+
+## Summary
+Severity: Medium
+Advisory: CVE-2017-5550
+CVSS: 5.5 (CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2017-02-06
+Source: https://osv.dev/vulnerability/CVE-2017-5550
+Type: osv
+
+## Details
+Off-by-one error in the pipe_advance function in lib/iov_iter.c in the Linux kernel before 4.9.5 allows local users to obtain sensitive information from uninitialized heap-memory locations in opportunistic circumstances by reading from a pipe after an incorrect buffer-release decision.
+
+## References
+- http://www.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.9.5
+- http://www.securityfocus.com/bid/95716
+- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=b9dc6f65bc5e232d1c05fe34b5daadc7e8bbf1fb
+- http://www.openwall.com/lists/oss-security/2017/01/21/3
+- https://bugzilla.redhat.com/show_bug.cgi?id=1416116
+- https://github.com/torvalds/linux/commit/b9dc6f65bc5e232d1c05fe34b5daadc7e8bbf1fb

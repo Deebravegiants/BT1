@@ -1,0 +1,85 @@
+# [M] Use of hard coded decimals of 18 for collateral token
+
+## Summary
+Severity: Medium
+Reporter: RaymondFam
+Source: https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Libs/TauMath.sol#L18
+Type: audit-issue
+
+## Details
+# Use of hard coded decimals of 18 for collateral token
+
+## Summary
+The protocol assumes the decimal of the collateral token is unanimously 18 as the decimal of `TAU`. This could lead to arithmetic issue if the decimal of a non-GLP token  is non-18 and it is used as a yield-bearing collateral for a different vault.
+
+## Vulnerability Detail
+Here is a typical scenario:
+
+The decimal of the newly selected collateral token is 8.
+
+The code line in _computeCR() associated with calculating `newCollRatio`:
+
+[File: TauMath.sol#L18](https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Libs/TauMath.sol#L18)
+
+```solidity
+            uint256 newCollRatio = (_coll * _price * Constants.PRECISION) / (_debt * 10 ** priceDecimals);
+```
+`10 ** priceDecimals` in the denominator serves to ensure `_price` is 1e18 scaled. Currently, the decimal of `GLP` token is 18. So this is not going to be an issue. However, in this scenario, the decimal of the collateral for a new vault entailed is 8, and it is going to make `newCollRatio` 10 ** (18 - 10), i.e. 1e8 scaled instead of the intended 1e18.
+ 
+(Note: In an opposite scenario, if the decimal of the collateral token entailed were more than 18, `newCollRatio` would end up over scaled.)
+
+## Impact
+Consequently, this makes the `accountHealth` tremendously go underwater and set [`diff == MAX_LIQ_DISCOUNT`](https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L439-L442) by default  when `liquidate()` is called.
+
+(Note: In the opposite scenario, this would make users' `accountHealth` super good and never liquidable since [`_calcLiquidationDiscount()`](https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L433) would readily revert for the unhealthy accounts. 
+
+Additionally, the erroneous logic is going to directly affect the view functions dependent on `_computeCR()`, i.e. [`getMaxLiquidation()`](https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L137) and [`_getCollRatio()`](https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L195).
+
+And apparently, `_getMaxLiquidation()` involving a ratio that has `collateral` appear as the subtrahend of the numerator will also be likewise affected.
+
+[File: BaseVault.sol#L251-L253](https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L251-L253)
+
+```solidity
+        maxRepay =
+            ((MAX_LIQ_COLL_RATIO * _debt) - ((_collateral * _price * Constants.PRECISION) / (10 ** _decimals))) /
+            (MAX_LIQ_COLL_RATIO - _liquidationDiscount);
+```
+## Code Snippet
+[File: TauMath.sol#L11-L27](https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Libs/TauMath.sol#L11-L27)
+[File: BaseVault.sol#L432-L445](https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L432-L445)
+[File: BaseVault.sol#L240-L261](https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L240-L261)
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider having the collateral token amount 18 decimals scaled whenever it is included in a ratio or a division. 
+
+Here is a useful pure function that may be implemented in BaseVault.sol along with some needed additions since no state variables are allowed in the library, TauMath.sol:
+
+```solidity
+  function scaleUnderlyingAmtTo18Decimals(
+    uint256 _underlyingAmt,
+    uint256 _underlyingTokenDecimals
+  ) public pure returns (uint256) {
+    return
+      (_underlyingAmt * 1e18) /
+      10**(_underlyingTokenDecimals);
+  }
+```
+```diff
++    address public collateralToken;
+
+    function __BaseVault_init(address _controller, address _tau, address _collateralToken) internal initializer {
+        __Controllable_init(_controller);
+        __TauDripFeed_init(_tau, _collateralToken);
++        collateralToken = _collateralToken;
+    }
+```
+For instance, [`getMaxLiquidation()`](https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/Vault/BaseVault.sol#L137) invoking `computeCR()` may be refactored as follows:
+
+```diff
+-        uint256 _collRatio = TauMath._computeCR(accDetails.collateral, accDetails.debt, price, decimals);
++        uint256 _collRatio = TauMath._computeCR(scaleUnderlyingAmtTo18Decimals(accDetails.collateral, IERC20(collateralToken).decimal()), accDetails.debt, price, decimals);
+```

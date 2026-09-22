@@ -1,0 +1,18 @@
+# [M] CVE-2024-1676
+
+## Summary
+Severity: Medium
+Advisory: CVE-2024-1676
+CVSS: 5.4 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N)
+Published: 2024-02-21
+Source: https://osv.dev/vulnerability/CVE-2024-1676
+Type: osv
+
+## Details
+Inappropriate implementation in Navigation in Google Chrome prior to 122.0.6261.57 allowed a remote attacker to spoof security UI via a crafted HTML page. (Chromium security severity: Low)
+
+## References
+- https://chromereleases.googleblog.com/2024/02/stable-channel-update-for-desktop_20.html
+- https://issues.chromium.org/issues/40944847
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PWWBMVQTSERVBXSXCZVUKIMEDNQUQ7O3/
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/QDCMYQ3J45NHQ4EJREM3BJNNKB5BK4Y7/

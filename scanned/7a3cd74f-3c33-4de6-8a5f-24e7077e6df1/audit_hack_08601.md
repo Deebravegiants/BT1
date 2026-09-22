@@ -1,0 +1,37 @@
+# [M] Tokens that implements safeApprove are incompatible with setCTokenAddress in NotionalV2FlashLiquidator
+
+## Summary
+Severity: Medium
+Reporter: 0xGoodess
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/liquidators/NotionalV2FlashLiquidator.sol#L41-L45
+Type: audit-issue
+
+## Details
+# Tokens that implements safeApprove are incompatible with setCTokenAddress in NotionalV2FlashLiquidator
+
+## Summary
+Tokens that implements safeApprove are incompatible with setCTokenAddress in NotionalV2FlashLiquidator
+
+## Vulnerability Detail
+On NotionalV2FlashLiquidator, the setCTokenAddress would call `checkAllowanceOrSet`; which call an approve function without first setting the apporved amount to 0. some stricter non-standard ERC20 token would not allow that.
+
+```solidity
+    function setCTokenAddress(address cToken) external onlyOwner {
+        address underlying = _setCTokenAddress(cToken);
+        // Lending pool needs to be able to pull underlying
+        checkAllowanceOrSet(underlying, LENDING_POOL);
+    }
+
+```
+
+## Impact
+Tokens that implements safeApprove are incompatible with setCTokenAddress in NotionalV2FlashLiquidator
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/liquidators/NotionalV2FlashLiquidator.sol#L41-L45
+## Tool used
+
+Manual Review
+
+## Recommendation
+set approve to 0 first.

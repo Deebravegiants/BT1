@@ -1,0 +1,28 @@
+# [M] Unstaking or claiming rewards could end up in OOG
+
+## Summary
+Severity: Medium
+Reporter: Delvir0
+Source: https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/liquidity-mining/OTLM.sol#L408-L426
+Type: audit-issue
+
+## Details
+# Unstaking or claiming rewards could end up in OOG
+
+## Summary
+When unstaking or claiming rewards after a while, the action can be blocked due to OOG.
+## Vulnerability Detail
+Unstake or claimRewards functions all end up in:
+https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/liquidity-mining/OTLM.sol#L408-L426
+
+If user has not performed any action that triggers claimRewards in a while, the for loop could end up in OOG.
+## Impact
+User will be able to unstake funds with emergencyUnstakeAll but will lose the rewards.
+## Code Snippet
+provided
+## Tool used
+
+Manual Review
+
+## Recommendation
+Implement an additional function where you could claim rewards for a chosen epoch or x amount at a time

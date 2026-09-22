@@ -1,0 +1,51 @@
+# [M] Asset Targets may not be increased at all when allowed bidders call raiseAssetTargets() because raiseTargetPercentage could be zero.
+
+## Summary
+Severity: Medium
+Reporter: Able Glossy Reindeer
+Source: https://github.com/sherlock-audit/2023-06-Index/blob/main/index-protocol/contracts/protocol/modules/v1/AuctionRebalanceModuleV1.sol#L371-L373
+Type: audit-issue
+
+## Details
+# Asset Targets may not be increased at all when allowed bidders call raiseAssetTargets() because raiseTargetPercentage could be zero.
+
+## Summary
+ `rebalanceInfo[_setToken].raiseTargetPercentage` could be zero when users call AuctionRebalanceModuleV1.raiseAssetTargets()
+
+## Vulnerability Detail
+Asset Targets may not be increased at all when allowed bidders call raiseAssetTargets() because raiseTargetPercentage could be zero.
+
+## Impact
+ when all target units have been met but there is remaining quote asset, bidders will call AuctionRebalanceModuleV1.raiseAssetTargets() for Targets to be increased by the percentage specified by raiseAssetTargetsPercentage(), set by the manager.
+
+But there's no gaurantee that `rebalanceInfo[_setToken].raiseTargetPercentage` would always be set by the manager by the time bidders call AuctionRebalanceModuleV1.raiseAssetTargets(). 
+
+1. This is very possible and bidders will relax thinking they've raised asset target for the next rebalance period.
+
+2. This breaks the functionality of `AuctionRebalanceModuleV1.raiseAssetTargets()` because it won't work for bidders as intended
+
+3. bidders waste gas fees by calling `AuctionRebalanceModuleV1.raiseAssetTargets()` in vain
+
+
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-Index/blob/main/index-protocol/contracts/protocol/modules/v1/AuctionRebalanceModuleV1.sol#L371-L373
+## Tool used
+
+LOFI Radio & Manual Review
+
+## Recommendation
+add this changes 
+```solidity
++      require(rebalanceInfo[_setToken].raiseTargetPercentage != 0, "manager hasn't set raise Target Percentage" )
+
+       uint256 newPositionMultiplier = rebalanceInfo[_setToken].positionMultiplier.preciseDiv(
+            PreciseUnitMath.preciseUnit().add(rebalanceInfo[_setToken].raiseTargetPercentage)
+        );
+
+        // Update the positionMultiplier in the RebalanceInfo struct
+        rebalanceInfo[_setToken].positionMultiplier = newPositionMultiplier;
+
+        // Emit the AssetTargetsRaised event
+        emit AssetTargetsRaised(_setToken, newPositionMultiplier);
+```

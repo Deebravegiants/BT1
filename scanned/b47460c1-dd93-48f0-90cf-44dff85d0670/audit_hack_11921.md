@@ -1,0 +1,73 @@
+# [M] underflows could occur in case deficit is bigger than totalUnrealizedLoss during OVERDUE liquidation at setSymbolsPrice
+
+## Summary
+Severity: Medium
+Reporter: 0xGoodess
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L82-L88
+Type: audit-issue
+
+## Details
+# underflows could occur in case deficit is bigger than totalUnrealizedLoss during OVERDUE liquidation at setSymbolsPrice
+
+## Summary
+underflows occurs in case deficit is bigger than totalUnrealizedLoss during OVERDUE liquidation at `setSymbolsPrice`
+## Vulnerability Detail
+During OVERDUE liquidation, `partyBAllocatedBalances[[quote.partyB][partyA]` would receive the lftover of the position, after deducing the deficit as a ratio of totalUnrealizedLoss. 
+
+However if deficit is bigger than totalUnrealizedLoss, the subtraction would underflows
+`amount -
+                        ((amount * accountLayout.liquidationDetails[partyA].deficit) /
+                            uint256(-accountLayout.liquidationDetails[partyA].totalUnrealizedLoss));`
+
+```solidity
+else if (
+                accountLayout.liquidationDetails[partyA].liquidationType == LiquidationType.OVERDUE
+            ) {
+                if (hasMadeProfit) {
+                    accountLayout.partyBAllocatedBalances[quote.partyB][partyA] -= amount;
+                } else {
+                    accountLayout.partyBAllocatedBalances[quote.partyB][partyA] +=
+                        amount -
+                        ((amount * accountLayout.liquidationDetails[partyA].deficit) /
+                            uint256(-accountLayout.liquidationDetails[partyA].totalUnrealizedLoss));
+                }
+            }
+```
+
+calculation of deficit on OVERDUE liquidation
+```solidity
+else {
+                uint256 deficit = uint256(-availableBalance) -
+                    accountLayout.lockedBalances[partyA].lf -
+                    accountLayout.lockedBalances[partyA].cva;
+                accountLayout.liquidationDetails[partyA].liquidationType = LiquidationType.OVERDUE;
+                accountLayout.liquidationDetails[partyA].deficit = deficit;
+            }
+            AccountStorage.layout().liquidators[partyA].push(msg.sender);
+```
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L82-L88
+
+Since `totalUnrealizedLoss` is passed by gateway, there is no bound over `deficit` would be less than totalUnrealizedLoss.
+
+```solidity
+        if (accountLayout.liquidationDetails[partyA].liquidationType == LiquidationType.NONE) {
+            accountLayout.liquidationDetails[partyA] = LiquidationDetail({
+                liquidationType: LiquidationType.NONE,
+                upnl: priceSig.upnl,
+                totalUnrealizedLoss: priceSig.totalUnrealizedLoss,
+                deficit: 0,
+                liquidationFee: 0
+            })
+```
+## Impact
+OVERDUE liquidation reverts when deficit is bigger than totalUnrealizedLoss.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L178-L180
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider putting a floor on deficit as `min(totalUnrealizedLoss, accountLayout.liquidationDetails[partyA].deficit)`

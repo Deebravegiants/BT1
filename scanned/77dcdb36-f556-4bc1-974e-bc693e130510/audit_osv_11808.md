@@ -1,0 +1,17 @@
+# [M] CVE-2017-9792
+
+## Summary
+Severity: Medium
+Advisory: CVE-2017-9792
+CVSS: 6.5 (CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N)
+Published: 2017-10-04
+Source: https://osv.dev/vulnerability/CVE-2017-9792
+Type: osv
+
+## Details
+In Apache Impala (incubating) before 2.10.0, a malicious user with "ALTER" permissions on an Impala table can access any other Kudu table data by altering the table properties to make it "external" and then changing the underlying table mapping to point to other Kudu tables. This violates and works around the authorization requirement that creating a Kudu external table via Impala requires an "ALL" privilege at the server scope. This privilege requirement for "CREATE" commands is enforced to precisely avoid this scenario where a malicious user can change the underlying Kudu table mapping. The fix is to enforce the same privilege requirement for "ALTER" commands that would make existing non-external Kudu tables external.
+
+## References
+- https://lists.apache.org/thread.html/74a163df0cdefcd738c8d18821e69aa69eed2ba5384c0cc255d15c4b%40%3Cannounce.apache.org%3E
+- http://www.securityfocus.com/bid/101173
+- https://issues.apache.org/jira/browse/IMPALA-5638

@@ -1,0 +1,24 @@
+# [H] CVE-2017-3730
+
+## Summary
+Severity: High
+Advisory: CVE-2017-3730
+CVSS: 7.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2017-05-04
+Source: https://osv.dev/vulnerability/CVE-2017-3730
+Type: osv
+
+## Details
+In OpenSSL 1.1.0 before 1.1.0d, if a malicious server supplies bad parameters for a DHE or ECDHE key exchange then this can result in the client attempting to dereference a NULL pointer leading to a client crash. This could be exploited in a Denial of Service attack.
+
+## References
+- http://www.securityfocus.com/bid/95812
+- http://www.securitytracker.com/id/1037717
+- https://security.gentoo.org/glsa/201702-07
+- https://support.hpe.com/hpsc/doc/public/display?docLocale=en_US&docId=emr_na-hpesbhf03838en_us
+- http://www.oracle.com/technetwork/security-advisory/cpujan2018-3236628.html
+- http://www.oracle.com/technetwork/security-advisory/cpuoct2017-3236626.html
+- https://github.com/openssl/openssl/commit/efbe126e3ebb9123ac9d058aa2bb044261342aaa
+- https://www.openssl.org/news/secadv/20170126.txt
+- https://www.oracle.com/technetwork/security-advisory/cpuapr2019-5072813.html
+- https://www.exploit-db.com/exploits/41192/

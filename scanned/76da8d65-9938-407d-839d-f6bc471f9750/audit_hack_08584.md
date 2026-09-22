@@ -1,0 +1,31 @@
+# [M] getVaultAccountWithFeeAccrual not exposed to the router contract
+
+## Summary
+Severity: Medium
+Reporter: ShadowForce
+Source: https://github.com/notional-finance/contracts-v2/blob/b20a45c912785fab5f2b62992e5260f44dbae197/contracts/external/actions/VaultAccountHealth.sol#L105-L131
+Type: audit-issue
+
+## Details
+# getVaultAccountWithFeeAccrual not exposed to the router contract
+
+## Summary
+getVaultAccountWithFeeAccrual not exposed to the router contract
+## Vulnerability Detail
+```solidity
+    function getVaultAccountWithFeeAccrual(address account, address vault) external override view returns (
+        VaultAccount memory vaultAccount,
+        int256 accruedPrimeVaultFeeInUnderlying
+    )
+```
+In the contract VaultAccountHealth.sol there is a function `getVaultAccountWithFeeAccrual` which is not exposed to the router contract. As we know router contract directs a users calls and delegates them to another contract for use in the protocol. Because the function `getVaultAccountWithFeeAccrual` is not exposed to the router contract, it may cause problems.
+## Impact
+no one can read the accruedPrimeVaultFeeInUnderlying state, the Notional Website UI is impacted and users do not know the accured prime vault fee, the external protocol that integrates with notional also have a difficult time finding accured prime vault fee. This can mislead protocols and users to go into positions with incorrect information and state of the protocol.
+## Code Snippet
+https://github.com/notional-finance/contracts-v2/blob/b20a45c912785fab5f2b62992e5260f44dbae197/contracts/external/actions/VaultAccountHealth.sol#L105-L131
+## Tool used
+
+Manual Review
+
+## Recommendation
+we recommend to expose the `getVaultWithFeeAccrual` function in the router contract

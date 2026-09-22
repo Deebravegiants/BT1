@@ -1,0 +1,23 @@
+# [C] CVE-2018-6913
+
+## Summary
+Severity: Critical
+Advisory: CVE-2018-6913
+CVSS: 9.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2018-04-17
+Source: https://osv.dev/vulnerability/CVE-2018-6913
+Type: osv
+
+## Details
+Heap-based buffer overflow in the pack function in Perl before 5.26.2 allows context-dependent attackers to execute arbitrary code via a large item count.
+
+## References
+- https://www.oracle.com/security-alerts/cpujul2020.html
+- http://www.securityfocus.com/bid/103953
+- http://www.securitytracker.com/id/1040681
+- https://lists.debian.org/debian-lts-announce/2018/04/msg00009.html
+- https://rt.perl.org/Public/Bug/Display.html?id=131844
+- https://security.gentoo.org/glsa/201909-01
+- https://usn.ubuntu.com/3625-1/
+- https://usn.ubuntu.com/3625-2/
+- https://www.debian.org/security/2018/dsa-4172

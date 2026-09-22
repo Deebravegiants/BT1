@@ -1,0 +1,20 @@
+# [M] CVE-2016-6835
+
+## Summary
+Severity: Medium
+Advisory: CVE-2016-6835
+CVSS: 6.0 (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:C/C:N/I:N/A:H)
+Published: 2016-12-10
+Source: https://osv.dev/vulnerability/CVE-2016-6835
+Type: osv
+
+## Details
+The vmxnet_tx_pkt_parse_headers function in hw/net/vmxnet_tx_pkt.c in QEMU (aka Quick Emulator) allows local guest OS administrators to cause a denial of service (buffer over-read) by leveraging failure to check IP header length.
+
+## References
+- http://git.qemu.org/?p=qemu.git%3Ba=commit%3Bh=93060258ae748573ca7197204125a2670047896d
+- http://www.openwall.com/lists/oss-security/2016/08/11/7
+- http://www.openwall.com/lists/oss-security/2016/08/18/4
+- https://access.redhat.com/errata/RHSA-2017:2392
+- https://lists.debian.org/debian-lts-announce/2018/09/msg00007.html
+- https://lists.gnu.org/archive/html/qemu-stable/2016-08/msg00077.html

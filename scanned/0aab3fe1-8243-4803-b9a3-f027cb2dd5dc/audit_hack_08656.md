@@ -1,0 +1,25 @@
+# [M] Unexpected collateral is paid by the borrower.
+
+## Summary
+Severity: Medium
+Reporter: xAlismx
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L117-L130
+Type: audit-issue
+
+## Details
+# Unexpected collateral is paid by the borrower.
+
+## Summary
+The collateral manager can accept all of the borrower's approved tokens as loan collateral from the lender.
+## Vulnerability Detail
+A user has the ability to commit to a bid, but it is the borrower who pays for the commitment. The borrower can have multiple bids with commitments and approved tokens that are given to the collateral manager. This allows the lender to make new commitments for the borrower before accepting the loan and use all of the borrower's approved tokens as collateral, which may come as a surprise to the borrower.
+## Impact
+The borrower provides a collateral that is higher than what was anticipated.
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L117-L130
+## Tool used
+
+Manual Review
+
+## Recommendation
+Only the borrower should be allowed to commit collateral for a bid, as they are the sole party responsible for paying the commitment.

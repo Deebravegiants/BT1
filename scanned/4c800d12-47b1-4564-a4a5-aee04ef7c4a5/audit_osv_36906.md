@@ -1,0 +1,19 @@
+# [M] Github.com/supranational/blst: blst cryptographic library: denial of service via out-of-bounds stack write in key generation
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-2681
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L)
+Published: 2026-02-19
+Source: https://osv.dev/vulnerability/CVE-2026-2681
+Type: osv
+
+## Details
+A flaw was found in the blst cryptographic library. This out-of-bounds stack write vulnerability, specifically in the blst_sha256_bcopy assembly routine, occurs due to a missing zero-length guard. A remote attacker can exploit this by providing a zero-length salt parameter to key generation functions, such as blst_keygen_v5(), if the application exposes this functionality. Successful exploitation leads to memory corruption and immediate process termination, resulting in a denial-of-service (DoS) condition.
+
+## References
+- https://access.redhat.com/security/cve/CVE-2026-2681
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/2xxx/CVE-2026-2681.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-2681
+- https://bugzilla.redhat.com/show_bug.cgi?id=2440580
+- https://github.com/supranational/blst

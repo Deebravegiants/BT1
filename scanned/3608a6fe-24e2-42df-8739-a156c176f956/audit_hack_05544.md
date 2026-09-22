@@ -1,0 +1,77 @@
+# [M] [Prevent admin to make mistake which cause lose fund] Ongoing close functionality should only be allowed when there is no balance left
+
+## Summary
+Severity: Medium
+Reporter: caventa
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/OngoingBountyV1.sol#L116-L125
+Type: audit-issue
+
+## Details
+# [Prevent admin to make mistake which cause lose fund] Ongoing close functionality should only be allowed when there is no balance left
+
+## Summary
+Ongoing close functionality should only be allowed when there is no balance left.
+
+## Vulnerability Detail
+The claim manager could make the mistake to close the ongoing bounty without checking there remaining protocol token, erc20token or NFT balance in the contract. Below I modify the existing test unit ONGOING => should transfer payoutAmount from bounty pool to claimant for ClaimManager.test.js
+ 
+```solidity
+it.only('should transfer payoutAmount from bounty pool to claimant', async () => {
+	// ARRANGE
+	const volume = 1000;
+	const expectedTimestamp = await setNextBlockTimestamp();
+
+	await openQProxy.mintBounty(Constants.bountyId, Constants.organization, ongoingBountyInitOperation);
+
+	const bountyIsOpen = await openQProxy.bountyIsOpen(Constants.bountyId);
+	const bountyAddress = await openQProxy.bountyIdToAddress(Constants.bountyId);
+
+	const newBounty = await OngoingBountyV1.attach(
+		bountyAddress
+	);
+
+	await mockLink.approve(bountyAddress, 10000000);
+	expect(await mockLink.balanceOf(bountyAddress)).to.equal('0');
+
+	await depositManager.fundBountyToken(bountyAddress, mockLink.address, volume, 1, Constants.funderUuid);
+	expect(await mockLink.balanceOf(bountyAddress)).to.equal('1000');
+
+	await openQProxy.closeOngoing(Constants.bountyId); // Close
+	expect(await mockLink.balanceOf(bountyAddress)).to.equal('1000'); // Still have balance
+	
+	await expect(claimManager.connect(oracle).claimBounty(bountyAddress, owner.address, abiEncodedSingleCloserData)).to.be.revertedWith('CONTRACT_IS_NOT_CLAIMABLE'); // TRY TO CLAIM BUT FAIL
+});
+```
+
+## Impact
+Balance could not be withdrawn and stuck in the contract forever
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/OngoingBountyV1.sol#L116-L125
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/ClaimManager/Implementations/ClaimManagerV1.sol#L31-L67
+
+## Tool used
+Manual Review and test unit added
+
+## Recommendation
+Change the following function
+
+```solidity
+ function closeOngoing(address _closer) external onlyOpenQ {
+        require(
+            status == OpenQDefinitions.OPEN,
+            Errors.CONTRACT_ALREADY_CLOSED
+        );
+
+        +++ if (payoutTokenAddress == address(0)) {
+        +++     require(address(this).balance == 0);
+        +++ } else {
+        +++    require(IERC20Upgradeable(payoutTokenAddress).balanceOf(address(this)) == 0, 'Must have no ERC20 token balance');
+        +++ }
+
+        +++ require(nftDeposits.length == 0, 'Should have no nft deposited');
+
+        status = OpenQDefinitions.CLOSED;
+        bountyClosedTime = block.timestamp;
+    }
+```

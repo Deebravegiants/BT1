@@ -1,0 +1,93 @@
+# [H] Reentrancy Vulnerability and Lack of Input Validation in `sendQuote` Function
+
+## Summary
+Severity: High
+Reporter: moneyversed
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/PartyA/PartyAFacet.sol#L27-L41
+Type: audit-issue
+
+## Details
+# Reentrancy Vulnerability and Lack of Input Validation in `sendQuote` Function
+
+## Summary
+
+The `sendQuote` function in the `PartyAFacet` and `PartyAFacetImpl` contracts contains two vulnerabilities. First, the `sendQuote` function in `PartyAFacet` is vulnerable to reentrancy attacks due to an external call to `PartyAFacetImpl.sendQuote` before updating the `quote` state variable. Second, the `sendQuote` function in `PartyAFacetImpl` lacks proper input validation, potentially leading to issues with order processing.
+
+## Vulnerability Detail
+
+Reentrancy Vulnerability:
+
+Reentrancy occurs when a contract makes an external call to another untrusted contract before it resolves its state. In the case of the `sendQuote` function in `PartyAFacet`, the external call to `PartyAFacetImpl.sendQuote` occurs before updating the `quote` state variable. This vulnerability allows a malicious or compromised `PartyAFacetImpl` contract to manipulate the state during execution, leading to unexpected behavior and potential loss of funds.
+
+Lack of Input Validation:
+
+The `sendQuote` function in `PartyAFacetImpl` doesn't properly validate input data, particularly for parameters such as `symbolId`, `positionType`, and `orderType`. The lack of validation can result in logical issues within the contract, processing orders that don't exist or are incorrect.
+
+## Impact
+
+The reentrancy vulnerability can lead to unexpected behavior and potential loss of funds if the `PartyAFacetImpl` contract is malicious or compromised. The lack of input validation can result in logical issues with order processing, potentially affecting the correctness and integrity of the contract.
+
+## Code Snippet
+
+Reentrancy Vulnerability:
+```solidity
+uint256 quoteId = PartyAFacetImpl.sendQuote(
+    partyBsWhiteList,
+    symbolId,
+    positionType,
+    orderType,
+    price,
+    quantity,
+    cva,
+    mm,
+    lf,
+    maxInterestRate,
+    deadline,
+    upnlSig
+);
+Quote storage quote = QuoteStorage.layout().quotes[quoteId];
+```
+
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/PartyA/PartyAFacet.sol#L27-L41
+
+Lack of Input Validation:
+```solidity
+function sendQuote(
+    address[] memory partyBsWhiteList,
+    uint256 symbolId,
+    PositionType positionType,
+    OrderType orderType,
+    uint256 price,
+    uint256 quantity,
+    uint256 cva,
+    uint256 mm,
+    uint256 lf,
+    uint256 maxInterestRate,
+    uint256 deadline,
+    SingleUpnlAndPriceSig memory upnlSig
+) internal returns (uint256 currentId) {
+    // Function Body
+}
+```
+
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/PartyA/PartyAFacetImpl.sol#L21-L120
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+1. Reentrancy Vulnerability: Implement the Checks-Effects-Interactions pattern to update the state before making external calls. This ensures that the state is resolved before any potential reentrancy vulnerability arises.
+
+2. Lack of Input Validation: Thoroughly validate all function parameters, especially enumerated types like `symbolId`, `positionType`, and `orderType`. Proper validation will prevent processing orders that are invalid or don't exist, ensuring the correctness of order processing.
+
+## Proof of Concept
+
+To reproduce these vulnerabilities:
+
+1. Deploy the `PartyAFacet` and `PartyAFacetImpl` contracts.
+2. Exploit the reentrancy vulnerability by calling the `sendQuote` function from a contract with a fallback function that calls back into `sendQuote`.
+3. Observe the unexpected behavior and potential loss of funds due to the reentrancy vulnerability.
+4. Exploit the lack of input validation by calling the `sendQuote` function with invalid `symbolId`, `positionType`, or `orderType`.
+5. Observe the logical issues in order processing caused by the lack of input validation.

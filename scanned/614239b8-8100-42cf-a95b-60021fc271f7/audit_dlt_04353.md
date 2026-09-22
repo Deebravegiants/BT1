@@ -1,0 +1,44 @@
+# [M] `effectiveCount` requirement can be bypassed
+
+## Summary
+Severity: Medium
+Chain: Smart contract
+Component: 2022-10-union-finance
+Published: 2022-11-04
+Source: https://github.com/sherlock-audit/2022-10-union-finance-judging/issues/138
+Type: sherlock-finding
+
+## Details
+Picodes
+
+medium
+
+# `effectiveCount` requirement can be bypassed
+
+## Summary
+When registering, users can bypass the requirement of having more than `effectiveCount` real vouches.
+
+## Vulnerability Detail
+In `UserManager`, [`updateTrust`](https://github.com/sherlock-audit/2022-10-union-finance/blob/main/union-v2-contracts/contracts/user/UserManager.sol#L525) can be called with a `trustAmount` of 0. The vouch would still be added to `vouchers[borrower]`, although `trustAmount == 0`. 
+
+Then in `registerMember`, a new member could be registered despite all its current `vouch` being zero.
+
+## Impact
+This could lead to:
+- the system not working as designed
+- new members joining despite no one trusting them, infiltrating the Union to then open credit lines
+
+## Code Snippet
+The vulnerability lies either in the `updateTrust` function, either here:
+
+```solidity
+for (uint256 i = 0; i < vouchersLength; i++) {
+  Vouch memory vouch = vouchers[newMember][i];
+  Staker memory staker = stakers[vouch.staker];
+  if (staker.stakedAmount > 0) count++;
+  if (count >= effectiveCount) break;
+}
+```
+
+## Recommendation
+Check in `updateTrust` that `trustAmount != 0`

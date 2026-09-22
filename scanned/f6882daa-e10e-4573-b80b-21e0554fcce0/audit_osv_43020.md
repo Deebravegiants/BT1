@@ -1,0 +1,123 @@
+# [H] Bluetooth: MGMT: Fix adv monitor add failure cleanup
+
+## Summary
+Severity: High
+Advisory: CVE-2026-72335
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-08-15
+Source: https://osv.dev/vulnerability/CVE-2026-72335
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.12.0 <6.1.178, >=6.2.0 <6.6.145, >=6.7.0 <6.12.97, >=6.13.0 <6.18.40, >=6.19.0 <7.1.5
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+Bluetooth: MGMT: Fix adv monitor add failure cleanup
+
+hci_add_adv_monitor() publishes a new adv_monitor in
+hdev->adv_monitors_idr before the powered MSFT setup step. The MSFT
+offload add path can then fail either locally before the controller add
+command completes, or in the MSFT add callback. In the current queued
+management add flow, hci_cmd_sync_work() still invokes
+mgmt_add_adv_patterns_monitor_complete() with the original pending command
+after msft_add_monitor_pattern() returns.
+
+The buggy scenario involves two paths, with each column showing the order
+within that path:
+
+MSFT add handling                  MGMT completion
+1. insert monitor and handle       1. receive sync error
+2. send MSFT add command           2. call add-monitor completion
+3. callback sees bad response      3. load cmd->user_data
+4. callback frees monitor          4. read monitor->handle
+
+Local MSFT setup failures have the other half of the same ownership bug:
+they return an error after the IDR insertion, but no later code removes the
+failed monitor from the IDR.
+
+Keep ownership with the pending management command until its completion.
+For normal management adds, the MSFT add callback now records successful
+controller state and returns errors to its caller. The management
+completion frees the monitor on non-success after copying the response
+handle, while resume/reregister callback-error cleanup remains in the
+MSFT callback. The success path keeps the existing bookkeeping.
+
+Validation reproduced this kernel report:
+BUG: KASAN: slab-use-after-free in mgmt_add_adv_patterns_monitor_complete+0xfb/0x260 [bluetooth]
+
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x66/0xa0
+ print_report+0xce/0x5f0
+ ? mgmt_add_adv_patterns_monitor_complete+0xfb/0x260 [bluetooth]
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __virt_addr_valid+0x19f/0x330
+ ? mgmt_add_adv_patterns_monitor_complete+0xfb/0x260 [bluetooth]
+ kasan_report+0xe0/0x110
+ ? mgmt_add_adv_patterns_monitor_complete+0xfb/0x260 [bluetooth]
+ mgmt_add_adv_patterns_monitor_complete+0xfb/0x260 [bluetooth]
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? 0xffffffffc00d00da
+ ? __pfx_mgmt_add_adv_patterns_monitor_complete+0x10/0x10 [bluetooth]
+ ? __pfx_mgmt_add_adv_patterns_monitor_complete+0x10/0x10 [bluetooth]
+ ? hci_cmd_sync_work+0x1ab/0x210 [bluetooth]
+ hci_cmd_sync_work+0x1c0/0x210 [bluetooth]
+ ? __pfx_mgmt_add_adv_patterns_monitor_complete+0x10/0x10 [bluetooth]
+ process_one_work+0x4fd/0xbc0
+ ? __pfx_process_one_work+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __list_add_valid_or_report+0x37/0xf0
+ ? __pfx_hci_cmd_sync_work+0x10/0x10 [bluetooth]
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ worker_thread+0x2d8/0x570
+ ? __pfx_worker_thread+0x10/0x10
+ kthread+0x1ad/0x1f0
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x3c9/0x540
+ ? __pfx_ret_from_fork+0x10/0x10
+ ? srso_alias_return_thunk+0x5/0xfbef5
+ ? __switch_to+0x2e9/0x730
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+
+Allocated by task 471 on cpu 3 at 285.205389s:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x17/0x60
+ __kasan_kmalloc+0xaa/0xb0
+ add_adv_patterns_monitor_rssi+0xd5/0x230 [bluetooth]
+ hci_sock_sendmsg+0x96b/0xf80 [bluetooth]
+ __sys_sendto+0x2bc/0x2d0
+ __x64_sys_sendto+0x76/0x90
+ do_syscall_64+0x115/0x6a0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 454 on cpu 2 at 285.217112s:
+ kasan_save_stack+0x33/0x60
+ kasan_save_track+0x17/0x60
+ kasan_save_free_info+0x3b/0x60
+ __kasan_slab_free+0x5f/0x80
+ kfree+0x313/0x590
+ msft_add_monitor_sync+0x54a/0x570 [bluetooth]
+ hci_add_adv_monitor+0x133/0x180 [bluetooth]
+ hci_cmd_sync_work+0x187/0x210 [bluetooth]
+ process_one_work+0x4fd/0xbc0
+ worker_thread+0x2d8/0x570
+ kthread+0x1ad/0x1f0
+ ret_from_fork+0x3c9/0x540
+ ret_from_fork_asm+0x1a/0x30
+
+## References
+- https://git.kernel.org/stable/c/384a4b2fef9ffe5e270ee5558975c0504881c5fb
+- https://git.kernel.org/stable/c/5aabbd01ac315a72bcdfd42985ede712c4744689
+- https://git.kernel.org/stable/c/b1a719b3c4359ef731646fb7c7844e53dddbda72
+- https://git.kernel.org/stable/c/dbd935a9e056545721bc4e9ce518c775d787b21e
+- https://git.kernel.org/stable/c/dfc8373893b1876bb367700eac9d776316dabd96
+- https://git.kernel.org/stable/c/fb256d07395ebbc950f42e439d3896ec3a25c845
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/72xxx/CVE-2026-72335.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-72335
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

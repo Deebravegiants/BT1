@@ -1,0 +1,27 @@
+# [M] `AvailBridge :: updateTokens` can register a non allowed tokens
+
+## Summary
+Severity: Medium
+Reporter: Brilliant Hemp Lark
+Source: https://github.com/sherlock-audit/2023-12-avail/blob/main/contracts/src/AvailBridge.sol#L132
+Type: audit-issue
+
+## Details
+# `AvailBridge :: updateTokens` can register a non allowed tokens
+
+## Summary
+
+## Vulnerability Detail
+Some external interactions send tokens to the account, and the token address is not checked before being 
+registered as a collateral for the account. 
+
+## Impact
+loss of funds to non allowed tokens
+## Code Snippet
+https://github.com/sherlock-audit/2023-12-avail/blob/main/contracts/src/AvailBridge.sol#L132
+## Tool used
+
+Manual Review
+
+## Recommendation
+Check if tokens are allowed

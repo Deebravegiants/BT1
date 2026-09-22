@@ -1,0 +1,22 @@
+# [C] Trunk's 'Claim your pod' could be used to obtain un-used pods
+
+## Summary
+Severity: Critical
+Advisory: CVE-2024-38368
+Aliases: GHSA-j483-qm5c-7hqx
+CVSS: 9.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:N/I:H/A:L)
+Published: 2024-07-01
+Source: https://osv.dev/vulnerability/CVE-2024-38368
+Type: osv
+
+## Details
+trunk.cocoapods.org is the authentication server for the CoacoaPods dependency manager. A vulnerability affected older pods which migrated from the pre-2014 pull request workflow to trunk. If the pods had never been claimed then it was still possible to do so. It was also possible to have all owners removed from a pod, and that made the pod available for the same claiming system. This was patched server-side in commit 71be5440906b6bdfbc0bcc7f8a9fec33367ea0f4 in September 2023.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/38xxx/CVE-2024-38368.json
+- https://github.com/CocoaPods/CocoaPods/security/advisories/GHSA-j483-qm5c-7hqx
+- https://nvd.nist.gov/vuln/detail/CVE-2024-38368
+- https://github.com/CocoaPods/trunk.cocoapods.org/commit/71be5440906b6bdfbc0bcc7f8a9fec33367ea0f4
+- https://blog.cocoapods.org/Claim-Your-Pods
+- https://blog.cocoapods.org/CocoaPods-Trunk-RCEs-2023
+- https://evasec.webflow.io/blog/eva-discovered-supply-chain-vulnerabities-in-cocoapods#1-taking-unauthorized-ownership-over-orphaned-pods

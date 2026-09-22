@@ -1,0 +1,24 @@
+# [H] CVE-2021-25829
+
+## Summary
+Severity: High
+Advisory: CVE-2021-25829
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2021-03-01
+Source: https://osv.dev/vulnerability/CVE-2021-25829
+Type: osv
+
+## Details
+An improper binary stream data handling issue was found in the [core] module of ONLYOFFICE DocumentServer v4.0.0-9-v5.6.3. Using this bug, an attacker is able to produce a denial of service attack that can eventually shut down the target server.
+
+## References
+- https://github.com/ONLYOFFICE/core/blob/c1e4a2ce33bdcfab29d670f5fdb10fc63cf5fd6a/ASCOfficePPTXFile/PPTXFormat/Comments.h#L299
+- https://github.com/ONLYOFFICE/core/blob/c1e4a2ce33bdcfab29d670f5fdb10fc63cf5fd6a/ASCOfficePPTXFile/PPTXFormat/Core.h#L161
+- https://github.com/ONLYOFFICE/core/blob/c1e4a2ce33bdcfab29d670f5fdb10fc63cf5fd6a/ASCOfficePPTXFile/PPTXFormat/NotesMaster.h#L148
+- https://github.com/ONLYOFFICE/core/blob/c1e4a2ce33bdcfab29d670f5fdb10fc63cf5fd6a/ASCOfficePPTXFile/PPTXFormat/NotesSlide.h#L141
+- https://github.com/ONLYOFFICE/core/blob/c1e4a2ce33bdcfab29d670f5fdb10fc63cf5fd6a/ASCOfficePPTXFile/PPTXFormat/Presentation.h#L277
+- https://github.com/ONLYOFFICE/core/blob/c1e4a2ce33bdcfab29d670f5fdb10fc63cf5fd6a/ASCOfficePPTXFile/PPTXFormat/Theme.h#L277
+- https://github.com/ONLYOFFICE/core/blob/v5.6.4.10/ASCOfficePPTXFile/Editor/BinaryFileReaderWriter.cpp#L1722
+- https://github.com/ONLYOFFICE/DocumentServer
+- https://github.com/ONLYOFFICE/core
+- https://github.com/merrychap/poc_exploits/tree/master/ONLYOFFICE/CVE-2021-25829
