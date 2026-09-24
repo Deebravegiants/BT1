@@ -1,0 +1,45 @@
+Confirmed: `test_inv_virtualReserveAlwaysExceedsRealBalance` in `test/GraduationInvariants.t.sol:353-361` explicitly documents that `pair.tokenBalance() < pair.tokenReserve()` is treated as a hard property, and that if it "ever ceased to hold, that branch would revert with `OverflowCapDegenerate`" — which is exactly the underflow-adjacent scenario I traced through `Router._computeBuy`. This confirms both the root cause and that the protocol authors are aware only of the `== 0` degenerate case (guarded by a named revert), not the `realBalance > reserveToken` sign-flip case, which underflows with an unguarded Solidity `Panic` before that check is ever reached.
+
+### Title
+Donating the launched Token directly to its curve `Pair` can flip `tokenBalance() > tokenReserve`, causing `Router._computeBuy`'s overflow-cap arithmetic to permanently `Panic`-revert instead of gracefully capping - bricking the curve's supply-based graduation trigger - ([File: packages/contracts/src/Router.sol])
+
+### Summary
+`Router._computeBuy` assumes the invariant `pair.tokenBalance() (real) < pair.tokenReserve() (virtual)` always holds by a constant gap of `LP_RESERVE` (250M tokens), and relies on this to safely compute `cappedReserveToken = reserveToken - tokensOut` when the overflow-cap branch fires. Any holder of the launched `Token` can defeat this invariant with a plain `IERC20.transfer` of the token directly into the `Pair` contract - a path the spec explicitly acknowledges is possible (it is why `_prepareGraduationLiquidity` burns "any tokens donated to the pair via direct ERC20 transfer"). Once real balance exceeds virtual reserve by donation, the next oversized buy that lands in the cap branch underflows and reverts with a raw Solidity `Panic`, rather than the named `OverflowCapDegenerate` guard the code only checks for the `== 0` case.
+
+### Finding Description
+`Router._computeBuy` (`packages/contracts/src/Router.sol:127-148`):
+```solidity
+function _computeBuy(address pairAddr, uint256 amountIn) internal view returns (uint256 amountInUsed, uint256 tokensOut) {
+    ...
+    uint256 realBalance = pair.tokenBalance();
+    if (tokensOut > realBalance) {
+        tokensOut = realBalance;
+        uint256 cappedReserveToken = reserveToken - tokensOut;   // reserveToken - realBalance
+        if (cappedReserveToken == 0) revert OverflowCapDegenerate();
+        ...
+    }
+}
+```
+`reserveToken` (`Pair._pool.tokenReserve`) is the *virtual* reserve set once at launch (`TOTAL_SUPPLY = 1e9 * 1e18`) and decremented only by `Pair.swap`'s `tokenOut` on each buy. `realBalance` (`pair.tokenBalance()`, i.e. `IERC20(token).balanceOf(pair)`) starts at `curveSupply = 75%` of supply and is likewise decremented by exactly the same `tokenOut` on every buy via `transferToken`. Under honest trading the gap `reserveToken - realBalance` therefore stays constant at exactly `LP_RESERVE = 250,000,000 * 1e18` for the whole life of the curve (`test_inv_virtualReserveAlwaysExceedsRealBalance`, `packages/contracts/test/GraduationInvariants.t.sol:362-377`, explicitly asserts this).
+
+`Token.sol` is a standard ERC20 with only owner-gated `burn` - anyone holding the launched token can `IERC20(token).transfer(pair, amount)` at any time while the curve is in `Lifecycle.Curve`. This is a known, accepted donation vector: the codebase's own docs state donated tokens are later "unconditionally burned by `_prepareGraduationLiquidity`" (`docs/contracts-scope.md:71`) - but that cleanup only happens *after* graduation succeeds, not before.
+
+If an attacker accumulates and donates strictly more than `LP_RESERVE` (250M) tokens directly to the `Pair`, `realBalance` becomes greater than `reserveToken`. The very next buy whose *uncapped* AMM output exceeds this inflated `realBalance` (any sufficiently large buy attempting to complete the sellout) enters the `tokensOut > realBalance` branch, sets `tokensOut = realBalance`, and then computes `cappedReserveToken = reserveToken - tokensOut = reserveToken - realBalance`, which **underflows** since `realBalance > reserveToken`. Solidity 0.8's checked arithmetic reverts with a bare `Panic(0x11)` — the `if (cappedReserveToken == 0) revert OverflowCapDegenerate();` guard is never reached because the subtraction itself traps first.
+
+This breaks the exact security property `Router.sol`'s own natspec claims ("`Router.buy` caps `tokensOut` at the pair's real balance and back-calculates the LT consumed, so the last buy cannot exceed remaining supply" - `packages/contracts/AGENTS.md:91`): the cap-binding "closing buy" - the one that would drive `tokenBalance()` to `0` and fire the supply-side graduation trigger - now reliably `Panic`-reverts for that specific token, for any caller, indefinitely, since nothing in `Router`, `Bonding`, or `Zap` ever reduces `realBalance` back below `reserveToken` (the only reducers are further buys, which shrink both sides in lockstep and do not restore the gap once donated tokens have permanently inflated `realBalance`).
+
+### Impact Explanation
+This freezes the affected token's bonding curve in a state where it can never complete a full sellout via the supply trigger (`IPair.tokenBalance() == 0`) - any buy that would otherwise exhaust the curve panics instead of executing, and `Zap.buy`/`Bonding.buy` bubble that panic up as a hard revert for every trader attempting to close out the curve. The token is stuck relying solely on the USD trigger (`(storedAssetReserve - virtualLtReserve) × exchangeRate ≥ threshold`) to ever graduate; in a flat/declining LT-price regime (the exact scenario the supply trigger exists to handle, per `docs/contracts-scope.md:71`) the token can become permanently unable to graduate, trapping the remaining curve liquidity and all pending buyers/sellers of that token in `Lifecycle.Curve` with a bricked closing-buy path. This is a freeze-of-funds / permanent-DoS impact on a reachable, unprivileged path (a plain ERC20 transfer into the `Pair`), matching the class explicitly called out in-scope ("direct ERC20 transfers of a launched Token ... into ... Pair").
+
+### Likelihood Explanation
+Medium-to-low likelihood in practice, matching the "difficult to exploit" (`AC:H`) profile of the referenced CVE: the attacker must first acquire (via ordinary curve buys) and then donate more than `LP_RESERVE` = 250,000,000 tokens of the specific launched token - roughly a third of total supply and up to the full 750M sellable curve supply. This is capital-intensive (bonding-curve pricing makes acquiring that much of the curve increasingly expensive) but requires no privileged role, no oracle manipulation, and no cooperation from `Bonding`/`Zap`/BounceTech - only a standard `IERC20.transfer` call any token holder can make. A well-funded griefer, or the token's own creator (who may hold a large uncapped seed position, per the anti-snipe design's "no upper bound on the seed" - `packages/contracts/AGENTS.md:75`), is well-positioned to reach this state cheaply relative to a third party.
+
+### Recommendation
+In `Router._computeBuy`, guard the capped-branch subtraction against `realBalance > reserveToken` explicitly (e.g. `if (realBalance >= reserveToken) revert OverflowCapDegenerate();` before computing `cappedReserveToken`), so the failure mode is the intended named revert rather than a raw arithmetic `Panic`, and consider proactively defending against the donation vector itself - e.g. having `Bonding`/`Router` treat `tokenBalance()` as capped at `reserveToken` when computing the buy cap, so a donation can inflate the pair's balance without ever being able to invert the invariant that `_computeBuy` depends on.
+
+### Proof of Concept
+1. Launch a token normally via `Zap.createToken` (curve seeded with `reserveToken = TOTAL_SUPPLY = 1e9 * 1e18`, `realBalance = curveSupply = 750,000,000 * 1e18`, gap = `LP_RESERVE = 250,000,000 * 1e18`).
+2. Attacker performs a sequence of `Zap.buy` calls to acquire ≥ `250,000,001 * 1e18` of the launched `Token` (any mix of buys; the constant-gap invariant holds throughout, per `test_inv_virtualReserveAlwaysExceedsRealBalance`).
+3. Attacker calls `IERC20(token).transfer(pairAddress, 250_000_001 ether)` directly (bypassing `Zap`/`Router`/`Bonding` entirely) - this only touches the Token's own `balanceOf`/`transfer` bookkeeping and does not touch `Pair._pool.tokenReserve`. Now `pair.tokenBalance() > pair.tokenReserve()`.
+4. Any subsequent trader calls `Zap.buy`/`Bonding.buy` with an amount large enough that the unbounded AMM formula's `tokensOut` exceeds the now-inflated `realBalance` (e.g. a buy sized to attempt to exhaust the remaining curve). `Router._computeBuy` enters the `tokensOut > realBalance` branch, sets `tokensOut = realBalance`, and evaluates `reserveToken - tokensOut`, which underflows and reverts with `Panic(0x11)`.
+5. This buy - and every subsequent buy of the same shape - reverts identically; the curve can never complete its supply-triggered sellout for this token again.
