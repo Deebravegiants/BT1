@@ -1,0 +1,20 @@
+# [H] CVE-2018-1112
+
+## Summary
+Severity: High
+Advisory: CVE-2018-1112
+CVSS: 8.8 (CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2018-04-25
+Source: https://osv.dev/vulnerability/CVE-2018-1112
+Type: osv
+
+## Details
+glusterfs server before versions 3.10.12, 4.0.2 is vulnerable when using 'auth.allow' option which allows any unauthenticated gluster client to connect from any network to mount gluster storage volumes. NOTE: this vulnerability exists because of a CVE-2018-1088 regression.
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2020-01/msg00035.html
+- https://access.redhat.com/articles/3422521
+- https://access.redhat.com/errata/RHSA-2018:1268
+- https://access.redhat.com/errata/RHSA-2018:1269
+- https://review.gluster.org/#/c/19899/1..2
+- https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2018-1112

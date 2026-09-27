@@ -1,0 +1,38 @@
+# [M] Missing onlyOperator modifier on transferTokens()
+
+## Summary
+Severity: Medium
+Reporter: Diana
+Source: https://github.com/sherlock-audit/2023-05-Index/blob/main/index-coop-smart-contracts/contracts/manager/BaseManagerV2.sol#L310
+Type: audit-issue
+
+## Details
+# Missing onlyOperator modifier on transferTokens()
+
+## Summary
+The function transferTokens() is missing the `onlyOperator` modifier. As per the comments, this should be OPERATOR ONLY.
+
+## Vulnerability Detail
+As per the comment on [line 310](https://github.com/sherlock-audit/2023-05-Index/blob/main/index-coop-smart-contracts/contracts/manager/BaseManagerV2.sol#L310), the function `transferTokens()` should be OPERATOR ONLY
+> * OPERATOR ONLY: Transfers _tokens held by the manager to _destination.
+
+However, the `onlyOperator` modifier is missing from this function 
+
+In all of the other functions, for instance, [addModule()](https://github.com/sherlock-audit/2023-05-Index/blob/main/index-coop-smart-contracts/contracts/manager/BaseManagerV2.sol#L323-L327), [removeModule()](https://github.com/sherlock-audit/2023-05-Index/blob/main/index-coop-smart-contracts/contracts/manager/BaseManagerV2.sol#L332-L337), [emergencyRemoveProtectedModule()](https://github.com/sherlock-audit/2023-05-Index/blob/main/index-coop-smart-contracts/contracts/manager/BaseManagerV2.sol#L356) etc. - the natspec mentioned these to be OPERATOR ONLY, and they correctly have the `onlyOperator` modifier set.
+
+## Impact
+transferTokens() is missing the `onlyOperator` modifier. Since this function transfers `_tokens` held by the manager to `_destination`, and can be used to recover anything sent here - proper checks as mentioned in the natspec, must be maintained
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-Index/blob/main/index-coop-smart-contracts/contracts/manager/BaseManagerV2.sol#L318
+
+```solidity
+function transferTokens(address _token, address _destination, uint256 _amount) external onlyExtension {
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Implement `onlyOperator` modifier for function transferTokens()

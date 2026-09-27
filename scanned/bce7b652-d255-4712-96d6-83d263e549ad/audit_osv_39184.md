@@ -1,0 +1,22 @@
+# [M] CVE-2026-44390
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-44390
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L)
+Published: 2026-05-20
+Source: https://osv.dev/vulnerability/CVE-2026-44390
+Type: osv
+
+## Details
+NLnet Labs Unbound up to and including version 1.25.0 has a vulnerability when handling replies with very large RRsets that Unbound needs to perform name compression for. Malicious upstream responses with very large RRsets with records that don't share a suffix above the root can cause Unbound to spend a considerable time applying name compression to downstream replies. This can lead to degraded performance and eventually denial of service in well orchestrated attacks. An adversary can exploit the vulnerability by querying Unbound for the specially crafted contents of a malicious zone with very large RRsets. Before Unbound replies to the query it will try to apply name compression which was an unbounded operation that could lock the CPU until the whole packet was complete. A compression limit was introduced in 1.21.1 for this but it didn't account for the case where records would not share any suffix above the root. That causes Unbound to go in a different code path because of the compression tree lookup failure and eventually not increment the compression counter for those operations. Unbound 1.25.1 contains a patch with a fix that increments the compression counter regardless of the compression tree lookup. This is a complement fix to CVE-2024-8508.
+
+## References
+- https://access.redhat.com/security/cve/CVE-2026-44390
+- https://security.access.redhat.com/data/csaf/v2/vex/2026/cve-2026-44390.json
+- https://access.redhat.com/errata/RHSA-2026:24013
+- https://access.redhat.com/errata/RHSA-2026:36320
+- https://access.redhat.com/errata/RHSA-2026:36777
+- https://access.redhat.com/errata/RHSA-2026:37282
+- https://www.nlnetlabs.nl/downloads/unbound/CVE-2026-44390.txt
+- https://bugzilla.redhat.com/show_bug.cgi?id=2480130

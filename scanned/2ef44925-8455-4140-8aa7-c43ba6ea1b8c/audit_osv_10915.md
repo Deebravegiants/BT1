@@ -1,0 +1,16 @@
+# [H] CVE-2017-4959
+
+## Summary
+Severity: High
+Advisory: CVE-2017-4959
+CVSS: 8.8 (CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2017-06-13
+Source: https://osv.dev/vulnerability/CVE-2017-4959
+Type: osv
+
+## Details
+An issue was discovered in Pivotal PCF Elastic Runtime 1.8.x versions prior to 1.8.29 and 1.9.x versions prior to 1.9.7. Pivotal Cloud Foundry deployments using the Pivotal Account application are vulnerable to a flaw which allows an authorized user to take over the account of another user, causing account lockout and potential escalation of privileges.
+
+## References
+- http://www.securityfocus.com/bid/96218
+- https://pivotal.io/security/cve-2017-4959

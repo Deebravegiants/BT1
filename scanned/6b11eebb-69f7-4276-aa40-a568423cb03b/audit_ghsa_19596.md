@@ -1,0 +1,42 @@
+# [M] ts-asn1-der has Incorrect DER Encoding of Numbers Leading to Denial of Service and Incorrect Value Representation
+
+## Summary
+Severity: Medium
+Advisory: GHSA-p4qw-7j9g-5h53
+CVE: CVE-2025-32029
+CWE: CWE-1335, CWE-835
+Ecosystem: npm
+CVSS: CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N (CVSS_V4)
+Published: 2025-04-07
+Source: https://github.com/advisories/GHSA-p4qw-7j9g-5h53
+Type: github-advisory
+
+## Affected
+- npm: `@apeleghq/asn1-der` — affected >=0 <1.0.4
+
+## Details
+### Impact
+
+Incorrect `number` DER encoding can lead to denial on service for absolute values in the range `2**31` -- `2**32 - 1`. The arithmetic in the `numBitLen` didn't take into account that values in this range could result in a negative result upon applying the `>>` operator, leading to an infinite loop.
+
+In addition, `number` encoding had a few other issues that resulted it in it not encoding values correctly.
+
+### Patches
+
+The issue is patched in version `1.0.4`. Users are recommended to upgrade as soon as possible.
+
+### Workarounds
+
+If upgrading is not an option, the issue can be mitigated by validating inputs to `Asn1Integer` to ensure that they are not smaller than `-2**31 + 1` and no larger than `2**31 - 1`. Although `Asn1Integer` supports `bigint` inputs, some additional implementation issues make using `bigint` as a mitigation inviable, as it will result in incorrect values.
+
+If upgrading is not an option and range checks are impractical or undesirable, input to `Asn1Integer` can be provided as a buffer to be used directly. Note that this requires computing the correct DER encoding externally.
+
+### References
+
+N/A
+
+## References
+- https://github.com/ApelegHQ/ts-asn1-der/security/advisories/GHSA-p4qw-7j9g-5h53
+- https://nvd.nist.gov/vuln/detail/CVE-2025-32029
+- https://github.com/ApelegHQ/ts-asn1-der/commit/b2bc9032cbe19755d234a27d79e47a7e52993af8
+- https://github.com/ApelegHQ/ts-asn1-der

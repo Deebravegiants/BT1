@@ -1,0 +1,16 @@
+# [M] CVE-2019-5469
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-5469
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N)
+Published: 2019-12-18
+Source: https://osv.dev/vulnerability/CVE-2019-5469
+Type: osv
+
+## Details
+An IDOR vulnerability exists in GitLab <v12.1.2, <v12.0.4, and <v11.11.6 that allowed uploading files from project archive to replace other users files potentially allowing an attacker to replace project binaries or other uploaded assets.
+
+## References
+- https://hackerone.com/reports/534794
+- https://gitlab.com/gitlab-org/gitlab-ce/issues/60551

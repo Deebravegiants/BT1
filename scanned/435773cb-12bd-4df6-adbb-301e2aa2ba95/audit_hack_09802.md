@@ -1,0 +1,37 @@
+# [M] unbounded `divisionToFee[]`
+
+## Summary
+Severity: Medium
+Reporter: __141345__
+Source: https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumAcademy.sol#L110-L128
+Type: audit-issue
+
+## Details
+# unbounded `divisionToFee[]`
+
+## Summary
+
+The array `divisionToFee[]` does not have upper bound, it could grow arbitrarily large. As a result, the `setDivisionFees()` could DoS due to gas limit, the `divisionToFee[]` could not be maintained anymore.
+
+## Vulnerability Detail
+
+Each setter function call for `divisionToFee[]` need to loop through the entire array. However this array has no upper bound for the size. As it grow arbitrarily, the gas cost could go beyond the block limit and cause DoS to call `setDivisionFees()`.
+
+## Impact
+
+The maintenance of it could DoS and future division fee can not be set, existing fee can not be updated. The basic functionality of mint players can not work.
+
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumAcademy.sol#L110-L128
+
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add some method to change specified parts of `divisionToFee[]`.

@@ -1,0 +1,30 @@
+# [M] TLS 1.3 server denial of service via malformed ClientHello pre-shared key extension
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-55952
+Aliases: EEF-CVE-2026-55952, GHSA-8c57-44c9-pc59
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N)
+Published: 2026-07-02
+Source: https://osv.dev/vulnerability/CVE-2026-55952
+Type: osv
+
+## Details
+The Erlang/OTP ssl application does not validate that the PSK identity list and binder list carried in a TLS 1.3 ClientHello pre-shared key extension have equal length before passing them to the session ticket handler. In tls_handshake_1_3:handle_pre_shared_key/3, an OfferedPreSharedKeys record with a mismatched number of identities and binders is forwarded directly to tls_server_session_ticket:use/4, which crashes the session ticket handler process.
+
+An unauthenticated remote attacker can send a single crafted ClientHello to a TLS 1.3 server with session tickets enabled (stateful or stateless mode) and permanently disrupt session ticket handling on that listener. New TLS 1.3 handshakes complete but subsequently crash when the server attempts to issue a session ticket, effectively making TLS 1.3 unusable on the affected listener until the ssl application is restarted. TLS 1.2 connections are not affected.
+
+This issue affects OTP from OTP 22.2 before OTP 29.0.3, OTP 28.5.0.3 and OTP 27.3.4.14, corresponding to ssl from 9.5 before 11.7.3, 11.6.0.3 and 11.2.12.10.
+
+## References
+- https://cna.erlef.org/cves/CVE-2026-55952.html
+- https://github.com
+- https://osv.dev/vulnerability/EEF-CVE-2026-55952
+- https://www.erlang.org/doc/system/versions.html#order-of-versions
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/55xxx/CVE-2026-55952.json
+- https://github.com/erlang/otp/security/advisories/GHSA-8c57-44c9-pc59
+- https://nvd.nist.gov/vuln/detail/CVE-2026-55952
+- https://github.com/erlang/otp/commit/2c3e599797644310e5d4aa39c7193420e59dadff
+- https://github.com/erlang/otp/commit/9b5437c72fa3403a75c1aba28e5c532bc191c662
+- https://github.com/erlang/otp/commit/e77823e6d980b2ec0b4fe4ea3f2d098ca239e3ce
+- https://github.com/erlang/otp

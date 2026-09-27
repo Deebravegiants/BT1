@@ -1,0 +1,74 @@
+# [M] Oracle price can be stale when L2 sequencer is down
+
+## Summary
+Severity: Medium
+Reporter: kutugu
+Source: https://github.com/sherlock-audit/2023-05-ironbank/blob/main/ib-v2/src/protocol/oracle/PriceOracle.sol#L67
+Type: audit-issue
+
+## Details
+# Oracle price can be stale when L2 sequencer is down
+
+## Summary
+
+Oracle price can be stale when L2 sequencer is down
+
+## Vulnerability Detail
+
+From [Chainlink documentation](https://docs.chain.link/data-feeds/l2-sequencer-feeds):    
+Optimistic rollup protocols have a sequencer that executes and rolls up the L2 transactions by batching multiple transactions into a single transaction.     
+If a sequencer becomes unavailable, it is impossible to access read/write APIs that consumers are using and applications on the L2 network will be down for most users.     
+This means that if the project does not check if the sequencer is down, it can return stale results.     
+
+Note that It is a different issue from checking oracle price freshness.        
+Because in the case of sharp price fluctuations, the price may be updated several times, although the final price is in freshness, but it may not be the latest price.     
+There's a similar [issue](https://solodit.xyz/issues/6689) here.    
+
+## Impact
+
+Medium. Oracle price is stale. Impact borrow, liquidation.    
+
+## Code Snippet
+
+- https://github.com/sherlock-audit/2023-05-ironbank/blob/main/ib-v2/src/protocol/oracle/PriceOracle.sol#L67
+- https://github.com/sherlock-audit/2023-05-ironbank/blob/main/ib-v2/src/protocol/oracle/PriceOracle.sol#L107
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+From [Chainlink documentation](https://docs.chain.link/data-feeds/l2-sequencer-feeds#example-code):    
+```solidity
+        (
+            /*uint80 roundID*/,
+            int256 answer,
+            uint256 startedAt,
+            /*uint256 updatedAt*/,
+            /*uint80 answeredInRound*/
+        ) = sequencerUptimeFeed.latestRoundData();
+
+        // Answer == 0: Sequencer is up
+        // Answer == 1: Sequencer is down
+        bool isSequencerUp = answer == 0;
+        if (!isSequencerUp) {
+            revert SequencerDown();
+        }
+
+        // Make sure the grace period has passed after the
+        // sequencer is back up.
+        uint256 timeSinceUp = block.timestamp - startedAt;
+        if (timeSinceUp <= GRACE_PERIOD_TIME) {
+            revert GracePeriodNotOver();
+        }
+
+        // prettier-ignore
+        (
+            /*uint80 roundID*/,
+            int data,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+        ) = dataFeed.latestRoundData();
+```

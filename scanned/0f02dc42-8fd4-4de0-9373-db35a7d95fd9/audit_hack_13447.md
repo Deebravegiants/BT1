@@ -1,0 +1,48 @@
+# [M] Balance not Updates in  Distributor.sol Contract in _executeClaim function
+
+## Summary
+Severity: Medium
+Reporter: Round Umber Lion
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+# Balance not Updates in  Distributor.sol Contract in _executeClaim function
+
+## Summary
+In a  Particular Address total not Updated but claimbed tokens are updated. 
+
+## Vulnerability Detail
+In Distributor.sol contract in _executionClaim Function the balance not updated when the balance not updated then the same beneficiary Address can claim that tokens Again .
+
+## Impact
+when total not updated for particular Address then they come again and Claim that tokens it leads to Re-claimbing the Tokens present in it.
+
+## Code Snippet
+function _executeClaim(
+    address beneficiary,
+    uint256 _totalAmount
+  ) internal virtual returns (uint256) {
+    uint120 totalAmount = uint120(_totalAmount);
+
+    // effects
+    if (records[beneficiary].total != totalAmount) {
+      // re-initialize if the total has been updated
+      _initializeDistributionRecord(beneficiary, totalAmount);
+    }
+    
+    uint120 claimableAmount = uint120(getClaimableAmount(beneficiary));
+    require(claimableAmount > 0, 'Distributor: no more tokens claimable right now');
+
+    records[beneficiary].claimed += claimableAmount;
+    claimed += claimableAmount;
+
+    return claimableAmount;
+  }
+
+## Tool used
+Manual Review
+
+## Recommendation
+
+   records[beneficiary].total -= claimableAmount;

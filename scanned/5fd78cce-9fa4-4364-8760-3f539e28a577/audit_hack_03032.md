@@ -1,0 +1,53 @@
+# [M] setFee() in Redeemer contract would always revert.
+
+## Summary
+Severity: Medium
+Reporter: cryptphi
+Source: https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/Redeemer.sol#L59
+Type: audit-issue
+
+## Details
+# setFee() in Redeemer contract would always revert.
+
+## Summary
+Since there is no function to change the `feeChange` state variable from default value of 0, setFee() would always revert.
+
+## Vulnerability Detail
+The setFee() function in Redeemer contract is used to set the feenominator to the given value, which is used to calculate fees in the contract. However, due to no function to set the `feeChange` state variable which is default at 0, the call to set feenominator would always revert. causing a revert.
+
+## Impact
+Revert in setFee() , feenominator would permanently be fixed at 4000
+
+## Code Snippet
+There is no logic to set value of state variable feeChange
+https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/Redeemer.sol#L59
+
+Below shows how to set the fee using the feeChange state variable, since default value is 0, `feeTime` will be 0, which would revert.
+```solidity
+function setFee(uint256 f) external authorized(admin) returns (bool) {
+        uint256 feeTime = feeChange;
+        if (feeTime == 0) {
+            revert Exception(23, 0, 0, address(0), address(0));
+        } else if (feeTime < block.timestamp) {
+            revert Exception(
+                24,
+                block.timestamp,
+                feeTime,
+                address(0),
+                address(0)
+            );
+        } else if (f < MIN_FEENOMINATOR) {
+            revert Exception(25, 0, 0, address(0), address(0));
+        }
+        feenominator = f;
+        delete feeChange;
+        emit SetFee(f);
+        return true;
+    }
+```
+
+## Tool used
+Manual Review
+
+## Recommendation
+Similar to the Lender contract, apply a function or logic that can update the feeChange state variable in Redeember contract . Lender has the `scheduleFeeChange()` function to do this.

@@ -1,0 +1,45 @@
+# [H] `mintRebalancer` and `burnRebalancer` functions haven't any access control
+
+## Summary
+Severity: High
+Reporter: 0xSmartContract
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L204-L210
+Type: audit-issue
+
+## Details
+# `mintRebalancer` and `burnRebalancer` functions haven't any access control
+
+## Summary
+`mintRebalancer` and `burnRebalancer` functions haven't any access control
+
+
+
+## Vulnerability Detail
+
+```solidity
+contracts/USSD.sol:
+  203  
+  204:     function mintRebalancer(uint256 amount) public override {
+  205:         _mint(address(this), amount);
+  206:     }
+  207: 
+  208:     function burnRebalancer(uint256 amount) public override {
+  209:         _burn(address(this), amount);
+  210:     }
+
+```
+
+
+## Impact
+Anyone can call both functions, authorization must be done.
+
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L204-L210
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add access control like a `onlyControl`

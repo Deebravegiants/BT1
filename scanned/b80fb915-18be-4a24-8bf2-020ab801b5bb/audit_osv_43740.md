@@ -1,0 +1,77 @@
+# [H] netfilter: ebt_nflog: pin the NFLOG backend
+
+## Summary
+Severity: High
+Advisory: CVE-2026-74660
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-08-22
+Source: https://osv.dev/vulnerability/CVE-2026-74660
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=4.12.0 <5.10.265, >=5.11.0 <5.15.216, >=5.16.0 <6.1.183, >=6.2.0 <6.6.152, >=6.7.0 <6.12.104, >=6.13.0 <6.18.45, >=6.19.0 <7.1.9
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+netfilter: ebt_nflog: pin the NFLOG backend
+
+nf_log_unregister() runs after the per-net teardown so its final RCU
+grace period also drains readers that obtained the logger from a per-net
+binding.  However, ebt_nflog passes an explicit ULOG log type to
+nf_log_packet() without holding a reference on the selected logger module,
+unlike the xt_NFLOG and nft_log frontends.
+
+An ebtables nflog rule can therefore remain callable while nfnetlink_log
+is unloaded.  The resulting interleaving is:
+
+  CPU 0                               CPU 1
+  nfnetlink_log_fini()
+    unregister_pernet_subsys()
+      kfree(nfnl_log_pernet(net))
+                                      ebt_nflog_tg()
+                                        nf_log_packet()
+                                          nfulnl_log_packet()
+                                            instance_lookup_get_rcu()
+
+The global ULOG logger is still registered at this point, so CPU 1
+dereferences the per-net state after CPU 0 has freed it.  KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in instance_lookup_get_rcu
+  Read of size 8 at addr ff110001052e6210 by task poc/92
+  Call Trace:
+   instance_lookup_get_rcu+0x1ce/0x1f0 [nfnetlink_log]
+   nfulnl_log_packet+0x248/0x2fb0 [nfnetlink_log]
+   nf_log_packet+0x204/0x300
+   ebt_nflog_tg+0x351/0x550
+   ebt_do_table+0xedf/0x22b0
+  Allocated by task 90:
+   __kmalloc_noprof+0x186/0x470
+   ops_init+0x6d/0x420
+   register_pernet_operations+0x2f6/0x670
+   register_pernet_subsys+0x23/0x40
+  Freed by task 93:
+   kfree+0x131/0x3c0
+   ops_undo_list+0x3e3/0x700
+   unregister_pernet_operations+0x232/0x490
+   unregister_pernet_subsys+0x1c/0x30
+   nfnetlink_log_fini+0x34/0x450 [nfnetlink_log]
+
+Acquire the ULOG logger module reference when an ebt_nflog rule is
+validated and release it when the rule is destroyed.  Request the NFLOG
+backend for legacy callers when needed, matching xt_NFLOG.  This prevents
+module teardown until all ebt_nflog rules have stopped using the logger.
+
+## References
+- https://git.kernel.org/stable/c/2cac4294f184c9bc19ff82552c62b80498694c39
+- https://git.kernel.org/stable/c/30825970339c107bacaf7f61af90fcdb1f597ca1
+- https://git.kernel.org/stable/c/394d7939c6b2b9e6bea0844c89efb5913168d898
+- https://git.kernel.org/stable/c/3bcce49d617c593c7606083bfdb464a1761fa68d
+- https://git.kernel.org/stable/c/47a119ec8a7e2d5c8c4e86fb1a56c4e696e500fb
+- https://git.kernel.org/stable/c/6809379a860b9fccbb5435bf08343f6d081ac68d
+- https://git.kernel.org/stable/c/9d8a94b48b393885e7f876c8ef68ed4da5012078
+- https://git.kernel.org/stable/c/e2ab7e878bdbe80104c879c31fd2d82a476703b8
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/74xxx/CVE-2026-74660.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-74660
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

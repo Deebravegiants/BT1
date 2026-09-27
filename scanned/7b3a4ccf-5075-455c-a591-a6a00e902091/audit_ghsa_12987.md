@@ -1,0 +1,27 @@
+# [H] OpenNMS privilege elevation vulnerability
+
+## Summary
+Severity: High
+Advisory: GHSA-w5gq-xrrp-3fxf
+CVE: CVE-2023-0872
+CWE: CWE-269
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:C/C:L/I:H/A:L (CVSS_V3)
+Published: 2023-08-14
+Source: https://github.com/advisories/GHSA-w5gq-xrrp-3fxf
+Type: github-advisory
+
+## Affected
+- Maven: `org.opennms:opennms-webapp-rest` — affected >=31.0.8 <32.0.2
+
+## Details
+The Horizon REST API includes a users endpoint in OpenNMS Horizon 31.0.8 and versions earlier than 32.0.2 on multiple platforms is vulnerable to elevation of privilege. The solution is to upgrade to Meridian 2023.1.6, 2022.1.19, 2021.1.30, 2020.1.38 or Horizon 32.0.2 or newer. Meridian and Horizon installation instructions state that they are intended for installation within an organization's private networks and should not be directly accessible from the Internet.
+
+OpenNMS thanks Erik Wynter for reporting this issue.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2023-0872
+- https://github.com/OpenNMS/opennms/pull/6354
+- https://github.com/OpenNMS/opennms/commit/e59b0ddd164cf0598ac0294d11a2d677d9e310b8
+- https://docs.opennms.com/horizon/32/releasenotes/changelog.html
+- https://github.com/OpenNMS/opennms

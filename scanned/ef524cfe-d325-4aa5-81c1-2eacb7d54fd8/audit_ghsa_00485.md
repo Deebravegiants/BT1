@@ -1,0 +1,41 @@
+# [H] Apache Struts vulnerable to remote command execution (RCE) due to improper input validation
+
+## Summary
+Severity: High
+Advisory: GHSA-cr6j-3jp9-rw65
+CVE: CVE-2018-11776
+CWE: CWE-20
+Ecosystem: Maven
+CVSS: CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H/E:H (CVSS_V3)
+Published: 2018-10-18
+Source: https://github.com/advisories/GHSA-cr6j-3jp9-rw65
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.struts:struts2-core` — affected >=2.0.4 <2.3.35
+- Maven: `org.apache.struts:struts2-core` — affected >=2.5 <2.5.17
+
+## Details
+Apache Struts contains a Remote Code Execution when using results with no namespace and it's upper actions have no or wildcard namespace. The same flaw exists when using a url tag with no value, action set,  and it's upper actions have no or wildcard namespace.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2018-11776
+- https://github.com/apache/struts/commit/6e87474f9ad0549f07dd2c37d50a9ccd0977c6e
+- https://www.oracle.com/technetwork/security-advisory/cpujan2019-5072801.html
+- https://www.oracle.com/security-alerts/cpujul2020.html
+- https://www.exploit-db.com/exploits/45367
+- https://www.exploit-db.com/exploits/45262
+- https://www.exploit-db.com/exploits/45260
+- https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2018-11776
+- https://web.archive.org/web/20201208145803/https://securitytracker.com/id/1041547
+- https://web.archive.org/web/20200807025819/http://www.securitytracker.com/id/1041888
+- https://web.archive.org/web/20180822160726/http://www.securityfocus.com/bid/105125
+- https://security.netapp.com/advisory/ntap-20181018-0002
+- https://security.netapp.com/advisory/ntap-20180822-0001
+- https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2018-0012
+- https://lists.apache.org/thread.html/r6d03e45b81eab03580cf7f8bb51cb3e9a1b10a2cc0c6a2d3cc92ed0c@%3Cannounce.apache.org%3E
+- https://lists.apache.org/thread.html/r6d03e45b81eab03580cf7f8bb51cb3e9a1b10a2cc0c6a2d3cc92ed0c%40%3Cannounce.apache.org%3E
+- https://lgtm.com/blog/apache_struts_CVE-2018-11776
+- https://github.com/hook-s3c/CVE-2018-11776-Python-PoC
+- https://github.com/apache/struts
+- https://cwiki.apache.org/confluence/display/WW/S2-057

@@ -1,0 +1,60 @@
+# [H] No consideration of the tokens decimal when calculating amountOut
+
+## Summary
+Severity: High
+Reporter: shealtielanz
+Source: https://github.com/sherlock-audit/2023-06-real-wagmi/blob/main/concentrator/contracts/Multipool.sol#L826C1-L837C10
+Type: audit-issue
+
+## Details
+# No consideration of the tokens decimal when calculating amountOut
+
+## Summary
+The amounOut gotten from the getAmountOut, and getQuoteAtTick functions in the Multipool and Factory contract do not consider the token decimals when calculating the amountOut.
+## Vulnerability Detail
+As you can see the getQuoteAtTick function loic tree of calculation 
+```solidity
+        (uint160 sqrtPriceX96, , , , , , ) = IUniswapV3Pool(underlyingPool).slot0();
+
+        if (sqrtPriceX96 <= type(uint128).max) {
+            uint256 ratioX192 = uint256(sqrtPriceX96) * sqrtPriceX96;
+            amountOut = tokenIn < tokenOut
+                ? FullMath.mulDiv(ratioX192, amountIn, 1 << 192)
+                : FullMath.mulDiv(1 << 192, amountIn, ratioX192);
+        } else {
+            uint256 ratioX128 = FullMath.mulDiv(sqrtPriceX96, sqrtPriceX96, 1 << 64);
+            amountOut = tokenIn < tokenOut
+                ? FullMath.mulDiv(ratioX128, amountIn, 1 << 128)
+                : FullMath.mulDiv(1 << 128, amountIn, ratioX128);
+        }
+    }
+```
+And the getAmountOut function in the Multipool
+```solidity
+        uint160 sqrtPriceX96 = TickMath.getSqrtRatioAtTick(avarageTick);
+        if (sqrtPriceX96 <= type(uint128).max) {
+            uint256 ratioX192 = uint256(sqrtPriceX96) * sqrtPriceX96;
+            swappedOut = zeroForOne
+                ? FullMath.mulDiv(ratioX192, amountIn, 1 << 192)
+                : FullMath.mulDiv(1 << 192, amountIn, ratioX192);
+        } else {
+            uint256 ratioX128 = FullMath.mulDiv(sqrtPriceX96, sqrtPriceX96, 1 << 64);
+            swappedOut = zeroForOne
+                ? FullMath.mulDiv(ratioX128, amountIn, 1 << 128)
+                : FullMath.mulDiv(1 << 128, amountIn, ratioX128);
+        }
+```
+When calculating the amount out using the sqrtPriceX96 the formula goes like this where T = log 1.0001(P), P for price, and T for Tick, P = 1.0001^T,  to get the particular price of a token lets Eth for USDT, (1/((ratioX128)/1e18))/1e6. as you can see it gives the accurate price and it can be then used to calculate the amountOut, to get this correctly you can see that i took into consideration the tokens decimals where 1e18 for Eth and 1e6 for USDT. 
+
+## Impact
+This will cause incorrect amounOut of token to be sent out from the contract as you can see in the multipool the rebalance slippage depends on the swapped out which is calculated using the getAmountOut function, if exploited can be catastrophic for the contract due to slippage, Flashloan and MEV attacks on the main net
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-real-wagmi/blob/main/concentrator/contracts/Multipool.sol#L826C1-L837C10
+
+https://github.com/sherlock-audit/2023-06-real-wagmi/blob/main/concentrator/contracts/Factory.sol#L166C1-L180C6
+## Tool used
+
+Manual Review
+
+## Recommendation
+consider the IERC20(tokenX).decimal when calculating the amounOut of certain tokens.

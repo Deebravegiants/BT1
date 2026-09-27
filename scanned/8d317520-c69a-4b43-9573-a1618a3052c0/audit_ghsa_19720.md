@@ -1,0 +1,25 @@
+# [H] H2O Vulnerable to Denial of Service (DoS) via Large GZIP Parsing
+
+## Summary
+Severity: High
+Advisory: GHSA-6w62-3jvj-mfj6
+CVE: CVE-2024-7765
+CWE: CWE-409
+Ecosystem: Maven, PyPI
+CVSS: CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2025-03-20
+Source: https://github.com/advisories/GHSA-6w62-3jvj-mfj6
+Type: github-advisory
+
+## Affected
+- PyPI: `h2o` — affected >=3.32.1.2
+- Maven: `ai.h2o:h2o-core` — affected >=3.32.1.2
+
+## Details
+In h2oai/h2o-3 version 3.46.0.2, a vulnerability exists where uploading and repeatedly parsing a large GZIP file can cause a denial of service. The server becomes unresponsive due to memory exhaustion and a large number of concurrent slow-running jobs. This issue arises from the improper handling of highly compressed data, leading to significant data amplification.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-7765
+- https://github.com/h2oai/h2o-3
+- https://github.com/h2oai/h2o-3/blob/7d418fa19d3ab434f742818e37f891bef9102c97/h2o-core/src/main/java/water/parser/ParseDataset.java#L900
+- https://huntr.com/bounties/0e58b1a5-bdca-4e60-af92-09de9c76a9ff

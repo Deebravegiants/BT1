@@ -1,0 +1,19 @@
+# [M] CVE-2021-28714
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-28714
+CVSS: 6.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:N/I:N/A:H)
+Published: 2022-01-06
+Source: https://osv.dev/vulnerability/CVE-2021-28714
+Type: osv
+
+## Details
+Guest can force Linux netback driver to hog large amounts of kernel memory T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Incoming data packets for a guest in the Linux kernel's netback driver are buffered until the guest is ready to process them. There are some measures taken for avoiding to pile up too much data, but those can be bypassed by the guest: There is a timeout how long the client side of an interface can stop consuming new packets before it is assumed to have stalled, but this timeout is rather long (60 seconds by default). Using a UDP connection on a fast interface can easily accumulate gigabytes of data in that time. (CVE-2021-28715) The timeout could even never trigger if the guest manages to have only one free slot in its RX queue ring page and the next package would require more than one free slot, which may be the case when using GSO, XDP, or software hashing. (CVE-2021-28714)
+
+## References
+- https://lists.debian.org/debian-lts-announce/2022/03/msg00011.html
+- https://lists.debian.org/debian-lts-announce/2022/03/msg00012.html
+- https://www.debian.org/security/2022/dsa-5050
+- https://www.debian.org/security/2022/dsa-5096
+- https://xenbits.xenproject.org/xsa/advisory-392.txt

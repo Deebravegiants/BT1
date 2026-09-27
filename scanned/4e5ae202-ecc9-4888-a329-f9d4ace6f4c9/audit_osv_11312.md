@@ -1,0 +1,21 @@
+# [M] CVE-2017-7377
+
+## Summary
+Severity: Medium
+Advisory: CVE-2017-7377
+CVSS: 6.0 (CVSS:3.1/AV:L/AC:L/PR:H/UI:N/S:C/C:N/I:N/A:H)
+Published: 2017-04-10
+Source: https://osv.dev/vulnerability/CVE-2017-7377
+Type: osv
+
+## Details
+The (1) v9fs_create and (2) v9fs_lcreate functions in hw/9pfs/9p.c in QEMU (aka Quick Emulator) allow local guest OS privileged users to cause a denial of service (file descriptor or memory consumption) via vectors related to an already in-use fid.
+
+## References
+- http://git.qemu-project.org/?p=qemu.git%3Ba=commit%3Bh=d63fb193e71644a073b77ff5ac6f1216f2f6cf6e
+- http://www.securityfocus.com/bid/97319
+- https://lists.debian.org/debian-lts-announce/2018/09/msg00007.html
+- https://security.gentoo.org/glsa/201706-03
+- http://www.openwall.com/lists/oss-security/2017/04/03/2
+- https://bugzilla.redhat.com/show_bug.cgi?id=1437871
+- https://lists.gnu.org/archive/html/qemu-devel/2017-03/msg05449.html

@@ -1,0 +1,23 @@
+# [M] Out-of-bounds read in swtpm
+
+## Summary
+Severity: Medium
+Advisory: CVE-2022-23645
+Aliases: GHSA-2qgm-8xf4-3hqw
+CVSS: 6.2 (CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2022-02-18
+Source: https://osv.dev/vulnerability/CVE-2022-23645
+Type: osv
+
+## Details
+swtpm is a libtpms-based TPM emulator with socket, character device, and Linux CUSE interface. Versions prior to 0.5.3, 0.6.2, and 0.7.1 are vulnerable to out-of-bounds read. A specially crafted header of swtpm's state, where the blobheader's hdrsize indicator has an invalid value, may cause an out-of-bounds access when the byte array representing the state of the TPM is accessed. This will likely crash swtpm or prevent it from starting since the state cannot be understood. Users should upgrade to swtpm v0.5.3, v0.6.2, or v0.7.1 to receive a patch. There are currently no known workarounds.
+
+## References
+- https://github.com/stefanberger/swtpm/releases/tag/v0.5.3
+- https://github.com/stefanberger/swtpm/releases/tag/v0.6.2
+- https://github.com/stefanberger/swtpm/releases/tag/v0.7.1
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/23xxx/CVE-2022-23645.json
+- https://github.com/stefanberger/swtpm/security/advisories/GHSA-2qgm-8xf4-3hqw
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/WL735FW266GO4C2JX4CJBOIOB7R7AY5A/
+- https://nvd.nist.gov/vuln/detail/CVE-2022-23645
+- https://github.com/stefanberger/swtpm/commit/9f740868fc36761de27df3935513bdebf8852d19

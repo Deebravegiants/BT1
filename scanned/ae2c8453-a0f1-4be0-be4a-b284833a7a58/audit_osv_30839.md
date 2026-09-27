@@ -1,0 +1,60 @@
+# [H] scsi: qla2xxx: Fix use after free on unload
+
+## Summary
+Severity: High
+Advisory: CVE-2024-56623
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2024-12-27
+Source: https://osv.dev/vulnerability/CVE-2024-56623
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=4.8.0 <5.10.231, >=5.11.0 <5.15.174, >=5.16.0 <6.1.120, >=6.2.0 <6.6.66, >=6.7.0 <6.12.5
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+scsi: qla2xxx: Fix use after free on unload
+
+System crash is observed with stack trace warning of use after
+free. There are 2 signals to tell dpc_thread to terminate (UNLOADING
+flag and kthread_stop).
+
+On setting the UNLOADING flag when dpc_thread happens to run at the time
+and sees the flag, this causes dpc_thread to exit and clean up
+itself. When kthread_stop is called for final cleanup, this causes use
+after free.
+
+Remove UNLOADING signal to terminate dpc_thread.  Use the kthread_stop
+as the main signal to exit dpc_thread.
+
+[596663.812935] kernel BUG at mm/slub.c:294!
+[596663.812950] invalid opcode: 0000 [#1] SMP PTI
+[596663.812957] CPU: 13 PID: 1475935 Comm: rmmod Kdump: loaded Tainted: G          IOE    --------- -  - 4.18.0-240.el8.x86_64 #1
+[596663.812960] Hardware name: HP ProLiant DL380p Gen8, BIOS P70 08/20/2012
+[596663.812974] RIP: 0010:__slab_free+0x17d/0x360
+
+...
+[596663.813008] Call Trace:
+[596663.813022]  ? __dentry_kill+0x121/0x170
+[596663.813030]  ? _cond_resched+0x15/0x30
+[596663.813034]  ? _cond_resched+0x15/0x30
+[596663.813039]  ? wait_for_completion+0x35/0x190
+[596663.813048]  ? try_to_wake_up+0x63/0x540
+[596663.813055]  free_task+0x5a/0x60
+[596663.813061]  kthread_stop+0xf3/0x100
+[596663.813103]  qla2x00_remove_one+0x284/0x440 [qla2xxx]
+
+## References
+- https://git.kernel.org/stable/c/07c903db0a2ff84b68efa1a74a4de353ea591eb0
+- https://git.kernel.org/stable/c/12f04fc8580eafb0510f805749553eb6213f323e
+- https://git.kernel.org/stable/c/15369e774f27ec790f207de87c0b541e3f90b22d
+- https://git.kernel.org/stable/c/6abf16d3c915b2feb68c1c8b25fcb71b13f98478
+- https://git.kernel.org/stable/c/b3e6f25176f248762a24d25ab8cf8c5e90874f80
+- https://git.kernel.org/stable/c/ca36d9d53745d5ec8946ef85006d4da605ea7c54
+- https://lists.debian.org/debian-lts-announce/2025/03/msg00001.html
+- https://lists.debian.org/debian-lts-announce/2025/03/msg00002.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/56xxx/CVE-2024-56623.json
+- https://nvd.nist.gov/vuln/detail/CVE-2024-56623
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

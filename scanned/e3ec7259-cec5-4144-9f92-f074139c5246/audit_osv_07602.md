@@ -1,0 +1,21 @@
+# [H] Heap out of bounds read in `RaggedCross`
+
+## Summary
+Severity: High
+Advisory: BIT-tensorflow-2021-29532
+Aliases: CVE-2021-29532, GHSA-j47f-4232-hvv8, PYSEC-2021-169, PYSEC-2021-460, PYSEC-2021-658
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-tensorflow-2021-29532
+Type: osv
+
+## Affected
+- Bitnami: `tensorflow` — affected >=2.4.0 <2.4.2
+
+## Details
+TensorFlow is an end-to-end open source platform for machine learning. An attacker can force accesses outside the bounds of heap allocated arrays by passing in invalid tensor values to `tf.raw_ops.RaggedCross`. This is because the implementation(https://github.com/tensorflow/tensorflow/blob/efea03b38fb8d3b81762237dc85e579cc5fc6e87/tensorflow/core/kernels/ragged_cross_op.cc#L456-L487) lacks validation for the user supplied arguments. Each of the above branches call a helper function after accessing array elements via a `*_list[next_*]` pattern, followed by incrementing the `next_*` index. However, as there is no validation that the `next_*` values are in the valid range for the corresponding `*_list` arrays, this results in heap OOB reads. The fix will be included in TensorFlow 2.5.0. We will also cherrypick this commit on TensorFlow 2.4.2, TensorFlow 2.3.3, TensorFlow 2.2.3 and TensorFlow 2.1.4, as these are also affected and still in supported range.
+
+## References
+- https://github.com/tensorflow/tensorflow/commit/44b7f486c0143f68b56c34e2d01e146ee445134a
+- https://github.com/tensorflow/tensorflow/security/advisories/GHSA-j47f-4232-hvv8
+- https://nvd.nist.gov/vuln/detail/CVE-2021-29532

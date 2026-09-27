@@ -1,0 +1,29 @@
+# [M] Unnecessary receive() for MarginTradingFactory
+
+## Summary
+Severity: Medium
+Reporter: curiousapple
+Source: https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L78
+Type: audit-issue
+
+## Details
+# Unnecessary receive() for MarginTradingFactory
+
+## Summary
+There is unnecessary receive() to accept ETH inside MarginTradingFactory, needlessly adding exposure for someone's funds being trapped. 
+
+## Vulnerability Detail
+MarginTradingFactory does not need to `receive()` for accepting ETH since all actions are being done in WETH only.
+Hence accepting ETH needlessly requires the DODO team to add a function for rescuing trapped eth.
+
+## Impact
+Someone can trap ETH inside the factory by mistake, and then wait for the DODO team to rescue it.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-dodo/blob/main/dodo-margin-trading-contracts/contracts/marginTrading/MarginTrading.sol#L78
+
+## Tool used
+Manual Review
+
+## Recommendation
+Consider removing the receive function.

@@ -1,0 +1,24 @@
+# [H] Command 'go get' may unexpectedly fallback to insecure git in cmd/go
+
+## Summary
+Severity: High
+Advisory: BIT-golang-2023-45285
+Aliases: CVE-2023-45285, GO-2023-2383
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-golang-2023-45285
+Type: osv
+
+## Affected
+- Bitnami: `golang` — affected >=1.21.0-0 <1.21.5
+
+## Details
+Using go get to fetch a module with the ".git" suffix may unexpectedly fallback to the insecure "git://" protocol if the module is unavailable via the secure "https://" and "git+ssh://" protocols, even if GOINSECURE is not set for said module. This only affects users who are not using the module proxy and are fetching modules directly (i.e. GOPROXY=off).
+
+## References
+- https://go.dev/cl/540257
+- https://go.dev/issue/63845
+- https://groups.google.com/g/golang-dev/c/6ypN5EjibjM/m/KmLVYH_uAgAJ
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/UIU6HOGV6RRIKWM57LOXQA75BGZSIH6G/
+- https://pkg.go.dev/vuln/GO-2023-2383
+- https://nvd.nist.gov/vuln/detail/CVE-2023-45285

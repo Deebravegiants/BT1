@@ -1,0 +1,92 @@
+# [M] bpf, sockmap: Fix memleak in sk_psock_queue_msg
+
+## Summary
+Severity: Medium
+Advisory: CVE-2022-49207
+Ecosystem: Linux
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2025-02-26
+Source: https://osv.dev/vulnerability/CVE-2022-49207
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.14.0 <5.15.33, >=5.16.0 <5.16.19, >=5.17.0 <5.17.2
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+bpf, sockmap: Fix memleak in sk_psock_queue_msg
+
+If tcp_bpf_sendmsg is running during a tear down operation we may enqueue
+data on the ingress msg queue while tear down is trying to free it.
+
+ sk1 (redirect sk2)                         sk2
+ -------------------                      ---------------
+tcp_bpf_sendmsg()
+ tcp_bpf_send_verdict()
+  tcp_bpf_sendmsg_redir()
+   bpf_tcp_ingress()
+                                          sock_map_close()
+                                           lock_sock()
+    lock_sock() ... blocking
+                                           sk_psock_stop
+                                            sk_psock_clear_state(psock, SK_PSOCK_TX_ENABLED);
+                                           release_sock(sk);
+    lock_sock()
+    sk_mem_charge()
+    get_page()
+    sk_psock_queue_msg()
+     sk_psock_test_state(psock, SK_PSOCK_TX_ENABLED);
+      drop_sk_msg()
+    release_sock()
+
+While drop_sk_msg(), the msg has charged memory form sk by sk_mem_charge
+and has sg pages need to put. To fix we use sk_msg_free() and then kfee()
+msg.
+
+This issue can cause the following info:
+WARNING: CPU: 0 PID: 9202 at net/core/stream.c:205 sk_stream_kill_queues+0xc8/0xe0
+Call Trace:
+ <IRQ>
+ inet_csk_destroy_sock+0x55/0x110
+ tcp_rcv_state_process+0xe5f/0xe90
+ ? sk_filter_trim_cap+0x10d/0x230
+ ? tcp_v4_do_rcv+0x161/0x250
+ tcp_v4_do_rcv+0x161/0x250
+ tcp_v4_rcv+0xc3a/0xce0
+ ip_protocol_deliver_rcu+0x3d/0x230
+ ip_local_deliver_finish+0x54/0x60
+ ip_local_deliver+0xfd/0x110
+ ? ip_protocol_deliver_rcu+0x230/0x230
+ ip_rcv+0xd6/0x100
+ ? ip_local_deliver+0x110/0x110
+ __netif_receive_skb_one_core+0x85/0xa0
+ process_backlog+0xa4/0x160
+ __napi_poll+0x29/0x1b0
+ net_rx_action+0x287/0x300
+ __do_softirq+0xff/0x2fc
+ do_softirq+0x79/0x90
+ </IRQ>
+
+WARNING: CPU: 0 PID: 531 at net/ipv4/af_inet.c:154 inet_sock_destruct+0x175/0x1b0
+Call Trace:
+ <TASK>
+ __sk_destruct+0x24/0x1f0
+ sk_psock_destroy+0x19b/0x1c0
+ process_one_work+0x1b3/0x3c0
+ ? process_one_work+0x3c0/0x3c0
+ worker_thread+0x30/0x350
+ ? process_one_work+0x3c0/0x3c0
+ kthread+0xe6/0x110
+ ? kthread_complete_and_exit+0x20/0x20
+ ret_from_fork+0x22/0x30
+ </TASK>
+
+## References
+- https://git.kernel.org/stable/c/03948ed6553960db62f1c33bec29e64d7c191a3f
+- https://git.kernel.org/stable/c/4dd2e947d3be13a4de3b3028859b9a6497266bcf
+- https://git.kernel.org/stable/c/938d3480b92fa5e454b7734294f12a7b75126f09
+- https://git.kernel.org/stable/c/ef9785f429794567792561a584901faa9291d3ee
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/49xxx/CVE-2022-49207.json
+- https://nvd.nist.gov/vuln/detail/CVE-2022-49207
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

@@ -1,0 +1,38 @@
+# [M] Unused Parameters:
+
+## Summary
+Severity: Medium
+Reporter: Brilliant Burlap Ant
+Source: https://github.com/sherlock-audit/2024-01-telcoin/blob/main/telcoin-audit/contracts/zodiac/core/SafeGuard.sol#L48
+Type: audit-issue
+
+## Details
+# Unused Parameters:
+
+## Summary
+Unused Parameters: The checkTransaction function has several parameters that are not used, which could indicate that the function is not fully implemented or that there is unnecessary complexity in the contract interface.
+
+## Vulnerability Detail
+ function checkTransaction(
+        address to,
+        uint256 value,
+        bytes memory data,
+        Enum.Operation operation,
+        uint256,
+        uint256,
+        uint256,
+        address,
+        address payable,
+        bytes memory,
+        address
+    ) external view override {
+## Impact
+The checkTransaction function has several parameters that are not used, which could indicate that the function is not fully implemented or that there is unnecessary complexity in the contract interface.
+
+## Code Snippet
+https://github.com/sherlock-audit/2024-01-telcoin/blob/main/telcoin-audit/contracts/zodiac/core/SafeGuard.sol#L48
+## Tool used
+
+Manual Review
+
+## Recommendation

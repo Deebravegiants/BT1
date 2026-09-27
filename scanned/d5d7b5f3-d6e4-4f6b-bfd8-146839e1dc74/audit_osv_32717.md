@@ -1,0 +1,68 @@
+# [H] net_sched: sch_sfq: move the limit validation
+
+## Summary
+Severity: High
+Advisory: CVE-2025-37752
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2025-05-01
+Source: https://osv.dev/vulnerability/CVE-2025-37752
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=0 <6.1.135, >=6.2.0 <6.6.88, >=6.7.0 <6.12.24, >=6.13.0 <6.13.12, >=6.14.0 <6.14.3
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+net_sched: sch_sfq: move the limit validation
+
+It is not sufficient to directly validate the limit on the data that
+the user passes as it can be updated based on how the other parameters
+are changed.
+
+Move the check at the end of the configuration update process to also
+catch scenarios where the limit is indirectly updated, for example
+with the following configurations:
+
+tc qdisc add dev dummy0 handle 1: root sfq limit 2 flows 1 depth 1
+tc qdisc add dev dummy0 handle 1: root sfq limit 2 flows 1 divisor 1
+
+This fixes the following syzkaller reported crash:
+
+------------[ cut here ]------------
+UBSAN: array-index-out-of-bounds in net/sched/sch_sfq.c:203:6
+index 65535 is out of range for type 'struct sfq_head[128]'
+CPU: 1 UID: 0 PID: 3037 Comm: syz.2.16 Not tainted 6.14.0-rc2-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 12/27/2024
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x201/0x300 lib/dump_stack.c:120
+ ubsan_epilogue lib/ubsan.c:231 [inline]
+ __ubsan_handle_out_of_bounds+0xf5/0x120 lib/ubsan.c:429
+ sfq_link net/sched/sch_sfq.c:203 [inline]
+ sfq_dec+0x53c/0x610 net/sched/sch_sfq.c:231
+ sfq_dequeue+0x34e/0x8c0 net/sched/sch_sfq.c:493
+ sfq_reset+0x17/0x60 net/sched/sch_sfq.c:518
+ qdisc_reset+0x12e/0x600 net/sched/sch_generic.c:1035
+ tbf_reset+0x41/0x110 net/sched/sch_tbf.c:339
+ qdisc_reset+0x12e/0x600 net/sched/sch_generic.c:1035
+ dev_reset_queue+0x100/0x1b0 net/sched/sch_generic.c:1311
+ netdev_for_each_tx_queue include/linux/netdevice.h:2590 [inline]
+ dev_deactivate_many+0x7e5/0xe70 net/sched/sch_generic.c:1375
+
+## References
+- https://git.kernel.org/stable/c/1348214fa042a71406964097e743c87a42c85a49
+- https://git.kernel.org/stable/c/5e5e1fcc1b8ed57f902c424c5d9b328a3a19073d
+- https://git.kernel.org/stable/c/6c589aa318023690f1606c666a7fb5f4c1c9c219
+- https://git.kernel.org/stable/c/7d62ded97db6b7c94c891f704151f372b1ba4688
+- https://git.kernel.org/stable/c/8fadc871a42933aacb7f1ce9ed9a96485e2c9cf4
+- https://git.kernel.org/stable/c/b36a68192037d1614317a09b0d78c7814e2eecf9
+- https://git.kernel.org/stable/c/b3bf8f63e6179076b57c9de660c9f80b5abefe70
+- https://git.kernel.org/stable/c/d2718324f9e329b10ddc091fba5a0ba2b9d4d96a
+- https://git.kernel.org/stable/c/f86293adce0c201cfabb283ef9d6f21292089bb8
+- https://lists.debian.org/debian-lts-announce/2025/05/msg00045.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/37xxx/CVE-2025-37752.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-37752
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

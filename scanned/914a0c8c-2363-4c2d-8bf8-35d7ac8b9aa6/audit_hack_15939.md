@@ -1,0 +1,31 @@
+# [M] Distribution of milestones which are NOT accepted
+
+## Summary
+Severity: Medium
+Reporter: Faithful Carrot Okapi
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol#L417C20-L417C20
+Type: audit-issue
+
+## Details
+# Distribution of milestones which are NOT accepted
+No check is implemented in `_distribute` to only allow distribution of accepted milestones
+
+## Vulnerability Detail
+In `RFPSimpleStrategy` contract, In the `_distribute` function, there is no check to prevent from distribution of milestones which are not `ACCEPTED`. Pool manager will be able to distribute milestones with status `REJECTED` and `PENDING`.
+
+## Impact
+`REJECTED` and `PENDING` milestones can be distributed by the pool manager
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/rfp-simple/RFPSimpleStrategy.sol#L417C20-L417C20
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+```js
+if (milestone.milestoneStatus != Status.Accepted) {
+      revert("Cannot distribute");
+}
+```

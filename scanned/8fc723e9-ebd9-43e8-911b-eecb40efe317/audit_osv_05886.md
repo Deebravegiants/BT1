@@ -1,0 +1,26 @@
+# [M] BIT-java-2022-21618
+
+## Summary
+Severity: Medium
+Advisory: BIT-java-2022-21618
+Aliases: BIT-java-min-2022-21618, BIT-jre-2022-21618, CVE-2022-21618
+Ecosystem: Bitnami
+Published: 2026-05-06
+Source: https://osv.dev/vulnerability/BIT-java-2022-21618
+Type: osv
+
+## Affected
+- Bitnami: `java` — affected >=18.0.0 <19.0.1
+
+## Details
+Vulnerability in the Oracle Java SE, Oracle GraalVM Enterprise Edition product of Oracle Java SE (component: JGSS). Supported versions that are affected are Oracle Java SE: 17.0.4.1, 19; Oracle GraalVM Enterprise Edition: 21.3.3 and 22.2.0. Easily exploitable vulnerability allows unauthenticated attacker with network access via Kerberos to compromise Oracle Java SE, Oracle GraalVM Enterprise Edition. Successful attacks of this vulnerability can result in unauthorized update, insert or delete access to some of Oracle Java SE, Oracle GraalVM Enterprise Edition accessible data. Note: This vulnerability applies to Java deployments, typically in clients running sandboxed Java Web Start applications or sandboxed Java applets, that load and run untrusted code (e.g., code that comes from the internet) and rely on the Java sandbox for security. This vulnerability can also be exploited by using APIs in the specified Component, e.g., through a web service which supplies data to the APIs. CVSS 3.1 Base Score 5.3 (Integrity impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N).
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/37QDWJBGEPP65X43NXQTXQ7KASLUHON6/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3ARF4QF4N3X5GSFHXUBWARGLISGKJ33R/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/3QLQ7OD33W6LT3HWI7VYDFFJLV75Y73K/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/EXSBV3W6EP6B7XJ63Z2FPVBH6HAPGJ5T/
+- https://nvd.nist.gov/vuln/detail/CVE-2022-21618
+- https://security.gentoo.org/glsa/202401-25
+- https://security.netapp.com/advisory/ntap-20221028-0012/
+- https://www.oracle.com/security-alerts/cpuoct2022.html

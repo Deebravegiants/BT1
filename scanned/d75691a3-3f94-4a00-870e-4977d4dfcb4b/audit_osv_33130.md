@@ -1,0 +1,78 @@
+# [C] RDMA/siw: Fix the sendmsg byte count in siw_tcp_sendpages
+
+## Summary
+Severity: Critical
+Advisory: CVE-2025-39758
+Ecosystem: Linux
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2025-09-11
+Source: https://osv.dev/vulnerability/CVE-2025-39758
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=6.5.0 <6.6.103, >=6.7.0 <6.12.43, >=6.13.0 <6.15.11, >=6.16.0 <6.16.2
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+RDMA/siw: Fix the sendmsg byte count in siw_tcp_sendpages
+
+Ever since commit c2ff29e99a76 ("siw: Inline do_tcp_sendpages()"),
+we have been doing this:
+
+static int siw_tcp_sendpages(struct socket *s, struct page **page, int offset,
+                             size_t size)
+[...]
+        /* Calculate the number of bytes we need to push, for this page
+         * specifically */
+        size_t bytes = min_t(size_t, PAGE_SIZE - offset, size);
+        /* If we can't splice it, then copy it in, as normal */
+        if (!sendpage_ok(page[i]))
+                msg.msg_flags &= ~MSG_SPLICE_PAGES;
+        /* Set the bvec pointing to the page, with len $bytes */
+        bvec_set_page(&bvec, page[i], bytes, offset);
+        /* Set the iter to $size, aka the size of the whole sendpages (!!!) */
+        iov_iter_bvec(&msg.msg_iter, ITER_SOURCE, &bvec, 1, size);
+try_page_again:
+        lock_sock(sk);
+        /* Sendmsg with $size size (!!!) */
+        rv = tcp_sendmsg_locked(sk, &msg, size);
+
+This means we've been sending oversized iov_iters and tcp_sendmsg calls
+for a while. This has a been a benign bug because sendpage_ok() always
+returned true. With the recent slab allocator changes being slowly
+introduced into next (that disallow sendpage on large kmalloc
+allocations), we have recently hit out-of-bounds crashes, due to slight
+differences in iov_iter behavior between the MSG_SPLICE_PAGES and
+"regular" copy paths:
+
+(MSG_SPLICE_PAGES)
+skb_splice_from_iter
+  iov_iter_extract_pages
+    iov_iter_extract_bvec_pages
+      uses i->nr_segs to correctly stop in its tracks before OoB'ing everywhere
+  skb_splice_from_iter gets a "short" read
+
+(!MSG_SPLICE_PAGES)
+skb_copy_to_page_nocache copy=iov_iter_count
+ [...]
+   copy_from_iter
+        /* this doesn't help */
+        if (unlikely(iter->count < len))
+                len = iter->count;
+          iterate_bvec
+            ... and we run off the bvecs
+
+Fix this by properly setting the iov_iter's byte count, plus sending the
+correct byte count to tcp_sendmsg_locked.
+
+## References
+- https://git.kernel.org/stable/c/42ebc16d9d2563f1a1ce0f05b643ee68d54fabf8
+- https://git.kernel.org/stable/c/5661fdd218c2799001b88c17acd19f4395e4488e
+- https://git.kernel.org/stable/c/673cf582fd788af12cdacfb62a6a593083542481
+- https://git.kernel.org/stable/c/b47c4b7cb78b6382c6d1af0bfc0d8218e4f445cc
+- https://git.kernel.org/stable/c/c18646248fed07683d4cee8a8af933fc4fe83c0d
+- https://git.kernel.org/stable/c/edf82bc8150570167a33a7d54627d66614cbf841
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/39xxx/CVE-2025-39758.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-39758
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

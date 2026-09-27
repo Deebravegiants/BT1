@@ -1,0 +1,19 @@
+# [C] Network-AI 5.12.2 through 5.13.3 Missing Authorization via ApprovalInbox
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-64622
+Aliases: GHSA-m4jg-6w3q-gm86
+CVSS: 9.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N)
+Published: 2026-07-20
+Source: https://osv.dev/vulnerability/CVE-2026-64622
+Type: osv
+
+## Details
+Network-AI (npm: network-ai) versions 5.12.2 through 5.13.3 fail to apply the configured authorization check (checkAuth/secret) to the ApprovalInbox GET read routes, so even when an operator configures a secret, unauthenticated actors can access sensitive approval request details. The GET /approvals/?status=all, GET /approvals/:id, GET /approvals/stats, and GET /approvals/sse routes disclose full ApprovalEntry content including action/target shell-command strings, file paths, justifications, and risk levels. All responses also carry a hardcoded Access-Control-Allow-Origin: * header, enabling cross-origin disclosure from any website the operator visits. This is an incomplete fix for GHSA-mxjx-28vx-xjjj.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/64xxx/CVE-2026-64622.json
+- https://github.com/Jovancoding/Network-AI/security/advisories/GHSA-m4jg-6w3q-gm86
+- https://nvd.nist.gov/vuln/detail/CVE-2026-64622
+- https://www.vulncheck.com/advisories/network-ai-through-missing-authorization-via-approvalinbox

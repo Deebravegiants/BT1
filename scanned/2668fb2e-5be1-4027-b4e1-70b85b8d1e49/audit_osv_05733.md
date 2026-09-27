@@ -1,0 +1,23 @@
+# [H] FGAC API Key privilege escalation in Grafana
+
+## Summary
+Severity: High
+Advisory: BIT-grafana-2022-24812
+Aliases: CVE-2022-24812, GHSA-82gq-xfg3-5j7v
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-grafana-2022-24812
+Type: osv
+
+## Affected
+- Bitnami: `grafana` — affected >=8.1.0 <8.4.6
+
+## Details
+Grafana is an open-source platform for monitoring and observability. When fine-grained access control is enabled and a client uses Grafana API Key to make requests, the permissions for that API Key are cached for 30 seconds for the given organization. Because of the way the cache ID is constructed, the consequent requests with any API Key evaluate to the same permissions as the previous requests. This can lead to an escalation of privileges, when for example a first request is made with Admin permissions, and the second request with different API Key is made with Viewer permissions, the second request will get the cached permissions from the previous Admin, essentially accessing higher privilege than it should. The vulnerability is only impacting Grafana Enterprise when the fine-grained access control beta feature is enabled and there are more than one API Keys in one organization with different roles assigned. All installations after Grafana Enterprise v8.1.0 should be upgraded as soon as possible. As an alternative, disable fine-grained access control will mitigate the vulnerability.
+
+## References
+- https://github.com/grafana/grafana/security/advisories/GHSA-82gq-xfg3-5j7v
+- https://grafana.com/blog/2022/04/12/grafana-enterprise-8.4.6-released-with-high-severity-security-fix/
+- https://grafana.com/docs/grafana/latest/release-notes/release-notes-8-4-6/
+- https://security.netapp.com/advisory/ntap-20220519-0005/
+- https://nvd.nist.gov/vuln/detail/CVE-2022-24812

@@ -1,0 +1,15 @@
+# [H] CVE-2020-0478
+
+## Summary
+Severity: High
+Advisory: CVE-2020-0478
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2020-12-15
+Source: https://osv.dev/vulnerability/CVE-2020-0478
+Type: osv
+
+## Details
+In extend_frame_lowbd of restoration.c, there is a possible out of bounds write due to a missing bounds check. This could lead to local escalation of privilege with no additional execution privileges needed. User interaction is needed for exploitation.Product: AndroidVersions: Android-11Android ID: A-150780418
+
+## References
+- https://source.android.com/security/bulletin/pixel/2020-12-01

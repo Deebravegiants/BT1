@@ -1,0 +1,44 @@
+# [H] ArrakisV2.mint() & burn() expose users to unlimited slippage
+
+## Summary
+Severity: High
+Reporter: dacian
+Source: https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-core/contracts/ArrakisV2.sol#L48-L58
+Type: audit-issue
+
+## Details
+# ArrakisV2.mint() & burn() expose users to unlimited slippage
+
+## Summary
+ArrakisV2.mint() & burn() expose users to unlimited slippage.
+
+## Vulnerability Detail
+[ArrakisV2.mint()](https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-core/contracts/ArrakisV2.sol#L48-L58) is functionally a swap by another name because:
+
+1) it allows users to swap input token assets for output protocol shares,
+2) users are able to specify the amount of output protocol shares to receive, 
+3) users are unable to specify the maximum amount of input token assets they are willing to pay to mint the output protocol shares; the required amount of input token assets is [calculated dynamically](https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-core/contracts/libraries/Underlying.sol#L36-L58) based upon on-chain UniswapV3 pool data,
+4) users are unable to specify a timestamp for the swap to be completed.
+
+When a user calls mint() the on-chain pool parameters may look attractive but an attacker can frontrun the user's transaction changing the pool's liquidity to increase the amount of input tokens the user must provide to receive their output protocol shares. The user will end up spending more input tokens that expected to mint their desired amount of output protocol shares.
+
+As there is no timestamp deadline for the transaction to be completed, the transaction could be held by a validator, or a gas spike due to a popular nft mint could naturally cause the submitted transaction to be processed at a later time. This could also result in the user spending more input tokens than expected as the pool's liquidity could have become substantially different by the time the delayed transaction is executed.
+
+ArrakisV2.burn() runs the same process in reverse; users can receive less output tokens than expected for burning their input protocol shares.
+
+## Impact
+In mint() users can spend significantly more input tokens than desired in order to mint their output protocol shares. In burn() users can receive significantly less output tokens than desired in order to burn their input protocol tokens.
+
+## Code Snippet
+[ArrakisV2.mint()](https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-core/contracts/ArrakisV2.sol#L48-L58)
+[Underlying.totalUnderlyingForMint()](https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-core/contracts/libraries/Underlying.sol#L36-L58)
+
+## Tool used
+Manual Review
+
+## Recommendation
+ArrakisV2.mint() should allow users to specify the maximum amount of input tokens the user would be happy to pay to mint their output protocol shares.
+
+ArrakisV2.burn() should allow users to specify the minimum amount of output tokens the user would be happy to receive for burning their input protocol shares.
+
+Optionally both mint() & burn() could allow the user to specify a timestamp by which the transaction must be completed.

@@ -1,0 +1,37 @@
+# [M] Incorrect calculation of totalAssets from the vault
+
+## Summary
+Severity: Medium
+Reporter: Nutty Admiral Scorpion
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/vault/LMPVault.sol#L304-L306
+Type: audit-issue
+
+## Details
+# Incorrect calculation of totalAssets from the vault
+## Summary  (make the full explanation counting GLIF)
+Incorrect calculation of totalAssets from the vault
+
+## Vulnerability Detail
+When calling the `totalAssets()` function. The total assets are not calculated correctly. The total assets should be the sum of the `totalIdle` and `totalDebt` - the fees of the protocol to the sink. However, the function returns the `totalIdle` + `totalDebt`.
+
+In this case, the fees are not substracted from the total assets causing a wrong calculation of the `totalAssets()` in the contract by also counting the protocol the fees.
+
+```solidity
+function totalAssets() public view override returns (uint256) { 
+        return totalIdle + totalDebt;   
+    }
+
+```
+## Impact
+Users will get wrong conversions to assets and to shares due to an incorrect calculation of the `totalAssets()` in the contract
+```soldity
+shares = (assets == 0 || supply == 0) ? assets : assets.mulDiv(supply, totalAssets(), rounding);
+```
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/vault/LMPVault.sol#L304-L306
+## Tool used
+
+Manual Review
+
+## Recommendation
+Do not count the fees as totalAssets()

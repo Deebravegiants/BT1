@@ -1,0 +1,24 @@
+# [H] CVE-2016-7412
+
+## Summary
+Severity: High
+Advisory: CVE-2016-7412
+CVSS: 8.1 (CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2016-09-17
+Source: https://osv.dev/vulnerability/CVE-2016-7412
+Type: osv
+
+## Details
+ext/mysqlnd/mysqlnd_wireprotocol.c in PHP before 5.6.26 and 7.x before 7.0.11 does not verify that a BIT field has the UNSIGNED_FLAG flag, which allows remote MySQL servers to cause a denial of service (heap-based buffer overflow) or possibly have unspecified other impact via crafted field metadata.
+
+## References
+- http://www.securityfocus.com/bid/93005
+- http://www.securitytracker.com/id/1036836
+- https://www.tenable.com/security/tns-2016-19
+- http://www.php.net/ChangeLog-5.php
+- http://www.php.net/ChangeLog-7.php
+- https://access.redhat.com/errata/RHSA-2018:1296
+- https://security.gentoo.org/glsa/201611-22
+- https://bugs.php.net/bug.php?id=72293
+- https://github.com/php/php-src/commit/28f80baf3c53e267c9ce46a2a0fadbb981585132?w=1
+- http://www.openwall.com/lists/oss-security/2016/09/15/10

@@ -1,0 +1,15 @@
+# [H] CVE-2019-25018
+
+## Summary
+Severity: High
+Advisory: CVE-2019-25018
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N)
+Published: 2021-02-02
+Source: https://osv.dev/vulnerability/CVE-2019-25018
+Type: osv
+
+## Details
+In the rcp client in MIT krb5-appl through 1.0.3, malicious servers could bypass intended access restrictions via the filename of . or an empty filename, similar to CVE-2018-20685 and CVE-2019-7282. The impact is modifying the permissions of the target directory on the client side. NOTE: MIT krb5-appl is not supported upstream but is shipped by a few Linux distributions. The affected code was removed from the supported MIT Kerberos 5 (aka krb5) product many years ago, at version 1.8.
+
+## References
+- https://bugzilla.suse.com/show_bug.cgi?id=1131109

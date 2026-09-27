@@ -1,0 +1,133 @@
+# [M] Lack of method to claim NFT reward in OngoingBounty contract
+
+## Summary
+Severity: Medium
+Reporter: ctf_sec
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/BountyCore.sol#L176-L191
+Type: audit-issue
+
+## Details
+# Lack of method to claim NFT reward in OngoingBounty contract
+
+## Summary
+
+Lack of method to claim NFT reward in OngoingBounty contract
+
+## Vulnerability Detail
+
+According to 
+
+https://docs.openq.dev/welcome/master
+
+It is expected that the bounty funder can fund NFT and the developer can claim the NFT as reward. However, for OngoingBounty, there is a method that can receiveNFT when the user wants to fund the contrat via depositManager, but has no method to claim the NFT reward via ClaimManager.sol
+
+```solidity
+/// @notice Receives an NFT for this contract
+    /// @param _sender Sender of the NFT
+    /// @param _tokenAddress NFT token address
+    /// @param _tokenId NFT token id
+    /// @param _expiration How long before this deposit becomes refundable
+    /// @return bytes32 the deposit id
+    function receiveNft(
+        address _sender,
+        address _tokenAddress,
+        uint256 _tokenId,
+        uint256 _expiration,
+        bytes calldata
+    ) external onlyDepositManager nonReentrant returns (bytes32) {
+```
+
+Because when the claimed reward is settled, there is no option to transfer the NFT out when claiming ongoing bounty.
+
+```solidity
+    function _claimOngoingBounty(
+        IOngoingBounty _bounty,
+        address _closer,
+        bytes calldata _closerData
+    ) internal {
+        _eligibleToClaimOngoingBounty(_bounty, _closer, _closerData);
+
+        (address tokenAddress, uint256 volume) = _bounty.claimOngoingPayout(
+            _closer,
+            _closerData
+        );
+
+        emit TokenBalanceClaimed(
+            _bounty.bountyId(),
+            address(_bounty),
+            _bounty.organization(),
+            _closer,
+            block.timestamp,
+            tokenAddress,
+            volume,
+            _bounty.bountyType(),
+            _closerData,
+            VERSION_1
+        );
+    }
+```
+
+which calls:
+
+```solidity
+  /// @notice Transfers a payout amount of an ongoing bounty to claimant for claimant asset
+  /// @param _payoutAddress The destination address for the funds
+  /// @param _closerData ABI-encoded data of the claimant and claimant asset
+  /// @dev see IBountyCore.claimOngoingPayout.(_closerData) for _closerData ABI encoding schema
+  function claimOngoingPayout(
+      address _payoutAddress,
+      bytes calldata _closerData
+  ) external onlyClaimManager nonReentrant returns (address, uint256) {
+      (, string memory claimant, , string memory claimantAsset) = abi.decode(
+          _closerData,
+          (address, string, address, string)
+      );
+
+      bytes32 _claimId = generateClaimId(claimant, claimantAsset);
+
+      claimId[_claimId] = true;
+      claimIds.push(_claimId);
+
+      _transferToken(payoutTokenAddress, payoutVolume, _payoutAddress);
+      return (payoutTokenAddress, payoutVolume);
+  }
+
+```
+
+which calls:
+
+```solidity
+/// @notice Transfers _volume of both ERC20 or protocol token to _payoutAddress
+    /// @param _tokenAddress Address of an ERC20 or Zero Address for protocol token
+    /// @param _volume Volume to transfer
+    /// @param _payoutAddress Destination address
+    function _transferToken(
+        address _tokenAddress,
+        uint256 _volume,
+        address _payoutAddress
+    ) internal virtual {
+        if (_tokenAddress == address(0)) {
+            _transferProtocolToken(_payoutAddress, _volume);
+        } else {
+            _transferERC20(_tokenAddress, _payoutAddress, _volume);
+        }
+    }
+```
+
+While the bounty issuer can reclaim the NFT refund after the expiration time passed, the developer cannot claim valuable NFT reward.
+
+## Impact
+
+Lack of method to claim NFT reward in OngoingBounty
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/BountyCore.sol#L176-L191
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Block fundNFT to ongoingBounty or add method to claim NFT reward for developers and make sure the documentation is updated.

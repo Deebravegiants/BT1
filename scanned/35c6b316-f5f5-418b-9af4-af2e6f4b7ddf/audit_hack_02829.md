@@ -1,0 +1,35 @@
+# [M] Unsafe ERC20 `transfer` / `transferFrom` calls
+
+## Summary
+Severity: Medium
+Reporter: ellahi
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+# Unsafe ERC20 `transfer` / `transferFrom` calls
+
+## Summary
+The return value of an external `transfer`/`transferFrom` call is not checked.
+
+## Vulnerability Detail
+Unchecked transfers or not using SafeERC20 can lead to trouble.
+
+## Impact
+The transfer can silently fail which would lead to unintended consequences.
+
+## Code Snippet
+```solidity
+Vault.sol::138 => IERC20(LINK).transferFrom(msg.sender, address(this), _amount);
+Vault.sol::161 => IERC20(LINK).transfer(msg.sender, _amount);
+Vault.sol::182 => IERC20(LINK).transfer(msg.sender, amount);
+Vault.sol::326 => IERC20(LINK).approve(_plugin, type(uint256).max);
+BasePlugin.sol::45 => IERC20(LINK).transferFrom(vault, address(this), _amount);
+BasePlugin.sol::59 => IERC20(LINK).transfer(vault, _amount);
+```
+## Tool used
+
+Manual Review
+
+## Recommendation
+Use `SafeERC20`, or ensure that the `transfer`/`transferFrom` return value is checked.

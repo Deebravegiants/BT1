@@ -1,0 +1,65 @@
+# [H] use of connection struct after free
+
+## Summary
+Severity: High
+Advisory: CURL-CVE-2016-5421
+Aliases: CVE-2016-5421
+Published: 2016-08-03
+Source: https://osv.dev/vulnerability/CURL-CVE-2016-5421
+Type: osv
+
+## Details
+libcurl is vulnerable to a use after free flaw.
+
+libcurl works with easy handles using the type 'CURL *' that are objects the
+application creates using `curl_easy_init()`. They are the handles that are all
+each associated with a single transfer at a time. libcurl also has an internal
+struct that represents and holds most state that is related to a single
+connection. An easy handle can hold references to one or many such connection
+structs depending on the requested operations.
+
+When using libcurl's multi interface, an application performs transfers by
+adding one or more easy handles to the multi handle and then it can drive all
+those transfers in parallel.
+
+Due to a flaw, libcurl could leave a pointer to a freed connection struct
+dangling in an easy handle that was previously added to a multi handle when
+`curl_multi_cleanup()` is called with an easy handle still added to it. This
+does not seem to cause any notable harm if the handle is then closed properly.
+
+However, if the easy handle would instead get used again with the easy
+interface and `curl_easy_perform()` to do another transfer, it would blindly
+use the connection struct pointer now pointing to freed memory.
+
+An application could be made to allocate its own fake version of the connect
+struct, fill in some data and then have the `curl_easy_perform()` call do
+something that clearly was not intended by the original code.
+
+For example, this could be an application using a component or library that
+uses libcurl to do something against fixed URLs or fixed hostnames or with a
+set of fixed options, but using this flaw the application can then make the
+component to do something completely different and unintended.
+
+Pseudo code for a bad application
+
+    easy = curl_easy_init();
+    curl_easy_setopt(easy, CURLOPT_URL, "http://example.com/");
+
+    // --- start of code to confuse libcurl ---
+    multi = curl_multi_init();
+    curl_multi_add_handle(multi, easy);
+    curl_multi_perform(multi, &still_running);
+    curl_multi_cleanup(multi);
+
+    // --- attack code
+    allocate_fake_connection_struct()
+    fill_in_fake_connection_struct()
+
+    // ---- end of confusion code
+
+    // now this is called, it does not use example.com at all even if the
+    // option above asks for it...
+
+    curl_easy_perform(easy);
+
+This flaw can also be exploited using libcurl bindings in other languages.

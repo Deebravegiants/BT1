@@ -1,0 +1,18 @@
+# [M] CVE-2018-17244
+
+## Summary
+Severity: Medium
+Advisory: CVE-2018-17244
+Aliases: GHSA-vpqm-88c4-x4cv
+CVSS: 6.5 (CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2018-12-20
+Source: https://osv.dev/vulnerability/CVE-2018-17244
+Type: osv
+
+## Details
+Elasticsearch Security versions 6.4.0 to 6.4.2 contain an error in the way request headers are applied to requests when using the Active Directory, LDAP, Native, or File realms. A request may receive headers intended for another request if the same username is being authenticated concurrently; when used with run as, this can result in the request running as the incorrect user. This could allow a user to access information that they should not have access to.
+
+## References
+- http://www.securityfocus.com/bid/106318
+- https://discuss.elastic.co/t/elastic-stack-6-4-3-and-5-6-13-security-update/155594
+- https://www.elastic.co/community/security

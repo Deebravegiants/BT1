@@ -1,0 +1,32 @@
+# [M] Miswritten offset
+
+## Summary
+Severity: Medium
+Reporter: mstpr-brainbot
+Source: https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/LiquidationBot/LiquidationBot.sol#L44-L46
+Type: audit-issue
+
+## Details
+# Miswritten offset
+
+## Summary
+Miswritten offset can make the loop revert
+## Vulnerability Detail
+
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/LiquidationBot/LiquidationBot.sol#L44-L46
+If offset is set to 0,
+
+
+https://github.com/sherlock-audit/2023-03-taurus/blob/main/taurus-contracts/contracts/LiquidationBot/LiquidationBot.sol#L69
+
+This will always revert. Putting a zero check on offset could prevent this.
+## Impact
+LOW
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation

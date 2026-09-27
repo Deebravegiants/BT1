@@ -1,0 +1,23 @@
+# [M] CVE-2021-28695
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-28695
+CVSS: 6.8 (CVSS:3.1/AV:P/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2021-08-27
+Source: https://osv.dev/vulnerability/CVE-2021-28695
+Type: osv
+
+## Details
+IOMMU page mapping issues on x86 T[his CNA information record relates to multiple CVEs; the text explains which aspects/vulnerabilities correspond to which CVE.] Both AMD and Intel allow ACPI tables to specify regions of memory which should be left untranslated, which typically means these addresses should pass the translation phase unaltered. While these are typically device specific ACPI properties, they can also be specified to apply to a range of devices, or even all devices. On all systems with such regions Xen failed to prevent guests from undoing/replacing such mappings (CVE-2021-28694). On AMD systems, where a discontinuous range is specified by firmware, the supposedly-excluded middle range will also be identity-mapped (CVE-2021-28695). Further, on AMD systems, upon de-assigment of a physical device from a guest, the identity mappings would be left in place, allowing a guest continued access to ranges of memory which it shouldn't have access to anymore (CVE-2021-28696).
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/2VQCFAPBNGBBAOMJZG6QBREOG5IIDZID/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/LPRVHW4J4ZCPPOHZEWP5MOJT7XDGFFPJ/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/FZCNPSRPGFCQRYE2BI4D4Q4SCE56ANV2/
+- https://www.debian.org/security/2021/dsa-4977
+- https://xenbits.xenproject.org/xsa/advisory-378.txt
+- http://www.openwall.com/lists/oss-security/2021/09/01/5
+- https://security.gentoo.org/glsa/202208-23
+- http://www.openwall.com/lists/oss-security/2021/09/01/1
+- http://www.openwall.com/lists/oss-security/2021/09/01/6

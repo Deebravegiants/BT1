@@ -1,0 +1,71 @@
+# [H] crypto: ccp: Don't attempt to copy ID to userspace if PSP command failed
+
+## Summary
+Severity: High
+Advisory: CVE-2026-31697
+Ecosystem: Linux
+CVSS: 7.1 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:H)
+Published: 2026-05-01
+Source: https://osv.dev/vulnerability/CVE-2026-31697
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.2.0 <5.10.258, >=5.11.0 <5.15.209, >=5.16.0 <6.1.175, >=6.2.0 <6.6.136, >=6.7.0 <6.12.84, >=6.13.0 <6.18.25, >=6.19.0 <7.0.2
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+crypto: ccp: Don't attempt to copy ID to userspace if PSP command failed
+
+When retrieving the ID for the CPU, don't attempt to copy the ID blob to
+userspace if the firmware command failed.  If the failure was due to an
+invalid length, i.e. the userspace buffer+length was too small, copying
+the number of bytes _firmware_ requires will overflow the kernel-allocated
+buffer and leak data to userspace.
+
+  BUG: KASAN: slab-out-of-bounds in instrument_copy_to_user ../include/linux/instrumented.h:129 [inline]
+  BUG: KASAN: slab-out-of-bounds in _inline_copy_to_user ../include/linux/uaccess.h:205 [inline]
+  BUG: KASAN: slab-out-of-bounds in _copy_to_user+0x66/0xa0 ../lib/usercopy.c:26
+  Read of size 64 at addr ffff8881867f5960 by task syz.0.906/24388
+
+  CPU: 130 UID: 0 PID: 24388 Comm: syz.0.906 Tainted: G     U     O        7.0.0-smp-DEV #28 PREEMPTLAZY
+  Tainted: [U]=USER, [O]=OOT_MODULE
+  Hardware name: Google, Inc. Arcadia_IT_80/Arcadia_IT_80, BIOS 12.62.0-0 11/19/2025
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0xc5/0x110 ../lib/dump_stack.c:120
+   print_address_description ../mm/kasan/report.c:378 [inline]
+   print_report+0xbc/0x260 ../mm/kasan/report.c:482
+   kasan_report+0xa2/0xe0 ../mm/kasan/report.c:595
+   check_region_inline ../mm/kasan/generic.c:-1 [inline]
+   kasan_check_range+0x264/0x2c0 ../mm/kasan/generic.c:200
+   instrument_copy_to_user ../include/linux/instrumented.h:129 [inline]
+   _inline_copy_to_user ../include/linux/uaccess.h:205 [inline]
+   _copy_to_user+0x66/0xa0 ../lib/usercopy.c:26
+   copy_to_user ../include/linux/uaccess.h:236 [inline]
+   sev_ioctl_do_get_id2+0x361/0x490 ../drivers/crypto/ccp/sev-dev.c:2222
+   sev_ioctl+0x25f/0x490 ../drivers/crypto/ccp/sev-dev.c:2575
+   vfs_ioctl ../fs/ioctl.c:51 [inline]
+   __do_sys_ioctl ../fs/ioctl.c:597 [inline]
+   __se_sys_ioctl+0x11d/0x1b0 ../fs/ioctl.c:583
+   do_syscall_x64 ../arch/x86/entry/syscall_64.c:63 [inline]
+   do_syscall_64+0xe0/0x800 ../arch/x86/entry/syscall_64.c:94
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+   </TASK>
+
+WARN if the driver says the command succeeded, but the firmware error code
+says otherwise, as __sev_do_cmd_locked() is expected to return -EIO on any
+firwmware error.
+
+## References
+- https://git.kernel.org/stable/c/06f06d88c05ce176c61fff8c72c372847b0dd2b5
+- https://git.kernel.org/stable/c/09427bcb1715fb20a80b6acd5156dbf15ab5c363
+- https://git.kernel.org/stable/c/0f1f2f9894893dc8a28af1b9e9dbc0abf453eb52
+- https://git.kernel.org/stable/c/1fbac0429a42adec830491757a2b53956dd797ea
+- https://git.kernel.org/stable/c/2937f17bbeefb8e7608ff1f78cffbeb3d0281e5e
+- https://git.kernel.org/stable/c/4f685dbfa87c546e51d9dc6cab379d20f275e114
+- https://git.kernel.org/stable/c/99bae2e3c3f9ba8f854c938ed2c811b6a63b28e4
+- https://git.kernel.org/stable/c/a21ae9f8769e5f75433bb0a85ac3868b2100ef5b
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/31xxx/CVE-2026-31697.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-31697
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

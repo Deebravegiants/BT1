@@ -1,0 +1,17 @@
+# [H] CVE-2020-15235
+
+## Summary
+Severity: High
+Advisory: CVE-2020-15235
+Aliases: GHSA-ph67-c355-52vm
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N)
+Published: 2020-10-05
+Source: https://osv.dev/vulnerability/CVE-2020-15235
+Type: osv
+
+## Details
+In RACTF before commit f3dc89b, unauthenticated users are able to get the value of sensitive config keys that would normally be hidden to everyone except admins. All versions after commit f3dc89b9f6ab1544a289b3efc06699b13d63e0bd(3/10/20) are patched.
+
+## References
+- https://github.com/ractf/core/security/advisories/GHSA-ph67-c355-52vm
+- https://github.com/ractf/core/commit/f3dc89b9f6ab1544a289b3efc06699b13d63e0bd

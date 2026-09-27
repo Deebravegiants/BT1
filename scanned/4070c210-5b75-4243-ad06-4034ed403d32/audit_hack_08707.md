@@ -1,0 +1,47 @@
+# [M] FEE-ON-TRANSFER tokens can not be used as collateral
+
+## Summary
+Severity: Medium
+Reporter: n33k
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L326-L341
+Type: audit-issue
+
+## Details
+# FEE-ON-TRANSFER tokens can not be used as collateral
+
+## Summary
+FEE-ON-TRANSFER tokens are not compatible with the protocol and cannot be used as collateral. Borrower can make his loan unliquidatable.
+
+## Vulnerability Detail
+
+The recipient receives tokens less than transfer amount when transfer FEE-ON-TRANSFER tokens.
+
+Depositng to escrow consists of two transfers. First transfer from borrower to CollateralManager. Second transfer from CollateralManager to escrow. The two transfers use the same amount of token. The first transfer losses some tokens so the second transfer will fail because of insufficient balance.
+
+## Impact
+
+The impact is that FEE-ON-TRANSFER tokens can not be used as collateral. A further attack I detail below can make malicious borrower's FEE-ON-TRANSFER token collatoral unliquidatable.
+
+Borrower can first donate some tokens to CollateralManager to make the second transfer success. Escrow will have less tokens because the second transfer also takes fees. Escrow's token balance will be less than the amount liquidation needs. So Liquidation transactions will fail.
+
+## Code Snippet
+
+First deposit:
+
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L326-L341
+
+Second deposit:
+
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L119-L124
+
+Liquidation withdraw:
+
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L166-L169
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Get token balance after first deposit and use it in the second transfer. Withdraw use token balance of escrow instead of `_collateral._amount`.

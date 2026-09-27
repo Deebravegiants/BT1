@@ -1,0 +1,35 @@
+# [M] JLSEC-2026-1333
+
+## Summary
+Severity: Medium
+Advisory: JLSEC-2026-1333
+Ecosystem: Julia
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)
+Published: 2026-08-17
+Source: https://osv.dev/vulnerability/JLSEC-2026-1333
+Type: osv
+
+## Affected
+- Julia: `LibCURL_jll` — affected >=0 <7.81.0+0
+
+## Details
+curl 7.61.0 through 7.76.1 suffers from exposure of data element to wrong session due to a mistake in the code for `CURLOPT_SSL_CIPHER_LIST` when libcurl is built to use the Schannel TLS library. The selected cipher set was stored in a single "static" variable in the library, which has the surprising side-effect that if an application sets up multiple concurrent transfers, the last one that sets the ciphers will accidentally control the set used by all transfers. In a worst-case scenario, this weakens transport security significantly.
+
+## References
+- https://cert-portal.siemens.com/productcert/pdf/ssa-389290.pdf
+- https://cert-portal.siemens.com/productcert/pdf/ssa-389290.pdf
+- https://curl.se/docs/CVE-2021-22897.html
+- https://curl.se/docs/CVE-2021-22897.html
+- https://github.com/curl/curl/commit/bbb71507b7bab52002f9b1e0880bed6a32834511
+- https://github.com/curl/curl/commit/bbb71507b7bab52002f9b1e0880bed6a32834511
+- https://hackerone.com/reports/1172857
+- https://hackerone.com/reports/1172857
+- https://hackerone.com/reports/1172857
+- https://security.netapp.com/advisory/ntap-20210727-0007/
+- https://security.netapp.com/advisory/ntap-20210727-0007/
+- https://www.oracle.com//security-alerts/cpujul2021.html
+- https://www.oracle.com//security-alerts/cpujul2021.html
+- https://www.oracle.com/security-alerts/cpuapr2022.html
+- https://www.oracle.com/security-alerts/cpuapr2022.html
+- https://www.oracle.com/security-alerts/cpujan2022.html
+- https://www.oracle.com/security-alerts/cpujan2022.html

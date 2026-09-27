@@ -1,0 +1,43 @@
+# [H] AccountAction#depositAssetToken() will always revert due to check of require(s.lastAccrueTime == block.timestamp) in PrimeCashExchangeRate#updateTotalPrimeSupply().
+
+## Summary
+Severity: High
+Reporter: chaduke
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/actions/AccountAction.sol#L127-L158
+Type: audit-issue
+
+## Details
+# AccountAction#depositAssetToken() will always revert due to check of require(s.lastAccrueTime == block.timestamp) in PrimeCashExchangeRate#updateTotalPrimeSupply().
+
+## Summary
+``AccountAction#depositAssetToken()`` will always revert due to check of ``require(s.lastAccrueTime == block.timestamp)`` in ``PrimeCashExchangeRate#updateTotalPrimeSupply()``.  The main problem is that ``s.lastAccrueTime``  is never updated during the flow and therefore, the require statement will always fail and the function ``AccountAction#depositAssetToken()`` will always fail as well. 
+
+## Vulnerability Detail
+
+``AccountAction#depositAssetToken()`` allows  a user to deposit deprecated cTokens tokens as collateral into an account that
+were listed prior to the migration to prime cash:
+
+[https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/actions/AccountAction.sol#L127-L158](https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/actions/AccountAction.sol#L127-L158)
+
+However, the function will always fail due to a require check in one of callees. Consider the following flow:  ``AccountAction#depositAssetToken()->BalanceHandler#depositDeprecatedAssetToken()->TokenHandler#depositDeprecatedAssetToken-> TokenHandler#_postTransferPrimeCashUpdate()-> PrimeCashExchangeRate#updateTotalPrimeSupply()``. 
+
+The problem is that ``PrimeCashExchangeRate#updateTotalPrimeSupply()`` has the following require statement that can never pass (L333) 
+
+[https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/pCash/PrimeCashExchangeRate.sol#L326-L355](https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/internal/pCash/PrimeCashExchangeRate.sol#L326-L355)
+
+The require statement can NEVER pass because none of the callees of ``AccountAction#depositAssetToken()`` updates ``s.lastAccrueTime``. 
+
+As a result, ``PrimeCashExchangeRate#updateTotalPrimeSupply()`` will fail, and based on the above flow, ``AccountAction#depositAssetToken()`` will fail as well. 
+
+## Impact
+``AccountAction#depositAssetToken()`` will always revert due to check of ``require(s.lastAccrueTime == block.timestamp)`` in ``PrimeCashExchangeRate#updateTotalPrimeSupply()``.
+
+## Code Snippet
+
+## Tool used
+VSCode
+
+Manual Review
+
+## Recommendation
+Introduce a callee to update s.lastAccrueTime  to the current time, so that the check can pass.

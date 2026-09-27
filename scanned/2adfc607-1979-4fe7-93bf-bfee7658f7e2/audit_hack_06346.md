@@ -1,0 +1,30 @@
+# [M] cancelVouch() is not callable by users.
+
+## Summary
+Severity: Medium
+Reporter: Nyx
+Source: https://github.com/sherlock-audit/2023-02-union/blob/main/union-v2-contracts/contracts/user/UserManager.sol#L632
+Type: audit-issue
+
+## Details
+# cancelVouch() is not callable by users.
+
+## Summary
+
+## Vulnerability Detail
+cancelVouch() should be callable by either the borrower or the staker. But When it's called by either the borrower or staker, it reverts.
+
+https://github.com/sherlock-audit/2023-02-union/blob/main/union-v2-contracts/contracts/user/UserManager.sol#L632
+
+## Impact
+Users cant use cancelVouch().
+## Code Snippet
+https://github.com/sherlock-audit/2023-02-union/blob/main/union-v2-contracts/contracts/user/UserManager.sol#L631-L634
+## Tool used
+
+Manual Review
+
+## Recommendation
+https://github.com/sherlock-audit/2023-02-union/blob/main/union-v2-contracts/contracts/user/UserManager.sol#L632
+
+&& needs to be ||

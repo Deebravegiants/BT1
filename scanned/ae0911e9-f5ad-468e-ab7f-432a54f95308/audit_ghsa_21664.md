@@ -1,0 +1,56 @@
+# [H] Crash when type cannot be specialized in Tensorflow
+
+## Summary
+Severity: High
+Advisory: GHSA-rww7-2gpw-fv6j
+CVE: CVE-2022-23572
+CWE: CWE-617, CWE-754
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2022-02-09
+Source: https://github.com/advisories/GHSA-rww7-2gpw-fv6j
+Type: github-advisory
+
+## Affected
+- PyPI: `tensorflow` — affected >=0 <2.5.3
+- PyPI: `tensorflow` — affected >=2.6.0 <2.6.3
+- PyPI: `tensorflow` — affected >=2.7.0 <2.7.1
+- PyPI: `tensorflow-cpu` — affected >=0 <2.5.3
+- PyPI: `tensorflow-cpu` — affected >=2.6.0 <2.6.3
+- PyPI: `tensorflow-cpu` — affected >=2.7.0 <2.7.1
+- PyPI: `tensorflow-gpu` — affected >=0 <2.5.3
+- PyPI: `tensorflow-gpu` — affected >=2.6.0 <2.6.3
+- PyPI: `tensorflow-gpu` — affected >=2.7.0 <2.7.1
+
+## Details
+### Impact
+Under certain scenarios, TensorFlow can fail to specialize a type during [shape inference](https://github.com/tensorflow/tensorflow/blob/a1320ec1eac186da1d03f033109191f715b2b130/tensorflow/core/framework/shape_inference.cc#L168-L174):
+
+```cc
+void InferenceContext::PreInputInit(
+    const OpDef& op_def, const std::vector<const Tensor*>& input_tensors,
+    const std::vector<ShapeHandle>& input_tensors_as_shapes) {
+  const auto ret = full_type::SpecializeType(attrs_, op_def);
+  DCHECK(ret.status().ok()) << "while instantiating types: " << ret.status();
+  ret_types_ = ret.ValueOrDie();
+  // ... 
+}
+```
+
+However, `DCHECK` is a no-op in production builds and an assertion failure in debug builds. In the first case execution proceeds to the `ValueOrDie` line. This results in an assertion failure as `ret` contains an error `Status`, not a value. In the second case we also get a crash due to the assertion failure.
+### Patches
+We have patched the issue in GitHub commit [cb164786dc891ea11d3a900e90367c339305dc7b](https://github.com/tensorflow/tensorflow/commit/cb164786dc891ea11d3a900e90367c339305dc7b).
+
+The fix will be included in TensorFlow 2.8.0. We will also cherrypick this commit on TensorFlow 2.7.1, and TensorFlow 2.6.3, as these are also affected and still in supported range.
+
+### For more information
+Please consult [our security guide](https://github.com/tensorflow/tensorflow/blob/master/SECURITY.md) for more information regarding the security model and how to contact us with issues and questions.
+
+## References
+- https://github.com/tensorflow/tensorflow/security/advisories/GHSA-rww7-2gpw-fv6j
+- https://nvd.nist.gov/vuln/detail/CVE-2022-23572
+- https://github.com/tensorflow/tensorflow/commit/cb164786dc891ea11d3a900e90367c339305dc7b
+- https://github.com/pypa/advisory-database/tree/main/vulns/tensorflow-cpu/PYSEC-2022-81.yaml
+- https://github.com/pypa/advisory-database/tree/main/vulns/tensorflow-gpu/PYSEC-2022-136.yaml
+- https://github.com/tensorflow/tensorflow
+- https://github.com/tensorflow/tensorflow/blob/a1320ec1eac186da1d03f033109191f715b2b130/tensorflow/core/framework/shape_inference.cc#L168-L174

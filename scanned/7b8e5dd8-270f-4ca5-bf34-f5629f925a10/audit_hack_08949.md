@@ -1,0 +1,42 @@
+# [H] ou0qa1 - Missing Collateral Locking Mechanism in Loan Bidding Process
+
+## Summary
+Severity: High
+Reporter: yy
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L272
+Type: audit-issue
+
+## Details
+# ou0qa1 - Missing Collateral Locking Mechanism in Loan Bidding Process
+
+ou0qa1
+
+high
+
+## Summary
+Based on the platform UI included features, the platform should be accepted Token/NFT as collateral. In the provided code snippets, there is no clear mechanism for transferring and locking collateral Tokens/NFT. This could potentially lead to scenarios where the borrower can misuse the collateral tokens during the loan period.
+
+## Vulnerability Detail
+In the TellerV2 smart contract, the `safeTransferFrom()` only used when the lender to accept a proposed loan bid. 
+
+Here is a scenario:
+1. Alice requests a loan and submits an Tokens/NFT as collateral on the lending platform, the process will call `submitBid()`.
+2. In the `submitBid()`, the  `commitCollateral()` will check the collateral details.
+3. And then the bid has been created.
+4. However, there is no locking mechanism for this function.
+5. It means, if Alice request a loan and provide the collateral ,and there is no lender accept bid yet, Alice can still use or sell or swap the collateral.
+6. If the lender accept bid request after Alice sell the NFT on the other platform such as OpenSea, the lender may loss funds
+
+## Impact
+If the collateral is not locked and the borrower defaults on their loan, the lender might not be able to recover their funds.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L272
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L303
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L117
+
+## Tool used
+Manual Review
+
+## Recommendation
+The collateral could be transferred to and held by the platform during the loan process, ensuring it is locked and secure. Once the bid is canceled or the loan is paid off, the collateral will be unlocked and returned to the borrower from the platform.

@@ -1,0 +1,56 @@
+# [M] ratex-parser has unbounded parser recursion that leads to stack overflow (process abort)
+
+## Summary
+Severity: Medium
+Advisory: GHSA-4w5h-hx6r-28q7
+CVE: CVE-2026-53531
+CWE: CWE-400, CWE-674
+Ecosystem: crates.io
+CVSS: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N (CVSS_V4)
+Published: 2026-07-07
+Source: https://github.com/advisories/GHSA-4w5h-hx6r-28q7
+Type: github-advisory
+
+## Affected
+- crates.io: `ratex-parser` — affected >=0 <0.1.11
+
+## Details
+### Summary
+
+
+RaTeX’s recursive-descent parser recurses one (or more) native stack frame per nesting level at `{`, `\left`, `\sqrt{`, `^{`, etc, with **no maximum depth limit**. A short, ~10 KB input of nested groups overflows the 8 MB main-thread stack and aborts the process. With `panic = "abort"` (`Cargo.toml:48`), and because a Rust stack overflow is always a fatal `SIGABRT` regardless of panic strategy this is an unrecoverable, whole-process denial of service reachable from a single untrusted LaTeX string.
+
+### Details
+
+The mutual recursion has no depth guard (`crates/ratex-parser/src/parser.rs`):
+
+```
+parse_expression (:113)  ->  parse_atom (:281/285)  ->  parse_group (:451)
+                                  ^                          |
+                                  |   on '{' (:459) recurse  |
+                                  +--------------------------+
+```
+
+`\left` adds another recursive edge: `handle_left` → `parse_expression` (`crates/ratex-parser/src/functions/left_right.rs:47`). The only counters present are unrelated to depth: `leftright_depth` (a `\right`-matching counter, `parser.rs:24`) and the macro expander’s `max_expand = 1000` (`macro_expander.rs:64`), which does **not** gate brace / `\left` recursion (those tokens never pass through `expand_once`). There is no `recursion_limit`/depth parameter on `parse_group`, `parse_expression`, or `parse_atom`.
+
+### PoC
+
+<img width="1097" height="158" alt="image" src="https://github.com/user-attachments/assets/29b837a2-c455-4cb6-a055-514b31c999c6" />
+
+
+```
+$ python3 -c 'import sys;sys.stdout.write("{"*200000+"x"+"}"*200000)' | ./target/release/parse
+thread 'main' has overflowed its stack
+fatal runtime error: stack overflow, aborting
+Aborted (core dumped)            # exit 134
+```
+
+(Other nesting forms work equally, e.g. `\left(`×N, `\sqrt{`×N, `^{`×N.)
+
+### Impact
+
+A single small request crashes the whole RaTeX process. In a typical server-side math-rendering service this is a reliable, unauthenticated DoS; on smaller worker-thread stacks (e.g. a 512 KB async runtime thread) only a few hundred bytes of nesting are required.
+
+## References
+- https://github.com/erweixin/RaTeX/security/advisories/GHSA-4w5h-hx6r-28q7
+- https://github.com/erweixin/RaTeX

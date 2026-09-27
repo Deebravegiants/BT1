@@ -1,0 +1,89 @@
+# [M] rustix's `rustix::fs::Dir` iterator with the `linux_raw` backend can cause memory explosion
+
+## Summary
+Severity: Medium
+Advisory: GHSA-c827-hfw6-qwvm
+CVE: CVE-2024-43806
+CWE: CWE-400
+Ecosystem: crates.io
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2023-10-18
+Source: https://github.com/advisories/GHSA-c827-hfw6-qwvm
+Type: github-advisory
+
+## Affected
+- crates.io: `rustix` — affected >=0.35.11 <0.35.15
+- crates.io: `rustix` — affected >=0.36.0 <0.36.16
+- crates.io: `rustix` — affected >=0.37.0 <0.37.25
+- crates.io: `rustix` — affected >=0.38.0 <0.38.19
+
+## Details
+### Summary
+
+When using `rustix::fs::Dir` using the `linux_raw` backend, it's possible for the iterator to "get stuck" when an IO error is encountered. Combined with a memory over-allocation issue in `rustix::fs::Dir::read_more`, this can cause quick and unbounded memory explosion (gigabytes in a few seconds if used on a hot path) and eventually lead to an OOM crash of the application.
+
+### Details
+
+#### Discovery
+
+The symptoms were initially discovered in https://github.com/imsnif/bandwhich/issues/284. That post has lots of details of our investigation. See [this post](https://github.com/imsnif/bandwhich/issues/284#issuecomment-1754321993) and the [Discord thread](https://discord.com/channels/273534239310479360/1161137828395237556) for details.
+
+#### Diagnosis
+
+This issue is caused by the combination of two independent bugs:
+
+1. Stuck iterator
+- The `rustix::fs::Dir` iterator can fail to halt after encountering an IO error, causing the caller to be stuck in an infinite loop.
+2. Memory over-allocation
+- `Dir::read_more` incorrectly grows the read buffer unconditionally each time it is called, regardless of necessity.
+
+Since `<Dir as Iterator>::next` calls `Dir::read`, which in turn calls `Dir::read_more`, this means an IO error encountered during reading a directory can lead to rapid and unbounded growth of memory use.
+
+### PoC
+
+```rust
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // create a directory, get a FD to it, then unlink the directory but keep the FD
+    std::fs::create_dir("tmp_dir")?;
+    let dir_fd = rustix::fs::openat(
+        rustix::fs::CWD,
+        rustix::cstr!("tmp_dir"),
+        rustix::fs::OFlags::RDONLY | rustix::fs::OFlags::CLOEXEC,
+        rustix::fs::Mode::empty(),
+    )?;
+    std::fs::remove_dir("tmp_dir")?;
+
+    // iterator gets stuck in infinite loop and memory explodes
+    rustix::fs::Dir::read_from(dir_fd)?
+        // the iterator keeps returning `Some(Err(_))`, but never halts by returning `None`
+        // therefore if the implementation ignores the error (or otherwise continues
+        // after seeing the error instead of breaking), the loop will not halt
+        .filter_map(|dirent_maybe_error| dirent_maybe_error.ok())
+        .for_each(|dirent| {
+            // your happy path
+            println!("{dirent:?}");
+        });
+
+    Ok(())
+}
+```
+
+### Impact
+
+If a program tries to access a directory with its file descriptor after the file has been unlinked (or any other action that leaves the `Dir` iterator in the stuck state), and the implementation does not break after seeing an error, it can cause a memory explosion.
+
+As an example, Linux's various virtual file systems (e.g. `/proc`, `/sys`) can contain directories that spontaneously pop in and out of existence. Attempting to iterate over them using `rustix::fs::Dir` directly or indirectly (e.g. with the `procfs` crate) can trigger this fault condition if the implementation decides to continue on errors.
+
+An attacker knowledgeable about the implementation details of a vulnerable target can therefore try to trigger this fault condition via any one or a combination of several available APIs. If successful, the application host will quickly run out of memory, after which the application will likely be terminated by an OOM killer, leading to denial of service.
+
+## References
+- https://github.com/bytecodealliance/rustix/security/advisories/GHSA-c827-hfw6-qwvm
+- https://nvd.nist.gov/vuln/detail/CVE-2024-43806
+- https://github.com/imsnif/bandwhich/issues/284
+- https://github.com/imsnif/bandwhich/issues/284#issuecomment-1754321993
+- https://github.com/bytecodealliance/rustix/commit/31fd98ca723b93cc6101a3e29843ea5cf094e159
+- https://github.com/bytecodealliance/rustix/commit/87481a97f4364d12d5d6f30cdd025a0fc509b8ec
+- https://github.com/bytecodealliance/rustix/commit/df3c3a192cf144af0da8a57417fb4addbdc611f6
+- https://github.com/bytecodealliance/rustix/commit/eecece4a84fc58eafdc809cc2cedd374dee876a5
+- https://discord.com/channels/273534239310479360/1161137828395237556
+- https://github.com/bytecodealliance/rustix

@@ -1,0 +1,39 @@
+# [H] The `c_rehash` script does not properly sanitise shell metacharacters to prevent command injection
+
+## Summary
+Severity: High
+Advisory: JLSEC-2026-228
+Ecosystem: Julia
+CVSS: 7.3 (CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H)
+Published: 2026-04-27
+Source: https://osv.dev/vulnerability/JLSEC-2026-228
+Type: osv
+
+## Affected
+- Julia: `OpenSSL_jll` — affected >=0 <1.1.16+0
+- Julia: `Openresty_jll` — affected >=0 <1.21.4+0
+
+## Details
+The `c_rehash` script does not properly sanitise shell metacharacters to prevent command injection. This script is distributed by some operating systems in a manner where it is automatically executed. On such operating systems, an attacker could execute arbitrary commands with the privileges of the script. Use of the `c_rehash` script is considered obsolete and should be replaced by the OpenSSL rehash command line tool. Fixed in OpenSSL 3.0.3 (Affected 3.0.0,3.0.1,3.0.2). Fixed in OpenSSL 1.1.1o (Affected 1.1.1-1.1.1n). Fixed in OpenSSL 1.0.2ze (Affected 1.0.2-1.0.2zd).
+
+## References
+- https://cert-portal.siemens.com/productcert/pdf/ssa-953464.pdf
+- https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=1ad73b4d27bd8c1b369a3cd453681d3a4f1bb9b2
+- https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=548d3f280a6e737673f5b61fce24bb100108dfeb
+- https://git.openssl.org/gitweb/?p=openssl.git%3Ba=commitdiff%3Bh=e5fd1728ef4c7a5bf7c7a7163ca60370460a6e23
+- https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=1ad73b4d27bd8c1b369a3cd453681d3a4f1bb9b2
+- https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=548d3f280a6e737673f5b61fce24bb100108dfeb
+- https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=e5fd1728ef4c7a5bf7c7a7163ca60370460a6e23
+- https://github.com/advisories/GHSA-qjmp-vmxc-7p8r
+- https://gitlab.com/fraf0/cve-2022-1292-re_score-analysis
+- https://lists.debian.org/debian-lts-announce/2022/05/msg00019.html
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/VX4KWHPMKYJL6ZLW4M5IU7E5UV5ZWJQU
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/VX4KWHPMKYJL6ZLW4M5IU7E5UV5ZWJQU/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZNU5M7BXMML26G3GPYKFGQYPQDRSNKDD
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/ZNU5M7BXMML26G3GPYKFGQYPQDRSNKDD/
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/VX4KWHPMKYJL6ZLW4M5IU7E5UV5ZWJQU
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/ZNU5M7BXMML26G3GPYKFGQYPQDRSNKDD
+- https://nvd.nist.gov/vuln/detail/CVE-2022-1292
+- https://psirt.global.sonicwall.com/vuln-detail/SNWLID-2022-0011
+- https://security.gentoo.org/glsa/202210-02
+- https://security.netapp.com/advisory/ntap-20220602-0009

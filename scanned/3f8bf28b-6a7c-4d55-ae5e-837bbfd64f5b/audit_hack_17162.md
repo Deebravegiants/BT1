@@ -1,0 +1,36 @@
+# [H] SdtBuffer.pullRewards - unchecked process address leads to transfer to 0 address
+
+## Summary
+Severity: High
+Reporter: Polite Berry Chipmunk
+Source: https://github.com/sherlock-audit/2023-11-convergence/blob/main/sherlock-cvg/contracts/Rewards/StakeDAO/SdtBuffer.sol#L127
+Type: audit-issue
+
+## Details
+# SdtBuffer.pullRewards - unchecked process address leads to transfer to 0 address
+
+## Summary
+
+`SdtBuffer.pullRewards` - unchecked `processor` address leads to transfer to 0 address
+
+## Vulnerability Detail
+
+`SdtBuffer.pullRewards` does not check that `processor` is not address 0.
+
+This can lead to sending gauge rewards to 0 address.
+
+https://github.com/sherlock-audit/2023-11-convergence/blob/main/sherlock-cvg/contracts/Rewards/StakeDAO/SdtBuffer.sol#L127
+
+## Impact
+Gauge rewards sent to address 0
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+```solidity
+        require(processor != address(0));
+```

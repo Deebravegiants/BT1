@@ -1,0 +1,37 @@
+# [M] D3MMLiquidationRouter is unable work with USDT token
+
+## Summary
+Severity: Medium
+Reporter: jprod15
+Source: https://github.com/sherlock-audit/2023-06-dodo/blob/main/new-dodo-v3/contracts/DODOV3MM/periphery/D3MMLiquidationRouter.sol#L23-L24
+Type: audit-issue
+
+## Details
+# D3MMLiquidationRouter is unable work with USDT token
+
+## Summary
+Regardless of whether safeApprove is used, this will correct the compatibility error with the ERC-20 standard. Due to the mechanism that the USDT token has, which requires allowances to be set to 0 before approving amounts, the D3MMLiquidationRouter does not work with this token
+## Vulnerability Detail
+
+    function D3Callee(LiquidationOrder calldata order, address router, bytes calldata routeData) external {
+        IERC20(order.fromToken).approve(_DODO_APPROVE_, type(uint256).max);//@audit-issue 
+        (bool success, bytes memory data) = router.call(routeData);
+        if (!success) {
+            assembly {
+                revert(add(data, 32), mload(data))
+            }
+        }
+        IERC20(order.toToken).transfer(msg.sender, IERC20(order.toToken).balanceOf(address(this)));
+    }
+
+The issue is that USDT requires the approval to be set to 0 first otherwise fail  
+## Impact
+unable  swap usdt token 
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-dodo/blob/main/new-dodo-v3/contracts/DODOV3MM/periphery/D3MMLiquidationRouter.sol#L23-L24
+## Tool used
+
+Manual Review
+
+## Recommendation
+add approve 0 firts

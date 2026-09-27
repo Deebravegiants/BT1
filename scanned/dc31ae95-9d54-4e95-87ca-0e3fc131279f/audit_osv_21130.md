@@ -1,0 +1,15 @@
+# [H] CVE-2021-40826
+
+## Summary
+Severity: High
+Advisory: CVE-2021-40826
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2021-12-15
+Source: https://osv.dev/vulnerability/CVE-2021-40826
+Type: osv
+
+## Details
+Clementine Music Player through 1.3.1 is vulnerable to a User Mode Write Access Violation, affecting the MP3 file parsing functionality at clementine+0x3aa207. The vulnerability is triggered when the user opens a crafted MP3 file or loads a remote stream URL that is mishandled by Clementine. Attackers could exploit this issue to cause a crash (DoS) of the clementine.exe process or achieve arbitrary code execution in the context of the current logged-in Windows user.
+
+## References
+- https://voidsec.com/advisories/cve-2021-40826/

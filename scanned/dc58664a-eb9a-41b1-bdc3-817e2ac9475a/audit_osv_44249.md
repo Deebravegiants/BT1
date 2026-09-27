@@ -1,0 +1,62 @@
+# [H] ntfs: fix u16 truncation of restart-area length check
+
+## Summary
+Severity: High
+Advisory: CVE-2026-80672
+Ecosystem: Linux
+CVSS: 8.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H)
+Published: 2026-08-28
+Source: https://osv.dev/vulnerability/CVE-2026-80672
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=7.1.0 <7.1.5
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+ntfs: fix u16 truncation of restart-area length check
+
+ntfs_check_restart_area() validates that the $LogFile restart area and
+its trailing log client record array fit within the system page size:
+
+        u16 ra_ofs, ra_len, ca_ofs;
+        ...
+        ra_len = ca_ofs + le16_to_cpu(ra->log_clients) *
+                        sizeof(struct log_client_record);
+        if (ra_ofs + ra_len > le32_to_cpu(rp->system_page_size) || ...)
+                return false;
+
+ra_len is u16, but the right-hand side is computed in size_t
+(sizeof(struct log_client_record) == 160). Both ca_ofs and log_clients
+come straight from the on-disk restart area. With an on-disk
+log_clients of 410 the product 410 * 160 = 65600; adding ca_ofs and
+storing into the u16 ra_len truncates modulo 65536 (e.g. ca_ofs 64
+gives ra_len 128), so the "fits in the page" check passes even though
+the client array described by log_clients extends far beyond the page.
+
+ntfs_check_log_client_array() then walks the array bounded only by the
+on-disk log_clients count:
+
+        cr = ca + idx;
+        if (cr->prev_client != LOGFILE_NO_CLIENT) ...
+
+For log_clients 410 it dereferences records up to ca + 409 * 160,
+~64 KiB past the kvzalloc(system_page_size) restart-page buffer -- an
+out-of-bounds read of attacker-controlled extent, reachable when a
+crafted NTFS image is mounted (load_and_check_logfile() at mount time).
+This is the in-kernel analogue of CVE-2022-30789, fixed in the ntfs-3g
+userspace driver but never in this revived classic driver.
+
+Compute the restart-area length in a u32 so the existing bounds check
+rejects an over-large client array instead of being defeated by the
+truncation. Widen ra_ofs and ca_ofs to u32 as well: both are loaded
+from __le16 on-disk fields and every comparison already promotes to
+int/size_t, so this changes no result and keeps the declaration uniform.
+
+## References
+- https://git.kernel.org/stable/c/07a4751ef3ccc8bfd17bfbb16e5003c03161790d
+- https://git.kernel.org/stable/c/390936fb15053d8d8991ca3a22776e251a5a7f2f
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/80xxx/CVE-2026-80672.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-80672
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

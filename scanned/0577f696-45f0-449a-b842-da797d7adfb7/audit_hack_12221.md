@@ -1,0 +1,52 @@
+# [M] Missing deviation check on `rebalanceParams_.burns` enables sandwich attack on liquidity burning
+
+## Summary
+Severity: Medium
+Reporter: n33k
+Source: https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-manager-templates/contracts/SimpleManager.sol#L162-L198
+Type: audit-issue
+
+## Details
+# Missing deviation check on `rebalanceParams_.burns` enables sandwich attack on liquidity burning
+
+## Summary
+
+Inside `SimpleManager::rebalance`, deviation check only applied to `rebalanceParams_.mints`. `rebalanceParams_.burns` is missed from this check which makes sandwich attack on liquidity buring possible under certain conditions.
+
+## Vulnerability Detail
+
+Inside `SimpleManager::rebalance`, the `_checkDeviation` function checks within a for loop to ensure that every `rebalanceParams_.mints` pool is not price-manipulated. However, the check does not include the `rebalanceParams_.burns` pools. If `rebalanceParams_.burns` and `rebalanceParams_.mints` are not equal, some of the `rebalanceParams_.burns` pools could be missed by the check.
+
+Inside `ArrakisV2::rebalance`, the liquidities in `rebalanceParams_.burns` pools are burned. The slippage checks are applied to the aggregated results. A sandwich attacker can bypass these checks by pushing up the price of one pool and reducing the price of another. This will counteract the two slippage effects and correct the final aggregated results.
+
+```solidity
+    aggregator.burn0 += withdraw.burn0;
+    aggregator.burn1 += withdraw.burn1;
+
+    aggregator.fee0 += withdraw.fee0;
+    aggregator.fee1 += withdraw.fee1;
+}
+
+require(aggregator.burn0 >= rebalanceParams_.minBurn0, "B0");
+require(aggregator.burn1 >= rebalanceParams_.minBurn1, "B1");
+```
+
+These are all the slippage checkes involved in the liquidity burning process. For a successful sandwich attack on the liquidity burning in the rebalance process, `rebalanceParams_.burns` needs to have at least two pools that do not exist in `rebalanceParams_.mints`. Some legitimate strategies may satisfy this or a malicious operator/keeper bot could post such rebalance payload in order to launch sandwich attack.
+
+## Impact
+
+Protocol lose funds because of sandwich attack on the liquidity burning in the rebalance process.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-manager-templates/contracts/SimpleManager.sol#L162-L198
+
+https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-core/contracts/ArrakisV2.sol#L298-L306
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Apply `_checkDeviation` check not only to mint pools but also to burn pools.

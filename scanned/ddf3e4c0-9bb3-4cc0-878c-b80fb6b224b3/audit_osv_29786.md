@@ -1,0 +1,77 @@
+# [H] binder: fix UAF caused by offsets overwrite
+
+## Summary
+Severity: High
+Advisory: CVE-2024-46740
+Aliases: A-352520660, ASB-A-352520660
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2024-09-18
+Source: https://osv.dev/vulnerability/CVE-2024-46740
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=0 <5.4.284, >=5.5.0 <5.10.226, >=5.11.0 <5.15.167, >=5.16.0 <6.1.110, >=5.17.0 <6.6.51, >=6.2.0 <6.10.10
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+binder: fix UAF caused by offsets overwrite
+
+Binder objects are processed and copied individually into the target
+buffer during transactions. Any raw data in-between these objects is
+copied as well. However, this raw data copy lacks an out-of-bounds
+check. If the raw data exceeds the data section size then the copy
+overwrites the offsets section. This eventually triggers an error that
+attempts to unwind the processed objects. However, at this point the
+offsets used to index these objects are now corrupted.
+
+Unwinding with corrupted offsets can result in decrements of arbitrary
+nodes and lead to their premature release. Other users of such nodes are
+left with a dangling pointer triggering a use-after-free. This issue is
+made evident by the following KASAN report (trimmed):
+
+  ==================================================================
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock+0xe4/0x19c
+  Write of size 4 at addr ffff47fc91598f04 by task binder-util/743
+
+  CPU: 9 UID: 0 PID: 743 Comm: binder-util Not tainted 6.11.0-rc4 #1
+  Hardware name: linux,dummy-virt (DT)
+  Call trace:
+   _raw_spin_lock+0xe4/0x19c
+   binder_free_buf+0x128/0x434
+   binder_thread_write+0x8a4/0x3260
+   binder_ioctl+0x18f0/0x258c
+  [...]
+
+  Allocated by task 743:
+   __kmalloc_cache_noprof+0x110/0x270
+   binder_new_node+0x50/0x700
+   binder_transaction+0x413c/0x6da8
+   binder_thread_write+0x978/0x3260
+   binder_ioctl+0x18f0/0x258c
+  [...]
+
+  Freed by task 745:
+   kfree+0xbc/0x208
+   binder_thread_read+0x1c5c/0x37d4
+   binder_ioctl+0x16d8/0x258c
+  [...]
+  ==================================================================
+
+To avoid this issue, let's check that the raw data copy is within the
+boundaries of the data section.
+
+## References
+- https://git.kernel.org/stable/c/109e845c1184c9f786d41516348ba3efd9112792
+- https://git.kernel.org/stable/c/1f33d9f1d9ac3f0129f8508925000900c2fe5bb0
+- https://git.kernel.org/stable/c/3a8154bb4ab4a01390a3abf1e6afac296e037da4
+- https://git.kernel.org/stable/c/4df153652cc46545722879415937582028c18af5
+- https://git.kernel.org/stable/c/4f79e0b80dc69bd5eaaed70f0df1b558728b4e59
+- https://git.kernel.org/stable/c/5a32bfd23022ffa7e152f273fa3fa29befb7d929
+- https://git.kernel.org/stable/c/eef79854a04feac5b861f94d7b19cbbe79874117
+- https://lists.debian.org/debian-lts-announce/2024/10/msg00003.html
+- https://lists.debian.org/debian-lts-announce/2025/01/msg00001.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/46xxx/CVE-2024-46740.json
+- https://nvd.nist.gov/vuln/detail/CVE-2024-46740
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

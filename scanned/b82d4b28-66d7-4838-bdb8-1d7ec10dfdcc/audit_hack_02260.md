@@ -1,0 +1,15 @@
+# [M] Incorrect refund of spamDeletionProposalBond
+
+## Summary
+Severity: Medium
+Source: https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol
+Type: audit-issue
+
+## Details
+In the [VotingV2.sol](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol) contract the [spamDeletionProposalBond](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol#L152) determines the amount of `votingToken` the caller transfers to the contract upon calling [signalRequestsAsSpamForDeletion](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol#L950). An amount of `votingToken` determined by the same variable is either sent back to the initial requester or to the `OracleInterfaces.Store` contract upon calling `executeSpamDeletion`. Independently, the contract owner is able to call `setSpamDeletionProposalBond` anytime.
+
+If the owner mistakenly calls `setSpamDeletionProposalBond` between a spam deletion request and its execution, the value of the refunded bond will differ from the originally submitted bond, thereby leading to a loss for either the original requester or the `VotingV2` contract.
+
+Consider adding a new `uint256 bond` parameter to the [SpamDeletionRequest](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol#L154) struct to record the bond amount at the time a specific request was submitted, and using this value during the call to `executeSpamDeletion`.
+
+**Update:** _Partially fixed in commit [52b32d4e1f6f7262228b7c3d7f1fa00b95c4d4b2](https://github.com/UMAprotocol/protocol/pull/4065/commits/52b32d4e1f6f7262228b7c3d7f1fa00b95c4d4b2) of [pull request #4065](https://github.com/UMAprotocol/protocol/pull/4065). Our recommendation has been adopted in the case of a successful `spamDeletionProposal`. However, in the case of unsuccesful proposal, the amount sent to the store contract remains affected._

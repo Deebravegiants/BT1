@@ -1,0 +1,30 @@
+# [M] CVE-2018-7757
+
+## Summary
+Severity: Medium
+Advisory: CVE-2018-7757
+CVSS: 5.5 (CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2018-03-08
+Source: https://osv.dev/vulnerability/CVE-2018-7757
+Type: osv
+
+## Details
+Memory leak in the sas_smp_get_phy_events function in drivers/scsi/libsas/sas_expander.c in the Linux kernel through 4.15.7 allows local users to cause a denial of service (memory consumption) via many read accesses to files in the /sys/class/sas_phy directory, as demonstrated by the /sys/class/sas_phy/phy-1:0:12/invalid_dword_count file.
+
+## References
+- https://usn.ubuntu.com/3654-2/
+- https://usn.ubuntu.com/3698-2/
+- https://lists.debian.org/debian-lts-announce/2018/05/msg00000.html
+- https://usn.ubuntu.com/3697-2/
+- https://usn.ubuntu.com/3698-1/
+- https://usn.ubuntu.com/3654-1/
+- https://usn.ubuntu.com/3656-1/
+- https://usn.ubuntu.com/3697-1/
+- http://www.securityfocus.com/bid/103348
+- https://access.redhat.com/errata/RHSA-2018:2948
+- https://access.redhat.com/errata/RHSA-2018:3096
+- https://www.debian.org/security/2018/dsa-4187
+- https://www.debian.org/security/2018/dsa-4188
+- https://access.redhat.com/errata/RHSA-2018:3083
+- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=4a491b1ab11ca0556d2fda1ff1301e862a2d44c4
+- https://github.com/torvalds/linux/commit/4a491b1ab11ca0556d2fda1ff1301e862a2d44c4

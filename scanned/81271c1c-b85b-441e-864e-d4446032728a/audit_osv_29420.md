@@ -1,0 +1,15 @@
+# [C] CVE-2024-42327
+
+## Summary
+Severity: Critical
+Advisory: CVE-2024-42327
+CVSS: 9.9 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H)
+Published: 2024-11-27
+Source: https://osv.dev/vulnerability/CVE-2024-42327
+Type: osv
+
+## Details
+A non-admin user account on the Zabbix frontend with the default User role, or with any other role that gives API access can exploit this vulnerability. An SQLi exists in the CUser class in the addRelatedObjects function, this function is being called from the CUser.get function which is available for every user who has API access.
+
+## References
+- https://support.zabbix.com/browse/ZBX-25623

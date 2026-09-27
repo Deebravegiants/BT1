@@ -1,0 +1,21 @@
+# [H] OpenEXR: Heap out-of-bounds write in TiledRgbaInputFile via integer overflow on 32-bit (ILP32) builds
+
+## Summary
+Severity: High
+Advisory: CVE-2026-59186
+Aliases: GHSA-f667-c4wm-c8gq
+CVSS: 7.1 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:H)
+Published: 2026-08-25
+Source: https://osv.dev/vulnerability/CVE-2026-59186
+Type: osv
+
+## Details
+OpenEXR is the reference implementation and specification for the EXR image format, widely used in the motion picture industry. In versions before 3.2.11, 3.3.0 through 3.3.12, and 3.4.0 through 3.4.13, a crafted tiled EXR can trigger a heap out-of-bounds write on 32-bit/ILP32 builds when read through the public TiledRgbaInputFile RGBA API. The file uses a small 40x40 dataWindow but a 65537x65537 tile size. On ILP32, the Array2D<Rgba> tile-conversion buffer size calculation overflows, allocates a much smaller heap buffer, and tile decode writes past that allocation. This issue is fixed in versions 3.2.11, 3.3.13, and 3.4.14.
+
+## References
+- https://github.com/AcademySoftwareFoundation/openexr/security/advisories/GHSA-f667-c4wm-c8gq
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/59xxx/CVE-2026-59186.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-59186
+- https://github.com/AcademySoftwareFoundation/openexr/commit/71907b44ce9a1b05bf3934b8a7821752750731ab
+- https://github.com/AcademySoftwareFoundation/openexr/commit/904141d3a1f86327ad1e2b93fc92ce2dd5881d34
+- https://github.com/AcademySoftwareFoundation/openexr/commit/b1a5887372772d79328f4eb42b7f86352a38170b

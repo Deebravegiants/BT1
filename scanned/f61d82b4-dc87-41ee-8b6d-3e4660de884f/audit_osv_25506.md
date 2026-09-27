@@ -1,0 +1,57 @@
+# [M] Excessive time spent checking DH q parameter value
+
+## Summary
+Severity: Medium
+Advisory: CVE-2023-3817
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L)
+Published: 2023-07-31
+Source: https://osv.dev/vulnerability/CVE-2023-3817
+Type: osv
+
+## Details
+Issue summary: Checking excessively long DH keys or parameters may be very slow.
+
+Impact summary: Applications that use the functions DH_check(), DH_check_ex()
+or EVP_PKEY_param_check() to check a DH key or DH parameters may experience long
+delays. Where the key or parameters that are being checked have been obtained
+from an untrusted source this may lead to a Denial of Service.
+
+The function DH_check() performs various checks on DH parameters. After fixing
+CVE-2023-3446 it was discovered that a large q parameter value can also trigger
+an overly long computation during some of these checks. A correct q value,
+if present, cannot be larger than the modulus p parameter, thus it is
+unnecessary to perform these checks if q is larger than p.
+
+An application that calls DH_check() and supplies a key or parameters obtained
+from an untrusted source could be vulnerable to a Denial of Service attack.
+
+The function DH_check() is itself called by a number of other OpenSSL functions.
+An application calling any of those other functions may similarly be affected.
+The other functions affected by this are DH_check_ex() and
+EVP_PKEY_param_check().
+
+Also vulnerable are the OpenSSL dhparam and pkeyparam command line applications
+when using the "-check" option.
+
+The OpenSSL SSL/TLS implementation is not affected by this issue.
+
+The OpenSSL 3.0 and 3.1 FIPS providers are not affected by this issue.
+
+## References
+- http://seclists.org/fulldisclosure/2023/Jul/43
+- http://www.openwall.com/lists/oss-security/2023/07/31/1
+- http://www.openwall.com/lists/oss-security/2023/09/22/11
+- http://www.openwall.com/lists/oss-security/2023/09/22/9
+- http://www.openwall.com/lists/oss-security/2023/11/06/2
+- https://lists.debian.org/debian-lts-announce/2023/08/msg00019.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/3xxx/CVE-2023-3817.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-3817
+- https://security.gentoo.org/glsa/202402-08
+- https://security.netapp.com/advisory/ntap-20230818-0014/
+- https://security.netapp.com/advisory/ntap-20231027-0008/
+- https://security.netapp.com/advisory/ntap-20240621-0006/
+- https://www.openssl.org/news/secadv/20230731.txt
+- https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=6a1eb62c29db6cb5eec707f9338aee00f44e26f5
+- https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=869ad69aadd985c7b8ca6f4e5dd0eb274c9f3644
+- https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=9002fd07327a91f35ba6c1307e71fa6fd4409b7f
+- https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=91ddeba0f2269b017dc06c46c993a788974b1aa5

@@ -1,0 +1,21 @@
+# [H] Heap out of bounds write in `RaggedBinCount`
+
+## Summary
+Severity: High
+Advisory: BIT-tensorflow-2021-29514
+Aliases: CVE-2021-29514, GHSA-8h46-5m9h-7553, PYSEC-2021-151, PYSEC-2021-442, PYSEC-2021-640
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-tensorflow-2021-29514
+Type: osv
+
+## Affected
+- Bitnami: `tensorflow` — affected >=2.4.0 <2.4.2
+
+## Details
+TensorFlow is an end-to-end open source platform for machine learning. If the `splits` argument of `RaggedBincount` does not specify a valid `SparseTensor`(https://www.tensorflow.org/api_docs/python/tf/sparse/SparseTensor), then an attacker can trigger a heap buffer overflow. This will cause a read from outside the bounds of the `splits` tensor buffer in the implementation of the `RaggedBincount` op(https://github.com/tensorflow/tensorflow/blob/8b677d79167799f71c42fd3fa074476e0295413a/tensorflow/core/kernels/bincount_op.cc#L430-L446). Before the `for` loop, `batch_idx` is set to 0. The attacker sets `splits(0)` to be 7, hence the `while` loop does not execute and `batch_idx` remains 0. This then results in writing to `out(-1, bin)`, which is before the heap allocated buffer for the output tensor. The fix will be included in TensorFlow 2.5.0. We will also cherrypick this commit on TensorFlow 2.4.2 and TensorFlow 2.3.3, as these are also affected.
+
+## References
+- https://github.com/tensorflow/tensorflow/commit/eebb96c2830d48597d055d247c0e9aebaea94cd5
+- https://github.com/tensorflow/tensorflow/security/advisories/GHSA-8h46-5m9h-7553
+- https://nvd.nist.gov/vuln/detail/CVE-2021-29514

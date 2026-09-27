@@ -1,0 +1,21 @@
+# [M] FUXA: SSRF hardening for `device-webapi-request`
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-65985
+Aliases: GHSA-wrg6-49wh-46pw
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N)
+Published: 2026-08-18
+Source: https://osv.dev/vulnerability/CVE-2026-65985
+Type: osv
+
+## Details
+FUXA is a web-based Process Visualization (SCADA/HMI/Dashboard) software. In 1.3.2 and earlier, the device-webapi-request Socket.IO handler in server/runtime/index.js permits an authenticated non-admin runtime user to control property.address, causing the FUXA server to issue an outbound HTTP or HTTPS request and return the response body to the requesting socket. The attacker can use the server as a read SSRF oracle against reachable internal services or cloud metadata endpoints, with impact depending on the FUXA host's deployment network. This issue is fixed in version 1.3.3.
+
+## References
+- https://github.com/frangoteam/FUXA/releases/tag/v1.3.3
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/65xxx/CVE-2026-65985.json
+- https://github.com/frangoteam/FUXA/security/advisories/GHSA-wrg6-49wh-46pw
+- https://nvd.nist.gov/vuln/detail/CVE-2026-65985
+- https://github.com/frangoteam/FUXA/commit/4fa47d0a2a856ed34f427f472fb4450f86e7749b
+- https://github.com/frangoteam/FUXA/pull/2379

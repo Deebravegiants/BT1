@@ -1,0 +1,29 @@
+# [M] CVE-2019-11555
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-11555
+CVSS: 5.9 (CVSS:3.0/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2019-04-26
+Source: https://osv.dev/vulnerability/CVE-2019-11555
+Type: osv
+
+## Details
+The EAP-pwd implementation in hostapd (EAP server) before 2.8 and wpa_supplicant (EAP peer) before 2.8 does not validate fragmentation reassembly state properly for a case where an unexpected fragment could be received. This could result in process termination due to a NULL pointer dereference (denial of service). This affects eap_server/eap_server_pwd.c and eap_peer/eap_pwd.c.
+
+## References
+- https://seclists.org/bugtraq/2019/May/40
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/IQ6P2GI5GSXRNLNIUNPARFZQVDEIGVZD/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/5T7G763UECWR7FQXOJVL67PW7C5A3SA4/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/DJKZHAT5KPUN26JL77EUH563GAH5XZ5C/
+- https://seclists.org/bugtraq/2019/May/64
+- https://lists.debian.org/debian-lts-announce/2019/07/msg00030.html
+- https://usn.ubuntu.com/3969-1/
+- https://usn.ubuntu.com/3969-2/
+- https://security.gentoo.org/glsa/201908-25
+- https://www.debian.org/security/2019/dsa-4450
+- https://w1.fi/security/2019-5/eap-pwd-message-reassembly-issue-with-unexpected-fragment.txt
+- https://security.FreeBSD.org/advisories/FreeBSD-SA-19:03.wpa.asc
+- https://w1.fi/security/2019-5/
+- https://www.openwall.com/lists/oss-security/2019/04/18/6
+- http://www.openwall.com/lists/oss-security/2019/04/26/1

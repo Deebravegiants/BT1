@@ -1,0 +1,36 @@
+# [H] Apache Kafka: Potential incorrect access control during migration from ZK mode to KRaft mode
+
+## Summary
+Severity: High
+Advisory: GHSA-79vv-vp32-gpp7
+CVE: CVE-2024-27309
+CWE: CWE-863
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:N (CVSS_V3)
+Published: 2024-04-12
+Source: https://github.com/advisories/GHSA-79vv-vp32-gpp7
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.kafka:kafka-metadata` — affected >=3.5.0 <3.6.2
+
+## Details
+While an Apache Kafka cluster is being migrated from ZooKeeper mode to KRaft mode, in some cases ACLs will not be correctly enforced.
+
+Two preconditions are needed to trigger the bug:
+1. The administrator decides to remove an ACL
+2. The resource associated with the removed ACL continues to have two or more other ACLs associated with it after the removal.
+
+When those two preconditions are met, Kafka will treat the resource as if it had only one ACL associated with it after the removal, rather than the two or more that would be correct.
+
+The incorrect condition is cleared by removing all brokers in ZK mode, or by adding a new ACL to the affected resource. Once the migration is completed, there is no metadata loss (the ACLs all remain).
+
+The full impact depends on the ACLs in use. If only ALLOW ACLs were configured during the migration, the impact would be limited to availability impact. if DENY ACLs were configured, the impact could include confidentiality and integrity impact depending on the ACLs configured, as the DENY ACLs might be ignored due to this vulnerability during the migration period.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2024-27309
+- https://github.com/apache/kafka/commit/c000b1fae2bd7d4b76713a53508f128a13431ab6
+- https://github.com/apache/kafka
+- https://lists.apache.org/thread/6536rmzyg076lzzdw2xdktvnz163mjpy
+- https://security.netapp.com/advisory/ntap-20240705-0002
+- http://www.openwall.com/lists/oss-security/2024/04/12/3

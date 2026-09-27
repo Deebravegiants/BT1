@@ -1,0 +1,52 @@
+# [H] Precision loss to estimated realized profit/loss calculation in DecreasePositionUtils.decreasePosition()
+
+## Summary
+Severity: High
+Reporter: dacian
+Source: https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/position/PositionUtils.sol#L220
+Type: audit-issue
+
+## Details
+# Precision loss to estimated realized profit/loss calculation in DecreasePositionUtils.decreasePosition()
+
+## Summary
+One code path in DecreasePositionUtils.decreasePosition() can result in precision loss to the estimated realized profit/loss calculation.
+
+## Vulnerability Detail
+Firstly note that PositionUtils.getPositionPnlUsd() performs at least 1 division in [L220](https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/position/PositionUtils.sol#L220) on the value returned:
+
+```solidity
+cache.positionPnlUsd = cache.totalPositionPnl * cache.sizeDeltaInTokens.toInt256() / position.sizeInTokens().toInt256();
+
+return (cache.positionPnlUsd, cache.sizeDeltaInTokens);
+```
+
+Now consider [DecreasePositionUtils.decreasePosition() L95-104](https://github.com/sherlock-audit/2023-04-gmx/blob/main/gmx-synthetics/contracts/position/DecreasePositionUtils.sol#L95-L104):
+
+```solidity
+(cache.estimatedPositionPnlUsd, /* uint256 sizeDeltaInTokens */) = PositionUtils.getPositionPnlUsd(
+	params.contracts.dataStore,
+	params.market,
+	cache.prices,
+	params.position,
+	cache.prices.indexTokenPrice.pickPriceForPnl(params.position.isLong(), false),
+	params.position.sizeInUsd()
+);
+
+/*L104*/ cache.estimatedRealizedPnlUsd 
+	= cache.estimatedPositionPnlUsd * params.order.sizeDeltaUsd().toInt256() / params.position.sizeInUsd().toInt256();
+```
+
+When calculating ``cache.estimatedRealizedPnlUsd`` L104 performs multiplication upon ``cache.estimatedPositionPnlUsd`` which is the return value of PositionUtils.getPositionPnlUsd() that has already had division performed on it; this results in precision loss due to [Division Before Multiplication](https://dacian.me/precision-loss-errors#heading-division-before-multiplication). Due to the precision loss that also exists in PositionUtils.getPositionPnlUsd() (see my other issue) this is especially bad as the precision loss here gets compounded.
+
+## Impact
+If params.order.sizeDeltaUsd() < params.position.sizeInUsd(), precision loss will always occur while calculating a position's estimated realized profit/loss when attempting to decrease a position. ``cache.estimatedRealizedPnlUsd`` is then used to check whether the collateral is sufficient which could return the wrong result due to the precision loss.
+
+## Code Snippet
+See above.
+
+## Tool used
+Manual Review
+
+## Recommendation
+Refactor to avoid Division Before Multiplication.

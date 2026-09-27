@@ -1,0 +1,42 @@
+# [H] Lack of recipient status check in `DonationVotingMerkleDistributionBaseStrategy#distribute()`
+
+## Summary
+Severity: High
+Reporter: Tart Citron Platypus
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/donation-voting-merkle-base/DonationVotingMerkleDistributionBaseStrategy.sol#L774-L800
+Type: audit-issue
+
+## Details
+# Lack of recipient status check in `DonationVotingMerkleDistributionBaseStrategy#distribute()`
+
+## Vulnerability Detail
+
+`DonationVotingMerkleDistributionBaseStrategy#distribute()` does not require the recipient's status to be `Accepted`:
+
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/donation-voting-merkle-base/DonationVotingMerkleDistributionBaseStrategy.sol#L774-L800
+
+In comparison, `_allocate()` requires the recipient status to be `Accepted`:
+
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/strategies/donation-voting-merkle-base/DonationVotingMerkleDistributionBaseStrategy.sol#L640-L664
+
+## Impact
+
+This may result in the pool manager distributing funds to a non-approved recipient.
+
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Consider adding the check to require recipient status to be Accepted in `_distributeSingle()`:
+
+```solidity
+    // If the recipient status is not 'Accepted' this will revert, the recipient must be accepted through registration
+    if (Status(_getUintRecipientStatus(recipientId)) != Status.Accepted) {
+        revert RECIPIENT_ERROR(recipientId);
+    }
+```

@@ -1,0 +1,17 @@
+# [M] CVE-2019-12586
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-12586
+CVSS: 6.5 (CVSS:3.0/AV:A/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2019-09-04
+Source: https://osv.dev/vulnerability/CVE-2019-12586
+Type: osv
+
+## Details
+The EAP peer implementation in Espressif ESP-IDF 2.0.0 through 4.0.0 and ESP8266_NONOS_SDK 2.2.0 through 3.1.0 processes EAP Success messages before any EAP method completion or failure, which allows attackers in radio range to cause a denial of service (crash) via a crafted message.
+
+## References
+- https://github.com/espressif
+- https://matheus-garbelini.github.io/home/post/esp32-esp8266-eap-crash/
+- https://github.com/Matheus-Garbelini/esp32_esp8266_attacks

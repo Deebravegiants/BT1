@@ -1,0 +1,15 @@
+# [C] CVE-2018-9127
+
+## Summary
+Severity: Critical
+Advisory: CVE-2018-9127
+CVSS: 9.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2018-04-02
+Source: https://osv.dev/vulnerability/CVE-2018-9127
+Type: osv
+
+## Details
+Botan 2.2.0 - 2.4.0 (fixed in 2.5.0) improperly handled wildcard certificates and could accept certain certificates as valid for hostnames when, under RFC 6125 rules, they should not match. This only affects certificates issued to the same domain as the host, so to impersonate a host one must already have a wildcard certificate matching other hosts in the same domain. For example, b*.example.com would match some hostnames that do not begin with a 'b' character.
+
+## References
+- https://botan.randombit.net/security.html

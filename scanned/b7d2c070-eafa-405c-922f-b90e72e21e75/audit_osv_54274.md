@@ -1,0 +1,18 @@
+# [H] CVE-2023-4585
+
+## Summary
+Severity: High
+Advisory: CVE-2023-4585
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2023-09-11
+Source: https://osv.dev/vulnerability/CVE-2023-4585
+Type: osv
+
+## Details
+Memory safety bugs present in Firefox 116, Firefox ESR 115.1, and Thunderbird 115.1. Some of these bugs showed evidence of memory corruption and we presume that with enough effort some of these could have been exploited to run arbitrary code. This vulnerability affects Firefox < 117, Firefox ESR < 115.2, and Thunderbird < 115.2.
+
+## References
+- https://www.mozilla.org/security/advisories/mfsa2023-38/
+- https://www.mozilla.org/security/advisories/mfsa2023-34/
+- https://www.mozilla.org/security/advisories/mfsa2023-36/
+- https://bugzilla.mozilla.org/buglist.cgi?bug_id=1751583%2C1841082%2C1847904%2C1848999

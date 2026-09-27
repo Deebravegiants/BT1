@@ -1,0 +1,34 @@
+# [H] CVE-2016-4998
+
+## Summary
+Severity: High
+Advisory: CVE-2016-4998
+CVSS: 7.1 (CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:H)
+Published: 2016-07-03
+Source: https://osv.dev/vulnerability/CVE-2016-4998
+Type: osv
+
+## Details
+The IPT_SO_SET_REPLACE setsockopt implementation in the netfilter subsystem in the Linux kernel before 4.6 allows local users to cause a denial of service (out-of-bounds read) or possibly obtain sensitive information from kernel heap memory by leveraging in-container root access to provide a crafted offset value that leads to crossing a ruleset blob boundary.
+
+## References
+- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=6e94e0cfb0887e4013b3b930fa6ab1fe6bb6ba91
+- http://lists.opensuse.org/opensuse-security-announce/2016-08/msg00055.html
+- http://www.openwall.com/lists/oss-security/2016/06/24/5
+- http://lists.opensuse.org/opensuse-security-announce/2016-08/msg00044.html
+- http://www.oracle.com/technetwork/topics/security/linuxbulletinoct2016-3090545.html
+- http://www.securitytracker.com/id/1036171
+- http://www.oracle.com/technetwork/topics/security/ovmbulletinoct2016-3090547.html
+- http://www.securityfocus.com/bid/91451
+- http://www.ubuntu.com/usn/USN-3017-3
+- http://www.ubuntu.com/usn/USN-3018-1
+- http://www.ubuntu.com/usn/USN-3018-2
+- http://www.ubuntu.com/usn/USN-3019-1
+- http://rhn.redhat.com/errata/RHSA-2016-1875.html
+- http://www.ubuntu.com/usn/USN-3016-3
+- http://rhn.redhat.com/errata/RHSA-2017-0036.html
+- http://www.oracle.com/technetwork/topics/security/linuxbulletinjul2016-3090544.html
+- http://www.ubuntu.com/usn/USN-3016-2
+- http://www.ubuntu.com/usn/USN-3020-1
+- http://rhn.redhat.com/errata/RHSA-2016-1883.html
+- http://www.debian.org/security/2016/dsa-3607

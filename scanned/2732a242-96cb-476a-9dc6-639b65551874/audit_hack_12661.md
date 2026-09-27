@@ -1,0 +1,32 @@
+# [H] Unprotected withdrawal amount
+
+## Summary
+Severity: High
+Reporter: wangxx2026
+Source: https://github.com/sherlock-audit/2023-06-dodo/blob/main/new-dodo-v3/contracts/DODOV3MM/periphery/D3Proxy.sol#L198-L203
+Type: audit-issue
+
+## Details
+# Unprotected withdrawal amount
+
+## Summary
+
+Unprotected withdrawal amount
+
+## Vulnerability Detail
+
+Anyone may withdraw the balance that the user has not withdrawn in time, and it is very dangerous if the assets obtained by the user are not withdrawn in time，and no reentrancy protection
+
+## Impact
+
+Anyone may withdraw the balance that the user has not withdrawn in time, and it is very dangerous if the assets obtained by the user are not withdrawn in time
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-06-dodo/blob/main/new-dodo-v3/contracts/DODOV3MM/periphery/D3Proxy.sol#L198-L203
+
+## Tool used
+
+Manual Review
+
+## Recommendation

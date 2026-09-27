@@ -1,0 +1,26 @@
+# [M] Depending on the type of ERC20, the process can proceed even if the collateral withdrawal fails.
+
+## Summary
+Severity: Medium
+Reporter: innertia
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L166
+Type: audit-issue
+
+## Details
+# Depending on the type of ERC20, the process can proceed even if the collateral withdrawal fails.
+
+## Summary
+Some tokens do not revert on failure, but instead return false (e.g. ZRX).
+Since there is no return value check when withdrawing collateral, such tokens allow the process to proceed even if the withdrawal fails. As a result, the borrower/lender will not be able to withdraw the collateral.
+## Vulnerability Detail
+There is no return value check on the `transfer` of ERC20 of `_withdrawCollateral` in `CollateralEscrowV1`. Therefore, transfer failure cannot be caught.
+## Impact
+Collateral is forever stuck in the contract.
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L166
+## Tool used
+
+Manual Review
+
+## Recommendation
+Check the return value; use safeTransfer.

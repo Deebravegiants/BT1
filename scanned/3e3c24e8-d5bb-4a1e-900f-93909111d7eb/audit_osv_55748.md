@@ -1,0 +1,52 @@
+# [H] Unbounded page slicing from attacker-controlled CSS height causes denial of service
+
+## Summary
+Severity: High
+Advisory: RUSTSEC-2026-0200
+Aliases: GHSA-j5cx-ph8g-95v3
+Ecosystem: crates.io
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-07-05
+Source: https://osv.dev/vulnerability/RUSTSEC-2026-0200
+Type: osv
+
+## Affected
+- crates.io: `fulgur` — affected >=0.0.0-0 <0.19.0
+
+## Details
+`fulgur` converts untrusted HTML/CSS into PDF, commonly on a server that
+processes input supplied by many tenants. In versions prior to 0.19.0, a
+body-direct child whose CSS-resolved height greatly exceeds the page height was
+sliced into one fragment per page with no upper bound.
+
+The height is taken directly from attacker-controlled HTML/CSS (`height`, `vh`
+units), so a few bytes such as `<div style="height:99999999px"></div>` forced on
+the order of 125,000 page fragments. The pagination code then allocates
+`vec![Vec::new(); page_count]` and runs a per-page render loop, resulting in CPU
+and memory exhaustion. A non-finite height (one that resolves to `+inf`)
+additionally made the slicing loop's `remaining -= last_slice_h` decrement never
+terminate, causing an infinite loop.
+
+An attacker able to submit HTML/CSS to a fulgur-based conversion service can
+trigger this with a trivially small payload, denying service to the host and any
+co-tenants.
+
+Fixed in 0.19.0: a `MAX_PAGES` cap bounds the slice loop — halting it even for a
+`+inf` height — and non-finite layout heights are sanitized so they can no
+longer drive the loop.
+
+## Attack Vector rationale
+
+`fulgur` performs no network I/O of its own; it renders HTML/CSS handed to it by
+the embedding application. This advisory scores the crate independent of any
+specific adopting program, so per the CVSS v3.1 User Guide §3.7 the Attack
+Vector is assessed as Network for the reasonable worst-case deployment — a
+network-facing service that renders untrusted HTML without user interaction. A
+concrete system that receives the HTML in one component and passes it to fulgur
+in a separate component may assess a lower environmental Attack Vector (Local,
+per §3.10).
+
+## References
+- https://crates.io/crates/fulgur
+- https://rustsec.org/advisories/RUSTSEC-2026-0200.html
+- https://github.com/fulgur-rs/fulgur/security/advisories/GHSA-j5cx-ph8g-95v3

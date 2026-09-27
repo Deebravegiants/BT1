@@ -1,0 +1,41 @@
+# [M] Multipool and Dispatcher don't have slippage or timestamp protection
+
+## Summary
+Severity: Medium
+Reporter: kutugu
+Source: https://github.com/sherlock-audit/2023-06-real-wagmi/blob/82a234a5c2c1fc1921c63265a9349b71d84675c4/concentrator/contracts/Multipool.sol#L433
+Type: audit-issue
+
+## Details
+# Multipool and Dispatcher don't have slippage or timestamp protection
+
+## Summary
+
+Multipool's deposit and withdraw have slippage protection, but no timestamp protection.
+The Dispatcher calculates the expected amount at execution time and passes it into the Multipool as a minimum, which is not protected as a slippage and has no timestamp protection.
+
+## Vulnerability Detail
+
+On blockchains with low network throughput, transactions may remain in the mempool for a long time. Without expiration time checks, resulting in transactions that may be executed over a long period of time, which may not meet user expectations.     
+
+Slippage problems need to be listed separately:
+- For Multipool's deposit, there is no slippage for lpAmount, but reverse can be manipulated by manipulating the slot0 price to affect the lpAmount amount and bring losses to users' funds. This is related to price manipulation, which is submitted as another question.  
+- For Multipool's withdraw, there's a slippage protection, no problem
+- For Dispather's deposit and withdraw, only withdraw fee, so the slippage protection may be ignored.
+
+## Impact
+
+The user's trades may delay for a long time to execute, market fluctuations or sandwich attacks, if the user sets a very low slippage, it may cause a loss of funds.
+
+## Code Snippet
+
+- https://github.com/sherlock-audit/2023-06-real-wagmi/blob/82a234a5c2c1fc1921c63265a9349b71d84675c4/concentrator/contracts/Multipool.sol#L433
+- https://github.com/sherlock-audit/2023-06-real-wagmi/blob/82a234a5c2c1fc1921c63265a9349b71d84675c4/concentrator/contracts/Multipool.sol#L557
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add expiration time check and slippage protection

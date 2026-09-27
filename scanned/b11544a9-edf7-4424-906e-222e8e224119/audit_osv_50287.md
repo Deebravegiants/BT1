@@ -1,0 +1,18 @@
+# [M] CVE-2020-10781
+
+## Summary
+Severity: Medium
+Advisory: CVE-2020-10781
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2020-09-16
+Source: https://osv.dev/vulnerability/CVE-2020-10781
+Type: osv
+
+## Details
+A flaw was found in the Linux Kernel before 5.8-rc6 in the ZRAM kernel module, where a user with a local account and the ability to read the /sys/class/zram-control/hot_add file can create ZRAM device nodes in the /dev/ directory. This read allocates kernel memory and is not accounted for a user that triggers the creation of that ZRAM device. With this vulnerability, continually reading the device may consume a large amount of system memory and cause the Out-of-Memory (OOM) killer to activate and terminate random userspace processes, possibly making the system inoperable.
+
+## References
+- https://lists.debian.org/debian-lts-announce/2020/09/msg00025.html
+- https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2020-10781
+- https://www.openwall.com/lists/oss-security/2020/06/18/1
+- https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=853eab68afc80f59f36bbdeb715e5c88c501e680

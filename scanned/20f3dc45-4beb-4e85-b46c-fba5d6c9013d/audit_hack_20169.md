@@ -1,0 +1,29 @@
+# [M] Plaform fee should round up
+
+## Summary
+Severity: Medium
+Reporter: Icy Bronze Mammoth
+Source: https://github.com/sherlock-audit/2024-02-leverage-contracts/blob/main/wagmi-leverage/contracts/LiquidityBorrowingManager.sol#L1054
+Type: audit-issue
+
+## Details
+# Plaform fee should round up
+
+## Summary
+plaform fee should round up
+
+## Vulnerability Detail
+
+## Impact
+
+Protocol takes platform fee and gives the remaining to the lps however plaform fee doesn't round up
+
+## Code Snippet
+https://github.com/sherlock-audit/2024-02-leverage-contracts/blob/main/wagmi-leverage/contracts/LiquidityBorrowingManager.sol#L1054
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+plaform fee  should always round up

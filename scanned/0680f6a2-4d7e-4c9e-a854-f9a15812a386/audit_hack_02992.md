@@ -1,0 +1,27 @@
+# [M] TimeLockPool#deposit allow burning shares
+
+## Summary
+Severity: Medium
+Reporter: carlitox477
+Source: https://github.com/sherlock-audit/2022-10-merit-circle/blob/main/merit-liquidity-mining/contracts/TimeLockPool.sol#L85
+Type: audit-issue
+
+## Details
+# TimeLockPool#deposit allow burning shares
+
+## Summary
+This can be done by setting ```_receiver=address(0)``` leading to lost of users deposit token
+
+## Vulnerability Detail
+Calling [deposit](https://github.com/sherlock-audit/2022-10-merit-circle/blob/main/merit-liquidity-mining/contracts/TimeLockPool.sol#L85) with ```_receiver=address(0)```  will allow ```msg.sender``` to send their deposit token to address zero.
+
+## Impact
+Allows users to burn their rewards
+
+## Code Snippet
+
+## Tool used
+Manual Review
+
+## Recommendation
+Add next require statement at the start of function [deposit](https://github.com/sherlock-audit/2022-10-merit-circle/blob/main/merit-liquidity-mining/contracts/TimeLockPool.sol#L85): ```require(_receiver != address(0))```

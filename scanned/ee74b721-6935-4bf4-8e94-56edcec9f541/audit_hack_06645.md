@@ -1,0 +1,31 @@
+# [M] Blacklisted users lose funds even if they are unblacklisted
+
+## Summary
+Severity: Medium
+Reporter: whoismatthewmc1
+Source: https://github.com/sherlock-audit/2023-02-telcoin/blob/main/telcoin-audit/contracts/stablecoin/Stablecoin.sol#L159-L163
+Type: audit-issue
+
+## Details
+# Blacklisted users lose funds even if they are unblacklisted
+
+## Summary
+When a user is blacklisted in `Stablecoin.sol`, `removeBlackFunds()` transfers all of the users' coins to the blacklister and they are not returned when the user is unblacklisted.
+
+## Vulnerability Detail
+A user `b` with `BLACKLISTER_ROLE` permissions can choose to blacklist a holder `h` of the Stablecoin by calling the `addBlackList()` function.
+This in turn calls `removeBlackFunds()`, which transfers the stablecoins from `h`'s wallet to `b`'s wallet.
+If `removeBlackList()` is called for user `h`, it stands to reason that `h` should be returned the funds that they had removed upon being blacklisted.
+
+## Impact
+Blacklisted user loses all of their funds even if blacklist is later removed.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-02-telcoin/blob/main/telcoin-audit/contracts/stablecoin/Stablecoin.sol#L159-L163
+
+## Tool used
+Manual Review
+
+## Recommendation
+Maintain a mapping of funds per address blacklisted and return if applicable on `removeBlackList()`.
+This can be achieved either by transferring to the contract itself or through the burn/mint mechanism.

@@ -1,0 +1,35 @@
+# [H] Malicious user can get excess rewards by flashloan and steal protocol's asset
+
+## Summary
+Severity: High
+Reporter: Joyous Heather Bobcat
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/rewarders/AbstractRewarder.sol#L204-L206
+Type: audit-issue
+
+## Details
+# Malicious user can get excess rewards by flashloan and steal protocol's asset
+## Summary
+
+Malicious user can get excess rewards by flashloan and steal protocol's asset.
+
+
+## Vulnerability Detail
+
+Function AbstractRewarder#earned() function is used to calculate reward of a user and is used by several contracts, including MainRewarder, ExtraRewarder and MaverickRewardsAdapter, the reward formula is: `(balanceOf(account) * (rewardPerToken() - userRewardPerTokenPaid[account]) / 1e18) + rewards[account];`, which means the `balanceOf` function can be manipulated by malicious user by flashloan and get excess rewards.
+
+
+## Impact
+
+Malicious user can get excess rewards by flashloan and steal protocol's asset.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-06-tokemak/blob/main/v2-core-audit-2023-07-14/src/rewarders/AbstractRewarder.sol#L204-L206
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Cache users's balance instead of calling `balanceOf(account)` function.

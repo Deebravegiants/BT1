@@ -1,0 +1,114 @@
+# [H] net: consume xmit errors of GSO frames
+
+## Summary
+Severity: High
+Advisory: CVE-2026-43194
+Ecosystem: Linux
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2026-05-06
+Source: https://osv.dev/vulnerability/CVE-2026-43194
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=3.18.0 <5.10.252, >=5.11.0 <5.15.202, >=5.16.0 <6.1.165, >=6.2.0 <6.6.128, >=6.7.0 <6.12.75, >=6.13.0 <6.18.16, >=6.19.0 <6.19.6
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+net: consume xmit errors of GSO frames
+
+udpgro_frglist.sh and udpgro_bench.sh are the flakiest tests
+currently in NIPA. They fail in the same exact way, TCP GRO
+test stalls occasionally and the test gets killed after 10min.
+
+These tests use veth to simulate GRO. They attach a trivial
+("return XDP_PASS;") XDP program to the veth to force TSO off
+and NAPI on.
+
+Digging into the failure mode we can see that the connection
+is completely stuck after a burst of drops. The sender's snd_nxt
+is at sequence number N [1], but the receiver claims to have
+received (rcv_nxt) up to N + 3 * MSS [2]. Last piece of the puzzle
+is that senders rtx queue is not empty (let's say the block in
+the rtx queue is at sequence number N - 4 * MSS [3]).
+
+In this state, sender sends a retransmission from the rtx queue
+with a single segment, and sequence numbers N-4*MSS:N-3*MSS [3].
+Receiver sees it and responds with an ACK all the way up to
+N + 3 * MSS [2]. But sender will reject this ack as TCP_ACK_UNSENT_DATA
+because it has no recollection of ever sending data that far out [1].
+And we are stuck.
+
+The root cause is the mess of the xmit return codes. veth returns
+an error when it can't xmit a frame. We end up with a loss event
+like this:
+
+  -------------------------------------------------
+  |   GSO super frame 1   |   GSO super frame 2   |
+  |-----------------------------------------------|
+  | seg | seg | seg | seg | seg | seg | seg | seg |
+  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
+  -------------------------------------------------
+     x    ok    ok    <ok>|  ok    ok    ok   <x>
+                          \\
+			   snd_nxt
+
+"x" means packet lost by veth, and "ok" means it went thru.
+Since veth has TSO disabled in this test it sees individual segments.
+Segment 1 is on the retransmit queue and will be resent.
+
+So why did the sender not advance snd_nxt even tho it clearly did
+send up to seg 8? tcp_write_xmit() interprets the return code
+from the core to mean that data has not been sent at all. Since
+TCP deals with GSO super frames, not individual segment the crux
+of the problem is that loss of a single segment can be interpreted
+as loss of all. TCP only sees the last return code for the last
+segment of the GSO frame (in <> brackets in the diagram above).
+
+Of course for the problem to occur we need a setup or a device
+without a Qdisc. Otherwise Qdisc layer disconnects the protocol
+layer from the device errors completely.
+
+We have multiple ways to fix this.
+
+ 1) make veth not return an error when it lost a packet.
+    While this is what I think we did in the past, the issue keeps
+    reappearing and it's annoying to debug. The game of whack
+    a mole is not great.
+
+ 2) fix the damn return codes
+    We only talk about NETDEV_TX_OK and NETDEV_TX_BUSY in the
+    documentation, so maybe we should make the return code from
+    ndo_start_xmit() a boolean. I like that the most, but perhaps
+    some ancient, not-really-networking protocol would suffer.
+
+ 3) make TCP ignore the errors
+    It is not entirely clear to me what benefit TCP gets from
+    interpreting the result of ip_queue_xmit()? Specifically once
+    the connection is established and we're pushing data - packet
+    loss is just packet loss?
+
+ 4) this fix
+    Ignore the rc in the Qdisc-less+GSO case, since it's unreliable.
+    We already always return OK in the TCQ_F_CAN_BYPASS case.
+    In the Qdisc-less case let's be a bit more conservative and only
+    mask the GSO errors. This path is taken by non-IP-"networks"
+    like CAN, MCTP etc, so we could regress some ancient thing.
+    This is the simplest, but also maybe the hackiest fix?
+
+Similar fix has been proposed by Eric in the past but never committed
+because original reporter was working with an OOT driver and wasn't
+providing feedback (see Link).
+
+## References
+- https://git.kernel.org/stable/c/0c9de092ef8c50a7ee9612811566f0aa81d8d7b6
+- https://git.kernel.org/stable/c/4cb163e9efcac4cd35c3043e097f25081a5c015c
+- https://git.kernel.org/stable/c/56bd32c0edca34041a5c215887fcf562fae2e2db
+- https://git.kernel.org/stable/c/7aa767d0d3d04e50ae94e770db7db8197f666970
+- https://git.kernel.org/stable/c/9ac6aebef4b4bfc5ed408b0b65645981574bc780
+- https://git.kernel.org/stable/c/ae3f627b45fbc3c776a4e484696f3cad7cbb4eca
+- https://git.kernel.org/stable/c/c86901d22c89a6bf4e2f013e948aaabc60869893
+- https://git.kernel.org/stable/c/ea5d7787635e26ec1194ec7eec0e8e5ae3bd10a5
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/43xxx/CVE-2026-43194.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-43194
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

@@ -1,0 +1,27 @@
+# [H] Uncontrolled Resource Consumption in urllib3
+
+## Summary
+Severity: High
+Advisory: GHSA-hmv2-79q8-fv6g
+CVE: CVE-2020-7212
+CWE: CWE-400
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2021-04-30
+Source: https://github.com/advisories/GHSA-hmv2-79q8-fv6g
+Type: github-advisory
+
+## Affected
+- PyPI: `urllib3` — affected >=1.25.2 <1.25.8
+
+## Details
+The _encode_invalid_chars function in util/url.py in the urllib3 library 1.25.2 through 1.25.7 for Python allows a denial of service (CPU consumption) because of an inefficient algorithm. The percent_encodings array contains all matches of percent encodings. It is not deduplicated. For a URL of length N, the size of percent_encodings may be up to O(N). The next step (normalize existing percent-encoded bytes) also takes up to O(N) for each step, so the total time is O(N^2). If percent_encodings were deduplicated, the time to compute _encode_invalid_chars would be O(kN), where k is at most 484 ((10+6*2)^2).
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2020-7212
+- https://github.com/urllib3/urllib3/commit/a74c9cfbaed9f811e7563cfc3dce894928e0221a
+- https://github.com/advisories/GHSA-hmv2-79q8-fv6g
+- https://github.com/pypa/advisory-database/tree/main/vulns/urllib3/PYSEC-2020-149.yaml
+- https://github.com/urllib3/urllib3
+- https://github.com/urllib3/urllib3/blob/master/CHANGES.rst
+- https://pypi.org/project/urllib3/1.25.8

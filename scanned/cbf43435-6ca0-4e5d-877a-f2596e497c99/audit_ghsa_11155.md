@@ -1,0 +1,46 @@
+# [M] NiceGUI's unvalidated chunk size parameter in media routes can cause memory exhaustion
+
+## Summary
+Severity: Medium
+Advisory: GHSA-w5g8-5849-vj76
+CVE: CVE-2026-33332
+CWE: CWE-20, CWE-770
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L (CVSS_V3)
+Published: 2026-03-19
+Source: https://github.com/advisories/GHSA-w5g8-5849-vj76
+Type: github-advisory
+
+## Affected
+- PyPI: `nicegui` — affected >=0 <3.9.0
+
+## Details
+## Summary
+
+NiceGUI's `app.add_media_file()` and `app.add_media_files()` media routes accept a user-controlled query parameter that influences how files are read during streaming. The parameter is passed to the range-response implementation without validation, allowing an attacker to bypass chunked streaming and force the server to load entire files into memory at once.
+
+With large media files and concurrent requests, this can lead to excessive memory consumption, degraded performance, or denial of service.
+
+## Impact
+
+**Affected applications:** NiceGUI applications that serve media content via `app.add_media_file()` or `app.add_media_files()`, particularly those serving large files (video, audio).
+
+**What an attacker can do:**
+- Force the server to load entire files into memory instead of streaming them in chunks
+- Amplify memory usage with concurrent requests to large media files
+- Cause performance degradation, memory pressure, and potential OOM conditions
+
+**Attack difficulty:** Low - requires only a crafted query parameter.
+
+## Remediation
+
+Upgrade to a patched version of NiceGUI.
+
+As a workaround, restrict access to media endpoints or strip unexpected query parameters at a reverse proxy layer.
+
+## References
+- https://github.com/zauberzeug/nicegui/security/advisories/GHSA-w5g8-5849-vj76
+- https://nvd.nist.gov/vuln/detail/CVE-2026-33332
+- https://github.com/zauberzeug/nicegui/commit/9026962b8c4f3f225c98b2fbc35aa6b60cb3495b
+- https://github.com/zauberzeug/nicegui
+- https://github.com/zauberzeug/nicegui/releases/tag/v3.9.0

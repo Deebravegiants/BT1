@@ -1,0 +1,37 @@
+# [M] Slippage control should use `shares` rather than `assets`
+
+## Summary
+Severity: Medium
+Reporter: __141345__
+Source: https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/tokens/ERC5095.sol#L194-L199
+Type: audit-issue
+
+## Details
+# Slippage control should use `shares` rather than `assets`
+
+## Summary
+
+In `mint()`, the slippage control parameter is using the underlying `assets`, but it should use the PT token `shares`.
+
+## Vulnerability Detail
+
+When `sellUnderlying()`, the token received is the PT token, the units to calculate the slippage should be the shares of PT token, rather than the underlying.
+
+## Impact
+
+- wrong value of PT token could be minted in big slippage, and lead to user fund loss.
+- the `mint()` could revert due to wrong slippage control.
+
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/tokens/ERC5095.sol#L194-L199
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Use `shares` rather than `assets`.

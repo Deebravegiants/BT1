@@ -1,0 +1,34 @@
+# [M] Unability to claim NFT payouts from OngoingBountyV1
+
+## Summary
+Severity: Medium
+Reporter: cergyk
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/OngoingBountyV1.sol#L96-L112
+Type: audit-issue
+
+## Details
+# Unability to claim NFT payouts from OngoingBountyV1
+
+## Summary
+Bounties of type Ongoing have the ability to receive funding in the form of NFTs, but it is not possible to claim them.
+
+## Vulnerability Detail
+See the code for claiming an ongoing bounty:
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/OngoingBountyV1.sol#L96-L112
+
+and:
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/ClaimManager/Implementations/ClaimManagerV1.sol#L173-L197
+
+Only erc20 payout is transferred.
+
+## Impact
+Funding with NFTs is useless in the context of an ongoing bounty.
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Revert on attempt of funding with an NFT on this type of bounty

@@ -1,0 +1,21 @@
+# [H] CVE-2018-14339
+
+## Summary
+Severity: High
+Advisory: CVE-2018-14339
+CVSS: 7.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2018-07-19
+Source: https://osv.dev/vulnerability/CVE-2018-14339
+Type: osv
+
+## Details
+In Wireshark 2.6.0 to 2.6.1, 2.4.0 to 2.4.7, and 2.2.0 to 2.2.15, the MMSE dissector could go into an infinite loop. This was addressed in epan/proto.c by adding offset and length validation.
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2020-03/msg00027.html
+- https://code.wireshark.org/review/gitweb?p=wireshark.git%3Ba=commit%3Bh=3b77c0a596a8071aebc1de71e3f79e5e15e919ca
+- http://www.securityfocus.com/bid/104847
+- http://www.securitytracker.com/id/1041608
+- https://lists.debian.org/debian-lts-announce/2018/07/msg00045.html
+- https://www.wireshark.org/security/wnpa-sec-2018-38.html
+- https://bugs.wireshark.org/bugzilla/show_bug.cgi?id=14738

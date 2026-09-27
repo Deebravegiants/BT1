@@ -1,0 +1,185 @@
+# [H] Authorization Vulnerability in Update Function
+
+## Summary
+Severity: High
+Reporter: Micro Ultraviolet Chipmunk
+Source: https://github.com/sherlock-audit/2023-07-perennial/blob/main/perennial-v2/packages/perennial/contracts/Market.sol#L76C5-L88C6
+Type: audit-issue
+
+## Details
+# Authorization Vulnerability in Update Function
+
+The update() function allows any external caller to modify state for arbitrary user accounts. This allows draining funds, manipulating positions, and forcing losses.
+
+## Vulnerability Detail
+
+- update() is marked external so any contract or user can call it
+- The account parameter allows passing any address
+- No checks to ensure msg.sender == account
+
+## Impact
+
+This allows:
+  - Draining collateral of any user
+  - Liquidating or manipulating any position
+  - Front-running transactions of any user
+  - Stealing fees owed to any user
+  - Forcing arbitrary losses on any position
+
+## Code Snippet
+FileName: <b>Market.sol</b>
+
+#### update()
+https://github.com/sherlock-audit/2023-07-perennial/blob/main/perennial-v2/packages/perennial/contracts/Market.sol#L76C5-L88C6
+
+```solidity
+    function update(
+        address account,
+        UFixed6 newMaker,
+        UFixed6 newLong,
+        UFixed6 newShort,
+        Fixed6 collateral,
+        bool protect
+    ) external nonReentrant whenNotPaused {
+        Context memory context = _loadContext(account);
+        _settle(context, account);
+        _update(context, account, newMaker, newLong, newShort, collateral, protect);
+        _saveContext(context, account);
+    }
+```
+
+#### _settle()
+https://github.com/sherlock-audit/2023-07-perennial/blob/main/perennial-v2/packages/perennial/contracts/Market.sol#L327C5-L364C6
+
+```solidity
+function _settle(Context memory context, address account) private {
+        context.latestPosition.global = _position.read();
+        context.latestPosition.local = _positions[account].read();
+
+        Position memory nextPosition;
+
+        // settle
+        while (
+            context.global.currentId != context.global.latestId &&
+            (nextPosition = _pendingPosition[context.global.latestId + 1].read()).ready(context.latestVersion)
+        ) _processPositionGlobal(context, context.global.latestId + 1, nextPosition);
+
+        while (
+            context.local.currentId != context.local.latestId &&
+            (nextPosition = _pendingPositions[account][context.local.latestId + 1].read())
+                .ready(context.latestVersion)
+        ) {
+            Fixed6 previousDelta = _pendingPositions[account][context.local.latestId].read().delta;
+            _processPositionLocal(context, account, context.local.latestId + 1, nextPosition);
+            _checkpointCollateral(context, account, previousDelta, nextPosition);
+        }
+
+        // sync
+        if (context.latestVersion.timestamp > context.latestPosition.global.timestamp) {
+            nextPosition = _pendingPosition[context.global.latestId].read();
+            nextPosition.sync(context.latestVersion);
+            _processPositionGlobal(context, context.global.latestId, nextPosition);
+        }
+
+        if (context.latestVersion.timestamp > context.latestPosition.local.timestamp) {
+            nextPosition = _pendingPositions[account][context.local.latestId].read();
+            nextPosition.sync(context.latestVersion);
+            _processPositionLocal(context, account, context.local.latestId, nextPosition);
+        }
+
+        _position.store(context.latestPosition.global);
+        _positions[account].store(context.latestPosition.local);
+    }
+```
+#### _update()
+https://github.com/sherlock-audit/2023-07-perennial/blob/main/perennial-v2/packages/perennial/contracts/Market.sol#L238C5-L322C6
+
+```solidity
+    function _update(
+        Context memory context,
+        address account,
+        UFixed6 newMaker,
+        UFixed6 newLong,
+        UFixed6 newShort,
+        Fixed6 collateral,
+        bool protect
+    ) private {
+        // read
+        context.currentPosition = _loadCurrentPositionContext(context, account);
+
+
+        // magic values
+        if (collateral.eq(Fixed6Lib.MIN)) collateral = context.local.collateral.mul(Fixed6Lib.NEG_ONE);
+        if (newMaker.eq(UFixed6Lib.MAX)) newMaker = context.currentPosition.local.maker;
+        if (newLong.eq(UFixed6Lib.MAX)) newLong = context.currentPosition.local.long;
+        if (newShort.eq(UFixed6Lib.MAX)) newShort = context.currentPosition.local.short;
+
+
+        // advance to next id if applicable
+        if (context.currentTimestamp > context.currentPosition.local.timestamp) {
+            context.local.currentId++;
+            context.currentPosition.local.prepare();
+        }
+        if (context.currentTimestamp > context.currentPosition.global.timestamp) {
+            context.global.currentId++;
+            context.currentPosition.global.prepare();
+        }
+
+
+        // update position
+        Order memory newOrder =
+            context.currentPosition.local.update(context.currentTimestamp, newMaker, newLong, newShort);
+        context.currentPosition.global.update(context.currentTimestamp, newOrder, context.riskParameter);
+
+
+        // update fee
+        newOrder.registerFee(context.latestVersion, context.marketParameter, context.riskParameter);
+        context.currentPosition.local.registerFee(newOrder);
+        context.currentPosition.global.registerFee(newOrder);
+
+
+        // update collateral
+        context.local.update(collateral);
+        context.currentPosition.local.update(collateral);
+
+
+        // protect account
+        bool protected = context.local.protect(context.latestPosition.local, context.currentTimestamp, protect);
+
+
+        // request version
+        if (!newOrder.isEmpty()) oracle.request(account);
+
+
+        // after
+        _invariant(context, account, newOrder, collateral, protected);
+
+
+        // store
+        _pendingPosition[context.global.currentId].store(context.currentPosition.global);
+        _pendingPositions[account][context.local.currentId].store(context.currentPosition.local);
+
+
+        // fund
+        if (collateral.sign() == 1) token.pull(msg.sender, UFixed18Lib.from(collateral.abs()));
+        if (collateral.sign() == -1) token.push(msg.sender, UFixed18Lib.from(collateral.abs()));
+
+
+        // events
+        emit Updated(account, context.currentTimestamp, newMaker, newLong, newShort, collateral, protect);
+    }
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Require caller to match account:
+
+```solidity
+require(msg.sender == account, "Must match account")
+
+```
+Restrict external access with onlyAuthorized modifier.

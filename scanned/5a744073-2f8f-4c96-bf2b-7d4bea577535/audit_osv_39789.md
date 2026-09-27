@@ -1,0 +1,17 @@
+# [M] CVE-2026-47358
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-47358
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:H/SI:N/SA:N)
+Published: 2026-05-19
+Source: https://osv.dev/vulnerability/CVE-2026-47358
+Type: osv
+
+## Details
+Terrascan v1.18.3 and prior are vulnerable to Server-Side Request Forgery (SSRF) via external URL resolution in uploaded IaC templates when running in server mode. When Terrascan parses uploaded ARM templates or CloudFormation templates, it resolves external URLs referenced within those templates via hashicorp/go-getter with all default detectors enabled, including FileDetector. An unauthenticated remote attacker can upload an ARM template containing a templateLink.uri or parametersLink.uri field, or a CloudFormation template containing an AWS::CloudFormation::Stack TemplateURL field, pointing to an attacker-controlled URL. Terrascan will fetch the attacker-controlled URL server-side. Unlike SSRF via the remote scan endpoint, file:// URLs are directly usable without requiring an X-Terraform-Get redirect, enabling local file read. This affects deployments running terrascan in server mode (terrascan server), which binds to 0.0.0.0 with no authentication. Note: Terrascan was archived in August 2023 and no patch will be released.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/47xxx/CVE-2026-47358.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-47358
+- https://github.com/tenable/terrascan

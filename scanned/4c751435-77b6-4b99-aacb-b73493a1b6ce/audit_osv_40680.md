@@ -1,0 +1,18 @@
+# [M] Daytona: Git credential leak via git clone with TLS verification disabled
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-54323
+Aliases: GHSA-375h-72g4-hc9c
+CVSS: 5.9 (CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:L/A:N)
+Published: 2026-06-23
+Source: https://osv.dev/vulnerability/CVE-2026-54323
+Type: osv
+
+## Details
+Daytona is a secure and elastic infrastructure runtime for AI-generated code execution and agent workflows. Prior to 0.185.0, the daemon's git clone implementation disabled TLS certificate verification. When a clone request carried Git credentials, the daemon sent the HTTP Basic Authorization header to the remote over a connection whose certificate was never validated, on both the go-git and native git CLI code paths. An attacker able to intercept clone traffic could present any TLS certificate, capture the Git credentials supplied for the clone, and serve tampered repository content into the sandbox.  This vulnerability is fixed in 0.185.0.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/54xxx/CVE-2026-54323.json
+- https://github.com/daytonaio/daytona/security/advisories/GHSA-375h-72g4-hc9c
+- https://nvd.nist.gov/vuln/detail/CVE-2026-54323

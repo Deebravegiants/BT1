@@ -1,0 +1,29 @@
+# [M] Missing Release of Memory after Effective Lifetime in Apache Tika
+
+## Summary
+Severity: Medium
+Advisory: GHSA-4pv3-63jw-4jw2
+CVE: CVE-2020-9489
+CWE: CWE-401, CWE-835
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2021-05-07
+Source: https://github.com/advisories/GHSA-4pv3-63jw-4jw2
+Type: github-advisory
+
+## Affected
+- Maven: `org.apache.tika:tika` — affected >=0 <1.24.1
+
+## Details
+A carefully crafted or corrupt file may trigger a System.exit in Tika's OneNote Parser. Crafted or corrupted files can also cause out of memory errors and/or infinite loops in Tika's ICNSParser, MP3Parser, MP4Parser, SAS7BDATParser, OneNoteParser and ImageParser. Apache Tika users should upgrade to 1.24.1 or later. The vulnerabilities in the MP4Parser were partially fixed by upgrading the com.googlecode:isoparser:1.1.22 dependency to org.tallison:isoparser:1.9.41.2. For unrelated security reasons, we upgraded org.apache.cxf to 3.3.6 as part of the 1.24.1 release.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2020-9489
+- https://github.com/apache/tika/commit/0f4d5de0f85455e91433fb0b464ea0461d7c891d
+- https://github.com/apache/tika
+- https://issues.apache.org/jira/browse/TIKA-3081
+- https://lists.apache.org/thread.html/r4cbc3f6981cd0a1a482531df9d44e4c42a7f63342a7ba78b7bff8a1b@%3Cnotifications.james.apache.org%3E
+- https://lists.apache.org/thread.html/r4d943777e36ca3aa6305a45da5acccc54ad894f2d5a07186cfa2442c%40%3Cdev.tika.apache.org%3E
+- https://www.oracle.com/security-alerts/cpuApr2021.html
+- https://www.oracle.com/security-alerts/cpujul2021.html
+- https://www.oracle.com/security-alerts/cpuoct2020.html

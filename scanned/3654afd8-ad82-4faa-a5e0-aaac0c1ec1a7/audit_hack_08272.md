@@ -1,0 +1,31 @@
+# [M] Use two steps owner transfer
+
+## Summary
+Severity: Medium
+Reporter: climber2002
+Source: https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-utils/src/OwnableImpl.sol#L45
+Type: audit-issue
+
+## Details
+# Use two steps owner transfer
+
+## Summary
+In [OwnableImpl.transferOwnership](https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-utils/src/OwnableImpl.sol#L45) it just takes one step to transfer owner to another address. If that address is invalid then the ownership is lost forever.
+
+## Vulnerability Detail
+There are two issues for [OwnableImpl.transferOwnership](https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-utils/src/OwnableImpl.sol#L45)
+- It doesn't validate that `owner_` shouldn't be `address(0)`
+- If it passes an invalid `owner_` param, it can never be rollback
+
+## Impact
+The ownership could be lost forever
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-utils/src/OwnableImpl.sol#L45-L48
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Use Openzepplin two steps ownership transfer: [transferOwnership](https://docs.openzeppelin.com/contracts/2.x/api/ownership#Ownable-transferOwnership-address-) and then the new owner [renounceOwnership](https://docs.openzeppelin.com/contracts/2.x/api/ownership#Ownable-renounceOwnership--)

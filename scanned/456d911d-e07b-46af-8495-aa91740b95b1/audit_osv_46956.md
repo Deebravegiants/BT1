@@ -1,0 +1,34 @@
+# [H] CVE-2015-8543
+
+## Summary
+Severity: High
+Advisory: CVE-2015-8543
+CVSS: 7.0 (CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2015-12-28
+Source: https://osv.dev/vulnerability/CVE-2015-8543
+Type: osv
+
+## Details
+The networking implementation in the Linux kernel through 4.3.3, as used in Android and other products, does not validate protocol identifiers for certain protocol families, which allows local users to cause a denial of service (NULL function pointer dereference and system crash) or possibly gain privileges by leveraging CLONE_NEWUSER support to execute a crafted SOCK_RAW application.
+
+## References
+- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=79462ad02e861803b3840cc782248c7359451cd9
+- http://lists.opensuse.org/opensuse-security-announce/2016-03/msg00094.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-04/msg00045.html
+- http://lists.opensuse.org/opensuse-security-announce/2016-08/msg00038.html
+- http://rhn.redhat.com/errata/RHSA-2016-0855.html
+- http://rhn.redhat.com/errata/RHSA-2016-2574.html
+- http://rhn.redhat.com/errata/RHSA-2016-2584.html
+- http://www.debian.org/security/2015/dsa-3426
+- http://www.debian.org/security/2016/dsa-3434
+- http://www.openwall.com/lists/oss-security/2015/12/09/5
+- http://www.oracle.com/technetwork/topics/security/linuxbulletinapr2016-2952096.html
+- http://www.securityfocus.com/bid/79698
+- http://www.securitytracker.com/id/1034892
+- http://www.ubuntu.com/usn/USN-2886-1
+- http://www.ubuntu.com/usn/USN-2888-1
+- http://www.ubuntu.com/usn/USN-2890-1
+- http://www.ubuntu.com/usn/USN-2890-2
+- http://www.ubuntu.com/usn/USN-2890-3
+- https://bugzilla.redhat.com/show_bug.cgi?id=1290475
+- https://github.com/torvalds/linux/commit/79462ad02e861803b3840cc782248c7359451cd9

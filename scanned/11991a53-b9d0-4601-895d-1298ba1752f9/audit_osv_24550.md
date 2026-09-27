@@ -1,0 +1,20 @@
+# [C] heap-over-flow in stun_parse_attribute in sofia-sip
+
+## Summary
+Severity: Critical
+Advisory: CVE-2023-22741
+Aliases: GHSA-8599-x7rq-fr54
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2023-01-19
+Source: https://osv.dev/vulnerability/CVE-2023-22741
+Type: osv
+
+## Details
+Sofia-SIP is an open-source SIP User-Agent library, compliant with the IETF RFC3261 specification. In affected versions Sofia-SIP **lacks both message length and attributes length checks** when it handles STUN packets, leading to controllable heap-over-flow. For example, in stun_parse_attribute(), after we get the attribute's type and length value, the length will be used directly to copy from the heap, regardless of the message's left size. Since network users control the overflowed length, and the data is written to heap chunks later, attackers may achieve remote code execution by heap grooming or other exploitation methods. The bug was introduced 16 years ago in sofia-sip 1.12.4 (plus some patches through 12/21/2006) to in tree libs with git-svn-id: http://svn.freeswitch.org/svn/freeswitch/trunk@3774 d0543943-73ff-0310-b7d9-9358b9ac24b2. Users are advised to upgrade. There are no known workarounds for this vulnerability.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/22xxx/CVE-2023-22741.json
+- https://github.com/freeswitch/sofia-sip/security/advisories/GHSA-8599-x7rq-fr54
+- https://nvd.nist.gov/vuln/detail/CVE-2023-22741
+- https://www.debian.org/security/2023/dsa-5410
+- https://github.com/freeswitch/sofia-sip/commit/da53e4fbcb138b080a75576dd49c1fff2ada2764

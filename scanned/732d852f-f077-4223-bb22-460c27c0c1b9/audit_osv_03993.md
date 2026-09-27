@@ -1,0 +1,26 @@
+# [C] BIT-activemq-2020-11998
+
+## Summary
+Severity: Critical
+Advisory: BIT-activemq-2020-11998
+Aliases: CVE-2020-11998, GHSA-wqfh-9m4g-7x6x
+Ecosystem: Bitnami
+Published: 2025-12-03
+Source: https://osv.dev/vulnerability/BIT-activemq-2020-11998
+Type: osv
+
+## Affected
+- Bitnami: `activemq` — affected >=5.15.12
+
+## Details
+A regression has been introduced in the commit preventing JMX re-bind. By passing an empty environment map to RMIConnectorServer, instead of the map that contains the authentication credentials, it leaves ActiveMQ open to the following attack: https://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html "A remote client could create a javax.management.loading.MLet MBean and use it to create new MBeans from arbitrary URLs, at least if there is no security manager. In other words, a rogue remote client could make your Java application execute arbitrary code." Mitigation: Upgrade to Apache ActiveMQ 5.15.13
+
+## References
+- http://activemq.apache.org/security-advisories.data/CVE-2020-11998-announcement.txt
+- https://lists.apache.org/thread.html/r946488fb942fd35c6a6e0359f52504a558ed438574a8f14d36d7dcd7%40%3Ccommits.activemq.apache.org%3E
+- https://lists.apache.org/thread.html/rb2fd3bf2dce042e0ab3f3c94c4767c96bb2e7e6737624d63162df36d%40%3Ccommits.activemq.apache.org%3E
+- https://nvd.nist.gov/vuln/detail/CVE-2020-11998
+- https://www.oracle.com//security-alerts/cpujul2021.html
+- https://www.oracle.com/security-alerts/cpuApr2021.html
+- https://www.oracle.com/security-alerts/cpujan2021.html
+- https://www.oracle.com/security-alerts/cpuoct2021.html

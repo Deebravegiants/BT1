@@ -1,0 +1,16 @@
+# [M] CVE-2019-17179
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-17179
+CVSS: 6.1 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N)
+Published: 2019-10-04
+Source: https://osv.dev/vulnerability/CVE-2019-17179
+Type: osv
+
+## Details
+4.1.0, 4.1.1, 4.1.2, 4.1.2.3, 4.1.2.6, 4.1.2.7, 4.2.0, 4.2.1, 4.2.2, 5.0.0, 5.0.0.5, 5.0.0.6, 5.0.1, 5.0.1.1, 5.0.1.2, 5.0.1.3, 5.0.1.4, 5.0.1.5, 5.0.1.6, 5.0.1.7, 5.0.2, fixed in version 5.0.2.1
+
+## References
+- https://github.com/lodestone-security/CVEs/blob/master/CVE-2019-17179/README.md
+- https://github.com/openemr/openemr/pull/2701

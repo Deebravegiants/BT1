@@ -1,0 +1,40 @@
+# [C] GitPython vulnerable to Remote Code Execution due to improper user input validation
+
+## Summary
+Severity: Critical
+Advisory: GHSA-hcpj-qp55-gfph
+CVE: CVE-2022-24439
+CWE: CWE-20, CWE-94
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2022-12-06
+Source: https://github.com/advisories/GHSA-hcpj-qp55-gfph
+Type: github-advisory
+
+## Affected
+- PyPI: `GitPython` — affected >=0 <3.1.30
+
+## Details
+All versions of package gitpython are vulnerable to Remote Code Execution (RCE) due to improper user input validation, which makes it possible to inject a maliciously crafted remote URL into the clone command. Exploiting this vulnerability is possible because the library makes external calls to git without sufficient sanitization of input arguments.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2022-24439
+- https://github.com/gitpython-developers/GitPython/issues/1515
+- https://github.com/gitpython-developers/GitPython/commit/2625ed9fc074091c531c27ffcba7902771130261
+- https://security.snyk.io/vuln/SNYK-PYTHON-GITPYTHON-3113858
+- https://security.gentoo.org/glsa/202311-01
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/SJHN3QUXPJIMM6SULIR3PR34UFWRAE7X
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PF6AXUTC5BO7L2SBJMCVKJSPKWY52I5R
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/IKMVYKLWX62UEYKAN64RUZMOIAMZM5JN
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/AV5DV7GBLMOZT7U3Q4TDOJO5R6G3V6GH
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/SJHN3QUXPJIMM6SULIR3PR34UFWRAE7X
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/PF6AXUTC5BO7L2SBJMCVKJSPKWY52I5R
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/IKMVYKLWX62UEYKAN64RUZMOIAMZM5JN
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/AV5DV7GBLMOZT7U3Q4TDOJO5R6G3V6GH
+- https://lists.debian.org/debian-lts-announce/2024/10/msg00030.html
+- https://lists.debian.org/debian-lts-announce/2023/07/msg00024.html
+- https://github.com/pypa/advisory-database/tree/main/vulns/gitpython/PYSEC-2022-42992.yaml
+- https://github.com/gitpython-developers/GitPython/releases/tag/3.1.30
+- https://github.com/gitpython-developers/GitPython/blob/bec61576ae75803bc4e60d8de7a629c194313d1c/git/repo/base.py%23L1249
+- https://github.com/gitpython-developers/GitPython/blob/bec61576ae75803bc4e60d8de7a629c194313d1c/git/repo/base.py#L1249
+- https://github.com/gitpython-developers/GitPython

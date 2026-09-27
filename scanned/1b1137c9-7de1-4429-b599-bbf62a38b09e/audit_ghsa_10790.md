@@ -1,0 +1,26 @@
+# [H] @sveltejs/adapter-node has a BODY_SIZE_LIMIT bypass
+
+## Summary
+Severity: High
+Advisory: GHSA-2crg-3p73-43xp
+CVE: CVE-2026-40073
+CWE: CWE-770
+Ecosystem: npm
+CVSS: CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N (CVSS_V4)
+Published: 2026-04-10
+Source: https://github.com/advisories/GHSA-2crg-3p73-43xp
+Type: github-advisory
+
+## Affected
+- npm: `@sveltejs/kit` — affected >=0 <2.57.1
+
+## Details
+Under certain circumstances, requests could bypass the `BODY_SIZE_LIMIT` on SvelteKit applications running with `adapter-node`. This bypass does not affect body size limits at other layers of the application stack, so limits enforced in the WAF, gateway, or at the platform level are unaffected.
+
+## References
+- https://github.com/sveltejs/kit/security/advisories/GHSA-2crg-3p73-43xp
+- https://nvd.nist.gov/vuln/detail/CVE-2026-40073
+- https://github.com/sveltejs/kit/commit/3202ed6c98f9e8d86bf0c4c7ad0f2e273e5e3b95
+- https://github.com/sveltejs/kit
+- https://github.com/sveltejs/kit/releases/tag/%40sveltejs%2Fkit%402.57.1
+- https://github.com/sveltejs/kit/releases/tag/@sveltejs/kit@2.57.1

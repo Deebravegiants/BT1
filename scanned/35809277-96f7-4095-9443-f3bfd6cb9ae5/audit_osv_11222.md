@@ -1,0 +1,21 @@
+# [M] CVE-2017-6820
+
+## Summary
+Severity: Medium
+Advisory: CVE-2017-6820
+CVSS: 6.1 (CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N)
+Published: 2017-03-12
+Source: https://osv.dev/vulnerability/CVE-2017-6820
+Type: osv
+
+## Details
+rcube_utils.php in Roundcube before 1.1.8 and 1.2.x before 1.2.4 is susceptible to a cross-site scripting vulnerability via a crafted Cascading Style Sheets (CSS) token sequence within an SVG element.
+
+## References
+- http://www.securityfocus.com/bid/96817
+- https://roundcube.net/news/2017/03/10/updates-1.2.4-and-1.1.8-released
+- https://github.com/roundcube/roundcubemail/commit/cbd35626f7db7855f3b5e2db00d28ecc1554e9f4
+- https://github.com/roundcube/roundcubemail/commit/fa2824fdcd44af3f970b2797feb47652482c8305
+- https://github.com/roundcube/roundcubemail/releases/tag/1.1.8
+- https://github.com/roundcube/roundcubemail/releases/tag/1.2.4
+- https://github.com/roundcube/roundcubemail/wiki/Changelog#release-124

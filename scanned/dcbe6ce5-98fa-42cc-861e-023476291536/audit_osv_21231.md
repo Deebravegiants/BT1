@@ -1,0 +1,19 @@
+# [H] CVE-2021-41242
+
+## Summary
+Severity: High
+Advisory: CVE-2021-41242
+Aliases: GHSA-62hv-rfp4-hmrm
+CVSS: 8.1 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:H)
+Published: 2021-12-10
+Source: https://osv.dev/vulnerability/CVE-2021-41242
+Type: osv
+
+## Details
+OpenOlat is a web-basedlearning management system. A path traversal vulnerability exists in OpenOlat prior to versions 15.5.12 and 16.0.5. By providing a filename that contains a relative path as a parameter in some REST methods, it is possible to create directory structures and write files anywhere on the target system. The attack could be used to write files anywhere in the web root folder or outside, depending on the configuration of the system and the properly configured permission of the application server user. The attack requires an OpenOlat user account, an enabled REST API and the rights on a business object to call the vulnerable REST calls. The problem is fixed in version 15.5.12 and 16.0.5. There is a workaround available. The vulnerability requires the REST module to be enabled. Disabling the REST module or limiting the REST module via some firewall or web-server access rules to be accessed only be trusted systems will mitigate the risk.
+
+## References
+- https://github.com/OpenOLAT/OpenOLAT/security/advisories/GHSA-62hv-rfp4-hmrm
+- https://jira.openolat.org/browse/OO-5819
+- https://github.com/OpenOLAT/OpenOLAT/commit/336d5ce80681be61a0bbf4f73d2af5d1ff67e93a
+- https://github.com/OpenOLAT/OpenOLAT/commit/c450df7d7ffe6afde39ebca6da9136f1caa16ec4

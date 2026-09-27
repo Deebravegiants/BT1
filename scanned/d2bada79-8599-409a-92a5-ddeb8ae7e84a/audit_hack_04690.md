@@ -1,0 +1,32 @@
+# [M] UXDController._redeem and mint incompatible with tokens like ZRX, HT and WOO. Alternatively, incompatible with USDT
+
+## Summary
+Severity: Medium
+Reporter: Delvir0
+Source: https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDController.sol#L195-L198
+Type: audit-issue
+
+## Details
+# UXDController._redeem and mint incompatible with tokens like ZRX, HT and WOO. Alternatively, incompatible with USDT
+
+## Summary
+Tokens like ZRX and HT does not revert on transfer.
+Tokens like STA cuts fee at transfer.
+Tokens like USDT doenst return a value at transfer.
+
+Contract uses transfer() and transferFrom() without 1) checking the return value, 2) doesn't take into account that there might not be a return value or 3) if the token is deflationary/ takes fee. 
+
+## Vulnerability Detail
+When using e.g. transferFrom() with tokens like ZRX, if the transactions fails it simply returns a false bool. Meaning the function completes without having the tokens transferred. 
+## Impact
+Protocol might not receive assets when using .mint or user might not receive assets when using .redeem.
+## Code Snippet
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/core/UXDController.sol#L195-L198
+## Tool used
+
+Manual Review
+
+## Recommendation
+Use safeTransfer and safeTransferFrom from OZ AND check for balance before and after transfer. 
+
+Do note that implementing a require only will make the contract incompatible with tokens like ZRX but not STA and USDT since it takes fees or does not return a value at all.

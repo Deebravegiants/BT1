@@ -1,0 +1,22 @@
+# [M] CVE-2024-3846
+
+## Summary
+Severity: Medium
+Advisory: CVE-2024-3846
+CVSS: 4.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N)
+Published: 2024-04-17
+Source: https://osv.dev/vulnerability/CVE-2024-3846
+Type: osv
+
+## Details
+Inappropriate implementation in Prompts in Google Chrome prior to 124.0.6367.60 allowed a remote attacker who convinced a user to engage in specific UI gestures to perform UI spoofing via a crafted HTML page. (Chromium security severity: Low)
+
+## References
+- https://chromereleases.googleblog.com/2024/04/stable-channel-update-for-desktop_16.html
+- https://issues.chromium.org/issues/40064754
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/M4PCXKCOVBUUU6GOSN46DCPI4HMER3PJ/
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/PCWPUBGTBNT4EW32YNZMRIPB3Y4R6XL6/
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/UOC3HLIZCGMIJLJ6LME5UWUUIFLXEGRN/
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/WEP5NJUWMDRLDQUKU4LFDUHF5PCYAPIO/
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/CWIVXXSVO5VB3NAZVFJ7CWVBN6W2735T/
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/IDLUD644WEWGOFKMZWC2K7Z4CQOKQYR7/

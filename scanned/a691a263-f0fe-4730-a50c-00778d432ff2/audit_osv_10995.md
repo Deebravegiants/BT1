@@ -1,0 +1,20 @@
+# [H] CVE-2017-5580
+
+## Summary
+Severity: High
+Advisory: CVE-2017-5580
+CVSS: 7.1 (CVSS:3.0/AV:L/AC:L/PR:N/UI:N/S:C/C:N/I:N/A:H)
+Published: 2017-03-15
+Source: https://osv.dev/vulnerability/CVE-2017-5580
+Type: osv
+
+## Details
+The parse_instruction function in gallium/auxiliary/tgsi/tgsi_text.c in virglrenderer before 0.6.0 allows local guest OS users to cause a denial of service (out-of-bounds array access and process crash) via a crafted texture instruction.
+
+## References
+- http://www.openwall.com/lists/oss-security/2017/01/25/5
+- http://www.securityfocus.com/bid/95782
+- https://lists.freedesktop.org/archives/virglrenderer-devel/2017-February/000145.html
+- https://security.gentoo.org/glsa/201707-06
+- http://www.openwall.com/lists/oss-security/2017/01/24/5
+- https://cgit.freedesktop.org/virglrenderer/commit/src/gallium/auxiliary/tgsi/tgsi_text.c?id=28894a30a17a84529be102b21118e55d6c9f23fa

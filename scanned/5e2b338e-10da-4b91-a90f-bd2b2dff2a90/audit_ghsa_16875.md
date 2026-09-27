@@ -1,0 +1,73 @@
+# [M] OpenID Connect client Atom Exhaustion in provider configuration worker ets table location
+
+## Summary
+Severity: Medium
+Advisory: GHSA-mj35-2rgf-cv8p
+CVE: CVE-2024-31209
+CWE: CWE-400
+Ecosystem: Hex
+CVSS: CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:N/I:N/A:H (CVSS_V3)
+Published: 2024-04-03
+Source: https://github.com/advisories/GHSA-mj35-2rgf-cv8p
+Type: github-advisory
+
+## Affected
+- Hex: `oidcc` — affected >=3.0.0 <3.0.2
+- Hex: `oidcc` — affected >=3.1.0 <3.1.2
+- Hex: `oidcc` — affected >=3.2.0-beta.1 <3.2.0-beta.3
+
+## Details
+### Impact
+
+DOS by Atom exhaustion is possible by calling `oidcc_provider_configuration_worker:get_provider_configuration/1` or `oidcc_provider_configuration_worker:get_jwks/1`.
+
+Since the name is usually provided as a static value in the application using `oidcc`, this is unlikely to be exploited.
+
+### Details
+
+Example to illustrate the vulnerability.
+
+```erlang
+{ok, Claims} =
+  oidcc:retrieve_userinfo(
+    Token,
+    myapp_oidcc_config_provider,
+    <<"client_id">>,
+    <<"client_secret">>,
+    #{}
+  )
+```
+
+The vulnerability is present in `oidcc_provider_configuration_worker:get_ets_table_name/1`.
+The function `get_ets_table_name` is calling `erlang:list_to_atom/1`.
+
+https://github.com/erlef/oidcc/blob/018dbb53dd752cb1e331637d8e0e6a489ba1fae9/src/oidcc_provider_configuration_worker.erl#L385-L388
+
+There might be a case (Very highly improbable) where the 2nd argument of
+`oidcc_provider_configuration_worker:get_*/1` is called with a different atom each time which eventually leads to
+the atom table filling up and the node crashing.
+
+### Patches
+
+Patched in `3.0.2`, `3.1.2` & `3.2.0-beta.3`
+
+### Workarounds
+
+Make sure only valid provider configuration worker names are passed to the functions.
+
+### References
+
+* https://erlef.github.io/security-wg/secure_coding_and_deployment_hardening/atom_exhaustion.html
+* https://www.cve.org/CVERecord?id=CVE-2024-31209
+* https://euvd.enisa.europa.eu/enisa/EUVD-2024-1249
+* https://github.com/advisories/GHSA-mj35-2rgf-cv8p
+
+## References
+- https://github.com/erlef/oidcc/security/advisories/GHSA-mj35-2rgf-cv8p
+- https://nvd.nist.gov/vuln/detail/CVE-2024-31209
+- https://github.com/erlef/oidcc/commit/2f304d877c7e0613d6fd952d7feacbf40dbc355c
+- https://github.com/erlef/oidcc/commit/48171fb62688fb4eec1ead0884aa501e0aa68649
+- https://github.com/erlef/oidcc/commit/ac458ed88dc292aad6fa7343f6a53e73c560fb1a
+- https://erlef.github.io/security-wg/secure_coding_and_deployment_hardening/atom_exhaustion.html
+- https://github.com/erlef/oidcc
+- https://github.com/erlef/oidcc/blob/018dbb53dd752cb1e331637d8e0e6a489ba1fae9/src/oidcc_provider_configuration_worker.erl#L385-L388

@@ -1,0 +1,41 @@
+# [M] Using `create` for cloning in factory makes it susceptible to re-org attacks
+
+## Summary
+Severity: Medium
+Reporter: stopthecap
+Source: https://github.com/sherlock-audit/2023-04-ajna/blob/main/ajna-core/src/ERC721PoolFactory.sol#L80
+Type: audit-issue
+
+## Details
+# Using `create` for cloning in factory makes it susceptible to re-org attacks
+
+## Summary
+Using create for cloning in factory makes it susceptible to re-org attacks
+
+## Vulnerability Detail
+The `deployPool` functions in both erc20 and erc721 factories, deploy a clone contract using the create, where the address derivation depends only on the deployer factory nonce.
+
+Re-orgs can happen in most of EVM chains. Due to the large amount of chains where Ajna will deploy, the likelihood of the issue multiplies by the number of chains they try to deploy to. Last re-org happened  just 4 days ago on Polygon, where Ajna is trying to deploy: https://twitter.com/pashovkrum/status/1670108133732102145 and it was a 25 block re-org which is quite big.
+
+https://decrypt.co/101390/ethereum-beacon-chain-blockchain-reorg
+
+https://protos.com/polygon-hit-by-157-block-reorg-despite-hard-fork-to-reduce-reorgs/
+
+The issue would happen when users rely on the address derivation in advance or try to deploy the position clone with the same address on different EVM chains, any funds sent to the new clone could potentially be withdrawn by anyone else. All in all, it could lead to the theft of user funds.
+
+## Impact
+
+Imagine that Alice deploys a position clone, and then sends funds/tokens to it. Bob sees that the network block reorg happens and calls `deployPool`. Thus, it creates a position clone with an address to which Alice sends funds. Then Alice's transactions are executed and Alice transfers funds to Bob’s position contract.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-04-ajna/blob/main/ajna-core/src/ERC721PoolFactory.sol#L80
+
+https://github.com/sherlock-audit/2023-04-ajna/blob/main/ajna-core/src/ERC20PoolFactory.sol#L70
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Deploy the cloned Position via create2 with a specific salt that includes msg.sender

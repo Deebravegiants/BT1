@@ -1,0 +1,27 @@
+# [M] URI versions before 5.36 for Perl encode non-NFC host names to non-standard punycode labels via missing normalization in nameprep
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-19953
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N)
+Published: 2026-08-31
+Source: https://osv.dev/vulnerability/CVE-2026-19953
+Type: osv
+
+## Details
+URI versions before 5.36 for Perl encode non-NFC host names to non-standard punycode labels via missing normalization in nameprep.
+
+nameprep lowercases each host label but performs no Unicode normalization. IDNA requires a label to be normalized to Form C before it is encoded (RFC 5891), so a label that is not already in NFC is encoded to a different A-label than its normalized form. A label built from the precomposed Devanagari sequence U+0958 U+093E encodes to xn--72b5c without normalization but to xn--11b2fg after NFC normalization, and xn--72b5c does not round-trip back to the original label.
+
+Any caller that reads host() from a URI built from untrusted input and uses it for a security decision (an allow or deny list, an SSRF filter, deduplication, a cache key) sees the non-standard label, while a client that fetches the same URL resolves the NFC form, so the check and the fetch can disagree about the host.
+
+## References
+- http://www.openwall.com/lists/oss-security/2026/08/31/14
+- https://cpan.org/modules
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/19xxx/CVE-2026-19953.json
+- https://metacpan.org/release/OALDERS/URI-5.36/changes
+- https://nvd.nist.gov/vuln/detail/CVE-2026-19953
+- https://github.com/libwww-perl/URI/pull/191
+- https://github.com/libwww-perl/URI/commit/956619a9e94f86d8d2c529b4e06a3674c54a73e7.patch
+- https://github.com/libwww-perl/URI
+- https://www.rfc-editor.org/rfc/rfc5891#section-5.2

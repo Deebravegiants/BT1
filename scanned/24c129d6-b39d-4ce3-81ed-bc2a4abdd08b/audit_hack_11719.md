@@ -1,0 +1,34 @@
+# [M] Public claim might be problematic
+
+## Summary
+Severity: Medium
+Reporter: mstpr-brainbot
+Source: https://github.com/sherlock-audit/2023-05-perennial/blob/main/perennial-mono/packages/perennial-vaults/contracts/balanced/BalancedVault.sol#L211-L228
+Type: audit-issue
+
+## Details
+# Public claim might be problematic
+
+## Summary
+The current design allowing any party to initiate a claim on a user's unclaimed amount in a vault may lead to undesirable results if the total collateral balance is less than the total unclaimed amount. Users may not want to realize losses and would prefer to wait until the total collateral balance exceeds the unclaimed amount. However, forced claims can realize these losses, which is especially problematic for DeFi strategies, such as yield aggregators, that typically avoid realizing losses or prefer self-management of losses. An illustrative scenario with two markets highlights this issue.
+## Vulnerability Detail
+In the current system, any party can initiate a claim on behalf of a user with an unclaimed amount in a vault. This process may lead to complications if the total collateral balance is less than the total unclaimed amount. In such instances, users receive a pro-rata share of their total claimable amount, which may not be desirable for some.
+
+Users may prefer to avoid realizing losses and stay in the vault until the total collateral balance surpasses the unclaimed amount. However, forced claims could realize these losses against the user's intent. This scenario is also problematic for DeFi strategies such as yield aggregators utilizing perennial vaults, which typically steer clear of realizing losses or prefer self-management if such losses must be recognized.
+
+Consider a hypothetical scenario where a vault with a 1x leverage operates with totalMarkets==2, where assets being shorted and longed are X and Y.
+
+In this case, X's oracle updates every 10 hours (at least), while Y's oracle updates every 3 hours (at least). Typically, when X is in version1, Y will be in version 3. If a user has an unclaimable balance in epoch1 (X in v1 and Y in v3), and currently, X is in v3, and Y is about to be version 2, we are at epoch1 + 9 hours.
+
+In this situation, users may anticipate that the X market is going to update and that this market has significant directional exposure and fees for the next settle. These users may prefer to wait until then, expecting that there will be sufficient funds to withdraw after one hour, rather than the pro-rata share.
+
+Here's an alternate perspective: when the claimable amount exceeds the total collateral, the amount a user can claim will be less than what they would normally receive. Essentially, the users burn their shares, but the payout they receive is smaller than expected. This discrepancy results in the vault having a surplus of assets relative to shares. Thus, anyone depositing during this period will receive an inflated share amount. As you can see, this situation incentivizes users to force claim others' assets in order to take advantage of this beneficial circumstance.
+## Impact
+It might be a design choice to keep it like this but some users might not want to realize their losses and prefer to wait for the vault to be liquid again. Considering its users funds in the table I'll call this as medium
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-perennial/blob/main/perennial-mono/packages/perennial-vaults/contracts/balanced/BalancedVault.sol#L211-L228
+## Tool used
+
+Manual Review
+
+## Recommendation

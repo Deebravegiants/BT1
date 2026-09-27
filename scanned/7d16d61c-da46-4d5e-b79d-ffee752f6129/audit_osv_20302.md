@@ -1,0 +1,19 @@
+# [M] CVE-2021-32747
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-32747
+Aliases: GHSA-2xv9-886q-p7xx
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2021-07-12
+Source: https://osv.dev/vulnerability/CVE-2021-32747
+Type: osv
+
+## Details
+Icinga Web 2 is an open source monitoring web interface, framework, and command-line interface. A vulnerability in which custom variables are exposed to unauthorized users exists between versions 2.0.0 and 2.8.2. Custom variables are user-defined keys and values on configuration objects in Icinga 2. These are commonly used to reference secrets in other configurations such as check commands to be able to authenticate with a service being checked. Icinga Web 2 displays these custom variables to logged in users with access to said hosts or services. In order to protect the secrets from being visible to anyone, it's possible to setup protection rules and blacklists in a user's role. Protection rules result in `***` being shown instead of the original value, the key will remain. Backlists will hide a custom variable entirely from the user. Besides using the UI, custom variables can also be accessed differently by using an undocumented URL parameter. By adding a parameter to the affected routes, Icinga Web 2 will show these columns additionally in the respective list. This parameter is also respected when exporting to JSON or CSV. Protection rules and blacklists however have no effect in this case. Custom variables are shown as-is in the result. The issue has been fixed in the 2.9.0, 2.8.3, and 2.7.5 releases. As a workaround, one may set up a restriction to hide hosts and services with the custom variable in question.
+
+## References
+- https://github.com/Icinga/icingaweb2/releases/tag/v2.7.5
+- https://github.com/Icinga/icingaweb2/releases/tag/v2.8.3
+- https://github.com/Icinga/icingaweb2/releases/tag/v2.9.0
+- https://github.com/Icinga/icingaweb2/security/advisories/GHSA-2xv9-886q-p7xx

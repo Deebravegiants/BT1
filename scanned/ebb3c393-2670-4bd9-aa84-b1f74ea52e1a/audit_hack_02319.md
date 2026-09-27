@@ -1,0 +1,26 @@
+# [M] \[M03\] Lack of input validation
+
+## Summary
+Severity: Medium
+Source: https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/bondingcurve/BondingCurve.sol#L135
+Type: audit-issue
+
+## Details
+Throughout this codebase we found there to be an overall lack of input validation. The functions lacking input validation are either modified by the `onlyGovernance` modifier or are `constructor`s. However simple human error in entering these values, by perhaps entering too many or too few 0s, can have far reaching negative consequences.
+
+Some points where a lapse in input validation could be particularly problematic include:
+
+* There is no check in the callstack of the [setAllocation function](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/bondingcurve/BondingCurve.sol#L135) of the [BondingCurve contract](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/bondingcurve/BondingCurve.sol#L18) to ensure that the `token` featured in the `BondingCurve` is the `token` handled by the `PCVDeposit`. In the case this mismatch would occur, the `PCVController` would have to manually reallocate these stray tokens using the `withdrawERC20` function.
+* The [PCVDripController contract](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/pcv/PCVDripController.sol#L11) drips tokens from one `PCVDeposit` contract to another, but it never validates that the token each of them handle are the same. This means it could drip a token into a deposit contract that handles a different token. This mismatch could affect the accounting dictating the logic of the [drip function](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/pcv/PCVDripController.sol#L51). In particular, the check of [dripEligible](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/pcv/PCVDripController.sol#L105) may wind up considering the balance of the wrong token.
+* The [constructor of PCVSwapperUniswap contract](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/pcv/PCVSwapperUniswap.sol#L47) does not check that the two tokens in the [pair](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/pcv/PCVSwapperUniswap.sol#L62) are [tokenSpent](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/pcv/PCVSwapperUniswap.sol#L64) and [tokenReceived](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/pcv/PCVSwapperUniswap.sol#L65). This can affect the calculations of the inputs to the uniswap swap, leading to accounting errors in pcv.
+
+Examples of `onlyGovernor` modified functions lacking input validation are:
+
+* The [setFeiOracle function](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/stabilizer/TribeReserveStabilizer.sol#L66) of the `TribeReserveStabilizer` contract doesn’t check `newFeiOracle` is not the zero-address.
+* The [setDuration function](https://github.com/fei-protocol/fei-protocol-core-internal/blob/f54d7bb07c55adb78e2e142e7044f60090bb7602/contracts/pcv/UniswapPCVController.sol#L96) of the `UniswapPCVController` contract does not validation the `_duration` is non-zero or within sensible bounds.
+
+The functions that could benefit from input validation in this codebase are numerous and there are many more than are listed here.
+
+Consider implementing programmatic safeguards validating input parameters to ensure all function calls and contract constructions would “fail early and loudly” on erroneous inputs. This is needed especially in the case of functions or contracts vetted by governance, where subtle bugs in parameters that pass the governance process can have far reaching impacts on a system.
+
+_**Update:** Partially fixed in [PR#75](https://github.com/fei-protocol/fei-protocol-core-internal/pull/75). The first 2 points outlined in this issue were not addressed, however the remaining issues were fixed._

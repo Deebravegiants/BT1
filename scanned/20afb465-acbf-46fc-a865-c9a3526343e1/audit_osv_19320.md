@@ -1,0 +1,19 @@
+# [M] CVE-2021-2020
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-2020
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2021-01-20
+Source: https://osv.dev/vulnerability/CVE-2021-2020
+Type: osv
+
+## Details
+Vulnerability in the MySQL Server product of Oracle MySQL (component: Server: Optimizer). Supported versions that are affected are 8.0.20 and prior. Easily exploitable vulnerability allows low privileged attacker with network access via multiple protocols to compromise MySQL Server. Successful attacks of this vulnerability can result in unauthorized ability to cause a hang or frequently repeatable crash (complete DOS) of MySQL Server. CVSS 3.1 Base Score 6.5 (Availability impacts). CVSS Vector: (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H).
+
+## References
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/CS5THZSGI7O2CZO44NWYE57AG2T7NK3K/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/T7EAHJPWOOF4D6PEFLXW5IQWRRSZ3HRC/
+- https://security.gentoo.org/glsa/202105-27
+- https://security.netapp.com/advisory/ntap-20210219-0003/
+- https://www.oracle.com/security-alerts/cpujan2021.html

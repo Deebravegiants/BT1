@@ -1,0 +1,29 @@
+# [H] JLSEC-2026-178
+
+## Summary
+Severity: High
+Advisory: JLSEC-2026-178
+Ecosystem: Julia
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N)
+Published: 2026-04-23
+Source: https://osv.dev/vulnerability/JLSEC-2026-178
+Type: osv
+
+## Affected
+- Julia: `MongoC_jll` — affected >=0 <1.19.1+0
+
+## Details
+Some MongoDB Drivers may erroneously publish events containing authentication-related data to a command listener configured by an application. The published events may contain security-sensitive data when specific authentication-related commands are executed.
+
+Without due care, an application may inadvertently expose this sensitive information, e.g., by writing it to a log file. This issue only arises if an application enables the command listener feature (this is not enabled by default).
+
+This issue affects the MongoDB C Driver 1.0.0 prior to 1.17.7, MongoDB PHP Driver 1.0.0 prior to 1.9.2, MongoDB Swift Driver 1.0.0 prior to 1.1.1, MongoDB Node.js Driver 3.6 prior to 3.6.10, MongoDB Node.js Driver 4.0 prior to 4.17.0 and MongoDB Node.js Driver 5.0 prior to 5.8.0. This issue also affects users of the MongoDB C++ Driver dependent on the C driver 1.0.0 prior to 1.17.7 (C++ driver prior to 3.7.0).
+
+## References
+- https://jira.mongodb.org/browse/CDRIVER-3797
+- https://jira.mongodb.org/browse/CXX-2028
+- https://jira.mongodb.org/browse/NODE-3356
+- https://jira.mongodb.org/browse/PHPC-1869
+- https://jira.mongodb.org/browse/SWIFT-1229
+- https://lists.debian.org/debian-lts-announce/2025/05/msg00027.html
+- https://security.netapp.com/advisory/ntap-20231006-0001/

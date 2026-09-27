@@ -1,0 +1,34 @@
+# [M] Start new epoch rewards could be front-running by MEV
+
+## Summary
+Severity: Medium
+Reporter: pks_
+Source: https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/liquidity-mining/OTLM.sol#L185-L196
+Type: audit-issue
+
+## Details
+# Start new epoch rewards could be front-running by MEV
+
+## Summary
+
+`tryNewEpoch` modifier could be front-running by MEV if there are profits for triggering it.
+
+## Vulnerability Detail
+
+The user starts a new epoch before a function is executed and will be rewarded by a teller contract. But such a mechanism could be monitored in the memory pool and be front-running by MEV if there are profits for triggering it.
+
+## Impact
+
+Normal users will be front-running by MEV when start a new epoch, users will lose their rewards and MEV could gain profits.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/liquidity-mining/OTLM.sol#L185-L196
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Limit `tryNewEpoch` modifier only to be called by the operator/admin account.

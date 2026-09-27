@@ -1,0 +1,36 @@
+# [M] Partially filled orders can get cancelled
+
+## Summary
+Severity: Medium
+Reporter: jnrlouis
+Source: https://github.com/sherlock-audit/2023-06-dinari/blob/main/sbt-contracts/src/issuer/OrderProcessor.sol#L272-L306
+Type: audit-issue
+
+## Details
+# Partially filled orders can get cancelled
+
+## Summary
+When Orders are partially filled, before the order is fulfilled, the requester can cancel the order
+
+## Vulnerability Detail
+
+An order only gets deleted when it's completely filled and fulfilled. But when partially filled, the `orderState.remainingOrder` and `orderState.received` just gets updated. At this state, it is still possible for the requester to cancel the order.
+
+https://github.com/sherlock-audit/2023-06-dinari/blob/main/sbt-contracts/src/issuer/OrderProcessor.sol#L272-L306
+
+## Impact
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-dinari/blob/main/sbt-contracts/src/issuer/OrderProcessor.sol#L272-L306
+
+https://github.com/sherlock-audit/2023-06-dinari/blob/main/sbt-contracts/src/issuer/OrderProcessor.sol#L313-L323
+
+https://github.com/sherlock-audit/2023-06-dinari/blob/main/sbt-contracts/src/issuer/OrderProcessor.sol#L330-L349
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add a check to see if the order is partially filled.

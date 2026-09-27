@@ -1,0 +1,43 @@
+# [M] Addressing Duplicate Storage Access in `ReferenceLendingPools` for More Efficient Execution
+
+## Summary
+Severity: Medium
+Reporter: dec3ntraliz3d
+Source: https://github.com/sherlock-audit/2023-02-carapace/blob/main/contracts/core/pool/ReferenceLendingPools.sol#L197-L200
+Type: audit-issue
+
+## Details
+# Addressing Duplicate Storage Access in `ReferenceLendingPools` for More Efficient Execution
+
+## Summary
+
+Duplicate access to a storage variable in the assessState() function of ReferenceLendingPools causes increased gas usage. 
+
+
+## Vulnerability Detail
+
+The assessState() function of `ReferenceLendingPools` is used to iterate through all the lending pools and retrieve their statuses. In the loop, a memory variable is used to copy the value of the storage variable, but it is not used in the subsequent call. Instead, the same storage variable is called again. This may be an oversight from the developer and should be addressed.
+
+## Impact
+
+Medium. 
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-02-carapace/blob/main/contracts/core/pool/ReferenceLendingPools.sol#L197-L200
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Update the code as below:
+
+```solidity
+  for (uint256 i; i < _length; ) {
+      _lendingPools[i] = lendingPools[i];
+      //  use memory array _lendingPool[i] instead of lendingPools[i] which is a storage variable. This will reduce gas costs.
+      _statuses[i] = _getLendingPoolStatus(_lendingPools[i]);
+
+```

@@ -1,0 +1,69 @@
+# [H] mt76: mt7921: don't assume adequate headroom for SDIO headers
+
+## Summary
+Severity: High
+Advisory: CVE-2023-53785
+Ecosystem: Linux
+CVSS: 8.8 (CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2025-12-09
+Source: https://osv.dev/vulnerability/CVE-2023-53785
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.12.0 <6.1.55, >=6.2.0 <6.5.5
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+mt76: mt7921: don't assume adequate headroom for SDIO headers
+
+mt7921_usb_sdio_tx_prepare_skb() calls mt7921_usb_sdio_write_txwi() and
+mt7921_skb_add_usb_sdio_hdr(), both of which blindly assume that
+adequate headroom will be available in the passed skb. This assumption
+typically is satisfied when the skb was allocated in the net core for
+transmission via the mt7921 netdev (although even that is only an
+optimization and is not strictly guaranteed), but the assumption is
+sometimes not satisfied when the skb originated in the receive path of
+another netdev and was passed through to the mt7921, such as by the
+bridge layer. Blindly prepending bytes to an skb is always wrong.
+
+This commit introduces a call to skb_cow_head() before the call to
+mt7921_usb_sdio_write_txwi() in mt7921_usb_sdio_tx_prepare_skb() to
+ensure that at least MT_SDIO_TXD_SIZE + MT_SDIO_HDR_SIZE bytes can be
+pushed onto the skb.
+
+Without this fix, I can trivially cause kernel panics by bridging an
+MT7921AU-based USB 802.11ax interface with an Ethernet interface on an
+Intel Atom-based x86 system using its onboard RTL8169 PCI Ethernet
+adapter and also on an ARM-based Raspberry Pi 1 using its onboard
+SMSC9512 USB Ethernet adapter. Note that the panics do not occur in
+every system configuration, as they occur only if the receiving netdev
+leaves less headroom in its received skbs than the mt7921 needs for its
+SDIO headers.
+
+Here is an example stack trace of this panic on Raspberry Pi OS Lite
+2023-02-21 running kernel 6.1.24+ [1]:
+
+ skb_panic from skb_push+0x44/0x48
+ skb_push from mt7921_usb_sdio_tx_prepare_skb+0xd4/0x190 [mt7921_common]
+ mt7921_usb_sdio_tx_prepare_skb [mt7921_common] from mt76u_tx_queue_skb+0x94/0x1d0 [mt76_usb]
+ mt76u_tx_queue_skb [mt76_usb] from __mt76_tx_queue_skb+0x4c/0xc8 [mt76]
+ __mt76_tx_queue_skb [mt76] from mt76_txq_schedule.part.0+0x13c/0x398 [mt76]
+ mt76_txq_schedule.part.0 [mt76] from mt76_txq_schedule_all+0x24/0x30 [mt76]
+ mt76_txq_schedule_all [mt76] from mt7921_tx_worker+0x58/0xf4 [mt7921_common]
+ mt7921_tx_worker [mt7921_common] from __mt76_worker_fn+0x9c/0xec [mt76]
+ __mt76_worker_fn [mt76] from kthread+0xbc/0xe0
+ kthread from ret_from_fork+0x14/0x34
+
+After this fix, bridging the mt7921 interface works fine on both of my
+previously problematic systems.
+
+[1] https://github.com/raspberrypi/firmware/tree/5c276f55a4b21345cd4d6200a504ee991851ff7a
+
+## References
+- https://git.kernel.org/stable/c/414c0c04703423b78bc9dea1aa6493334dc61f6e
+- https://git.kernel.org/stable/c/5c8bbb79c7cbca65534badf360f3b1145759c7bc
+- https://git.kernel.org/stable/c/98c4d0abf5c478db1ad126ff0c187dbb84c0803c
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/53xxx/CVE-2023-53785.json
+- https://nvd.nist.gov/vuln/detail/CVE-2023-53785
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

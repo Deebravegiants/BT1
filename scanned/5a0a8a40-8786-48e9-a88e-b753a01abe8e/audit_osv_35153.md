@@ -1,0 +1,39 @@
+# [H] crypto: asymmetric_keys - prevent overflow in asymmetric_key_generate_id
+
+## Summary
+Severity: High
+Advisory: CVE-2025-68724
+Ecosystem: Linux
+CVSS: 7.8 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2025-12-24
+Source: https://osv.dev/vulnerability/CVE-2025-68724
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=3.18.0 <5.10.248, >=5.11.0 <5.15.198, >=5.16.0 <6.1.160, >=6.2.0 <6.6.120, >=6.7.0 <6.12.63, >=6.13.0 <6.17.13, >=6.18.0 <6.18.2
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+crypto: asymmetric_keys - prevent overflow in asymmetric_key_generate_id
+
+Use check_add_overflow() to guard against potential integer overflows
+when adding the binary blob lengths and the size of an asymmetric_key_id
+structure and return ERR_PTR(-EOVERFLOW) accordingly. This prevents a
+possible buffer overflow when copying data from potentially malicious
+X.509 certificate fields that can be arbitrarily large, such as ASN.1
+INTEGER serial numbers, issuer names, etc.
+
+## References
+- https://cert-portal.siemens.com/productcert/html/ssa-019113.html
+- https://git.kernel.org/stable/c/5b8ac617c8dab5cad3c4dc8d84d0987808a0f99c
+- https://git.kernel.org/stable/c/60a7be5ee74408147e439164ac067e418ca74bb4
+- https://git.kernel.org/stable/c/6af753ac5205115e6c310c8c4236c01b59a1c44f
+- https://git.kernel.org/stable/c/b7090a5c153105b9fd221a5a81459ee8cd5babd6
+- https://git.kernel.org/stable/c/c13c6e9de91d7f1dd7df756b1fa5a1f968839d76
+- https://git.kernel.org/stable/c/c73be4f51eed98fa0c7c189db8f279e1c86bfbf7
+- https://git.kernel.org/stable/c/df0845cf447ae1556c3440b8b155de0926cbaa56
+- https://git.kernel.org/stable/c/dfc1613961828745165aec6552c3818fa14ab725
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2025/68xxx/CVE-2025-68724.json
+- https://nvd.nist.gov/vuln/detail/CVE-2025-68724
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

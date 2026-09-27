@@ -1,0 +1,18 @@
+# [H] LibreChat has IDOR in API Keys Management that allows any authenticated user to overwrite other users' API keys
+
+## Summary
+Severity: High
+Advisory: CVE-2026-31942
+Aliases: GHSA-5jcj-rh68-cgj7
+CVSS: 7.1 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:L)
+Published: 2026-06-02
+Source: https://osv.dev/vulnerability/CVE-2026-31942
+Type: osv
+
+## Details
+LibreChat is an enhanced ChatGPT clone that supports multiple AI providers. In versions up to and including 0.7.6, an Insecure Direct Object Reference (IDOR) vulnerability exists in the API keys management endpoint (PUT /api/keys). Due to the use of the JavaScript object spread operator after setting the authenticated user's ID, any authenticated user can inject a userId parameter in the request body to overwrite any other user's API keys (e.g., OpenAI, Anthropic, Azure). This allows an attacker to replace a victim's API key configuration, potentially routing the victim's conversations through attacker-controlled keys or denying service by providing invalid keys. This is patched in version 0.8.3-rc1.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/31xxx/CVE-2026-31942.json
+- https://github.com/danny-avila/LibreChat/security/advisories/GHSA-5jcj-rh68-cgj7
+- https://nvd.nist.gov/vuln/detail/CVE-2026-31942
