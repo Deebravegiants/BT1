@@ -1,0 +1,27 @@
+### Title
+Scaled oracle source drops nested-quote staleness, allowing stale composite prices in risk gates - (File: contracts/price-aggregator/src/engine.rs)
+
+### Summary
+`read_scaled` resolves a nested `quote` price key but propagates only the factor leg's staleness flag (`factor_stale`). Quote staleness that is not captured by raw timestamp age — specifically the `MAX_LEG_AGE_SPREAD_SECONDS` two-Market-leg spread check in `blend` — is silently discarded, so `read_source`'s re-check of `is_stale(now, observation.timestamp, oracle.max_price_stale_seconds)` passes and the composite source is reported fresh. Stale prices then flow into `calculate_account_risk_totals`, which values collateral and debt for every borrow/withdraw/liquidation gate.
+
+### Finding Description
+Every oracle source is evaluated by `evaluate_source` → `read_scaled` for `PriceSource::Scaled`. `read_scaled` reads the factor feed (with its own per-feed `max_stale_seconds` check via `read_feed`), resolves the nested quote `PriceKey` at `depth + 1`, and returns an `OracleObservation` whose timestamp is `factor.timestamp.min(quote.timestamp)` — but whose staleness flag is `factor_stale` only (engine.rs:649-655). The quote's stale status is never propagated.
+
+Nested resolution treats market-condition failures as non-fatal: `config_failure` explicitly lets "staleness, deviation, sanity bounds" pass through (engine.rs:150-165), so a stale quote still yields a `price_wad`/`timestamp` pair rather than an error. One staleness condition produces no timestamp evidence at all: in `blend`, two `FeedNature::Market` legs are marked stale when `primary.timestamp.abs_diff(anchor.timestamp) > MAX_LEG_AGE_SPREAD_SECONDS`, while the outcome timestamp is `min` of the two — both of which can be arbitrarily fresh (engine.rs:419-426). A quote oracle in exactly this state returns a fresh-looking timestamp; the outer `is_stale` check in `read_source` (engine.rs:554-560) then passes, and `Outcome::failure` finds no `PriceFeedStale` (engine.rs:133-134). The controller's `fetch_prices` consumes `prices` unconditionally and caches the result in `Context::token_prices` for all downstream HF/LTV valuation.
+
+### Impact Explanation
+A collateral or debt asset priced through a scaled source can be valued on a quote the aggregator itself flagged stale (two market legs disagreeing in observation age beyond the spread bound — i.e., one leg is effectively stale relative to the other, the exact LUNA-class condition of the original report). An attacker borrows against overvalued collateral when the quote's fresher leg overstates value, or withdraws collateral / dodges liquidation while the stale composite underprices debt. This converts to protocol insolvency: borrow and withdraw gates in `require_post_pool_risk_gates` are satisfied by a price that should have reverted with `PriceFeedStale`.
+
+### Likelihood Explanation
+Requires a configured `Scaled` source whose quote key resolves to a dual-Market-leg oracle — an admitted configuration (`ScaledSource` exists precisely for factor×quote compositions like LSD/USD). The trigger is organic: two market feeds for the same quote asset publishing at spread-out timestamps during volatile periods or relay congestion is normal, not adversarial. Any unprivileged borrower reaches the path via `borrow`, `withdraw`, `multiply`, `swap_collateral`, etc., with no special positioning. Configuration of the oracle itself is privileged, but the bug is in runtime staleness propagation, not parameter choice.
+
+### Recommendation
+Propagate the quote outcome's staleness through scaled resolution: have `resolve_nested` return (or `read_scaled` re-derive) the quote outcome's `stale` flag and OR it into the returned component staleness, i.e. `factor_stale || quote_stale`, so `read_source` marks the `Reading` stale regardless of timestamp. Alternatively, reject nested quotes whose outcome `failure()` is non-`None`, since the timestamp-min heuristic does not capture flag-only staleness such as leg-age-spread.
+
+### Proof of Concept
+1. Governance (setup only) registers collateral asset `C` with `PriceSource::Scaled { factor: fresh Reflector feed F, quote: PriceKey::Token(Q) }`, `max_price_stale_seconds = 3600`. `Q`'s oracle has two `Market` legs `M1`, `M2`.
+2. `M1` and `M2` both publish within 3600 s but their timestamps differ by more than `MAX_LEG_AGE_SPREAD_SECONDS` (e.g., one feed lags its heartbeat while the other updates) and happen to agree on price within tolerance.
+3. Quote resolution yields `Outcome { stale: true, timestamp: min(t1,t2) fresh }`; the stale flag is dropped entering `read_scaled`, and `is_stale(now, min(t1,t2), 3600)` is false, so `C`'s outcome reports `stale = false`.
+4. Attacker calls `controller.borrow(caller, account_id, debt_asset, amount)`; `Context::fetch_prices` accepts the composite price, `calculate_account_risk_totals` values `C` collateral on a stale blended quote, gates pass, and the attacker extracts borrows against mispriced collateral — replicating the stolen-loan impact of the original finding.
+
+Uncertainty note: the precise return shape of `resolve_nested` (whether it can carry a stale flag at all) was not fully read; the finding stands on `read_scaled` returning `factor_stale` only and `config_failure` documenting that nested staleness is non-fatal.
