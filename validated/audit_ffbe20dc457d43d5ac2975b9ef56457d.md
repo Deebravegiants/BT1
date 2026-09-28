@@ -1,0 +1,28 @@
+### Title
+Unallowlisted route venues let an attacker-supplied pool contract execute arbitrary calls under the swapper's authorization tree — (File: contracts/swap-aggregator/src/venues/mod.rs)
+
+### Summary
+The TwabRewards bug let an attacker plug a malicious "ticket" contract into a permissionless creation path, and the protocol trusted that contract's answers to size a payout. The XOXNO Lending analog lives in the swap router: a `StrategyPayload` names pool and token addresses by raw `u8` indices into an `assets` registry the caller supplies, and the router keeps no allowlist of venues, pools, or tokens. The dispatcher calls whatever pool address the payload names. Measured balance deltas prevent the malicious pool from faking swap output, but they do not prevent it from issuing *other* token calls — including `token.transfer(victim, attacker, amount)` — which Soroban records as a sub-invocation of the caller's authorization entry. If the signer signs the simulated auth tree (the standard flow), the rogue pool drains the victim's wallet far beyond the routed `amount_in`.
+
+### Finding Description
+`execute_strategy` decodes a caller-supplied `swap_xdr` payload (`StrategyPayload { amounts, assets, ops }`) whose `assets` registry is attacker-controllable; there is no pool/token allowlist — the owner whitelist only selects which token pays fees. `dispatch_hop` invokes the venue adapter against `hop`'s pool address, and pool addresses come straight from that registry. The router's only check is its own measured `token_in`/`token_out` deltas (`ZeroOutput`, `InvalidAmount`), which bounds economic correctness of the hop but not the pool's other behavior. The controller-side equivalent (`swap_tokens`) grants exactly one `transfer` invocation to the router, so protocol funds are protected — but the *human* sender's auth tree is not. The project's own threat model documents that "a route can put third-party code on the call stack below the caller's authorization" and "the loss is then the caller's wallet, not the routed amount, and neither the payload minimum nor the final risk gate bounds it." A harness test (`rogue_hop_pool_transfer_joins_caller_auth_tree.rs`) demonstrates a `RogueHopPool` whose `swap()` performs `token::transfer(victim → attacker, WALLET_BALANCE)`, and simulation records that transfer as a child of the caller's `swap_collateral` auth entry; the victim's wallet goes to zero while the swap still returns a fair output.
+
+### Impact Explanation
+Theft of user funds. Any swap user (`execute_strategy` directly, or `multiply` / `swap_collateral` / `swap_debt` / `repay_debt_with_collateral` through the controller) who signs a transaction whose route names an attacker-deployed pool silently authorizes arbitrary `token.transfer` calls from their own address in the same auth tree. The stolen amount is the victim's entire wallet balance of any token, unbounded by `total_in`, `min_out`, or the controller's risk gates — exactly parallel to the TwabRewards attacker draining all promotion tokens through a self-supplied contract.
+
+### Likelihood Explanation
+The exploit requires the victim to sign a route containing the attacker's pool. Routes are built off-chain and passed as opaque XDR; the docs show users typically forward `routeXdr` from a quote server untouched, and the security guidance itself is "a client must decode the route it signs" — i.e., the protocol relies on out-of-band verification rather than on-chain restriction. Any path that serves or injects a crafted route (phishing front-end, compromised/malicious quote source, route-sharing) reaches it with no privileged access. The attacker's pool needs no registration, listing, or approval — there is no venue/pool allowlist to bypass.
+
+### Recommendation
+Mirror the report's "whitelist of trusted tickets": maintain an on-chain allowlist of venue pool contracts in the router (governance/owner-managed) and reject hops whose `assets` entry resolves to an unlisted pool — analogous to how Blend migration already requires an approved pool (`INV-STRAT-03`). Independently, the router could verify the pool's identity via expected pool-code metadata where venues expose it. As a second layer, wallet/SDK clients should refuse auth trees whose `swap_collateral`/`execute_strategy` root carries any child beyond the single input `transfer`.
+
+### Proof of Concept
+Already demonstrated in-tree at `tests/test-harness/tests/strategy/rogue_hop_pool_transfer_joins_caller_auth_tree.rs`:
+- `RogueHopPool.swap` (lines 62–71) executes `token.transfer(victim, attacker, amount)` using a plan stored by its constructor — the "malicious ticket" analog.
+- `UnlistedPoolRouter.execute_strategy` (lines 39–47) pulls `total_in`, invokes the pool address decoded from the caller's `swap_xdr`, and returns a fair `min_out` — showing the measured-output checks all pass.
+- The test asserts (lines 214–226) that the stolen transfer is recorded as `sub_invocations` of the victim's `swap_collateral` root, and `wallet(alice) == 0` / `wallet(attacker) == WALLET_BALANCE`, while Alice's supply balance still reflects the fair swap output.
+
+Supporting code paths:
+- `contracts/swap-aggregator/src/venues/mod.rs:23-40` — `dispatch_hop` routes to whichever adapter/pool the payload names; only router balance deltas are measured (lines 42–56), other pool behavior is unchecked.
+- `contracts/controller/src/strategies/swap.rs:34-38` — the controller scopes *its own* grant to one transfer, but nothing scopes the human sender's auth tree.
+- `docs/explanation/threat-model.md:154-165` — documents the unbounded-wallet-loss exposure explicitly.
