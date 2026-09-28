@@ -1,0 +1,29 @@
+### Title
+Unprivileged supplier can permanently freeze a market via i128 RAY-value overflow during accrual — (`contracts/pool/src/interest.rs`, `common/src/rates/scaling.rs`)
+
+### Summary
+Analogous to CVE-2019-3824 (a crafted request crashes a shared server process, denying service to all users), a single unprivileged address can push a market's scaled book large enough that the next accrual panics with `MathOverflow` inside `scaled_to_original`. Every pool mutation runs `global_sync` first, so once the `supplied × index` (or `borrowed × borrow_index`) RAY product exceeds `i128::MAX`, no `supply`/`borrow`/`withdraw`/`repay`/`liquidate`/`clean_bad_debt`/`recapitalize`/`flash_loan`/`claim_revenue`/`update_indexes` touching that market can ever execute again. The documented index ceiling (`MAX_BORROW_INDEX_RAY = 10^36`, `MAX_SUPPLY_INDEX_RAY = 10^36`) does not protect the market because the value overflow occurs *before* the index reaches its cap.
+
+### Finding Description
+- `contracts/pool/src/interest.rs::global_sync` (lines 20–33) runs accrual unconditionally at the top of every market mutation; each chunk calls `accrue_step`.
+- `accrue_step` (`common/src/rates/simulate.rs`) calls `scaled_to_original(env, borrowed, borrow_index)` and `scaled_to_original(env, supplied, supply_index)` to compute utilization and rewards.
+- `common/src/rates/scaling.rs:14-16` implements `scaled_to_original` as `scaled.mul(env, index)`; `Ray::mul` uses checked i128 arithmetic and panics with `GenericError::MathOverflow` (error 33) on overflow.
+- Entry into this state is permissionless: `supply` accepts any amount up to the market's admitted cap, and `calculate_scaled_cap` (`scaling.rs:26-33`) **saturates** at `i128::MAX` rather than trapping — docs (`docs/reference/formulas.md:411`) confirm cap checks fail open at saturated indexes. The admitted cap maximum is ~170 billion whole tokens (`formulas.md:429`), large enough that `supplied × index` overflows `i128::MAX` (~1.7e38) well before the index hits 10^36.
+- The protocol's own test proves the end state: `tests/test-harness/tests/controller/large_positions_and_long_horizons.rs:320-361` shows a whale market at 98% utilization on the XLM curve where `try_update_indexes_for`, `try_withdraw_raw`, and `try_repay` all revert with `MATH_OVERFLOW` while `borrow_index < MAX_BORROW_INDEX_RAY`. `docs/reference/formulas.md:434-437` documents: "Value overflow can occur before the index ceiling and block repayment/withdrawal because those operations accrue first."
+
+### Impact Explanation
+Permanent freezing of funds and contract unable to operate: once the RAY-value product overflows, accrual traps on every call, so all suppliers' deposits and all borrowers' collateral in that market are permanently locked — no withdrawal, repayment, liquidation, or even `recapitalize`/`clean_bad_debt` recovery path exists, since each accrues first. Because the panic is deterministic on committed state, it cannot be bypassed by parameter changes (all config entrypoints also sync the market first). This is the strongest analog of the CVE's "crash the shared process → deny service to all users": one crafted-size position permanently denies the shared market to everyone.
+
+### Likelihood Explanation
+A single unprivileged address can reach it through `controller::supply` and `controller::borrow` only: supply a near-cap amount of a high-decimal asset (cap conversion saturates fail-open, so even maxed caps admit ~170B whole tokens), and hold borrow utilization high (attacker can take the debt themselves, or market conditions do). The trigger then needs only time at elevated borrow rate — on the steep XLM curve segment the index grows ~170× in a few years per the protocol's own fixture. No privileged call, oracle manipulation, or leaked key is required; the attacker funds the position and waits, then any keeper's `update_indexes` call detonates the freeze.
+
+### Recommendation
+- Bound admission so `supplied` (and `borrowed`) scaled shares times the maximum reachable index (`10^36`) stays inside `i128`: enforce `cap_scaled ≤ i128::MAX / MAX_SUPPLY_INDEX_RAY`-equivalent at entry, not just at listing validation.
+- In `accrue_step`/`global_sync`, clamp the borrow index *before* computing `scaled_to_original`, and/or use saturating or checked math that caps the index at the ceiling instead of panicking, so an overflowing book degrades to "no further interest" rather than a permanent trap.
+- Add a pre-accrual solvency probe in `global_sync` that detects a value-overflow condition and halts index growth for that market while still permitting exits/repayments.
+
+### Proof of Concept
+1. Attacker calls `controller::supply` with `assets = [(hub, BIG18, ~cap_max)]` on an 18-decimal market whose admitted cap approaches the asset-domain maximum (~1.7e11 tokens).
+2. Attacker (or organic demand) borrows to ~98% utilization via `controller::borrow` against separately supplied collateral, sustaining a steep-segment borrow rate.
+3. Wait until `borrowed × borrow_index / RAY` approaches `i128::MAX` — with index growth ~170×, the product crosses the RAY domain while `borrow_index` is still below `10^36`.
+4. Anyone calls `controller::update_indexes` (permissionless) or any market mutation → `global_sync` → `accrue_step` → `scaled_to_original` → `MathOverflow` panic. Replicated by `tests/test-harness/tests/controller/large_positions_and_long_horizons.rs::a_whale_market_at_sustained_high_utilization_hits_the_ray_value_ceiling_before_the_index_cap`, which confirms `withdraw`, `repay`, and `update_indexes` all revert with error 33 and the index cap never engages — the market is permanently frozen.
