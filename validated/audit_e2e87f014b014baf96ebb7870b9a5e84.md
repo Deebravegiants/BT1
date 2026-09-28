@@ -1,0 +1,29 @@
+### Title
+Permanent market freeze: `accrue_step`'s `scaled_to_original` overflows before the `MAX_BORROW_INDEX_RAY` cap can engage, bricking every verb on the market - (File: common/src/rates/simulate.rs)
+
+### Summary
+The pool's interest-accrual step computes utilization by unscaling scaled share counts with `scaled_to_original` (`scaled.mul(env, index)`), which panics on `i128` overflow. Because `borrowed` (scaled debt shares) can be large while `borrow_index` keeps growing, the product `borrowed × borrow_index` can overflow `i128` while the index is still far below `MAX_BORROW_INDEX_RAY` — so the cap at `common/src/rates/index.rs:13-19` never clamps and the panic happens first. Every mutating entrypoint on a market calls `interest::global_sync` (`contracts/pool/src/interest.rs:20-33`) before doing anything else, and `global_sync` calls `accrue_step` (`contracts/pool/src/interest.rs:39-53`), which hits `scaled_to_original` at `common/src/rates/simulate.rs:60-61`. Once the product exceeds `i128::MAX`, every subsequent accrual panics forever: no `withdraw`, no `repay`, no `liquidate`, no `clean_bad_debt`, no `update_indexes`. Supplier funds in that market are permanently frozen. The codebase itself contains a test demonstrating exactly this failure (`tests/test-harness/tests/controller/large_positions_and_long_horizons.rs:316-362`), which asserts `MathOverflow` on `update_indexes`, `withdraw`, and `repay` and notes "the index cap did not engage before the value overflow."
+
+### Finding Description
+`accrue_step` (`common/src/rates/simulate.rs:51-94`) begins by unscaling `borrowed` and `supplied`:
+
+```rust
+let borrowed_original = scaled_to_original(env, borrowed, borrow_index);
+let supplied_original = scaled_to_original(env, supplied, supply_index);
+```
+
+`scaled_to_original` is `scaled.mul(env, index)` (`common/src/rates/scaling.rs:14-16`), a panicking half-up multiply-divide (`common/src/math/fp_core.rs`). Scaled shares are `amount × RAY / index` at mint time and stay roughly constant while `index` compounds upward; for a whale-scale market (e.g., 1e9 units of an 18-decimal token), `borrowed` is already ~1e45 in raw Ray terms. The index only needs to reach roughly `i128::MAX / borrowed` (~170× in the repo's own scenario) for the unscale to trap — long before `MAX_BORROW_INDEX_RAY = 1e36` is reached and `update_borrow_index` would stop further growth.
+
+This mirrors the CVE-2017-3457 bug class — a reachable operation deterministically crashes/halts the affected component — mapped onto Soroban: the "hang/repeatable crash" is a permanent `MathOverflow` panic on the accrual path that every verb passes through.
+
+### Impact Explanation
+Permanent freezing of funds: once `borrowed × borrow_index > i128::MAX`, `global_sync` panics on every call, so `supply`, `withdraw`, `borrow`, `repay`, `liquidate`, `clean_bad_debt`, `recapitalize`, `update_indexes`, and flash/strategy paths touching that market all revert. Suppliers can never exit; borrowers cannot repay; liquidators cannot clear positions; bad debt cannot be written down (which itself calls into the same accrual machinery). The freeze is permanent because `borrow_index` is monotone and `borrowed` shares are only burned by operations that are now blocked — there is no in-contract path to shrink either operand. The protocol also loses the ability to collect revenue on the market and `claim_revenue` is likewise gated by accrual on that market's cache.
+
+### Likelihood Explanation
+Not triggerable on demand — the attacker cannot compress ledger time — but it is reached deterministically by unprivileged actions: an attacker (or anyone) supplies a very large position in a high-decimals market and keeps utilization high (near the steep segment of the rate curve, ~98%) via ordinary `supply`/`borrow` calls. The repo's own harness test reaches the cliff within ~40 years at 98% utilization on the XLM curve, and the certora/common tests show the ceiling is ~11 chunks away at the 200% APR cap. Large high-decimal markets (18-decimal tokens, billion-scale supply) shrink the required index multiple dramatically, and once interest compounds the state is irreversible. Severity is Medium: high impact bounded to one market, with a long but unstoppable fuse and no admin recovery path in scope.
+
+### Recommendation
+Make the unscale in `accrue_step` overflow-safe: saturate `borrowed_original`/`supplied_original` at `i128::MAX` (utilization is a ratio — saturation still yields utilization ≈ 1, the correct economic answer) or compute utilization directly as `borrowed × borrow_index / (supplied × supply_index)` with `I256` intermediates. Alternatively, clamp `borrow_index` growth when `borrowed × index` approaches the i128 domain, or check the product overflow inside `global_sync` and pin indexes at their last-safe values so exits remain possible. At minimum, allow `withdraw`/`repay`/`liquidate` to skip or degrade accrual rather than panic.
+
+### Proof of Concept
+The repo already contains an executable PoC at `tests/test-harness/tests/controller/large_positions_and_long_horizons.rs:321-361`: it builds an 18-decimal market, supplies `BILLION * 10^18`, borrows 98% of it, advances time year-by-year calling `update_indexes` until `try_update_indexes_for(&["BIG18"])` fails with `MathOverflow`, then asserts `borrow_index < MAX_BORROW_INDEX_RAY` (cap never engaged) and that both `try_withdraw_raw` and `try_repay` fail with `MathOverflow`. Trace: `controller.update_indexes` → pool `global_sync` → `accrue_chunk` → `accrue_step` (`common/src/rates/simulate.rs:60`) → `scaled_to_original` → `Ray::mul` panic.
