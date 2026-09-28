@@ -1,0 +1,31 @@
+### Title
+`liquidate` pulls the liquidator's debt repayments while silently dropping collateral legs whose seizure rounds to zero — no minimum-seizure or max-payment guard lets the liquidator cap the effective price — (contracts/controller/src/positions/liquidation/math.rs)
+
+### Summary
+The M-03 class (a payable function silently delivering fewer tokens than the caller priced in, with no min-out parameter) maps onto `liquidate` in the controller. The liquidator submits `debt_payments` expecting collateral worth `repay × (1 + bonus)`, but `calculate_seized_collateral` drops any collateral leg whose seizure rounds to zero tokens or shares via bare `continue` statements that never release the repayment backing them. The only non-emptiness check is on `result.repaid`, not on `seized`, so a liquidation can proceed where the liquidator pays debt tokens and receives less than the quoted bonus rate — in the worst composition, nothing at all.
+
+### Finding Description
+`liquidate(liquidator, account_id, debt_payments, seize_mode)` builds a plan where repayment legs are capped at the ceiled debt and trimmed to the curve quote, but seizure is computed afterward and pro-rata across *all* supply positions. In `calculate_seized_collateral`, a leg is skipped with `continue` when `seizure_ray <= 0` (line 419), `capped_ray <= 0` (line 428), `seized_scaled <= 0` (line 456), or `capped_amount <= 0` (line 465) — and only the sub-3-decimal whole-unit branch (lines 401–417) accumulates `unseized_usd` that would refund the unbacked repayment via `release_unbacked_repayment`. For any leg with `asset_decimals >= MIN_BORROWABLE_ASSET_DECIMALS` whose floor-rounded seizure hits zero, the repayment backing it is neither released nor compensated.
+
+Execution then only requires `result.repaid` to be non-empty (`mod.rs` line 66), pulls the planned or offered amounts from the liquidator via `apply_liquidation_repayments` (`apply.rs` lines 54–77), and applies whatever `seized` remains — possibly an empty vec, which `apply_liquidation_seizures`/`apply_liquidation_share_credit` iterate as a no-op. The liquidator has no `min_collateral_out` argument; `debt_payments` bounds input but nothing bounds output. The protocol's own liquidation runbook concedes the behavior: "The contract accepts a liquidation that repays debt and seizes nothing, so the liquidator would pay and receive no collateral" (`skills/xoxno-lending-liquidations/SKILL.md` ~line 178).
+
+### Impact Explanation
+Theft of user funds from the liquidator, reachable by any unprivileged address calling `liquidate`. Concrete loss paths:
+
+- **Zero-output liquidation**: on a small or multi-collateral account where every leg's pro-rata seizure floors below one base unit (plausible for high-value, low-decimal collaterals such as a 3-decimal asset priced near $100/unit, or a dust-valued repayment), `seized` is empty, `repaid` is non-empty, the debt is retired, and the liquidator receives nothing.
+- **Partial silent shortfall**: with several collateral legs, each individually floor-rounded, dropped legs remove up to ~1 base unit of collateral per leg while the liquidator still pays the full planned repayment — effective bonus can go negative.
+- **Quote-to-execution drift**: a liquidator sizing from `get_liquidation_estimate` has no floor parameter; between simulation and inclusion, accrued interest, a competing liquidation, or a price update can shift pro-rata shares so a leg drops or `scale_seizures_to_received` reduces the payout, with no revert path protecting the price.
+
+### Likelihood Explanation
+**Medium/Low.** The loss per event is bounded (roughly one base unit of each collateral asset plus drift effects), exploiting the rounding edge requires specific decimal/price/position compositions or an unlucky state change between estimate and execution, and sophisticated liquidators can simulate immediately before submission. However, the code path is fully permissionless, needs no privileged action, and the zero-seizure acceptance is explicitly acknowledged in the protocol's own integrator documentation rather than reverted.
+
+### Recommendation
+Add an explicit output floor to `liquidate`, e.g. a `min_seized_usd` or per-leg `min_seized` argument, and revert when the realized seizure falls below it — mirroring the router's `total_min_out → SlippageExceeded` pattern in `contracts/swap-aggregator/src/execute/mod.rs` (lines 125–128). Independently, when `calculate_seized_collateral` drops a leg at lines 419/428/456/465, accumulate the leg's `seizure_for_asset_usd` into `unseized_usd` (as the whole-unit branch already does) so `release_unbacked_repayment` refunds the repayment that no longer buys collateral, and revert when `repaid` is non-empty but `seized` is empty rather than accepting a pay-and-receive-nothing liquidation.
+
+### Proof of Concept
+1. Configure a market listing a high-value asset with `asset_decimals >= 3` but where one base unit is worth meaningfully more than dust (e.g. decimals = 3, price ≈ $100), or simply an account whose collateral legs are each small relative to the repayment.
+2. Open an account that supplies collateral across such legs and borrows debt until `HF < 1` (e.g. via a price drop, as in `tests/test-harness/tests/controller/spoke_liquidation_combo.rs` lines 79–85).
+3. Liquidator calls `liquidate(liquidator, account_id, [(debt_hub_asset, small_repay)], SeizeMode::Transfer)` where `small_repay × (1 + bonus)` spread pro-rata yields `< 1` base unit on every collateral leg.
+4. In `calculate_seized_collateral`, each leg hits `seizure_ray <= 0` / `capped_amount <= 0` and is skipped (math.rs lines 419, 428, 456, 465); `seized` is empty but `repaid` is not.
+5. `require_non_empty_payments(&result.repaid)` passes (mod.rs line 66); `apply_liquidation_repayments` pulls the debt tokens from the liquidator (apply.rs lines 58–77); `apply_liquidation_seizures` iterates an empty vec and transfers nothing (apply.rs lines 104–120).
+6. Result: borrower's debt is reduced, collateral untouched, and the liquidator's tokens are permanently lost — the same "pays in, receives less/nothing" shape as M-03, with no min-out parameter available to prevent it.
