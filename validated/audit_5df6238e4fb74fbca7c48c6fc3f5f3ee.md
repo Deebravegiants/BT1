@@ -1,0 +1,24 @@
+### Title
+Overpayment refund pays out of real custody for funds never deposited, draining the pool - (File: contracts/pool/src/ops/repay.rs)
+
+### Summary
+The pool's `repay` and `recapitalize` legs treat the declared `amount` as already-received cash. The "excess" (`amount - debt_due`, or `amount - backing_shortfall`) is transferred back to the payer out of real token custody, while only `net_repay`/`applied` is credited to the `cash` book. If the inbound transfer for the declared amount never arrived (or was smaller), the refund is unfunded: it pays out other suppliers' deposits while the book still reports them as present. This mirrors the Sui bug class: settlement code assumes a balance was provisioned by an earlier step and debits/refunds against an entry that was never actually funded, underflowing real custody.
+
+### Finding Description
+In `contracts/pool/src/ops/repay.rs`, `accounting()` splits the caller-declared `action.amount` into `net_repay` (credited to `cash`) and `overpayment` via `cache.resolve_repay`, then `apply()` unconditionally executes `outcome.cache.transfer_out(payer, outcome.overpayment)`. `overpayment` is derived from the declared amount, not from a measured balance delta of the pool, and the refund path never debits `cash` or passes `require_reserves`. The same shape exists in `contracts/pool/src/ops/recapitalize.rs`: `applied = min(amount, backing_shortfall)`, `refund = amount - applied`, then `cache.transfer_out(&payer, outcome.refund)` — again with only `applied` booked.
+
+The repo's own tests prove the failure mode end-to-end: `test_unfunded_repay_overpayment_refund_also_pays_out_of_custody` in `contracts/pool/tests/flows.rs:3590` repays `custody_before` against a market with zero debt, receives `actual_amount == 0`, and the shared assertion `assert_unfunded_refund_drained_custody` (`flows.rs:3378`) confirms the payer is refunded in full, the pool's token balance goes to 0, and `cash` is untouched — so `require_reserves` still admits exits that then fail inside the SAC transfer (`flows.rs:3404`).
+
+Reachability: `repay` is a listed in-scope unprivileged entrypoint; a repayer supplies a `PoolAction` whose `amount` exceeds outstanding debt. When the debt leg is dust/zero (e.g., after interest rounding or a same-block full repay by another entry in the bulk `repay` vector), nearly the entire declared amount becomes "overpayment" refunded from custody.
+
+### Impact Explanation
+Theft of user funds / contract unable to operate from lack of token funds. Each unfunded refund transfers real tokens out of the pool while the `cash` book is unchanged, creating a growing divergence between accounting and custody. Once custody < `cash`, honest withdrawals, borrows, and revenue claims pass `require_reserves` but abort inside the token transfer — a permanent insolvency wedge until the shortfall is recapitalized.
+
+### Likelihood Explanation
+High for the `repay` variant: the trigger is a repay whose declared amount exceeds `current_debt_ceil`, which any user can construct (overpayment is a normal, supported flow — the refund exists precisely for it). Exploitability depends on whether the controller always transfers exactly `amount` before calling `pool.repay`; the refund path itself has no receipt verification, so any path where the declared amount is not fully provisioned upstream (rounding in measured transfers, a partially-filled bulk repay, or direct invocation where auth permits) pays out unfunded. I could not fully trace the controller-side inbound measurement within the iteration budget, so the residual uncertainty is in the upstream provisioning guarantee, not in the refund's lack of verification.
+
+### Recommendation
+Measure, don't trust: compute the refundable excess from the actual received delta (pool token balance before vs. after the inbound transfer, as `transfer_amount_measured` does elsewhere in the codebase) rather than from the declared `action.amount`, or require the refund to be funded by debiting `cash` and passing `require_reserves`. Alternatively, have `repay`/`recapitalize` refund only `received - applied` and reject `amount > debt + epsilon` outright.
+
+### Proof of Concept
+See `contracts/pool/tests/flows.rs:3590-3611` (`test_unfunded_repay_overpayment_refund_also_pays_out_of_custody`): with `before.borrowed == 0` and `before.cash == custody_before`, call `pool.repay(payer, [PoolAction{ amount: custody_before, .. }])` with no inbound transfer. Result: `actual_amount == 0`, payer balance becomes `custody_before`, `token.balance(pool) == 0`, `after.cash == before.cash` — full custody drained with the book untouched. The reciprocal case for `recapitalize` is documented in `flows.rs:3376-3406` and `3578-3588`.
