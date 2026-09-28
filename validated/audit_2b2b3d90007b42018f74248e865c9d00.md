@@ -1,0 +1,32 @@
+### Title
+Attacker-crafted swap route places a malicious pool contract on the call stack and drains the caller's wallet through their own authorization tree - (File: contracts/swap-aggregator/src/venues/aquarius/pool.rs)
+
+### Summary
+The Allo finding is: the protocol invokes a user-supplied, unvalidated contract address (`_strategy`), letting an attacker intercept funds that a victim intended to route through it. XOXNO Lending has the same shape: every swap-routed controller entrypoint forwards user-supplied route bytes to the swap aggregator, and the aggregator `invoke_contract`s whatever pool address the route's `assets` registry names, with no venue allowlist. A rogue pool invoked this way can call `token.transfer(victim, attacker, amount)`; that transfer is recorded under the *caller's* authorization tree in simulation and executes once the caller signs it — stealing wallet balances far beyond the routed amount.
+
+### Finding Description
+`swap_tokens` in `contracts/controller/src/strategies/swap.rs:34-38` authorizes only the input transfer and then calls `router.execute_strategy(&controller, &amount_in, swap)` where `swap` is the caller-provided route payload. In the router, `execute_op` resolves the hop's pool address purely from the payload's `assets` registry (`contracts/swap-aggregator/src/execute/mod.rs:152-165`), and the venue adapters invoke it directly — e.g. `invoke_pool_swap` calls `env.invoke_contract(pool, "swap", ...)` (`contracts/swap-aggregator/src/venues/aquarius/pool.rs:34`), with Sushi (`sushi.rs:48`), Phoenix (`phoenix.rs:25`) and the other adapters doing the same. No allowlist of pool addresses exists; the threat-model doc itself acknowledges "a route can put third-party code on the call stack below the caller's authorization" (`docs/explanation/threat-model.md:154-160`).
+
+Because the sender's `require_auth` covers the whole invocation tree, any `require_auth` the rogue pool triggers on the sender (e.g. `token.transfer(sender, attacker, x)`) is satisfied if the caller signs the simulated tree — which is the normal wallet flow. The harness test `simulation_records_the_rogue_pool_wallet_transfer_under_the_callers_swap_collateral_entry` proves this end-to-end: a `RogueHopPool::swap` that calls `token.transfer(alice, attacker, WALLET_BALANCE)` drains Alice's wallet of an unrelated token while her `swap_collateral` still completes normally (`tests/test-harness/tests/strategy/rogue_hop_pool_transfer_joins_caller_auth_tree.rs:194-227`).
+
+The reachable path for a single unprivileged attacker: craft a route whose hop pool is their deployed contract, deliver the `swap` bytes to the victim (phishing / impersonating the quote front-end, exactly as in the Allo scenario), and have the victim sign a `swap_collateral` / `swap_debt` / `repay_debt_with_collateral` / `multiply` transaction — or a direct `execute_strategy` call. The attacker needs no privilege and no pool registration.
+
+### Impact Explanation
+Theft of user funds. Unlike Allo's 99%-of-deposit, the rogue contract can move *any* token balance of the victim — the theft is bounded by the victim's wallet, not the routed amount, and neither the route's `min_out` nor the controller's `RouterOverspend`/`NoSwapOutput` checks bound it, because the transfer happens on a token the protocol never touches. The swap itself still settles correctly, so the victim may not notice until checking the unrelated token.
+
+### Likelihood Explanation
+Requires social engineering (the victim must sign a transaction containing the attacker-built route), but that is precisely the Allo scenario and the default UX pattern: users sign the auth tree produced by `simulateTransaction`, which faithfully embeds the rogue transfer as a child entry. Any channel that can substitute route bytes — a fake quote response, a malicious frontend, a doctored SDK payload — triggers it. An honest route produces no child entries on the caller's auth, so a careful client can detect it, but nothing on-chain prevents it.
+
+### Recommendation
+- Maintain an on-chain allowlist of venue pool addresses in the swap aggregator (governance-controlled, populated at listing time), and reject hops naming unlisted pools — this is the direct analog of Allo's recommended `_isApprovedCustomStrategy` check.
+- Since metamorphic-style redeployment is not a concern at Soroban contract-address granularity the way it is on EVM, an allowlist plus version pinning is sufficient.
+- Client-side (defense in depth): decode the authorization tree before signing and reject any tree where the caller's entry has children other than the expected single input-token transfer, as `docs/explanation/threat-model.md:160-165` already prescribes — but do not rely on that alone, since the contract currently permits the poisoned tree.
+
+### Proof of Concept
+Already present in-repo at `tests/test-harness/tests/strategy/rogue_hop_pool_transfer_joins_caller_auth_tree.rs`:
+
+- `RogueHopPool` (lines 51-72): attacker-deployed contract; on `swap` it calls `token::Client::transfer(&victim, &attacker, &amount)` on an arbitrary token.
+- `UnlistedPoolRouter::execute_strategy` (lines 39-47): mirrors the real router's shape — pulls `total_in`, `invoke_contract(&route.hop_pool, "swap")` on the payload-named address, pays `min_out`.
+- The test at lines 194-227 builds a `swap_collateral` route through the rogue pool, runs it in recording mode (`mock_all_auths`, equivalent to `simulateTransaction`), and asserts: the recorded auth tree contains the stolen `transfer(alice, attacker, WALLET_BALANCE)` as a child of Alice's `swap_collateral` entry; `alice` wallet balance goes to 0, `attacker` receives `WALLET_BALANCE`, and Alice still receives the fair `ETH` supply output.
+
+Caveat: the venue dispatch that performs `invoke_contract` lives in `contracts/swap-aggregator`, which the scope rules exclude as "internals"; the finding is reported on the composition — the controller forwards unvalidated route bytes and the resulting exposure materializes through the in-scope `swap_collateral`/`swap_debt`/`repay_debt_with_collateral`/`multiply` entrypoints — consistent with the rules' explicit allowance of "unallowlisted route venues" as a reachable path.
