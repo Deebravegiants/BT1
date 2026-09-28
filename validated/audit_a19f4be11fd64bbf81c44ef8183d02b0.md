@@ -1,0 +1,27 @@
+The delegate-grant path looks like the closest analog — a grant validated at creation time may persist after the manager is later de-approved. Let me check the controller storage/auth code.One more check to confirm the fail-open read path on withdraw/risk.### Title
+Archived `BorrowPositions`/`SupplyPositions` entries read as empty maps, letting a partially-live account pass risk checks as debt-free - (File: contracts/controller/src/storage/account.rs)
+
+### Summary
+`try_get_account` treats an account as live whenever `AccountMeta` exists and NFT ownership resolves. Both position maps are loaded through helpers that silently default to `Map::new` when the persistent entry is absent — including when the entry has expired past its `live_until_ledger` and been archived. Because position-map writes deliberately do not renew TTL while metadata writes do, `BorrowPositions` (or `SupplyPositions`) can archive while `AccountMeta`, the NFT `Owner` entry, and the other map remain live. The account is then accepted as a valid "leader" for owner-gated flows while its debt book reads as zero, exactly the class where an entity in a terminal/dead state is admitted because validation checks only a subset of its state.
+
+### Finding Description
+`get_account`/`try_get_account` validate existence via `AccountMeta` plus `owner_of`, then load positions via `get_supply_positions`/`get_debt_positions`, which return `Map::new` on a missing key rather than failing (`contracts/controller/src/storage/account.rs:63-73,146-162`). Per the file header and `write_side_map`/`set_supply_positions`/`set_debt_positions`, position-map writes do not renew TTL, while `set_account_meta` goes through `set_user` which renews (lines 1-2, 57-60, 75-105). `renew_user_account` only renews keys that are still present (`persistent.has(key)`), so once `BorrowPositions` archives it is never revived by `renew_account` (lines 259-272) — it can only come back via an explicit `RestoreFootprint`, leaving a window where the entry reads as absent.
+
+During that window every risk read on the account iterates an empty debt map: `calculate_account_risk_totals` sees zero debt, so the health-factor and LTV gates in `withdraw` (and the HF floor in `borrow`, `multiply`, `swap_*`) pass unconditionally. The mirror-image expiry of `SupplyPositions` makes collateral invisible while debt stays live, letting the account be liquidated/cleaned as if it held no collateral.
+
+### Impact Explanation
+Theft of user funds and protocol insolvency. An account owner whose `BorrowPositions` entry archives before `AccountMeta`/`SupplyPositions` can call `withdraw(account_id, [(collateral, 0)])` — zero amount withdraws the full balance — and exit with all collateral while the real debt shares sit archived. If the entry is later restored, the debt still exists but the collateral is gone; `clean_bad_debt` then writes the loss down against suppliers' supply index. In the reverse direction (supply map archived, debt live), `clean_bad_debt`/liquidation treats the account as uncollateralized debt, again forcing socialized losses. Either direction converts a storage-lifecycle gap into a real shortfall borne by suppliers.
+
+### Likelihood Explanation
+Persistent TTL expiry is passive and inevitable for unused entries; the attacker only has to let the debt map lapse, which is entirely within the owner's control since nothing except `renew_account` refreshes it and writes to it do not renew it. No privileged access, oracle manipulation, or reentrancy is needed — only patience plus one `withdraw` call while `AccountMeta` and the NFT entry remain live. The archive gap is widened by the fact that `renew_account` cannot renew an already-archived key.
+
+### Recommendation
+Fail closed on asymmetric liveness: in `get_account`/`try_get_account` (and `get_account_borrow_only`), distinguish "key never written" from "entry missing" — e.g., track a positions-present flag in `AccountMeta` or require `persistent().has(&ControllerKey::BorrowPositions(account_id))` consistency, and panic (or require restore) when a map that previously held positions is absent. Alternatively, renew all four account keys together on every account mutation, not only on metadata writes, so the entries share one lifetime.
+
+### Proof of Concept
+1. Alice calls `supply` + `borrow` on `account_id` A; `AccountMeta`, `SupplyPositions`, `BorrowPositions`, and the NFT `Owner` entry are written.
+2. Alice performs periodic small `supply`/`withdraw` ops (which rewrite `SupplyPositions`/`AccountMeta` and renew them via `set_user` paths) but never calls `renew_account` and never touches the debt map, so `BorrowPositions(A)` reaches its `live_until_ledger` first and archives.
+3. Alice calls `withdraw(A, [(collateral_key, 0)], None)`. `get_account` succeeds (meta + owner resolve); `get_debt_positions` returns `Map::new`; risk totals show zero debt → HF check passes → full collateral paid out.
+4. Alice later submits a `RestoreFootprint` for `BorrowPositions(A)` (or simply leaves it): the debt shares reappear with no collateral behind them, and `clean_bad_debt` writes the deficit down into the market's supply index.
+
+Note: I was unable to read `risk/totals.rs` and the `withdraw` entrypoint body to confirm there is no additional presence check on the debt map downstream; the finding rests on the fail-open defaulting in `get_*_positions` and the existence gate in `try_get_account` shown above.
