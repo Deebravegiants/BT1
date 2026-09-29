@@ -217,7 +217,7 @@ class GetValidatedReports:
         try:
             self.driver.get(url)
 
-            wait = WebDriverWait(self.driver, 120)
+            wait = WebDriverWait(self.driver, 20)
 
             page_state = self._wait_for_not_found_or_copy_buttons(wait)
             if page_state == "not_found":
