@@ -105,6 +105,14 @@ jobs:
 
         run: python run_scanner.py
 
+      - name: Upload debug screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scanner-debug-${{ github.run_number }}
+          path: debug_no_form_*.png
+          if-no-files-found: ignore
+
 
       - name: Commit and push changes
         if: steps.check_audited.outputs.run_workflow == 'true'

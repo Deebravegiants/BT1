@@ -78,14 +78,27 @@ class Validator:
         menu_item = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_primary)))
         menu_item.click()
 
+    def _load_page_with_form(self, attempts=3, timeout=60):
+        """Open BASE_URL and wait for the chat form; on failure dump page info for debugging."""
+        for attempt in range(1, attempts + 1):
+            self.driver.get(BASE_URL)
+            try:
+                WebDriverWait(self.driver, timeout).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, 'form'))
+                )
+                return
+            except Exception:
+                print(f"[attempt {attempt}/{attempts}] No form found after {timeout}s")
+                print(f"URL: {self.driver.current_url}")
+                print(f"Title: {self.driver.title}")
+                print(self.driver.page_source[:2000])
+                self.driver.save_screenshot(f"debug_no_form_{attempt}.png")
+        raise RuntimeError(f"Chat form never appeared on {BASE_URL}")
+
     def scan_past_vuln(self, filename, question_gotten):
-        wait = WebDriverWait(self.driver, 1200)
+        wait = WebDriverWait(self.driver, 60)
 
-        self.driver.get(BASE_URL)
-
-        wait.until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, 'form'))
-        )
+        self._load_page_with_form()
 
         for _ in range(10):
             try:
