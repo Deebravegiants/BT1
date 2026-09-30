@@ -1,0 +1,242 @@
+[
+  {
+    "filename": "audit_01154.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_102d84b4-8cae-4094-8d64-3254c9942366",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:16:48.946629",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_06837.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_87ae7967-caaa-46b5-af09-1af05c105980",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:17:02.398289",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_08626.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_e806467e-b97e-4f49-84f6-5d70421f62cf",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:17:15.816323",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_10220.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_80fa90fe-f11f-48ad-bee1-90d3bd565074",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:17:31.349665",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_dlt_04233.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_7299517b-6fab-4caa-9f4c-e1ed356ee26d",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:17:44.807370",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_dlt_06336.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_1db833eb-e0c9-433b-a1cc-738e59e74216",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:17:58.296373",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_dlt_10921.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_afaa531d-81b0-4f79-8fdd-bbd05410f34d",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:18:15.855328",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_ghsa_00066.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_7542a485-070c-4c80-9c2c-46c2dfa28b68",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:18:29.349256",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_ghsa_02163.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_7ad072a8-7bec-436f-a024-bc343c57f148",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:18:42.856404",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_ghsa_05800.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_685cfc36-2603-4d1f-a302-d0c1cd188b65",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:18:58.437951",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_ghsa_07905.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_65f0cb08-3e68-463a-8c05-aec04a1065d0",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:19:11.972008",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_ghsa_11083.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_53f2c69b-1e36-4b4c-8c0c-56427f61637f",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:19:25.417350",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_ghsa_11312.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_9218c299-b4a2-4789-8994-9a432f7633ca",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:19:38.881258",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_ghsa_13186.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_95ac803b-8022-42c8-a258-707178f8d034",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:19:52.340313",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_hack_11929.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_54e01082-0d30-4e98-973b-7a0b18e2fae2",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:20:05.826179",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_hf_04809.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_5966c308-cd18-4244-adda-14be27574607",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:20:19.313258",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_09400.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_91ebac61-1b65-4ad4-b351-6372f3010b3e",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:20:34.830266",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_24096.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_7e9fb8f8-53ed-4996-8c09-253d94841fc0",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:20:48.516709",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_24307.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_65cde26f-5cd5-4ccd-8c10-0be64c65d7f3",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:21:01.957524",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_26193.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_fd3fa9c6-864c-4a39-93f5-917ba79e3e6a",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:21:15.392042",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_26202.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_72e8196e-c320-4a24-bfd1-e3209198a614",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:21:28.878951",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_30815.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_b4ae04ac-d629-441a-9d17-dbd85ff1bccb",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:21:42.335048",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_32910.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_c2642f27-3526-48c6-9b66-0ef75c303055",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:22:00.013564",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_35073.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_c6bc342e-1525-4717-8f0c-c430c2e9d545",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:22:13.457344",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_37176.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_e94c18e7-2fc0-4c3d-a22c-804fa8a2e47a",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:22:29.003258",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_40417.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_b6db080e-170f-4ee5-812e-3044b2a12708",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:22:45.888119",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_40786.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_4414fb3f-1872-46d4-af5f-3efcf1d8417d",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:23:01.368690",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_49365.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_6c4d06af-3c9b-4f05-9612-3c4b17f8b494",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:23:14.800344",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_51763.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_2847f97b-4e94-4ff4-974e-53cc36dc1846",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:23:30.679868",
+    "report_generated": true
+  },
+  {
+    "filename": "audit_osv_53666.md",
+    "deepwiki_url": "https://deepwiki.com/search/-analog-scan-prompt-external-r_c70893b3-a222-4e22-808f-75c14fd046bc",
+    "answer_file": null,
+    "source": "mcp",
+    "timestamp": "2026-09-30 13:23:44.175241",
+    "report_generated": true
+  }
+]
