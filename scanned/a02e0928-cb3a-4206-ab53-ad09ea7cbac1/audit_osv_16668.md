@@ -1,0 +1,22 @@
+# [H] CVE-2019-9003
+
+## Summary
+Severity: High
+Advisory: CVE-2019-9003
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2019-02-22
+Source: https://osv.dev/vulnerability/CVE-2019-9003
+Type: osv
+
+## Details
+In the Linux kernel before 4.20.5, attackers can trigger a drivers/char/ipmi/ipmi_msghandler.c use-after-free and OOPS by arranging for certain simultaneous execution of the code, as demonstrated by a "service ipmievd restart" loop.
+
+## References
+- http://lists.opensuse.org/opensuse-security-announce/2019-05/msg00037.html
+- http://www.securityfocus.com/bid/107145
+- https://cdn.kernel.org/pub/linux/kernel/v4.x/ChangeLog-4.20.5
+- https://security.netapp.com/advisory/ntap-20190327-0002/
+- https://usn.ubuntu.com/3930-1/
+- https://usn.ubuntu.com/3930-2/
+- https://github.com/torvalds/linux/commit/77f8269606bf95fcb232ee86f6da80886f1dfae8
+- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=77f8269606bf95fcb232ee86f6da80886f1dfae8

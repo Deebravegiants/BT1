@@ -1,0 +1,24 @@
+# [M] Zephyr WireGuard mutates peer state before anti-replay check, enabling capture-replay endpoint hijack
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-13734
+Aliases: GHSA-x7q7-fjx9-4vj2
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:H)
+Published: 2026-08-28
+Source: https://osv.dev/vulnerability/CVE-2026-13734
+Type: osv
+
+## Details
+Zephyr's WireGuard VPN data-plane receive handler wg_process_data_message() in subsys/net/lib/wireguard/wg_crypto.c validated the anti-replay counter too late. After AEAD decryption of a MESSAGE_TRANSPORT_DATA packet succeeded, the code committed several peer-state changes — update_peer_addr() (endpoint roaming update), the keypair->last_rx/peer->last_rx liveness timers, and keypair_update() (promote next→current and destroy the previous keypair) — and only afterward called wg_check_replay(). On a replayed packet the replay check returned -EINVAL, but none of the preceding mutations were rolled back.
+
+The AEAD tag authenticates content but not freshness, so a replayed-but-authentic transport packet decrypts correctly. An attacker who captures one valid ciphertext off the wire (an on-path or shared-medium observer) can re-inject it from an arbitrary spoofed source address. Reaching the handler requires no credentials: it is driven directly from inbound UDP datagrams via the dispatch in subsys/net/lib/wireguard/wg.c.
+
+Because the state mutations committed before the replay check, the replay repoints the peer endpoint to the attacker-chosen source address (roaming hijack), redirecting the victim's subsequent outbound tunnel traffic until the legitimate peer's next packet re-corrects it; it also prematurely destroys the previous keypair and refreshes the RX liveness timer. The tunnel payload stays encrypted under the session keypair, so this is an integrity/availability impact (traffic redirection and session disruption), not payload disclosure. The fix moves wg_check_replay() to immediately after a successful decrypt, before any peer-state mutation, matching the WireGuard specification and the Linux reference implementation.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/13xxx/CVE-2026-13734.json
+- https://github.com/zephyrproject-rtos/zephyr/security/advisories/GHSA-x7q7-fjx9-4vj2
+- https://nvd.nist.gov/vuln/detail/CVE-2026-13734
+- https://github.com/zephyrproject-rtos/zephyr/commit/260c32ef9a89824bd25e17170e77aa4b98c84069
+- https://github.com/zephyrproject-rtos/zephyr

@@ -1,0 +1,28 @@
+# [H] Possible precision loss in `getPrice` function of `CurveVolatileOracle.sol`
+
+## Summary
+Severity: High
+Reporter: Virtual Hazelnut Seal
+Source: https://github.com/sherlock-audit/2023-07-blueberry/blob/7c7e1c4a8f3012d1afd2e598b656010bb9127836/blueberry-core/contracts/oracle/CurveVolatileOracle.sol#L122-L124
+Type: audit-issue
+
+## Details
+# Possible precision loss in `getPrice` function of `CurveVolatileOracle.sol`
+## Summary
+Potential Precision Loss Due to Division-Multiplication Sequence
+
+## Vulnerability Detail
+In the  `getPrice` function of `CurveVolatileOracle.sol`, there is a sequence of mathematical operations involving division followed by multiplication. This can lead to precision loss due to the rounding errors introduced by the division operation.
+
+## Impact
+Precision loss can occur when performing division followed by multiplication. The rounding errors introduced during the division operation can propagate through subsequent multiplication, resulting in an inaccurate final result resulting we will get incorrect `price`
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-07-blueberry/blob/7c7e1c4a8f3012d1afd2e598b656010bb9127836/blueberry-core/contracts/oracle/CurveVolatileOracle.sol#L122-L124
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+avoid division before multiplication

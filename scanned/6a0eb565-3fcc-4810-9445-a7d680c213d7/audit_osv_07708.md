@@ -1,0 +1,36 @@
+# [H] Incomplete fix for CVE-2020-9484
+
+## Summary
+Severity: High
+Advisory: BIT-tomcat-2021-25329
+Aliases: CVE-2021-25329, GHSA-jgwr-3qm3-26f3
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-tomcat-2021-25329
+Type: osv
+
+## Affected
+- Bitnami: `tomcat` — affected >=10.0.0 <10.0.1
+
+## Details
+The fix for CVE-2020-9484 was incomplete. When using Apache Tomcat 10.0.0 to 10.0.0, 9.0.0 to 9.0.41, 8.5.0 to 8.5.61 or 7.0.0. to 7.0.107 with a configuration edge case that was highly unlikely to be used, the Tomcat instance was still vulnerable to CVE-2020-9494. Note that both the previously published prerequisites for CVE-2020-9484 and the previously published mitigations for CVE-2020-9484 also apply to this issue.
+
+## References
+- http://www.openwall.com/lists/oss-security/2021/03/01/2
+- https://lists.apache.org/thread.html/r11ce01e8a4c7269b88f88212f21830edf73558997ac7744f37769b77%40%3Cusers.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r732b2ca289dc02df2de820e8775559abd6c207f159e39f559547a085%40%3Cusers.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/r8a2ac0e476dbfc1e6440b09dcc782d444ad635d6da26f0284725a5dc%40%3Cusers.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/rb51ccd58b2152fc75125b2406fc93e04ca9d34e737263faa6ff0f41f%40%3Cusers.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/rf6d5d57b114678d8898005faef31e9fd6d7c981fcc4ccfc3bc272fc9%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/rfe62fbf9d4c314f166fe8c668e50e5d9dd882a99447f26f0367474bf%40%3Cannounce.apache.org%3E
+- https://lists.apache.org/thread.html/rfe62fbf9d4c314f166fe8c668e50e5d9dd882a99447f26f0367474bf%40%3Cannounce.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/rfe62fbf9d4c314f166fe8c668e50e5d9dd882a99447f26f0367474bf%40%3Cdev.tomcat.apache.org%3E
+- https://lists.apache.org/thread.html/rfe62fbf9d4c314f166fe8c668e50e5d9dd882a99447f26f0367474bf%40%3Cusers.tomcat.apache.org%3E
+- https://lists.debian.org/debian-lts-announce/2021/03/msg00018.html
+- https://security.gentoo.org/glsa/202208-34
+- https://security.netapp.com/advisory/ntap-20210409-0002/
+- https://www.debian.org/security/2021/dsa-4891
+- https://www.oracle.com//security-alerts/cpujul2021.html
+- https://www.oracle.com/security-alerts/cpujan2022.html
+- https://www.oracle.com/security-alerts/cpuoct2021.html
+- https://nvd.nist.gov/vuln/detail/CVE-2021-25329

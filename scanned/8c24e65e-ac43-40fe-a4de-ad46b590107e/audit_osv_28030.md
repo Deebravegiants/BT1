@@ -1,0 +1,45 @@
+# [H] vmxnet3: Fix missing reserved tailroom
+
+## Summary
+Severity: High
+Advisory: CVE-2024-27026
+Ecosystem: Linux
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2024-05-01
+Source: https://osv.dev/vulnerability/CVE-2024-27026
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=6.6.0 <6.6.23, >=6.7.0 <6.7.11, >=6.8.0 <6.8.2
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+vmxnet3: Fix missing reserved tailroom
+
+Use rbi->len instead of rcd->len for non-dataring packet.
+
+Found issue:
+  XDP_WARN: xdp_update_frame_from_buff(line:278): Driver BUG: missing reserved tailroom
+  WARNING: CPU: 0 PID: 0 at net/core/xdp.c:586 xdp_warn+0xf/0x20
+  CPU: 0 PID: 0 Comm: swapper/0 Tainted: G        W  O       6.5.1 #1
+  RIP: 0010:xdp_warn+0xf/0x20
+  ...
+  ? xdp_warn+0xf/0x20
+  xdp_do_redirect+0x15f/0x1c0
+  vmxnet3_run_xdp+0x17a/0x400 [vmxnet3]
+  vmxnet3_process_xdp+0xe4/0x760 [vmxnet3]
+  ? vmxnet3_tq_tx_complete.isra.0+0x21e/0x2c0 [vmxnet3]
+  vmxnet3_rq_rx_complete+0x7ad/0x1120 [vmxnet3]
+  vmxnet3_poll_rx_only+0x2d/0xa0 [vmxnet3]
+  __napi_poll+0x20/0x180
+  net_rx_action+0x177/0x390
+
+## References
+- https://git.kernel.org/stable/c/7c8505ecc2d15473d679b8e06335434b84fffe86
+- https://git.kernel.org/stable/c/91d017d19d5a9ad153e2dc23ed3c0e2e79ef5262
+- https://git.kernel.org/stable/c/aba8659caf88017507419feea06069f529329ea6
+- https://git.kernel.org/stable/c/e127ce7699c1e05279ee5ee61f00893e7bfa9671
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/27xxx/CVE-2024-27026.json
+- https://nvd.nist.gov/vuln/detail/CVE-2024-27026
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

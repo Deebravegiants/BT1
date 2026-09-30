@@ -1,0 +1,76 @@
+# [M] Inaccurate calculation of v.positionSizeCollateralAfterReferralFees
+
+## Summary
+Severity: Medium
+Contest weight: 0.6912
+Dataset id: 8381
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+When calculating v.positionSizeCollateralAfterReferralFees and reward1 (the actual referral reward), the following calculation will be used:
+```solidity
+// ...
+if (_getMultiCollatDiamond().getTraderActiveReferrer(_trade.user) != address(0)) {
+    // Use this variable to store position size for dev/gov fees after
+    // referral fees
+    // and before volumeReferredUsd increases
+    v.positionSizeCollateralAfterReferralFees =
+        (v.positionSizeCollateral *
+        (100 *
+        PRECISION -
+        _getMultiCollatDiamond().calculateFeeAmount(
+            _trade.user,
+            _getMultiCollatDiamond().getReferralsPercentOfOpenFeeP(_trade.user)
+        ))) /
+        100 /
+        PRECISION;
+    v.reward1 = _distributeReferralReward(
+        _trade.collateralIndex,
+        _trade.user,
+        _getMultiCollatDiamond().calculateFeeAmount
+        //(_trade.user, v.positionSizeCollateral), // apply fee tiers here to v.positio
+        _getMultiCollatDiamond().pairOpenFeeP(_trade.pairIndex),
+        v.gnsPriceCollateral
+    );
+    _sendToVault(_trade.collateralIndex, v.reward1, _trade.user);
+    _trade.collateralAmount -= uint120(v.reward1);
+    emit ITradingCallbacksUtils.ReferralFeeCharged(_trade.user, _trade.collateralIndex, v.reward1);
+}
+// ...
+```
+Where the percentage of referral open fee is from getReferralsPercentOfOpenFeeP and using this formula:
+```solidity
+function getPercentOfOpenFeeP_calc(uint256 _volumeReferredUsd) internal view returns (uint256 resultP) {
+    IReferralsUtils.ReferralsStorage storage s = _getStorage();
+    uint startReferrerFeeP = s.startReferrerFeeP;
+    uint openFeeP = s.openFeeP;
+    resultP =
+        (openFeeP *
+        (startReferrerFeeP *
+        PRECISION +
+        (_volumeReferredUsd * PRECISION * (100 - startReferrerFeeP)) / 1e18 / s.targetVolumeUsd)) /
+        100;
+    resultP = resultP > openFeeP * PRECISION ? openFeeP * PRECISION : resultP;
+}
+```
+However, when calculating reward1, it will use getReferrerFeeP, which has a different formula to calculate the referrer fee:
+```solidity
+function getReferrerFeeP(
+    uint256 _pairOpenFeeP,
+    uint256 _volumeReferredUsd
+) internal view returns (uint256) {
+    IReferralsUtils.ReferralsStorage storage s = _getStorage();
+    uint256 maxReferrerFeeP = (_pairOpenFeeP * 2 * s.openFeeP) / 100;
+    uint256 minFeeP = (maxReferrerFeeP * s.startReferrerFeeP) / 100;
+    uint256 feeP = minFeeP + ((maxReferrerFeeP - minFeeP) * _volumeReferredUsd) / 1e18 / s.targetVolumeUsd;
+    return feeP > maxReferrerFeeP ? maxReferrerFeeP : feeP;
+}
+```
+This will result in v.positionSizeCollateralAfterReferralFees not being based on the actual referral fee. Consequently, when v.positionSizeCollateralAfterReferralFees is passed to _handleGovFees for calculating govFee, it will process the wrong value.
+
+## Recommendation
+Use the actual reward1 instead when calculating v.positionSizeCollateralAfterReferralFees:
+```solidity
+v.positionSizeCollateralAfterReferralFees = v.positionSizeCollateral - v.reward1
+```

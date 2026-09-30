@@ -1,0 +1,33 @@
+# [H] py vulnerable to Regular Expression Denial of Service
+
+## Summary
+Severity: High
+Advisory: GHSA-hj5v-574p-mj7c
+CVE: CVE-2020-29651
+CWE: CWE-400
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2021-04-20
+Source: https://github.com/advisories/GHSA-hj5v-574p-mj7c
+Type: github-advisory
+
+## Affected
+- PyPI: `py` — affected >=0 <1.10.0
+
+## Details
+A denial of service via regular expression in the py.path.svnwc component of py (aka python-py) through 1.9.0 could be used by attackers to cause a compute-time denial of service attack by supplying malicious input to the blame functionality.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2020-29651
+- https://github.com/pytest-dev/py/issues/256
+- https://github.com/pytest-dev/py/pull/257
+- https://github.com/pytest-dev/py/pull/257/commits/4a9017dc6199d2a564b6e4b0aa39d6d8870e4144
+- https://github.com/advisories/GHSA-hj5v-574p-mj7c
+- https://github.com/pypa/advisory-database/tree/main/vulns/py/PYSEC-2020-92.yaml
+- https://github.com/pytest-dev/py
+- https://lists.debian.org/debian-lts-announce/2024/11/msg00024.html
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/AYWNYEV3FGDHPIHX4DDUDMFZ6NLCQRC4
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/CHDTINIBJZ67T3W74QTBIY5LPKAXEOGR
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/AYWNYEV3FGDHPIHX4DDUDMFZ6NLCQRC4
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/CHDTINIBJZ67T3W74QTBIY5LPKAXEOGR
+- https://www.oracle.com/security-alerts/cpujul2022.html

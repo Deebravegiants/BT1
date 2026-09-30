@@ -1,0 +1,14 @@
+# [H] MJR-7 Wrongly used safeApprove
+
+## Summary
+Severity: High
+Contest weight: 0.0144
+Dataset id: 4041
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is an incorrect use of the safeApprove function from the OpenZeppelin SafeERC20 library within the Treasury contract. The contract calls safeApprove to set a token allowance for a recipient without first ensuring that the existing allowance for that spender is zero. SafeERC20’s safeApprove implementation deliberately reverts when the current allowance is non‑zero and the caller attempts to set a new non‑zero allowance, as a mitigation against the well‑known ERC20 race‑condition where a spender could use both the old and the new allowance. Because the Treasury contract does not reset the allowance to zero before assigning a new value, any subsequent call to safeApprove after an initial approval will fail. This failure manifests as a transaction revert, which from a user’s perspective appears as a generic “approval failed” or “transaction reverted” error, often without a clear message. Users attempting to deposit, withdraw, or otherwise interact with the Treasury may see their balances unchanged, receive no tokens, or experience missing refunds, leading to the impression that funds have disappeared. The impact is that token transfers that rely on the approval step cannot be executed, effectively locking assets that the protocol needs to move and breaking core business logic such as fund distribution or reward payouts. The condition occurs whenever an account already has a non‑zero allowance for the token in question, which is common after the first successful approval. The affected parties include token holders interacting with the Treasury, the protocol’s operational contracts that depend on the allowance, and any downstream services that assume successful token transfers. The issue was discovered during a manual code audit that highlighted the safeApprove call without a preceding allowance reset. It can be hard to notice because the revert does not provide a specific error code; developers may attribute the failure to network issues or other unrelated bugs. The proper fix is to follow the recommended pattern: first call safeApprove(recipient,0) to clear any existing allowance, then call safeApprove(recipient,desiredAmount), or alternatively use safeIncreaseAllowance / safeDecreaseAllowance or ERC20Permit where appropriate. This aligns the contract with the standard safe approval pattern and eliminates the race‑condition vulnerability, ensuring that token approvals succeed consistently and that funds are not unintentionally locked.
+
+## Recommendation
+We suggest to reset approval calling ERC20(token).safeApprove(recipient, 0); before setting new approval

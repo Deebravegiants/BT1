@@ -1,0 +1,39 @@
+# [M] The Owner can set not whitelisted destination.
+
+## Summary
+Severity: Medium
+Reporter: Smooth Turquoise Otter
+Source: https://github.com/Tokemak/v2-core-audit-2023-07-14/blob/62445b8ee3365611534c96aef189642b721693bf/src/destinations/DestinationRegistry.sol#L40
+Type: audit-issue
+
+## Details
+# The Owner can set not whitelisted destination.
+## Summary
+
+The Owner can set not whitelisted destination. 
+
+## Vulnerability Detail
+
+https://github.com/Tokemak/v2-core-audit-2023-07-14/blob/62445b8ee3365611534c96aef189642b721693bf/src/destinations/DestinationRegistry.sol#L40
+
+In this function, Owner can replace the destination with a new one, but there is no checking for is this destination is whitelisted.
+
+While in this function, there is a check for it. Line 26
+https://github.com/Tokemak/v2-core-audit-2023-07-14/blob/62445b8ee3365611534c96aef189642b721693bf/src/destinations/DestinationRegistry.sol#L22
+
+## Impact
+Can be set not checked("whitelisted") destination
+
+## Code Snippet
+
+if (!isWhitelistedDestination(destination)) {
+                revert NotAllowedDestination();
+            }
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add a check for a whitelist in the "replace" function, you can use the same if statement as in "register" function

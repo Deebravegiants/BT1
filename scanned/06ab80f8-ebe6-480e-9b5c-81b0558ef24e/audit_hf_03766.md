@@ -1,0 +1,111 @@
+# [M] The createMarket transaction lack of expira-
+
+## Summary
+Severity: Medium
+Contest weight: 0.5918
+Dataset id: 19938
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+```solidity
+The createMarket transaction lack of expiration timestamp check
+Let us look into the heavily forked Uniswap V2 contract addLiquidity function
+implementation
+https://github.com/Uniswap/v2-periphery/blob/0335e8f7e1bd1e8d8329fd300aea2ef2f36dd19f/contracts/UniswapV2Router02.sol#L61
+// **** ADD LIQUIDITY ****
+function _addLiquidity(
+address tokenA,
+address tokenB,
+uint amountADesired,
+uint amountAMin,
+uint amountBMin
+) internal virtual returns (uint amountA, uint amountB) {
+// create the pair if it doesn't exist yet
+if (IUniswapV2Factory(factory).getPair(tokenA, tokenB) == address(0)) {
+IUniswapV2Factory(factory).createPair(tokenA, tokenB);
+}
+(uint reserveA, uint reserveB) = UniswapV2Library.getReserves(factory,
+tokenA, tokenB);
+if (reserveA == 0 && reserveB == 0) {
+} else {
+uint amountBOptimal = UniswapV2Library.quote(amountADesired, reserveA,
+reserveB);
+require(amountBOptimal >= amountBMin, 'UniswapV2Router:
+INSUFFICIENT_B_AMOUNT');
+(amountA, amountB) = (amountADesired, amountBOptimal);
+} else {
+reserveB, reserveA);
+assert(amountAOptimal <= amountADesired);
+require(amountAOptimal >= amountAMin, 'UniswapV2Router:
+INSUFFICIENT_A_AMOUNT');
+}
+}
+}
+function addLiquidity(
+address tokenA,
+address tokenB,
+uint amountADesired,
+uint amountAMin,
+uint amountBMin,
+address to,
+uint deadline
+) external virtual override ensure(deadline) returns (uint amountA, uint
+amountB, uint liquidity) {
+(amountA, amountB) = _addLiquidity(tokenA, tokenB, amountADesired,
+address pair = UniswapV2Library.pairFor(factory, tokenA, tokenB);
+TransferHelper.safeTransferFrom(tokenA, msg.sender, pair, amountA);
+TransferHelper.safeTransferFrom(tokenB, msg.sender, pair, amountB);
+liquidity = IUniswapV2Pair(pair).mint(to);
+}
+the implementation has two point that worth noting,
+the first point is the deadline check
+modifier ensure(uint deadline) {
+require(deadline >= block.timestamp, 'UniswapV2Router: EXPIRED');
+_;
+}
+The transaction can be pending in mempool for a long time and can be executed in
+a long time after the user submit the transaction.
+Problem is createMarket, which calculates the length and maxPayout by
+block.timestamp inside it.
+// Calculate market length and check time bounds
+uint48 length = uint48(params_.conclusion - block.timestamp); \
+if (
+length < minMarketDuration ||
+params_.depositInterval < minDepositInterval ||
+params_.depositInterval > length
+) revert Auctioneer_InvalidParams();
+// Calculate the maximum payout amount for this market, determined by deposit
+interval
+uint256 capacity = params_.capacityInQuote
+? params_.capacity.mulDiv(scale, price)
+: params_.capacity;
+market.maxPayout = capacity.mulDiv(uint256(params_.depositInterval),
+uint256(length));
+After the market is created at wrong time, user can call purchase. At
+purchaseBond(),
+// Payout for the deposit = amount / price
+//
+// where:
+// payout = payout tokens out
+// amount = quote tokens in
+// price = quote tokens : payout token (i.e. 200 QUOTE : BASE), adjusted for
+scaling
+payout = amount_.mulDiv(term.scale, price);
+// Payout must be greater than user inputted minimum
+if (payout < minAmountOut_) revert Auctioneer_AmountLessThanMinimum();
+// Markets have a max payout amount, capping size because deposits
+// do not experience slippage. max payout is recalculated upon tuning
+if (payout > market.maxPayout) revert Auctioneer_MaxPayoutExceeded();
+payout value is calculated by term.scale which the market owner has set assuming
+the market would be created at desired timestamp. Even, maxPayout is far bigger
+than expected, as it is calculated by very small length.
+Even though the market owner close the market at any time, malicious user can
+attack the market before close and steal unexpectedly large amount of payout
+Tokens.
+```
+
+## Recommendation
+```solidity
+Use deadline, like uniswap
+```

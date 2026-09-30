@@ -1,0 +1,14 @@
+# [M] setAutomatedMarketMakerPairV2() and setAutomatedMarketMakerPairV3() should be external
+
+## Summary
+Severity: Medium
+Contest weight: 0.0204
+Dataset id: 11147
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability consists of two functions that are intended to allow the contract owner or an authorized administrator to register or deregister automated market maker (AMM) pairs, but they are declared with internal visibility instead of external (or public). Because internal functions can only be called from within the same contract or its derived contracts, external callers – including the governance UI, scripts, or other contracts that need to update the AMM pair list after deployment – are unable to invoke them. The root cause is a mistaken visibility modifier, likely introduced by a copy‑paste error or a misunderstanding of Solidity’s access control model. An attacker cannot directly call these functions, however the inability for legitimate actors to update the AMM pair registry can lead to a mismatch between the protocol’s accounting assumptions and the actual state of liquidity pools. For example, when a new liquidity pool is created, the contract expects the pair to be marked as an AMM so that fee‑exempt or special‑tax logic is applied; because the registration function cannot be called externally, the pair remains unmarked, causing trades to be processed with incorrect fee calculations or, in some designs, to be blocked entirely. From a user perspective this may appear as missing or zero fees, unexpected transaction reverts, or funds that seem to be “stuck” because the contract does not recognize the pool as a valid market maker. The issue typically surfaces when the protocol attempts to add or remove AMM pairs after the initial deployment – a step that is common during upgrades, migrations, or when new liquidity is added. It was discovered during a manual audit that examined function signatures and visibility modifiers, noting that the functions were internal despite being referenced in the documentation as callable by the owner. The bug can be hard to notice because the contract compiles without errors and the internal functions may be called once in the constructor, giving the impression that they work correctly. To remediate, the visibility of setAutomatedMarketMakerPairV2 and setAutomatedMarketMakerPairV3 should be changed to external (or public) and protected with appropriate access control such as onlyOwner, ensuring that authorized external actors can update the AMM pair registry as intended. This correction restores the intended business logic, aligns accounting with actual liquidity pools, and prevents the user‑facing symptoms of missing fees or stuck balances.
+
+## Recommendation
+Recommendation not found

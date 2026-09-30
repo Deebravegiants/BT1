@@ -1,0 +1,18 @@
+# [H] 2FAuth vulnerable to Server Side Request Forgery + URI validation bypass in 2fauth /api/v1/twofaccounts/preview
+
+## Summary
+Severity: High
+Advisory: CVE-2024-52598
+Aliases: GHSA-xwxc-w7v3-2p4j
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N)
+Published: 2024-11-20
+Source: https://osv.dev/vulnerability/CVE-2024-52598
+Type: osv
+
+## Details
+2FAuth is a web app to manage Two-Factor Authentication (2FA) accounts and generate their security codes. Two interconnected vulnerabilities exist in version 5.4.1 a SSRF and URI validation bypass issue. The endpoint at POST /api/v1/twofaccounts/preview allows setting a remote URI to retrieve the image of a 2fa site. By abusing this functionality, it is possible to force the application to make a GET request to an arbitrary URL, whose content will be stored in an image file in the server if it looks like an image. Additionally, the library does some basic validation on the URI, attempting to filter our URIs which do not have an image extension. However, this can be easily bypassed by appending the string `#.svg` to the URI. The combination of these two issues allows an attacker to retrieve URIs accessible from the application, as long as their content type is text based. If not, the request is still sent, but the response is not reflected to the attacker. Version 5.4.1 fixes the issues.
+
+## References
+- https://github.com/Bubka/2FAuth/security/advisories/GHSA-xwxc-w7v3-2p4j
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2024/52xxx/CVE-2024-52598.json
+- https://nvd.nist.gov/vuln/detail/CVE-2024-52598

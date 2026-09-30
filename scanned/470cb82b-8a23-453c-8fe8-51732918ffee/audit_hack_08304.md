@@ -1,0 +1,42 @@
+# [M] Black LIst token
+
+## Summary
+Severity: Medium
+Reporter: ss3434
+Source: https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-utils/src/TokenUtils.sol#L26
+Type: audit-issue
+
+## Details
+# Black LIst token
+
+## Summary
+
+The protocol currently uses these tokens:
+
+> ERC20: \[USDC, SToken\], ERC721,ERC777 
+
+USDC have a contract level admin controlled address blocklist. If an address is blocked, then transfers to and from that address are forbidden.
+
+## Vulnerability Detail
+
+There are currently 200+ blacklisted accounts by USDC, these accounts are related to known hacks and other crime events.
+https://etherscan.io/address/0x5db0115f3b72d19cea34dd697cf412ff86dc7e1b.
+
+## Impact
+
+Malicious or compromised token owners can trap funds in a contract by adding the contract address to the blocklist.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-utils/src/TokenUtils.sol#L26
+
+
+https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-swapper/src/SwapperImpl.sol#L278
+
+https://github.com/sherlock-audit/2023-04-splits/blob/main/splits-swapper/src/SwapperImpl.sol#L273
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Try to implement a try-catch solution where you skip certain funds whenever they cause the USDC transfer to revert.

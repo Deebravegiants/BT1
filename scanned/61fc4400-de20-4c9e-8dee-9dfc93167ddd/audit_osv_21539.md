@@ -1,0 +1,16 @@
+# [M] CVE-2021-43817
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-43817
+Aliases: GHSA-7f6h-v9mx-58q9
+CVSS: 6.1 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N)
+Published: 2021-12-13
+Source: https://osv.dev/vulnerability/CVE-2021-43817
+Type: osv
+
+## Details
+Collabora Online is a collaborative online office suite based on LibreOffice technology. In affected versions a reflected XSS vulnerability was found in Collabora Online. An attacker could inject unescaped HTML into a variable as they created the Collabora Online iframe, and execute scripts inside the context of the Collabora Online iframe. This would give access to a small set of user settings stored in the browser, as well as the session's authentication token which was also passed in at iframe creation time. Users should upgrade to Collabora Online 6.4.16 or higher or Collabora Online 4.2.20 or higher. Collabora Online Development Edition 21.11 is not affected.
+
+## References
+- https://github.com/CollaboraOnline/online/security/advisories/GHSA-7f6h-v9mx-58q9

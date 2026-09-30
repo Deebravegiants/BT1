@@ -1,0 +1,14 @@
+# [M] M-5 Dynamic fee not used
+
+## Summary
+Severity: Medium
+Contest weight: 0.0228
+Dataset id: 7098
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability consists of a mis‑implementation of the fee mechanism in a stable‑swap contract. The contract contains logic that computes a dynamic fee based on pool state, volatility or other parameters, but the resulting fee value is never applied when the swap is executed. As a result, the amount that users receive after a swap is calculated without subtracting the intended fee, effectively allowing swaps to occur with a zero or lower fee than the protocol design specifies. This happens because the variable that holds the dynamic fee is either overwritten, ignored, or omitted from the transfer calculation in the core swap function. An attacker can exploit the bug by performing arbitrarily large swaps, knowing that the fee will not be deducted, and thereby extract value from the pool or profit from arbitrage opportunities that rely on the expected fee curve. The impact includes loss of revenue for liquidity providers, potential depletion of the pool’s reserves, and distortion of the protocol’s economic model, which assumes that each swap contributes a fee to the pool. The condition under which the issue manifests is any call to the swap routine after the fee calculation step; the bug is present regardless of the size of the trade. All participants who interact with the pool – regular users, arbitrage bots, and liquidity providers – are affected because the fee‑related accounting is broken. The issue was discovered during a manual audit when the auditors observed that the function responsible for fee calculation was never referenced in the subsequent transfer logic. It can be hard to notice because the code appears to implement a sophisticated fee schedule, and the UI may still display a fee estimate, giving a false sense of security. From a user’s perspective the symptom is that a swap that should charge, for example, a 0.04 % fee instead returns the full expected amount, making the transaction seem “free”. This violates the business rule that every trade must contribute a fee to maintain pool balance and incentivize liquidity providers. The proper remediation is to integrate the computed dynamic fee into the output amount, deduct it from the user’s received tokens, and route the fee to the designated fee collector or pool reserve, ensuring that the accounting matches the intended economic model. In generic terms the bug belongs to the class of “unused calculation” or “fee omission” vulnerabilities, where a value is derived but never enforced, leading to under‑charging and potential financial loss for the protocol.
+
+## Recommendation
+We recommend using a calculated dynamic fee value.

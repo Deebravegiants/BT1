@@ -1,0 +1,14 @@
+# [M] Missing input validation can lead to setting wrong values
+
+## Summary
+Severity: Medium
+Contest weight: 0.0345
+Dataset id: 15796
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The contract provides privileged functions called updateDepositContract and updateGeneratorContract that allow an authorized caller to replace the addresses of external contracts used for deposit handling and random number generation, as well as to modify a numeric parameter named minBalanceLimitSupra. The implementation only checks that the supplied address contains contract code, but it does not verify that the address belongs to a trusted implementation nor does it enforce any lower bound on the minBalanceLimitSupra value. As a result, an attacker who can obtain the caller role – for example through key compromise, social engineering, or insufficient access‑control checks – can set the minBalanceLimitSupra to zero or point the deposit or generator references to a malicious contract. Setting the balance limit to zero may bypass internal accounting checks, allow deposits of any size, or cause division‑by‑zero errors in downstream calculations, leading to incorrect reward distribution or loss of funds. Replacing the referenced contracts with attacker‑controlled code enables the malicious contract to intercept, alter, or steal funds that would otherwise be safely handled by the legitimate contracts. The vulnerability manifests whenever the privileged update functions are invoked; it is not prevented by the existing contract‑type validation because that check does not assess trustworthiness or parameter sanity. Users experience symptoms such as deposits being rejected unexpectedly, refunds returning zero, or balances disappearing after a transaction that appeared successful. The issue was discovered during a manual audit that examined input validation logic and identified missing constraints on critical state variables. Because the functions succeed and emit no warning, the problem can be hard to notice without explicit testing of edge‑case values or contract address substitution. To remediate, the contract should enforce that new contract addresses are part of an allow‑list of known implementations and that numeric parameters like minBalanceLimitSupra are validated against sensible bounds (e.g., greater than zero). Additionally, access control should be hardened to ensure only a trusted governance entity can invoke these updates, and events should be emitted to provide visibility into changes. This class of bug falls under missing input validation and unchecked parameter updates, which can lead to business‑logic violations such as funds disappearing, refunds failing, and accounting inconsistencies.
+
+## Recommendation
+No recommendation

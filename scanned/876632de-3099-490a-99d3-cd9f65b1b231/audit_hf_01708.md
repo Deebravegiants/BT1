@@ -1,0 +1,14 @@
+# [M] BTOK-1 | Dangerous Approve
+
+## Summary
+Severity: Medium
+Contest weight: 0.0283
+Dataset id: 9333
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is a classic ERC‑20 allowance race condition caused by exposing only the standard approve function without a safer alternative such as increaseAllowance. The contract allows a token holder to set an arbitrary allowance for a spender in a single transaction. Because the allowance value is overwritten directly, a malicious actor can front‑run the transaction that changes the allowance: for example, a user may first set the allowance to zero and then to a new non‑zero amount, but an attacker observing the pending transaction can submit a spend call in the same block after the zeroing step but before the new allowance is recorded, thereby spending the previously approved tokens or draining the balance. This occurs whenever a user attempts to modify an existing allowance, especially when the user follows the recommended two‑step pattern (set to zero then set to new value) to mitigate the risk. The impact is that the token holder’s funds can be transferred without consent, leading to loss of tokens and a breach of the protocol’s accounting guarantees. The issue is difficult to notice because the approve call itself succeeds and emits the expected event, yet the underlying token balance may be reduced unexpectedly, and the UI typically shows only the allowance change, not the unauthorized transfer. The problem was discovered during a manual audit of the token contract where the absence of an increaseAllowance function was flagged as a design flaw. The bug violates the business logic that allowances should be safely adjustable without exposing the holder to race conditions. To remediate, the contract should implement an increaseAllowance (and optionally decreaseAllowance) function that adjusts the allowance relative to its current value, preventing the need to reset to zero and eliminating the front‑running window. Alternatively, the approve function could be hardened by requiring the current allowance to be zero before setting a new non‑zero value, but the recommended industry practice is to provide the incremental allowance functions. From a user’s perspective, they may see that they have granted permission to a contract, but later notice that their token balance has decreased unexpectedly or that a transaction they did not initiate has been executed, contradicting the expectation that only the approved amount can be spent after the allowance is set. This discrepancy between expected and actual token balances is a symptom of the dangerous approve pattern.
+
+## Recommendation
+Implement an increaseAllowance function so that users may increase their allowances without risk of frontrunning.

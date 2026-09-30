@@ -1,0 +1,38 @@
+# [M] _getMintAmount doesn't calculate JUSD mint amount correctly due to precision loss
+
+## Summary
+Severity: Medium
+Reporter: Saeedalipoor01988
+Source: https://github.com/sherlock-audit/2023-04-jojo/blob/6090fef68932b5577abf6b5aa26eb1e579353c57/JUSDV1/src/Impl/JUSDView.sol#L94
+Type: audit-issue
+
+## Details
+# _getMintAmount doesn't calculate JUSD mint amount correctly due to precision loss
+
+## Summary
+In JUSDView.sol, the [_getMintAmount](https://github.com/sherlock-audit/2023-04-jojo/blob/6090fef68932b5577abf6b5aa26eb1e579353c57/JUSDV1/src/Impl/JUSDView.sol#L94) function, doesn't calculate the JUSD mint amount correctly due to precision loss.
+
+## Vulnerability Detail
+In [_getMintAmount](https://github.com/sherlock-audit/2023-04-jojo/blob/6090fef68932b5577abf6b5aa26eb1e579353c57/JUSDV1/src/Impl/JUSDView.sol#L100) function, the return statement is where the mistake lies in:
+
+```solidity
+        return
+            IPriceChainLink(oracle)
+                .getAssetPrice()
+                .decimalMul(balance)
+                .decimalMul(rate);
+    }
+```
+Here, after each multiplication by the balance, rate, we immediately divide it by 1e18. Every time we do a division, there is a certain amount of precision loss. its better to be careful AND assuming that balance and rate are not a multiple of 1e18.
+
+## Impact
+_getMintAmount doesn't calculate JUSD mint amount correctly due to precision loss
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-jojo/blob/6090fef68932b5577abf6b5aa26eb1e579353c57/JUSDV1/src/Impl/JUSDView.sol#L100
+
+## Tool used
+Manual Review
+
+## Recommendation
+do division at the end of function

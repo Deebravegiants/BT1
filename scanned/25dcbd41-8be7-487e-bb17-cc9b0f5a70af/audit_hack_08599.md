@@ -1,0 +1,75 @@
+# [M] out-dated price feed from chainlink aggregator would still be used
+
+## Summary
+Severity: Medium
+Reporter: 0xGoodess
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/adapters/ChainlinkAdapter.sol#L31-L54
+Type: audit-issue
+
+## Details
+# out-dated price feed from chainlink aggregator would still be used
+
+## Summary
+out-dated price feed from chainlink aggregator would still be used
+
+## Vulnerability Detail
+Since there is no checks on staled price feed from chainlink oracle, outdated price feed would pose a threat to the price-sensitive operation like liquidation
+
+```solidity
+    function _calculateBaseToQuote() internal view returns (
+        uint80 roundId,
+        int256 answer,
+        uint256 startedAt,
+        uint256 updatedAt,
+        uint80 answeredInRound
+    ) {
+        int256 baseToUSD;
+        (
+            roundId,
+            baseToUSD,
+            startedAt,
+            updatedAt,
+            answeredInRound
+        ) = baseToUSDOracle.latestRoundData();
+        require(baseToUSD > 0, "Chainlink Rate Error");
+        (
+            /* roundId */,
+            int256 quoteToUSD,
+            /* uint256 startedAt */,
+            /* updatedAt */,
+            /* answeredInRound */
+        ) = quoteToUSDOracle.latestRoundData();
+        require(quoteToUSD > 0, "Chainlink Rate Error");
+```
+
+## Impact
+protocol using staled price feed
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/adapters/ChainlinkAdapter.sol#L31-L54
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+add a time threshold for using the price feed.
+
+```solidity
+    function _calculateBaseToQuote() internal view returns (
+        uint80 roundId,
+        int256 answer,
+        uint256 startedAt,
+        uint256 updatedAt,
+        uint80 answeredInRound
+    ) {
+        int256 baseToUSD;
+        (
+            roundId,
+            baseToUSD,
+            startedAt,
+            updatedAt,
+            answeredInRound
+        ) = baseToUSDOracle.latestRoundData();
++++ require(updatedAt + TIME_THRESHOLD >= block.timestamp, "price feed is stale");
+```

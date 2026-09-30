@@ -1,0 +1,77 @@
+# [H] ACPI: EC: clean up handlers on probe failure in acpi_ec_setup()
+
+## Summary
+Severity: High
+Advisory: CVE-2026-31426
+Ecosystem: Linux
+CVSS: 7.0 (CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-04-13
+Source: https://osv.dev/vulnerability/CVE-2026-31426
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.7.0 <6.1.168, >=6.2.0 <6.6.131, >=6.7.0 <6.12.80, >=6.13.0 <6.18.21, >=6.19.0 <6.19.11
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+ACPI: EC: clean up handlers on probe failure in acpi_ec_setup()
+
+When ec_install_handlers() returns -EPROBE_DEFER on reduced-hardware
+platforms, it has already started the EC and installed the address
+space handler with the struct acpi_ec pointer as handler context.
+However, acpi_ec_setup() propagates the error without any cleanup.
+
+The caller acpi_ec_add() then frees the struct acpi_ec for non-boot
+instances, leaving a dangling handler context in ACPICA.
+
+Any subsequent AML evaluation that accesses an EC OpRegion field
+dispatches into acpi_ec_space_handler() with the freed pointer,
+causing a use-after-free:
+
+ BUG: KASAN: slab-use-after-free in mutex_lock (kernel/locking/mutex.c:289)
+ Write of size 8 at addr ffff88800721de38 by task init/1
+ Call Trace:
+  <TASK>
+  mutex_lock (kernel/locking/mutex.c:289)
+  acpi_ec_space_handler (drivers/acpi/ec.c:1362)
+  acpi_ev_address_space_dispatch (drivers/acpi/acpica/evregion.c:293)
+  acpi_ex_access_region (drivers/acpi/acpica/exfldio.c:246)
+  acpi_ex_field_datum_io (drivers/acpi/acpica/exfldio.c:509)
+  acpi_ex_extract_from_field (drivers/acpi/acpica/exfldio.c:700)
+  acpi_ex_read_data_from_field (drivers/acpi/acpica/exfield.c:327)
+  acpi_ex_resolve_node_to_value (drivers/acpi/acpica/exresolv.c:392)
+  </TASK>
+
+ Allocated by task 1:
+  acpi_ec_alloc (drivers/acpi/ec.c:1424)
+  acpi_ec_add (drivers/acpi/ec.c:1692)
+
+ Freed by task 1:
+  kfree (mm/slub.c:6876)
+  acpi_ec_add (drivers/acpi/ec.c:1751)
+
+The bug triggers on reduced-hardware EC platforms (ec->gpe < 0)
+when the GPIO IRQ provider defers probing. Once the stale handler
+exists, any unprivileged sysfs read that causes AML to touch an
+EC OpRegion (battery, thermal, backlight) exercises the dangling
+pointer.
+
+Fix this by calling ec_remove_handlers() in the error path of
+acpi_ec_setup() before clearing first_ec. ec_remove_handlers()
+checks each EC_FLAGS_* bit before acting, so it is safe to call
+regardless of how far ec_install_handlers() progressed:
+
+  -ENODEV  (handler not installed): only calls acpi_ec_stop()
+  -EPROBE_DEFER (handler installed): removes handler, stops EC
+
+## References
+- https://git.kernel.org/stable/c/022d1727f33ff90b3e1775125264e3023901952e
+- https://git.kernel.org/stable/c/808c0f156f48d5b8ca34088cbbfba8444e606cbc
+- https://git.kernel.org/stable/c/9c886e63b69658959633937e3acb7ca8addf7499
+- https://git.kernel.org/stable/c/be1a827e15991e874e0d5222d0ea5fdad01960fe
+- https://git.kernel.org/stable/c/d04c007047c88158141d9bd5eac761cdadd3782c
+- https://git.kernel.org/stable/c/f6484cadbcaf26b5844b51bd7307a663dda48ef6
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/31xxx/CVE-2026-31426.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-31426
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

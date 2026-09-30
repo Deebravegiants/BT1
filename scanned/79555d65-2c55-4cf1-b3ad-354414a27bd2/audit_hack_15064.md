@@ -1,0 +1,36 @@
+# [M] No sanitary check of values
+
+## Summary
+Severity: Medium
+Reporter: Clumsy Cherry Mule
+Source: https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Clearinghouse.sol#L76-L92
+Type: audit-issue
+
+## Details
+# No sanitary check of values
+## Summary
+
+No sanitary check of values
+
+## Vulnerability Detail
+
+Since constructor sets values for immutable(constant) variables, it is better to add a sanitary check of input values. 
+
+## Impact
+
+If the deployer accidentally sets incorrect input values while deploying, it could cause additional issues if a deployed address was precalculated and pre-signed in another contract.
+
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Clearinghouse.sol#L76-L92
+https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/CoolerCallback.sol#L18
+
+
+## Tool used
+
+Manual Review.
+
+## Recommendation
+
+Add Sanitary check for input values.

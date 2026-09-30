@@ -1,0 +1,34 @@
+# [M] Quotes that have already been liquidated can be liquidated again in some cases
+
+## Summary
+Severity: Medium
+Contest weight: 0.2479
+Dataset id: 20146
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+LiquidationFacetImpl.liquidatePartyB is used to liquidate PartyB, which directly adds partyBAllocatedBalances[partyB][partyA] to allocatedBalances[partyA] (core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L294-L296). In this way, the liquidation against PartyB has been completed. The main purpose of LiquidationFacetImpl.liquidatePositionsPartyB is to remove the OpenPosition of both parties (symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L369). If this function is not called, the OpenPosition of both parties will always exist. The reasons for not calling it maybe:
+- symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L373) is 0, there is no incentive for liquidator.
+2. Liquidator (bot) is not working due to downtime/network issues.
+3. Intentionally not called.
+4. tx is deferred processing (pending in mempool), resulting in [here](https://githcts/facets/liquidation/LiquidationFacetImpl.sol#L318-L322) revert.
+Afterwards, if PartyA is liquidated due to quote with other PartyB, LiquidationFacetImpl.liquidatePositionsPartyA will process the quotes with the original PartyB. These quotes should have been removed.
+For simplicity, the numbers mentioned below will not be exact values, it is just to describe the issue. Suppose the following scenario:
+There are 3 users: PartyA(A1), PartyB(B1), PartyB(B2). The symbol is ETH/USDT.
+allocatedBalances[A1]=1000
+partyBAllocatedBalances[B1][A1]=1000
+partyBAllocatedBalances[B2][A1]=1000
+1. A1 created a short quote1 via PartyAFacet.sendQuote. pendingLockedBalances[A1]=500. The current symbol price is 100.
+2. B1 opens quote1 via PartyBFacet.lockAndOpenQuote. lockedBalances[A1]=500, partyBLockedBalances[B1][A1]=500. [LibQuote.addToOpenPositions](https://ntracts/facets/PartyB/PartyBFacetImpl.sol#L253) will add quote1 to the OpenPositions array of both parties. The status of quote1 is QuoteStatus.OPENED.
+3. As time goes by, the price dumps to 50. B1 can be liquidated.
+4. The liquidator initiates liquidation against B1 via LiquidationFacet.liquidatePartyB. allocatedBalances[A1]=1000+partyBAllocatedBalances[B1][A1]=2000, partyBAllocatedBalances[B1][A1]=0.
+5. liquidatePositionsPartyB is not called, so the OpenPositions array of both parties still contains quote1, and its status is still QuoteStatus.OPENED.
+6. A1 thinks that the price will continue to dump, and creates a short quote2. pendingLockedBalances[A1]=500. The current price is 50. Because allocatedBalances[A1]=2000 at this time, when the price pump to 200, A1 will be liquidated.
+7. B2 opens quote2. lockedBalances[A1]=500, partyBLockedBalances[B2][A1]=500. The OpenPositions array of A1 contains quote1 and quote2. The OpenPositions array of B2 only has quote2.
+8. As time goes by, the price pumps to 200. A1 can be liquidated.
+9. The liquidator initiates liquidation of A1. This process requires 3 calls: Liquida-tionFacet.liquidatePartyA/setSymbolsPrice/liquidatePositionsPartyA. The /symmio-core/contracts/facets/liquidation/LiquidationFacet.sol#L28) of setSymbolsPrice is calculated off-chain. From the flow of the ain/symmio-core/muon/crypto_v3.js#L238-L267) function in crypto_v3.js, all quotes in the OpenPositions array of A1 will be calculated into upnl. Because quote1 was opened when the price was 100, and the current price is 200, so B1 is profitable. This means that B1 that has been liquidated can also be allocated part of allocatedBalances[A1]. This is obviously unreasonable. This is a loss of part of the funds for B2.
+Quotes that have already been liquidated can be liquidated again in some cases.
+
+## Recommendation
+The logic of liquidatePartyB and liquidatePositionsPartyB should be merged. But this maybe trigger OOG because the OpenPosition array is large.

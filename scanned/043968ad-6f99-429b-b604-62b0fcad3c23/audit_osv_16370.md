@@ -1,0 +1,15 @@
+# [H] CVE-2019-6138
+
+## Summary
+Severity: High
+Advisory: CVE-2019-6138
+CVSS: 7.5 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2019-01-11
+Source: https://osv.dev/vulnerability/CVE-2019-6138
+Type: osv
+
+## Details
+An issue has been found in libIEC61850 v1.3.1. Memory_malloc and Memory_calloc in hal/memory/lib_memory.c have memory leaks when called from mms/iso_mms/common/mms_value.c, server/mms_mapping/mms_mapping.c, and server/mms_mapping/mms_sv.c (via common/string_utilities.c), as demonstrated by iec61850_9_2_LE_example.c.
+
+## References
+- https://github.com/mz-automation/libiec61850/issues/103

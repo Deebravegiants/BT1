@@ -1,0 +1,14 @@
+# [M] M-4 An incorrect oracle update
+
+## Summary
+Severity: Medium
+Contest weight: 0.0473
+Dataset id: 7097
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability concerns the exponential moving average (EMA) oracle that tracks the invariant D of a stable‑swap pool. The contract updates the EMA with a value called D2, which is calculated after all fees – both trading fees paid by users and the admin fee collected by the protocol – have been deducted. However, the oracle is intended to reflect only the portion of fees that belong to the protocol (admin fee) while ignoring the transient trading fees that are meant to be rebated to liquidity providers. By feeding D2 into the EMA, the oracle records a slightly lower invariant than it should, because the trading fee component artificially reduces D2. This mismatch creates a systematic bias in the price feed: the oracle reports a price that is marginally off from the true market value of the pool assets. The root cause is a logical error in the fee accounting path used for the oracle update; the code selects the wrong variable (D2) instead of a derived value D3 that excludes trading fees. Exploitation is possible when an attacker can influence the fee composition, for example by generating trades that incur large trading fees or by adjusting the admin fee rate, thereby causing the D2 value to diverge from the intended D3. The biased oracle can then be used by downstream contracts that rely on the EMA for pricing, liquidation thresholds, or fee distribution, leading to mis‑priced swaps, incorrect liquidation triggers, or loss of funds for users who expect accurate pricing. The issue manifests only when the pool experiences fee activity; in periods of low trading volume the discrepancy may be negligible and thus hard to notice. Users may see unexpected slippage, receive less favorable rates, or experience failed liquidations, while the protocol may appear healthier than it actually is. The problem was discovered during a manual audit that compared the fee accounting logic with the oracle update routine and identified the inconsistency. Because the numerical difference between D2 and the correct D3 is small, it does not raise obvious alarms in simple unit tests, making it a subtle accounting bug. To remediate the issue, the contract should compute a separate invariant that subtracts only the admin fee (often called D3) and use that value for the EMA update. This ensures the oracle reflects the true, fee‑adjusted state of the pool without being distorted by temporary trading fees, restoring correct price signals for all dependent components.
+
+## Recommendation
+We recommend calculating the D3 value that accounts only for admin fees and using this value for the oracle update.

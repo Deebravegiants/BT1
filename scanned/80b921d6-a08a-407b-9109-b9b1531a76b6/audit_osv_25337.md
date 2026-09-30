@@ -1,0 +1,19 @@
+# [H] Contiki-NG vulnerable to out-of-bounds read when processing ICMP DAO input
+
+## Summary
+Severity: High
+Advisory: CVE-2023-34101
+Aliases: GHSA-fp66-ff6x-7w2w
+CVSS: 7.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L)
+Published: 2023-06-14
+Source: https://osv.dev/vulnerability/CVE-2023-34101
+Type: osv
+
+## Details
+Contiki-NG is an operating system for internet of things devices. In version 4.8 and prior, when processing ICMP DAO packets in the `dao_input_storing` function, the Contiki-NG OS does not verify that the packet buffer is big enough to contain the bytes it needs before accessing them. Up to 16 bytes can be read out of bounds in the `dao_input_storing` function. An attacker can truncate an ICMP packet so that it does not contain enough data, leading to an out-of-bounds read on these lines. The problem has been patched in the "develop" branch of Contiki-NG, and is expected to be included in release 4.9. As a workaround, one can apply the changes in Contiki-NG pull request #2435 to patch the system.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/34xxx/CVE-2023-34101.json
+- https://github.com/contiki-ng/contiki-ng/security/advisories/GHSA-fp66-ff6x-7w2w
+- https://nvd.nist.gov/vuln/detail/CVE-2023-34101
+- https://github.com/contiki-ng/contiki-ng/pull/2435

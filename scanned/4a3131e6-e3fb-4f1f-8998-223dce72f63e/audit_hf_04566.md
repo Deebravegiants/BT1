@@ -1,0 +1,14 @@
+# [H] H-11 | Assets Can Be Borrowed/Repaid While Paused
+
+## Summary
+Severity: High
+Contest weight: 0.0830
+Dataset id: 22169
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is a pause bypass that allows borrowing and repayment actions to be executed even after the protocol administrator has activated the global pause. The pause mechanism is implemented by checking a paused flag in the public borrowAsset and repayAsset functions, but two other external functions – leveragePosition and repayAssetWithCollateral – internally invoke the same borrowing or repayment logic without re‑checking the paused flag. As a result, when the contract is paused the intended protection against new debt creation and repayment is ineffective for callers that use these alternative entry points. An attacker can call leveragePosition to open a leveraged position, which triggers an internal borrowAsset call, thereby acquiring assets while the system is supposed to be frozen. Similarly, repayAssetWithCollateral can be used to perform a repayment operation during pause, potentially manipulating the state of collateralized positions. The impact includes the possibility of creating or altering debt positions while the protocol is meant to be in a safe, immutable state, which can lead to unexpected loss of funds, liquidation manipulation, or disruption of accounting invariants. The condition for exploitation is simply that the admin has set the paused flag but the bypassable functions remain callable; no special permissions are required beyond normal user access. All participants who rely on the pause to protect their assets – lenders, borrowers, and the protocol itself – are affected because the financial guarantees assumed during a pause no longer hold. The issue was discovered during a systematic audit that examined the pause implementation and traced internal calls from external functions, revealing that the pause check was not propagated. It can be hard to notice because the public interface appears to respect the pause, while hidden pathways remain functional, and typical testing may not cover these indirect calls. To remediate, the pause condition should be enforced in every external function that can trigger borrowing or repayment, either by adding the same modifier or by centralising the pause check in a shared internal routine that all entry points use. Conceptually, the bug belongs to the class of “pause bypass” or “access control circumvention” vulnerabilities where a global safety switch is not applied uniformly across all state‑changing functions, breaking the protocol’s accounting assumptions and allowing funds to disappear or positions to be altered contrary to user expectations.
+
+## Recommendation
+Consider extending the pause effects to the leveragePosition and repayAssetWithCollateral functions.

@@ -1,0 +1,15 @@
+# [H] CVE-2026-23921
+
+## Summary
+Severity: High
+Advisory: CVE-2026-23921
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-03-24
+Source: https://osv.dev/vulnerability/CVE-2026-23921
+Type: osv
+
+## Details
+A low privilege Zabbix user with API access can exploit a blind SQL injection vulnerability in include/classes/api/CApiService.php to execute arbitrary SQL selects via the sortfield parameter. Although query results are not returned directly, an attacker can exfiltrate arbitrary database data through time-based techniques, potentially leading to session identifier disclosure and administrator account compromise.
+
+## References
+- https://support.zabbix.com/browse/ZBX-27640

@@ -1,0 +1,36 @@
+# [H] ALPINE-CVE-2022-3094
+
+## Summary
+Severity: High
+Advisory: ALPINE-CVE-2022-3094
+Ecosystem: Alpine:v3.14, Alpine:v3.15, Alpine:v3.16, Alpine:v3.17, Alpine:v3.18, Alpine:v3.19, Alpine:v3.20, Alpine:v3.21, Alpine:v3.22, Alpine:v3.23, Alpine:v3.24
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2023-01-26
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2022-3094
+Type: osv
+
+## Affected
+- Alpine:v3.14: `bind` — affected >=9.16.0 <9.16.37-r0
+- Alpine:v3.15: `bind` — affected >=9.16.0 <9.16.37-r0
+- Alpine:v3.16: `bind` — affected >=9.16.0 <9.16.37-r0
+- Alpine:v3.17: `bind` — affected >=9.16.0 <9.18.11-r0
+- Alpine:v3.18: `bind` — affected >=9.16.0 <9.18.11-r0
+- Alpine:v3.19: `bind` — affected >=9.16.0 <9.18.11-r0
+- Alpine:v3.20: `bind` — affected >=9.16.0 <9.18.11-r0
+- Alpine:v3.21: `bind` — affected >=9.16.0 <9.18.11-r0
+- Alpine:v3.22: `bind` — affected >=9.16.0 <9.18.11-r0
+- Alpine:v3.23: `bind` — affected >=9.16.0 <9.18.11-r0
+- Alpine:v3.24: `bind` — affected >=9.16.0 <9.18.11-r0
+
+## Details
+Sending a flood of dynamic DNS updates may cause `named` to allocate large amounts of memory. This, in turn, may cause `named` to exit due to a lack of free memory. We are not aware of any cases where this has been exploited.
+
+Memory is allocated prior to the checking of access permissions (ACLs) and is retained during the processing of a dynamic update from a client whose access credentials are accepted. Memory allocated to clients that are not permitted to send updates is released immediately upon rejection. The scope of this vulnerability is limited therefore to trusted clients who are permitted to make dynamic zone changes.
+
+If a dynamic update is REFUSED, memory will be released again very quickly. Therefore it is only likely to be possible to degrade or stop `named` by sending a flood of unaccepted dynamic updates comparable in magnitude to a query flood intended to achieve the same detrimental outcome.
+
+BIND 9.11 and earlier branches are also affected, but through exhaustion of internal resources rather than memory constraints. This may reduce performance but should not be a significant problem for most servers. Therefore we don't intend to address this for BIND versions prior to BIND 9.16.
+This issue affects BIND 9 versions 9.16.0 through 9.16.36, 9.18.0 through 9.18.10, 9.19.0 through 9.19.8, and 9.16.8-S1 through 9.16.36-S1.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2022-3094

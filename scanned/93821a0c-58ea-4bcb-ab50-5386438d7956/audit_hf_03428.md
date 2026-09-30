@@ -1,0 +1,14 @@
+# [M] MKTU-1 | Wrong Impact Pool Maximization
+
+## Summary
+Severity: Medium
+Contest weight: 0.0279
+Dataset id: 18729
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is an incorrect pricing configuration in the impact pool logic of the GMX synthetics contract. When the protocol calculates the value of the index token for a trade that involves the impact pool, it should apply a pessimistic price selection (the opposite of the maximize flag, often expressed as !maximize) because the amount of USD allocated to the impact pool (impactPoolUsd) is being subtracted from the pool’s total value. Instead, the contract uses the maximize flag, which selects the most favorable price for the index token. This mismatch causes the contract to over‑estimate the value of the index token after the impact pool deduction, leading to a pricing error. The root cause is a logical inversion: the pricing routine assumes a best‑case price while the accounting model requires a worst‑case price after a deduction. An attacker or a trader can exploit this by executing trades that rely on the impact pool valuation, receiving a more favorable rate than intended, effectively extracting value from the pool. The impact may manifest as users receiving less than expected refunds, balances appearing correct on the UI while the underlying pool is being drained, or the protocol’s accounting becoming inconsistent, potentially resulting in loss of funds for liquidity providers and reduced trust in the protocol. The condition under which the bug appears is any transaction that triggers the impact pool pricing path, i.e., when impactPoolUsd is deducted during a trade. All participants who interact with the impact pool – traders, liquidity providers, and the protocol itself – are affected. The issue was discovered during a manual audit by the security researcher Guardian, who noticed that the pricing flag did not match the required logical direction. Because the price deviation can be small and only surfaces under specific market conditions, it may be difficult to detect through normal UI testing; the contract appears to function, but the internal accounting is subtly wrong. To remediate, the pricing call for the index token should be changed from maximize to its logical negation (!maximize), ensuring that the valuation reflects the reduced pool size after the impactPoolUsd deduction. This correction aligns the pricing algorithm with the intended economic model, preventing over‑valuation, protecting user funds, and preserving the integrity of the protocol’s accounting logic. The bug belongs to the class of “incorrect price flag usage” or “pricing direction mismatch” bugs, where a flag that determines optimistic versus pessimistic valuation is set incorrectly, leading to systematic financial miscalculations.
+
+## Recommendation
+Change maximize to !maximize for the index token valuation.

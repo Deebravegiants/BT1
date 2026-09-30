@@ -1,0 +1,45 @@
+# [H] Borrower can front-run lender's acceptBid to lower/remove its collateral
+
+## Summary
+Severity: High
+Reporter: cducrest-brainbot
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L323-L326
+Type: audit-issue
+
+## Details
+# Borrower can front-run lender's acceptBid to lower/remove its collateral
+
+## Summary
+
+The function `TellerV2.submitBid()` to submit a bid with collateral does not withdraw a borrower's collateral. It only commits to the values via `collateralManager.commitCollateral()`.
+
+When the lender calls `lenderAcceptBid`, the borrower can front-run the transaction and call `collateralManager.commitCollateral()` to commit to the previously committed to collateral with an amount of 0.
+
+The lender will accept the bid but the escrow will be deployed with 0 collateral amount.
+
+## Vulnerability Detail
+
+The function `submitBid()` with collateral calls `collateralManager.commitCollateral()`:
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L323-L326
+
+`commitCollateral()` checks the user balances (i.e. the user owns the amount of committed token) and writes to storage the commitment, it does not withdraw the tokens:
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L117-L130
+
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/CollateralManager.sol#L426-L442
+
+`lenderAcceptBid()` calls `collateralManager.deployAndDeposit()` which will deploy an escrow and deposit whatever is currently in the storage of `collateralManager`. There is no parameter passed by lender as to what collateral it expects:
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L510
+
+## Impact
+
+Loaner expecting to accept a loan with collateral will accept a loan without any collateral. The borrower is free to never repay the loan. Borrower gains funds and lender loses funds.
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Let lender specify what collateral it expects in `lenderAcceptBid()`. Or prevent anyone but `TellerV2` to call `commitCollateral()` (you may not want that for reason outside the scope of this audit). Or prevent `commitCollateral()` to lower the committed to collateral values.

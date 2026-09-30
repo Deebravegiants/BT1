@@ -1,0 +1,40 @@
+# [M] CVE-2021-4441
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-4441
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2024-08-22
+Source: https://osv.dev/vulnerability/CVE-2021-4441
+Type: osv
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+spi: spi-zynq-qspi: Fix a NULL pointer dereference in zynq_qspi_exec_mem_op()
+
+In zynq_qspi_exec_mem_op(), kzalloc() is directly used in memset(),
+which could lead to a NULL pointer dereference on failure of
+kzalloc().
+
+Fix this bug by adding a check of tmpbuf.
+
+This bug was found by a static analyzer. The analysis employs
+differential checking to identify inconsistent security operations
+(e.g., checks or kfrees) between two code paths and confirms that the
+inconsistent operations are not recovered in the current function or
+the callers, so they constitute bugs.
+
+Note that, as a bug found by static analysis, it can be a false
+positive or hard to trigger. Multiple researchers have cross-reviewed
+the bug.
+
+Builds with CONFIG_SPI_ZYNQ_QSPI=m show no new warnings,
+and our static analyzer no longer warns about this code.
+
+## References
+- https://git.kernel.org/stable/c/df14d2bed8e2455878e046e67123d9ecb2e79056
+- https://git.kernel.org/stable/c/2efece1368aeee2d2552c7ec36aeb676c4d4c95f
+- https://git.kernel.org/stable/c/3c32405d6474a21f7d742828e73c13e326dcae82
+- https://git.kernel.org/stable/c/ab3824427b848da10e9fe2727f035bbeecae6ff4
+- https://git.kernel.org/stable/c/b9dd08cbebe0c593c49bf86d2012a431494e54cb

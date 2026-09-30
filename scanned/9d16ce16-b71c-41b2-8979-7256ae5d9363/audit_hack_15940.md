@@ -1,0 +1,32 @@
+# [M] missing checks for the token
+
+## Summary
+Severity: Medium
+Reporter: Special Carmine Wren
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/core/Allo.sol#L174-L197
+Type: audit-issue
+
+## Details
+# missing checks for the token
+
+a pool can be created with a malicious token 
+
+## Vulnerability Detail
+
+pool can be create with a malicious token and all of the user can receive a useless token
+
+## Impact
+
+recipients will get not valuable token
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/core/Allo.sol#L174-L197
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+set check for the token that is used

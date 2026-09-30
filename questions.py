@@ -5,10 +5,10 @@ from decouple import config
 
 # todo: if scope_files is: 500 > 50, 300 > 30 , 100 > 10
 MAX_REPO = 10
-# todo: the path from https://github.com/XOXNO/rs-lending-xlm
-SOURCE_REPO = "XOXNO/rs-lending-xlm"
+# todo: the path from https://github.com/rsksmart/rsk-powhsm
+SOURCE_REPO = "rsksmart/rsk-powhsm"
 # todo: the name of the repository
-REPO_NAME = "rs-lending-xlm"
+REPO_NAME = "rsk-powhsm"
 run_number = os.environ.get('GITHUB_RUN_NUMBER') or os.environ.get('CI_PIPELINE_IID', '0')
 
 
@@ -48,240 +48,173 @@ else:
 
 scope_files = [
     # =================================================================================
-    # Controller entry points: every #[contractimpl] user, keeper and admin endpoint,
-    # read-only views, and the governance-facing admin surface
+    # Signer command dispatch: APDU framing, command state machine, mode/reset handling
     # =================================================================================
-    "contracts/controller/src/lib.rs",
-    "contracts/controller/src/views.rs",
-    "contracts/controller/src/governance.rs",
-    "contracts/controller/src/markets.rs",
-    "contracts/controller/src/constants.rs",
+    "firmware/src/powhsm/src/hsm.c",
+    "firmware/src/powhsm/src/hsm.h",
+    "firmware/src/powhsm/src/instructions.h",
+    "firmware/src/powhsm/src/defs.h",
+    "firmware/src/powhsm/src/err.h",
+    "firmware/src/powhsm/src/flags.h",
+    "firmware/src/powhsm/src/mem.c",
+    "firmware/src/powhsm/src/mem.h",
+    "firmware/src/powhsm/src/nvm.h",
+    "firmware/src/powhsm/src/util.h",
+    "firmware/src/powhsm/src/common_requirements.h",
 
     # =================================================================================
-    # Account authority: NFT-owned accounts, owner/delegate checks, spoke binding,
-    # account creation, position upsert/removal and account deletion with NFT burn
+    # Peg-out signing authorization: BTC tx parsing, sighash, receipt, trie and
+    # merkle proof checks, BIP44 path authorization
     # =================================================================================
-    "contracts/controller/src/account.rs",
-    "contracts/controller/src/storage/account.rs",
-    "contracts/controller/src/storage/hub.rs",
-    "contracts/controller/src/storage/mod.rs",
-    "contracts/controller/src/storage/protocol.rs",
-    "contracts/controller/src/storage/spoke.rs",
+    "firmware/src/powhsm/src/auth.c",
+    "firmware/src/powhsm/src/auth.h",
+    "firmware/src/powhsm/src/auth_constants.h",
+    "firmware/src/powhsm/src/auth_tx.c",
+    "firmware/src/powhsm/src/auth_tx.h",
+    "firmware/src/powhsm/src/auth_receipt.c",
+    "firmware/src/powhsm/src/auth_receipt.h",
+    "firmware/src/powhsm/src/auth_trie.c",
+    "firmware/src/powhsm/src/auth_trie.h",
+    "firmware/src/powhsm/src/auth_path.c",
+    "firmware/src/powhsm/src/auth_path.h",
+    "firmware/src/powhsm/src/pathAuth.c",
+    "firmware/src/powhsm/src/pathAuth.h",
+    "firmware/src/powhsm/src/btctx.c",
+    "firmware/src/powhsm/src/btctx.h",
+    "firmware/src/powhsm/src/trie.c",
+    "firmware/src/powhsm/src/trie.h",
+    "firmware/src/powhsm/src/srlp.c",
+    "firmware/src/powhsm/src/srlp.h",
+    "firmware/src/powhsm/src/svarint.c",
+    "firmware/src/powhsm/src/svarint.h",
 
     # =================================================================================
-    # Operation context: cached market indexes, prices and spoke listings per call
+    # Blockchain bookkeeping: advanceBlockchain, PoW and merged-mining validation,
+    # cumulative difficulty, brothers, ancestor proof, persisted best block state
     # =================================================================================
-    "contracts/controller/src/context.rs",
-    "contracts/controller/src/payments.rs",
-    "contracts/controller/src/spoke_usage.rs",
+    "firmware/src/powhsm/src/bc.h",
+    "firmware/src/powhsm/src/bc_advance.c",
+    "firmware/src/powhsm/src/bc_advance.h",
+    "firmware/src/powhsm/src/bc_ancestor.c",
+    "firmware/src/powhsm/src/bc_ancestor.h",
+    "firmware/src/powhsm/src/bc_block.h",
+    "firmware/src/powhsm/src/bc_blockutils.h",
+    "firmware/src/powhsm/src/bc_diff.c",
+    "firmware/src/powhsm/src/bc_diff.h",
+    "firmware/src/powhsm/src/bc_err.c",
+    "firmware/src/powhsm/src/bc_err.h",
+    "firmware/src/powhsm/src/bc_hash.c",
+    "firmware/src/powhsm/src/bc_hash.h",
+    "firmware/src/powhsm/src/bc_mm.c",
+    "firmware/src/powhsm/src/bc_mm.h",
+    "firmware/src/powhsm/src/bc_nu.h",
+    "firmware/src/powhsm/src/bc_state.c",
+    "firmware/src/powhsm/src/bc_state.h",
 
     # =================================================================================
-    # Position flows: supply, withdraw, borrow, repay, entry gates, listing flags,
-    # post-pool solvency enforcement
+    # Attestation and heartbeat: signed device/signer measurements over caller nonces
     # =================================================================================
-    "contracts/controller/src/positions/mod.rs",
-    "contracts/controller/src/positions/supply.rs",
-    "contracts/controller/src/positions/debt.rs",
+    "firmware/src/powhsm/src/attestation.c",
+    "firmware/src/powhsm/src/attestation.h",
+    "firmware/src/powhsm/src/heartbeat.c",
+    "firmware/src/powhsm/src/heartbeat.h",
 
     # =================================================================================
-    # Liquidation and bad debt: plan, bonus curve, pro-rata seizure, whole-unit legs,
-    # Transfer/Credit settlement, cleanup and socialization
+    # Ledger signer app entry and platform layer: seed and key derivation, endorsement,
+    # NVM, hashing, APDU transport, exceptions
     # =================================================================================
-    "contracts/controller/src/positions/liquidation/mod.rs",
-    "contracts/controller/src/positions/liquidation/plan.rs",
-    "contracts/controller/src/positions/liquidation/math.rs",
-    "contracts/controller/src/positions/liquidation/curve.rs",
-    "contracts/controller/src/positions/liquidation/apply.rs",
-    "contracts/controller/src/positions/liquidation/bad_debt.rs",
+    "firmware/src/ledger/signer/src/main.c",
+    "firmware/src/ledger/signer/src/signer_ux.c",
+    "firmware/src/ledger/signer/src/signer_ux.h",
+    "firmware/src/hal/ledger/src/access.c",
+    "firmware/src/hal/ledger/src/endorsement.c",
+    "firmware/src/hal/ledger/src/hash.c",
+    "firmware/src/hal/ledger/src/nvmem.c",
+    "firmware/src/hal/ledger/src/platform.c",
+    "firmware/src/hal/ledger/src/seed.c",
+    "firmware/src/hal/common_linked/src/communication.c",
+    "firmware/src/hal/common_linked/src/exceptions.c",
+    "firmware/src/hal/common_linked/src/hash.c",
+    "firmware/src/hal/common_linked/src/keccak256.c",
+    "firmware/src/hal/common_linked/src/keccak256.h",
+    "firmware/src/hal/common_linked/src/sha256.c",
+    "firmware/src/hal/common_linked/src/sha256.h",
+    "firmware/src/hal/include/hal/access.h",
+    "firmware/src/hal/include/hal/communication.h",
+    "firmware/src/hal/include/hal/constants.h",
+    "firmware/src/hal/include/hal/endorsement.h",
+    "firmware/src/hal/include/hal/exceptions.h",
+    "firmware/src/hal/include/hal/hash.h",
+    "firmware/src/hal/include/hal/log.h",
+    "firmware/src/hal/include/hal/nvmem.h",
+    "firmware/src/hal/include/hal/platform.h",
+    "firmware/src/hal/include/hal/seed.h",
 
     # =================================================================================
-    # Account risk: USD totals, health factor, cached risk params, threshold restamps,
-    # flash guard, position limits, whole-unit collateral gates
+    # Shared firmware primitives: big integer math, memory helpers, PIN policy,
+    # APDU constants, compile-time checks, upgrade signer keys
     # =================================================================================
-    "contracts/controller/src/risk/mod.rs",
-    "contracts/controller/src/risk/params.rs",
-    "contracts/controller/src/risk/totals.rs",
-    "contracts/controller/src/risk/validation.rs",
+    "firmware/src/common/src/apdu.h",
+    "firmware/src/common/src/bigdigits.c",
+    "firmware/src/common/src/bigdigits.h",
+    "firmware/src/common/src/bigdigits_helper.c",
+    "firmware/src/common/src/bigdigits_helper.h",
+    "firmware/src/common/src/bigdtypes.h",
+    "firmware/src/common/src/compiletime.h",
+    "firmware/src/common/src/eth.h",
+    "firmware/src/common/src/ints.h",
+    "firmware/src/common/src/memutil.h",
+    "firmware/src/common/src/modes.h",
+    "firmware/src/common/src/pin_policy.c",
+    "firmware/src/common/src/pin_policy.h",
+    "firmware/src/common/src/runtime.h",
+    "firmware/src/common/src/upgrade_signers.h",
+    "firmware/src/common/src/upgrade_signers/aleph.h",
+    "firmware/src/common/src/upgrade_signers/bet.h",
 
     # =================================================================================
-    # Strategies: cash flash loan, flash position callback, multiply, swap debt/collateral,
-    # repay with collateral, router swap measurement, Blend migration
+    # Ledger UI/bootloader (RSK-authored): signer authorization N-of-M, unlock, PIN,
+    # onboarding, UI-side attestation and heartbeat, UI APDU handling
     # =================================================================================
-    "contracts/controller/src/strategies/mod.rs",
-    "contracts/controller/src/strategies/flash_loan.rs",
-    "contracts/controller/src/strategies/flash_position.rs",
-    "contracts/controller/src/strategies/multiply.rs",
-    "contracts/controller/src/strategies/swap.rs",
-    "contracts/controller/src/strategies/swap_debt.rs",
-    "contracts/controller/src/strategies/swap_collateral.rs",
-    "contracts/controller/src/strategies/repay_debt_with_collateral.rs",
-    "contracts/controller/src/strategies/legs.rs",
-    "contracts/controller/src/strategies/migrate_blend.rs",
-
-    # =================================================================================
-    # Listing and spoke configuration consumed by every risk check
-    # =================================================================================
-    "contracts/controller/src/config/mod.rs",
-    "contracts/controller/src/config/asset.rs",
-    "contracts/controller/src/config/registry.rs",
-    "contracts/controller/src/config/spoke.rs",
-
-    # =================================================================================
-    # Cross-contract calls from the controller: pool, position NFT, price aggregator, Blend
-    # =================================================================================
-    "contracts/controller/src/external/mod.rs",
-    "contracts/controller/src/external/pool.rs",
-    "contracts/controller/src/external/position_nft.rs",
-    "contracts/controller/src/external/price_aggregator.rs",
-    "contracts/controller/src/external/blend.rs",
-
-    # =================================================================================
-    # Controller events (gross/net amounts that integrators and keepers trust)
-    # =================================================================================
-    "contracts/controller/src/events/mod.rs",
-    "contracts/controller/src/events/config.rs",
-    "contracts/controller/src/events/market.rs",
-
-    # =================================================================================
-    # Pool: custody, cash book, share/index scaling, market batching, guards, accrual
-    # =================================================================================
-    "contracts/pool/src/lib.rs",
-    "contracts/pool/src/storage.rs",
-    "contracts/pool/src/guards.rs",
-    "contracts/pool/src/interest.rs",
-    "contracts/pool/src/time.rs",
-    "contracts/pool/src/views.rs",
-    "contracts/pool/src/events.rs",
-    "contracts/pool/src/cache/mod.rs",
-    "contracts/pool/src/cache/cash.rs",
-    "contracts/pool/src/cache/scale.rs",
-    "contracts/pool/src/cache/shares.rs",
-    "contracts/pool/src/cache/report.rs",
-
-    # =================================================================================
-    # Pool operations: supply, borrow, withdraw, repay, net settle, seize, flash,
-    # strategy debt minting, recapitalize, revenue claim, market lifecycle
-    # =================================================================================
-    "contracts/pool/src/ops/mod.rs",
-    "contracts/pool/src/ops/supply.rs",
-    "contracts/pool/src/ops/borrow.rs",
-    "contracts/pool/src/ops/withdraw.rs",
-    "contracts/pool/src/ops/repay.rs",
-    "contracts/pool/src/ops/net_settle.rs",
-    "contracts/pool/src/ops/seize.rs",
-    "contracts/pool/src/ops/flash.rs",
-    "contracts/pool/src/ops/strategy.rs",
-    "contracts/pool/src/ops/recapitalize.rs",
-    "contracts/pool/src/ops/revenue.rs",
-    "contracts/pool/src/ops/market.rs",
-
-    # =================================================================================
-    # Price aggregator: source resolution, dual-leg tolerance, sanity bands, session
-    # cache, Reflector / RedStone-format / Aquarius LP providers, admission checks
-    # =================================================================================
-    "contracts/price-aggregator/src/lib.rs",
-    "contracts/price-aggregator/src/engine.rs",
-    "contracts/price-aggregator/src/session.rs",
-    "contracts/price-aggregator/src/tolerance.rs",
-    "contracts/price-aggregator/src/validation.rs",
-    "contracts/price-aggregator/src/observation.rs",
-    "contracts/price-aggregator/src/properties.rs",
-    "contracts/price-aggregator/src/registry.rs",
-    "contracts/price-aggregator/src/admin.rs",
-    "contracts/price-aggregator/src/providers/aquarius.rs",
-    "contracts/price-aggregator/src/providers/multi_feed.rs",
-    "contracts/price-aggregator/src/providers/reflector.rs",
-
-    # =================================================================================
-    # Governance: typed operations, timelock lifecycle and permissionless execute,
-    # immediate roles, recovery, proposal-time validation, deployment helpers
-    # =================================================================================
-    "contracts/governance/src/lib.rs",
-    "contracts/governance/src/api.rs",
-    "contracts/governance/src/access.rs",
-    "contracts/governance/src/op.rs",
-    "contracts/governance/src/storage.rs",
-    "contracts/governance/src/deploy.rs",
-    "contracts/governance/src/events.rs",
-    "contracts/governance/src/constants.rs",
-    "contracts/governance/src/timelock/mod.rs",
-    "contracts/governance/src/timelock/lifecycle.rs",
-    "contracts/governance/src/timelock/immediate.rs",
-    "contracts/governance/src/timelock/recovery.rs",
-    "contracts/governance/src/validate/mod.rs",
-    "contracts/governance/src/validate/asset.rs",
-    "contracts/governance/src/validate/tolerance.rs",
-
-    # =================================================================================
-    # Position NFT: account ownership, transfer/approve, controller-gated mint/burn, renew
-    # =================================================================================
-    "contracts/position-nft/src/contract.rs",
-
-    # =================================================================================
-    # Shared math and rates: WAD/RAY fixed point, rounding, rate curve, compounding,
-    # index growth, share scaling, accrual simulation
-    # =================================================================================
-    "common/src/math/fp_core.rs",
-    "common/src/math/fp.rs",
-    "common/src/rates/mod.rs",
-    "common/src/rates/curve.rs",
-    "common/src/rates/compound.rs",
-    "common/src/rates/index.rs",
-    "common/src/rates/scaling.rs",
-    "common/src/rates/simulate.rs",
-    "common/src/rates/value.rs",
-
-    # =================================================================================
-    # Shared oracle logic: LP fair pricing (constant product and stable), observation
-    # scaling and timestamps, provider clients
-    # =================================================================================
-    "common/src/oracle/lp.rs",
-    "common/src/oracle/lp_stable.rs",
-    "common/src/oracle/observation.rs",
-    "common/src/oracle/providers/aquarius.rs",
-    "common/src/oracle/providers/redstone.rs",
-    "common/src/oracle/providers/reflector.rs",
-    "common/src/oracle/providers/xoxno.rs",
-
-    # =================================================================================
-    # Shared types, constants, token transfer measurement, validation, TTL, errors
-    # =================================================================================
-    "common/src/types/controller.rs",
-    "common/src/types/pool.rs",
-    "common/src/types/oracle.rs",
-    "common/src/types/composable_oracle.rs",
-    "common/src/types/shared.rs",
-    "common/src/constants/shared.rs",
-    "common/src/constants/pool.rs",
-    "common/src/token.rs",
-    "common/src/validation.rs",
-    "common/src/collections.rs",
-    "common/src/ttl.rs",
-    "common/src/errors.rs",
-
-    # =================================================================================
-    # Public contract interfaces for the in-scope contracts
-    # =================================================================================
-    "interfaces/controller/src/lib.rs",
-    "interfaces/controller/src/admin.rs",
-    "interfaces/pool/src/lib.rs",
-    "interfaces/governance/src/lib.rs",
-    "interfaces/position-nft/src/lib.rs",
-    "interfaces/price-aggregator/src/lib.rs",
+    "firmware/src/ledger/ui/src/main.c",
+    "firmware/src/ledger/ui/src/bootloader.c",
+    "firmware/src/ledger/ui/src/bootloader.h",
+    "firmware/src/ledger/ui/src/signer_authorization.c",
+    "firmware/src/ledger/ui/src/signer_authorization.h",
+    "firmware/src/ledger/ui/src/signer_authorization_status.c",
+    "firmware/src/ledger/ui/src/signer_authorization_status.h",
+    "firmware/src/ledger/ui/src/unlock.c",
+    "firmware/src/ledger/ui/src/unlock.h",
+    "firmware/src/ledger/ui/src/pin.c",
+    "firmware/src/ledger/ui/src/pin.h",
+    "firmware/src/ledger/ui/src/onboard.c",
+    "firmware/src/ledger/ui/src/onboard.h",
+    "firmware/src/ledger/ui/src/attestation.c",
+    "firmware/src/ledger/ui/src/attestation.h",
+    "firmware/src/ledger/ui/src/ui_heartbeat.c",
+    "firmware/src/ledger/ui/src/ui_heartbeat.h",
+    "firmware/src/ledger/ui/src/ui_comm.c",
+    "firmware/src/ledger/ui/src/ui_comm.h",
+    "firmware/src/ledger/ui/src/ui_err.h",
+    "firmware/src/ledger/ui/src/ui_instructions.h",
+    "firmware/src/ledger/ui/src/ux_handlers.c",
+    "firmware/src/ledger/ui/src/ux_handlers.h",
+    "firmware/src/ledger/ui/src/defs.h",
+    "firmware/src/ledger/ui/src/common_requirements.h",
 ]
 
 
 target_scopes = [
-    "Critical. A liquidator seizes more collateral than the debt it actually retires plus the capped bonus, or retires debt it never paid: build_liquidation_plan, calculate_repayment_amounts, normalize_repayment_plan, whole_unit_repayment, calculate_seizure_proportions, calculate_seized_collateral, split_seized_shares, scale_seizures_to_received, release_unbacked_repayment, process_excess_payment and apply_liquidation_repayments / apply_liquidation_seizures / apply_liquidation_share_credit let a crafted debt_payments vector (duplicate HubAssetKeys, a leg the account does not owe, dust, a fee-measured shortfall, a sub-3-decimal whole-unit leg) or SeizeMode::Credit into the liquidator's own account take the borrower's collateral, pull pool cash, or credit supply shares that no token backs.",
-    "Critical. A borrower draws debt or withdraws collateral that the account cannot support, leaving bad debt for suppliers: process_borrow, process_withdraw, merge_debt_leg, merge_withdraw_leg, enforce_post_pool_solvency, require_post_pool_risk_gates, calculate_account_risk_totals, sum_debt_usd, calculate_ltv_collateral_wad, the Context price and index cache, leg_may_restamp_risk_params and the min_borrow_collateral_usd floor let a multi-leg batch, a repeated asset, a same-token market in another hub, a stale cached LTV or liquidation threshold on an existing position, or a withdraw-all (amount 0) path skip or mis-evaluate the final health-factor check.",
-    "Critical. A user extracts pool cash that no supplier or repayment funded, through share and index rounding or book mixing: calculate_scaled_supply, unscale_supply_floor, unscale_borrow_ceil, resolve_withdrawal, resolve_repay, resolve_net_settle, mint_supply / burn_supply / mint_debt / burn_debt, resolve_close_or_partial, withhold_liquidation_fee, credit_cash / debit_cash and require_backed_market let repeated tiny supply, withdraw, borrow or repay calls, a first supplier in a fresh market, or two hubs listing the same token (separate books, one physical balance) withdraw more tokens than were credited, repay less than the debt removed, or pay one hub's suppliers with another hub's cash.",
-    "Critical. A flash loan or flash position is not repaid, or its callback mutates accounting mid-flight: pool ops/flash.rs prepare, invoke_receiver, collect_repayment and require_balance, controller process_flash_loan, process_flash_position, mint_and_forward, collect_collateral_deposits, require_flash_position_still_open, refund_listed_assets, with_flash_guard and require_not_flash_loaning let an attacker's Wasm receiver re-enter supply, repay, liquidate, recapitalize, update_indexes, claim_revenue or a second flash path, count the borrowed principal as its own collateral or repayment, get refunded balances the controller held before the call, or finish holding flash-minted debt with no supply behind it.",
-    "Critical. An account strategy converts the controller's or the pool's funds into the caller's gain: swap_tokens, verify_router_output, balance_delta_since, refund_controller_balance_delta, process_multiply, process_swap_debt, process_swap_collateral, process_repay_debt_with_collateral, net_settle_collateral_against_debt, withdraw_and_swap_from_supply, repay_debt_from_controller and strategy_finalize trust a caller-supplied route whose pool addresses nobody allowlists, so an attacker's own venue contract on the call stack can inflate the measured output, pre-fund or drain the controller between snapshot and measurement, make close_position erase debt it did not repay, or credit collateral that never arrived, while the account still passes its final risk check.",
-    "Critical. An attacker moves an on-chain price the aggregator trusts and borrows against it or liquidates with it: fair_lp_price_wad, the stable-pool pricing in lp_stable.rs, providers/aquarius.rs read and attest, engine resolve / blend / compose / read_source, tolerance and sanity-band checks, session cache, observation timestamp and decimal scaling let a same-transaction Aquarius swap, deposit, withdrawal or direct token donation (funded by the pool's own flash_loan) change LP reserves or total shares, or let a stale / future / mis-scaled Reflector or RedStone-format observation pass, so LP or asset collateral is overvalued to borrow and leave bad debt, or a healthy account is marked liquidatable.",
-    "Critical. Bad-debt cleanup, socialization or recapitalization moves value to the wrong party: is_socializable_bad_debt, clean_bad_debt_standalone, execute_bad_debt_cleanup, socialize_bad_debt, check_bad_debt_after_liquidation, absorb_supply_as_revenue, the supply-index write-down, backing_shortfall / require_backed_market and pool recapitalize let an attacker clean an account that is not below the dust threshold or not insolvent, force a write-down onto suppliers after a self-made insolvency, supply right after a write-down to capture a recapitalization, or leave debt that is neither repaid nor socialized.",
-    "Critical. An unprivileged address acts on an account it does not control or erases an account's debt: require_owner_or_delegate, require_account_owner, is_owner_or_delegate, add_delegate / set_account_delegate with the stamped grant owner, require_third_party_existing_supply, create_account / load_or_create_account with account_id 0, require_spoke_match, resolve_seize_receiver, cleanup_account_if_empty, remove_account_and_burn_nft, the position NFT transfer / transfer_from / approve paths and nft burn let an attacker borrow or withdraw from a victim account, open a foreign asset slot, re-bind a spoke, burn or delete an account while debt remains, or reuse an account id or NFT to inherit another user's collateral.",
-    "High. A permissionless keeper or maintenance call breaks accounting or pushes accounts into liquidation: update_indexes with its chunked accrual (compound, curve, index, simulate), claim_revenue with require_revenue_backed and burn_claimable_revenue, update_account_threshold with favors_liquidator / clears_min_hf / restamp_listed_supply_ltv, enforce_spoke_cap and the scaled cap conversion, and governance execute / execute_self / execute_canceller_reset callable by anyone once an operation is ready let an attacker choose timing or arguments that overstate revenue against supplier cash, shrink or inflate an index, restamp a victim's liquidation threshold into HF < 1, bypass a supply or borrow cap, or execute a ready operation with other arguments, out of predecessor order or after its grace window.",
-    "Critical/High blind spot. A normal user, liquidator or flash receiver abuses an assumption XOXNO Lending never wrote down: a price, index or listing flag cached in Context and reused after a pool call has changed it; a guard present on supply/borrow but missing on multiply, flash_position, migrate_from_blend or repay_debt_with_collateral; an i128 or RAY/WAD/BPS unit mix at an extreme but reachable value; a HubAssetKey whose token equals the pool, controller or another hub's token; a Soroban auth tree, TTL archival or storage key that lets one account read or overwrite another's entry; an account emptied, deleted or re-created inside one transaction; or a zero-amount, zero-decimal or whole-unit edge the formulas only proved safe away from the boundary - yielding theft of user funds, unbacked debt, protocol insolvency or funds frozen with no permissionless exit.",
+    "Critical. An ordinary Rootstock user makes the signer sign a BTC peg-out without a real, confirmed peg-out receipt: validate_merkle_proof, process_merkle_proof, trie_consume / trie_cb, rlp_consume / srlp, auth_sign_handle_merkleproof and auth_sign_handle_receipt let a crafted receipt, trie node sequence, RLP length or merkle proof (shortened path, node reused as leaf, hash of an inner node accepted as a receipt, mismatch between proved root and ancestor_receipts_root) pass, so funds leave the federation without a matching peg-out request.",
+    "Critical. A user deploys a contract or crafts a transaction whose receipt is accepted as a genuine Bridge peg-out event: auth_receipt.c event address, topic and data checks, log index/selection, receipt type or status handling, and the release_request_* fields let a log emitted by any other contract, a failed transaction, a wrong topic, a duplicated or reordered log, or attacker-controlled data bytes stand in for the Bridge event and authorize a BTC transaction hash the user chose.",
+    "Critical. The BTC transaction the signer signs differs from what the receipt authorizes: auth_sign_handle_btctx, btctx_consume / btctx_cb, svarint_consume, generate_message_to_sign, write_uint64_be, the input index, witnessScript and outpointValue fields let a peg-out with crafted output count, varint encoding, output script, amount, extra outputs, segwit marker/flag, locktime, sequence or multiple inputs be signed with a different sighash, amount or destination than the peg-out event committed to, or let the same input be signed under a wrong outpointValue.",
+    "Critical. A forged or under-worked chain becomes the signer's trusted best_block: bc_advance, bc_adv_accum_diff, bc_adv_prologue, bc_adv_success, cap_block_difficulty, validate_mm_hash, validate_cb_txn_hash, compute_cb_txn_hash, patch_hash_for_mm, bc_mm_header_received, bc_diff and the brothers handling let a merge-mined header with a manipulated coinbase, merkle proof, mm hash prefix, difficulty field, uncle list (duplicates, wrong parent, count) or network-upgrade field count cumulative difficulty it did not earn, skip PoW on a block, or move best_block onto a fork the attacker's blocks can then be proved against.",
+    "Critical. The ancestor proof binds a receipt to a block that is not in the signer's best chain: bc_upd_ancestor, bc_init_upd_ancestor, bc_upd_ancestor_prologue, bc_upd_ancestor_success, the ancestor_block / ancestor_receipts_root pair, bc_state persistence, bc_backup_partial_state and bc_reset_state let a block with the same height on a side chain, a header whose receipts root is swapped, a partially updated state after a failed advance or reset, or a stale ancestor after best_block moved be accepted, so a receipt from an orphaned or never-confirmed block authorizes signing.",
+    "Critical. A peg-out is signed twice, out of order, or across a state gap: hsm_process_command, hsm_process_apdu, auth_transition_to, auth_sign, check_state, reset_shared_state, hsm_reset_if_starting and the sign / advance / updateAncestor / reset command sequence let interleaved or repeated commands reuse a validated receipt or ancestor for a second, different BTC transaction, keep authorization alive after resetAdvanceBlockchain or an error, or run a sign with half-initialized auth or bc state.",
+    "Critical. The signer signs with the wrong key or leaks key material: auth_sign_handle_path, pathRequireAuth / pathDontRequireAuth, the BIP44 keyId to key mapping (BTC, tBTC vs RSK, MST), the authorized vs non-authorized sign formats, getPubKey, hal/ledger seed.c key derivation and access.c let a keyId string or path with odd length, extra components or a case/prefix variant sign an arbitrary hash with a BTC federation key without receipt authorization, or return private or seed-derived material.",
+    "Critical. The attestation or heartbeat signature is forged or misused as a signing oracle: get_attestation, get_heartbeat, hash_public_key, the caller-supplied user-defined value and nonce, the endorsement in hal/ledger endorsement.c, keccak256 and sha256 helpers, double_sha256_rev and the UI-side attestation and ui_heartbeat let a chosen nonce, length or format make the device sign attacker-shaped data with a device or signer key, replay a stale measurement, or present an unauthorized signer as authentic.",
+    "Critical. Integer, length or state bugs in the parsers turn a user-influenced peg-out or block into unauthorized signing or key exposure (not a crash or memory exhaustion): srlp.c, svarint.c, trie.c, btctx.c, auth_receipt.c, bc_advance.c, bigdigits.c, memutil.h, mem.c and communication.c length, offset and chunk arithmetic (wrap, truncation, signed/unsigned mix, chunk boundary between APDUs) let a valid-looking payload overwrite or read adjacent auth, bc or key state, flip a validated flag, or make a check compare the wrong bytes.",
+    "Critical/High blind spot. An ordinary user exploits an assumption powHSM never wrote down: a receipt or trie field the firmware trusts because the honest node always builds it a certain way; a check present in the BTC sign path but missing for the RSK/MST hash path or the heartbeat; a constant (bridge address, event signature, minimum difficulty, confirmation depth, network upgrade activation) that differs between mainnet and the compiled configuration; an NVM write interrupted or reordered so best_block or the authorized signer hash is stale; an error path that leaves a validated flag set; or a peg-out edge (zero or dust amount, maximum value, many inputs, witnessScript shape) the format checks only cover in the common case - yielding theft of federation funds, permanently frozen funds or seed/key extraction.",
 ]
 
 
@@ -291,47 +224,46 @@ scope_scan = [
 
 def question_generator(target_file: str) -> str:
     """
-    Generate exploit-focused audit and fuzzing questions for one XOXNO Lending target.
+    Generate exploit-focused audit and fuzzing questions for one powHSM target.
 
     ```
     target_file format:
-    "'File Name: contracts/controller/src/positions/liquidation/math.rs -> Scope: Critical. ...'"
+    "'File Name: firmware/src/powhsm/src/auth_receipt.c -> Scope: Critical. ...'"
     """
 
     prompt = f"""
     ```
 
-    Generate exploit-focused security audit questions for this exact XOXNO Lending target:
+    Generate exploit-focused security audit questions for this exact powHSM target:
 
     {target_file}
 
     Project focus:
-    XOXNO Lending is a Stellar Soroban money market. The controller owns accounts (one position NFT each, bound to one spoke) and all risk: supply, borrow, withdraw, repay, pro-rata liquidation with a bonus curve and Transfer/Credit seizure, bad-debt cleanup, cash flash loans, flash positions, and router strategies (multiply, swap_debt, swap_collateral, repay_debt_with_collateral, migrate_from_blend). One pool holds every token and keeps per-market (hub, token) books: cash, RAY supply/debt shares, indexes, revenue. The price aggregator resolves Reflector, RedStone-format and Aquarius LP sources with dual-leg tolerance and sanity bands. Units: token amounts, WAD (USD, HF), RAY (shares, indexes, rates), BPS.
+    RSK powHSM is the C firmware (Ledger signer, UI/bootloader and HAL) that holds the Rootstock PowPeg federation keys and signs BTC peg-out transactions. It signs a BTC tx only if the host proves the peg-out is real: a Rootstock receipt (trie/RLP/merkle proof) whose root matches ancestor_receipts_root, an ancestor block proved to be in the best chain the device tracks itself by verifying merge-mined PoW (advanceBlockchain: headers, brothers, cumulative difficulty, best_block in NVM), and a BTC tx/sighash that matches the event. Other commands: getPubKey, RSK/MST hash signing, attestation, heartbeat, reset. Data reaches the device through an honest powpeg-node and middleware on the same host.
 
     Rules:
     * Treat `File Name:` as the exact file and `Scope:` as the ONLY impact to target.
     * Assume full repo context. Do not ask for code or say anything is missing.
-    * Use exact Rust symbols (fn, struct, enum variant, storage key, error) when possible.
-    * Attacker is unprivileged only: any funded Stellar account or its own deployed Wasm contract that calls controller supply, borrow, withdraw, repay, liquidate, clean_bad_debt, flash_loan, flash_position, multiply, swap_debt, swap_collateral, repay_debt_with_collateral, migrate_from_blend, update_indexes, claim_revenue, update_account_threshold, recapitalize, add/remove_delegate on its own account, position-nft transfer/approve/renew, governance execute on an already-ready operation; that sends tokens directly to the pool or controller; that trades or provides liquidity on Aquarius/Soroswap/Blend itself; and that supplies its own flash receiver or swap route bytes.
-    * Attacker is NOT the governance owner or a PROPOSER, EXECUTOR, CANCELLER, GUARDIAN or ORACLE role, not an XOXNO oracle signer, not the router admin, not a governance-approved position manager, not the issuer of a listed token, and holds no victim key or NFT approval. Never assume malicious admin, upgrade, bad listing parameters, leaked key or social engineering.
-    * Out of scope, never ask about: swap-aggregator, xoxno-oracle and defindex-strategy internals, keeper/exporter services, scripts, configs, Stellar/Soroban host bugs, validators or peers, third-party oracle honesty within its sanity band, listed-token semantics (fee-on-transfer, rebase, clawback), route quality, slippage and MEV ordering, operations that fail closed (pause, flags, cash shortage, price outage, TTL archival, budget limits), centralization, and the documented ADR choices (rounding direction, supply-index loss, cleanup, zero-fee flash position, full-close without HF-improvement guard).
-    * Ignore test files, mocks, certora specs, vendor and generated code.
-    * Every question must be a real transaction sequence the attacker submits: named entrypoint, exact arguments (account_id, HubAssetKey, amounts, SeizeMode, swap bytes, receiver), required account and market state. No unbounded-loop, memory, CPU-budget or "huge input" questions.
+    * Use exact C symbols (function, struct, field, macro, error code) when possible.
+    * Attacker is unprivileged only: an ordinary Rootstock user or contract deployer who creates peg-out requests, transactions, receipts and logs; a miner limited to producing valid-PoW block content (headers, uncles, merged-mining fields) without majority hashrate; a BTC user whose UTXOs or outputs appear in peg-out flows. Their data reaches the HSM through an honest node.
+    * Attacker is NOT a malicious peer, malicious node or middleware, not a federation member, not a firmware/signer authorizer, has no physical or local access to the Ledger device or host, holds no keys or PIN. Never assume a malicious host, leaked key or social engineering.
+    * Out of scope, never ask about: Ledger devices and their physical security, Ledger company code (bolos_ux_*, seed onboarding), TCPSigner, hal/x86, SGX code, middleware and tooling, tests, DoS by local access, findings that do not allow arbitrary or insecure use of the keys derived from the device seed.
+    * Ignore test files, mocks, fuzz harnesses, build and generated code.
+    * Every question must be a real scenario an ordinary user can cause on the live network: concrete peg-out/receipt/block/tx content, the exact command sequence the honest node then sends, and the state the device is in. No unbounded-loop, memory-exhaustion, CPU or "huge input" questions.
     * Generate 40 to 80 high-signal questions, at least 70% aimed at Critical impact. No generic checklist items or repeated root causes.
-    * Every question must be testable with a Rust unit or integration test in tests/test-harness (make test-match PATTERN=...) or a proptest.
+    * Every question must be testable with the firmware unit tests or the middleware/TCPSigner harness against the same C code, or a fuzz/property test.
 
     Core invariants:
-    * Solvency: after every risk-increasing call the account HF >= 1 WAD at strict prices; no borrow or withdraw leaves unbacked debt.
-    * Liquidation coupling: seized value <= repaid debt * (1 + capped bonus); only HF < 1 accounts are liquidatable; repaid debt is really retired.
-    * Custody: tokens paid out of a market never exceed its booked cash; credit follows measured receipt; account books reconcile with pool totals.
-    * Authority: only the NFT owner or an active listed delegate moves an account's funds; third parties cannot open foreign asset slots.
-    * Flash: principal plus fee is back before return; no callback re-enters a monetary flow.
+    * Authorization: a BTC signature exists only for a tx whose outputs and amounts match a Bridge peg-out event in a receipt proved against the current ancestor_receipts_root.
+    * Chain: best_block, ancestor and receipts root only move through fully validated PoW with sufficient cumulative difficulty; a partial or failed update never leaves usable state.
+    * Binding: one proof authorizes exactly the tx and input it was checked against; no replay or reuse across resets.
+    * Keys: each keyId signs only in its own format; no seed or private key material leaves the device.
 
     Each question must include:
     1. target function;
-    2. attacker action (exact call and arguments);
-    3. preconditions (accounts, positions, prices, market cash, hub/spoke listing);
-    4. execution sequence;
+    2. attacker action (what the user or miner creates on-chain);
+    3. preconditions (device state, best_block, ancestor, key id);
+    4. command sequence the honest node sends;
     5. invariant tested;
     6. scoped impact;
     7. proof idea.
@@ -339,7 +271,7 @@ def question_generator(target_file: str) -> str:
     Output only valid Python. No markdown. No explanations.
 
     questions = [
-    "[File: {target_file}] [Function: symbol_or_method] Can an unprivileged ATTACKER_ACTION under PRECONDITIONS trigger EXECUTION_SEQUENCE, violating INVARIANT, causing scoped impact: SCOPE_IMPACT? Proof idea: test-harness test PARAMETERS and assert SOLVENCY, LIQUIDATION_COUPLING, CUSTODY, AUTHORITY, or FLASH.",
+    "[File: {target_file}] [Function: symbol_or_method] Can an unprivileged ATTACKER_ACTION under PRECONDITIONS cause COMMAND_SEQUENCE, violating INVARIANT, causing scoped impact: SCOPE_IMPACT? Proof idea: test PARAMETERS and assert AUTHORIZATION, CHAIN, BINDING, or KEYS.",
     ]
     """
     return prompt
@@ -347,7 +279,7 @@ def question_generator(target_file: str) -> str:
 
 def audit_format(security_question: str) -> str:
     """
-    Generate a focused XOXNO Lending exploit-validation prompt.
+    Generate a focused powHSM exploit-validation prompt.
     """
 
     prompt = f"""# SECURITY AUDIT PROMPT
@@ -357,18 +289,18 @@ def audit_format(security_question: str) -> str:
 
 ## Rules
 - Use existing repo context only. Analyze only this question and scoped impact.
-- Attacker is unprivileged only: any funded Stellar account or its own Wasm contract calling the controller's user and permissionless entrypoints (supply, borrow, withdraw, repay, liquidate, clean_bad_debt, flash_loan, flash_position, multiply, swap_debt, swap_collateral, repay_debt_with_collateral, migrate_from_blend, update_indexes, claim_revenue, update_account_threshold, recapitalize) on accounts it owns or third-party-allowed paths, position-nft transfer/approve, governance execute on a ready operation, sending tokens directly to contracts, trading on Aquarius/Soroswap itself, and supplying its own flash receiver or swap route.
-- Reject governance owner, role holder, oracle signer, router admin, position manager, token issuer, upgrade, leaked-key and bad-parameter paths.
-- Reject swap-aggregator, xoxno-oracle, defindex-strategy, services, scripts and configs; Stellar/Soroban host bugs; third-party oracle prices within sanity band, source count and staleness; listed-token semantics; route quality, slippage and MEV; fail-closed operations (pause, flags, cash shortage, price outage, TTL archival, budget limits); centralization; documented ADR choices; test/mock/certora/vendor findings.
-- Reject unbounded-loop, memory or CPU-budget claims.
-- Focus on real impact: theft of user funds, permanent freezing of funds, protocol insolvency, theft or freezing of unclaimed yield, temporary freezing of funds.
+- Attacker is unprivileged only: an ordinary Rootstock user or contract deployer (peg-out requests, transactions, receipts, logs), a miner limited to valid-PoW block content, or a BTC user whose outputs appear in peg-outs, with data relayed by an honest node.
+- Reject malicious peer/node/middleware, federation members, signer authorizers, physical or local device access, leaked keys/PIN and social engineering.
+- Reject Ledger devices and physical security, Ledger company code, TCPSigner, hal/x86, SGX, middleware/tooling, tests/mocks/fuzz code, and anything that does not allow arbitrary or insecure use of the seed-derived keys.
+- Reject unbounded-loop, memory-exhaustion, CPU and local-access DoS claims.
+- Focus on real impact: theft of federation/user funds via unauthorized signing, permanent freezing of funds, protocol insolvency, remote extraction of seed or private keys, taking authenticated actions on behalf of others.
 
 ## Validate
-- Trace the exact path from the attacker's transaction through controller, pool and price aggregator with the arguments and state it supplies.
-- Check existing guards: require_auth plus require_owner_or_delegate / require_account_owner, require_third_party_existing_supply, with_flash_guard and require_not_flash_loaning, enforce_post_pool_solvency, listing flags and caps, measured receipts, pool require_backed_market / require_utilization_below_max / require_liquidation_buffer, flash require_balance, dual-leg tolerance and sanity bands, i128 checked math, Soroban reentry rules.
-- Confirm the path is reachable on the deployed configuration (configs/networks.json, docs/reference/architecture.md).
-- Accept only concrete fund loss, frozen funds, unbacked debt or insolvency.
-- Require exact file/function support and a reproducible test-harness PoC.
+- Trace the exact path from the on-chain data the attacker creates through the APDU commands to the firmware check that fails.
+- Check existing guards: auth state transitions, receipt/trie/merkle validation against ancestor_receipts_root, bc_advance PoW/difficulty/mm checks, bc_state resets, path authorization, tx/sighash binding, length and bounds checks in srlp/svarint/trie/btctx.
+- Confirm the path is reachable in the production (Ledger mainnet) build, not only in test or TCPSigner builds.
+- Accept only concrete unauthorized signing, key exposure, frozen funds or insolvency.
+- Require exact file/function support and a reproducible PoC (unit test or harness run).
 
 ## Output
 If valid, output exactly:
@@ -380,19 +312,19 @@ If valid, output exactly:
 [2-3 sentences]
 
 ### Finding Description
-[Code path, root cause, attacker call and arguments, exploit flow, and why existing guards fail]
+[Code path, root cause, attacker-created data, command sequence, and why existing checks fail]
 
 ### Impact Explanation
-[Concrete impact and severity: Critical (theft of user funds, permanent freezing of funds, protocol insolvency) or High (theft/permanent freezing of unclaimed yield, temporary freezing of funds)]
+[Concrete impact and severity, per the RootstockLabs Immunefi program]
 
 ### Likelihood Explanation
-[Preconditions, funding, account and market state, feasibility, repeatability]
+[Preconditions, attacker cost, device state, feasibility, repeatability]
 
 ### Recommendation
 [Specific fix]
 
 ### Proof of Concept
-[test-harness test plan with expected assertions]
+[Test plan or harness input with expected assertions]
 
 If invalid, output exactly:
 #NoVulnerability found for this question.
@@ -404,7 +336,7 @@ No extra text.
 
 def scan_format(report: str) -> str:
     """
-    Generate a short cross-project analog scan prompt for XOXNO Lending.
+    Generate a short cross-project analog scan prompt for powHSM.
     """
     prompt = f"""# ANALOG SCAN PROMPT
 
@@ -412,26 +344,25 @@ def scan_format(report: str) -> str:
 {report}
 
 ## Rules
-- Use in-scope production code only: contracts/controller, contracts/pool, contracts/governance, contracts/position-nft, contracts/price-aggregator, common, interfaces. Do not ask for code or claim missing files.
-- Use the external report only as a bug-class hint. The analog must stand on XOXNO Lending's own code.
-- Keep only analogs an unprivileged address can reach: controller supply/borrow/withdraw/repay/liquidate/clean_bad_debt/flash_loan/flash_position/multiply/swap_debt/swap_collateral/repay_debt_with_collateral/migrate_from_blend/update_indexes/claim_revenue/update_account_threshold/recapitalize, position-nft transfer/approve, governance execute of a ready operation, direct token transfers to the pool or controller, own trades on Aquarius/Soroswap, own flash receiver or swap route.
-- Map the class onto XOXNO Lending's real shape:
-  * Aave-v3/Compound-style shares: RAY supply/debt shares and indexes in pool cache/scale.rs, floor/ceil unscaling, revenue shares inside total supply, millisecond chunked accrual;
-  * hub/spoke markets: separate books per (hub, token) over one physical pool balance; cached per-position LTV/threshold restamped by update_account_threshold;
-  * WAD risk: health factor and min_borrow_collateral_usd from Context-cached strict prices and indexes;
-  * liquidation: multi-leg pro-rata plan, HF-based bonus curve, whole-unit sub-3-decimal legs, SeizeMode::Transfer vs Credit share credit, excess-payment refund;
-  * bad debt: dust-threshold cleanup, supply-index write-down, recapitalize without minting shares;
-  * measured-receipt settlement and flash paths: exact-balance cash flash loan, flash_position debt minted before a callback, flash guard;
-  * router strategies: one exact input-transfer auth, balance-delta output measurement, unallowlisted route venues;
-  * pricing: dual-leg tolerance, sanity bands, Aquarius constant-product and stable LP fair value, Reflector/RedStone timestamps and decimals;
-  * Soroban: require_auth trees, TTL/archival, storage keys, i128 overflow, restricted re-entry.
-- Reject privileged, upgrade, leaked-key, bad-parameter, off-chain, services, swap-aggregator/xoxno-oracle/defindex internals, third-party oracle honesty within bands, token semantics, route quality/MEV, fail-closed DoS, budget/memory, documented ADR choices, and no-impact analogs.
-- Critical, High and Medium only.
+- Use in-scope production firmware only: firmware/src/powhsm, firmware/src/ledger/signer, firmware/src/hal/ledger, firmware/src/hal/common_linked, firmware/src/hal/include, firmware/src/common, and the RSK-authored firmware/src/ledger/ui files. Do not ask for code or claim missing files.
+- Use the external report only as a bug-class hint. The analog must stand on powHSM's own code.
+- Keep only analogs an unprivileged party can reach: an ordinary Rootstock user/contract deployer (receipts, logs, peg-out data), a valid-PoW miner (header, uncle and merged-mining content), or a BTC user, with data forwarded by an honest node. No malicious peer/node, federation member, physical or local access.
+- Map the class onto powHSM's real shape:
+  * proof verification: RLP/trie/merkle receipt proofs checked against ancestor_receipts_root (second-preimage, node-as-leaf, path length, hash-of-inner-node, prefix ambiguity);
+  * event authentication: Bridge address/topic/data matching in a receipt, spoofed logs, failed txs, receipt types;
+  * signing binding: BTC tx parsing, varint and script handling, sighash construction, outpointValue, input index, segwit serialization, tx malleability;
+  * light-client PoW: merged-mining header and coinbase proof, cumulative difficulty, difficulty cap, uncles/brothers, fork choice, network-upgrade fields, checkpoint/initial block;
+  * state machine: multi-APDU command sequences, chunked input, partial update rollback, replay, stale ancestor, NVM persistence and power-cut ordering;
+  * key handling: BIP44 path parsing and authorization, derivation, keyId-to-format mapping, key/seed exposure through outputs, logs or uninitialized buffers;
+  * attestation/heartbeat: caller nonces signed by device keys, signing-oracle and replay risks;
+  * C hazards that yield unauthorized signing or key leak: integer wrap/truncation, signed-unsigned mix, off-by-one, uninitialized data, TOCTOU across APDUs, constant-time comparison of secrets/PINs.
+- Reject privileged, physical, local, leaked-key, tests/mocks, TCPSigner, hal/x86, SGX, Ledger company code, middleware/tooling, unbounded-loop/memory/DoS, and no-impact analogs.
+- Critical, High and Medium only, and only when it allows arbitrary or insecure use of the seed-derived keys or concrete fund loss or freezing.
 
 ## Validate
-- Map the class to the strongest path a single unprivileged address can submit, naming exact entrypoints and arguments.
+- Map the class to the strongest path an ordinary user or miner can create on-chain, naming the exact command sequence and data fields.
 - Prove root cause with exact file/function support.
-- Accept only theft of user funds, permanent freezing of funds, protocol insolvency, theft or freezing of unclaimed yield, temporary freezing of funds, or a contract unable to operate from lack of token funds.
+- Accept only unauthorized signing/theft of funds, permanent freezing of funds, protocol insolvency, seed or key extraction, or a concrete HSM-caused stall of valid peg-out signing.
 
 ## Output (Strict)
 If valid analog exists, output:
@@ -456,7 +387,7 @@ No extra text.
 
 def validation_format(report: str) -> str:
     """
-    Generate a strict bounty-style validation prompt for XOXNO Lending security claims.
+    Generate a strict bounty-style validation prompt for powHSM security claims.
     """
     prompt = f"""# VALIDATION PROMPT
 
@@ -466,39 +397,32 @@ def validation_format(report: str) -> str:
 ## Rules
 - Validate only the submitted claim.
 - Check SECURITY.md and RESEARCHER.md for scope, exclusions, and valid impact classes.
-- Scope is the Immunefi XOXNO program: controller, pool, governance, position NFT, price aggregator and shared math (contracts/controller, contracts/pool, contracts/governance, contracts/position-nft, contracts/price-aggregator, common, interfaces) on Stellar mainnet. mock/, tests/, certora/, vendor/, scripts/, services/, docs/, configs, web/API/SDK are out of scope.
+- Scope is the Immunefi RootstockLabs program, PowHSM asset (Blockchain/DLT, rsk-powhsm latest release): the Ledger firmware in firmware/src/powhsm, firmware/src/ledger, firmware/src/hal/ledger, firmware/src/hal/common_linked, firmware/src/hal/include and firmware/src/common. Primacy of Impact applies to Critical/High.
 - Do not create a new vulnerability if the submitted claim is weak or invalid.
 - Do not upgrade severity unless the evidence proves the higher impact.
-- Accepted impacts (Immunefi V2.3):
-  * Critical: direct theft of any user funds, at-rest or in-motion, other than unclaimed yield; permanent freezing of funds; protocol insolvency.
-  * High: theft of unclaimed yield; permanent freezing of unclaimed yield; temporary freezing of funds.
-  * Medium: smart contract unable to operate due to lack of token funds.
-  * Reject Low, informational and best-practice findings.
-- Reject compromised governance, role, oracle-signer or keeper keys (unless the protocol makes the damage materially worse), documented admin paths, upgrades, and parameter values as such (logic that lets a parameter break an invariant is in scope).
-- Reject bugs in Stellar, the Soroban host, the toolchain or third parties (Reflector, RedStone, DeFindex, Blend, swap venues, token contracts); how the protocol validates their responses is in scope.
-- Reject listed-token behaviour (fee-on-transfer, rebase, clawback), route quality, slippage and MEV, oracle prices that pass sanity bands, source count and staleness, lack of liquidity, Sybil, centralization, scanner/lint output and missing events.
-- Reject operations that fail closed or are blocked by pause, flags, cash shortage, TTL expiry or Soroban budget limits.
-- Treat as known design, not findings on their own: ADR-0003 rounding, ADR-0012 supply-index loss, ADR-0021 cleanup, ADR-0009 spoke binding, ADR-0002 custody, ADR-0013 measured receipts, ADR-0004/0005 fail-closed dual-source pricing, ADR-0019 liquidation credit, ADR-0020 zero-fee flash position, ADR-0015 caps, ADR-0016 chunked accrual, ADR-0007/0008 halt flags and ratchet, is_collateralizable as an entry gate only, full NFT/delegate authority over the account, full-close liquidation without HF-improvement guard, solvency separate from liquidity, and the threat-model residual risks. Valid only if the impact goes beyond them.
-- Reject if the exploit needs more than an unprivileged address can do: call controller user/permissionless entrypoints, position-nft transfer/approve, governance execute of a ready operation, send tokens to contracts, trade on external venues, or deploy its own receiver or route.
-- Reject if already fixed, acknowledged or public. A runnable PoC is mandatory; prefer #NoVulnerability over speculation.
+- Accepted impacts: Critical (remote extraction of HSM seed or private keys; direct theft of user funds; permanent freezing of funds; protocol insolvency; taking authenticated actions on behalf of others without their interaction). High and Medium only if the program lists them for Blockchain/DLT and the HSM itself causes them (for example a concrete, non-DoS stall of valid peg-out signing or corrupted chain state). Reject Low, informational and best-practice findings.
+- Impact must allow arbitrary or insecure use of the keys derived from the device seed, or concrete loss/freezing of funds.
+- Reject Ledger devices and their physical security, Ledger company source code (until the 90-day period), TCPSigner, firmware/src/hal/x86, SGX code, middleware and tooling, tests/mocks/fuzz, DoS by physical or local access, and DoS in general.
+- Reject anything needing leaked keys or credentials, phishing or social engineering, a malicious peer/node/middleware or host (HSM, middleware and powpeg-node run on the same host with no external exposure), federation member or signer-authorizer collusion, or attacks the reporter already exploited themselves.
+- Reject if the exploit needs more than an unprivileged Rootstock user, contract deployer, valid-PoW miner without majority hashrate, or BTC user, with data relayed by an honest node.
+- Reject if already fixed, acknowledged, in the audit report (audits/), or public. A runnable PoC on a local build is mandatory; prefer #NoVulnerability over speculation.
 
 ## Required Validation Checks
 All must pass:
-1. Exact in-scope file, function, and line/code references.
-2. Clear root cause and a broken invariant from docs/reference/invariants.md (INV-AUTH, ACCT, IDX, ORACLE, RISK, LIQ, HALT, STOR, FLASH, STRAT).
-3. Reachable path: preconditions (accounts, positions, prices, market cash, listing) -> submitted call and arguments -> trigger -> bad result.
-4. Existing guards reviewed and shown insufficient: require_auth and owner/delegate checks, third-party supply restriction, flash guard, post-pool solvency, listing flags and caps, measured receipts, pool backing/utilization/liquidation-buffer guards, flash require_balance, dual-leg tolerance and sanity bands, checked i128 math, Soroban reentry rules.
+1. Exact in-scope file, function, and line/code references in the production Ledger build.
+2. Clear root cause and a broken invariant (authorization, chain validity, tx binding, key isolation) from docs/ (protocol.md, blockchain-bookkeeping.md, attestation.md, signer-authorization.md).
+3. Reachable path: attacker-created on-chain data -> honest node's APDU sequence -> device state -> bad result.
+4. Existing guards reviewed and shown insufficient: auth state machine, receipt/trie/merkle checks, ancestor root binding, bc_advance PoW/difficulty/mm checks, path authorization, sighash binding, bounds and length checks, NVM state handling.
 5. Concrete accepted impact with realistic likelihood.
-6. Reproducible PoC on a local fork or tests/test-harness.
-7. No rejection reason from SECURITY.md, the program exclusions, known design choices, or privilege assumptions.
+6. Reproducible PoC (unit test, harness run, or crafted command sequence).
+7. No rejection reason from SECURITY.md, the program exclusions, or privilege assumptions.
 
 ## Silent Triage Questions
 Before output, internally answer:
-- Can an ordinary address trigger this with no role, no signer key and no victim authorization?
-- Does the code behave as claimed on the deployed configuration?
-- Is the impact caused by XOXNO Lending's code, not a third party, the host, or an admin?
-- Is it beyond the documented design choices and threat-model residual risks?
-- Is the loss, freeze or insolvency concrete?
+- Can an ordinary user or miner trigger this with no key, no PIN and no control of the node?
+- Does it work in the Ledger production build, not just TCPSigner or tests?
+- Is the impact caused by powHSM firmware, not Ledger's code or the device hardware?
+- Does it allow arbitrary or insecure use of seed-derived keys, or concrete fund loss?
 - What exact test proves it?
 
 ## Output
@@ -516,16 +440,16 @@ Audit Report
 [Exact code path, root cause, exploit flow, and why existing guards fail]
 
 ## Impact Explanation
-[Concrete impact, severity, and Immunefi V2.3 category]
+[Concrete impact, severity, and Immunefi impact category]
 
 ## Likelihood Explanation
-[Attacker capability, funding and state required, feasibility, repeatability]
+[Attacker capability, cost and state required, feasibility, repeatability]
 
 ## Recommendation
 [Specific fix guidance]
 
 ## Proof of Concept
-[Minimal reproducible steps or a test-harness test plan]
+[Minimal reproducible steps or test plan]
 
 If invalid, output exactly:
 #NoVulnerability found for this question.

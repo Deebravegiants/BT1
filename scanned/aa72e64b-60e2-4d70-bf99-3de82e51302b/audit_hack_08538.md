@@ -1,0 +1,34 @@
+# [M] Insecure Initialization of Contract
+
+## Summary
+Severity: Medium
+Reporter: moneyversed
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/Router.sol#L90
+Type: audit-issue
+
+## Details
+# Insecure Initialization of Contract
+
+## Summary
+
+The contract allows unauthorized initialization by not properly restricting access to the initialize function.
+
+## Vulnerability Detail
+
+The initialize function in the Router.sol contract is not adequately protected against unauthorized access. An attacker could call the initialize function and gain control of the contract.
+
+## Impact
+
+An attacker could exploit this vulnerability to take control of the contract and potentially manipulate the system in their favor, potentially resulting in loss of funds or manipulation of the contract's functionality.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/Router.sol#L90
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+To mitigate this issue, modify the initialize function to use the Ownable contract from the OpenZeppelin library or implement a custom access control mechanism to ensure that only the authorized deployer can call this function.

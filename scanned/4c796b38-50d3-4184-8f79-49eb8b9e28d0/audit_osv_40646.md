@@ -1,0 +1,20 @@
+# [M] Ground Station prior to 0.6.0 Unauthenticated Persistent Blind Server-Side Request Forgery via Orbital Data Source URL
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-53983
+Aliases: CVE-2026-53984, CVE-2026-53985, GHSA-mjp8-x6h7-229q
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:H/SI:N/SA:N)
+Published: 2026-08-06
+Source: https://osv.dev/vulnerability/CVE-2026-53983
+Type: osv
+
+## Details
+Ground Station prior to 0.6.0 contains an unauthenticated blind server-side request forgery vulnerability in the orbital-source configuration path that allows any unauthenticated Socket.IO client to cause the ground-station process to issue outbound HTTP requests to attacker-chosen destinations. Attackers can connect to the Socket.IO server on port 7000 without credentials due to disabled authentication enforcement and a wildcard CORS policy, then submit a data_submission event with submit-orbital-sources action to persist an attacker-supplied URL in the database, then trigger an orbital sync via the equally unauthenticated background_task:start event. The URL is stored with no scheme allowlist, no host validation, and no rejection of loopback, RFC1918, or link-local (cloud instance metadata at 169.254.169.254) addresses, and is passed directly to requests.get in _fetch_http_3le and _fetch_http_omm in backend/tlesync/source_adapters.py. HTTP status codes and error messages from the outbound request are emitted in the orbital_sync_state Socket.IO event to all connected clients, providing a serviceable oracle for interpreting internal-service and cloud-metadata responses even though the raw response body is not directly leaked. Because the malicious source persists in the database across restarts and re-fires every 24 hours on the scheduled sync cycle, the primitive gives durable long-term SSRF without the attacker needing to remain connected.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/53xxx/CVE-2026-53983.json
+- https://github.com/sgoudelis/ground-station/security/advisories/GHSA-mjp8-x6h7-229q
+- https://nvd.nist.gov/vuln/detail/CVE-2026-53983
+- https://github.com/sgoudelis/ground-station/commit/2ecde82a8814cbea18883ce023bf45cbf06172eb
+- https://github.com/sgoudelis/ground-station

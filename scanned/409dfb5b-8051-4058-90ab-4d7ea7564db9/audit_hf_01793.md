@@ -1,0 +1,14 @@
+# [C] C-2 Double spending
+
+## Summary
+Severity: Critical
+Contest weight: 0.0738
+Dataset id: 9884
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is a double‑spending flaw in the lending protocol where a borrower (maker) can obtain a loan against a CollateralToken, then transfer the entire balance of that CollateralToken to any address, and subsequently call withdraw() on the LendingPool to extract the borrowed funds. The root cause is that the protocol only validates the user’s health score at the moment a loan is taken and does not re‑evaluate the health factor after a collateral transfer. Because the transfer function is unrestricted, a user can move collateral away even if doing so would drop the health score below the required threshold, yet the loan remains outstanding and can be withdrawn. An attacker can exploit this by first borrowing the maximum amount allowed by the current collateral, then immediately sending all collateral tokens to a separate wallet, and finally invoking the pool’s withdraw function to receive the borrowed assets. The impact is that the protocol becomes under‑collateralized: lenders lose the borrowed amount, the pool’s accounting is broken, and the overall system integrity is compromised. This condition occurs whenever a borrower is allowed to transfer collateral without a post‑transfer health check, which is typical in contracts that separate borrowing logic from token transfer logic. All participants who rely on the pool’s solvency – lenders, other borrowers, and the protocol governance – are affected because the pool may end up with insufficient collateral to cover outstanding debt. The issue was discovered during a manual security audit that examined the interaction between the CollateralToken transfer function and the health‑score enforcement in the lending module. It can be hard to notice because token transfers appear normal and do not emit any warning, while the health‑score violation only manifests later when the pool cannot cover the debt. To remediate, the protocol should enforce a health‑score check on every collateral transfer and reject any transfer that would cause the user’s health factor to fall below the minimum required level, or alternatively lock the collateral for the duration of the loan. This class of bug is commonly referred to as a “collateral transfer bypass” or “health‑factor bypass” that enables double spending of borrowed assets. From a user’s perspective, the symptom is that after moving their collateral the UI shows a zero token balance, yet the loan can still be withdrawn, leading to an unexpected loss of funds for the protocol and a mismatch between expected collateral protection and reality.
+
+## Recommendation
+We recommend restricting transfers of CollateralToken if it would significantly reduce the user's health score.

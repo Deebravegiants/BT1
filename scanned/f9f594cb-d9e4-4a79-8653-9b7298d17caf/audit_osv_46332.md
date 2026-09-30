@@ -1,0 +1,24 @@
+# [M] curl escape and unescape integer overflows
+
+## Summary
+Severity: Medium
+Advisory: CURL-CVE-2016-7167
+Aliases: CVE-2016-7167
+Published: 2016-09-14
+Source: https://osv.dev/vulnerability/CURL-CVE-2016-7167
+Type: osv
+
+## Details
+The four libcurl functions `curl_escape()`, `curl_easy_escape()`,
+`curl_unescape` and `curl_easy_unescape` perform string URL percent escaping
+and unescaping. They accept custom string length inputs in signed integer
+arguments. (The functions having names without "easy" being the deprecated
+versions of the others.)
+
+The provided string length arguments were not properly checked and due to
+arithmetic in the functions, passing in the length `0xffffffff` (2^32-1 or
+`UINT_MAX` or even -1) would end up causing an allocation of zero bytes
+of heap memory that curl would attempt to write gigabytes of data into.
+
+The use of 'int' for this input type in the API is of course unwise but has
+remained so in order to maintain the API over the years.

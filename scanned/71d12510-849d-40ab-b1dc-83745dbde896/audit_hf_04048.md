@@ -1,0 +1,14 @@
+# [H] Deposit transactions lose funds to front-running
+
+## Summary
+Severity: High
+Contest weight: 0.3010
+Dataset id: 20487
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+Deposit transactions lose funds to front-running when multiple fee tiers are available The deposit transaction takes in minimum parameters for amount0 and amount1 of tokens that the user wishes to deposit, but no parameter for the minimum number of LP tokens the user expects to receive. A malicious actor can limit the number of LP tokens that the user receives in the following way: A user Alice submits a transaction to deposit tokens into Multipool where (amount0Desired, amount0Min) > (amount1Desired, amount1Min) A malicious actor Bob can front-run this transaction if there are multiple feeTiers: • by first moving the price of feeTier1 to make tokenA very cheap (lots of tokenA in the pool) • then moving the price of feeTier2 in opposite direction to make tokenB very cheap (lots of tokenB in the pool) This results in reserves being balanced accross feeTiers, and the amounts resulting from _optimizeAmounts are balanced as well: c63265a9349b71d84675c4/concentrator/contracts/Multipool.sol#L780-L808 So the minimum amounts checks pass and but results as less LP tokens minted, because even though the reserves are balanced, they are also overinflated due to the large swap, and the ratio: c63265a9349b71d84675c4/concentrator/contracts/Multipool.sol#L468-L470 becomes a lot smaller than before the large swap The user loses funds as a result of maximum slippage.
+
+## Recommendation
+Add extra parameters for the minimum number of LP tokens that the user expects, instead of just checking non-zero amount: c63265a9349b71d84675c4/concentrator/contracts/Multipool.sol#L473

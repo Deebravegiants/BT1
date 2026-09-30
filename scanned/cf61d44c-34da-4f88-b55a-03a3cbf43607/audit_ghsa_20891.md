@@ -1,0 +1,26 @@
+# [H] rdiffweb contains Weak Password Requirements
+
+## Summary
+Severity: High
+Advisory: GHSA-mp5p-g2jv-r8qw
+CVE: CVE-2022-3179
+CWE: CWE-521
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2022-09-14
+Source: https://github.com/advisories/GHSA-mp5p-g2jv-r8qw
+Type: github-advisory
+
+## Affected
+- PyPI: `rdiffweb` — affected >=2.4.1 <2.4.2
+
+## Details
+rdiffweb version 2.4.1 has no password policy or password checking, which could make users vulnerable to brute force password guessing attacks. Version 2.4.2 enforces minimum and maximum password lengths.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2022-3179
+- https://github.com/ikus060/rdiffweb/commit/233befc33bdc45d4838c773d5aed4408720504c5
+- https://github.com/advisories/GHSA-mp5p-g2jv-r8qw
+- https://github.com/ikus060/rdiffweb
+- https://github.com/pypa/advisory-database/tree/main/vulns/rdiffweb/PYSEC-2022-272.yaml
+- https://huntr.dev/bounties/58eae29e-3619-449d-9bba-fdcbabcba5fe

@@ -1,0 +1,32 @@
+# [M] Loss of user funds - unchecked Return of ERC20
+
+## Summary
+Severity: Medium
+Contest weight: 0.2501
+Dataset id: 20060
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+Silently failing transfers can result in a partial or total loss of the users investment.
+Some ERC20 Tokens do not revert on failure of the transfer function, but return a bool value instead. Some do not return any value. Therefore it is required to check if a value was returned, and if true, which value it is. This is not done on some places in these contracts.
+The DebtIssuanceModulev2, which is required to issue or redeem tokens whenever there is a LeverageModule involved uses the invokeTransfer function of the Invoke library to transfer ERC20 Tokens from the SetToken to the user.
+invokeTransfer is encoding the Calldata for the regular transfer function of ERC20 tokens and passes it together with the target (ERC20 token address) the SetTokens generic invoke function, which in turn uses functionCallWithValue from the Openzeppelin Address Library. This method is bubbling up a possible revert of the call and returning the raw data.
+The generic invoke is returning this raw data, however in invokeTransfer the return value of invoke is ignored and not used. As some ERC20 Tokens do not revert on a failed transfer, but instead return a false bool value, the stated behaviour can lead to silently failing transfers.
+This is inside the DebtIssuanceModulev2 used to:
+1. Transfer The "debt" (borrowed) Tokens to the user at Issuance
+2. Transfer back the main component Tokens (e.g. aTokens) to the user at Redemption
+If such a Transfer silently fails, the funds will remain inside the setToken contract and the user has no chance to recover them.
+In the issuance event the user receives the SetTokens but not the borrowed Tokens, which he has to repay when he wants to redeem the tokens. (Results in Loss of the "Debt")
+In the redemption event the user repays his debt & burns his Set Tokens, but never receives his original Tokens back. (Total Loss of investment)
+Possible Loss of all/part of the Investment for the User
+Usage of invokeTransfer inDebtIssuanceModulev2:
+cts/protocol/modules/v1/DebtIssuanceModuleV2.sol#L283
+cts/protocol/modules/v1/DebtIssuanceModuleV2.sol#L315
+invokeTransfer function ignores return value of invoke:
+cts/protocol/lib/Invoke.sol#L66-L78
+invoke uses functionCallwithValue and returns the raw return Data (which is ignored in this case):
+cts/protocol/SetToken.sol#L197-L212
+
+## Recommendation
+Check for the existence and value of the returned data of the Transfer call. If there is a return value, it has to be true. This could be achieved by using Openzeppelins SafeERC20 library´s safeTransfer.

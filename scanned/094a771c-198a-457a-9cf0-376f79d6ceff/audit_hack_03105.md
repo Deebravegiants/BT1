@@ -1,0 +1,39 @@
+# [M] Development Contracts In Production
+
+## Summary
+Severity: Medium
+Reporter: 0x0
+Source: https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/Redeemer.sol#L33
+Type: audit-issue
+
+## Details
+# Development Contracts In Production
+
+## Summary
+
+The Redeemer contract has the Forge Standard Library contract imported.
+
+## Vulnerability Detail
+
+`Redeemer`
+
+[Line 34](https://github.com/sherlock-audit/2022-10-illuminate/blob/main/src/Redeemer.sol#L33) imports the Forge Standard Library. As well as increasing the size and cost of the contract to deploy, this exposes development ABIs that are not required for this system to work.
+
+## Impact
+
+- The administrators would be forced to redeploy the contracts without this library costing additional Ether.
+- Users would be asked to move to a new contract instance without this library which incurs a migration cost for them from unwrapping/wrapping using the new contract.
+
+## Code Snippet
+
+```solidity
+import 'forge-std/Test.sol';
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+- Remove development libraries from production deployments.

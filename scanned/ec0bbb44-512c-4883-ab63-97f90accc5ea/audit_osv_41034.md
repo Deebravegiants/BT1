@@ -1,0 +1,25 @@
+# [M] Net::BitTorrent versions before 2.1.0 for Perl write files outside the download directory via path traversal in peer-supplied metadata
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-57079
+Aliases: GHSA-5wc6-r65f-62rr
+CVSS: 5.3 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N)
+Published: 2026-06-30
+Source: https://osv.dev/vulnerability/CVE-2026-57079
+Type: osv
+
+## Details
+Net::BitTorrent versions before 2.1.0 for Perl write files outside the download directory via path traversal in peer-supplied metadata.
+
+Net::BitTorrent validates file path components only on the .torrent-file ingest path. The peer and magnet metadata path (_on_metadata_received, reached from the BEP09 ut_metadata extension) passes attacker-supplied file names straight to Storage::add_file and Storage::_parse_file_tree, where Path::Tiny's child() does not collapse "..". A v2 file tree key, a v1 files[].path element, or a single-file name containing ".." segments therefore resolves outside the download directory.
+
+Because the peer also controls the piece hashes and the served bytes, content verification passes, so a malicious magnet or peer writes attacker-chosen content to an attacker-chosen path on the downloading host.
+
+## References
+- https://cpan.org/modules
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/57xxx/CVE-2026-57079.json
+- https://github.com/sanko/Net-BitTorrent.pm/security/advisories/GHSA-5wc6-r65f-62rr
+- https://metacpan.org/release/SANKO/Net-BitTorrent-v2.1.0/changes
+- https://nvd.nist.gov/vuln/detail/CVE-2026-57079
+- https://github.com/sanko/Net-BitTorrent.pm

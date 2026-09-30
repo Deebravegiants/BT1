@@ -1,0 +1,163 @@
+# [M] Leverage borrowing with stale rate can atomically extract value
+
+## Summary
+Severity: Medium
+Contest weight: 0.7827
+Dataset id: 22545
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+Leverage buying, borrow and collateral removal can increase riskness of a position, but are allowed to be performed with a stale exchange rate within rateValidDuration both in BB and SGL. This can provide a way for creating bad debt whenever actual rate dropped more than FEE_PRECISION - collateralizationRate (25%).
+Particularly, an attacker can atomically extract value from the protocol without having any prior positions via leverage buying and then collateral removal. Whenever Oracle reported rate is stale (oracle.get(oracleData) doesn't return an updated value), while market rate has dropped more than FEE_PRECISION - collateralizationRate (FEE_PRECISION scale), it is possible to atomically open borrow position, buy collateral from the market and then remove extra collateral from the system with no prior positions and no investment.
+The possibility of opening new positions, especially leveraged ones, with a stale rate isn't required for BB or SGL core functionality, it constitutes a possible attack vector with very low business value of this possibility by itself.
+When a collateral can be bought from the market at a rate lower than Oracle reported stale rate by more than FEE_PRECISION - collateralizationRate, the difference between rate mismatch and this buffer can be extracted from the protocol by anyone with no prepositioning or investment needed.
+The probability of such a drop combined with Oracle staleness can be estimated as low, but once this happens given the absence of barriers to entry the attack will be carried out with high probability. The impact itself is direct loss of protocol principal funds as bad debt will be atomically created this way, which has to be covered by other assets of the system thereafter.
+Likelihood: Low + Impact: High = Severity: Medium.
+updateExchangeRate() allows for stale rate within rateValidDuration:
+cts/markets/Market.sol#L372-L385
+```solidity
+function updateExchangeRate() public returns (bool updated, uint256 rate) {
+    (updated, rate) = oracle.get(oracleData);
+    if (updated) {
+        require(rate != 0, "Market: invalid rate");
+        exchangeRate = rate;
+        rateTimestamp = block.timestamp;
+        emit LogExchangeRate(rate);
+    } else {
+        require(rateTimestamp + rateValidDuration >= block.timestamp, "Market: rate too old");
+        // Return the old rate if fetching wasn't successful & rate isn't too old
+        rate = exchangeRate;
+    }
+}
+```
+solvent check is used as the only control for a number of operations:
+cts/markets/Market.sol#L163-L170
+```solidity
+modifier solvent(address from, bool liquidation) {
+    updateExchangeRate();
+    _accrue();
+    _;
+    require(_isSolvent(from, exchangeRate, liquidation), "Market: insolvent");
+}
+```
+Including atomic opening of the leveraged borrow position both in BB and SGL:
+cts/markets/bigBang/BBLeverage.sol#L53-L58
+```solidity
+function buyCollateral(address from, uint256 borrowAmount, uint256 supplyAmount, bytes calldata data)
+    external
+    optionNotPaused(PauseType.LeverageBuy)
+    solvent(from, false)
+    notSelf(from)
+    returns (uint256 amountOut)
+```
+cts/markets/singularity/SGLLeverage.sol#L47-L52
+```solidity
+function buyCollateral(address from, uint256 borrowAmount, uint256 supplyAmount, bytes calldata data)
+    external
+    optionNotPaused(PauseType.LeverageBuy)
+    solvent(from, false)
+    notSelf(from)
+    returns (uint256 amountOut)
+```
+
+## Recommendation
+Consider introducing another level of control and allowing leverage operations and new positions opening only when the Oracle reported rate is current, e.g.:
+cts/markets/Market.sol#L372-L385
+```solidity
+- function updateExchangeRate() public returns (bool updated, uint256 rate) {
++ function updateExchangeRate(bool updateRequired) public returns (bool updated, uint256 rate) {
+    (updated, rate) = oracle.get(oracleData);
+    if (updated) {
+        require(rate != 0, "Market: invalid rate");
+        exchangeRate = rate;
+        rateTimestamp = block.timestamp;
+        emit LogExchangeRate(rate);
+    } else {
+        require(!updateRequired && rateTimestamp + rateValidDuration >= block.timestamp, "Market: rate too old");
+        // Return the old rate if fetching wasn't successful & rate isn't too old
+        rate = exchangeRate;
+    }
+}
+```
+liquidation flag can be dropped from solvent modifier since it is used only with liquidation == false (while _isSolvent() is being called directly on liquidations both in BB and SGL), and replaced with the updateRequired flag proposed, e.g.:
+cts/markets/Market.sol#L163-L170
+```solidity
+- modifier solvent(address from, bool liquidation) {
++ modifier solvent(address from, bool updateRequired) {
+-    updateExchangeRate();
++    updateExchangeRate(updateRequired);
+    _accrue();
+    _;
+-    require(_isSolvent(from, exchangeRate, liquidation), "Market: insolvent");
++    require(_isSolvent(from, exchangeRate, false), "Market: insolvent");
+}
+```
+All risk increase operations, i.e. leverage buying, borrow and collateral removal can utilize solvent modifiers with updateRequired == true, enforcing the Oracle reading to be current:
+cts/markets/bigBang/BBLeverage.sol#L53-L58
+```solidity
+function buyCollateral(address from, uint256 borrowAmount, uint256 supplyAmount, bytes calldata data)
+    external
+    optionNotPaused(PauseType.LeverageBuy)
+-   solvent(from, false)
++   solvent(from, true)
+    notSelf(from)
+    returns (uint256 amountOut)
+```
+cts/markets/bigBang/BBBorrow.sol#L37-L42
+```solidity
+function borrow(address from, address to, uint256 amount)
+    external
+    optionNotPaused(PauseType.Borrow)
+    notSelf(to)
+-   solvent(from, false)
++   solvent(from, true)
+    returns (uint256 part, uint256 share)
+```
+cts/markets/origins/Origins.sol#L162-L165
+```solidity
+function removeCollateral(uint256 share)
+    external
+    optionNotPaused(PauseType.RemoveCollateral)
+-   solvent(msg.sender, false)
++   solvent(msg.sender, true)
+```
+cts/markets/origins/Origins.sol#L175-L178
+```solidity
+function borrow(uint256 amount)
+    external
+    optionNotPaused(PauseType.Borrow)
+-   solvent(msg.sender, false)
++   solvent(msg.sender, true)
+```
+cts/markets/singularity/SGLBorrow.sol#L29-L34
+```solidity
+function borrow(address from, address to, uint256 amount)
+    external
+    optionNotPaused(PauseType.Borrow)
+-   solvent(from, false)
++   solvent(from, true)
+    notSelf(to)
+    returns (uint256 part, uint256 share)
+```
+cts/markets/singularity/SGLCollateral.sol#L48-L53
+```solidity
+function removeCollateral(address from, address to, uint256 share)
+    external
+    optionNotPaused(PauseType.RemoveCollateral)
+-   solvent(from, false)
++   solvent(from, true)
+    allowedBorrow(from, share)
+    notSelf(to)
+```
+cts/markets/singularity/SGLLeverage.sol#L47-L52
+```solidity
+function buyCollateral(address from, uint256 borrowAmount, uint256 supplyAmount, bytes calldata data)
+    external
+    optionNotPaused(PauseType.LeverageBuy)
+-   solvent(from, false)
++   solvent(from, true)
+    notSelf(from)
+    returns (uint256 amountOut)
+```
+All the other solvent(from, false) instances can stay intact.

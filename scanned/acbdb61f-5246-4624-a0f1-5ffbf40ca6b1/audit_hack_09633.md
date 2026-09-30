@@ -1,0 +1,31 @@
+# [M] Unsafe minting of footiumClubs
+
+## Summary
+Severity: Medium
+Reporter: kiki_dev
+Source: https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumClub.sol#L65
+Type: audit-issue
+
+## Details
+# Unsafe minting of footiumClubs
+
+## Summary
+The `safeMint` function in the `FootiumClub` contract does not use the `safeMint` function of the `ERC721Upgradeable` contract, which could potentially result in `ERC721` tokens being locked in a contract that cannot handle them.
+
+
+## Vulnerability Detail
+The `safeMint` function in the `FootiumClub` contract mints a football club `NFT` to a user, creating an escrow object and putting it in a mapping pointing the club ID to the escrow. This keeps it one-to-one. However, instead of using the `safeMint` function of the `ERC721Upgradeable` contract, the _mint function is used. This can potentially result in `ERC721` tokens being locked in a contract that cannot handle them. Footium uses safe mint when minting `footiumPlayers` but are missing that functionality when minting `clubs`. 
+
+
+## Impact
+This vulnerability can potentially lead to `ERC721` tokens being locked in a contract that cannot handle them.
+
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumClub.sol#L65
+## Tool used
+
+Manual Review
+
+## Recommendation
+It is recommended that the `safeMint` function of the `ERC721Upgradeable` contract is used instead of the _mint function in the `FootiumClub` contract to prevent potential locking of `ERC721` tokens in a contract that cannot handle them. This will ensure that the minting process is safe and secure. The contract should be updated and re-deployed with the recommended change.

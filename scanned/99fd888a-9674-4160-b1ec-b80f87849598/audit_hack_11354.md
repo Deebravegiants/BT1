@@ -1,0 +1,29 @@
+# [M] Oracle contract doesn't check for outdated price data
+
+## Summary
+Severity: Medium
+Reporter: Ruhum
+Source: https://github.com/sherlock-audit/2023-05-ironbank/blob/main/ib-v2/src/protocol/oracle/PriceOracle.sol#L67
+Type: audit-issue
+
+## Details
+# Oracle contract doesn't check for outdated price data
+
+## Summary
+You should check whether the data from Chainlink is outdated before using it.
+
+## Vulnerability Detail
+There have been instances in the past where Chainlink oracles have stopped posting new data. That caused protocols to work with outdated data opening up arbitrage opportunities, e.g. chainlink returns a higher price for a collateral token than it should.
+
+## Impact
+The protocol can potentially work with outdated data.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-ironbank/blob/main/ib-v2/src/protocol/oracle/PriceOracle.sol#L67
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Check whether `block.timestamp - roundTimestamp == heartbeat`

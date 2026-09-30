@@ -1,0 +1,14 @@
+# [M] NFTs may get locked in MultiVaults leading to loss of user tokens.
+
+## Summary
+Severity: Medium
+Contest weight: 0.2574
+Dataset id: 17470
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+NFTs with tokenId > type(uint32).max will cause corresponding NFTs with colliding tokenIds to get locked in MultiVaults with their original beneficial owners unable to withdraw them anymore. Hook project documentation says: “The multi vault does not support any collection with token ids that overflow uint32. Uint32 is used to reduce the number of storage slots that must be allocated to add an asset to the vault; very few NFT projects based on ERC-721s actually utilize tokenIds outside this range” with the assumption that authorized ALLOWLISTER_ROLE will never list a MultiVault for an NFT project with tokenIDs in that range. However, instead of checking received NFTs with tokenId > type(uint32).max and reverting, the current implementation forces a downcast in onERC721Received via uint32(tokenId). If tokenId > type(uint32).max then the forced downcasting will make this tokenId collide with the corresponding NFT whose tokenId is within the type(uint32).max range, if it were to have been vaulted earlier. ENS uses hash(name) as its uint64 tokenId which is greater than type(uint32).max. Another NFT project Artblocks uses tokenId = (projectNumber * 1000000) + mintNumber, which could be greater than type(uint32).max. NFT projects may also get creative after the initial mint to issue new ones with tokenIds outside the initially planned type(uint32).max. Example scenario: 1. ALLOWLISTER_ROLE lists BAYC NFT series in a MultiVault assuming that its tokenId will never exceed type(uint32).max 2. BAYC approves a change to mint many more BAYC NFTs with randomized tokenIds that now can exceed type(uint32).max 3. Alice creates an option for her BAYC with tokenId 0 4. Mallory creates an option for her BAYC with tokenId 0x000000001 which when forcibly downcasted to uint32 becomes 0x0 and collides with Alice’s BAYC 5. Mallory is made the beneficial owner for Alice’s NFT and depending on the option status of Alice there could be other unexpected behavior 6. Alice loses access to her BAYC which gets locked in the MultiVault The worst case scenario is that NFTs with colliding tokenIds may get locked in MultiVaults leading to loss of such user tokens. There could be other unexpected behavior depending on different scenarios.
+
+## Recommendation
+Use SafeCast.toUint32(tokenId) instead of uint32(tokenId). “The intention would be to only deploy these vaults on contracts where the tokenId is limited, but it is also true that sometimes (i.e. artblocks) its hard to know the eventual limit. So we'd be open to using SafeCast.toUint32 or similar checks.” Revert if token id is greater than uint32’s max value. https://github.com/hookart/protocol/pull/48 Ok.

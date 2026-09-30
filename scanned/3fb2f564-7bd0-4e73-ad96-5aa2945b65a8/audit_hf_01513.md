@@ -1,0 +1,14 @@
+# [M] M-9 fantiumFeeBPS should be restricted
+
+## Summary
+Severity: Medium
+Contest weight: 0.0220
+Dataset id: 8012
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is an unchecked configuration parameter that represents the fee expressed in basis points (fantiumFeeBPS). The contract assumes that this fee will never exceed 10,000 basis points, which corresponds to a 100 % fee, but it does not enforce this upper bound anywhere in the code. Because the claim function calculates the fee as amount * fantiumFeeBPS / 10,000, setting fantiumFeeBPS to a value greater than 10,000 makes the computed fee larger than the claimed amount. This causes the internal transfer or balance check to fail and the entire claim transaction to revert. The root cause is the missing validation of the fee parameter during contract initialization or any later update, allowing an administrator or attacker to set an out‑of‑range value. Exploitation is straightforward: an attacker with permission to modify fantiumFeeBPS can set it to, for example, 20,000. After that, any user calling the claim function will experience a revert, receiving no tokens or refunds, effectively locking their funds in the contract. The impact is that legitimate claimants are unable to retrieve their assets, leading to a denial‑of‑service condition for the protocol’s users and potentially eroding trust in the platform. The issue manifests whenever the fee parameter is set above the 10,000‑basis‑point threshold, which can happen during deployment, an upgrade, or an administrative fee change. All participants who rely on the claim functionality—individual users, liquidity providers, and the protocol itself—are affected because their expected outcome (receiving a claim payout) is replaced by a transaction failure and a zero‑balance UI indication. The problem was discovered during a systematic audit that reviewed input validation and business‑logic constraints. It can be hard to notice in normal testing because typical fee values are well within the expected range, so the revert only appears under extreme, out‑of‑range configurations that may not be exercised in standard test suites. To remediate, the contract should enforce a hard ceiling on fantiumFeeBPS, for example by adding a require statement that checks fantiumFeeBPS <= 10,000 whenever the value is set or updated. This ensures that the fee calculation never exceeds the total amount, preserving the intended accounting logic and preventing claim‑revert scenarios. The bug belongs to the class of missing input validation or unchecked arithmetic constraints, which can lead to business‑logic violations such as “refund calculation error” or “funds disappear” when the fee exceeds the payable amount.
+
+## Recommendation
+We recommend adding the following check: fantiumFeeBPS <= 10_000.

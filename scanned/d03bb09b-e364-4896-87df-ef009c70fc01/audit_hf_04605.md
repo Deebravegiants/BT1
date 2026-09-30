@@ -1,0 +1,14 @@
+# [M] M-38 | Same TWAP For Multiple V3 Pools
+
+## Summary
+Severity: Medium
+Contest weight: 0.0408
+Dataset id: 22210
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability originates from the design of the spTKNMinimalOracle, which aggregates price information from two distinct Uniswap V3 pools but applies a single time‑weighted average price (TWAP) interval to both. Because each pool can have markedly different liquidity depth and volatility characteristics, a uniform TWAP window may be long enough to smooth out price fluctuations in a deep, stable pool while being far too short to capture reliable price data in a shallow or highly volatile pool. Consequently, the oracle can return a price that deviates from the true market rate for one of the assets. An attacker who can influence the price in the low‑liquidity pool within the shared TWAP window can cause the oracle to publish a distorted price, which downstream contracts may use for critical operations such as collateral valuation, liquidation triggers, or trade execution. This can lead to users receiving incorrect trade quotes, premature liquidations, or loss of funds when positions are settled at an unfavorable price. The issue manifests whenever the oracle is queried during periods of low liquidity or heightened volatility in either pool, and it affects any participant that relies on the oracle’s price feed – typically traders, lenders, and the protocol itself. The flaw was identified during a manual audit that examined the oracle’s configuration and noted the reuse of a single interval parameter across heterogeneous pools. It is subtle because the price may appear correct for the well‑liquidity‑backed pool, masking the inaccuracy for the other pool, and because price deviations can be intermittent, making them hard to reproduce without targeted testing. The root cause is a misconfiguration of the oracle’s aggregation logic, a classic example of an “oracle price aggregation misconfiguration” where a single smoothing parameter is applied to heterogeneous data sources. To remediate, the oracle should maintain independent TWAP intervals for each pool, potentially adapting the interval length based on observed liquidity and volatility metrics, thereby ensuring that each price feed is sufficiently smoothed to reflect true market conditions. From a user perspective, the symptom may be a trade that executes at an unexpected price, a liquidation that occurs earlier than anticipated, or a balance that appears unchanged after a transaction because the underlying price feed was inaccurate. Users expect the oracle to provide a reliable average price, but the shared interval causes the reality of stale or skewed prices, violating the protocol’s accounting assumptions and exposing it to financial risk.
+
+## Recommendation
+Consider having a different interval for each pool.

@@ -1,0 +1,51 @@
+# [M] spec: Portal still accepts deposit even when paused.
+
+## Summary
+Severity: Medium
+Reporter: 0xGoodess
+Source: https://github.com/ethereum-optimism/optimism/blob/9b9f78c6613c6ee53b93ca43c71bb74479f4b975/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L79-L84
+Type: audit-issue
+
+## Details
+# spec: Portal still accepts deposit even when paused.
+
+## Summary
+Portal still accepts deposit even when paused
+
+## Vulnerability Detail
+Portal still accepts deposit even when paused
+
+## Impact
+inconsistency to spec
+
+## Code Snippet
+```solidity
+    /**
+     * @notice Determines if cross domain messaging is paused. When set to true,
+     *         deposits and withdrawals are paused. This may be removed in the
+     *         future.
+     */
+    bool public paused;
+```
+https://github.com/ethereum-optimism/optimism/blob/9b9f78c6613c6ee53b93ca43c71bb74479f4b975/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L79-L84
+
+However, deposit can still be made even the portal is paused.
+
+```solidity
+    function depositTransaction(
+        address _to,
+        uint256 _value,
+        uint64 _gasLimit,
+        bool _isCreation,
+        bytes memory _data
+    ) public payable metered(_gasLimit) {
+```
+https://github.com/ethereum-optimism/optimism/blob/9b9f78c6613c6ee53b93ca43c71bb74479f4b975/packages/contracts-bedrock/contracts/L1/OptimismPortal.sol#L426-L432
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+either change the spec or the code to be consistent

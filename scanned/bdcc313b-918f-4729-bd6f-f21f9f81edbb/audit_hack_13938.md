@@ -1,0 +1,62 @@
+# [H] User will lose their rewards
+
+## Summary
+Severity: High
+Reporter: Nutty Admiral Scorpion
+Source: https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/rewarders/MainRewarder.sol#L95-L98
+Type: audit-issue
+
+## Details
+# User will lose their rewards
+## Summary
+ User will lose their rewards 
+
+## Vulnerability Detail
+When claiming rewards from the `MainRewarder`, it does first update the reward from the user and then it processes those rewards by calling `_getReward()` in the `AbstractRewarder` contract.
+
+```solidity
+     function getReward() external nonReentrant {
+        _updateReward(msg.sender);
+        _processRewards(msg.sender, true);
+    }
+
+```
+
+As you can see when calling `_updateReward()` ` rewardPerTokenStored = rewardPerToken();` is stored as `userRewardPerTokenPaid[account] = rewardPerTokenStored;`, therefore rewardPerToken() == userRewardPerTokenPaid[account].
+
+```solidity
+function _updateReward(address account) internal { 
+        uint256 earnedRewards = 0;
+        rewardPerTokenStored = rewardPerToken();
+       
+        lastUpdateBlock = lastBlockRewardApplicable();  //return block.number < periodInBlockFinish ? block.number : periodInBlockFinish;
+
+        if (account != address(0)) {
+            earnedRewards = earned(account);
+            rewards[account] = earnedRewards;
+            userRewardPerTokenPaid[account] = rewardPerTokenStored;
+        }
+
+        emit UserRewardUpdated(account, earnedRewards, rewardPerTokenStored, lastUpdateBlock);
+    }
+```
+The rewards will be unclaimable and lost because when updating the rewards calling `_updateReward(msg.sender)`  will always return 0 because `rewardPerToken() - userRewardPerTokenPaid[account]`  is 0 because userRewardPerTokenPaid is just updated before claiming to the actual rewardPerToken(). 
+
+As you can see, the multiplication will return 0:
+
+```solidity
+ function earned(address account) public view returns (uint256) {
+        return (balanceOf(account) * (rewardPerToken() - userRewardPerTokenPaid[account]) / 1e18) + rewards[account];
+ }
+ ```
+
+## Impact
+User will lose their rewards when claiming
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-tokemak/blob/5d8e902ce33981a6506b1b5fb979a084602c6c9a/v2-core-audit-2023-07-14/src/rewarders/MainRewarder.sol#L95-L98
+## Tool used
+
+Manual Review
+
+## Recommendation
+Make sure that `rewardPerToken() != userRewardPerTokenPaid[account]`

@@ -1,0 +1,30 @@
+# [H] Potential flashloan attack on rebalance
+
+## Summary
+Severity: High
+Reporter: Fanz
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSDRebalancer.sol#L71-L80
+Type: audit-issue
+
+## Details
+# Potential flashloan attack on rebalance
+
+## Summary
+Potential flashloan attack on rebalance
+
+## Vulnerability Detail
+on rebalance function check ownval get price from uniswap pool  so it could be manipulate the price in pool by flashloan then call to rebalance
+
+## Impact
+Protocol could losing funds
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSDRebalancer.sol#L71-L80
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSDRebalancer.sol#L92-L107
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Using price from oracle

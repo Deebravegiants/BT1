@@ -1,0 +1,40 @@
+# [M] D3VaultFunding#checkBadDebtAfterAccrue
+
+## Summary
+Severity: Medium
+Contest weight: 0.4608
+Dataset id: 20108
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+D3VaultFunding#checkBadDebtAfterAccrue makes the incorrect assumption that a collateral ratio of less than 1e18 means that the pool has bad debt. Due to how collateral and debt weight affect the collateral ratio calculation a pool can have a collateral ratio less than 1e18 will still maintaining debt that is profitable to liquidate. The result of this is that the after this threshold has been passed, a pool can no longer be liquidate by anyone which can lead to continued losses that harm both the LPs and the MM being liquidated.
+D3VaultFunding.sol#L382-L386
+```solidity
+if (balance >= borrows) {
+    collateral += min(balance - borrows, info.maxCollateralAmount).mul(info.collateralWeight).mul(price);
+} else {
+    debt += (borrows - balance).mul(info.debtWeight).mul(price);
+}
+```
+When calculating the collateral and debt values, the value of the collateral is adjusted by the collateralWeight and debtWeight respectively. This can lead to a position in which the collateral ratio is less than 1e18, which incorrectly signals the pool has bad debt via the checkBadDebtAfterAccrue check.
+Example:
+Assume a pool has the following balances and debts:
+Token A - 100 borrows 125 balance
+Token B - 100 borrows 80 balance
+Price A = 1
+collateralWeightA = 0.8
+Price B = 1
+debtWeightB = 1.2
+collateral = 25 * 1 * 0.8 = 20
+debt = 20 * 1 * 1.2 = 24
+collateralRatio = 20/24 = 0.83
+The problem here is that there is no bad debt at all and it is still profitable to liquidate this pool, even with a discount:
+ExcessCollateral = 125 - 100 = 25
+25 * 1 * 0.95 [DISCOUNT] = 23.75
+ExcessDebt = 100 - 80 = 20
+20 * 1 = 20
+The issue with this is that once this check has been triggered, no other market participants besides DODO can liquidate this position. This creates a significant inefficiency in the market that can easily to real bad debt being created for the pool. This bad debt is harmful to both the pool MM, who could have been liquidated with remaining collateral, and also the vault LPs who directly pay for the bad debt. Unnecessary loss of funds to LPs and MMs
+
+## Recommendation
+The methodology of the bad debt check should be changed to remove collateral and debt weights to accurately indicate the presence of bad debt.

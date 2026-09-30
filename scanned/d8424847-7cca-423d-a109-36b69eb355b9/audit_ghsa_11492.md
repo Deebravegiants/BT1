@@ -1,0 +1,46 @@
+# [H] OpenClaw's system.run allowlist can be bypassed through an unregistered time dispatch wrapper
+
+## Summary
+Severity: High
+Advisory: GHSA-qm9x-v7cx-7rq4
+CVE: CVE-2026-35666
+CWE: CWE-706, CWE-863
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H (CVSS_V3)
+Published: 2026-03-26
+Source: https://github.com/advisories/GHSA-qm9x-v7cx-7rq4
+Type: github-advisory
+
+## Affected
+- npm: `openclaw` — affected >=0 <2026.3.22
+
+## Details
+## Summary
+Allow-always exec approvals did not unwrap /usr/bin/time, so an unregistered time wrapper could bypass executable binding and reuse approval state for the inner command.
+
+## Affected Packages / Versions
+- Package: `openclaw` (npm)
+- Affected: < 2026.3.22
+- Fixed: >= 2026.3.22
+- Latest released tag checked: `v2026.3.23-2` (`630f1479c44f78484dfa21bb407cbe6f171dac87`)
+- Latest published npm version checked: `2026.3.23-2`
+
+## Fix Commit(s)
+- `39409b6a6dd4239deea682e626bac9ba547bfb14`
+
+## Release Status
+The fix shipped in `v2026.3.22` and remains present in `v2026.3.23` and `v2026.3.23-2`.
+
+## Code-Level Confirmation
+- src/infra/dispatch-wrapper-resolution.ts now unwraps /usr/bin/time and binds approvals to the real inner executable.
+- src/infra/exec-approvals-allow-always.test.ts ships regression coverage for time-wrapper allow-always approval bypasses.
+
+OpenClaw thanks @YLChen-007 for reporting.
+
+## References
+- https://github.com/openclaw/openclaw/security/advisories/GHSA-qm9x-v7cx-7rq4
+- https://nvd.nist.gov/vuln/detail/CVE-2026-35666
+- https://github.com/openclaw/openclaw/commit/39409b6a6dd4239deea682e626bac9ba547bfb14
+- https://github.com/openclaw/openclaw/commit/630f1479c44f78484dfa21bb407cbe6f171dac87
+- https://github.com/openclaw/openclaw
+- https://www.vulncheck.com/advisories/openclaw-allowlist-bypass-via-unregistered-time-dispatch-wrapper

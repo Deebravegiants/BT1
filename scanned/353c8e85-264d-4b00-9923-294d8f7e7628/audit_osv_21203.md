@@ -1,0 +1,17 @@
+# [M] CVE-2021-41151
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-41151
+Aliases: GHSA-pvv8-8fx9-h673
+CVSS: 4.9 (CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:N)
+Published: 2021-10-18
+Source: https://osv.dev/vulnerability/CVE-2021-41151
+Type: osv
+
+## Details
+Backstage is an open platform for building developer portals. In affected versions A malicious actor could read sensitive files from the environment where Scaffolder Tasks are run. The attack is executed by crafting a custom Scaffolder template with a `github:publish:pull-request` action and a particular source path. When the template is executed the sensitive files would be included in the published pull request. This vulnerability is mitigated by the fact that an attacker would need access to create and register templates in the Backstage catalog, and that the attack is very visible given that the exfiltration happens via a pull request. The vulnerability is patched in the `0.15.9` release of `@backstage/plugin-scaffolder-backend`.
+
+## References
+- https://github.com/backstage/backstage/security/advisories/GHSA-pvv8-8fx9-h673
+- https://github.com/backstage/backstage/commit/6968962c920508eae19a4c1c200fa2c8980a4006

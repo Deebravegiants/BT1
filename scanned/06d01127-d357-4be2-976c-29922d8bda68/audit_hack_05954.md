@@ -1,0 +1,39 @@
+# [M] In case if deposit or withdraw fee is 0, protocol will not work properly with tokens thar doesn't support 0 amount transfer
+
+## Summary
+Severity: Medium
+Reporter: rvierdiiev
+Source: https://github.com/sherlock-audit/2023-02-blueberry/blob/main/contracts/BlueBerryBank.sol#L642
+Type: audit-issue
+
+## Details
+# In case if deposit or withdraw fee is 0, protocol will not work properly with tokens thar doesn't support 0 amount transfer
+
+## Summary
+In case if deposit or withdraw fee is 0, protocol will not work properly with tokens thar dosn't support 0 amount transfer.
+## Vulnerability Detail
+When user lends tokens to bank, then [deposit fee is taken](https://github.com/sherlock-audit/2023-02-blueberry/blob/main/contracts/BlueBerryBank.sol#L642).
+
+https://github.com/sherlock-audit/2023-02-blueberry/blob/main/contracts/BlueBerryBank.sol#L892-L900
+```solidity
+    function doCutDepositFee(address token, uint256 amount)
+        internal
+        returns (uint256)
+    {
+        if (config.treasury() == address(0)) revert NO_TREASURY_SET();
+        uint256 fee = (amount * config.depositFee()) / DENOMINATOR;
+        IERC20Upgradeable(token).safeTransfer(config.treasury(), fee);
+        return amount - fee;
+    }
+```
+In case if fee is 0 and token do not allow 0 amount transfers, this code will revert.
+## Impact
+Protocol will not work properly with tokens thar doesn't support 0 amount transfer.
+## Code Snippet
+Provided above
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add check that amount that is needed to be sent is bigger than 0.

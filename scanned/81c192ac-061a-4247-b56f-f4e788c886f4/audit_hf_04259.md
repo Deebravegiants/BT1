@@ -1,0 +1,75 @@
+# [H] Numerous errors when calculating the TVL for the MorphoBlue connector
+
+## Summary
+Severity: High
+Contest weight: 0.7401
+Dataset id: 21204
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+There are numerous issues when calculating the TVL for the MorphoBlue connector
+
+  1. decimals are not considered in the function `convertCToL` this means that if the loanToken and collateralToken have a different number of decimals the TVL calculation will be wrong.
+  2. borrowAmount is added rather than subtracted when calculating the TVL. This means that any borrowing will increase the TVL and any repaying will decrease the TVL
+  3. When withdrawing the function `_updateTokenInRegistry` is only called for the collateralToken and not the loanToken. This means that if the loanToken is withdrawn the TVL will be less than it should be.
+
+If the TVL is incorrect, users will receive an incorrect number of shares when depositing and an incorrect number of base tokens when withdrawing. The below table shows the possible scenarios.
+
+User | TVL lower than expected | TVL higher than expected  
+---|---|---
+Deposits | Receives more shares than should be entitled to | Receives fewer base tokens than should be entitled to  
+Withdraws | Receives less shares than should be entitled to | Receives more base tokens than should be entitled to
+
+## Proof of Concept
+```solidity
+function testSupplyBorrowRepayWithdraw() public {
+    uint256 amount = 1000 * 1e6;
+    uint256 amount_dai = 1000 * 1e18;
+    console.log("----------- Test Deposit -----------");
+    _dealWhale(baseToken, address(connector), USDC_Whale, amount);
+    _dealERC20(DAI, address(connector), amount_dai);
+    vm.startPrank(owner);
+
+    assertEq(
+        address(morphoBlueContract), address(connector.morphoBlue()), "MorphoBlue address is not set correctly"
+    );
+
+    connector.supply(amount, usdcDaiMarketId, true);
+    uint256 tvl = accountingManager.TVL();
+    console.log("TVL: %s", tvl); // tvl = 1000000000
+
+    connector.supply(amount_dai, usdcDaiMarketId, false);
+    tvl = accountingManager.TVL();
+    console.log("TVL before borrow: %s", tvl); // tvl = 1000000000001000000000
+    // NOTE: Due to DAI having a different number of decimals than USDC, the TVL increases by a very large amount
+    // correct TVL = 2000000000
+
+    connector.borrow(amount / 2, usdcDaiMarketId);
+    tvl = accountingManager.TVL();
+    console.log("TVL after borrow: %s", tvl); // 1000000000002000000000
+    // NOTE: The TVL increases because the borrow is added instead of subtracted from the TVL
+
+    connector.repay(amount / 2, usdcDaiMarketId);
+    tvl = accountingManager.TVL();
+    console.log("TVL after repay: %s", tvl); // 1000000000001000000000
+
+    connector.withdraw(amount, usdcDaiMarketId, true);
+    tvl = accountingManager.TVL();
+    console.log("TVL after withdraw 1: %s", tvl); // 1000000000000000000000
+
+    connector.withdraw(amount_dai, usdcDaiMarketId, false);
+    tvl = accountingManager.TVL();
+    console.log("TVL after withdraw 2: %s", tvl); // 999945369
+    // NOTE: The TVL is half of what it should be because the withdraw function does not call _updateTokenInRegistry for the loanToken
+    
+    vm.stopPrank();
+}
+```
+
+## Recommendation
+Each of the 3 points above must be fixed individually for the TVL calculation to be correct. Each issue can be fixed as follows:
+
+  1. For the function `convertCToL` the result should be divided by 10**(collateralTokenDecimals) and multiplied by 10**(loanTokenDecimals).
+  2. The borrow amount should be subtracted rather than added in the `_getPositionTVL` function. <https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/MorphoBlueConnector.sol#L132>
+  3. call `_updateTokenInRegistry` for the loanToken in the `withdraw` function. <https://github.com/code-423n4/2024-04-noya/blob/9c79b332eff82011dcfa1e8fd51bad805159d758/contracts/connectors/MorphoBlueConnector.sol#L58>

@@ -1,0 +1,16 @@
+# [H] CVE-2017-9333
+
+## Summary
+Severity: High
+Advisory: CVE-2017-9333
+CVSS: 8.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2017-09-18
+Source: https://osv.dev/vulnerability/CVE-2017-9333
+Type: osv
+
+## Details
+OpenWebif 1.2.5 allows remote code execution via a URL to the CallOPKG function in the IpkgController class in plugin/controllers/ipkg.py, when the URL refers to an attacker-controlled web site with a Trojan horse package. This has security implications in cases where untrusted users can trigger CallOPKG calls, and these users can enter an arbitrary URL in an input field, even though that input field was only intended for a package name. This threat model may be relevant in the latest versions of third-party products that bundle OpenWebif, i.e., set-top box products. The issue of Trojan horse packages does NOT have security implications in cases where the attacker has full OpenWebif access.
+
+## References
+- https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/issues/619
+- https://github.com/E2OpenPlugins/e2openplugin-OpenWebif/issues/621

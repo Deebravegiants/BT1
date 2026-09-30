@@ -1,0 +1,61 @@
+# [M] [High] Function MigrateWithdrawal() may set
+
+## Summary
+Severity: Medium
+Contest weight: 0.2455
+Dataset id: 19745
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+Function MigrateWithdrawal() in migrate.go will turn a LegacyWithdrawal into a bedrock style Withdrawal. it should set a min gas limit value for the withdrawals. to calculate a gas limit contract overestimates it and if the value goes higher than L1 maximum gas in the block then the withdraw can't be relayed in the L1 and users funds would be lost while the withdraw could be possible before the migration it won't be possible after it.
+
+This is MigrateWithdrawal() code:
+```go
+// MigrateWithdrawal will turn a LegacyWithdrawal into a bedrock
+// style Withdrawal.
+func MigrateWithdrawal(withdrawal *LegacyWithdrawal, l1CrossDomainMessenger *common.Address) (*Withdrawal, error) {
+    // Attempt to parse the value
+    value, err := withdrawal.Value()
+    if err != nil {
+        return nil, fmt.Errorf("cannot migrate withdrawal: %w", err)
+    }
+    abi, err := bindings.L1CrossDomainMessengerMetaData.GetAbi()
+    if err != nil {
+        return nil, err
+    }
+    // Migrated withdrawals are specified as version 0. Both the
+    // L2ToL1MessagePasser and the CrossDomainMessenger use the same
+    // versioning scheme. Both should be set to version 0
+    versionedNonce := EncodeVersionedNonce(withdrawal.Nonce, new(big.Int))
+    // Encode the call to `relayMessage` on the `CrossDomainMessenger`.
+    // The minGasLimit can safely be 0 here.
+    data, err := abi.Pack(
+        "relayMessage",
+        versionedNonce,
+        withdrawal.Sender,
+        withdrawal.Target,
+        value,
+        new(big.Int),
+        withdrawal.Data,
+    )
+    if err != nil {
+        return nil, fmt.Errorf("cannot abi encode relayMessage: %w", err)
+    }
+    // Set the outer gas limit. This cannot be zero
+    gasLimit := uint64(len(data)*16 + 200_000)
+    w := NewWithdrawal(
+        versionedNonce,
+        &predeploys.L2CrossDomainMessengerAddr,
+        l1CrossDomainMessenger,
+        value,
+        new(big.Int).SetUint64(gasLimit),
+        data,
+    )
+    return w, nil
+}
+```
+As you can see it sets the gas limit as gasLimit := uint64(len(data)*16 + 200_000) and contract set 16 gas per data byte but in Ethereum when data byte is 0 then the overhead intrinsic gas is 4 and contract overestimate the gas limit by setting 16 gas for each data. this can cause messages with big data(which calculated gas is higher than 30M) to not be relayable in the L1 because if transaction gas set lower than calculated gas then OptimisimPortal would reject it and if gas set higher than calculated gas then miners would reject the transaction. while if code correctly estimated the required gas the gas limit could be lower by the factor of 4. for example a message with about 2M zeros would get gas limit higher than 30M and it won't be withdrawable in the L1 while the real gas limit is 8M which is relayable. some withdraw messages from L2 to L1 that could be relayed before the migration can't be relayed after the migration because of the wrong gas estimation.
+
+## Recommendation
+calculate gas estimation correctly, 4 for 0 bytes and 16 for none zero bytes.

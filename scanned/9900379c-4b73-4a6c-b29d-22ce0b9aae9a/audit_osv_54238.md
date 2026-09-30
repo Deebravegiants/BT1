@@ -1,0 +1,17 @@
+# [M] CVE-2023-4421
+
+## Summary
+Severity: Medium
+Advisory: CVE-2023-4421
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N)
+Published: 2023-12-12
+Source: https://osv.dev/vulnerability/CVE-2023-4421
+Type: osv
+
+## Details
+The NSS code used for checking PKCS#1 v1.5 was leaking information useful in mounting Bleichenbacher-like attacks. Both the overall correctness of the padding as well as the length of the encrypted message was leaking through timing side-channel. By sending large number of attacker-selected ciphertexts, the attacker would be able to decrypt a previously intercepted PKCS#1 v1.5 ciphertext (for example, to decrypt a TLS session that used RSA key exchange), or forge a signature using the victim's key. The issue was fixed by implementing the implicit rejection algorithm, in which the NSS returns a deterministic random message in case invalid padding is detected, as proposed in the Marvin Attack paper. This vulnerability affects NSS < 3.61.
+
+## References
+- https://lists.debian.org/debian-lts-announce/2023/10/msg00039.html
+- https://bugzilla.mozilla.org/show_bug.cgi?id=1651411
+- https://www.mozilla.org/security/advisories/mfsa2023-53/

@@ -1,0 +1,14 @@
+# [M] OstiumTrading::topUpCollateral() is missing pairsStored.groupMaxCollateral(pairIndex) check
+
+## Summary
+Severity: Medium
+Contest weight: 0.0354
+Dataset id: 11134
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability resides in the collateral‑top‑up function of the OstiumTrading contract. When a trader opens a new position the system calls withinExposureLimits() to verify that the amount of collateral supplied for each trading pair does not exceed the pair‑specific maximum defined in pairsStored.groupMaxCollateral(pairIndex). However, the same verification step is omitted in the topUpCollateral() routine that allows an existing position to receive additional collateral. The root cause is a missing call to the exposure‑limit check, an oversight in the contract’s business‑logic flow. An attacker or any user can invoke topUpCollateral() with an arbitrarily large amount, bypassing the per‑pair maximum constraint. By doing so the user can push the total collateral for a pair beyond the intended ceiling, potentially distorting the protocol’s risk parameters, creating an imbalance in exposure calculations, and allowing the user to lock more funds than the system is designed to handle. This can lead to scenarios where the protocol appears over‑collateralized for a particular pair while other participants may suffer reduced margin buffers, increasing the chance of liquidation failures or unfair advantage. The issue manifests whenever a trader calls topUpCollateral() after a trade has been opened; the contract does not perform the groupMaxCollateral validation at that point, so the excess collateral is accepted silently. The affected parties include any trader who can top up collateral, the overall protocol that relies on strict exposure limits, and indirectly other users whose positions share the same pair. The problem was discovered during a systematic audit that compared the logic of opening‑trade functions with the top‑up path and identified the missing validation call. Because the function appears to simply add funds, the lack of a limit check can be subtle and may not produce obvious on‑chain errors, making it hard to notice without a focused review of the business rules. To remediate, the contract should invoke the same exposure‑limit verification used in withinExposureLimits() before accepting any additional collateral in topUpCollateral(), rejecting the transaction if the new total would exceed pairsStored.groupMaxCollateral for the relevant pair. This aligns the top‑up flow with the intended accounting model, restores the invariant that collateral per pair never surpasses the configured maximum, and prevents the protocol from accepting unintended excess funds.
+
+## Recommendation
+Add the check to OstiumTrading::topUpCollateral().

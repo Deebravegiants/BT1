@@ -1,0 +1,45 @@
+# [M] Users could lose their rewards
+
+## Summary
+Severity: Medium
+Reporter: Ch_301
+Source: https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Game.sol#L255-L264
+Type: audit-issue
+
+## Details
+# Users could lose their rewards
+
+## Summary
+
+## Vulnerability Detail
+1- Bob is a Game player. he could invoke [mintNewBasket()](https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Game.sol#L255-L264) with the wrong `_vaultNumber` by mistakenly
+2- Now he will invoke `rebalanceBasket()` to set the allocations into his basket.
+
+He thinks he will start gaining rewards (if he set the right protocols). 
+After N periods. 
+He will be surprised there are no rewards for him.
+If the `mintNewBasket()` check `_vaultNumber` is existing or not
+Bob could gain rewards with an existing `_vaultNumber`
+
+## Impact
+The user will lose all his rewards
+
+## Code Snippet
+```solidity
+  function mintNewBasket(uint256 _vaultNumber) external returns (uint256) {
+    // mint Basket with nrOfUnAllocatedTokens equal to _lockedTokenAmount
+    baskets[latestBasketId].vaultNumber = _vaultNumber;
+    baskets[latestBasketId].lastRebalancingPeriod = vaults[_vaultNumber].rebalancingPeriod + 1;
+    _safeMint(msg.sender, latestBasketId);
+    latestBasketId++;
+
+    emit BasketId(msg.sender, latestBasketId - 1);
+    return latestBasketId - 1;
+  }
+```
+## Tool used
+
+Manual Review
+
+## Recommendation
+the  `mintNewBasket()`  should revert if the `_vaultNumbe` is not existing.

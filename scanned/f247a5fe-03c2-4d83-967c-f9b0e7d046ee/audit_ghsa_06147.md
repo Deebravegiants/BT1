@@ -1,0 +1,121 @@
+# [H] ip-address: Address4 decodes leading-zero octets as decimal while resolvers decode them as octal, allowing SSRF and trust-boundary bypass
+
+## Summary
+Severity: High
+Advisory: GHSA-mwp4-54f8-5fhr
+CVE: CVE-2026-69192
+CWE: CWE-20, CWE-918
+Ecosystem: npm
+CVSS: CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:H/SI:N/SA:N (CVSS_V4)
+Published: 2026-08-03
+Source: https://github.com/advisories/GHSA-mwp4-54f8-5fhr
+Type: github-advisory
+
+## Affected
+- npm: `ip-address` — affected >=0 <10.3.1
+
+## Details
+### Summary
+
+`Address4` accepts an octet written with a leading zero and decodes it as decimal, while the WHATWG URL host parser, `inet_aton`, and `getaddrinfo` all decode a leading zero as octal. The library and the network stack therefore disagree about which host a string names. `new Address4('012.0.0.1')` reports `correctForm()` of `12.0.0.1` and `isPrivate()` of `false`, but `fetch('http://012.0.0.1/')` connects to `10.0.0.1`.
+
+An application that builds a network trust-boundary decision on these checks (for example a filter intended to block Server-Side Request Forgery, or SSRF) will classify an internal target as external and allow the request. SSRF is an attack in which a user-supplied address coaxes the server into making a request to an internal destination the user could not otherwise reach, such as a loopback service or a cloud metadata endpoint.
+
+### Details
+
+`Address4.parse` gates untrusted input on `RE_ADDRESS` (`src/v4/constants.ts:5`), whose per-octet alternative is:
+
+```
+(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
+```
+
+The `[01]?[0-9][0-9]?` branch matches a leading zero, so `012` passes validation. Every downstream decode then reads the octet with `parseInt(part, 10)` (`src/common.ts:87`), yielding 12. A resolver reading the same string treats the leading `0` as base 8 and yields 10.
+
+The defect is in the parse gate rather than in any one classifier, so every consumer of `Address4` inherits it: `isPrivate()`, `isLoopback()`, `isLinkLocal()`, `isCGNAT()`, `isInSubnet()`, `isHostInSubnet()`, and `correctForm()` are all computed from the mis-decoded octets.
+
+`Address6` already rejects this notation on its IPv4-in-IPv6 path, throwing "IPv4 addresses can't have leading zeroes." (`src/ipv6.ts:751-762`), so `Address4` is the outlier within the library.
+
+### Affected versions
+
+`<= 10.3.0`. Unlike GHSA-22jq-vg5j-6vgg and GHSA-4xrf-jv44-h6hh, which were bounded below by the `is*` classification API introduced in 10.1.1, this defect is in `parse` and reaches every release: a guard built on `isInSubnet()` against the RFC 1918 ranges is affected in versions predating that API.
+
+### Impact
+
+The disagreement runs in both directions. Under-blocking is the security-relevant case; over-blocking is a correctness and availability problem.
+
+| Input | `correctForm()` | Classified as | Resolver reaches | Effect |
+|---|---|---|---|---|
+| `012.0.0.1` | `12.0.0.1` | public | `10.0.0.1` | internal target allowed |
+| `012.012.012.012` | `12.12.12.12` | public | `10.10.10.10` | internal target allowed |
+| `010.0.0.1` | `10.0.0.1` | private | `8.0.0.1` | public target blocked |
+
+Reachable targets are those whose leading octet is expressible as a three-character octal literal, which covers the whole of `10.0.0.0/8` and `0.0.0.0/8`. A four-character octet such as `0177` for 127 is rejected by the regex, so loopback is not reachable through this path; see the note on rejection below for why rejection is not the same as safety.
+
+### Reachability
+
+A leading-zero address is a legal URL host, so this is reachable through the ordinary URL path with no unusual application shape required:
+
+```js
+new URL('http://012.0.0.1/').hostname   // '10.0.0.1'
+```
+
+This distinguishes it from GHSA-4xrf-jv44-h6hh, where the `/0` CIDR suffix could not survive URL parsing and exploitation therefore required an application that accepted a bare suffix-bearing string. Here the attack rides the same code path a normal user-supplied URL takes.
+
+### Proof of concept
+
+`npm i ip-address@10.3.0`, then:
+
+```js
+const { Address4 } = require('ip-address');
+
+// A guard of the shape the library documents.
+function isBlocked(host) {
+  return Address4.isValid(host) && new Address4(host).isPrivate();
+}
+
+for (const h of ['10.0.0.1', '012.0.0.1', '012.012.012.012']) {
+  console.log(isBlocked(h) ? 'BLOCK' : 'ALLOW', h,
+              '-> resolver reaches', new URL('http://' + h + '/').hostname);
+}
+```
+
+On affected versions:
+
+```
+BLOCK 10.0.0.1 -> resolver reaches 10.0.0.1
+ALLOW 012.0.0.1 -> resolver reaches 10.0.0.1
+ALLOW 012.012.012.012 -> resolver reaches 10.10.10.10
+```
+
+The literal RFC 1918 address is blocked as expected; the octal-ambiguous spellings of the same destinations are allowed through.
+
+### Remediation
+
+Upgrade to the patched release. In the fix, `Address4.parse` rejects any octet with a leading zero followed by further digits, mirroring the check `Address6` already applies at `src/ipv6.ts:751`, and `RE_ADDRESS` is tightened so those forms no longer appear in the valid corpus. After upgrading, `Address4.isValid('012.0.0.1')` returns `false` and the constructor throws `AddressError`.
+
+This rejects input that previous releases accepted. An application that deliberately feeds zero-padded addresses such as `010.010.010.010` from a legacy system must strip the padding before parsing.
+
+If you cannot upgrade immediately, reject any host whose octets carry a leading zero before you parse it:
+
+```js
+if (host.split('.').some((octet) => /^0\d/.test(octet))) throw new Error('ambiguous address');
+```
+
+### A note on SSRF defense
+
+These methods are address classifiers, not a complete SSRF defense. Regardless of this fix, a robust SSRF guard must resolve the hostname and validate the *resolved* IP against the socket it connects to, and account for DNS rebinding and redirects. Treat these checks as one layer, not the only one.
+
+One specific pitfall is worth naming, because the fix above does not remove it. `Address4.isValid()` returning `false` means "this is not a dotted-quad IPv4 literal"; it does not mean "this is not an address that will reach an internal host". Every one of the following is rejected by `isValid()` and still resolves to loopback:
+
+```
+0177.0.0.1    0x7f.0.0.1    0x7f000001    2130706433
+127.1         127.0.1       127.0.0.1.    １２７.0.0.1
+```
+
+A guard shaped `if (Address4.isValid(h)) { check() } else { treatAsHostname() }` therefore routes all of them past the IP check. Rejecting these is correct behavior for an IPv4 parser and is not changed by this advisory, but a guard must treat "not a valid literal" as a case to resolve and re-check, never as a case to allow.
+
+## References
+- https://github.com/beaugunderson/ip-address/security/advisories/GHSA-mwp4-54f8-5fhr
+- https://github.com/beaugunderson/ip-address/commit/56368cb3d66c73ba0ee9b6b834fd31b22c2fd71e
+- https://github.com/beaugunderson/ip-address
+- https://github.com/beaugunderson/ip-address/releases/tag/v10.3.1

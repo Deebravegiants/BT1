@@ -1,0 +1,14 @@
+# [M] Reserves can be re-added
+
+## Summary
+Severity: Medium
+Contest weight: 0.0406
+Dataset id: 6613
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability concerns the ability to add a reserve for a given asset and reserve type more than once without the contract enforcing a guard against duplicate initialization. The root cause is the absence of a check that reverts when the reserveAlreadyAdded flag is true, allowing the same reserve to be re‑registered. When an attacker or a careless developer calls the reserve‑addition function a second time, the contract overwrites critical configuration parameters such as interest rate strategy, collateral factors, and other risk parameters. In addition, the liquidity index and the borrow index, which track accrued interest for the pool, are reset to the neutral value of one RAY. This reset effectively erases the historical accounting of interest, causing the protocol to treat all existing deposits and loans as if they started from scratch. The exploit can be carried out by invoking the reserve‑addition entry point with the same asset and reserve type that is already present in the market. Because the function does not reject the duplicate request, the state variables are silently overwritten, leading to a situation where users see their balances drop to zero or receive incorrect interest calculations. The impact includes potential loss of accrued interest, mis‑pricing of loans, and the possibility for an attacker to manipulate the reserve’s risk parameters to drain funds or cause liquidations. The condition occurs whenever the contract’s addReserve (or similarly named) function is called after the initial registration of that asset, which may happen during upgrades, migrations, or malicious calls. All participants that interact with the affected market – lenders, borrowers, and the protocol itself – are at risk because the accounting invariants are broken. The issue was discovered during a manual security review that flagged the missing revert condition as a logical flaw. It can be hard to notice because the contract does not emit an explicit error; instead, the state changes silently, and only downstream effects such as zero balances or unexpected interest rates reveal the problem. To remediate, the contract should enforce a check that reverts when reserveAlreadyAdded is true, preventing any subsequent addition of the same reserve and preserving the existing indices and parameters. Conceptually, this belongs to the class of duplicate‑initialization bugs where state is unintentionally re‑initialized, violating the protocol’s accounting assumptions and leading to money disappearing or refunds failing.
+
+## Recommendation
+It would be best to revert reserveAlreadyAdded is true.

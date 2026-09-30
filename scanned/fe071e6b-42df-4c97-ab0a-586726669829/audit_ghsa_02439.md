@@ -1,0 +1,37 @@
+# [H] ReDOS in Mpmath
+
+## Summary
+Severity: High
+Advisory: GHSA-f865-m6cq-j9vx
+CVE: CVE-2021-29063
+CWE: CWE-770
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2021-08-09
+Source: https://github.com/advisories/GHSA-f865-m6cq-j9vx
+Type: github-advisory
+
+## Affected
+- PyPI: `mpmath` — affected >=0 <1.3.0
+
+## Details
+A Regular Expression Denial of Service (ReDOS) vulnerability was discovered in Mpmath v1.0.0 when the mpmathify function is called.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2021-29063
+- https://github.com/fredrik-johansson/mpmath/issues/548
+- https://github.com/mpmath/mpmath/pull/570
+- https://github.com/npm/hosted-git-info/pull/76
+- https://github.com/fredrik-johansson/mpmath/commit/46d44c3c8f3244017fe1eb102d564eb4ab8ef750
+- https://github.com/fredrik-johansson/mpmath/commit/c811b37c65a4372a7ce613111d2a508c204f9833
+- https://github.com/mpmath/mpmath/commit/c811b37c65a4372a7ce613111d2a508c204f9833
+- https://www.npmjs.com/package/hosted-git-info
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/MS2U6GLXQSRZJE2HVUAUMVFR2DWQLCZG
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/EIUX3XWY2K3MSO7QXMZXQQYAURARSPC5
+- https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/3M5O55E7VUDMXCPQR6MQTOIFDKHP36AA
+- https://github.com/yetingli/SaveResults/blob/main/js/hosted-git-info.js
+- https://github.com/yetingli/PoCs/blob/main/CVE-2021-29063/Mpmath.md
+- https://github.com/pypa/advisory-database/tree/main/vulns/mpmath/PYSEC-2021-427.yaml
+- https://github.com/mpmath/mpmath/releases/tag/1.3.0
+- https://github.com/fredrik-johansson/mpmath
+- https://github.com/advisories/GHSA-f865-m6cq-j9vx

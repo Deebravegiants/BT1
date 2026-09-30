@@ -1,0 +1,38 @@
+# [H] Wrong pending locked balance subtraction when partyB opens a partially filled position
+
+## Summary
+Severity: High
+Reporter: tvdung94
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/PartyB/PartyBFacetImpl.sol#L239-L241
+Type: audit-issue
+
+## Details
+# Wrong pending locked balance subtraction when partyB opens a partially filled position
+
+## Summary
+While partyB opens a partially filled position, their pending locked balance will be subtracted by an amount less than expected.
+## Vulnerability Detail
+When partyB locks a quote, the quote amount will go into their pending locked balance.
+
+When **partyB opens a full position**, that amount will be transferred from their pending locked balance to their locked balance. In other words, **the amount deducted from pending locked balance is equal to the amount added to the locked balance**.
+
+However, when **the position is opened partially**, **the amount deducted from their pending locked balance is different than the amount added to their locked balance**. In this case, **the amount removed from pending locked balance should be the quote amount**, while **the amount added to locked balance should be the filled amount**.
+
+The problem is that, in the code, **the amount removed from pending locked balance is the filled amount, not the quote amount**
+
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/PartyB/PartyBFacetImpl.sol#L239-L241 
+## Impact
+This will make partyB's locked pending balance higher than expected, essentially leading to loss of funds (for locked pending balance is taken in account when determining party B's available balance)
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/PartyB/PartyBFacetImpl.sol#L239-L241 
+## Tool used
+
+Manual Review
+
+## Recommendation
+Change from
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/PartyB/PartyBFacetImpl.sol#L239-L241 
+to
+```javascript
+accountLayout.partyBPendingLockedBalances[quote.partyB][quote.partyA].subQuote(quote);
+```

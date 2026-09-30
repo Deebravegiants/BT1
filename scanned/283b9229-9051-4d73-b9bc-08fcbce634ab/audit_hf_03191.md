@@ -1,0 +1,51 @@
+# [M] DnGmxJuniorVaultManager#_totalAssets cur-
+
+## Summary
+Severity: Medium
+Contest weight: 0.6075
+Dataset id: 17765
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The maximize input to DnGmxJuniorVaultManager#_totalAssets indicates whether to either maximize or minimize the NAV. Internal logic of the function doesn't accurately reflect that because under some circumstances, maximize = true actually returns a lower value than maximize = false.
+```solidity
+uint256 unhedgedGlp = (state.unhedgedGlpInUsdc + dnUsdcDepositedPos).mulDivDown(
+    PRICE_PRECISION,
+    _getGlpPrice(state, !maximize)
+);
+// calculate current borrow amounts
+(uint256 currentBtc, uint256 currentEth) = _getCurrentBorrows(state);
+uint256 totalCurrentBorrowValue = _getBorrowValue(state, currentBtc, currentEth);
+// add negative part to current borrow value which will be subtracted at the end
+// convert usdc amount into glp amount
+uint256 borrowValueGlp = (totalCurrentBorrowValue + dnUsdcDepositedNeg).mulDivDown(
+    PRICE_PRECISION,
+    _getGlpPrice(state, !maximize)
+);
+// if we need to minimize then add additional slippage
+if (!maximize) unhedgedGlp = unhedgedGlp.mulDivDown(MAX_BPS - state.slippageThresholdGmxBps, MAX_BPS);
+if (!maximize) borrowValueGlp = borrowValueGlp.mulDivDown(MAX_BPS - state.slippageThresholdGmxBps, MAX_BPS);
+```
+To maximize the estimate for the NAV of the vault underlying debt should minimized and value of held assets should be maximized. Under the current settings there is a mix of both of those and the function doesn't consistently minimize or maximize. Consider when NAV is "maxmized". Under this scenario the value of when estimated the GlpPrice is minimized. This minimizes the value of both the borrowedGlp (debt) and of the unhedgedGlp (assets). The result is that the NAV is not maximized because the value of the assets are also minimized. In this scenario the GlpPrice should be maximized when calculating the assets and minimized when calculating the debt. The reverse should be true when minimizing the NAV. Slippage requirements are also applied incorrectly when adjusting borrowValueGlp. The current implementation implies that if the debt were to be paid back that the vault would repay their debt for less than expected. When paying back debt the slippage should imply paying more than expected rather than less, therefore the slippage should be added rather than subtracted. DnGmxJuniorVaultManager#_totalAssets doesn't accurately reflect NAV. Since this is used when determining critical parameters it may lead to inaccuracies.
+
+## Recommendation
+To properly maximize the it should assume the best possible rate for exchanging it's assets. Likewise to minimize it should assume it's debt is a large as possible and this it encounters maximum possible slippage when repaying it's debt. I recommend the following changes:
+```solidity
+uint256 unhedgedGlp = (state.unhedgedGlpInUsdc + dnUsdcDepositedPos).mulDivDown(
+    PRICE_PRECISION,
+    _getGlpPrice(state, maximize)
+);
+// calculate current borrow amounts
+(uint256 currentBtc, uint256 currentEth) = _getCurrentBorrows(state);
+uint256 totalCurrentBorrowValue = _getBorrowValue(state, currentBtc, currentEth);
+// add negative part to current borrow value which will be subtracted at the end
+// convert usdc amount into glp amount
+uint256 borrowValueGlp = (totalCurrentBorrowValue + dnUsdcDepositedNeg).mulDivDown(
+    PRICE_PRECISION,
+    _getGlpPrice(state, !maximize)
+);
+// if we need to minimize then add additional slippage
+if (!maximize) unhedgedGlp = unhedgedGlp.mulDivDown(MAX_BPS - state.slippageThresholdGmxBps, MAX_BPS);
+if (!maximize) borrowValueGlp = borrowValueGlp.mulDivDown(MAX_BPS + state.slippageThresholdGmxBps, MAX_BPS);
+```

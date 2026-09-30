@@ -1,0 +1,22 @@
+# [M] BIT-openproject-2023-31140
+
+## Summary
+Severity: Medium
+Advisory: BIT-openproject-2023-31140
+Aliases: CVE-2023-31140, GHSA-xfp9-qqfj-x28q
+Ecosystem: Bitnami
+Published: 2024-03-06
+Source: https://osv.dev/vulnerability/BIT-openproject-2023-31140
+Type: osv
+
+## Affected
+- Bitnami: `openproject` — affected >=7.4.0 <12.5.4
+
+## Details
+OpenProject is open source project management software. Starting with version 7.4.0 and prior to version 12.5.4, when a user registers and confirms their first two-factor authentication (2FA) device for an account, existing logged in sessions for that user account are not terminated. Likewise, if an administrators creates a mobile phone 2FA device on behalf of a user, their existing sessions are not terminated. The issue has been resolved in OpenProject version 12.5.4 by actively terminating sessions of user accounts having registered and confirmed a 2FA device. As a workaround, users who register the first 2FA device on their account can manually log out to terminate all other active sessions. This is the default behavior of OpenProject but might be disabled through a configuration option. Double check that this option is not overridden if one plans to employ the workaround.
+
+## References
+- https://community.openproject.org/wp/48035
+- https://github.com/opf/openproject/pull/12508
+- https://github.com/opf/openproject/security/advisories/GHSA-xfp9-qqfj-x28q
+- https://www.openproject.org/docs/release-notes/12-5-4/

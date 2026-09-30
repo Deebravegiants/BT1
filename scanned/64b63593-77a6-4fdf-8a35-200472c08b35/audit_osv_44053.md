@@ -1,0 +1,26 @@
+# [M] Private Group and Market Posts Disclosed Through Public Notification Channels in RansomLook
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-78380
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N)
+Published: 2026-08-24
+Source: https://osv.dev/vulnerability/CVE-2026-78380
+Type: osv
+
+## Details
+RansomLook fails to enforce the privacy status of ransomware groups and markets when distributing newly collected victim posts to external notification channels. The post-processing logic checks whether an individual post is marked private but does not verify whether the group or market to which the post belongs is configured as private.
+
+As a result, newly parsed victim information associated with a private group or market may be automatically published through enabled Rocket.Chat, Mastodon, Bluesky, and e-mail notification channels despite the entity being explicitly configured to prevent public disclosure.
+
+A similar issue affects the public MISP feed. The feed previously determined privacy using groupinfo(), which only queries the group database. Consequently, victim information associated with private markets could be added to the public MISP feed because the corresponding market privacy flag was not evaluated.
+
+An attacker or other unauthorized party able to access these public notification channels or the MISP feed may obtain victim information that was intended to remain private. Depending on the collected data, this may disclose victim names, ransomware activity, incident information, or other information associated with privately monitored groups and markets.
+
+The fix introduces a common is_private_entity() check covering both groups and markets and prevents private entity posts from being distributed through external notification channels or the public MISP feed. Internal storage and dashboard alerting remain unaffected.
+
+## References
+- https://github.com/RansomLook/RansomLook/
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/78xxx/CVE-2026-78380.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-78380
+- https://github.com/RansomLook/RansomLook/commit/133cbeab3abdd64c22b02165c6505bb3e53698cc

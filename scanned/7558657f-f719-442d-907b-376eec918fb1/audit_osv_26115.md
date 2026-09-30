@@ -1,0 +1,20 @@
+# [H] Expression Injection Vulnerability in Hertzbeat
+
+## Summary
+Severity: High
+Advisory: CVE-2023-51387
+Aliases: GHSA-4576-m8px-w9qj
+CVSS: 7.2 (CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H)
+Published: 2023-12-22
+Source: https://osv.dev/vulnerability/CVE-2023-51387
+Type: osv
+
+## Details
+Hertzbeat is an open source, real-time monitoring system. Hertzbeat uses aviatorscript to evaluate alert expressions. The alert expressions are supposed to be some simple expressions. However, due to improper sanitization for alert expressions in version prior to 1.4.1, a malicious user can use a crafted alert expression to execute any command on hertzbeat server. A malicious user who has access to alert define function can execute any command in hertzbeat instance. This issue is fixed in version 1.4.1.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/51xxx/CVE-2023-51387.json
+- https://github.com/dromara/hertzbeat/security/advisories/GHSA-4576-m8px-w9qj
+- https://nvd.nist.gov/vuln/detail/CVE-2023-51387
+- https://github.com/dromara/hertzbeat/commit/8dcf050e27ca95d15460a7ba98a3df8a9cd1d3d2
+- https://github.com/dromara/hertzbeat/blob/6b599495763120ad1df6f4ed4b6713bb4885d8e2/home/blog/2023-09-26-hertzbeat-v1.4.1.md

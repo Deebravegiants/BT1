@@ -1,0 +1,32 @@
+# [M] Oracle price could be stale
+
+## Summary
+Severity: Medium
+Reporter: 0x007
+Source: https://github.com/sherlock-audit/2023-05-Index/blob/main/index-coop-smart-contracts/contracts/adapters/AaveLeverageStrategyExtension.sol#L889-L907
+Type: audit-issue
+
+## Details
+# Oracle price could be stale
+
+## Summary
+priceOracle.latestAnswer() is a deprecated function and it could return stale price. latestRoundData is the recommended function with validation before using the price such as
+* timestamp is not too old
+* Price > 0
+* Round is the latest
+
+## Vulnerability Detail
+AaveLeverageStrategyExtension uses chainlink deprecated latestAnswer() which could return stale and incorrect price.
+
+## Impact
+Incorrect price could cause a lot of issues such as incorrect leveraging and slippage tolerance.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-Index/blob/main/index-coop-smart-contracts/contracts/adapters/AaveLeverageStrategyExtension.sol#L889-L907
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+[Chainlink](https://docs.chain.link/data-feeds/api-reference) advises against using latestAnswer() and recommends using latestRoundData() instead. It provides data which can be checked to know how recent the price is such as round, and timestamp.

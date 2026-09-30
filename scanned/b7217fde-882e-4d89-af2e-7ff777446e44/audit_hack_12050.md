@@ -1,0 +1,38 @@
+# [M] liquidator can only call liquidatePartyA twice, or liquidatorPartyA + setSymbolPrice without completing the 4-step since only first 2 callers get all liquidation fee
+
+## Summary
+Severity: Medium
+Reporter: 0xGoodess
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L220-L223
+Type: audit-issue
+
+## Details
+# liquidator can only call liquidatePartyA twice, or liquidatorPartyA + setSymbolPrice without completing the 4-step since only first 2 callers get all liquidation fee
+
+## Summary
+liquidator can only call liquidatePartyA twice, or liquidatorPartyA + setSymbolPrice without completing the 4-step since only first 2 callers get all liquidation fee
+
+## Vulnerability Detail
+At the end of the 4-step liquidation (liquidatePositionPartyA), liquidation fee is split among the first two addresses at the list of liquidator.
+
+```solidity
+            if (lf > 0) {
+                accountLayout.allocatedBalances[accountLayout.liquidators[partyA][0]] += lf / 2;
+                accountLayout.allocatedBalances[accountLayout.liquidators[partyA][1]] += lf / 2;
+            }
+```
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L220-L223
+
+This means if a liquidator simply calls the first two steps, or just call liquidatePartyA twice; they could let other persons to do the rest (like the partyB who would like to get the liquidation penalty or free their lockedValue); Moreover if also means back-running of liquidation being profitable (simply copy all liquidatePartyA calls at mempool to backrun). 
+
+## Impact
+liquidation fee is MEVable.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L220-L223
+## Tool used
+
+Manual Review
+
+## Recommendation
+consider only allow addresses that has non-zero deposit amount in the protocol as a qualified liquidators, this could eliminator most straight-forward MEVer.

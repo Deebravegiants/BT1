@@ -1,0 +1,45 @@
+# [H] Cross-Site Request Forgery in CodeChecker API
+
+## Summary
+Severity: High
+Advisory: GHSA-f8c8-4pm7-w885
+CVE: CVE-2024-53829
+CWE: CWE-352
+Ecosystem: PyPI
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:H/A:N (CVSS_V3)
+Published: 2025-01-21
+Source: https://github.com/advisories/GHSA-f8c8-4pm7-w885
+Type: github-advisory
+
+## Affected
+- PyPI: `codechecker` — affected >=0 <6.24.5
+
+## Details
+### Summary
+Cross-site request forgery allows an unauthenticated attacker to hijack the authentication of a logged in user, and use the web API with the same permissions.
+
+### Details
+Security attributes like HttpOnly and SameSite are missing from the session cookie, allowing its use from XHR requests and form submissions.
+The CodeChecker API endpoints only require the session cookie, they do not require a CSRF token, and missing HTTP headers allow the form submission to succeed (but not XHR). This means that the attacker needs to know the ID of products to edit or delete them, but it does not need knowledge to create new products with the SQLite backend.
+
+### PoC
+With a superuser logged into CodeChecker.
+
+```html
+<html><body>
+    <form action="https://codechecker.example.com/v6.58/Products" method="POST" enctype="text/plain">
+        <input type="text" name='[1,"getProducts",1,1,{}]' value=''>
+    </form>
+    <script>document.forms[0].submit()</script>
+</body></html>
+```
+Or the same form attack on any of the applicable endpoints.
+
+### Impact
+The vulnerability allows an attacker to make requests to CodeChecker as the currently logged in user, including but not limited to adding, removing or editing products. The attacker needs to know the ID of the available products to modify or delete them. The attacker cannot directly exfiltrate data from CodeChecker, due to being limited to form-based CSRF.
+
+## References
+- https://github.com/Ericsson/codechecker/security/advisories/GHSA-f8c8-4pm7-w885
+- https://nvd.nist.gov/vuln/detail/CVE-2024-53829
+- https://github.com/Ericsson/codechecker
+- https://github.com/pypa/advisory-database/tree/main/vulns/codechecker/PYSEC-2025-12.yaml

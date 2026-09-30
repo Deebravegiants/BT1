@@ -1,0 +1,36 @@
+# [M] Lack of emergency administration
+
+## Summary
+Severity: Medium
+Source: https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol#L315
+Type: audit-issue
+
+## Details
+The `VotingV2` contract has several functions that are protected by the `onlyOwner` modifier:
+
+* [requestGovernanceAction](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol#L315)
+* [setMigrated](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol#L760)
+* [setGat](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol#L770)
+* [setRewardsExpirationTimeout](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol#L777)
+* [setSlashingLibrary](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol#L783)
+* [setSpamDeletionProposalBond](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/VotingV2.sol#L1042)
+* [setEmissionRate](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/Staker.sol#L233) (inherited from `Staker`)
+* [setUnstakeCoolDown](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/Staker.sol#L243) (inherited from `Staker`)
+
+The `requestGovernanceAction` function is also called by the [propose](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/GovernorV2.sol#L90) function in the `GovernorV2` contract. In order for this contract-to-contract call to work with the `onlyOwner` restriction in place, the `GovernorV2` contract must become the owner of the `VotingV2` contract. This action is performed by [calling the Ownable base contract function transferOwnership()](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/test/oracle/GovernorV2.js#L71), as demonstrated in the `GovernorV2.js` test:
+
+```
+    // To work, the governorV2 must be the owner of the VotingV2 contract. This is not the default setup in the test
+    // environment, so ownership must be transferred.
+
+    await voting.methods.transferOwnership(governorV2.options.address).send({ from: accounts[0] });
+
+```
+
+This change of ownership means that the `GovernorV2` contract also becomes the only valid caller for the setter functions in the list above. In order to call any of these functions, a governance action must be proposed with [Transaction](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/GovernorV2.sol#L31) data that will invoke the target function, and subsequently executed via the [executeProposal](https://github.com/UMAprotocol/protocol/blob/7938617bf79854811959eb605237edf6bdccbc90/packages/core/contracts/oracle/implementation/GovernorV2.sol#L132) function.
+
+The concern with this approach is that the voting system is potentially a single point of failure for administrative governance actions. Taking the `setGat` function as an example, if voter participation becomes insufficient to meet the GAT threshold and the GAT value needs to be lowered, a governance proposal to call `setGat` may be prevented from execution if the existing GAT value prevents that vote from succeeding. Furthermore, future versions of the DVM with new administrative functions may encounter the same problem where the current state of the Voting contract prevents a new corrective state from being applied.
+
+To address this issue, consider developing an out-of-band system that allows UMA governance to execute emergency corrective actions for the voting system that do not rely on the voting system itself in order to succeed. For this approach, it is recommended to use a multisig wallet to control access to the `onlyOwner`\-protected functions. Also consider implementing minimum and maximum values for each setter function that restrict governance changes to a safe range.
+
+**Update:** _Acknowledged. UMA acknowledges that emergency administration is a concern. However, due to the complexity and severity of changes it cannot be addressed as part of this audit._

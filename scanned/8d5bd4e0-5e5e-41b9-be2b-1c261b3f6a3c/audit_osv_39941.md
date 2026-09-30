@@ -1,0 +1,19 @@
+# [C] CVE-2026-48686
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-48686
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-05-26
+Source: https://osv.dev/vulnerability/CVE-2026-48686
+Type: osv
+
+## Details
+FastNetMon Community Edition through 1.2.9 contains a stack-based buffer overflow in the BGP NLRI (Network Layer Reachability Information) decoder. The function decode_bgp_subnet_encoding_ipv4_raw() in src/bgp_protocol.cpp reads prefix_bit_length directly from the BGP packet (line 99) without validating it is <= 32 for IPv4 prefixes. This value is passed to how_much_bytes_we_need_for_storing_certain_subnet_mask() which computes ceil(prefix_bit_length / 8), returning up to 32 bytes for a prefix_bit_length of 255. The result is used as the length argument to memcpy() (line 106), which copies into a 4-byte uint32_t stack variable (prefix_ipv4). This causes a stack buffer overflow of up to 28 bytes, which can be exploited for arbitrary code execution. Additionally, the unvalidated prefix_bit_length is passed to convert_cidr_to_binary_netmask_local_function_copy() (line 111), where a shift of (32 - cidr) with cidr > 32 causes undefined behavior.
+
+## References
+- https://github.com/pavel-odintsov/fastnetmon/blob/master/src/bgp_protocol.cpp
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/48xxx/CVE-2026-48686.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-48686
+- https://github.com/pavel-odintsov/fastnetmon
+- https://lorikeetsecurity.com/blog/fastnetmon-cve-2026-48686-bgp-nlri-stack-overflow

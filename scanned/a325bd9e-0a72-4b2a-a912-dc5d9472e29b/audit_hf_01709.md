@@ -1,0 +1,14 @@
+# [M] LPS-3 | Fee-On-Transfer Tokens
+
+## Summary
+Severity: Medium
+Contest weight: 0.0886
+Dataset id: 9334
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The LPStaker contract is not compatible with fee-on-transfer tokens for the rewardToken as it relies on the uint returned from the uniswapV3Staker claimReward function to increment the reward mapping. Fee on transfer tokens will cause this returned value to be inaccurate and potentially leave users unable to claim their rewards and potentially locked in the contract. It should also be noted that rebase tokens or other balance altering tokens will not be accurately accounted for in a similar way.
+
+## Recommendation
+Consider if fee-on-transfer, rebase, or any similar tokens should be supported. If so, add before and after balance checks for the claimReward function to measure the reward claimed accurately.

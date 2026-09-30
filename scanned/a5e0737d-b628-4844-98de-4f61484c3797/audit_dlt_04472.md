@@ -1,0 +1,31 @@
+# [H] Reentrancy issues
+
+## Summary
+Severity: High
+Chain: Smart contract
+Component: 2022-11-opyn
+Published: 2022-12-03
+Source: https://github.com/sherlock-audit/2022-11-opyn-judging/issues/118
+Type: sherlock-finding
+
+## Details
+pzeus
+
+high
+
+# Reentrancy issues
+
+## Summary
+Potential of reentrancy exploit
+## Vulnerability Detail
+There is an attack vector of reentering some of the methods of the protocol
+## Impact
+High, since the attacker could steal either users or protocol's funds
+## Code Snippet
+https://github.com/sherlock-audit/2022-11-opyn/blob/main/crab-netting/src/CrabNetting.sol#L628
+## Tool used
+
+Manual Review
+
+## Recommendation
+I would recommend the usage of the `nonReentrant` modifier from [OpenZeppelin](https://github.com/OpenZeppelin) framework

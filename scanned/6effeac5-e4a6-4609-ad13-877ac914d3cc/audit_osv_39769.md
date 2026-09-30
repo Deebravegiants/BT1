@@ -1,0 +1,18 @@
+# [M] libheif Has Heap Buffer Overflow in `Track::get_next_sample_raw_data()` -- OOB Chunk Vector Access
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-47254
+Aliases: GHSA-wqjg-4x9g-6cvg
+CVSS: 6.1 (CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:L/I:N/A:H)
+Published: 2026-07-21
+Source: https://osv.dev/vulnerability/CVE-2026-47254
+Type: osv
+
+## Details
+libheif is a HEIF and AVIF file format decoder and encoder. Prior to version 1.22.0, `Track::init_sample_timing_table()` in `libheif/sequences/track.cc` stores an out-of-bounds chunk index (`m_chunks.size()`) into `m_presentation_timeline` when the number of chunks defined in the `stco` box is less than the number of samples in `stsz`. A subsequent call to `heif_track_get_next_raw_sequence_sample()` reads `m_chunks[chunk_idx]` with that OOB index, causing a heap-buffer-overflow. Version 1.22.0 fixes the issue.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/47xxx/CVE-2026-47254.json
+- https://github.com/strukturag/libheif/security/advisories/GHSA-wqjg-4x9g-6cvg
+- https://nvd.nist.gov/vuln/detail/CVE-2026-47254

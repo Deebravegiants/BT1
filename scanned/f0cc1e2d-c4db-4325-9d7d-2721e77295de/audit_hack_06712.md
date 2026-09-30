@@ -1,0 +1,55 @@
+# [H] A user can manipulate Loantoken balance to manipulate shares in a grieving attack
+
+## Summary
+Severity: High
+Reporter: Cryptor
+Source: https://github.com/sherlock-audit/2023-02-surge/blob/main/surge-protocol-v1/src/Pool.sol#L370
+Type: audit-issue
+
+## Details
+# A user can manipulate Loantoken balance to manipulate shares in a grieving attack
+
+## Summary
+The function the tokentoshares issues and withdraws shares to users whenever they call deposit or withdraw. However, a malicious user can directly deposit loan tokens into the pool contract and manipulate tokentoshares so that users will earn less shares than anticipated. This can be used in a grieving attack to cause users to earn less shares than they anticipated. This is just one scenario. This same attack can also affect the amount of debtshares earned or reduced when calling borrow and repay
+
+
+## Vulnerability Detail
+The function tokentoshares is used frequently throughout the protocol. It calculates the amount of shares to issue or withdraw based on the token amount. For example it is used here in the deposit function 
+
+https://github.com/sherlock-audit/2023-02-surge/blob/main/surge-protocol-v1/src/Pool.sol#L370
+
+It is calculated by the formula stated here 
+https://github.com/sherlock-audit/2023-02-surge/blob/main/surge-protocol-v1/src/Pool.sol#L201
+
+When _supplied increases, tokentoshares become smaller. 
+
+upon closer inspection, _supplied is calculated as follows 
+
+https://github.com/sherlock-audit/2023-02-surge/blob/main/surge-protocol-v1/src/Pool.sol#L132
+
+Investigating further we see that the variable  _loanTokenBalance is calculated as follows 
+
+https://github.com/sherlock-audit/2023-02-surge/blob/main/surge-protocol-v1/src/Pool.sol#L308
+
+So a malicious user with loan tokens can directly send them to the pool contract without triggering tokentoshares. Therefore, when another user tries to call deposit after a direct deposit of token, the user will receive less shares than what he or she anticipated because tokentoshares was maliciously reduced.
+
+Note that this is just one scenario where this attack can affect the functionality of the protocol. This same attack can be used on other functions that call tokentoshares. The impact of this attack will very pronounced during times of low liquidity or during the early stages of the pool
+
+
+## Impact
+Since tokentoShares is used numerous time throughout the protocol, several functions will be compromised including deposit, withdraw, borrow, repay and liquidate.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-02-surge/blob/main/surge-protocol-v1/src/Pool.sol#L199-L204
+
+https://github.com/sherlock-audit/2023-02-surge/blob/main/surge-protocol-v1/src/Pool.sol#L324
+
+https://github.com/sherlock-audit/2023-02-surge/blob/main/surge-protocol-v1/src/Pool.sol#L370
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+One suggestion would be to use a mapping instead of the loan token balance of the address to track loantoken balances

@@ -1,0 +1,38 @@
+# [H] Collateral Precision Hardcoded to 18 Decimals
+
+## Summary
+Severity: High
+Reporter: Early Blush Yak
+Source: https://github.com/sherlock-audit/2023-10-real-wagmi/blob/main/wagmi-leverage/contracts/libraries/Constants.sol#L15C12-L15C12
+Type: audit-issue
+
+## Details
+# Collateral Precision Hardcoded to 18 Decimals
+## Summary
+
+`COLLATERAL_BALANCE_PRECISION` is hardcoded to `18`
+
+## Vulnerability Detail
+
+Collateral can be a decimal any decimal places, however the protocol hardcodes the collateral token precision to 18 decimal places:
+
+```solidity
+uint256 public constant COLLATERAL_BALANCE_PRECISION = 1e18;
+```
+
+This leads to incorrect calculation any time the decimals of the collateral is not 18 decimals.
+## Impact
+
+Incorrect calculation for collateral decimals other than `18`
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-10-real-wagmi/blob/main/wagmi-leverage/contracts/libraries/Constants.sol#L15C12-L15C12
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Change the collateral precision to match the precision of the underlying token

@@ -1,0 +1,14 @@
+# [H] Reentrancy via callback from SKIM command leads to theft of Vault funds
+
+## Summary
+Severity: High
+Contest weight: 0.0675
+Dataset id: 13537
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is a reentrancy bug that occurs when the SKIM command processes a native currency and invokes an untrusted contract as part of its callback mechanism. The root cause lies in the line that computes the amount to be skimmed using the expression uint256 amount = currencyState.currency.balanceOf(msg.sender) - currencyState.minBalance; this calculation is performed after the external call returns, allowing the attacker to manipulate the reported balance of the Vault. An attacker can trigger the vulnerability by calling redeemK (or its L2 variant) which internally executes the SKIM command for the native currency. During the SKIM execution the protocol calls an attacker‑controlled contract; the attacker’s contract then deposits additional native tokens into the Vault (for example via a donate call) before the amount variable is read. Because the balance of the Vault has increased, the subsequent subtraction yields a larger amount than intended, and the protocol transfers this inflated amount to the attacker, effectively stealing funds. The impact is a direct loss of vault assets, observable to users as missing balances, zero refunds, or unexpected reductions in their holdings. The bug manifests only when the currency being skimmed is the native token and when the SKIM command processes multiple currencies, meaning that any path that leads to a native‑currency SKIM followed by a callback can be exploited. All users of the protocol, as well as the protocol’s overall liquidity, are affected because the stolen funds reduce the total assets backing the system. The issue was discovered during a manual security audit that identified the unsafe ordering of external calls and state‑dependent calculations. It is hard to notice because the balance check appears legitimate and the external call is hidden inside a library function, making the reentrancy vector non‑obvious. The recommended mitigation is to apply a reentrancy guard (for example a nonReentrant modifier) to the functions that can be re‑entered – redeemK in both Index and L2Index contracts and the donate function in the Vault – or to restructure the code so that the amount is calculated before any external call and to follow the checks‑effects‑interactions pattern. By preventing the contract from being re‑entered during the SKIM operation, the protocol ensures that the balance used for the amount calculation cannot be artificially inflated, thereby protecting vault funds from theft.
+
+## Recommendation
+To address all reentrancies that a regular user can exploit, three additional reentrancy guards must be applied.

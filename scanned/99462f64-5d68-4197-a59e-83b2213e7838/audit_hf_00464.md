@@ -1,0 +1,66 @@
+# [M] authorProfileId can avoid being
+
+## Summary
+Severity: Medium
+Contest weight: 0.5971
+Dataset id: 1895
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+there is not lock on staking (and withdrawals) for the accused authorProfileId  
+According to docs their should be lock  
+Any Ethos participant may act as a ”whistleblower” to accuse another participant of inaccurate claims or unethical behavior. This accusation triggers a 24h lock on staking (and withdrawals) for the accused. Currently anyone can unvouch at any time
+```solidity
+function unvouch(uint256 vouchId) public whenNotPaused nonReentrant {
+    Vouch storage v = vouches[vouchId];
+    _vouchShouldExist(vouchId);
+    _vouchShouldBePossibleUnvouch(vouchId);
+    // because it's $$$, you can only withdraw/unvouch to the same address you used to vouch
+    // however, we don't care about the status of the address's profile; funds are always attached
+    // to an address, not a profile
+    if (vouches[vouchId].authorAddress != msg.sender) {
+        revert AddressNotVouchAuthor(vouchId, msg.sender, vouches[vouchId].authorAddress);
+    }
+    v.archived = true;
+    // solhint-disable-next-line not-rely-on-time
+    v.activityCheckpoints.unvouchedAt = block.timestamp;
+    // remove the vouch from the tracking arrays and index mappings
+    _removeVouchFromArrays(v);
+    // apply fees and determine how much is left to send back to the author
+    (uint256 toWithdraw, ) = applyFees(v.balance, false, v.subjectProfileId);
+    // set the balance to 0 and save back to storage
+    v.balance = 0;
+    // send the funds to the author
+    (bool success, ) = payable(v.authorAddress).call{ value: toWithdraw }("");
+    if (!success) {
+        revert FeeTransferFailed("Failed to send ETH to author");
+    }
+    emit Unvouched(v.vouchId, v.authorProfileId, v.subjectProfileId);
+}
+```
+contracts/contracts/EthosVouch.sol#L452
+
+Internal pre-conditions  
+
+External pre-conditions  
+
+Attack Path  
+Accused profile sees that a lot of complains going against him and unvouch all vouched funds before slashing  
+authorProfileId can avoid being slashed
+
+## Recommendation
+```solidity
+function pauseActions(uint authorProfileId) external onlyOwner{
+    ...
+}
+function unvouch(uint256 vouchId) public whenNotPaused nonReentrant
+{
+    uint256 authorProfileId = IEthosProfile(
+        contractAddressManager.getContractAddressForName(ETHOS_PROFILE)
+    ).verifiedProfileIdForAddress(msg.sender);
+    require(!isActionsPaused(authorProfileId), "actions paused");
+    Vouch storage v = vouches[vouchId];
+    _vouchShouldExist(vouchId);
+    _vouchShouldBePossibleUnvouch(vouchId);
+```

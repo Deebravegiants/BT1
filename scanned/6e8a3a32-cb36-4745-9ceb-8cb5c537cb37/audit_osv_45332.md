@@ -1,0 +1,38 @@
+# [H] A flaw was found in the libssh library in versions less than 0.11.2
+
+## Summary
+Severity: High
+Advisory: JLSEC-2025-96
+Ecosystem: Julia
+CVSS: 8.1 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:H)
+Published: 2025-10-19
+Source: https://osv.dev/vulnerability/JLSEC-2025-96
+Type: osv
+
+## Affected
+- Julia: `libssh_jll` — affected >=0 <0.11.3+0
+
+## Details
+A flaw was found in the libssh library in versions less than 0.11.2. An out-of-bounds read can be triggered in the `sftp_handle` function due to an incorrect comparison check that permits the function to access memory beyond the valid handle list and to return an invalid pointer, which is used in further processing. This vulnerability allows an authenticated remote attacker to potentially read unintended memory regions, exposing sensitive information or affect service behavior.
+
+## References
+- https://access.redhat.com/errata/RHSA-2025:18231
+- https://access.redhat.com/errata/RHSA-2025:18275
+- https://access.redhat.com/errata/RHSA-2025:18286
+- https://access.redhat.com/errata/RHSA-2025:19012
+- https://access.redhat.com/errata/RHSA-2025:19098
+- https://access.redhat.com/errata/RHSA-2025:19101
+- https://access.redhat.com/errata/RHSA-2025:19295
+- https://access.redhat.com/errata/RHSA-2025:19300
+- https://access.redhat.com/errata/RHSA-2025:19313
+- https://access.redhat.com/errata/RHSA-2025:19400
+- https://access.redhat.com/errata/RHSA-2025:19401
+- https://access.redhat.com/errata/RHSA-2025:19470
+- https://access.redhat.com/errata/RHSA-2025:19472
+- https://access.redhat.com/errata/RHSA-2025:19807
+- https://access.redhat.com/errata/RHSA-2025:19864
+- https://access.redhat.com/errata/RHSA-2025:20943
+- https://access.redhat.com/errata/RHSA-2025:21013
+- https://access.redhat.com/errata/RHSA-2025:21329
+- https://access.redhat.com/errata/RHSA-2025:21829
+- https://access.redhat.com/errata/RHSA-2025:22275

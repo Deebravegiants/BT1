@@ -1,0 +1,41 @@
+# [M] `Boosted3TokenAuraVault::_depositFromNotional` lacks the check for the settlement window
+
+## Summary
+Severity: Medium
+Reporter: lemonmon
+Source: https://github.com/sherlock-audit/2022-09-notional/blob/main/leveraged-vaults/contracts/vaults/Boosted3TokenAuraVault.sol#L64-L81
+Type: audit-issue
+
+## Details
+# `Boosted3TokenAuraVault::_depositFromNotional` lacks the check for the settlement window
+
+## Summary
+
+One can enter the vault within the settlement window
+
+## Vulnerability Detail
+
+According to the comment, 
+
+>         // Entering the vault is not allowed within the settlement window
+
+However, there is no code to enforce the comment
+
+
+## Impact
+
+One can enter the vault within the settlement window
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-09-notional/blob/main/leveraged-vaults/contracts/vaults/Boosted3TokenAuraVault.sol#L64-L81
+
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add the check for the settlement window

@@ -1,0 +1,14 @@
+# [M] KYC credentials are invalid
+
+## Summary
+Severity: Medium
+Contest weight: 0.0000
+Dataset id: 22621
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability consists of an improper validation of Know‑Your‑Customer (KYC) credentials within the smart‑contract workflow. The contract relies on a KYC check before allowing privileged actions such as token minting, fund withdrawal or participation in a protocol, but the verification logic is either missing, incomplete, or incorrectly interprets the result of the external KYC provider. Because the contract does not enforce that the returned credential data is authentic, non‑empty, or matches the expected format, an attacker can submit malformed, empty or forged KYC data and still pass the gate. This can be exploited by calling the privileged function with a deliberately crafted KYC payload that the contract treats as valid, thereby granting unauthorized users access to restricted features or allowing malicious actors to bypass compliance checks. The impact ranges from unauthorized minting or withdrawal of assets, which may lead to loss of funds for honest participants, to a denial‑of‑service situation where legitimate users are rejected because the contract incorrectly flags their valid KYC data as invalid. The flaw manifests whenever the contract executes the KYC verification branch – typically during onboarding, deposit, or withdrawal flows – and it affects any user that must present KYC credentials, as well as the protocol’s overall compliance posture and financial safety. The issue was discovered during a manual audit when the auditor observed that the contract’s KYC modifier did not contain a concrete check of the provider’s response and that the UI displayed a success message even when the underlying credential verification was bypassed. The problem is subtle because the contract may emit events indicating a successful operation, and the front‑end may show a “KYC approved” status, making the failure hard to notice without deep inspection of the verification path. To remediate, the contract should integrate a robust KYC verification routine that validates the cryptographic signature of the credential, ensures the data is non‑zero and conforms to the expected schema, and explicitly reverts the transaction if any check fails. In addition, the contract should handle error codes from the KYC provider correctly and emit clear failure events so that users can see when their KYC submission is rejected. This class of bug falls under “insufficient input validation / authentication bypass” and violates the business rule that only KYC‑verified participants may interact with protected functions, breaking the accounting assumption that every privileged action is backed by a verified identity.
+
+## Recommendation
+No recommendation available

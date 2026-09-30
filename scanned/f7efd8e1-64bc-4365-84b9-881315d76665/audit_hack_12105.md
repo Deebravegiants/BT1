@@ -1,0 +1,97 @@
+# [H] Unsafe Delegatecall in Diamond.sol
+
+## Summary
+Severity: High
+Reporter: moneyversed
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/Diamond.sol#L32-L59
+Type: audit-issue
+
+## Details
+# Unsafe Delegatecall in Diamond.sol
+
+## Summary
+
+The Diamond contract uses a delegatecall to invoke functions on other contracts. However, it does not verify if the callee contract is trustworthy or not, which can potentially allow an attacker to take over the contract.
+
+## Vulnerability Detail
+
+In the Diamond contract, the `fallback` function uses a delegatecall to invoke functions on other contracts. Delegatecall is a low-level function that allows one contract to execute the code of another contract, while maintaining the context of the original contract. This means that when Diamond contract uses delegatecall, it allows the callee contract to modify its state variables.
+
+Here is the code snippet with the issue:
+
+```solidity
+fallback() external payable {
+    LibDiamond.DiamondStorage storage ds;
+    bytes32 position = LibDiamond.DIAMOND_STORAGE_POSITION;
+
+    assembly {
+        ds.slot := position
+    }
+
+    address facet = ds.facetAddressAndSelectorPosition[msg.sig].facetAddress;
+    require(facet != address(0), "Diamond: Function does not exist");
+
+    assembly {
+        calldatacopy(0, 0, calldatasize())
+        let result := delegatecall(gas(), facet, 0, calldatasize(), 0, 0)
+        returndatacopy(0, 0, returndatasize())
+        switch result
+        case 0 {
+            revert(0, returndatasize())
+        }
+        default {
+            return(0, returndatasize())
+        }
+    }
+}
+```
+The problem here is that there is no verification on the `facet` contract to which the delegatecall is being made. If an attacker can somehow make the contract delegatecall to a malicious contract, they can manipulate the state variables of the Diamond contract.
+
+## Impact
+
+An attacker could potentially exploit this vulnerability to take over the Diamond contract. This can lead to a complete loss of funds for the contract holders.
+
+## Code Snippet
+
+```solidity
+fallback() external payable {
+    LibDiamond.DiamondStorage storage ds;
+    bytes32 position = LibDiamond.DIAMOND_STORAGE_POSITION;
+
+    assembly {
+        ds.slot := position
+    }
+
+    address facet = ds.facetAddressAndSelectorPosition[msg.sig].facetAddress;
+    require(facet != address(0), "Diamond: Function does not exist");
+
+    assembly {
+        calldatacopy(0, 0, calldatasize())
+        let result := delegatecall(gas(), facet, 0, calldatasize(), 0, 0)
+        returndatacopy(0, 0, returndatasize())
+        switch result
+        case 0 {
+            revert(0, returndatasize())
+        }
+        default {
+            return(0, returndatasize())
+        }
+    }
+}
+```
+
+https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/Diamond.sol#L32-L59
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+A potential fix for this issue is to only allow delegatecalls to trusted contracts. This could be implemented by maintaining a list of trusted contracts and checking if the `facet` contract is in that list before making the delegatecall.
+
+## Proof Of Concept
+
+1. Deploy the Diamond contract and a malicious contract.
+2. Make the Diamond contract delegatecall to the malicious contract.
+3. The malicious contract modifies the state variables of the Diamond contract, taking over the contract.

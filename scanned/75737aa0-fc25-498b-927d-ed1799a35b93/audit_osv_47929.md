@@ -1,0 +1,21 @@
+# [M] CVE-2017-15102
+
+## Summary
+Severity: Medium
+Advisory: CVE-2017-15102
+CVSS: 6.3 (CVSS:3.0/AV:P/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2017-11-15
+Source: https://osv.dev/vulnerability/CVE-2017-15102
+Type: osv
+
+## Details
+The tower_probe function in drivers/usb/misc/legousbtower.c in the Linux kernel before 4.8.1 allows local users (who are physically proximate for inserting a crafted USB device) to gain privileges by leveraging a write-what-where condition that occurs after a race condition and a NULL pointer dereference.
+
+## References
+- http://www.securityfocus.com/bid/101790
+- https://usn.ubuntu.com/3583-1/
+- https://usn.ubuntu.com/3583-2/
+- http://seclists.org/oss-sec/2017/q4/238
+- http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=2fae9e5a7babada041e2e161699ade2447a01989
+- https://bugzilla.redhat.com/show_bug.cgi?id=1505905
+- https://github.com/torvalds/linux/commit/2fae9e5a7babada041e2e161699ade2447a01989

@@ -1,0 +1,26 @@
+# [M] UXDGovernor doesn't have transferETH function
+
+## Summary
+Severity: Medium
+Reporter: rvierdiiev
+Source: https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/governance/UXDGovernor.sol#L193-L216
+Type: audit-issue
+
+## Details
+# UXDGovernor doesn't have transferETH function
+
+## Summary
+UXDGovernor doesn't have transferETH function. 
+## Vulnerability Detail
+UXDGovernor has functions that allow to provide allowance to spend some tokens on its behalf and to transfer token out of contract. These are: `approveERC20` and `transferERC20`.
+But it doesn't have such function that allows to transfer native token out of contract. 
+## Impact
+Governance can't rescue native tokens controlled by contract.
+## Code Snippet
+https://github.com/sherlock-audit/2023-01-uxd/blob/main/contracts/governance/UXDGovernor.sol#L193-L216
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add same `transferETH` function as in UXDTimelockController contract.

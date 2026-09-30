@@ -1,0 +1,110 @@
+# [M] Repay all loan does not burn NFT
+
+## Summary
+Severity: Medium
+Reporter: caventa
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L560-L574
+Type: audit-issue
+
+## Details
+# Repay all loan does not burn NFT
+
+## Summary
+Repay full loan does not burn NFT
+
+## Vulnerability Detail
+Lender could claim loan NFT
+
+```solidity
+    function claimLoanNFT(uint256 _bidId)
+        external
+        acceptedLoan(_bidId, "claimLoanNFT")
+        whenNotPaused
+    {
+        // Retrieve bid
+        Bid storage bid = bids[_bidId];
+
+        address sender = _msgSenderForMarket(bid.marketplaceId);
+        require(sender == bid.lender, "only lender can claim NFT");
+        // mint an NFT with the lender manager
+        lenderManager.registerLoan(_bidId, sender);
+        // set lender address to the lender manager so we know to check the owner of the NFT for the true lender
+        bid.lender = address(lenderManager);
+    }
+```
+
+If he is the lender of a bid.
+
+However, when borrower repays all the debt, the lender still keep the NFT
+
+## Impact
+NFT supposes to be a representative token of a loan. Once the loan is fully repaid, the lender should not own the NFT anymore and it should get burned
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L560-L574
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/TellerV2.sol#L712-L762
+
+## Tool used
+Manual Review
+
+## Recommendation
+Change the _repay internal function. 
+Add the following logic to the [Add code here] section.
+
+=> If there is tokenId [which is same as bidId] exists, burn it. Also remember to add a new burn function to loanManager so we can call the function from tellerV2.sol
+
+```solidity
+  function _repayLoan(
+        uint256 _bidId,
+        Payment memory _payment,
+        uint256 _owedAmount,
+        bool _shouldWithdrawCollateral
+    ) internal virtual {
+        Bid storage bid = bids[_bidId];
+        uint256 paymentAmount = _payment.principal + _payment.interest;
+
+        RepMark mark = reputationManager.updateAccountReputation(
+            bid.borrower,
+            _bidId
+        );
+
+        // Check if we are sending a payment or amount remaining
+        if (paymentAmount >= _owedAmount) {
+            paymentAmount = _owedAmount;
+            bid.state = BidState.PAID;
+
+            // Remove borrower's active bid
+            _borrowerBidsActive[bid.borrower].remove(_bidId);
+
+            // If loan is is being liquidated and backed by collateral, withdraw and send to borrower
+            if (_shouldWithdrawCollateral) {
+                collateralManager.withdraw(_bidId);
+            }
+
+            +++ [Add code here]
+ 
+            emit LoanRepaid(_bidId);
+        } else {
+            emit LoanRepayment(_bidId);
+        }
+
+        address lender = getLoanLender(_bidId);
+
+        // Send payment to the lender
+        bid.loanDetails.lendingToken.safeTransferFrom(
+            _msgSenderForMarket(bid.marketplaceId),
+            lender,
+            paymentAmount
+        );
+
+        // update our mappings
+        bid.loanDetails.totalRepaid.principal += _payment.principal;
+        bid.loanDetails.totalRepaid.interest += _payment.interest;
+        bid.loanDetails.lastRepaidTimestamp = uint32(block.timestamp);
+
+        // If the loan is paid in full and has a mark, we should update the current reputation
+        if (mark != RepMark.Good) {
+            reputationManager.updateAccountReputation(bid.borrower, _bidId);
+        }
+    }
+```

@@ -1,0 +1,19 @@
+# [C] Sunshine: Authentication bypass via improper client certificate validation
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-32253
+Aliases: GHSA-ph75-mgxh-mv57
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-05-22
+Source: https://osv.dev/vulnerability/CVE-2026-32253
+Type: osv
+
+## Details
+Sunshine is a self-hosted game stream host for Moonlight. In versions prior to 2026.516.143833, the client-certificate authentication can be bypassed because of how OpenSSL verification results are handled. In src/crypto.cpp, the custom verify callback treats X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY, X509_V_ERR_CERT_NOT_YET_VALID, and X509_V_ERR_CERT_HAS_EXPIRED as success. This can allow an untrusted certificate to pass authentication and access protected HTTPS endpoints. This issue has been fixed in version 2026.516.143833.
+
+## References
+- https://github.com/LizardByte/Sunshine/releases/tag/v2026.516.143833
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/32xxx/CVE-2026-32253.json
+- https://github.com/LizardByte/Sunshine/security/advisories/GHSA-ph75-mgxh-mv57
+- https://nvd.nist.gov/vuln/detail/CVE-2026-32253

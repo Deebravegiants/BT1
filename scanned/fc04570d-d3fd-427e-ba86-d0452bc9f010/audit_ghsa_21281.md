@@ -1,0 +1,41 @@
+# [H] Potential inter-blockchain communication (IBC) protocol compromise via "Dragonberry" vulnerability in cheqd
+
+## Summary
+Severity: High
+Advisory: GHSA-j92c-mmf7-j5x5
+Ecosystem: Go
+Published: 2022-10-18
+Source: https://github.com/advisories/GHSA-j92c-mmf7-j5x5
+Type: github-advisory
+
+## Affected
+- Go: `github.com/cheqd/cheqd-node` — affected >=0 <0.6.9
+
+## Details
+### Impact
+This vulnerability affects IBC transfers due to a security vulnerability dubbed "Dragonberry" upstream in [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/releases/tag/v0.45.9). The vulnerability could allow malicious attackers to compromise chain-to-chain IBC transfers.
+
+There is no vulnerability in the DID/resource modules for cheqd-node.
+
+### Patches
+Node operators are requested to upgrade to [cheqd-node v0.6.9](https://github.com/cheqd/cheqd-node/releases/tag/0.6.9) as soon as possible. Installation instructions are in the release notes. Please do not install any beta/pre-release versions.
+
+### Workarounds
+No. The patch takes effect when more than 2/3rds of the voting power of the cheqd network has upgraded to this patch.
+
+An emergency hotfix was released previously under v0.6.8 but this is now deprecated since [Cosmos SDK v0.45.9](https://github.com/cosmos/cosmos-sdk/releases/tag/v0.45.9) officially fixes this upstream.
+
+### References
+- [IBC Security Advisory on "Dragonberry"](https://forum.cosmos.network/t/ibc-security-advisory-dragonberry/7702/1) (and [associated security vulnerability "Dragonfruit"](https://forum.cosmos.network/t/cosmos-sdk-security-advisory-dragonfruit/7614))
+
+### For more information
+If you have any questions or comments about this advisory:
+* Open an issue in [cheqd-node repo](https://github.com/cheqd/cheqd-node/issues)
+* Email us at [security-github@cheqd.io](mailto:security-github@cheqd.io)
+* Message us on our community [Slack](http://cheqd.link/join-cheqd-slack) or [Discord](http://cheqd.link/discord-github)
+
+## References
+- https://github.com/cheqd/cheqd-node/security/advisories/GHSA-j92c-mmf7-j5x5
+- https://forum.cosmos.network/t/ibc-security-advisory-dragonberry/7702/1
+- https://github.com/cheqd/cheqd-node
+- https://github.com/cosmos/cosmos-sdk/releases/tag/v0.45.9

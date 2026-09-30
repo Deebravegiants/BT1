@@ -1,0 +1,62 @@
+# [H] Lack of access control on the rollLoan function exposes borrowers to bad loan conditions
+
+## Summary
+Severity: High
+Reporter: Elegant Shamrock Alligator
+Source: https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L192-L217
+Type: audit-issue
+
+## Details
+# Lack of access control on the rollLoan function exposes borrowers to bad loan conditions
+## Summary
+The lack of proper access control in the "rollLoan" function exposes a vulnerability that allows lenders to modify the terms of a loan, potentially leading to borrowers facing unreasonable repayment burdens and a lack of collateral recovery. While lenders can legitimately propose new terms through the "provideNewTermsForRoll" function, the vulnerability enables them to unilaterally impose modified terms without requiring borrower consent. This manipulation can result in borrowers struggling to meet increased repayment obligations, heightening the risk of loan defaults and financial instability.
+
+## Vulnerability Detail
+The vulnerability arises from the absence of adequate access control within the "rollLoan" function. While originally designed for borrowers to renew loans with new terms, the vulnerability allows unauthorized parties, including lenders, to exploit this function and modify loan terms without borrower consent.
+
+The process of exploitation unfolds as follows:
+
+Provide New Terms: Lenders can legitimately propose new loan terms using the "provideNewTermsForRoll" function. This function is intended to allow lenders to suggest changes to the loan terms, such as proposing a higher interest rate and lowered collateral requirements.
+
+Roll Loan with Manipulated Terms: Upon approval, the borrower uses the "rollLoan" function to accept the new terms. Here's where the vulnerability comes into play. Lenders can call the "rollLoan" function themselves, as there are no proper access controls in place to prevent this. By exploiting this lack of control, lenders can impose terms that significantly inflate the loan amount while keeping collateral requirements unchanged.
+
+Impact on Borrowers: The manipulative actions of lenders result in a substantial increase in the loan amount. This increase is primarily driven by the inflated interest rate proposed by the lender. As a result, borrowers face repayment obligations that surpass the initial terms, leading to an elevated risk of loan defaults and potential financial distress.
+
+Impact on Collateralized Value Calculation: The most impactful consequence of this vulnerability can be observed in the "repayLoan" function's calculation of the loan's collateralized value. The relevant line of code is provided in code snippet 3. This calculation determines the repayment amount necessary for borrowers to retrieve their collateral.
+
+The sequence of events outlined above affects this calculation:
+
+The manipulated interest rate leads to a significant increase in the loan amount, causing the denominator ("loan.amount") to rise.
+However, the collateral amount remains unchanged, influencing the numerator ("loan.collateral").
+Consequently, the calculated "decollateralized" value becomes skewed. Borrowers are required to repay disproportionately larger amounts compared to the collateral they provided.
+
+## Impact
+This vulnerability places borrowers at risk of facing unrealistic repayment obligations. Exploiting the absence of access control, malicious lenders can suggest terms that substantially inflate the loan amount without corresponding collateral adjustments. This skews the "decollateralized" calculation in the "repayLoan" function, forcing borrowers into situations where loan repayment becomes nearly impossible, leading to potential defaults and financial instability. The vulnerability undermines user trust, harming the fairness and integrity of the lending platform.
+
+## Code Snippet
+1 - https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L192-L217 - rollLoan function.
+2 - https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L282-L300 - provideNewTermsForRoll function.
+3 - https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L151-L187 - repayLoan function.
+Special focus to line 158:
+```solidity
+       uint256 decollateralized = (loan.collateral * repaid_) / loan.amount;
+```
+
+4 - https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L198-L206 - code snippet from rollLoan
+```solidity
+        uint256 newCollateral = newCollateralFor(loanID_);
+        uint256 newDebt = interestFor(loan.amount, loan.request.interest, loan.request.duration);
+
+        // Update memory accordingly.
+        loan.amount += newDebt;
+        loan.collateral += newCollateral;
+        loan.expiry += loan.request.duration;
+        loan.request.active = false;
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Implement access control on the rollLoan function. Access should be restricted to the original borrower or a specific set of authorized addresses. Additionally, when implementing the provideNewTermsForRoll function, careful consideration should be given to any changes in loan terms to ensure fairness and avoid exposing borrowers to unrealistic repayment obligations.

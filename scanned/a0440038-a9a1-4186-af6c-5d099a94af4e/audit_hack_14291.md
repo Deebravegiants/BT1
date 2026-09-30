@@ -1,0 +1,31 @@
+# [M] LMPVault.sol::recover() - Lack of input validations
+
+## Summary
+Severity: Medium
+Reporter: Petite Tawny Loris
+Source: https://github.com/tintinweb/smart-contract-vulndb
+Type: audit-issue
+
+## Details
+# LMPVault.sol::recover() - Lack of input validations
+## Summary
+QA/Low/Medium?
+
+1. M: LMPVault.sol::recover() - no check to see if arrays contain default values only >>> damage potential probably low >>> transfer of zero token amounts.
+
+2. M: LMPVault.sol::recover() - no check for duplicate array entries >>> unless it's part of intended protocol functionality?
+
+3. M: LMPVault.sol::recover() - it's clear that one or more of the 3 dynamic arrays, could have only default values while having array length > 0. It seems negative impact is low.
+
+## Vulnerability Detail
+
+## Impact
+
+## Code Snippet
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation

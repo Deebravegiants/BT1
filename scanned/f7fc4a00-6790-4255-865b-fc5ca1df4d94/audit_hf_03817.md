@@ -1,0 +1,14 @@
+# [M] Operator is blocked when sequencer is down
+
+## Summary
+Severity: Medium
+Contest weight: 0.1695
+Dataset id: 20046
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+When the sequencer is down on Arbitrum state changes can still happen on L2 by passing them from L1 through the Delayed Inbox. Users can still interact with the Index protocol but due to how Arbitrum address aliasing functions the operator will be blocked from calling onlyOperator(). The msg.sender of a transaction from the Delayed Inbox is aliased: L2_Alias = L1_Contract_Address + 0x1111000000000000000000000000000000001111. All functions with the onlyOperator() modifier are therefore blocked when the sequencer is down. The issue exists for all modifiers that are only callable by specific EOAs. But the operator of the Aave3LeverageStrategyExtension is the main security risk. The operator has roles that are vital for the safety of the protocol. Re-balancing and issuing/redeeming can still be done when the sequencer is down it is therefore important that the operator call the necessary functions to operate the protocol when the sequencer is down. disengage() is an important safety function that the operator should always have access especially when the protocol is still accessible to other users. Changing methodology and adding/removing exchanges are also important for the safety of the protocol.
+
+## Recommendation
+Change the onlyOperator() to check if the address is the aliased address of the operator.

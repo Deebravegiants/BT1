@@ -1,0 +1,25 @@
+# [M] ESF-IDF Has Use-after-free Vulnerability in BLE Provisioning
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-25507
+Aliases: GHSA-h7r3-gmg9-xjmg
+CVSS: 6.3 (CVSS:3.1/AV:A/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:H)
+Published: 2026-02-04
+Source: https://osv.dev/vulnerability/CVE-2026-25507
+Type: osv
+
+## Details
+ESF-IDF is the Espressif Internet of Things (IOT) Development Framework. In versions 5.5.2, 5.4.3, 5.3.4, 5.2.6, and 5.1.6, a use-after-free vulnerability was reported in the BLE provisioning transport (protocomm_ble) layer. The issue can be triggered by a remote BLE client while the device is in provisioning mode. The vulnerability occurred when provisioning was stopped with keep_ble_on = true. In this configuration, internal protocomm_ble state and GATT metadata were freed while the BLE stack and GATT services remained active. Subsequent BLE read or write callbacks dereferenced freed memory, allowing a connected or newly connected client to trigger invalid memory acces. This issue has been patched in versions 5.5.3, 5.4.4, 5.3.5, 5.2.7, and 5.1.7.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/25xxx/CVE-2026-25507.json
+- https://github.com/espressif/esp-idf/security/advisories/GHSA-h7r3-gmg9-xjmg
+- https://nvd.nist.gov/vuln/detail/CVE-2026-25507
+- https://github.com/espressif/esp-idf/commit/0540c85140c2c06c0cbecc8843277ea676d5c4a9
+- https://github.com/espressif/esp-idf/commit/1ff264abf2504cade46f0ce3a03f821310bcf6d7
+- https://github.com/espressif/esp-idf/commit/47552ff4fd824caf38215468ebd2f31fb5f36d70
+- https://github.com/espressif/esp-idf/commit/4c3fdcd316f780bab4ae5aa73c9626ea9fe24ac6
+- https://github.com/espressif/esp-idf/commit/894c28afe3f2f8f31ff25b64191883517dddb5cf
+- https://github.com/espressif/esp-idf/commit/cde7b7362adc15638c141c249681cbe5d23de663
+- https://github.com/espressif/esp-idf/commit/dba9a7dc01e4dab14c77d328f6a6f46369aeee63

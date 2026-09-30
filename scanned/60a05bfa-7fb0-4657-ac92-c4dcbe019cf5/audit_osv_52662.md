@@ -1,0 +1,17 @@
+# [H] CVE-2022-0217
+
+## Summary
+Severity: High
+Advisory: CVE-2022-0217
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)
+Published: 2022-08-26
+Source: https://osv.dev/vulnerability/CVE-2022-0217
+Type: osv
+
+## Details
+It was discovered that an internal Prosody library to load XML based on libexpat does not properly restrict the XML features allowed in parsed XML data. Given suitable attacker input, this results in expansion of recursive entity references from DTDs (CWE-776). In addition, depending on the libexpat version used, it may also allow injections using XML External Entity References (CWE-611).
+
+## References
+- https://bugzilla.redhat.com/show_bug.cgi?id=2040639
+- https://prosody.im/security/advisory_20220113/
+- https://prosody.im/security/advisory_20220113/1.patch

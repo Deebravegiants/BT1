@@ -1,0 +1,15 @@
+# [M] CVE-2019-1000009
+
+## Summary
+Severity: Medium
+Advisory: CVE-2019-1000009
+CVSS: 6.5 (CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N)
+Published: 2019-02-04
+Source: https://osv.dev/vulnerability/CVE-2019-1000009
+Type: osv
+
+## Details
+Helm ChartMuseum version >=0.1.0 and < 0.8.1 contains a CWE-22: Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal') vulnerability in HTTP API to save charts that can result in a specially crafted chart could be uploaded and saved outside the intended location. This attack appears to be exploitable via A POST request to the HTTP API can save a chart archive outside of the intended directory. If authentication is, optionally, enabled this requires an authorized user to do so. This vulnerability appears to have been fixed in 0.8.1.
+
+## References
+- https://helm.sh/blog/chartmuseum-security-notice-2019/index.html

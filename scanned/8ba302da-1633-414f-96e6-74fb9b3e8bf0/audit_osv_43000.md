@@ -1,0 +1,81 @@
+# [C] tipc: restrict socket queue dumps in enqueue tracepoints
+
+## Summary
+Severity: Critical
+Advisory: CVE-2026-72299
+Ecosystem: Linux
+CVSS: 9.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2026-08-15
+Source: https://osv.dev/vulnerability/CVE-2026-72299
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.0.0 <5.10.266, >=5.11.0 <5.15.217, >=5.16.0 <6.1.184, >=6.2.0 <6.6.148, >=6.7.0 <6.12.101, >=6.13.0 <6.18.40, >=6.19.0 <7.1.5
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+tipc: restrict socket queue dumps in enqueue tracepoints
+
+tipc_sk_enqueue() runs with sk->sk_lock.slock held while the socket is
+owned by user context. The spinlock protects the backlog queue in this
+path, but it does not serialize against the socket owner consuming or
+purging sk_receive_queue.
+
+KASAN reported:
+
+  CPU: 14 UID: 0 PID: 1050 Comm: tipc3 Not tainted 7.1.0-rc6+ #126 PREEMPT(lazy)
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.15.0-1 04/01/2014
+  Call Trace:
+    <TASK>
+    dump_stack_lvl+0x76/0xa0 lib/dump_stack.c:123
+    print_report+0xce/0x5b0 mm/kasan/report.c:482
+    kasan_report+0xc6/0x100 mm/kasan/report.c:597
+    __asan_report_load4_noabort+0x14/0x30 mm/kasan/report_generic.c:380
+    tipc_skb_dump+0x1327/0x16f0 net/tipc/trace.c:73
+    tipc_list_dump+0x208/0x2e0 net/tipc/trace.c:187
+    tipc_sk_dump+0xaf6/0xd60 net/tipc/socket.c:3996
+    trace_event_raw_event_tipc_sk_class+0x312/0x5a0 net/tipc/trace.h:188
+    tipc_sk_rcv+0xb1d/0x1d50 net/tipc/socket.c:2497
+    tipc_node_xmit+0x1c3/0x1440 net/tipc/node.c:1689
+    __tipc_sendmsg+0x97a/0x1440 net/tipc/socket.c:1512
+    tipc_sendmsg+0x52/0x80 net/tipc/socket.c:1400
+    sock_sendmsg+0x2f6/0x3e0 net/socket.c:825
+    splice_to_socket+0x7f9/0x1010 fs/splice.c:884
+    do_splice+0xe21/0x2330 fs/splice.c:936
+    __do_splice+0x153/0x260 fs/splice.c:1431
+    __x64_sys_splice+0x150/0x230 fs/splice.c:1616
+    x64_sys_call+0xeb5/0x2790 arch/x86/entry/syscall_64.c:41
+    do_syscall_64+0xf3/0x620 arch/x86/entry/syscall_64.c:63
+    entry_SYSCALL_64_after_hwframe+0x76/0x7e arch/x86/entry/entry_64.S:130
+  RIP: 0033:0x71624e8aafe2
+  Code: 08 0f 85 71 3a ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 66 2e 0f 1f 84 00 00 00 00 00 66
+  RSP: 002b:0000716157ffed68 EFLAGS: 00000246 ORIG_RAX: 0000000000000113
+  RAX: ffffffffffffffda RBX: 0000716157fff6c0 RCX: 000071624e8aafe2
+  RDX: 000000000000005f RSI: 0000000000000000 RDI: 0000000000000066
+  RBP: 0000716157ffed90 R08: 0000000000008000 R09: 0000000000000001
+  R10: 0000000000000000 R11: 0000000000000246 R12: ffffffffffffff00
+  R13: 0000000000000021 R14: 0000000000000000 R15: 00007fff89799c40
+    </TASK>
+
+The TIPC_DUMP_ALL tracepoints in tipc_sk_enqueue() also dump
+sk_receive_queue and can therefore dereference skbs that the socket
+owner has already dequeued or freed. Restrict these dumps to
+TIPC_DUMP_SK_BKLGQ, which matches the queue protected by the held
+spinlock.
+
+Keep the change limited to the enqueue path, where the unsafe queue dump
+is reachable while the socket is owned by user context.
+
+## References
+- https://git.kernel.org/stable/c/12876864f9de5fa6f611a30c6c17e405a773bf0a
+- https://git.kernel.org/stable/c/258fb15b30db4f3941ab335d5e02f744baf1da54
+- https://git.kernel.org/stable/c/273ff83c49b82e4267373adbe629e6ee8aeaa16c
+- https://git.kernel.org/stable/c/61a55fa24a5d737436018764a647fe5b6cb36371
+- https://git.kernel.org/stable/c/6acbbe54215d5f4251593000cff2bf51d6748713
+- https://git.kernel.org/stable/c/acd7df8d955480a6f6e5bb809da67b1500cc3cf4
+- https://git.kernel.org/stable/c/ae5d0d9ce767b20a5580bb6dc5e06f3e1b8a0fb0
+- https://git.kernel.org/stable/c/b9e100815f4b55e9ccaf6af9a3aba173eb13d381
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/72xxx/CVE-2026-72299.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-72299
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

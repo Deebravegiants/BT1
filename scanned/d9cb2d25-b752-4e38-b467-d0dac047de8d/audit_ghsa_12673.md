@@ -1,0 +1,56 @@
+# [H] avo possible unsafe reflection / partial DoS vulnerability
+
+## Summary
+Severity: High
+Advisory: GHSA-86h2-2g4g-29qx
+CVE: CVE-2023-34102
+CWE: CWE-20, CWE-470
+Ecosystem: RubyGems
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:H (CVSS_V3)
+Published: 2023-06-06
+Source: https://github.com/advisories/GHSA-86h2-2g4g-29qx
+Type: github-advisory
+
+## Affected
+- RubyGems: `avo` — affected >=0 <2.33.3
+- RubyGems: `avo` — affected >=3.0.0.pre1
+
+## Details
+### Summary
+The polymorphic field type stores the classes to operate on when updating a record with user input, and does not validate them in the back end. This can lead to unexpected behavior, remote code execution, or application crashes when viewing a manipulated record. 
+
+### Details
+After reviewing the polymorphic field implementation and performing some black box approaches, we identified a potential security issue related to the use of safe_constantize / constantize. This Rails functionality is capable of searching for classes within the Rails context and returning the class for further use. Because Avo does not validate user input when updating or creating a new polymorphic resource, it is possible to create database entries with completely different or invalid class names than the preselected ones. Avo assumes that the class specified by the user request is a valid one and attempts to work with it, which may result in dangerous behavior and code execution.
+
+### PoC
+![image](https://user-images.githubusercontent.com/26464774/243437854-933d94c8-4ae0-43fe-b2da-35b103e28796.png)
+_In the test scenario we choose the demo app and the review resource which has a polymorphic reviewable field._
+
+![image](https://user-images.githubusercontent.com/26464774/243437954-2d947c6d-4e97-4e91-a442-405e553dd047.png)
+_Intercepting the request and switching the review[reviewable_type] from “Fish” to “File” which is a real class inside Rails_
+
+![image](https://user-images.githubusercontent.com/26464774/243438031-109de6d0-9370-4318-b18e-c5bcea61cf54.png)
+_Corrupting the database with unusable classes will cause a crash at the application while viewing the new record or the index view (partial DoS)_
+
+![image](https://user-images.githubusercontent.com/26464774/243438104-80df5aae-86de-40fc-870d-689a03cae389.png)
+_Manual delete the corrupted resource in order to recover the applications functionality_
+
+![image](https://user-images.githubusercontent.com/26464774/243438182-1e7eef54-73ba-47d0-b5df-4bad14859af3.png)
+_Of course it is possible to use other class names or namespaces. The local development environment displays the backend error message when visiting a corrupted record. Avo is trying to apply a scope to this class that does not exist._
+
+![image](https://user-images.githubusercontent.com/26464774/243438257-dbb59153-58a8-4421-b796-f2a0f2c20083.png)
+_Specifying an invalid class name in the parameter will cause the application to crash again while trying constanize the provided string_
+
+### Impact
+The final exploitation of this vulnerability requires more time than is provided in this assessment, but initial testing of the post request shows the potential critical risk. The classes could be instantiated at any point in the code and this could also lead to code execution.
+
+### Recommendation
+Avo should be configured to never trust user-supplied input, especially when defining classes for records. In this particular case, Avo can evaluate the options list given for the polymorphic field and only allow strings from that list. With this white-list approach, an attacker cannot supply unintended classes.
+
+## References
+- https://github.com/avo-hq/avo/security/advisories/GHSA-86h2-2g4g-29qx
+- https://nvd.nist.gov/vuln/detail/CVE-2023-34102
+- https://github.com/avo-hq/avo/commit/ec117882ddb1b519481bdd046dc3cfa4474e6e17
+- https://github.com/avo-hq/avo
+- https://github.com/avo-hq/avo/releases/tag/v2.33.3
+- https://github.com/rubysec/ruby-advisory-db/blob/master/gems/avo/CVE-2023-34102.yml

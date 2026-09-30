@@ -1,0 +1,57 @@
+# [H] Uniswap no slippage protection
+
+## Summary
+Severity: High
+Reporter: kutugu
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L227-L240
+Type: audit-issue
+
+## Details
+# Uniswap no slippage protection
+
+## Summary
+
+When rebalance, uniswap3 is utilized for token swap, but no slippage protection.    
+
+## Vulnerability Detail
+
+Malicious users can use sandwich or JIT arbitrage, which not only has MEV, but also disables rebalance.   
+Simple simulation arbitrage is as follows:    
+1. The initial pool ratio is USSD:DAI 100:10
+2. After a user swaps, the ratio is move to USSD:DAI 200:50     
+3. The watchdog triggers the rebalance and purchases USSD using 50 DAI. The final pool should have been USSD:DAI 100:100    
+4. Malicious users frontrun and continue to push up USSD prices. FlashLoan  950 DAI to buy a lot of USSD, pool ratio at USSD:DAI 10:1000. 
+5. rebalance logic is executed. 50 DAI purchases 0 USSD and pool ratio USSD:DAI10:1050.   
+6. The malicious user sells 190 USSD, pays for flash loan and arbitrage 50 DAI, and the final pool ratio is USSD:DAI 200:50
+7. Continue to rebalance, and soon the collateral will be run out.   
+8. Of course a sandwich attack can be limited of liquidity, the most common is JIT arbitrage in uniswap3. In step 4, the malicious user immediately injects liquidity into the slot of USSD:DAI 200:50, waits for the rebalance to be executed, and remove the liquidity, achieving the same effect as the sandwich attack.     
+
+## Impact
+
+## Code Snippet
+
+[UniV3SwapInput](https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L227-L240)
+```solidity
+    function UniV3SwapInput(
+        bytes memory _path,
+        uint256 _sellAmount
+    ) public override onlyBalancer {
+        IV3SwapRouter.ExactInputParams memory params = IV3SwapRouter
+            .ExactInputParams({
+                path: _path,
+                recipient: address(this),
+                //deadline: block.timestamp,
+                amountIn: _sellAmount,
+                amountOutMinimum: 0
+            });
+        uniRouter.exactInput(params);
+    }
+```
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add slippage protection

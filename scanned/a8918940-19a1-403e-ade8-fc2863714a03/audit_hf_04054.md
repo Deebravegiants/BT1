@@ -1,0 +1,23 @@
+# [M] The fees are incorrectly updated in the_deposit
+
+## Summary
+Severity: Medium
+Contest weight: 0.2316
+Dataset id: 20498
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+In _deposit and _withdraw function of Multipool contract, fee0 and fee1 are calculated from the accrued fee amounts to update feeGrowth of contract and send the protocol fee to the owner. However, these calculations are incorrect and do not align with the collected fees from the positions. It allows attacker break the protocol fees.
+In function withdraw, all accrued fees from Uniswap V3 pool will be collected (tokensOwed0After and tokensOwed1After). However, fee0 and fee1 are updated by tokensOwed0After - tokensOwed0Before and tokensOwed1After - tokensOwed1Before.
+It is incorrect because in cases where tokensOwed0Before > 0 or tokensOwed1Before > 0, fee0 and fee1 end up being smaller than the collected fees. Consequently, when _upFeesGrowth is executed, it will send smaller protocol fees than expected.
+Therefore, an attacker can exploit this vulnerability and undermine the protocol fees by minting minuscule amounts to all positions within the Multipool contract.
+This is possible since anyone can mint for any positions in UniSwapV3 pools (the owner of position is recipient). This causes the fees of each position to be accrued beforehand, resulting in tokensOwed0Before and tokensOwed1Before becoming close to tokensOwed0After and tokensOwed1After. Then the majority of protocol fees will be lost (solvent in the reserve).
+Scenario:
+1. Attacker mints minuscule amounts to all positions within the Multipool contract to accrue fees for these positions.
+2. The attacker then calls the earn() function to collect and update fees. In this scenario, tokensOwed0Before and tokensOwed1Before become equal to tokensOwed0After and tokensOwed1After (withdrawing 0 liquidity). As a result, fee0 and fee1 become 0, leading to the loss of these protocol fees.
+Similar to _deposit function.
+Protocol will lose its fees.
+
+## Recommendation
+fee0 and fee1 in _deposit and _withdraw function should be equal to the collected fee amounts (tokensOwed0After and tokensOwed1After)

@@ -1,0 +1,68 @@
+# [M] Paving the Path to Unpredictability by Uninitialized Variables
+
+## Summary
+Severity: Medium
+Reporter: Boxy Orchid Lizard
+Source: https://github.com/Tokemak/v2-core-audit-2023-07-14/blob/62445b8ee3365611534c96aef189642b721693bf/src/destinations/adapters/rewards/MaverickRewardsAdapter.sol#L38C5-L77C2
+Type: audit-issue
+
+## Details
+# Paving the Path to Unpredictability by Uninitialized Variables
+## Summary
+the rewardTokens and amountsClaimed arrays are initialized without specifying their size. This leads to unpredictable behavior and potential crashes when these arrays are used to store data without proper initialization, leading to confusion among users and potential misinformation and loss of funds
+## Vulnerability Detail
+ Here is the vulnerable part : 
+```solidity
+function _claimRewards(address rewarder, address sendTo) internal returns (uint256[] memory, address[] memory) {
+        Errors.verifyNotZero(rewarder, "rewarder");
+        address account = address(this);
+
+        IReward reward = IReward(rewarder);
+
+        // Fetching the earned rewards information
+        IReward.EarnedInfo[] memory earnedInfos = reward.earned(account);
+        uint256 length = earnedInfos.length;
+
+        address[] memory rewardTokens = new address[](length);
+        uint256[] memory amountsClaimed = new uint256[](length);
+
+        // Iterating over each reward info, if earned is not zero, reward is claimed
+        for (uint256 i = 0; i < length; ++i) {
+            IReward.EarnedInfo memory earnedInfo = earnedInfos[i];
+            IERC20 rewardToken = IERC20(earnedInfo.rewardToken);
+            rewardTokens[i] = address(rewardToken);
+
+            if (earnedInfo.earned == 0) {
+                amountsClaimed[i] = 0;
+                continue;
+            }
+
+            // Fetching the current balance before claiming the reward
+            uint256 balanceBefore = rewardToken.balanceOf(sendTo);
+
+            // Claiming the reward
+            // slither-disable-next-line unused-return
+            reward.getReward(sendTo, uint8(i));
+
+            // Calculating the claimed amount by comparing the balance after claiming the reward
+            amountsClaimed[i] = rewardToken.balanceOf(sendTo) - balanceBefore;
+        }
+
+        RewardAdapter.emitRewardsClaimed(rewardTokens, amountsClaimed);
+
+        return (amountsClaimed, rewardTokens);
+    }
+}
+```
+Here is a scenario can use by an attacker, it's can  deploys a contract that interacts with the MaverickRewardsAdapter library. By exploiting uninitialized variables, the attacker manipulates the rewardTokens and amountsClaimed arrays. resulting inaccurate claimed rewards data being emitted through events, and leading to confusion among users and potential misinformation.
+Exploit: The attacker's contract would utilize uninitialized variables and then trigger the reward claiming process, when the rewards claimed event is emitted, the manipulated data would be displayed, potentially causing confusion or misleading users about the rewards they've actually earned.
+## Impact
+Users relying on this event data might make incorrect decisions regarding their staking activities or rewards management, potentially leading to financial losses.
+## Code Snippet
+-https://github.com/Tokemak/v2-core-audit-2023-07-14/blob/62445b8ee3365611534c96aef189642b721693bf/src/destinations/adapters/rewards/MaverickRewardsAdapter.sol#L38C5-L77C2
+## Tool used
+
+Manual Review
+
+## Recommendation
+-  Initialize the rewardTokens and amountsClaimed  arrays with the correct size before using them to store data.

@@ -1,0 +1,51 @@
+# [M] Users might lose fund in the contract when they add liquidity with msg.value
+
+## Summary
+Severity: Medium
+Reporter: branch_indigo
+Source: https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L278
+Type: audit-issue
+
+## Details
+# Users might lose fund in the contract when they add liquidity with msg.value
+
+## Summary
+When user adding liquidity through `addLiquidityPermit2()` with msg.value, msg.value will be incorrectly calculated and return wrong value back to users. 
+## Vulnerability Detail
+In ArrakisV2Router.sol, users can add liquidity to vaults through permit transfer in `addLiquidityPermit2()`. When one of the deposit is weth, user will send native token as msg.value. When msg.value is greater than 0, the function is supposed to check which token is weth with `bool isToken0Weth`. 
+
+```solidity
+//ArrakisV2Router.sol
+    function addLiquidityPermit2(
+        AddLiquidityPermit2Data memory params_
+    )
+        external
+        payable
+        whenNotPaused
+        nonReentrant
+        returns (uint256 amount0, uint256 amount1, uint256 sharesReceived)
+    {...
+>>>      bool isToken0Weth;
+        _permit2Add(params_, amount0, amount1, token0, token1);
+...
+        if (msg.value > 0) {
+            if (isToken0Weth && msg.value > amount0) {
+                payable(msg.sender).sendValue(msg.value - amount0);
+            } else if (!isToken0Weth && msg.value > amount1) {
+                payable(msg.sender).sendValue(msg.value - amount1);
+            }
+        }
+}
+```
+But `isToken0Weth` is never assigned and will always return false at the end of the function when the remaining native tokens are sent back to users. When token0 is weth, the function will mistakingly assume token1 is weth and send native token back based on `amount1` instead of `amount0`. 
+
+## Impact
+Wrong msg.value is calculated causing users to lose fund.
+## Code Snippet
+[https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L278](https://github.com/ArrakisFinance/v2-periphery/blob/ee6d7c5f3ffb212887db4ec0e595618ea418070f/contracts/ArrakisV2Router.sol#L278)
+## Tool used
+
+Manual Review
+
+## Recommendation
+Assign correct value to `isToken0Weth`.

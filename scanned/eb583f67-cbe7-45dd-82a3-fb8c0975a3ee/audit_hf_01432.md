@@ -1,0 +1,15 @@
+# [M] Claiming will fail for Ole and D1MemeToken if the overfunded ETH reverts
+
+## Summary
+Severity: Medium
+Contest weight: 0.0461
+Dataset id: 7444
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability resides in the claim function of the FairLauncher contract, which attempts to forward ETH that was collected during an over‑funded presale to the caller. The function uses a direct transfer that automatically reverts if the ETH transfer fails. Because the same revert logic is applied to the claim paths of the Ole and D1MemeToken projects, any failure in the over‑funded ETH forwarding causes the entire claim transaction to revert, preventing users from receiving their tokens or refunds. The root cause is the lack of graceful error handling for failed ETH transfers; the contract treats a transfer failure as a fatal error instead of isolating it and continuing the claim process. An attacker or an unlucky user can trigger this situation by claiming from a wallet that rejects incoming ETH (for example, a contract with a fallback that reverts or a wallet with a restrictive receive function). When the transfer to such a wallet fails, the claim function reverts, and the user sees a transaction failure with no tokens delivered and no refund issued. The impact is a denial‑of‑service condition for token claimers: legitimate participants are unable to claim their Ole or D1MemeToken allocations, and the protocol’s accounting may appear inconsistent because the expected ETH balance is not transferred. This occurs only under the specific condition that the over‑funded presale ETH is sent to a recipient that cannot accept ETH, a scenario that is rare but plausible given that the protocol assumes callers are EOAs or multisig wallets. The affected parties are the token holders of Ole and D1MemeToken, the protocol operators who rely on successful claim processing, and any downstream services that depend on accurate token distribution. The issue was identified during a manual audit that examined the claim flow and noticed that the revert on ETH transfer is not isolated. It can be hard to notice because the failure path is exercised only when an over‑funded presale interacts with a non‑standard recipient, which may not appear in typical test cases. To remediate, the contract should replace the direct transfer with a low‑level call that returns a success flag, and if the call fails, the ETH should be redirected to a protocol‑controlled wallet while emitting an event that records the intended recipient and amount. This approach allows the claim to succeed for token distribution while preserving the funds for later manual or automated refund, eliminating the denial‑of‑service condition.
+
+## Recommendation
+Instead of reverting, the ETH could be sent to a protocol wallet and emit an event to refund users later.
+The likelihood of happening is low because the protocol expects its users to be EOAs or multisig wallets, which don't have this problem.

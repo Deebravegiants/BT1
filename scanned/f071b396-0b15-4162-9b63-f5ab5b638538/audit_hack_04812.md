@@ -1,0 +1,35 @@
+# [M] Anybody can call the Roll() function, when it should be restricted to the borrower.
+
+## Summary
+Severity: Medium
+Reporter: banditx0x
+Source: https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L130
+Type: audit-issue
+
+## Details
+# Anybody can call the Roll() function, when it should be restricted to the borrower.
+
+## Summary
+
+Anybody can call the Roll() function, when it should be restricted to the borrower.
+
+## Vulnerability Detail
+
+There is no access control on the roll() function. Therefore, an actor other than the borrower can change the terms of the loan. This contradicts the intention of the roll() function as the borrower should be only person that can change the terms and duration of the loan when isRollable! is true.
+
+
+## Impact
+
+There is no access control on the roll() function. Therefore, an actor other than the borrower can change the terms of the loan.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L130
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Check that msg.sender == borrower address in the roll() function

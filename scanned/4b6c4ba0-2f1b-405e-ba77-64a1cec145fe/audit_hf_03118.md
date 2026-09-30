@@ -1,0 +1,14 @@
+# [H] A malicious early user/attacker can manipulate the price per share
+
+## Summary
+Severity: High
+Contest weight: 0.6127
+Dataset id: 17595
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+A well known attack vector for almost all shares based liquidity pool contracts, where an early user can manipulate the price per share and profit from late users' deposits because of the precision loss caused by the rather large value of price per share. A malicious early user can deposit() with 1wei of asset token as the first depositor of the LToken, and get 1wei of shares. Then the attacker can send 10000e18-1 of asset tokens and inflate the price per share from 1.0000 to an extreme value of 1.0000e22 (from (1+10000e18-1)/1). As a result, the future user who deposits 19999e18 will only receive 1wei (from 19999e18*1/10000e18) of shares token. They will immediately lose 9999e18 or half of their deposits if they redeem() right after the deposit(). The attacker can profit from future users' deposits. While the late users will lose part of their funds to the attacker.
+
+## Recommendation
+Consider requiring a minimal amount of share tokens to be minted for the first minter, and send a port of the initial mints as a reserve to the DAO so that the pricePerShare can be more resistant to manipulation. ```solidity function deposit(uint256 assets, address receiver) public virtual returns (uint256 shares) { beforeDeposit(assets, shares); // Check for rounding error since we round down in previewDeposit. require((shares = previewDeposit(assets)) != 0, "ZERO_SHARES"); // for the first mint, we require the mint amount > (10 ** decimals) / 100 // and send (10 ** decimals) / 1_000_000 of the initial supply as a reserve to DAO if (totalSupply == 0 && decimals >= 6) { require(shares > 10 ** (decimals - 2)); uint256 reserveShares = 10 ** (decimals - 6); _mint(DAO, reserveShares); shares -= reserveShares; } // Need to transfer before minting or ERC777s could reenter. asset.safeTransferFrom(msg.sender, address(this), assets); _mint(receiver, shares); emit Deposit(msg.sender, receiver, assets, shares); } function mint(uint256 shares, address receiver) public virtual returns (uint256 assets) { beforeDeposit(assets, shares); assets = previewMint(shares); // No need to check for rounding error, previewMint rounds up. // for the first mint, we require the mint amount > (10 ** decimals) / 100 // and send (10 ** decimals) / 1_000_000 of the initial supply as a reserve to DAO if (totalSupply == 0 && decimals >= 6) { require(shares > 10 ** (decimals - 2)); uint256 reserveShares = 10 ** (decimals - 6); _mint(DAO, reserveShares); shares -= reserveShares; } // Need to transfer before minting or ERC777s could reenter. asset.safeTransferFrom(msg.sender, address(this), assets); _mint(receiver, shares); emit Deposit(msg.sender, receiver, assets, shares); } ``` them. PR here. Confirmed fix.

@@ -1,0 +1,20 @@
+# [M] ALPINE-CVE-2026-40014
+
+## Summary
+Severity: Medium
+Advisory: ALPINE-CVE-2026-40014
+Ecosystem: Alpine:v3.23, Alpine:v3.24
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H)
+Published: 2026-08-28
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2026-40014
+Type: osv
+
+## Affected
+- Alpine:v3.23: `dovecot` — affected >=0 <2.4.5-r0
+- Alpine:v3.24: `dovecot` — affected >=0 <2.4.5-r0
+
+## Details
+An attacker that can send mail to a user can craft a message header that makes the IMAP THREAD command consume CPU disproportionate to the size of the message. When a mail client issues a THREAD command on the affected mailbox, this can cause degradation or denial of service for IMAP. Monitor system for abnormal CPU usage, kill the offending process and remove the offending message from the affected mailbox. Update to non-vulnerable version. No publicly available exploits are known.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2026-40014

@@ -1,0 +1,14 @@
+# [H] Send should revert if the gas limit has not been set for a destination chain (peer)
+
+## Summary
+Severity: High
+Contest weight: 0.0648
+Dataset id: 10477
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is a missing validation in the cross‑chain messaging function send(). The function permits a user to initiate a message to a destination chain even when the contract’s internal gasLimit mapping does not contain an entry for that destination peer. Because the mapping entry is absent, the function defaults the gas limit to zero and proceeds without reverting. This occurs because the implementation does not check whether a gas limit has been configured before constructing the outbound message. An attacker or any user can exploit this by sending a message to a newly added or unconfigured peer; the destination chain receives a message that specifies a gas limit of zero, which is insufficient to execute any logic on the target. Consequently, the transaction on the destination chain reverts, leaving the message unprocessed. From the user’s perspective the source transaction appears successful – the fee is deducted and the transaction receipt shows a success – but the expected outcome on the destination side never materialises. Users may observe symptoms such as a pending or failed status in the UI, missing refunds, or a complete lack of any observable effect on the target chain despite having paid the sending fee. The impact is high because funds paid for cross‑chain delivery are effectively lost or locked, and the protocol’s reliability is compromised; subsequent messages to the same peer will continue to fail until a proper gas limit is set. The issue is discovered during a security audit that examined the handling of gas limits for each peer and noticed that the contract does not enforce a non‑zero requirement. It can be hard to notice because the source transaction does not revert and no explicit error is emitted, so developers may assume the message was delivered correctly. The bug belongs to the class of unchecked input or missing pre‑condition validation, specifically an “uninitialized configuration” flaw that leads to downstream execution failure. To remediate, the contract should explicitly revert when a caller attempts to send a message to a destination whose gas limit has not been recorded, forcing the caller to set the appropriate gas limit via the protocol’s configuration function before any messages are dispatched. This ensures that every outbound message carries a sufficient gas budget, preserving the intended accounting guarantees and preventing silent loss of user funds.
+
+## Recommendation
+Revert if trying to send a message to _dstEid whose gas limit was not yet set.

@@ -1,0 +1,170 @@
+# [?] http_server: fix bad overflow check
+
+## Summary
+Severity: Unknown
+Chain: Solana
+Component: firedancer-io/firedancer
+Published: 2026-02-23
+Source: https://github.com/firedancer-io/firedancer/commit/8b0e70113cf4ececedee7ebc88f2a2f91ceddd2d
+Type: security-commit
+
+## Details
+http_server: fix bad overflow check
+
+## Patch
+### src/waltz/http/fd_http_server.c
+```diff
+@@ -515,13 +515,13 @@ read_conn_http( fd_http_server_t * http,
+         return;
+       }
+ 
+-      ulong next = content_len*10UL + (ulong)(content_length[ i ]-'0');
+-      if( FD_UNLIKELY( next<content_len ) ) { /* Overflow */
++      ulong digit = (ulong)(content_length[ i ]-'0');
++      if( FD_UNLIKELY( content_len>(ULONG_MAX-digit)/10UL ) ) { /* Overflow */
+         close_conn( http, conn_idx, FD_HTTP_SERVER_CONNECTION_CLOSE_LARGE_REQUEST );
+         return;
+       }
+ 
+-      content_len = next;
++      content_len = content_len*10UL + digit;
+     }
+ 
+     ulong total_len = (ulong)result+content_len;
+```
+
+### src/waltz/http/test_http_server.c
+```diff
+@@ -2,6 +2,52 @@
+ #include "fd_http_server_private.h"
+ #include "../../util/fd_util.h"
+ 
++#include <arpa/inet.h>
++#include <errno.h>
++#include <string.h>
++#include <sys/socket.h>
++#include <unistd.h>
++
++struct overflow_close_state {
++  ulong close_cnt;
++  int   last_reason;
++};
++
++typedef struct overflow_close_state overflow_close_state_t;
++
++static fd_http_server_response_t
++request_noop( fd_http_server_request_t const * request ) {
++  (void)request;
++  fd_http_server_response_t response = {
++    .status = 400,
++  };
++  return response;
++}
++
++static void
++close_capture( ulong  conn_id,
++               int    reason,
++               void * ctx ) {
++  (void)conn_id;
++  overflow_close_state_t * state = (overflow_close_state_t *)ctx;
++  state->close_cnt++;
++  state->last_reason = reason;
++}
++
++static void
++send_all( int          fd,
++          char const * req,
++          ulong        req_sz ) {
++  ulong sent = 0UL;
++  while( sent<req_sz ) {
++    long n = send( fd, req+sent, req_sz-sent, 0 );
++    if( FD_UNLIKELY( n<0L ) ) {
++      FD_LOG_ERR(( "send failed (%i-%s)", errno, fd_io_strerror( errno ) ));
++    }
++    sent += (ulong)n;
++  }
++}
++
+ void
+ test_oring( void ) {
+   fd_http_server_params_t params = {
+@@ -82,12 +128,78 @@ test_oring( void ) {
+   FD_TEST( http->stage_comp_len==0UL );
+ }
+ 
++void
++test_content_length_overflow_close( void ) {
++  fd_http_server_params_t params = {
++    .max_connection_cnt    = 1UL,
++    .max_ws_connection_cnt = 0UL,
++    .max_request_len       = 1024UL,
++    .max_ws_recv_frame_len = 1024UL,
++    .max_ws_send_frame_cnt = 1UL,
++    .outgoing_buffer_sz    = 1024UL,
++  };
++
++  overflow_close_state_t state = {0};
++  fd_http_server_callbacks_t callbacks = {
++    .request    = request_noop,
++    .close      = close_capture,
++    .ws_open    = NULL,
++    .ws_close   = NULL,
++    .ws_message = NULL,
++  };
++
++  FD_LOG_NOTICE(( "footprint %lu", fd_http_server_footprint( params ) ));
++  uchar scratch[ 1306624 ] __attribute__((aligned(128UL)));
++  FD_TEST( fd_http_server_footprint( params )==1306624 );
++
++  fd_http_server_t * http = fd_http_server_join( fd_http_server_new( scratch, params, callbacks, &state ) );
++  FD_TEST( http );
++  FD_TEST( fd_http_server_listen( http, 0U, 0U ) );
++
++  struct sockaddr_in server_addr = {0};
++  socklen_t server_addr_sz = sizeof( server_addr );
++  FD_TEST( !getsockname( fd_http_server_fd( http ), fd_type_pun( &server_addr ), &server_addr_sz ) );
++  ushort server_port = ntohs( server_addr.sin_port );
++
++  int client_fd = socket( AF_INET, SOCK_STREAM, 0 );
++  FD_TEST( client_fd>=0 );
++
++  struct sockaddr_in connect_addr = {
++    .sin_family      = AF_INET,
++    .sin_port        = htons( server_port ),
++    .sin_addr.s_addr = htonl( INADDR_LOOPBACK ),
++  };
++
++  FD_TEST( !connect( client_fd, fd_type_pun( &connect_addr ), sizeof( connect_addr ) ) );
++
++  char const * req =
++      "POST / HTTP/1.1\r\n"
++      "Host: localhost\r\n"
++      "Content-Type: application/json\r\n"
++      "Content-Length: 30000000000000000000\r\n"
++      "\r\n"
++      "x";
++  send_all( client_fd, req, strlen( req ) );
++
++  for( ulong i=0UL; i<200UL && !state.close_cnt; i++ ) {
++    fd_http_server_poll( http, 1 );
++  }
++
++  FD_TEST( state.close_cnt==1UL );
++  FD_TEST( state.last_reason==FD_HTTP_SERVER_CONNECTION_CLOSE_LARGE_REQUEST );
++
++  close( client_fd );
++  close( fd_http_server_fd( http ) );
++  fd_http_server_delete( fd_http_server_leave( http ) );
++}
++
+ int
+ main( int     argc,
+       char ** argv ) {
+   fd_boot( &argc, &argv );
+ 
+   test_oring();
++  test_content_length_overflow_close();
+ 
+   FD_LOG_NOTICE(( "pass" ));
+   fd_halt();
+```

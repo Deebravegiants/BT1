@@ -1,0 +1,68 @@
+# [M] Bypassing MIN_INITIAL_DEPOSIT
+
+## Summary
+Severity: Medium
+Contest weight: 0.5938
+Dataset id: 2818
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+When users first deposit into the Aegis vault (aegisTotalSupply is 0), the operation will check if aegisShares minted is greater than MIN_INITIAL_DEPOSIT. This is designed to prevent attacks from first depositors.
+```solidity
+function __deposit(
+    uint256 depositSharesAmount,
+    uint256 aegisTotalSupply,
+    uint256 depositSpotPrice,
+    uint256 targetSpotPrice
+) private returns (uint256 aegisShares) {
+    // ...
+    if (aegisTotalSupply == 0) {
+        // better to use userDepositValue than userValueContribution here,
+        // because userValueContribution could be very small
+        aegisShares = ctx.userDepositValue;
+        // simplified check for initial deposit
+        // @audit - can this exploited by withdrawing immediately until aegisShares lower than minimum
+        require(aegisShares >= MIN_INITIAL_DEPOSIT, "VTS");
+    } else {
+        /// @dev invariant check for guaranteed safety, since at this point
+        // the AegisVault has received any ICHIVault shares
+        /// either from a depositToken deposit or for a depositVault share
+        // transfer therefore given existing prior deposits
+        /// the user's contribution to the whole must necessarily be less
+        // than the whole i.e. PRECISION i.e. 1e18
+        require(ctx.userValueContribution < PRECISION, "VTS");
+        aegisShares = _mulDiv(
+            ctx.userValueContribution,
+            aegisTotalSupply,
+            PRECISION.sub
+        );
+    }
+    // ...
+}
+```
+However, this can be easily bypassed by immediately withdrawing shares until it becomes feasible to perform a first depositor attack since there is no check in the withdraw operation to ensure that the remaining shares or total supply are greater than MIN_INITIAL_DEPOSIT.
+
+## Recommendation
+Check the new total supply after the withdraw operation. If it is not zero and is lower than MIN_INITIAL_DEPOSIT, revert the operation.
+```solidity
+function _withdraw(
+    uint256 aegisShares,
+    uint256 aegisTotalSupply,
+    address to,
+    WithdrawSlippageData memory minSlippage,
+    WithdrawType withdrawType
+) internal returns (
+    WithdrawSlippageData memory actualSlippage,
+    uint256 aegisSharesWithdrawn
+) {
+    // ...
+    uint256 newAegisTotalSupply = aegisTotalSupply - aegisSharesWithdrawn;
+    require(
+        newAegisTotalSupply == 0 || newAegisTotalSupply >= MIN_INITIAL_DEPOSIT,
+        "VTS"
+    );
+    _checkWithdrawSlippage(actualSlippage, minSlippage);
+    emit Withdraw(msg.sender, to, aegisShares, actualSlippage);
+}
+```

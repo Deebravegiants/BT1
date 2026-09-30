@@ -1,0 +1,160 @@
+# [H] Someone can create loans with insufficient collateral.
+
+## Summary
+Severity: High
+Reporter: foxb868
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/LenderCommitmentForwarder.sol#L300-L400
+Type: audit-issue
+
+## Details
+# Someone can create loans with insufficient collateral.
+
+## Summary
+In the function named `acceptCommitment` which accepts input values from the user and uses them to execute loan creation transactions, and there is in this function as the `requiredCollateral` variable is calculated using the `getRequiredCollateral` function without proper validation of the input values, this can lead to situations where an incorrect value is calculated for `requiredCollateral` which could result in funds being lost or loans being created with insufficient collateral.
+
+## Vulnerability Detail
+In `acceptCommitment` function, the `requiredCollateral` is calculated using `getRequiredCollateral` function. However, there's no guarantee that the input values are valid, and this may result in a vulnerability.
+
+So the issue is with the `getRequiredCollateral()` function call, which calculates the required collateral amount based on the `_principalAmount` parameter passed to `acceptCommitment()`. and there is no guarantee that the input values are valid, and this is where the problem will rise.
+
+Here's the relevant and affected code of the `acceptCommitment()` function: [LenderCommitmentForwarder.sol#L300-L400](https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/LenderCommitmentForwarder.sol#L300-L400)
+
+```solidity
+    function acceptCommitment(
+        uint256 _commitmentId,
+        uint256 _principalAmount,
+        uint256 _collateralAmount,
+        uint256 _collateralTokenId,
+        address _collateralTokenAddress,
+        uint16 _interestRate,
+        uint32 _loanDuration
+    ) external returns (uint256 bidId) {
+        address borrower = _msgSender();
+
+
+        Commitment storage commitment = commitments[_commitmentId];
+
+
+        validateCommitment(commitment);
+
+
+        require(
+            _collateralTokenAddress == commitment.collateralTokenAddress,
+            "Mismatching collateral token"
+        );
+        require(
+            _interestRate >= commitment.minInterestRate,
+            "Invalid interest rate"
+        );
+        require(
+            _loanDuration <= commitment.maxDuration,
+            "Invalid loan max duration"
+        );
+
+
+        require(
+            commitmentBorrowersList[_commitmentId].length() == 0 ||
+                commitmentBorrowersList[_commitmentId].contains(borrower),
+            "unauthorized commitment borrower"
+        );
+
+
+        if (_principalAmount > commitment.maxPrincipal) {
+            revert InsufficientCommitmentAllocation({
+                allocated: commitment.maxPrincipal,
+                requested: _principalAmount
+            });
+        }
+
+
+        uint256 requiredCollateral = getRequiredCollateral(
+            _principalAmount,
+            commitment.maxPrincipalPerCollateralAmount,
+            commitment.collateralTokenType,
+            commitment.collateralTokenAddress,
+            commitment.principalTokenAddress
+        );
+
+
+        if (_collateralAmount < requiredCollateral) {
+            revert InsufficientBorrowerCollateral({
+                required: requiredCollateral,
+                actual: _collateralAmount
+            });
+        }
+
+
+        if (
+            commitment.collateralTokenType == CommitmentCollateralType.ERC721 ||
+            commitment.collateralTokenType ==
+            CommitmentCollateralType.ERC721_ANY_ID
+        ) {
+            require(
+                _collateralAmount == 1,
+                "invalid commitment collateral amount for ERC721"
+            );
+        }
+
+
+        if (
+            commitment.collateralTokenType == CommitmentCollateralType.ERC721 ||
+            commitment.collateralTokenType == CommitmentCollateralType.ERC1155
+        ) {
+            require(
+                commitment.collateralTokenId == _collateralTokenId,
+                "invalid commitment collateral tokenId"
+            );
+        }
+
+
+        bidId = _submitBidFromCommitment(
+            borrower,
+            commitment.marketId,
+            commitment.principalTokenAddress,
+            _principalAmount,
+            commitment.collateralTokenAddress,
+            _collateralAmount,
+            _collateralTokenId,
+            commitment.collateralTokenType,
+            _loanDuration,
+            _interestRate
+        );
+
+
+        _acceptBid(bidId, commitment.lender);
+
+
+        _decrementCommitment(_commitmentId, _principalAmount);
+
+
+        emit ExercisedCommitment(
+            _commitmentId,
+            borrower,
+            _principalAmount,
+            bidId
+        );
+    }
+```
+Suppose there is a malicious user who wants to create a loan with insufficient collateral. They can interact with the `acceptCommitment` function and pass in values for `_principalAmount`, `_collateralAmount`, and other parameters.
+
+Now, if the input values are not validated properly, the `getRequiredCollateral()` function may calculate an incorrect value for `requiredCollateral`. In this case, if the calculated `requiredCollateral` is less than the actual collateral required to create a loan, the malicious user can provide less collateral than required and still create the loan.
+
+For instance, suppose the user wants to create a loan with a principal amount of `100 ETH` and a collateral ratio of 150%, which means they need to provide collateral worth at least `150 ETH`. But, if the `getRequiredCollateral()` function calculates the required collateral to be only `100 ETH` due to an incorrect value of `_principalAmount`, the user can provide only `100 ETH` as collateral and still create the loan.
+
+Now, if the borrower defaults on the loan and the lender needs to liquidate the collateral to recover the funds, there may not be enough collateral to cover the outstanding loan amount. In this case, the lender will suffer losses, and the malicious user can benefit from this situation.
+
+## Impact
+If a malicious user can create a loan with insufficient collateral, they can default on the loan, and the lender may not be able to recover their funds by liquidating the collateral. This can result in losses for the lender, and in the worst-case scenario, the lender may go bankrupt.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/LenderCommitmentForwarder.sol#L300-L400
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+My recommendation is the smart contract should include proper validation checks for the input values passed to the `getRequiredCollateral` function.
+Specifically the contract should ensure that the values for `_principalAmount`, `commitment.maxPrincipalPerCollateralAmount`, `commitment.collateralTokenType`, `commitment.collateralTokenAddress`, and `commitment.principalTokenAddress` are all valid and within expected ranges before passing them to the `getRequiredCollateral` function.
+
+Additionally, the contract should consider implementing additional checks to ensure that the calculated `requiredCollateral` value is valid and within expected ranges before proceeding with loan creation transactions.

@@ -1,0 +1,14 @@
+# [M] NFTR-10 | Potential DoS
+
+## Summary
+Severity: Medium
+Contest weight: 0.0435
+Dataset id: 10823
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is a potential denial-of-service condition caused by a function that attempts to invoke another contract’s farming-initialisation routine 10,000 times within a single transaction. Because each call consumes gas, the total gas required can easily exceed the block gas limit that the Ethereum Virtual Machine enforces. When the limit is exceeded, the transaction reverts and none of the intended farming holds are created. This situation arises whenever a collection owner or any caller executes the initiateRetroactiveHoldFarming entry point, which internally loops over a hard-coded count of 10,000 iterations. The root cause is the lack of a batching or gas-budget check; the contract assumes that the EVM will accept an arbitrarily large number of external calls in one block. An attacker does not need to craft a special payload – simply invoking the function with any valid parameters can trigger the gas overflow, effectively blocking the curation process for that collection. The impact is that the collection cannot be curated, users expecting retroactive hold farming rewards see no rewards, and the protocol’s accounting may become inconsistent because the intended state changes never occur. The issue was discovered during a manual audit when the reviewer noted the fixed iteration count and calculated the approximate gas consumption per call, concluding that the total would surpass typical block limits. Because the failure manifests only as a transaction revert, it may be hard to notice in normal operation unless the caller checks the receipt or monitors for missing rewards. The proper mitigation is to redesign the function to process the calls in smaller batches, enforce a maximum gas usage per transaction, or allow the caller to specify a batch size that respects the current block gas limit. In generic terms, this is a classic unbounded loop or excessive gas consumption denial-of-service bug, where a contract performs too many external calls in a single transaction, violating the assumption that all calls will fit within the block gas budget. From a user’s perspective, the UI may show that a collection’s retroactive hold farming operation failed, rewards remain at zero, or the transaction simply runs out of gas. Users expect the farming to be initiated and rewards to be credited, but instead they receive no change and may see a failed transaction message. The bug breaks the business logic that guarantees that every NFT holder receives a retroactive reward after a hold-farming period, because the contract cannot complete the required state updates.
+
+## Recommendation
+Ensure that the block gas limit limit is not exceeded or consider executing calls to initiateHoldFarmingForNFT in batches.

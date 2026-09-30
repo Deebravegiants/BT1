@@ -1,0 +1,16 @@
+# [M] CVE-2022-2226
+
+## Summary
+Severity: Medium
+Advisory: CVE-2022-2226
+CVSS: 6.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N)
+Published: 2022-12-22
+Source: https://osv.dev/vulnerability/CVE-2022-2226
+Type: osv
+
+## Details
+An OpenPGP digital signature includes information about the date when the signature was created. When displaying an email that contains a digital signature, the email's date will be shown. If the dates were different, then Thunderbird didn't report the email as having an invalid signature. If an attacker performed a replay attack, in which an old email with old contents are resent at a later time, it could lead the victim to believe that the statements in the email are current. Fixed versions of Thunderbird will require that the signature's date roughly matches the displayed date of the email. This vulnerability affects Thunderbird < 102 and Thunderbird < 91.11.
+
+## References
+- https://www.mozilla.org/security/advisories/mfsa2022-26/
+- https://bugzilla.mozilla.org/show_bug.cgi?id=1775441

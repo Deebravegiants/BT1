@@ -1,0 +1,112 @@
+# [?] Merge pull request from GHSA-w9g2-3w7p-72g9
+
+## Summary
+Severity: Unknown
+Chain: Vyper
+Component: vyperlang/vyper
+Published: 2023-04-24
+Source: https://github.com/vyperlang/vyper/commit/851f7a1b3aa2a36fd041e3d0ed38f9355a58c8ae
+Type: security-commit
+
+## Details
+Merge pull request from GHSA-w9g2-3w7p-72g9
+
+it was getting tagged as a pointer instead of a stack value during
+codegen
+
+## Patch
+### tests/parser/functions/test_raw_call.py
+```diff
+@@ -296,8 +296,10 @@ def test_checkable_raw_call(get_contract, assert_tx_failed):
+ def fail1(should_raise: bool):
+     if should_raise:
+         raise "fail"
++
+ # test both paths for raw_call -
+ # they are different depending if callee has or doesn't have returntype
++# (fail2 fails because of staticcall)
+ @external
+ def fail2(should_raise: bool) -> int128:
+     if should_raise:
+@@ -320,6 +322,7 @@ def foo(_addr: address, should_raise: bool) -> uint256:
+     )
+     assert success == (not should_raise)
+     return 1
++
+ @external
+ @view
+ def bar(_addr: address, should_raise: bool) -> uint256:
+@@ -334,6 +337,19 @@ def bar(_addr: address, should_raise: bool) -> uint256:
+     )
+     assert success == (not should_raise)
+     return 2
++
++# test max_outsize not set case
++@external
++@nonpayable
++def baz(_addr: address, should_raise: bool) -> uint256:
++    success: bool = True
++    success = raw_call(
++        _addr,
++        _abi_encode(should_raise, method_id=method_id("fail1(bool)")),
++        revert_on_failure=False,
++    )
++    assert success == (not should_raise)
++    return 3
+     """
+ 
+     target = get_contract(target_source)
+@@ -343,6 +359,8 @@ def bar(_addr: address, should_raise: bool) -> uint256:
+     assert caller.foo(target.address, False) == 1
+     assert caller.bar(target.address, True) == 2
+     assert caller.bar(target.address, False) == 2
++    assert caller.baz(target.address, True) == 3
++    assert caller.baz(target.address, False) == 3
+ 
+ 
+ uncompilable_code = [
+```
+
+### vyper/builtins/functions.py
+```diff
+@@ -1188,7 +1188,9 @@ def build_IR(self, expr, args, kwargs, context):
+ 
+             if revert_on_failure:
+                 typ = bytes_ty
++                # check the call success flag, and store returndata in memory
+                 ret_ir = ["seq", check_external_call(call_ir), store_output_size]
++                return IRnode.from_list(ret_ir, typ=typ, location=MEMORY)
+             else:
+                 typ = TupleT([bool_ty, bytes_ty])
+                 ret_ir = [
+@@ -1198,16 +1200,22 @@ def build_IR(self, expr, args, kwargs, context):
+                     IRnode.from_list(call_ir, typ=bool_ty),
+                     IRnode.from_list(store_output_size, typ=bytes_ty, location=MEMORY),
+                 ]
++                # return an IR tuple of call success flag and returndata pointer
++                return IRnode.from_list(ret_ir, typ=typ)
++
++        # max_outsize is 0.
++
++        if not revert_on_failure:
++            # return call flag as stack item
++            typ = bool_ty
++            return IRnode.from_list(call_ir, typ=typ)
+ 
+         else:
+-            if revert_on_failure:
+-                typ = None
+-                ret_ir = check_external_call(call_ir)
+-            else:
+-                typ = bool_ty
+-                ret_ir = call_ir
++            # check the call success flag and don't return anything
++            ret_ir = check_external_call(call_ir)
++            return IRnode.from_list(ret_ir, typ=None)
+ 
+-        return IRnode.from_list(ret_ir, typ=typ, location=MEMORY)
++        raise CompilerPanic("unreachable!")
+ 
+ 
+ class Send(BuiltinFunction):
+```

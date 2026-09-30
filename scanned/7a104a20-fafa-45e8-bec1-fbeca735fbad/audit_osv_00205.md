@@ -1,0 +1,20 @@
+# [C] ALPINE-CVE-2016-6662
+
+## Summary
+Severity: Critical
+Advisory: ALPINE-CVE-2016-6662
+Ecosystem: Alpine:v3.2, Alpine:v3.3
+CVSS: 9.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2016-09-20
+Source: https://osv.dev/vulnerability/ALPINE-CVE-2016-6662
+Type: osv
+
+## Affected
+- Alpine:v3.2: `mariadb` — affected >=5.5.20 <5.5.51-r0
+- Alpine:v3.3: `mariadb` — affected >=5.5.20 <10.1.17-r0
+
+## Details
+Oracle MySQL through 5.5.52, 5.6.x through 5.6.33, and 5.7.x through 5.7.15; MariaDB before 5.5.51, 10.0.x before 10.0.27, and 10.1.x before 10.1.17; and Percona Server before 5.5.51-38.1, 5.6.x before 5.6.32-78.0, and 5.7.x before 5.7.14-7 allow local users to create arbitrary configurations and bypass certain protection mechanisms by setting general_log_file to a my.cnf configuration. NOTE: this can be leveraged to execute arbitrary code with root privileges by setting malloc_lib. NOTE: the affected MySQL version information is from Oracle's October 2016 CPU. Oracle has not commented on third-party claims that the issue was silently patched in MySQL 5.5.52, 5.6.33, and 5.7.15.
+
+## References
+- https://security.alpinelinux.org/vuln/CVE-2016-6662

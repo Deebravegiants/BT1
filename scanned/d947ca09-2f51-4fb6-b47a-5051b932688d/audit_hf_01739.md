@@ -1,0 +1,14 @@
+# [H] MJR-3 Incorrect condition
+
+## Summary
+Severity: High
+Contest weight: 0.0069
+Dataset id: 9510
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is an incorrect logical condition inside a loop of the Lido contract that can cause the loop to never terminate. The root cause is the use of a logical OR (||) where a logical AND (&&) is required, meaning the exit criteria are evaluated incorrectly. When the contract reaches this point, the loop condition remains true for a combination of state variables that should have caused it to stop, so the execution continues indefinitely until the transaction runs out of gas. An attacker or any user can trigger the problematic path by providing inputs that satisfy one side of the OR while the other side never becomes false, causing the contract to enter the infinite loop. The impact is a denial‑of‑service condition: the transaction reverts only after exhausting gas, the caller loses the gas fee, and the contract’s functionality that depends on this loop becomes unavailable for all users until the state is manually corrected. This occurs whenever the function containing the loop is called with values that make the faulty condition true, which can happen in normal operation if the contract’s internal accounting reaches certain edge cases. All participants of the protocol—delegators, node operators, and any external callers—are affected because the contract may become unresponsive, preventing deposits, withdrawals, or reward calculations. The issue was discovered during a manual security audit by MixBytes, who identified the logical operator mismatch while reviewing the control flow. It is hard to notice because the code compiles and passes basic tests; the loop only fails under specific state combinations that are not exercised in typical unit tests, and the symptom—transactions hanging or consuming all gas—may be attributed to other causes. The proper fix is to replace the OR operator with an AND operator so that the loop exits when either of the intended conditions is no longer satisfied, restoring the correct termination logic. Conceptually, this is a classic infinite‑loop or denial‑of‑service bug caused by an incorrect boolean expression, which violates the contract’s business logic that expects the loop to terminate after processing a bounded set of items. From a user’s perspective, a transaction that should complete (for example, a deposit or withdrawal) instead stalls, the UI shows a pending state for an unusually long time, and eventually the transaction fails with an out‑of‑gas error, leaving the user with a lost gas fee and no state change. The expectation that the operation will finish is broken, leading to funds appearing to “disappear” in the sense that the operation never finalizes.
+
+## Recommendation
+We recommend changing || into &&.

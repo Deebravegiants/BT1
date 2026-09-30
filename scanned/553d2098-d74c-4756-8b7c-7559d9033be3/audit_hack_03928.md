@@ -1,0 +1,52 @@
+# [H] The transfers in the following functions don't return a boolean and there's no check to ensure their success.
+
+## Summary
+Severity: High
+Reporter: PRAISE
+Source: https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/XProvider.sol#L147
+Type: audit-issue
+
+## Details
+# The transfers in the following functions don't return a boolean and there's no check to ensure their success.
+
+## Summary
+These functions assume that the transfer will be successful so they don't return boolean and there's no check to ensure the success of these transfers.
+
+## Vulnerability Detail
+When the return value of a transfer is not checked, it can lead to unexpected behavior in your smart contract.
+If the transfer fails for any reason, the transfer function will return false. If the return value is not checked, the contract will continue executing as if the transfer was successful, which will lead to loss of funds.
+
+## Impact
+The transfer function returns a boolean value that indicates whether the transfer was successful or not, but that value is not used or checked in these functions.
+The code assumes that the transfer will be successful, If the transfer fails for any reason, then the transfer will simply fail silently without a revert and the tokens will be lost.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/XProvider.sol#L147
+
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/XProvider.sol#L569-L575
+
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/XProvider.sol#L578-L584
+
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/XProvider.sol#L329
+
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Providers/YearnProvider.sol#L33
+
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Providers/TruefiProvider.sol#L38
+
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Providers/IdleProvider.sol#L39
+
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Providers/CompoundProvider.sol#L45
+
+https://github.com/sherlock-audit/2023-01-derby/blob/main/derby-yield-optimiser/contracts/Providers/BetaProvider.sol#L37
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+to ensure that the transfer was successful, you should check the return value of the transfer function.
+One way to do this is to use the require statement to revert the transaction if the transfer fails, like this:
+```solidity
+require(IERC20(_token).transfer(vault, balance), "Transfer failed");
+```
+This will revert the transaction and emit an error message if the transfer function call returns false.

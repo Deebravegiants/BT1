@@ -1,0 +1,32 @@
+# [M] Megaco flex scanner buffer overflow via oversized property parm name
+
+## Summary
+Severity: Medium
+Advisory: CVE-2026-59250
+Aliases: EEF-CVE-2026-59250, GHSA-7xgh-gmgf-q2g7
+CVSS: 6.0 (CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:H/SC:N/SI:N/SA:N)
+Published: 2026-07-27
+Source: https://osv.dev/vulnerability/CVE-2026-59250
+Type: osv
+
+## Details
+Classic buffer overflow in the Erlang/OTP megaco flex scanner C driver allows a remote unauthenticated attacker to corrupt the driver's memory (and potentially achieve remote code execution or a denial-of-service crash) by sending a single text-encoded H.248/Megaco message containing an oversized property parm name.
+
+When tokenizing a Local/Remote descriptor, mfs_load_property_groups extracts the attacker-controlled property name (bounded only by the message length) and, when no value follows, formats it into a fixed 512-byte error_msg field of the MfsErlDrvData struct using an unchecked sprintf call. Names longer than roughly 452 bytes overflow into the immediately following struct fields (text_buf, text_ptr, term_spec, term_spec_size, term_spec_index), overwriting live pointers and counters with attacker-chosen bytes. Subsequent scanner code writes and frees through the corrupted pointers, producing arbitrary write and arbitrary free primitives inside the BEAM VM process, which can be leveraged for remote code execution. On builds compiled with _FORTIFY_SOURCE the overflow is detected at runtime and terminates the process with SIGABRT, resulting in denial of service.
+
+The overflow occurs in the flex scanner before any grammar or Megaco-level authentication processing, so exploitation requires only network reachability to the megaco transport port on a node configured with {scanner, flex}.
+
+This vulnerability is associated with program files lib/megaco/src/flex/megaco_flex_scanner_drv.flex.src and program routines mfs_load_property_groups.
+
+This issue affects OTP from OTP 17.0 before OTP 27.3.4.15, from OTP 28.0 before OTP 28.5.0.4, and from OTP 29.0 before OTP 29.0.4, corresponding to megaco from 3.17.1 before 4.7.2.2, from 4.8 before 4.8.3.1, and from 4.9 before 4.9.1. Whether OTP before OTP 17.0, corresponding to megaco before 3.17.1, is affected is unknown.
+
+## References
+- https://cna.erlef.org/cves/CVE-2026-59250.html
+- https://github.com
+- https://osv.dev/vulnerability/EEF-CVE-2026-59250
+- https://www.erlang.org/doc/system/versions.html#order-of-versions
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/59xxx/CVE-2026-59250.json
+- https://github.com/erlang/otp/security/advisories/GHSA-7xgh-gmgf-q2g7
+- https://nvd.nist.gov/vuln/detail/CVE-2026-59250
+- https://github.com/erlang/otp/commit/8704c8f550a11ed5f825e3c011ecb03565b79c4f
+- https://github.com/erlang/otp

@@ -1,0 +1,14 @@
+# [M] ChainID should not be 1
+
+## Summary
+Severity: Medium
+Contest weight: 0.0478
+Dataset id: 11221
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is a chain‑ID misconfiguration where the Overprotocol mainnet code defaults to the Ethereum mainnet chain identifier (value 1) and retains hard‑coded Ethereum bootnode ENR entries. This occurs because the developers reused configuration constants from Ethereum without replacing them with a unique identifier for the Overprotocol network. As a result, nodes may connect to Ethereum peers during discovery, and the client may treat transactions as if they belong to Ethereum’s chain. An attacker can exploit this by replaying a signed transaction that was intended for Overprotocol on the Ethereum network, or vice‑versa, because the same chain ID is accepted on both chains. The impact includes potential loss of funds through replay attacks, cross‑pollution of mempools where transactions appear on the wrong network, and confusion for users who see their transactions either failing, being processed on an unexpected chain, or resulting in no balance change. The issue manifests when the client starts syncing, when users submit transactions, or when any off‑chain service assumes the chain ID uniquely identifies the Overprotocol network. All participants—regular users, validators, and third‑party services—are affected because the underlying protocol cannot reliably distinguish its own chain from Ethereum. The problem was discovered during a security audit that inspected configuration files and noticed references to Ethereum bootnodes and a default chain ID of 1. It is hard to notice because the node may still appear to function correctly, and the mismatch only becomes evident when replayed transactions succeed on the unintended chain or when mempool traffic shows unexpected Ethereum‑originating messages. The proper fix is to assign a distinct chain identifier that is not used by any existing public network and to purge all Ethereum‑specific ENR entries from the codebase, ensuring that node discovery only contacts Overprotocol‑specific bootnodes. Conceptually this belongs to the class of chain‑ID or network‑identifier misconfiguration bugs that break the assumption that a transaction’s signature is bound to a single, unique blockchain, thereby violating accounting guarantees that funds transferred on one chain cannot be unintentionally moved on another.
+
+## Recommendation
+The default ChainID for Overprotocol Mainnet should be changed to something unique and ENRs of all Ethereum related bootnodes should be removed from the codebase. This will prevent cross pollination with Ethereum nodes in mempools and during syncing. More importantly this will prevent the ability for transaction replays between chains.

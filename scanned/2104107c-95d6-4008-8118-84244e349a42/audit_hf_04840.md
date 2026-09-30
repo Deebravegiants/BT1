@@ -1,0 +1,36 @@
+# [M] LenderCommitmentGroup_Smart does not use mulDiv
+
+## Summary
+Severity: Medium
+Contest weight: 0.5881
+Dataset id: 22734
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+LenderCommitmentGroup_Smart calculates the exchange rate and _valueOfUnderlying() without using mulDiv from OpenZeppelin, which might make it overflow, leading to DoS and possible loss of funds. sharesExchangeRate() is calculated as:
+```solidity
+rate_ = (poolTotalEstimatedValue * EXCHANGE_RATE_EXPANSION_FACTOR) / poolSharesToken.totalSupply();
+```
+which overflows if poolTotalEstimatedValue > (2^256 - 1) / 1e36. The readme mentions that any ERC20 token that is supported by a Uniswap pool is supported, which means that if a token has decimals of, for example, 1e36, the calculation above may easily overflow. In this case, rate_ = realPoolTotalEstimatedValue * 1e36 * 1e36 = realPoolTotalEstimatedValue * 1e72, where realPoolTotalEstimatedValue is the number of tokens without the decimals part. Thus, the number of tokens needed to overflow would be (2^256 - 1) / 1e72 = 115792, which at a price of $1 is just 115792 USD. This bug is also present in _valueOfUnderlying(), which returns value_ = (amount * EXCHANGE_RATE_EXPANSION_FACTOR) / rate;.
+DoS of LenderCommitmentGroup_Smart, possibly with stuck tokens if users call addPrincipalToCommitmentGroup() with smaller amount at a time that do not cause an overflow when calculating sharesExchangeRate() and _valueOfUnderlying(), but would overflow when withdrawing in the calculation of sharesExchangeRate(), as poolTotalEstimatedValue could have increased to the value that overflows. sharesExchangeRate():
+```solidity
+function sharesExchangeRate() public view virtual returns (uint256 rate_) {
+    ...
+    rate_ = (poolTotalEstimatedValue * EXCHANGE_RATE_EXPANSION_FACTOR) / poolSharesToken.totalSupply();
+}
+```
+_valueOfUnderlying():
+```solidity
+function _valueOfUnderlying(uint256 amount, uint256 rate)
+    internal
+    pure
+    returns (uint256 value_)
+{
+    ...
+    value_ = (amount * EXCHANGE_RATE_EXPANSION_FACTOR) / rate;
+}
+```
+
+## Recommendation
+Use Math::mulDiv from OpenZeppelin.

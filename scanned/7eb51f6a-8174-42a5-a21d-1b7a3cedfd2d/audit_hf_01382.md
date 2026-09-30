@@ -1,0 +1,14 @@
+# [M] M-6 Fee-on-transfer tokens cannot be used as rewards
+
+## Summary
+Severity: Medium
+Contest weight: 0.0475
+Dataset id: 7099
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is an accounting mismatch that occurs when a fee‑on‑transfer token is used as the reward token in a liquidity gauge. The gauge updates its internal reward rate by taking the amount argument supplied to the transfer function, assuming that this value equals the tokens actually received by the contract. Fee‑on‑transfer tokens, however, deduct a percentage of the transferred amount as a fee, so the contract receives less than the amount reported by the caller. Because the gauge records the higher, expected amount, the internal accounting shows that more rewards have been distributed than were really deposited. As a result, some participants may see a positive reward balance in the UI but are unable to claim any tokens; the claim transaction either returns zero or reverts because the contract believes it has insufficient reward balance. The issue manifests whenever the reward distributor sends a fee‑on‑transfer token to the gauge without also accounting for the deducted fee, and it persists until the distributor manually tops up the gauge with additional tokens to cover the shortfall. The affected parties are liquidity providers who expect to receive their proportional share of rewards, as well as the protocol that relies on accurate reward accounting for its incentive mechanisms. The flaw was discovered during a systematic audit of the Curve Finance StableSwapNG contracts, where the auditor noticed that the reward‑rate update logic used the caller‑provided amount instead of the actual transferred amount. The problem is subtle because the transfer call succeeds and no error is emitted; the discrepancy only appears later when users attempt to claim rewards, making it hard to detect through simple unit tests that do not simulate fee‑on‑transfer behavior. Conceptually, the fix is to replace the use of the supplied amount parameter with the real amount received by the contract, for example by reading the balance before and after the transfer or by using the return value of the token’s transfer function that reports the net amount. This change ensures that the gauge’s accounting reflects the true token inflow, preventing reward shortfalls and preserving the expected economic guarantees of the protocol. The bug belongs to the class of “fee‑on‑transfer token handling errors” where contracts assume a 1:1 transfer relationship, leading to incorrect calculations, missing refunds, or disappearing funds in reward distribution scenarios.
+
+## Recommendation
+We recommend using the exact transferred value instead of the parameter that is passed to the transfer call.

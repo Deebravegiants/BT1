@@ -1,0 +1,14 @@
+# [M] Denial of Service - userDepositIndex and user-
+
+## Summary
+Severity: Medium
+Contest weight: 0.1614
+Dataset id: 17822
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+State variables userDepositIndex and userWithdrawIndex are growing indefinitely, this might lead to expensive transactions and effectively denial of service for the user when calling withdrawUSCD and dequeueCrabs functions that require iterations over the whole arrays. The contract is using userDepositsIndex and userWithdrawsIndex to track deposits and withdraw for users. This helps with parsing state variables deposits and withdraws that contain data for all users. userDepositsIndex is expanded by depositUSDC function and the elements are deleted by withdrawUSDC, however the delete is only setting data located at the given index to zero. This make all element re-parsed every time the function is called, making the user consuming more gas. The very same logic is present within the function queueCrabForWithdrawal and dequeueCrabs. The first one will make the userWithdrawsIndex grow and the second will just zero-out the elements but keep parsing them every time the user call the function. Denial of service/very expensive transactions for users of the protocol.
+
+## Recommendation
+It is recommended to remove elements from the arrays userDepositsIndex/userWithdrawsIndex using pop() function when deleting deposits. This should be easy to implement since the iteration starts from last item and goes down until first element.

@@ -1,0 +1,18 @@
+# [H] CVE-2020-35113
+
+## Summary
+Severity: High
+Advisory: CVE-2020-35113
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H)
+Published: 2021-01-07
+Source: https://osv.dev/vulnerability/CVE-2020-35113
+Type: osv
+
+## Details
+Mozilla developers reported memory safety bugs present in Firefox 83 and Firefox ESR 78.5. Some of these bugs showed evidence of memory corruption and we presume that with enough effort some of these could have been exploited to run arbitrary code. This vulnerability affects Firefox < 84, Thunderbird < 78.6, and Firefox ESR < 78.6.
+
+## References
+- https://www.mozilla.org/security/advisories/mfsa2020-54/
+- https://www.mozilla.org/security/advisories/mfsa2020-55/
+- https://www.mozilla.org/security/advisories/mfsa2020-56/
+- https://bugzilla.mozilla.org/buglist.cgi?bug_id=1664831%2C1673589

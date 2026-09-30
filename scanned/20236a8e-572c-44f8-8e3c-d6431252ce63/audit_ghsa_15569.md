@@ -1,0 +1,27 @@
+# [M] ReDoS in urlregex
+
+## Summary
+Severity: Medium
+Advisory: GHSA-rw72-v6c7-hf9r
+CVE: CVE-2020-36830
+CWE: CWE-1333
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L (CVSS_V3)
+Published: 2024-09-02
+Source: https://github.com/advisories/GHSA-rw72-v6c7-hf9r
+Type: github-advisory
+
+## Affected
+- npm: `urlregex` — affected >=0 <0.5.1
+
+## Details
+A vulnerability was found in nescalante urlregex up to 0.5.0 and classified as problematic. This issue affects some unknown processing of the file index.js of the component Backtracking. The manipulation leads to inefficient regular expression complexity. The attack may be initiated remotely. The exploit has been disclosed to the public and may be used. Upgrading to version 0.5.1 is able to address this issue. The identifier of the patch is e5a085afe6abfaea1d1a78f54c45af9ef43ca1f9. It is recommended to upgrade the affected component.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2020-36830
+- https://github.com/nescalante/urlregex/pull/8
+- https://github.com/nescalante/urlregex/commit/e5a085afe6abfaea1d1a78f54c45af9ef43ca1f9
+- https://github.com/nescalante/urlregex
+- https://github.com/nescalante/urlregex/releases/tag/v0.5.1
+- https://vuldb.com/?ctiid.276269
+- https://vuldb.com/?id.276269

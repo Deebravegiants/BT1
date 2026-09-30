@@ -1,0 +1,28 @@
+# [M] Microweber vulnerable to Path Traversal
+
+## Summary
+Severity: Medium
+Advisory: GHSA-vv4x-qcpq-wgrg
+CVE: CVE-2026-12198
+CWE: CWE-22
+Ecosystem: Packagist
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L (CVSS_V3)
+Published: 2026-06-15
+Source: https://github.com/advisories/GHSA-vv4x-qcpq-wgrg
+Type: github-advisory
+
+## Affected
+- Packagist: `microweber/microweber` — affected >=0
+
+## Details
+A weakness has been identified in Microweber up to 2.0.20. This affects the function userfiles_path of the file /api_nosession/thumbnail_img of the component API Endpoint. Executing a manipulation of the argument cache_path_relative can lead to path traversal. It is possible to launch the attack remotely. The exploit has been made available to the public and could be used for attacks. The vendor was contacted early about this disclosure but did not respond in any way.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2026-12198
+- https://github.com/microweber/microweber/issues/1172
+- https://github.com/microweber/microweber
+- https://github.com/whuHouYF/microweber-vuldb-disclosure-2026/blob/991630c494a99c70a96e456992a04de2ecb5a1e1/reports/microweber-path-traversal.md
+- https://vuldb.com/cve/CVE-2026-12198
+- https://vuldb.com/submit/829596
+- https://vuldb.com/vuln/370841
+- https://vuldb.com/vuln/370841/cti

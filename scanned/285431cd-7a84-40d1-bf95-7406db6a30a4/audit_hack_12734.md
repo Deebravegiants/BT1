@@ -1,0 +1,30 @@
+# [M] The formula for calculating price change is incorrect in Exp price adapter.
+
+## Summary
+Severity: Medium
+Reporter: Blurry Brown Cricket
+Source: https://github.com/sherlock-audit/2023-06-Index/blob/main/index-protocol/contracts/protocol/integration/auction-price/BoundedStepwiseExponentialPriceAdapter.sol#L73C67-L73C67
+Type: audit-issue
+
+## Details
+# The formula for calculating price change is incorrect in Exp price adapter.
+
+## Summary
+In `BoundedStepwiseExponentialPriceAdapter`, there's a formula to calculate the price change and it is incorrect for normalization.
+
+## Vulnerability Detail
+https://github.com/sherlock-audit/2023-06-Index/blob/main/index-protocol/contracts/protocol/integration/auction-price/BoundedStepwiseExponentialPriceAdapter.sol#L73C67-L73C67
+
+The formula is `scalingFactor * expExpression - WAD`, but the correct normalization has to be `scalingFactor * (expExpression - WAD)`
+
+## Impact
+This issue leads to unexpected and/or unwanted price graph.
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Update the formula as described above. 🫡

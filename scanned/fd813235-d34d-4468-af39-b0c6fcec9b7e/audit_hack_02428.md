@@ -1,0 +1,15 @@
+# [M] Missing Factory Dependencies
+
+## Summary
+Severity: Medium
+Source: https://github.com/matter-labs/zksync-2-contracts/blob/9f3c6944e6320166edd96ef6586a9dd4548a27f2/ethereum/contracts/bridge/L1ERC20Bridge.sol#L72
+Type: audit-issue
+
+## Details
+When the `L1ERC20Bridge` is initialized, the bytecode of the L2 bridge and token proxy [are both provided](https://github.com/matter-labs/zksync-2-contracts/blob/9f3c6944e6320166edd96ef6586a9dd4548a27f2/ethereum/contracts/bridge/L1ERC20Bridge.sol#L72) as factory dependencies. This ensures the code [is known](https://github.com/matter-labs/system-contracts/blob/191246a878f1493a5ed5f0fa6d79af4ce3e7eb8f/contracts/KnownCodesStorage.sol#L96) when the L2 Bridge is deployed, or a new token is created. However, the L2 bridge initialization also [deploys the token implementation and proxy beacon](https://github.com/matter-labs/zksync-2-contracts/blob/9f3c6944e6320166edd96ef6586a9dd4548a27f2/zksync/contracts/bridge/L2ERC20Bridge.sol#L43-L44). Since neither contract was listed as a factory dependency, they may not be marked as known. Unless they were previously mentioned in an unrelated transaction, the bridge initialization will fail.
+
+Consider including the `L2StandardERC20` and the `UpgradeableBeacon` contracts in the factory dependencies of the bridge initialization transaction.
+
+_**Update:** Acknowledged, will resolve. The Matter Labs team stated:_
+
+> _Acknowledged. The problem can only be encountered at the initialization stage, so we prefer not to change the deployment scripts at the moment. This has been included in the backlog as a refactoring task._

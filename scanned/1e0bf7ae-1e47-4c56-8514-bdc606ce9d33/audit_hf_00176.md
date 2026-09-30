@@ -1,0 +1,14 @@
+# [M] Cannot claim reward
+
+## Summary
+Severity: Medium
+Contest weight: 0.0390
+Dataset id: 942
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability lies in the reward‑claiming mechanism of a concentrated liquidity pool manager contract. The claimReward function checks a flag named stake.initialized before proceeding, yet the contract never sets this flag when a stake is created. Consequently, every call to claimReward fails the initialization check, causing the transaction to revert before any reward logic is executed. In addition, the function performs a calculation using the expression 128 ‑ incentive.secondsClaimed. Because secondsClaimed is stored as an unsigned integer that quickly exceeds the constant 128, the subtraction underflows, triggering Solidity’s built‑in overflow protection and reverting the call. The root cause is a combination of missing state initialization and an unsafe arithmetic assumption that the elapsed time will never surpass a hard‑coded threshold. An attacker does not need to perform any special actions; any legitimate user who attempts to claim accrued rewards will experience a revert, effectively locking the reward tokens inside the contract. This failure occurs whenever a user invokes claimReward after staking, regardless of the amount of time elapsed, because the initialization flag is always false and the secondsClaimed value soon exceeds 128. The affected parties are liquidity providers and any participants who rely on the reward distribution to receive incentive tokens; from their perspective the UI may show a “Claim Reward” button, but the transaction fails silently or returns a generic error, leading to confusion as the expected reward balance remains unchanged. The issue was uncovered during a systematic security audit (Code4rena) where the auditors traced the execution path of claimReward and noticed that the required flag was never assigned and that the arithmetic expression could cause an underflow. Because the revert occurs deep inside the function, the problem may not be obvious from surface‑level testing or from reading the contract’s public interface, making it harder to detect without detailed code review. To resolve the problem, the contract should set stake.initialized to true at the moment the stake is recorded, and the reward calculation should be rewritten to use a safe time‑difference computation that does not rely on a fixed constant, possibly by tracking the actual elapsed seconds and ensuring the subtraction cannot underflow. In broader terms, the bug belongs to the class of state‑initialization errors coupled with arithmetic underflow that result in functional lockout of critical contract features, causing rewards to disappear from the user’s perspective while remaining trapped in the contract.
+
+## Recommendation
+Rethink how claiming rewards should work.

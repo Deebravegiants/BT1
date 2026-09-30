@@ -1,11 +1,23 @@
 import json
 import os
 import shutil
+import signal
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from audit_validation import Validator
+
+MAX_RUNTIME_SECONDS = 20 * 60
+
+
+class ScanTimeout(BaseException):
+    """Raised when the max runtime is hit (BaseException so `except Exception` won't swallow it)."""
+    pass
+
+
+def _timeout_handler(signum, frame):
+    raise ScanTimeout()
 
 
 def move_files_to_automation():
@@ -90,35 +102,43 @@ def main():
 
         bot = Validator(teardown=True)
 
-        for i, audit_file in enumerate(audit_files, 1):
-            if audit_file.name in processed_files:
-                print(f"[{i}/{total}] Skipping (already processed): {audit_file.name}")
-                skipped_count += 1
-                continue
+        signal.signal(signal.SIGALRM, _timeout_handler)
+        signal.alarm(MAX_RUNTIME_SECONDS)  # hard stop after 20 minutes
 
-            print(f"\n[{i}/{total}] Processing: {audit_file.name}")
+        try:
+            for i, audit_file in enumerate(audit_files, 1):
+                if audit_file.name in processed_files:
+                    print(f"[{i}/{total}] Skipping (already processed): {audit_file.name}")
+                    skipped_count += 1
+                    continue
 
-            try:
-                with open(audit_file, 'r', encoding='utf-8') as f:
-                    content = f.read()
+                print(f"\n[{i}/{total}] Processing: {audit_file.name}")
 
-                print(f"Processing content from {audit_file.name}...")
+                try:
+                    with open(audit_file, 'r', encoding='utf-8') as f:
+                        content = f.read()
 
-                # Assuming bot.ask_question() is what processes the content
-                # You might want to pass the filename as well
-                bot.scan_past_vuln(audit_file.name, content)
+                    print(f"Processing content from {audit_file.name}...")
 
-                # Add to processed files
-                processed_files.add(audit_file.name)
-                processed_count += 1
+                    # Assuming bot.ask_question() is what processes the content
+                    # You might want to pass the filename as well
+                    bot.scan_past_vuln(audit_file.name, content)
 
-                counter += 1
-                if counter >= 30:
-                    break
+                    # Add to processed files
+                    processed_files.add(audit_file.name)
+                    processed_count += 1
 
-            except Exception as e:
-                print(f"Error processing {audit_file.name}: {str(e)}")
-                continue
+                    counter += 1
+                    if counter >= 30:
+                        break
+
+                except Exception as e:
+                    print(f"Error processing {audit_file.name}: {str(e)}")
+                    continue
+        except ScanTimeout:
+            print(f"\n20-minute limit reached, stopping.")
+        finally:
+            signal.alarm(0)
 
         print(f"\n=== Summary ===")
         print(f"Total files: {total}")

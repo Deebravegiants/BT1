@@ -1,0 +1,14 @@
+# [M] `MainToken.set_mint_multisig`
+
+## Summary
+Severity: Medium
+Contest weight: 0.0318
+Dataset id: 1096
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability resides in the privileged configuration function that updates the address authorized to perform token minting. The contract allows an external caller with sufficient role to invoke the function that sets the minting multisig address, but it fails to verify that the supplied address is non‑zero. Because there is no check that the new address is a valid, non‑null account, an attacker who can call the setter (for example, an authorized admin who has been compromised or a malicious party who gains access to the role) can replace the legitimate multisig with the zero address (0x0000000000000000000000000000000000000000). This misconfiguration breaks the access control check that typically restricts minting to the stored multisig address. When the stored address becomes zero, any subsequent minting call that checks "require(msg.sender == minting_multisig)" will never succeed, effectively disabling the mint function and preventing the protocol from issuing new tokens. The impact is a denial‑of‑service on token issuance: users expecting token rewards, liquidity providers expecting newly minted tokens, or any downstream contract that relies on minting will see no token balances appear, leading to missing rewards, stalled incentives, and potentially loss of confidence in the protocol. The issue manifests whenever the setter function is called with an invalid address, which can happen intentionally by an attacker or inadvertently due to a UI or script error that supplies an empty value. The affected parties include token holders, reward claimants, and anyone reliant on the token's minting schedule. The flaw was uncovered during a manual security audit that examined the contract’s state‑changing functions and noticed the absence of a zero‑address guard. It is hard to notice in runtime because the contract does not emit a specific error; the minting function simply fails silently, making the problem appear as a generic "mint failed" without indicating a configuration issue. To remediate, the setter should include an explicit validation that the new address is not the zero address before updating the storage variable, and it should emit an event indicating the change. This aligns with the broader class of input‑validation bugs where privileged role addresses are allowed to be set to a null value, leading to permission loss or contract lock‑out. From the user’s perspective, the UI might show that a request to mint tokens returns successfully but the balance remains unchanged, contradicting the expectation that a mint transaction results in an increased token balance.
+
+## Recommendation
+Check that `_minting_multisig` doesn’t equal zero before setting it as the new `minting_multisig`.

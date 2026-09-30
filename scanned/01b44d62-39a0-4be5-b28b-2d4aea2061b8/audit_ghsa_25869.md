@@ -1,0 +1,25 @@
+# [H] Liferay Portal and Liferay DXP fails to properly import users from LDAP
+
+## Summary
+Severity: High
+Advisory: GHSA-jp3m-vh3g-6ggp
+CVE: CVE-2021-38266
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2022-03-04
+Source: https://github.com/advisories/GHSA-jp3m-vh3g-6ggp
+Type: github-advisory
+
+## Affected
+- Maven: `com.liferay:com.liferay.portal.security.ldap.impl` — affected >=0 <2.0.19
+- Maven: `com.liferay.portal:release.dxp.bom` — affected >=0 <7.3.0-ga1
+
+## Details
+Security LDAP Implementation before 2.0.16 from Liferay Portal through v7.2.1 and Liferay DXP through v7.2 does not correctly import users from LDAP, allowing remote attackers to prevent a legitimate user from authenticating by attempting to sign in as a user that exists in LDAP.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2021-38266
+- https://github.com/liferay/liferay-portal/commit/c3d1e3c7b18be0791360bb57428ea8234bcbb736
+- https://github.com/liferay/liferay-portal
+- https://issues.liferay.com/browse/LPE-17191
+- https://liferay.dev/portal/security/known-vulnerabilities/-/asset_publisher/jekt/content/cve-2021-38266?p_r_p_assetEntryId=121611673&_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_jekt_redirect=https%3A%2F%2Fliferay.dev%3A443%2Fportal%2Fsecurity%2Fknown-vulnerabilities%3Fp_p_id%3Dcom_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_jekt%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26p_r_p_assetEntryId%3D121611673%26_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_jekt_cur%3D0%26p_r_p_resetCur%3Dfalse

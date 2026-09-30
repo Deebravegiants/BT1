@@ -1,0 +1,28 @@
+# [M] Improper handling in function _setMaxDiffPercent()
+
+## Summary
+Severity: Medium
+Reporter: Icy Lava Cyborg
+Source: https://github.com/sherlock-audit/2023-12-flatmoney/blob/main/flatcoin-v1/src/OracleModule.sol#L229-L238
+Type: audit-issue
+
+## Details
+# Improper handling in function _setMaxDiffPercent()
+
+## Summary
+Improper handling in function _setMaxDiffPercent()
+
+## Vulnerability Detail
+In function _setMaxDiffPercent(), '_maxDiffPercent = 0' means that that we don't ever expect the oracle prices to differ. Zero's one valid value for parameter **_maxDiffPercent**. However, we will revert if _maxDiffPercent equals 0.
+
+## Impact
+Function behavior is not expected when _maxDiffPercent equals 0.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-12-flatmoney/blob/main/flatcoin-v1/src/OracleModule.sol#L229-L238
+
+## Tool used
+
+Manual Review
+
+## Recommendation

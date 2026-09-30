@@ -1,0 +1,39 @@
+# [H] USSD's uniswap swapping logic ignores slippage completely and can be sandwich attacked
+
+## Summary
+Severity: High
+Reporter: Lilyjjo
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L237
+Type: audit-issue
+
+## Details
+# USSD's uniswap swapping logic ignores slippage completely and can be sandwich attacked
+
+## Summary
+
+With how the USSD codebase is written, an attacker can easily setup single-transaction sandwich attacks. In USSD.sol's `UniV3SwapInput()` function the slippage parameter for the swap [is set to accept any slippage amount](https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/USSD.sol#L237). Additionally, anyone can trigger the protocol to make swaps to the collateral tokens through calling USSDRebalancer's `rebalance()` function. With these two facts an attacker can (1) borrow funds to shift asset prices in uniswap pools, (2) force the protocol to purchase funds at an inflated rate, and (3) benefit from the inflated prices by selling back the initial assets and returning any borrowed funds. 
+
+## Vulnerability Detail
+
+There are many variations of this attack. A simple one that all can fit into a single transaction:
+- Pool needs to be rebalanced by purchasing DAI to add to DAI:USSD pool 
+- Attacker flash borrows USDC from AAVE or Balancer 
+- Attacker deposits borrowed USDC into USDC:WETH uniswap pool to inflate price of WETH (all non-DAI collateral purchasing routes flow through this pool with the goal of buying WETH)
+- Attacker triggers the USSDRebalancer's `rebalance()` function, which will then go buy WETH through the USDC:WETH pool at inflated price to restore the price of USSD:DAI pool 
+- Attacker sells borrowed WETH at higher price, receiving more USDC than what was initially used to purchase
+- Attacker returns borrowed USDC and keeps the extra USDC gained from the sandwich attack
+- Protocol's collateral value is now lower and is leaking value, which will eventually cause the protocol to be unable to purchase back DAI when needing to rebalance the pool 
+
+## Impact
+
+This will enable the USSD protocol to be drained of its collateral, which impacts the protocol's ability to continue its peg rebalancing. 
+
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Add slippage parameters to the USSD.sol's  [UniV3SwapInput()](https://github.com/sherlock-audit/2023-05-USSD/blob/6d7a9fdfb1f1ed838632c25b6e1b01748d0bafda/ussd-contracts/contracts/USSD.sol#L237)! The desired min return amount can be estimated using the prices returned from the oracles.

@@ -1,0 +1,30 @@
+# [M] <array>.length Should Not Be Looked Up In Every Loop Of A For-loop
+
+## Summary
+Severity: Medium
+Reporter: coffiasd
+Source: https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L175
+Type: audit-issue
+
+## Details
+# <array>.length Should Not Be Looked Up In Every Loop Of A For-loop
+
+## Summary
+<array>.length Should Not Be Looked Up In Every Loop Of A For-loop
+## Vulnerability Detail
+
+## Impact
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L175
+https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L193
+https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L211
+https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L226
+https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L315
+https://github.com/sherlock-audit/2023-04-blueberry/blob/main/blueberry-core/contracts/BlueBerryBank.sol#L411
+## Tool used
+
+Manual Review
+
+## Recommendation
+assign <array>.length to local variable

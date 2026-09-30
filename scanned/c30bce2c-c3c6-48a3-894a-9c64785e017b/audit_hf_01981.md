@@ -1,0 +1,14 @@
+# [M] Casting from int256 to uint256 won't revert if the number is negative, possibly leading to issues
+
+## Summary
+Severity: Medium
+Contest weight: 0.0217
+Dataset id: 11143
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability originates from an unchecked type conversion where a signed 256‑bit integer (int256) is cast directly to an unsigned 256‑bit integer (uint256) inside the contract logic that calculates pending accumulated funding fees. Because Solidity does not automatically revert when a negative signed value is cast to an unsigned type, the conversion silently wraps the two's‑complement representation, turning a negative number into a very large positive integer (2^256‑|value|). This mismatch between the intended signed arithmetic and the resulting unsigned value can cause the contract to record an inflated fee amount, miscalculate refunds, or deduct an excessive amount from a user's balance. An attacker or a malicious user can trigger a situation where the internal accounting variable becomes negative – for example by causing a funding fee to underflow – and then invoke the function that performs the cast. The contract will then treat the negative fee as a huge positive number, leading to a loss of funds for honest participants, zero or missing refunds for users, or a state where the protocol appears to have more fees than actually accrued. The issue manifests whenever the function that computes pending fees processes a value that can become negative, which may happen under edge‑case market conditions, rapid price swings, or when a user manipulates the funding rate. All participants who rely on accurate fee accounting – liquidity providers, traders, and the protocol itself – are affected because the accounting invariant is broken. The flaw was discovered during a manual audit that inspected arithmetic operations and identified the unsafe cast in the getPendingAccFundingFees routine. It is subtle because the contract does not emit an error or revert; the incorrect large number may only be observable later as an unexpected fee balance or a missing refund, making it hard to spot without deep inspection of signed‑to‑unsigned conversions. To remediate the issue, the code should avoid direct casts and instead use a safe casting library such as SafeCastUpgradeable, which checks that the signed value is non‑negative before converting, or explicitly add a require statement that the value is >=0. By enforcing this check, the contract will revert when a negative fee is encountered, preserving the intended accounting logic and preventing the accidental creation of massive unsigned values that could drain funds or break the protocol’s financial guarantees.
+
+## Recommendation
+Avoid casting directly and use a wrapper library instead such as SafeCastUpgradeable.

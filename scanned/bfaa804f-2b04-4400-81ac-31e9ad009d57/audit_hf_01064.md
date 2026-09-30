@@ -1,0 +1,14 @@
+# [M] GG-3 | Shorten Lock
+
+## Summary
+Severity: Medium
+Contest weight: 0.0491
+Dataset id: 4051
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is a lock‑period shortening flaw in the transferLock routine of the token contract. When a user transfers a locked balance, the function copies the sender’s stakeUntil timestamp directly onto the recipient’s stakeUntil field, overwriting any previously longer lock that the recipient may have held. The root cause is the use of a simple assignment instead of a rule that preserves the maximum lock duration or requires explicit acceptance of the incoming lock. An attacker can exploit this by sending a small amount of tokens from an address whose lock expires soon to an address that is supposed to keep its tokens locked for a longer period. Because the recipient’s stakeUntil is replaced with the earlier timestamp, the combined balance becomes unlockable at the earlier time, allowing the recipient to withdraw or claim rewards sooner than the protocol’s economic model intends. This impact manifests as premature fund release, breaking the guarantee that locked tokens remain inaccessible until a predefined date, which can undermine staking incentives, vesting schedules, or cross‑chain bridge security. The condition for the bug to appear is any call to transferLock where the sender’s lock expiration is earlier than the receiver’s existing lock. All token holders who receive transferred locked tokens are potentially affected, as are the protocol’s accounting logic that assumes locks only extend or stay unchanged. The issue was discovered during a manual audit that examined the lock‑handling logic and noticed the direct assignment without a max‑check. It can be hard to notice because the UI may still display the correct balance, while the lock timer silently moves to an earlier date, giving the impression that nothing is wrong until a user attempts to withdraw early and finds the funds unexpectedly available. To remediate, the contract should adopt a push‑then‑pull pattern where the receiver explicitly accepts an incoming lock and the resulting stakeUntil is set to the later of the two timestamps, or each lock should be represented as a distinct NFT so that merging logic can be enforced safely. In conceptual terms, the bug belongs to the class of “state overwrite” or “incorrect invariant preservation” errors where a security‑critical variable is overwritten with a weaker value, violating the intended business rule that lock periods can only stay the same or increase.
+
+## Recommendation
+When transferring a lock, adopt a push then pull pattern where the receiver needs to accept an incoming lock, and then adopt the longer lock period when combining locks. Alternatively, make each lock its own unique NFT token.

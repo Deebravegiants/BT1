@@ -1,0 +1,147 @@
+# [H] Staker can perform rewards withdrawal every
+
+## Summary
+Severity: High
+Contest weight: 0.7929
+Dataset id: 19805
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+Time difference accounted for in _getEffectiveAmounts() that is used for rewards computation is based on the lesser amount of time passed since last reward withdrawal and borrower's last repay. In order to maximize the rewards a staker can withdraw rewards every uToken.overdueBlocks() - 1, so that difference is always be less than overdue threshold and none of staker's loans be deemed overdue no matter how long ago their last payments were. Effective amounts are counted to determine the reward multiplier and amount, and the frozen part of these amounts corresponds to the bad debt. However, the time period check for the inclusion of a borrower to the frozenCoinAge is performed as overdueBlocks < repayDiff, where repayDiff = block.number - _max(lastRepay, coinAge.lastWithdrawRewards), and lastWithdrawRewards = getLastWithdrawRewards[stakerAddress] is staker controlled. So this repayDiff can be always kept below overdueBlocks via calling rewards gathering frequent enough, once per overdueBlocks - 1 or sooner. Also notice that _getCoinAge() returned coinAge.lockedCoinAge is updated on overdue debt repayment only and is zero when no such repayments were made. As an example, a staker can lend themselves, pay no interest, call withdrawRewards() once per overdueBlocks - 1, gathering full rewards without any penalty. Or just observing bad debt start to do it in order to remove its impact on rewards. In any case this provides a way to remove frozenCoinAge based bad debt penalty altogether. Excess UNION rewards emissions dilute holdings of the honest members who do not time their withdrawRewards() calls to points of reward multiplier maximization. This is monetary loss for all UNION holders (as total emission is increased), and particularly for the stakers who actually use the system (as specifically new emission is increased), i.e. in result the attacker steals from all holders/stakers by inflating UNION emission. Setting severity to be high as there are no specific preconditions for the attack, it can be carried out by any UNION staker. _getEffectiveAmounts() accumulates frozenCoinAge only when uToken.overdueBlocks() = overdueBlocks < repayDiff = block.number - _max(lastRepay, coinAge.lastWithdrawRewards), treating it as zero for that voucher otherwise:
+```solidity
+contracts/user/UserManager.sol#L892-L938
+function _getEffectiveAmounts(address stakerAddress, uint256 pastBlocks)
+    private
+    view
+    returns (
+        uint256,
+        uint256,
+        uint256
+    )
+{
+    uint256 memberTotalFrozen = 0;
+    CoinAge memory coinAge = _getCoinAge(stakerAddress);
+    uint256 overdueBlocks = uToken.overdueBlocks();
+    uint256 voucheesLength = vouchees[stakerAddress].length;
+    // Loop through all of the stakers vouchees sum their total
+    // locked balance and sum their total currDefaultFrozenCoinAge
+    for (uint256 i = 0; i < voucheesLength; i++) {
+        // Get the vouchee record and look up the borrowers voucher record
+        // to get the locked amount and lastUpdated block number
+        Vouchee memory vouchee = vouchees[stakerAddress][i];
+        Vouch memory vouch = vouchers[vouchee.borrower][vouchee.voucherIndex];
+        uint256 lastRepay = uToken.getLastRepay(vouchee.borrower);
+        uint256 repayDiff = block.number - _max(lastRepay,
+            coinAge.lastWithdrawRewards);
+
+        uint256 locked = uint256(vouch.locked);
+        if (overdueBlocks < repayDiff && (coinAge.lastWithdrawRewards != 0 ||
+            lastRepay != 0)) {
+
+            memberTotalFrozen += locked;
+            if (pastBlocks >= repayDiff) {
+                coinAge.frozenCoinAge += (locked * repayDiff);
+            } else {
+                coinAge.frozenCoinAge += (locked * pastBlocks);
+            }
+        }
+        uint256 lastUpdateBlock = _max(coinAge.lastWithdrawRewards,
+            uint256(vouch.lastUpdated));
+
+        coinAge.lockedCoinAge += (block.number - lastUpdateBlock) * locked;
+    }
+    return (
+        // staker's total effective staked = (staked coinage - frozen coinage) / (# of blocks since last reward claiming)
+
+        coinAge.diff == 0 ? 0 : (coinAge.stakedCoinAge - coinAge.frozenCoinAge)
+            / coinAge.diff,
+
+        // effective locked amount = (locked coinage - frozen coinage) / (# of blocks since last reward claiming)
+
+        coinAge.diff == 0 ? 0 : (coinAge.lockedCoinAge - coinAge.frozenCoinAge)
+            / coinAge.diff,
+
+        memberTotalFrozen
+    );
+}
+```
+_getCoinAge() returns getLastWithdrawRewards[stakerAddress] as lastWithdrawRewards, i.e. that's staker controlled, and block.number - _max(lastWithdrawRewards, uint256(staker.lastUpdated)) as diff, frozenCoinAge[stakerAddress] as frozenCoinAge, which serves as a base for frozen accumulator:
+```solidity
+ontracts/user/UserManager.sol#L1072-L1087
+function _getCoinAge(address stakerAddress) private view returns (CoinAge memory) {
+
+    Staker memory staker = stakers[stakerAddress];
+    uint256 lastWithdrawRewards = getLastWithdrawRewards[stakerAddress];
+    uint256 diff = block.number - _max(lastWithdrawRewards,
+        uint256(staker.lastUpdated));
+
+    CoinAge memory coinAge = CoinAge({
+        lastWithdrawRewards: lastWithdrawRewards,
+        diff: diff,
+        stakedCoinAge: staker.stakedCoinAge + diff *
+            uint256(staker.stakedAmount),
+
+        lockedCoinAge: staker.lockedCoinAge,
+        frozenCoinAge: frozenCoinAge[stakerAddress]
+    });
+    return coinAge;
+}
+```
+While across the protocol frozenCoinAge[stakerAddress] is accumulated only on onRepayBorrow():
+```solidity
+ontracts/user/UserManager.sol#L995-L1015
+/**
+* @dev Update the frozen info by the utoken repay
+* @param borrower Borrower address
+*/
+function onRepayBorrow(address borrower) external {
+    if (address(uToken) != msg.sender) revert AuthFailed();
+    uint256 overdueBlocks = uToken.overdueBlocks();
+    uint256 vouchersLength = vouchers[borrower].length;
+    uint256 lastRepay = 0;
+    uint256 diff = 0;
+    for (uint256 i = 0; i < vouchersLength; i++) {
+        Vouch memory vouch = vouchers[borrower][i];
+        lastRepay = uToken.getLastRepay(borrower);
+        diff = block.number - lastRepay;
+        if (overdueBlocks < diff) {
+            frozenCoinAge[vouch.staker] += uint256(vouch.locked) * diff;
+        }
+    }
+}
+```
+onRepayBorrow() is called only by _repayBorrowFresh() and only when the debt is overdue:
+```solidity
+ontracts/market/UToken.sol#L601-L638
+function _repayBorrowFresh(address payer, address borrower, uint256 amount,
+    uint256 interest) internal {
+
+    ...
+    if (repayAmount >= interest) {
+        ...
+        if (isOverdue) {
+            // For borrowers that are paying back overdue balances we need to
+            update their
+
+            // frozen balance and the global total frozen balance on the
+            UserManager
+
+            IUserManager(userManager).onRepayBorrow(borrower);
+        }
+```
+```solidity
+ontracts/market/UToken.sol#L389-L395
+function checkIsOverdue(address account) public view override returns (bool isOverdue) {
+
+    if (getBorrowed(account) != 0) {
+        uint256 lastRepay = getLastRepay(account);
+        uint256 diff = getBlockNumber() - lastRepay;
+        isOverdue = overdueBlocks < diff;
+    }
+}
+```
+I.e. if a staker's borrowers didn't repaid at all, or repaid without overdue for some period and then became bad debt, making no repayments after some date, then frozenCoinAge[stakerAddress] is zero as no overdue repayments were ever made. Furthermore, staker can call withdrawRewards() to update getLastWithdrawRewards[stakerAddress] and keep diff = block.number - _max(lastWithdrawRewards, uint256(staker.lastUpdated)) under it's uToken.overdueBlocks(), keeping their frozen counter zero.
+
+## Recommendation
+As an example approach, consider introducing lifetime effective staked, locked and frozen accumulators, i.e. do not resetting them on each rewards claim, and using the difference of the last claim point instead. This way total staked, locked, frozen counters will be kept since staker inception, but only the last yet unrewarded period will be used to calculate each next portion of the rewards. Manipulation surface described will not be viable as withdrawRewards() will only determine the reward period and will not be resetting the whole reward accounting.

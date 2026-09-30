@@ -1,0 +1,68 @@
+# [M] Minting can be DOSed by any of the fee recip-
+
+## Summary
+Severity: Medium
+Contest weight: 0.2486
+Dataset id: 22725
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The minting process might be DOS by malicious fee recipients, breaking the protocol's core functionality. This would also result in the loss of fee for the rest of the innocent fee recipients as the minting cannot proceed, resulting in the minting fee not being collected.
+When minting a new token for a given work, the minting fee will be collected as per Line 236 below.
+2/src/editions/Edition.sol#L236
+File: Edition.sol
+222:
+/// @notice Mint a new token for the given work.
+223:
+/// @param to_ The address to mint the token to.
+224:
+/// @param tokenId_ The ID of the work to mint.
+225:
+/// @param amount_ The amount of tokens to mint.
+226:
+/// @param referrer_ The address of the referrer.
+227:
+/// @param data_ The data associated with the mint. Reserved for future use.
+228:
+function mint(
+229:
+address to_,
+230:
+uint256 tokenId_,
+231:
+uint256 amount_,
+232:
+address referrer_,
+233:
+bytes calldata data_
+234:
+) external payable override {
+235:
+// wake-disable-next-line reentrancy
+236:
+FEE_MANAGER.collectMintFee{value: msg.value}(
+237:
+this, tokenId_, amount_, msg.sender, referrer_,
+works[tokenId_].strategy
+238:
+);
+239:
+240:
+_issue(to_, tokenId_, amount_, data_);
+241:
+_refundExcess();
+242:
+}
+The collected minting fee will be routed or transferred to one or more of the following parties directly (Using a push mechanism):
+1. Edition's creator (Using 0xSplit wallet)
+2. Edition's attributions (no limit on the number of attributions in the current setup) (Using 0xSplit wallet)
+3. Collection referrer
+4. Minting referrer
+5. Protocol fee receiver
+This approach introduced the risk of DOS to the minting process. As long as any of the parties above intentionally revert upon receiving the ETH minting fee, they could DOS the entire minting process of work.
+requires the recipients to claim the fees from the 0xSplit wallet manually (Using the pull mechanism instead)
+The minting process might be DOS by malicious fee recipients, breaking the protocol's core functionality. This would also result in the loss of fee for the rest of the innocent fee recipients as the minting cannot proceed, resulting in the minting fee not being collected.
+
+## Recommendation
+Consider adopting a pull mechanism for the fee recipients to claim their accrued fee instead of transferring the fee directly to them during the minting process.

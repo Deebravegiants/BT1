@@ -1,0 +1,71 @@
+# [H] LoongArch: Fix missing dirty page tracking in {pte,pmd}_wrprotect()
+
+## Summary
+Severity: High
+Advisory: CVE-2026-72043
+Ecosystem: Linux
+CVSS: 7.1 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N)
+Published: 2026-08-15
+Source: https://osv.dev/vulnerability/CVE-2026-72043
+Type: osv
+
+## Affected
+- Linux: `Kernel` — affected >=5.19.0 <6.1.178, >=6.2.0 <6.6.145, >=6.7.0 <6.12.97, >=6.13.0 <6.18.40, >=6.19.0 <7.1.5
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+LoongArch: Fix missing dirty page tracking in {pte,pmd}_wrprotect()
+
+When hardware page table walker (PTW) is enabled on LoongArch, the CPU
+may set _PAGE_DIRTY directly in the page table entry during a write TLB
+miss, without going through the software TLB store handler. The software
+TLB store handler (tlbex.S:254) sets both _PAGE_DIRTY and_PAGE_MODIFIED
+together:
+
+    ori t0, t0, (_PAGE_VALID | _PAGE_DIRTY | _PAGE_MODIFIED)
+
+Since hardware PTW only sets _PAGE_DIRTY, the software-only bit, i.e.
+_PAGE_MODIFIED is left unchanged. This creates a window where a PTE has
+_PAGE_DIRTY set (hardware knows the page is dirty) but _PAGE_MODIFIED
+clear (software is unaware).
+
+When fork()/clone() triggers copy-on-write, __copy_present_ptes() calls
+pte_wrprotect(), which unconditionally clears both the _PAGE_WRITE and
+_PAGE_DIRTY bits:
+
+    pte_val(pte) &= ~(_PAGE_WRITE | _PAGE_DIRTY);
+
+Since _PAGE_MODIFIED was never set, the dirtiness information is lost
+completely. Subsequently, when memory pressure triggers page reclaim,
+page_mkclean() / try_to_unmap() sees the page as clean (i.e. pte_dirty()
+returns false) and the page may be freed without writeback, causing data
+corruption.
+
+Fix this by propagating the _PAGE_DIRTY bit to the _PAGE_MODIFIED bit in
+both pte_wrprotect() and pmd_wrprotect() before clearing writeable bits:
+
+    if (pte_val(pte) & _PAGE_DIRTY)
+        pte_val(pte) |= _PAGE_MODIFIED;
+
+The pmd_wrprotect() fix handles the CONFIG_TRANSPARENT_HUGEPAGE case,
+where pmd entries need the same treatment.
+
+This ensures the software dirty tracking bit (checked by pte_dirty() and
+pmd_dirty(), which read both the _PAGE_DIRTY and _PAGE_MODIFIED bits) is
+preserved across fork COW write-protection.
+
+The issue was found by the LTP madvise09 test case, which exercises page
+reclaim after "madvise(MADV_FREE), write and fork" operation sequence on
+private anonymous mappings.
+
+## References
+- https://git.kernel.org/stable/c/018e9828eb523c638fa3d9bdf0fd4956b74555b2
+- https://git.kernel.org/stable/c/39bb21a4bff0d70058bf752d7b5aa2e2ccc864a9
+- https://git.kernel.org/stable/c/76f88650763a35cbf1384c65d66d096fa31cc58d
+- https://git.kernel.org/stable/c/a65f49b6f7ece756394f8f0e85570020e7fd0e35
+- https://git.kernel.org/stable/c/e483da960892c41fa7f0cf0d2fc2410d65a483d6
+- https://git.kernel.org/stable/c/e8a916579e427af32f2de8213dfa23c5df6e6664
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/72xxx/CVE-2026-72043.json
+- https://nvd.nist.gov/vuln/detail/CVE-2026-72043
+- https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git

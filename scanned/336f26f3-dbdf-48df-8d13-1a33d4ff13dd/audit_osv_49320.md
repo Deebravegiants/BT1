@@ -1,0 +1,19 @@
+# [C] CVE-2019-1010060
+
+## Summary
+Severity: Critical
+Advisory: CVE-2019-1010060
+CVSS: 9.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2019-07-16
+Source: https://osv.dev/vulnerability/CVE-2019-1010060
+Type: osv
+
+## Details
+NASA CFITSIO prior to 3.43 is affected by: Buffer Overflow. The impact is: arbitrary code execution. The component is: over 40 source code files were changed. The attack vector is: remote unauthenticated attacker. The fixed version is: 3.43. NOTE: this CVE refers to the issues not covered by CVE-2018-3846, CVE-2018-3847, CVE-2018-3848, and CVE-2018-3849. One example is ftp_status in drvrnet.c mishandling a long string beginning with a '4' character.
+
+## References
+- https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=892458
+- https://github.com/astropy/astropy/pull/7274
+- https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio3420.tar.gz
+- https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio3430.tar.gz
+- https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/docs/changes2.txt

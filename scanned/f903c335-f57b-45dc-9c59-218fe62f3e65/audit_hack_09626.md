@@ -1,0 +1,87 @@
+# [M] FootiumClub's safeMint can lead to losing the minted token
+
+## Summary
+Severity: Medium
+Reporter: TheNaubit
+Source: https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol#L226-L263
+Type: audit-issue
+
+## Details
+# FootiumClub's safeMint can lead to losing the minted token
+
+## Summary
+FootiumClub contract has a function to mint new "club" ERC721 tokens called `safeMint`. But that function is using internally `_mint()` instead of `_safeMint()` for ERC721.
+
+## Vulnerability Detail
+When minting a new "club" ERC721 token using the contract's safeMint() function, it will call the ERC721 `_mint()` function. However, if the `to` address is a contract address that does not support ERC721, the NFT can be frozen in the contract.
+
+As per the documentation of EIP-721: 
+> "A wallet/broker/auction application MUST implement the wallet interface if it will accept safe transfers."
+
+Ref: [https://eips.ethereum.org/EIPS/eip-721](https://eips.ethereum.org/EIPS/eip-721)
+
+As per the documentation of ERC721.sol by OpenZeppelin:
+Ref: [https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol#L226-L263](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol#L226-L263)
+
+## Impact
+Users possibly lose their NFTs.
+
+## Code Snippet
+[https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumClub.sol#L65](https://github.com/sherlock-audit/2023-04-footium/blob/main/footium-eth-shareable/contracts/FootiumClub.sol#L65)
+
+### POC
+I have included a little POC you can use.
+First you need to add in the folder ` ./contracts/mocks/` one mock contracts, which does not support ERC721 transfers. I created that contract with the name `NotSupportingERC721Transfer.sol`:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.16;
+contract NotSupportingERC721Transfer {        
+    constructor() {}
+}
+```
+
+Now we can create the POC. To do that, I created a file called `poc_mint.test.ts` in the folder `./test/` with the following content:
+
+```typescript
+import "@nomiclabs/hardhat-ethers";
+import { expect } from "chai";
+import { ethers } from "hardhat";
+import { deployProxy, MINTER_ROLE } from "../scripts/helpers";
+
+describe("POC Mint Issue", function () {
+    let clubs, minter, tokenBaseURI, notSupportingERC721TransferContract;
+
+    before(async () => {
+        [minter] = await ethers.getSigners();
+
+        tokenBaseURI = "SomeTokenURI/"; // hardcoded as we don't check/use it
+
+        clubs = await deployProxy("FootiumClub", [tokenBaseURI]);
+
+        await clubs.grantRole(MINTER_ROLE, minter.address);
+
+        const NotSupportingERC721TransferContract = await ethers.getContractFactory("NotSupportingERC721Transfer");
+        notSupportingERC721TransferContract = await NotSupportingERC721TransferContract.deploy();
+    });
+    
+    context("sherlock", () => {
+        // This test will fail since contract is using _mint and not _safeMint
+        it("should revert when minting a token to a contract not supporting ERC721 transfer", async () => {
+            const tokenId = 1;
+
+            await expect(
+                clubs.connect(minter).safeMint(notSupportingERC721TransferContract.address, tokenId)
+            ).to.be.reverted;
+        });
+    })
+});
+```
+Now you can run the test and you will see how the test fails when it should pass (since it is expecting it to revert), meaning the NFT was minted to a contract that does not support ERC721 transfers, meaning that NFT is locked there forever and lost.
+
+## Tool used
+Manual Review
+
+## Recommendation
+Use `_safeMint` instead of `_mint` to check received address support for ERC721 implementation.
+[https://github.com/OpenZeppelin/openzeppelin-contracts/blob/ab2604ac5b791adf3c5e2397e65128cb56954edd/contracts/token/ERC721/ERC721.sol#L244](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/ab2604ac5b791adf3c5e2397e65128cb56954edd/contracts/token/ERC721/ERC721.sol#L244)

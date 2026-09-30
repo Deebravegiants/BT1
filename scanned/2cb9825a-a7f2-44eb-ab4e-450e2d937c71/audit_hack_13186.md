@@ -1,0 +1,76 @@
+# [H] A malicious user can use reclaim to steal teller funds
+
+## Summary
+Severity: High
+Reporter: kutugu
+Source: https://github.com/sherlock-audit/2023-06-bond/blob/fce1809f83728561dc75078d41ead6d60e15d065/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L429-L437
+Type: audit-issue
+
+## Details
+# A malicious user can use reclaim to steal teller funds
+
+## Summary
+
+In `FixedStrikeOptionTeller`, the `reclaim` function does not clear the `totalSupply` of `optionToken`, so malicious users can call `reclaim` multiple times to steal additional funds.
+
+## Vulnerability Detail
+
+```solidity
+        // Transfer remaining collateral to receiver
+        uint256 amount = optionToken.totalSupply();
+        if (call) {
+            payoutToken.safeTransfer(receiver, amount);
+        } else {
+            // Calculate amount of quote tokens equivalent to amount at strike price
+            uint256 quoteAmount = amount.mulDiv(strikePrice, 10 ** payoutToken.decimals());
+            quoteToken.safeTransfer(receiver, quoteAmount);
+        }
+```
+
+As you can clearly see from the above code, the amount is not affected after reclaim. 
+
+```solidity
+        // Transfer in collateral
+        // If call option, transfer in payout tokens equivalent to the amount of option tokens being issued
+        // If put option, transfer in quote tokens equivalent to the amount of option tokens being issued * strike price
+        if (call) {
+            // Transfer payout tokens from user
+            // Check that amount received is not less than amount expected
+            // Handles edge cases like fee-on-transfer tokens (which are not supported)
+            uint256 startBalance = payoutToken.balanceOf(address(this));
+            payoutToken.safeTransferFrom(msg.sender, address(this), amount_);
+            uint256 endBalance = payoutToken.balanceOf(address(this));
+            if (endBalance < startBalance + amount_)
+                revert Teller_UnsupportedToken(address(payoutToken));
+        } else {
+            // Calculate amount of quote tokens required to mint
+            uint256 quoteAmount = amount_.mulDiv(strikePrice, 10 ** payoutToken.decimals());
+
+            // Transfer quote tokens from user
+            // Check that amount received is not less than amount expected
+            // Handles edge cases like fee-on-transfer tokens (which are not supported)
+            uint256 startBalance = quoteToken.balanceOf(address(this));
+            quoteToken.safeTransferFrom(msg.sender, address(this), quoteAmount);
+            uint256 endBalance = quoteToken.balanceOf(address(this));
+            if (endBalance < startBalance + quoteAmount)
+                revert Teller_UnsupportedToken(address(quoteToken));
+        }
+```
+
+In `FixedStrikeOptionTeller`, `deploy` and `create` can be used to create different optionTokens, which need to transfer tokens to the contract. When the tokens in teller accumulate to the totalSupply, malicious users can launch attacks to steal the tokens in the contract.
+
+## Impact
+
+A malicious user can use reclaim to steal teller contract tokens.
+
+## Code Snippet
+
+- https://github.com/sherlock-audit/2023-06-bond/blob/fce1809f83728561dc75078d41ead6d60e15d065/options/src/fixed-strike/FixedStrikeOptionTeller.sol#L429-L437
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+burn totalSupply after reclaim

@@ -1,0 +1,59 @@
+# [H] StableOracleDAI does not work due to misconfigured addresses
+
+## Summary
+Severity: High
+Reporter: sam_gmk
+Source: https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/oracles/StableOracleDAI.sol#L28
+Type: audit-issue
+
+## Details
+# StableOracleDAI does not work due to misconfigured addresses
+
+## Summary
+https://github.com/sherlock-audit/2023-05-USSD/blob/main/ussd-contracts/contracts/oracles/StableOracleDAI.sol#L28
+## Vulnerability Detail
+`DAIEthOracle` address is set to a Uniswapv3Pool instead of a deployed StaticOracle library. Thus, every call made will revert as the Uniswapv3Pool does not have a `quoteSpecificPoolsWithTimePeriod` method. 
+
+**Note:** There is no way to set oracle addresses once deployed thus it cannot be changed once deployed.
+
+**POC:**
+Test1 uses the `DAIEthOracle` address as provided and Test2 uses a sample of a deployed StaticOracle at `0xB210CE856631EeEB767eFa666EC7C1C57738d438` (courtesy of Mean finance):
+```solidity
+ address public DAIEthOracle =  0x982152A6C7f732Ec7C9EA998dDD9Ebde00Dfa16e; 
+
+function testGetPriceDAIuniswapv3() external view returns (uint256) {
+     address[] memory pools = new address[](1);
+       pools[0] = 0x60594a405d53811d3BC4766596EFD80fd545A270;
+       uint256 DAIWethPrice = IStaticOracle(DAIEthOracle).quoteSpecificPoolsWithTimePeriod(
+           1000000000000000000, // 1 Eth
+           0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2, // WETH (base token)
+           0x6B175474E89094C44Da98b954EedeAC495271d0F, // DAI (quote token)
+           pools, // DAI/WETH pool uni v3
+           600 // period
+       );
+
+
+       console.log("UNI PRICE:", DAIWethPrice);
+   }
+
+``` 
+
+**Test1 log:**
+[FAIL. Reason: EvmError: Revert] testGetPriceDAIuniswapv3():(uint256) (gas: 5866)
+ 
+**Test2 log:**
+[PASS] testGetPriceDAIuniswapv3():(uint256) (gas: 62773)
+
+**Logs:**
+  UNI PRICE: 1816241945185159244478
+
+## Impact
+`StableOracleDAI` does not work.
+## Code Snippet
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Change the address of `DAIEthOracle` to an address of a deployed StaticOracle and add a function for changing oracle addresses.

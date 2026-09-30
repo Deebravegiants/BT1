@@ -1,0 +1,14 @@
+# [M] M-1 The owner can manipulate oracles
+
+## Summary
+Severity: Medium
+Contest weight: 0.0449
+Dataset id: 7518
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is that the contract that provides price data (the Oracle contract) includes a function that allows the contract owner to change the address of the external oracle that supplies values for a given symbol. Because the function is not restricted after a battle has been created, the owner can replace the legitimate price feed with a malicious contract moments before the battle settlement is executed. When the settlement logic queries the oracle for the final price, it receives a fabricated value, causing the battle to be settled with an incorrect outcome. This can lead to participants receiving less reward, losing their stake, or gaining an unfair advantage, effectively allowing the owner to manipulate the economic result of any ongoing battle. The issue occurs only while a battle is open and before the settlement transaction is called; once the battle is closed the function may still be callable but has no effect on that battle. The affected parties are all users who have entered the battle, the protocol’s token economics, and any third‑party relying on the integrity of the oracle data. The flaw was discovered during a manual audit that examined the access control of the oracle‑setting function and noted that the owner role is not removed or time‑locked after battle creation. Because the function is public to the owner and does not emit a distinctive event, the manipulation can be performed silently, making it hard for participants to notice until the settlement result is observed. The bug belongs to the class of “trusted‑oracle substitution” or “privileged address manipulation” vulnerabilities, where a privileged actor can replace a data source after it has been referenced by other contracts. From a user’s perspective the UI may show the expected battle result, but the final token balance after settlement may be zero or lower than anticipated, contradicting the expectation that the battle settles according to the market price. To remediate the issue the oracle address for a given symbol should be immutable once a battle is instantiated, or the ability to change it should be restricted to a multi‑signature governance process and locked via a time‑delay. Alternatively, the contract could store a snapshot of the oracle address at battle creation and ignore any later changes. Implementing these controls restores the trust model that the price feed cannot be tampered with during an active battle, preventing the owner from influencing settlement outcomes.
+
+## Recommendation
+We recommend locking the possibility to change the oracle address for an already created battle.

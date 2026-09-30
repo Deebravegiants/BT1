@@ -1,0 +1,34 @@
+# [H] Users can request loans with no colaterall transfer
+
+## Summary
+Severity: High
+Reporter: zaevlad
+Source: https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L85
+Type: audit-issue
+
+## Details
+# Users can request loans with no colaterall transfer
+
+## Summary
+
+Users can request loans with no colaterall transfer
+
+## Vulnerability Detail
+
+Token transfer return value is not checked, so the function can proceed a succesfull request without real transfering tokens. 
+
+## Impact
+
+In case of there will be any lender for that loan, a malicious user can steal the loan tokens.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-01-cooler/blob/main/src/Cooler.sol#L85
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Use Open Zeppeling safeTransferFrom() function from the library SafeERC20.

@@ -1,0 +1,42 @@
+# [M] CVE-2021-47452
+
+## Summary
+Severity: Medium
+Advisory: CVE-2021-47452
+CVSS: 5.5 (CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)
+Published: 2024-05-22
+Source: https://osv.dev/vulnerability/CVE-2021-47452
+Type: osv
+
+## Details
+In the Linux kernel, the following vulnerability has been resolved:
+
+netfilter: nf_tables: skip netdev events generated on netns removal
+
+syzbot reported following (harmless) WARN:
+
+ WARNING: CPU: 1 PID: 2648 at net/netfilter/core.c:468
+  nft_netdev_unregister_hooks net/netfilter/nf_tables_api.c:230 [inline]
+  nf_tables_unregister_hook include/net/netfilter/nf_tables.h:1090 [inline]
+  __nft_release_basechain+0x138/0x640 net/netfilter/nf_tables_api.c:9524
+  nft_netdev_event net/netfilter/nft_chain_filter.c:351 [inline]
+  nf_tables_netdev_event+0x521/0x8a0 net/netfilter/nft_chain_filter.c:382
+
+reproducer:
+unshare -n bash -c 'ip link add br0 type bridge; nft add table netdev t ; \
+ nft add chain netdev t ingress \{ type filter hook ingress device "br0" \
+ priority 0\; policy drop\; \}'
+
+Problem is that when netns device exit hooks create the UNREGISTER
+event, the .pre_exit hook for nf_tables core has already removed the
+base hook.  Notifier attempts to do this again.
+
+The need to do base hook unregister unconditionally was needed in the past,
+because notifier was last stage where reg->dev dereference was safe.
+
+Now that nf_tables does the hook removal in .pre_exit, this isn't
+needed anymore.
+
+## References
+- https://git.kernel.org/stable/c/68a3765c659f809dcaac20030853a054646eb739
+- https://git.kernel.org/stable/c/90c7c58aa2bd02c65a4c63b7dfe0b16eab12cf9f

@@ -1,0 +1,17 @@
+# [H] Koito - Authenticated Server-Side Request Forgery via Album Image URL Parameter
+
+## Summary
+Severity: High
+Advisory: CVE-2026-72591
+CVSS: 7.7 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N)
+Published: 2026-08-10
+Source: https://osv.dev/vulnerability/CVE-2026-72591
+Type: osv
+
+## Details
+A server-side request forgery (SSRF) vulnerability in gabehf/Koito through v0.3.2 allows an authenticated user to make the server perform HTTP requests to arbitrary internal or external hosts by supplying a crafted image_url value in the PATCH /apis/web/v1/album/{id}/image endpoint.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2026/72xxx/CVE-2026-72591.json
+- https://github.com/gabehf/Koito
+- https://nvd.nist.gov/vuln/detail/CVE-2026-72591

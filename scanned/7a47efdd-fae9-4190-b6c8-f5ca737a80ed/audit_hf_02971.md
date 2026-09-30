@@ -1,0 +1,14 @@
+# [H] MJR-2 Incorrect transfer of parameter values
+
+## Summary
+Severity: High
+Contest weight: 0.0084
+Dataset id: 16485
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability consists of an incorrect transfer of parameter values inside the strategy contracts that manage USDC and USDT assets. In the affected functions (around line 222 in StrategyUSDC.sol and line 224 in StrategyUSDT.sol) the code passes arguments to internal calls or external contracts in the wrong order or with mismatched types, causing the called routine to receive unintended data. The root cause is a simple programming mistake: the developer mixed up the positions of the amount and address parameters, or omitted a required conversion, so the callee interprets the supplied value as a different variable. An attacker or any user can trigger the faulty path simply by invoking the public strategy functions (for example, deposit, withdraw or harvest) that eventually reach the mis‑parameterized call. Because the amount parameter is corrupted, the contract may transfer an incorrect token quantity – either sending too few tokens to the vault, sending excess tokens to an external protocol, or even attempting to move zero tokens while still updating accounting records. This leads to a mismatch between the on‑chain accounting and the actual token balances, causing users to see missing or reduced balances, unexpected zero refunds, or share prices that do not reflect the true value of the underlying assets. The issue manifests whenever the strategy executes its core asset‑movement logic, which typically occurs during regular harvest cycles or when users interact with the vault. All participants who rely on the strategy – depositors, withdrawers, and the protocol itself – are affected because the accounting error can erode trust and potentially result in permanent loss of funds if the mis‑sent tokens become unrecoverable. The flaw was discovered during a manual code review by the MixBytes audit team, who noticed that the arguments supplied to the low‑level call did not match the function signature defined in the target contract. Because the bug does not cause an immediate revert, it can be hard to notice without detailed tracing of token flows or balance checks after each operation. To remediate the issue, the contract should be updated so that each external or internal call receives parameters in the exact order and type defined by the callee, and thorough unit tests should be added to verify that the transferred amounts match the intended values under all execution paths. In broader terms, this is a classic case of an argument‑ordering or type‑mismatch bug that breaks the integrity of financial transfers, violating the fundamental accounting assumptions of the protocol and leading to funds disappearing or being allocated incorrectly.
+
+## Recommendation
+It is recommended to fix it.

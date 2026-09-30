@@ -1,0 +1,14 @@
+# [M] LiquidationAccountant.claim may revert for
+
+## Summary
+Severity: Medium
+Contest weight: 0.0648
+Dataset id: 17728
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+LiquidationAccountant.claim may initiate a transfer with the amount 0, which reverts for some tokens. Some tokens (e.g., LEND -> see https://github.com/d-xo/weird-erc20#revert-on-zero-value-transfers) revert when a transfer with amount 0 is initiated. This can happen within claim when the withdrawRatio is 100%. In such a scenario, the funds are not claimable, leading to a loss of funds.
+
+## Recommendation
+Do not initiate a transfer when the amount is zero.

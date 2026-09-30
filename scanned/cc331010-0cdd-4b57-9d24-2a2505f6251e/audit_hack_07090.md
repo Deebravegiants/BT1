@@ -1,0 +1,39 @@
+# [H] Assets with transaction fees will result in losses for protocol.
+
+## Summary
+Severity: High
+Reporter: p0wd3r
+Source: https://github.com/kairos-loan/kairos-contracts/blob/main/src/RepayFacet.sol#L57
+Type: audit-issue
+
+## Details
+# Assets with transaction fees will result in losses for protocol.
+
+## Summary
+Assets with transaction fees will result in losses for protocol.
+## Vulnerability Detail
+In the `repay` function, if `assetLent` is an ERC20 token with transfer fees, the actual amount received by the protocol will be less than `toRepay`.
+
+https://github.com/kairos-loan/kairos-contracts/blob/main/src/RepayFacet.sol#L57
+```solidity
+toRepay = lent + interests;
+loan.payment.paid = toRepay;
+loan.payment.borrowerClaimed = true;
+loan.assetLent.checkedTransferFrom(msg.sender, address(this), toRepay)
+```
+## Impact
+The actual amount received by the protocol will be less than `toRepay`.
+## Code Snippet
+https://github.com/kairos-loan/kairos-contracts/blob/main/src/RepayFacet.sol#L57
+```solidity
+toRepay = lent + interests;
+loan.payment.paid = toRepay;
+loan.payment.borrowerClaimed = true;
+loan.assetLent.checkedTransferFrom(msg.sender, address(this), toRepay)
+```
+## Tool used
+
+Manual Review
+
+## Recommendation
+Add ERC20 whitelist or check balance changes before and after transfer.

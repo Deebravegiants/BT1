@@ -1,0 +1,28 @@
+# [M] A trader close to liquidation risks being liqui-
+
+## Summary
+Severity: Medium
+Contest weight: 0.1842
+Dataset id: 20057
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+A trader close to liquidation risks being liquidated trying to reduce her position
+We can see in the implementation of closeTake/closeMake that the maintenanceInvariant is not enforced:
+ackages/perennial/contracts/product/Product.sol#L246-L256
+and the takerFee is deducted immediately from traders collateral, whereas the position reduction only takes effect at next settlement:
+ackages/perennial/contracts/product/Product.sol#L258-L273
+This means that a legitimate user close to liquidation, who may want to reduce leverage by closing position will end up immediately liquidatable.
+Example:
+Maintenance factor is 2% Liquidation fee is 5% Taker fee is 0.1% Funding fee is 0%
+Alice has a 50x leverage taker position opened as authorized per maintenance invariant:
+Alice collateral: 100 DSU Alice taker position: notional of 5000 DSU
+Alice tries to reduce her position to a more reasonable 40x, calls closeTake(1000).
+A 1 DSU taker fee is deducted immediately from her collateral. Since the reduction of the position only takes effect on next oracle version, her position becomes immediately liquidatable. A liquidator closes it entirely, making Alice lose an additional 4 DSU takerFee on next settlement and 250 DSU of liquidationFee.
+A user trying to avoid liquidation is liquidated unjustly
+
+## Recommendation
+Either:
+• Do not deduce takerFee from collateral immediately, but at next settlement, as any other fees or
+• Enforce maintenanceInvariant on closing of positions, to make transaction revert (except when closing is liquidation already)

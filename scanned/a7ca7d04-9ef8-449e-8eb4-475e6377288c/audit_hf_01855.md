@@ -1,0 +1,14 @@
+# [M] M-1 Updating the policy for the existing method will lead to adding unnecessary
+
+## Summary
+Severity: Medium
+Contest weight: 0.0333
+Dataset id: 10355
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability concerns the handling of the paramOffsets array in the BorgCore contract when an existing method’s parameter constraints are modified. The contract stores the byte‑offset of each method parameter in paramOffsets, which is later used to decode calldata and enforce policy checks. The root cause is a logic error: the update routine unconditionally writes to paramOffsets even when the operation is intended only to change the constraints of a parameter that already exists. Consequently, the stored offset may be shifted, duplicated, or overwritten, breaking the alignment between the expected and actual calldata layout. An attacker who can propose a governance change to alter a method’s parameter constraints can trigger this path, causing the contract to interpret subsequent calls with incorrect offsets. This misinterpretation can lead to policy checks being bypassed, arguments being read from the wrong positions, or even re‑entrancy‑like behavior where funds are transferred based on malformed data. The impact is that legitimate users may experience failed transactions, unexpected zero refunds, or loss of funds because the contract processes malformed inputs without raising errors. The issue manifests only when a transaction attempts to modify an existing method’s parameter constraints; adding a brand‑new method does not expose the bug because the offsets are correctly initialized in that case. All participants that rely on the affected methods – including end‑users, integrators, and the protocol itself – are potentially affected because the contract’s accounting assumptions are violated. The problem was discovered during a manual audit of the method‑registration logic, where the auditor noticed that paramOffsets was updated without a guard checking whether the parameter was new. The bug is subtle because the paramOffsets array may still contain plausible values, and the contract does not emit explicit warnings, making the failure mode hard to detect until a mismatched call occurs. The correct mitigation is to adjust the update routine so that paramOffsets is only modified when a new parameter is added; when an existing parameter’s constraints are changed, the array should remain unchanged, preserving the original offset mapping. This change restores the integrity of calldata decoding and ensures that policy enforcement remains consistent with the intended method signature, preventing accidental fund loss or incorrect behavior.
+
+## Recommendation
+We recommend not changing the paramOffsets array if a previously existing method parameter constraint is being changed.

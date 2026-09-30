@@ -1,0 +1,33 @@
+# [M] Modulo Bias In Randomness
+
+## Summary
+Severity: Medium
+Contest weight: 0.1677
+Dataset id: 14315
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+An ideal randomness function has an equal likelihood of producing each possible outcome. Due to the modulo
+operations performed between lines [36] and line [39] in the getComponents() function, some values are more
+likely to occur than others. This is known as modulo bias [3].
+Although there is bias in the quantities rarity, quality, and purity the bias is the most signiﬁcant for the
+quality and purity randomness components. For these components, values between 0 and 536 each have
+a likelihood of 0.1007%, with all other numbers having a likelihood of 0.0992%. Hence, there is a bias towards
+numbers less than or equal to 535.
+The rarity value also has a bias, but to a lesser extent, due to the larger range of numbers that a 32-bit
+unsigned integer can represent.
+
+## Recommendation
+To remove the modulo bias, the random number, n, being modulo divided (by p for example) must be a multiple
+of the divisor (i.e. n%p == 0). This can be resolved in a number of ways.
+One way would be to re-sample the random number if it lies outside the modulo range. For example, a 16-bit
+uint has a range [0, 65536). If we are taking a modular division of 1000, numbers above 65,000 contribute to
+modulo bias. In this case, if a number greater than 65,000 occurred, one could continually re-sample until a
+number less than 65,000 resulted.
+In the context of this contract, one could consider re-hashing the input randomness repeatedly until the elements
+provide a number that is less than 65,000. This processes introduces a non-zero probability that no such number
+will occur, and so this should be capped after a number of iterations, at which point the bias may be accepted
+(this is to prevent a random number that cannot be calculated within the block gas limit).
+Alternatively, one could replace the modulo of 1000 (line [37] and line [38]) with a modulo of 65,536, which will
+also remove the modulo bias.

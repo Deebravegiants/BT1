@@ -1,0 +1,32 @@
+# [M] Reentrancy in withdraw function
+
+## Summary
+Severity: Medium
+Reporter: 0xPsuedoPandit
+Source: https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L181-L190
+Type: audit-issue
+
+## Details
+# Reentrancy in withdraw function
+
+## Summary
+Withdraw function in CollateralEscrowV1.sol contract is vulnerable to reentrancy and the owner of the function can withdraw arbitrary amount by reentering into the function if the collateral type is ERC1155.
+
+## Vulnerability Detail
+Withdraw function in CollateralEscrowV1 contract can only be called by the owner since onlyOwner modifier is appended to it, but if the collateral that is being withdrawn is of type ERC1155 token then the _withdrawCollateral (called internally from withdraw function) function uses safeTransferFrom which is followed up by the callback function and opens the door for reentrancy (for collateral type ERC20 and ERC721 transfer and transferFrom is being used respectively which does not have callbacks) 
+
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L181-L190
+
+The malicious owner can call withdraw function, now withdraw function in turn calls "_withdrawCollateral" function before implementing the effects that is "collateral._amount -= _amount;"  breaking the checks-effects-interactions pattern, now the owner can set the desired _amount and on receiving it he can again enter into the function bypassing all the checks and drain funds, at the the  "collateral._amount -= _amount;"  will result in deduction of _amount only from the original call but not account for the further deductions.
+
+## Impact
+This vulnerability will directly lead to fund loss and accounting errors in collateral management.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-teller/blob/main/teller-protocol-v2/packages/contracts/contracts/escrow/CollateralEscrowV1.sol#L84-L103
+## Tool used
+None
+Manual Review
+
+## Recommendation
+Follow the checks-effects-interaction pattern, the deduction "collateral._amount -= _amount;" should be done before making internal function call to "_withdrawCollateral".

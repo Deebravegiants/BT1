@@ -1,0 +1,25 @@
+# [H] Integer overflow in table parsing extension leads to heap memory corruption
+
+## Summary
+Severity: High
+Advisory: CVE-2022-24724
+Aliases: GHSA-mc3g-88wq-6f4x
+CVSS: 8.8 (CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H)
+Published: 2022-03-03
+Source: https://osv.dev/vulnerability/CVE-2022-24724
+Type: osv
+
+## Details
+cmark-gfm is GitHub's extended version of the C reference implementation of CommonMark. Prior to versions 0.29.0.gfm.3 and 0.28.3.gfm.21, an integer overflow in cmark-gfm's table row parsing `table.c:row_from_string` may lead to heap memory corruption when parsing tables who's marker rows contain more than UINT16_MAX columns. The impact of this heap corruption ranges from Information Leak to Arbitrary Code Execution depending on how and where `cmark-gfm` is used. If `cmark-gfm` is used for rendering remote user controlled markdown, this vulnerability may lead to Remote Code Execution (RCE) in applications employing affected versions of the `cmark-gfm` library. This vulnerability has been patched in the following cmark-gfm versions 0.29.0.gfm.3 and 0.28.3.gfm.21. A workaround is available. The vulnerability exists in the table markdown extensions of cmark-gfm. Disabling the table extension will prevent this vulnerability from being triggered.
+
+## References
+- http://packetstormsecurity.com/files/166599/cmark-gfm-Integer-overflow.html
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2022/24xxx/CVE-2022-24724.json
+- https://github.com/github/cmark-gfm/security/advisories/GHSA-mc3g-88wq-6f4x
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/5CYUU662VO6CCXQKVZVOHXX3RGIF2DLQ/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/F7V3HAM5H6YFJG2QFEXACZR3XVWFTXTC/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/KH4UQA6VWVZU5EW3HNEAB7D7BTCNJSJ2/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/RSKUOJ2VAYGTJXPDE2RRPMNLVVMKCI77/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/TJBFIJEHJZEEDG6MO4MQHZYKUXELH77O/
+- https://lists.fedoraproject.org/archives/list/package-announce%40lists.fedoraproject.org/message/Z55K6VNVKO2G5SNKRCQ2KDG5SKTX5PVV/
+- https://nvd.nist.gov/vuln/detail/CVE-2022-24724

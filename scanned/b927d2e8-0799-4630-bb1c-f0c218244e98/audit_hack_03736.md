@@ -1,0 +1,80 @@
+# [M] #checkOrder() anyone can cancel other people's order
+
+## Summary
+Severity: Medium
+Reporter: bin2chen
+Source: https://github.com/sherlock-audit/2022-11-opyn/blob/main/crab-netting/src/CrabNetting.sol#L446
+Type: audit-issue
+
+## Details
+# #checkOrder() anyone can cancel other people's order
+
+## Summary
+checkOrder() is "external" and not limit caller , if call will set "order.nonce" to invalid,so anyone can cancel other people's order
+
+## Vulnerability Detail
+#checkOrder()  anyone can call
+
+```solidity
+    function checkOrder(Order memory _order) external { //****@audit external and no other limit***/
+        return _checkOrder(_order);
+    }
+```
+when call _checkOrder(_order) , set "order.nonce" to invalid
+
+```solidity
+    function _checkOrder(Order memory _order) internal {
+        _useNonce(_order.trader, _order.nonce);
+...
+
+    function _useNonce(address _trader, uint256 _nonce) internal {
+        require(!nonces[_trader][_nonce], "Nonce already used");
+        nonces[_trader][_nonce] = true; //***@audit the order.nonce invalid ****//
+    }
+```
+
+So malicious users can invalidate all other people's orders.
+
+## Impact
+
+ anyone can cancel other people's order
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-11-opyn/blob/main/crab-netting/src/CrabNetting.sol#L446
+
+https://github.com/sherlock-audit/2022-11-opyn/blob/main/crab-netting/src/CrabNetting.sol#L456
+
+https://github.com/sherlock-audit/2022-11-opyn/blob/main/crab-netting/src/CrabNetting.sol#L758
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+remove this method, or only order.trader can call it, or add a method that only detects and does not set invalid.
+
+only detects:
+```solidity
+    function checkOrder(Order memory _order) external { 
+-       return _checkOrder(_order);
++       bytes32 structHash = keccak256(
++            abi.encode(
++                _CRAB_NETTING_TYPEHASH,
++                _order.bidId,
++                _order.trader,
++                _order.quantity,
++                _order.price,
++                _order.isBuying,
++                _order.expiry,
++                _order.nonce
++            )
++        );
++
++        bytes32 hash = _hashTypedDataV4(structHash);
++        address offerSigner = ECDSA.recover(hash, _order.v, _order.r, _order.s);
++        require(offerSigner == _order.trader, "Signature not correct");
++        require(_order.expiry >= block.timestamp, "order expired");
++    }
+```

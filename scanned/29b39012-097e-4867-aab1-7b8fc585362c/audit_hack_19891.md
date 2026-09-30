@@ -1,0 +1,30 @@
+# [M] Trader's order may not be completed finished because of fillThreshold.
+
+## Summary
+Severity: Medium
+Reporter: Overt Bubblegum Crow
+Source: https://github.com/sherlock-audit/2024-02-rubicon-finance/blob/main/gladius-contracts-internal/src/lib/PartialFillLib.sol#L119-L130
+Type: audit-issue
+
+## Details
+# Trader's order may not be completed finished because of fillThreshold.
+
+## Summary
+Trader's order may not be completed finished because of fillThreshold.
+
+## Vulnerability Detail
+- Trader Alice submits one order.
+- Filler Bob takes the order and execute partial order.
+- If the percentage of left order is less than fillThreshold, left part of this order cannot be executed.
+
+## Impact
+Trader's order cannot be completely executed. 
+
+## Code Snippet
+https://github.com/sherlock-audit/2024-02-rubicon-finance/blob/main/gladius-contracts-internal/src/lib/PartialFillLib.sol#L119-L130
+
+## Tool used
+Manual Review
+
+## Recommendation
+Make sure left part of order is not less than fillThreshold.

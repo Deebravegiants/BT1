@@ -1,0 +1,51 @@
+# [M] Accidentally received ERC20 token can be lost forever
+
+## Summary
+Severity: Medium
+Reporter: CodeFoxInc
+Source: https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/BountyCore.sol#L10
+Type: audit-issue
+
+## Details
+# Accidentally received ERC20 token can be lost forever
+
+## Summary
+When contracts accidentally receive ERC20 tokens, they should be rescued. 
+
+There is no such mechanism in the protocol to rescue tokens when someone sends the token randomly to the smart contracts address of the protocol. And such mechanism should be implemented to save and avoid the loss of the assets in this situation. 
+
+## Vulnerability Detail
+Although rarely people do such things, but in history [this kind of things](https://www.coindesk.com/tech/2022/06/09/15m-of-optimism-tokens-stolen-by-an-attacker-after-wintermute-sent-wrong-wallet-address/) happened quite often than people think. 
+
+### ERC20 token
+There is no such mechanism in the protocol at the moment. And the claimBounty function makes winner claim all of the erc20 token including those tokens may be sent to the protocol accidentally in the future. 
+
+Token can be lost forever if the token is received when the claiming process is over. 
+
+### NFT token
+NFT tokens will be mentioned in another issue. https://github.com/sherlock-audit/2023-02-openq-CodeFoxInc/issues/9
+
+NOTE: Although the probability is quite low, someone can `selfdestruct(_protocolAddress)` and send native token to the protocol address to make the problem worse than just ERC20 tokens and NFTs. 
+
+## Impact
+
+It can cause forever loss of the assets(ERC20 tokens) from the users. 
+
+## Code Snippet
+The recommendation can be implemented in the BountyCore contract. 
+https://github.com/sherlock-audit/2023-02-openq/blob/main/contracts/Bounty/Implementations/BountyCore.sol#L10
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Consider implementing a mechanism of rescuing the ERC20 token and NFT token which are accidentally sent to the protocol. 
+In order to be able to rescue the token and at the same time avoid involving with the funding and claiming process, we can add a timelock to avoid the interference from the protocol owner. The timelock can be e.g., certain period of time after the closing of the bounty. The timelock can protect the decentralization degree of the protocol. 
+
+
+- For ERC20 tokens, [JPYCv2](https://github.com/jcam1/JPYCv2/blob/main/contracts/v1/Rescuable.sol) has a very good example of implementing the mechanism. 
+- In term of native tokens, it is similar to ERC20 token's solution if you want to implement the solution to this. 
+
+Implementing this should also be cautious and well thought out. It depends on the protocol team to decide how they want to implement the solution or choose not to implement it.

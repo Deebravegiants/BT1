@@ -1,0 +1,29 @@
+# [H] DOS due to the use of deprecated function
+
+## Summary
+Severity: High
+Reporter: Oxsadeeq
+Source: https://github.com/sherlock-audit/2023-05-Index/blob/3190057afd3085143a31746d65045a0d1bacc78c/index-coop-smart-contracts/contracts/adapters/AaveLeverageStrategyExtension.sol#L895
+Type: audit-issue
+
+## Details
+# DOS due to the use of deprecated function
+
+## Summary:Most action calls  will always revert
+
+## Vulnerability Detail:AaveLeverageStrategyExtension that implements Index strategy for FLI tokens.The function createActionInfo ()  fetches/prepare latest data before new actions are taken.The bug comes in  play 
+when getting the prices of Collateral and Borrow, it utilizes chainlink deprecated function latestAnswer(), which unfortunately does’nt revert instead it returns 0.This contract would revert in an attempt to convert the price to Uint256(conversion from int=>uint does not support 0 as an input in Openzeppelin safeCast).
+This internal function _createActionInfo() is called to initialize the leverage Ratio and other functions would revert because of dependency on  the uninitialized leverageRatio.
+int256 rawCollateralPrice = strategy.collateralPriceOracle.latestAnswer()
+rebalanceInfo.collateralPrice = rawCollateralPrice.toUint256().mul(10 ** strategy.collateralDecimalAdjustment);
+
+
+## Impact:Bots,contracts and users would not be able to interact with functions in the contract,which is eventually a DOS scenario
+
+## Code Snippet:https://github.com/sherlock-audit/2023-05-Index/blob/3190057afd3085143a31746d65045a0d1bacc78c/index-coop-smart-contracts/contracts/adapters/AaveLeverageStrategyExtension.sol#L895
+
+## Tool used
+
+Manual Review
+
+## Recommendation:Uses chainlink latestdata() instead of latestAnswer

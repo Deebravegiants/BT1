@@ -1,0 +1,14 @@
+# [M] GSU-2 | getExecutionGas Needs to Account for Callback Gas
+
+## Summary
+Severity: Medium
+Contest weight: 0.0471
+Dataset id: 18885
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability resides in the gas‑budgeting logic of the execution engine, specifically the GasUtils.getExecutionGas routine. This function reserves a constant amount of gas, called minHandleErrorGas, to cover the error‑handling path that runs after an order is cancelled or frozen. The root cause is that the calculation of this reserve ignores the callback gas limit that is configured for each order. When an order is cancelled or frozen, the protocol invokes a user‑defined callback whose gas consumption may be larger than the fixed minHandleErrorGas value. Because the reserved gas is insufficient, the callback can run out of gas, causing the error‑handling code to abort prematurely. An attacker or a malicious user can trigger a cancellation or freezing of an order that has a high callback gas requirement, forcing the execution to hit the gas shortfall. The immediate impact is that the order’s cancellation does not complete correctly: funds that should be returned to the user remain locked, the order may stay in a frozen state, and the protocol’s accounting can become inconsistent. From the user’s perspective the UI may show the order as cancelled while the balance displayed for the user does not change, or the user may receive a zero refund despite expecting a full return of collateral. This condition occurs only during the post‑execution phase of an order when the configured callback gas limit exceeds the hard‑coded minHandleErrorGas reserve. It primarily affects traders who place orders with custom callbacks, as well as the protocol itself because stuck orders can reduce liquidity and erode trust. The issue was discovered during a manual audit by the Guardian team, who identified that the gas reservation logic did not incorporate the per‑order callback limit. The bug is subtle because normal test cases use low‑gas callbacks, so the shortage does not manifest, and the transaction simply reverts without a clear error message, making it hard to spot in routine testing. To remediate the problem the gas‑budgeting function should be modified to add the order’s configured callback gas limit to the minHandleErrorGas calculation, ensuring that enough gas is always available for both the callback and the subsequent error handling. In broader terms this is a classic insufficient‑gas accounting flaw, where the contract underestimates the gas needed for downstream logic, leading to failed callbacks and potential loss of funds.
+
+## Recommendation
+Include the conﬁgured callback gas limit for the order being executed in the minHandleErrorGas result.

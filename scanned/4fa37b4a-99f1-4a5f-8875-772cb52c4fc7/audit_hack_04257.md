@@ -1,0 +1,68 @@
+# [H] Malicious user can burn the approved NFTs to the depositer contract and successfully steal owner's AMM tokens.
+
+## Summary
+Severity: High
+Reporter: CodingNameKiki
+Source: https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/Depositor.sol#L79-L82
+Type: audit-issue
+
+## Details
+# Malicious user can burn the approved NFTs to the depositer contract and successfully steal owner's AMM tokens.
+
+## Summary
+Malicious user can burn the approved NFTs to the depositer contract and successfully steal owner's AMM tokens.
+
+## Vulnerability Detail
+The purpose of the depositer contract is simple, anyone who calls the function `makeNewDepositor` in Templater.sol receives a new depositer contract and gets the ownership of it. The owner can deposit to gauge, withdraw from gauge and claim rewards accrued from the gauge.
+
+The functions `depositToGauge`, `claimRewards` are callable only by the owner of the contract and few of the rest of the functions 
+`partialWithdrawFromGauge`, `withdrawFromGauge` are public and can be called by anyone.
+
+The problem here occurs with the external calls to the contract "depositReceipt" in the functions `partialWithdrawFromGauge`, `withdrawFromGauge`.
+
+https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/Depositor.sol#L79-L82
+
+https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/Depositor.sol#L119-L127
+
+By the docs:
+`To split or burn the inputted NFT the caller must either own the NFT or have added the Depositor contract to the NFTs approved list` 
+This is simply not true for the owner part - as the msg.sender whose calling the functions `split` and `burn` in depositReceipt_base  will always be the depositer contract.
+
+So the functions `split` and `burn` in the contract depositReceipt_base will check if the depositer contract is the owner of the NFT or it's approved.
+
+https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/DepositReceipt_Base.sol#L88-L102
+
+https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/DepositReceipt_Base.sol#L110-L115
+
+This action leads to the following scenario:
+1. The owner calls the function `depositToGauge` couple of times depositing AMM tokens and receiving newly minted NFTs equaled to the price of the AMM tokens deposited.
+2. After some time the owner wants to withdraw his AMM tokens and burn his NFTs, but as how it is right now with the issue occurring the only way to withdraw is if the owner approve his NFTs to the depositer contract.
+3. A malicious user sees that and calls the function `withdrawFromGauge` and successfully burns the approved NFTs and steals the AMM tokens. 
+
+// Note this is possible as the msg.sender calling the external functions `split` and `burn` in depositReceipt_base will always be the depositer contract.
+
+Outcome:
+The owners who approve their NFTs to their own depositer contract in order to withdraw from gauge can lose their NFTs.
+As anyone can call the function `withdrawFromGauge` and burn the approved NFTs and steal the AMM tokens.
+This will result in a big material loss, as owners will lose their NFTs by malicious users.
+
+## Impact
+Duo to the issue described in `Vulnerability Detail` any user can call the functions `partialWithdrawFromGauge`,
+`withdrawFromGauge` and successfully burn the approved NFTs to the depositer contract and steal the owner's AMM tokens equaled to the price of the NFTs.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/Depositor.sol#L79-L83
+
+https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/Depositor.sol#L119-L127
+
+https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/DepositReceipt_Base.sol#L110-L115
+
+https://github.com/sherlock-audit/2022-11-isomorph/blob/main/contracts/Velo-Deposit-Tokens/contracts/DepositReceipt_Base.sol#L88-L102
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+My recommended change is: https://gist.github.com/CodingNameKiki/66b1d6a4c180b0f217644b555994f8ba

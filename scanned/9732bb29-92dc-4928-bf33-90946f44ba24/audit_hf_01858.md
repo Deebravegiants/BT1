@@ -1,0 +1,14 @@
+# [M] M-13 Proposals do not have an expiration date
+
+## Summary
+Severity: Medium
+Contest weight: 0.0393
+Dataset id: 10359
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability consists of a governance design flaw where proposals created in the DAO have no built‑in expiration mechanism. Because the contract does not store or check a deadline timestamp, a proposal remains executable indefinitely after it is submitted. The root cause is the omission of an expiration field and the corresponding validation in the execution path, which allows the proposal state machine to stay in an "open" state forever. An attacker or any participant can wait arbitrarily long, possibly after the economic or political context of the DAO has shifted, and then trigger the proposal’s execution function. This can lead to actions that were originally approved under different assumptions, such as transferring funds, changing parameters, or granting permissions that are no longer appropriate. The impact is that the DAO’s governance decisions become stale and can be abused to alter the protocol state at an unexpected time, potentially resulting in loss of funds, violation of token‑holder expectations, or a breach of the protocol’s intended business logic. The issue manifests whenever a proposal is created; there is no time‑based guard that prevents later execution, so it can be exploited at any moment after creation. All DAO participants, token holders, and the protocol itself are affected because the governance process no longer guarantees timely execution, undermining trust in the system. The flaw was discovered during a systematic audit of the DAO’s smart‑contract code, where the absence of an expiration check was noted in the proposal handling functions. It can be hard to notice because the UI typically shows a proposal as "active" and does not warn that it could be executed months or years later; the contract simply treats the proposal as valid as long as it has not been executed or cancelled. From a user’s perspective, a proposal may appear to be pending forever, and later the DAO may unexpectedly execute an old proposal, causing balances to change or permissions to be granted without recent community consent. The bug belongs to the class of missing time‑bound constraints in governance contracts, often referred to as “unbounded proposal lifetime” or “no expiration date” vulnerabilities. To remediate, the contract should be extended to store an expiration timestamp at proposal creation and enforce that the current block timestamp is less than this deadline before allowing execution. This change restores the expected behavior that proposals must be acted upon within a reasonable window, aligning the implementation with typical governance assumptions that decisions are time‑sensitive.
+
+## Recommendation
+We recommend adding an expiration time for the proposals.

@@ -1,0 +1,29 @@
+# [C] Spring Security HTTP Headers Are not Written Under Some Conditions
+
+## Summary
+Severity: Critical
+Advisory: GHSA-mf92-479x-3373
+CVE: CVE-2026-22732
+CWE: CWE-425
+Ecosystem: Maven
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N (CVSS_V3)
+Published: 2026-03-20
+Source: https://github.com/advisories/GHSA-mf92-479x-3373
+Type: github-advisory
+
+## Affected
+- Maven: `org.springframework.security:spring-security-web` — affected >=0
+- Maven: `org.springframework.security:spring-security-web` — affected >=5.8.0
+- Maven: `org.springframework.security:spring-security-web` — affected >=6.0.0
+- Maven: `org.springframework.security:spring-security-web` — affected >=6.4.0
+- Maven: `org.springframework.security:spring-security-web` — affected >=6.5.0 <6.5.9
+- Maven: `org.springframework.security:spring-security-web` — affected >=7.0.0 <7.0.4
+
+## Details
+When applications specify HTTP response headers for servlet applications using Spring Security, there is the possibility that the HTTP Headers will not be written. 
+This issue affects Spring Security: from 5.7.0 through 5.7.21, from 5.8.0 through 5.8.23, from 6.3.0 through 6.3.14, from 6.4.0 through 6.4.14, from 6.5.0 through 6.5.8, from 7.0.0 through 7.0.3.
+
+## References
+- https://nvd.nist.gov/vuln/detail/CVE-2026-22732
+- https://github.com/spring-projects/spring-security
+- https://spring.io/security/cve-2026-22732

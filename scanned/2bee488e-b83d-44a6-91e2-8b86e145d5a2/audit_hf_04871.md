@@ -1,0 +1,35 @@
+# [M] Market::liquidate() will not work when most
+
+## Summary
+Severity: Medium
+Contest weight: 0.4533
+Dataset id: 22771
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+transferFrom() to receive the assets of the liquidator to pay the debt in Market::liquidate() is done only after performing the liquidation, making it impossible to liquidate users when seizeMarket == repayMarket. The transferFrom() is called at the end of the Market::liquidate() function, only receiving the assets after all the calculations. However, when the seize market is the same as the repay market, the collateral to give to the liquidator will not be available if most of the liquidity is borrowed. Thus, it would require pulling the funds from the liquidator first and only then transferring them. The following test confirms this behaviour, add it to Market.t.sol:
+```solidity
+auditor.setAdjustFactor(market, 0.9e18);
+vm.startPrank(ALICE);
+// ALICE deposits and borrows DAI
+uint256 assets = 10_000 ether;
+ERC20 asset = market.asset();
+deal(address(asset), ALICE, assets);
+market.deposit(assets, ALICE);
+market.borrow(assets*9*9/10/10, ALICE, ALICE);
+vm.stopPrank();
+skip(10 days);
+// LIQUIDATION fails as transfer from is after withdrawing collateral
+address liquidator = makeAddr("liquidator");
+vm.startPrank(liquidator);
+asset.approve(address(market), type(uint256).max);
+vm.expectRevert();
+market.liquidate(ALICE, type(uint256).max, market);
+vm.stopPrank();
+}
+```
+Impossible to liquidate when the repay market is the seize market and most of the liquidity is borrowed. A liquidator could deposit first into the market as a workaround fix but it would require close to double the funds (deposit so the contract has the funds and holding the funds to transfer to the market at the end of the call) to perform the liquidation, which could turn out to be expensive and would disincentivize liquidations, leading to accumulation of bad debt.
+
+## Recommendation
+The assets could be transferred from the liquidator to the market at the beginning of the liquidation. Alternatively, as the current code first transfers to the liquidator only to receive it back later, one option would be transferring only the different between the seize funds and the repaid debt (liquidationIncentive.liquidator) when seizeMarket == repayMarket.

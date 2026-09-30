@@ -1,0 +1,87 @@
+# [M] liquidatePartyA can be called after liquidatePositionsPartyA so partyA can be stuck in liquidateStatus forever
+
+## Summary
+Severity: Medium
+Reporter: volodya
+Source: https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L21
+Type: audit-issue
+
+## Details
+# liquidatePartyA can be called after liquidatePositionsPartyA so partyA can be stuck in liquidateStatus forever
+
+## Summary
+liquidatePartyA can be called after liquidatePositionsPartyA so partyA can be stuck in liquidateStatus forever and user will not be able to deposit funds to his account and start using protocol.The same can be done with liquidatePartyB due to the same reasons
+## Vulnerability Detail
+Whenever the liquidator calls `liquidatePartyA` it calls `verifyPartyAUpnl` to check against `AccountStorage.layout().partyANonces[partyA]` so after partyA will be liquidated and would like to allocate funds again it will increase `accountLayout.partyANonces[msg.sender] += 1`. But there are no changing of `partyANonces` in the liquidation process throughout all functions `liquidatePartyA` `setSymbolsPrice`  `liquidatePendingPositionsPartyA` thus allowing to make partyA stuck in liquidateStatus forever.
+An attacker can create two transactions for liquidatePartyA and both will work in the beginning of liquidation and after whole liquidation process ended
+
+```solidity
+    function liquidatePartyA(address partyA, SingleUpnlSig memory upnlSig) internal {
+        MAStorage.Layout storage maLayout = MAStorage.layout();
+
+        LibMuon.verifyPartyAUpnl(upnlSig, partyA);
+        int256 availableBalance = LibAccount.partyAAvailableBalanceForLiquidation(
+            upnlSig.upnl,
+            partyA
+        );
+        require(availableBalance < 0, "LiquidationFacet: PartyA is solvent");
+        maLayout.liquidationStatus[partyA] = true;
+        maLayout.liquidationTimestamp[partyA] = upnlSig.timestamp;
+        AccountStorage.layout().liquidators[partyA].push(msg.sender);
+    }
+
+```
+[facets/liquidation/LiquidationFacetImpl.sol#L21](https://github.com/sherlock-audit/2023-06-symmetrical/blob/main/symmio-core/contracts/facets/liquidation/LiquidationFacetImpl.sol#L21)
+## Impact
+partyA might be forever stuck in liquidateStatus
+## Code Snippet
+
+## Tool used
+POC
+```diff
+    describe.only("Liquidate Positions", async function() {
+      beforeEach(async function() {
+        const context: RunContext = this.context;
+        await liquidatePartyA(
+          context,
+          context.signers.user.getAddress(),
+        );
+        await liquidatePartyA(
+          context,
+          context.signers.user2.getAddress(),
+          context.signers.liquidator,
+          decimal(-475),
+        );
+      });
+
+      it("Should liquidate positions", async function() {
+        const context: RunContext = this.context;
+        let user = context.signers.user.getAddress();
+        let hedger = context.signers.hedger.getAddress();
+        await context.liquidationFacet
+          .connect(context.signers.liquidator)
+          .liquidatePendingPositionsPartyA(user);
+
+        await context.liquidationFacet
+          .connect(context.signers.liquidator)
+          .liquidatePositionsPartyA(user, [1]);
+
+        expect((await context.viewFacet.getQuote(1)).quoteStatus).to.be.equal(
+          QuoteStatus.LIQUIDATED,
+        );
+        expect(await context.viewFacet.allocatedBalanceOfPartyB(hedger, user)).to.be.equal(
+          decimal(382),
+        );
+        let balanceInfoOfLiquidator = await this.liquidator.getBalanceInfo();
+        expect(balanceInfoOfLiquidator.allocatedBalances).to.be.equal(decimal(1));
++        await liquidatePartyA(
++          context,
++          context.signers.user.getAddress(),
++        );
+      });
+    })
+```
+Manual Review
+
+## Recommendation
+Increase accountLayout.partyANonces somewhere in the liquidation process

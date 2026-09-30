@@ -1,0 +1,59 @@
+# [M] `ArrakisV2Router::addLiquidity` can transfer amounts higher than the maximum specified by the user
+
+## Summary
+Severity: Medium
+Reporter: levi
+Source: https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-periphery/contracts/ArrakisV2Router.sol#L79-L84
+Type: audit-issue
+
+## Details
+# `ArrakisV2Router::addLiquidity` can transfer amounts higher than the maximum specified by the user
+
+## Summary
+
+`ArrakisV2Router::addLiquidity` can transfer amounts higher than the maximum specified by the user
+
+## Vulnerability Detail
+
+When a user calls `ArrakisV2Router::addLiquidity`, they specify `amount0Max` and `amount1Max` as part of the parameters.
+These values are however not checked and enforced before tokens are transfered from the user. Only the minimum amounts are enforced:
+
+```solidity
+        require(
+            amount0 >= params_.amount0Min &&
+                amount1 >= params_.amount1Min &&
+                sharesReceived >= params_.amountSharesMin,
+            "below min amounts"
+        );
+```
+
+In the case where `getMintAmounts` returns higher values, the user would have a higher amount of tokens transfered from them.
+
+```solidity
+        (amount0, amount1, sharesReceived) = resolver.getMintAmounts(
+            IArrakisV2(params_.vault),
+            params_.amount0Max,
+            params_.amount1Max
+        );
+```
+This is possible because `getMintAmounts` and `totalUnderlyingForMint` round up the amounts required. It is also possible in times of high price volatility.
+
+## Impact
+
+Users will have more amounts transfered from them than they intended.
+
+## Code Snippet
+
+https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-periphery/contracts/ArrakisV2Router.sol#L79-L84
+
+https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-core/contracts/ArrakisV2Resolver.sol#L181-L206
+
+https://github.com/sherlock-audit/2023-06-arrakis/blob/main/v2-core/contracts/libraries/Underlying.sol#L72-L89
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+
+Enforce a check to ensure the amounts returned by `getMintAmounts` are less than the maximum amounts specified by the user.

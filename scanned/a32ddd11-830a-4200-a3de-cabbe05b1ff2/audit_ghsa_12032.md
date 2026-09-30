@@ -1,0 +1,40 @@
+# [M] OpenClaw: Discord guild reaction ingress could bypass users and roles allowlists
+
+## Summary
+Severity: Medium
+Advisory: GHSA-9vvh-2768-c8vp
+CWE: CWE-284, CWE-863
+Ecosystem: npm
+CVSS: CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N (CVSS_V3)
+Published: 2026-03-13
+Source: https://github.com/advisories/GHSA-9vvh-2768-c8vp
+Type: github-advisory
+
+## Affected
+- npm: `openclaw` — affected >=0 <2026.3.11
+
+## Details
+## Summary
+In affected versions of `openclaw`, Discord reaction ingestion for guild channels did not enforce the same member users and roles allowlist checks used for normal inbound guild messages. A non-allowlisted guild member could still trigger reaction events that were accepted and queued as trusted system events for the target session.
+
+## Impact
+This is an authorization bypass in the Discord allowlist path. Reaction text could be injected into downstream session context even when the reacting guild member was not permitted by the configured users or roles allowlist.
+
+## Affected Packages and Versions
+- Package: `openclaw` (npm)
+- Affected versions: `< 2026.3.11`
+- Fixed in: `2026.3.11`
+
+## Technical Details
+The reaction ingress authorization path enforced DM, group, guild, and channel policy checks, but it did not apply the member-level users and roles allowlist gate that normal guild-message preflight uses. Accepted reactions were then enqueued as trusted system events for the routed session.
+
+## Fix
+OpenClaw now applies the same users and roles allowlist enforcement to guild reaction ingress that it already applies to normal inbound guild messages. The fix shipped in `openclaw@2026.3.11`.
+
+## Workarounds
+Upgrade to `2026.3.11` or later.
+
+## References
+- https://github.com/openclaw/openclaw/security/advisories/GHSA-9vvh-2768-c8vp
+- https://github.com/openclaw/openclaw
+- https://github.com/openclaw/openclaw/releases/tag/v2026.3.11

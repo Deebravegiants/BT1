@@ -1,0 +1,14 @@
+# [M] M-6 There is no recovery for excess stETH
+
+## Summary
+Severity: Medium
+Contest weight: 0.0233
+Dataset id: 9534
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is an asset‑locking bug in the wstETH wrapper contract. The contract assumes that its internal accounting of wrapped shares matches the amount of stETH held, but it does not provide any mechanism to recover stETH that is sent directly to the contract address without invoking the official wrap function. Because the ERC20 token standard allows anyone to transfer stETH to any address, an attacker or even an unwitting user can call the stETH token’s transfer method and move tokens into the wstETH contract. The contract’s code does not detect this inbound transfer, does not mint corresponding wstETH shares, and lacks a function to withdraw the surplus balance. As a result, the excess stETH becomes permanently frozen inside the contract. Exploitation is straightforward: a malicious actor sends a large amount of stETH to the wstETH contract address; the tokens are accepted by the ERC20 transfer, the contract’s balance increases, but the internal share ledger remains unchanged, so the funds cannot be redeemed or transferred out. The impact is that the locked stETH is effectively lost to the protocol and its users, reducing the total assets backing wstETH, potentially skewing redemption ratios and harming confidence in the system. The issue manifests only when stETH is transferred directly to the wrapper contract, a scenario that may not be covered by normal UI flows, making it easy to overlook. Users who mistakenly send stETH to the wstETH address will see their wallet balance decrease while receiving no wstETH tokens, leading to confusion and perceived loss of funds. The bug was identified during a formal security audit by MixBytes, which noted the absence of any recovery path for surplus stETH. Detecting the problem is difficult because the contract’s public view functions report correct share totals, while the underlying token balance appears higher, a discrepancy that is not exposed through standard interfaces. The recommended remediation is to add a controlled recovery function that allows the protocol’s governance to withdraw any excess stETH while preserving the correct number of wrapped shares, or to implement a safeguard that rejects direct ERC20 transfers to the contract, ensuring that all stETH entering the contract goes through the proper wrapping logic. This class of issue falls under “stuck funds” or “asset‑locking” vulnerabilities, where a contract’s accounting does not reconcile with its token balances, violating the fundamental accounting assumption that every deposited asset is represented by a corresponding share token.
+
+## Recommendation
+It is necessary to add a function to recover excess stETH and keep the wrapped shares amount.

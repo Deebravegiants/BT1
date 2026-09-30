@@ -1,0 +1,23 @@
+# [M] There is no `recieve/fallback` function implemented in `registry.sol`
+
+## Summary
+Severity: Medium
+Reporter: Bubbly Glossy Unicorn
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/core/Registry.sol#L387
+Type: audit-issue
+
+## Details
+# There is no `recieve/fallback` function implemented in `registry.sol`
+regestry does not have any receive/fallback functions to receive ETH
+## Vulnerability Detail
+`recoverFunds` function can transfer erc20 tokens and Native tokens to recipient but the `registry.sol` is not implementing any receive function to receive ETH. So it is impossible to send eth to the contract
+## Impact
+Can't send Native tokens
+## Code Snippet
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/core/Registry.sol#L387
+## Tool used
+
+Manual Review
+
+## Recommendation
+Implement receive/fallback function

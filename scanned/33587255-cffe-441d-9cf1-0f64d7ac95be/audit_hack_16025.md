@@ -1,0 +1,37 @@
+# [M] `createPoolWithCustomStrategy` Non-Reentrancy Guard Missed in `Allo` Contract
+
+## Summary
+Severity: Medium
+Reporter: Mini Fiery Urchin
+Source: https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/core/Allo.sol#L152
+Type: audit-issue
+
+## Details
+# `createPoolWithCustomStrategy` Non-Reentrancy Guard Missed in `Allo` Contract
+The `createPoolWithCustomStrategy` function in the `Allo` smart contract doesn't implement the `nonReentrant` modifier, which may make it vulnerable to reentrancy attacks.
+
+## Vulnerability Detail
+The `createPoolWithCustomStrategy` function in the `Allo` contract allows users to create a new pool with custom strategies. However, the absence of a `nonReentrant` modifier on this function might expose it to reentrancy attacks, unlike the `createPool` function.
+
+## Impact
+Causing unexpected behavior and potential financial loss to users.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-09-Gitcoin/blob/main/allo-v2/contracts/core/Allo.sol#L152
+
+## Tool used
+Manual Review
+
+## Recommendation
+Implement the `nonReentrant` modifier to the `createPoolWithCustomStrategy` function.
+```solidity
+    function createPoolWithCustomStrategy(
+        bytes32 _profileId,
+        address _strategy,
+        bytes memory _initStrategyData,
+        address _token,
+        uint256 _amount,
+        Metadata memory _metadata,
+        address[] memory _managers
+    ) external payable nonReentrant returns (uint256 poolId) {
+```

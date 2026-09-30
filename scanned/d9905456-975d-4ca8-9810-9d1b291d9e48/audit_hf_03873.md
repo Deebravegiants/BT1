@@ -1,0 +1,16 @@
+# [M] partyB can leverage emergency mode for quick profit
+
+## Summary
+Severity: Medium
+Contest weight: 0.1708
+Dataset id: 20145
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+A partyB can exploit the system by requesting the activation of emergency mode when they have an open position that partyA is reluctant to close. In the interim, partyB can take advantage of any open quotes with an expected open price below the current market rate. Once partyB is granted emergency status, they can immediately close these trades for a quick profit.
+Suppose Alice, acting as partyB, has an ongoing position with a counterparty, partyA, who has refrained from closing the position. Sensing the need for an intervention, Alice appeals to the protocol for the activation of emergency mode.
+However, just before the transaction granting emergency status is processed, Alice conducts a quick sweep for any open quotes where the proposed open price is less than the current market rate. Alice stumbles upon a quote where partyA offers a LONG position on 100 units of ETH at an expected open price of $2000 each. Given that the prevailing market price for ETH stands at $2010, Alice promptly takes advantage of the opportunity by opening that quote. As soon as Alice is granted emergency status, she can close the trade and immediately pocket a neat profit of $1000 [(2010-2000) x 100] within quick operations.
+
+## Recommendation
+Make the emergency status specific for a partyA instead of granting the partyB for its all positions

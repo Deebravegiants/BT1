@@ -1,0 +1,14 @@
+# [M] createAmmPairWith() in initialize() will revert if the pair already exists
+
+## Summary
+Severity: Medium
+Contest weight: 0.0299
+Dataset id: 16154
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability resides in the initialization routine of the AMM contract where the function createAmmPairWith is called without first verifying whether the token pair already has an associated liquidity pool. The contract assumes that the pair does not exist and attempts to create it unconditionally. In Solidity, the pair‑creation call reverts if a pair for the given token addresses is already registered. Because the code lacks a guard clause, any subsequent invocation of initialize – either directly or indirectly through functions such as addLiquidityETH – will trigger a revert when the pair has been created previously, either by a legitimate user or by an attacker who pre‑creates the pair. This creates a denial‑of‑service condition: the contract becomes unusable for further liquidity provision or swaps, and users experience transaction failures with no funds transferred. The issue was discovered during a manual audit of the contract’s initialization flow, where the auditor observed that the pair‑creation step did not include an existence check. The bug is subtle because the revert only occurs after the pair exists, a state that may not be encountered during normal operation where the pair is created only once, making it easy to overlook. The impact is that an attacker can pre‑create the pair, or a user can inadvertently trigger the condition, causing the contract to reject further interactions and effectively freezing the ability to add liquidity, which harms liquidity providers, traders, and the protocol’s overall functionality. The affected parties include anyone trying to add liquidity, withdraw funds, or trade through the AMM. From the user’s perspective the UI may show a generic transaction failure or a revert message, while the expected outcome – a successful liquidity addition and updated balance – does not occur. The root cause is a state‑dependent initialization flaw that violates the business logic assumption that liquidity can be added at any time. To remediate, the contract should first query the pair registry to determine whether the pair already exists and skip the creation step if it does. Because addLiquidityETH relies on the pair being present, the fix must also introduce slippage‑control parameters to protect against price manipulation when the pair already exists. In summary, the bug is an unchecked duplicate‑pair creation that leads to a denial‑of‑service by reverting on existing state, breaking accounting expectations and user experience.
+
+## Recommendation
+Check if the pair already exists and skip creating if it does. However, this would make addLiquidityETH() vulnerable to slippage, so introduce slippage control arguments.

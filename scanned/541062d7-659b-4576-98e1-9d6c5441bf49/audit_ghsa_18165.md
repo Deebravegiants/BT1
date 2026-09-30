@@ -1,0 +1,44 @@
+# [H] Rack has an unsafe default in Rack::QueryParser allows params_limit bypass via semicolon-separated parameters
+
+## Summary
+Severity: High
+Advisory: GHSA-625h-95r8-8xpm
+CVE: CVE-2025-59830
+CWE: CWE-400, CWE-770
+Ecosystem: RubyGems
+CVSS: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (CVSS_V3)
+Published: 2025-09-25
+Source: https://github.com/advisories/GHSA-625h-95r8-8xpm
+Type: github-advisory
+
+## Affected
+- RubyGems: `rack` — affected >=0 <2.2.18
+
+## Details
+## Summary
+
+`Rack::QueryParser` in version `< 2.2.18` enforces its `params_limit` only for parameters separated by `&`, while still splitting on both `&` and `;`. As a result, attackers could use `;` separators to bypass the parameter count limit and submit more parameters than intended.
+
+## Details
+
+The issue arises because `Rack::QueryParser#check_query_string` counts only `&` characters when determining the number of parameters, but the default separator regex `DEFAULT_SEP = /[&;] */n` splits on both `&` and `;`. This mismatch means that queries using `;` separators were not included in the parameter count, allowing `params_limit` to be bypassed.
+
+Other safeguards (`bytesize_limit` and `key_space_limit`) still applied, but did not prevent this particular bypass.
+
+## Impact
+
+Applications or middleware that directly invoke `Rack::QueryParser` with its default configuration (no explicit delimiter) could be exposed to increased CPU and memory consumption. This can be abused as a limited denial-of-service vector.
+
+`Rack::Request`, the primary entry point for typical Rack applications, uses `QueryParser` in a safe way and does not appear vulnerable by default. As such, the severity is considered **low**, with the impact limited to edge cases where `QueryParser` is used directly.
+
+## Mitigation
+
+* Upgrade to a patched version of Rack where both `&` and `;` are counted consistently toward `params_limit`.
+* If upgrading is not immediately possible, configure `QueryParser` with an explicit delimiter (e.g., `&`) to avoid the mismatch.
+* As a general precaution, enforce query string and request size limits at the web server or proxy layer (e.g., Nginx, Apache, or a CDN) to mitigate excessive parsing overhead.
+
+## References
+- https://github.com/rack/rack/security/advisories/GHSA-625h-95r8-8xpm
+- https://nvd.nist.gov/vuln/detail/CVE-2025-59830
+- https://github.com/rack/rack/commit/54e4ffdd5affebcb0c015cc6ae74635c0831ed71
+- https://github.com/rack/rack

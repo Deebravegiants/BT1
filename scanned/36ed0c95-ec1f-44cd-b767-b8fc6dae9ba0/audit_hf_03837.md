@@ -1,0 +1,82 @@
+# [M] ChainlinkAggregator: binary search for roun-
+
+## Summary
+Severity: Medium
+Contest weight: 0.4757
+Dataset id: 20075
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+When a phase switchover occurs, it can be necessary that phases need to be searched for a roundId with a timestamp as close as possible but bigger than targetTimestamp.
+Finding the roundId with the closest possible timestamp is necessary according to the sponsor to minimize the delay of position changes:
+The binary search algorithm is not able to find this best roundId which thereby causes unintended position changes.
+Also it can occur that the ChainlinkAggregator library is unable to find a valid roundId at all (as opposed to only not finding the "best").
+This would cause the Oracle to be temporarily DOSed until there are more valid rounds.
+
+Let's look at the binary search algorithm:
+perennial-oracle/contracts/types/ChainlinkAggregator.sol#L123-L156
+The part that we are particularly interested in is:
+perennial-oracle/contracts/types/ChainlinkAggregator.sol#L139-L149
+
+Let's say in a phase there's only one valid round (roundId=1) and the timestamp for this round is greater than targetTimestamp.
+We would expect the roundId that the binary search finds to be roundId=1.
+The binary search loop is executed with minRoundId=1 and maxRoundId=1001.
+All the above conditions can easily occur in reality, they represent the basic scenario under which this algorithm executes.
+
+minRoundId and maxRoundId change like this in the iterations of the loop:
+minRoundId=1
+maxRoundId=1001
+->
+minRoundId=1
+maxRoundId=501
+->
+minRoundId=1
+maxRoundId=251
+->
+minRoundId=1
+maxRoundId=126
+->
+minRoundId=1
+maxRoundId=63
+->
+minRoundId=1
+maxRoundId=32
+->
+minRoundId=1
+maxRoundId=16
+->
+minRoundId=1
+maxRoundId=8
+->
+minRoundId=1
+maxRoundId=4
+->
+minRoundId=1
+maxRoundId=2
+
+Now the loop terminates because minRoundId + 1 !< maxRoundId.
+Since we assumed that roundId=2 is invalid, the function returns 0 (maxTimestamp=type(uint256).max):
+perennial-oracle/contracts/types/ChainlinkAggregator.sol#L153-L155
+
+In the case that latestRound.roundId is equal to the roundId=1 (i.e. same phase and same round id which could not be found) there would be no other valid rounds that the ChainlinkAggregator can find which causes a temporary DOS.
+As explained above this would result in sub-optimal and unintended position changes in the best case. In the worst-case the Oracle can be temporarily DOSed, unable to find a valid roundId.
+
+This means that users cannot interact with the perennial protocol because the Oracle cannot be synced. So they cannot close losing trades which is a loss of funds.
+The DOS can occur since the while loop searching the phases does not terminate:
+perennial-oracle/contracts/types/ChainlinkAggregator.sol#L88-L91
+
+## Recommendation
+I recommend to add a check if minRoundId is a valid solution for the binary search. If it is, minRoundId should be used to return the result instead of maxRoundId:
+```solidity
+// If the found timestamp is not greater than target timestamp or no max was found, then the desired round does
+// not exist in this phase
+if ((minTimestamp <= targetTimestamp || minTimestamp == type(uint256).max) && (maxTimestamp <= targetTimestamp || maxTimestamp == type(uint256).max)) return 0;
+
+if (minTimestamp > targetTimestamp) {
+    return _aggregatorRoundIdToProxyRoundId(phaseId, uint80(minRoundId));
+}
+return _aggregatorRoundIdToProxyRoundId(phaseId, uint80(maxRoundId));
+```
+After applying the changes, the binary search only returns 0 if both minRoundId and maxRoundId are not a valid result.
+If this line is passed we know that either of both is valid and we can use minRoundId if it is the better result.

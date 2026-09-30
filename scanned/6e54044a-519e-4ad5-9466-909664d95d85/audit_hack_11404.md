@@ -1,0 +1,30 @@
+# [M] Calculating Protocol Fee is susceptible to precision loss due to division before multiplication
+
+## Summary
+Severity: Medium
+Reporter: Saeedalipoor01988
+Source: https://github.com/sherlock-audit/2023-05-Index/blob/3190057afd3085143a31746d65045a0d1bacc78c/index-protocol/contracts/protocol/modules/v1/StreamingFeeModule.sol#L94
+Type: audit-issue
+
+## Details
+# Calculating Protocol Fee is susceptible to precision loss due to division before multiplication
+
+## Summary
+Protocol Fee may be lost (0) due to division before multiplication precision issues.
+
+## Vulnerability Detail
+The [StreamingFeeModule.sol.accrueFee function](https://github.com/sherlock-audit/2023-05-Index/blob/3190057afd3085143a31746d65045a0d1bacc78c/index-protocol/contracts/protocol/modules/v1/StreamingFeeModule.sol#L94) calculates the Protocol Fee by first [dividing ( fee * totalSupply ) by ScaleFactor : (10e18) - fee](https://github.com/sherlock-audit/2023-05-Index/blob/3190057afd3085143a31746d65045a0d1bacc78c/index-protocol/contracts/protocol/modules/v1/StreamingFeeModule.sol#L240) to earn _feeQuantity and then [multiplying _feeQuantity by protocolFee](https://github.com/sherlock-audit/2023-05-Index/blob/3190057afd3085143a31746d65045a0d1bacc78c/index-protocol/contracts/protocol/modules/v1/StreamingFeeModule.sol#L256). If fee * totalSupply is small enough and ScaleFactor (10e18) - fee is large enough, the division may result in a value of 0, resulting in the Protocol Fee becoming 0.
+
+## Impact
+protocol Fee Recipient may not receive fee due to precision loss.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-05-Index/blob/3190057afd3085143a31746d65045a0d1bacc78c/index-protocol/contracts/protocol/modules/v1/StreamingFeeModule.sol#L94
+https://github.com/sherlock-audit/2023-05-Index/blob/3190057afd3085143a31746d65045a0d1bacc78c/index-protocol/contracts/protocol/modules/v1/StreamingFeeModule.sol#L224
+https://github.com/sherlock-audit/2023-05-Index/blob/3190057afd3085143a31746d65045a0d1bacc78c/index-protocol/contracts/protocol/modules/v1/StreamingFeeModule.sol#L256
+
+## Tool used
+Manual Review
+
+## Recommendation
+recommend avoid division before multiplication and always perform division operation at last.

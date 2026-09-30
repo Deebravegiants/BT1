@@ -1,0 +1,157 @@
+# [M] Logical error in relayMessage() leads to no revert for Constants.ESTIMATION_ADDRESS when the call to SafeCall.callWithMinGas is successful.
+
+## Summary
+Severity: Medium
+Reporter: chaduke
+Source: https://github.com/ethereum-optimism/optimism/blob/9b9f78c6613c6ee53b93ca43c71bb74479f4b975/packages/contracts-bedrock/contracts/universal/CrossDomainMessenger.sol#L291-L348
+Type: audit-issue
+
+## Details
+# Logical error in relayMessage() leads to no revert for Constants.ESTIMATION_ADDRESS when the call to SafeCall.callWithMinGas is successful.
+
+## Summary
+Logical error in ``relayMessage()`` leads to no revert for Constants.ESTIMATION_ADDRESS when the call to ``SafeCall.callWithMinGas`` is successful.
+
+## Vulnerability Detail
+
+``relayMessage()`` relays a message that was sent by the other CrossDomainMessenger contract.
+
+[https://github.com/ethereum-optimism/optimism/blob/9b9f78c6613c6ee53b93ca43c71bb74479f4b975/packages/contracts-bedrock/contracts/universal/CrossDomainMessenger.sol#L291-L348]
+
+When the function is initiated by Constants.ESTIMATION_ADDRESS, the function is supposed to revert. However, the following logic shows that the function only reverts when ``success == false``. That is, if ``success == true``, then even the function is initiated by Constants.ESTIMATION_ADDRESS, it won't revert. 
+
+The function should revert when it is initiated by Constants.ESTIMATION_ADDRESS, regardless if the low level call succeed or not.
+
+```javascript
+ if (success) {
+            successfulMessages[versionedHash] = true;
+            emit RelayedMessage(versionedHash);
+        } else {
+            failedMessages[versionedHash] = true;
+            emit FailedRelayedMessage(versionedHash);
+
+            // Revert in this case if the transaction was triggered by the estimation address. This
+            // should only be possible during gas estimation or we have bigger problems. Reverting
+            // here will make the behavior of gas estimation change such that the gas limit
+            // computed will be the amount required to relay the message, even if that amount is
+            // greater than the minimum gas limit specified by the user.
+            if (tx.origin == Constants.ESTIMATION_ADDRESS) {
+                revert("CrossDomainMessenger: failed to relay message");
+            }
+        }
+```
+
+## Impact
+Logical error in relayMessage() leads to no revert for Constants.ESTIMATION_ADDRESS when the call to SafeCall.callWithMinGas is successful. As a result, the function might succeed and change the state even when it is initiated by Constants.ESTIMATION_ADDRESS  for the purpose of estimate gas usage only.
+
+
+## Code Snippet
+
+## Tool used
+VSCode
+
+Manual Review
+
+## Recommendation
+Change it so that the function will always revert when it is initiated by Constants.ESTIMATION_ADDRESS.
+
+```diff
+function relayMessage(
+        uint256 _nonce,
+        address _sender,
+        address _target,
+        uint256 _value,
+        uint256 _minGasLimit,
+        bytes calldata _message
+    ) external payable {
+        (, uint16 version) = Encoding.decodeVersionedNonce(_nonce);
+        require(
+            version < 2,
+            "CrossDomainMessenger: only version 0 or 1 messages are supported at this time"
+        );
+
+        // If the message is version 0, then it's a migrated legacy withdrawal. We therefore need
+        // to check that the legacy version of the message has not already been relayed.
+        if (version == 0) {
+            bytes32 oldHash = Hashing.hashCrossDomainMessageV0(_target, _sender, _message, _nonce);
+            require(
+                successfulMessages[oldHash] == false,
+                "CrossDomainMessenger: legacy withdrawal already relayed"
+            );
+        }
+
+        // We use the v1 message hash as the unique identifier for the message because it commits
+        // to the value and minimum gas limit of the message.
+        bytes32 versionedHash = Hashing.hashCrossDomainMessageV1(
+            _nonce,
+            _sender,
+            _target,
+            _value,
+            _minGasLimit,
+            _message
+        );
+
+        // Check if the reentrancy lock for the `versionedHash` is already set.
+        if (reentrancyLocks[versionedHash]) {
+            revert("ReentrancyGuard: reentrant call");
+        }
+        // Trigger the reentrancy lock for `versionedHash`
+        reentrancyLocks[versionedHash] = true;
+
+        if (_isOtherMessenger()) {
+            // These properties should always hold when the message is first submitted (as
+            // opposed to being replayed).
+            assert(msg.value == _value);
+            assert(!failedMessages[versionedHash]);
+        } else {
+            require(
+                msg.value == 0,
+                "CrossDomainMessenger: value must be zero unless message is from a system address"
+            );
+
+            require(
+                failedMessages[versionedHash],
+                "CrossDomainMessenger: message cannot be replayed"
+            );
+        }
+
+        require(
+            _isUnsafeTarget(_target) == false,
+            "CrossDomainMessenger: cannot send message to blocked system address"
+        );
+
+        require(
+            successfulMessages[versionedHash] == false,
+            "CrossDomainMessenger: message has already been relayed"
+        );
+
+        xDomainMsgSender = _sender;
+        bool success = SafeCall.callWithMinGas(_target, _minGasLimit, _value, _message);
+        xDomainMsgSender = Constants.DEFAULT_L2_SENDER;
+
+        if (success) {
+            successfulMessages[versionedHash] = true;
+            emit RelayedMessage(versionedHash);
+        } else {
+            failedMessages[versionedHash] = true;
+            emit FailedRelayedMessage(versionedHash);
+
+            // Revert in this case if the transaction was triggered by the estimation address. This
+            // should only be possible during gas estimation or we have bigger problems. Reverting
+            // here will make the behavior of gas estimation change such that the gas limit
+            // computed will be the amount required to relay the message, even if that amount is
+            // greater than the minimum gas limit specified by the user.
+-            if (tx.origin == Constants.ESTIMATION_ADDRESS) {
+-                revert("CrossDomainMessenger: failed to relay message");
+-            }
+        }
+
++            if (tx.origin == Constants.ESTIMATION_ADDRESS) {
++                revert("CrossDomainMessenger: failed to relay message");
++            }
+
+
+        // Clear the reentrancy lock for `versionedHash`
+        reentrancyLocks[versionedHash] = false;
+    }
+```

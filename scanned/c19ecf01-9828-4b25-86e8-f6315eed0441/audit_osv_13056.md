@@ -1,0 +1,16 @@
+# [C] CVE-2018-17179
+
+## Summary
+Severity: Critical
+Advisory: CVE-2018-17179
+CVSS: 9.8 (CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H)
+Published: 2019-05-17
+Source: https://osv.dev/vulnerability/CVE-2018-17179
+Type: osv
+
+## Details
+An issue was discovered in OpenEMR before 5.0.1 Patch 7. There is SQL Injection in the make_task function in /interface/forms/eye_mag/php/taskman_functions.php via /interface/forms/eye_mag/taskman.php.
+
+## References
+- https://github.com/openemr/openemr/commit/3e22d11c7175c1ebbf3d862545ce6fee18f70617
+- https://www.open-emr.org/wiki/index.php/OpenEMR_Patches#5.0.1_Patch_.289.2F9.2F18.29

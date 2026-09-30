@@ -1,0 +1,14 @@
+# [M] M-29 | ASP Insufficient Liquidity DOS
+
+## Summary
+Severity: Medium
+Contest weight: 0.0420
+Dataset id: 22200
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability is an insufficient‑liquidity minting error that occurs when the AutoCompoundingPodLp contract attempts to add liquidity after swapping the paired tokens for pod tokens. The contract forwards the swapped token amounts to the underlying AMM’s addLiquidity function, which calculates the amount of liquidity tokens to mint based on the pool’s current reserves. If the supplied token amounts are very small, the calculation rounds down to zero, causing the AMM to try to mint 0 liquidity tokens. The AMM then reverts with the error INSUFFICIENT_LIQUIDITY_MINTED. This situation creates a denial‑of‑service condition because any transaction that triggers a small‑amount swap will fail, preventing users from receiving pod tokens or rewards. The root cause is the lack of a minimum‑amount guard before invoking the liquidity‑minting step; the contract assumes that any positive amount will produce a positive liquidity mint, ignoring the rounding behavior of integer arithmetic in the AMM. An attacker or even a benign user can exploit the issue by submitting a transaction with a tiny swap amount, causing the minting step to revert and thereby blocking further reward distribution for that pod. The impact is that users see their transactions revert, receive no pod tokens, and observe unchanged balances in the UI, effectively losing the ability to claim accrued rewards. The problem manifests only when the swapped amounts fall below the implicit threshold defined by the AMM’s liquidity formula, which may be rare under normal usage and therefore easy to miss during testing. The affected parties are all participants who interact with the pod – liquidity providers, reward claimants, and the protocol itself, which may suffer reputational damage. The issue was discovered during a manual audit by the Guardian team, who noted that the contract does not enforce a minimum reward size similar to the pattern used in the DecentralizedIndex contract. Because the revert is triggered only for edge‑case amounts, it can be overlooked in functional tests that use typical transaction sizes. To remediate, the contract should introduce a check that the calculated liquidity to be minted exceeds a safe, non‑zero threshold before calling the AMM, and if the amount is below that threshold, the contract should skip the reward minting or revert with a clearer, user‑friendly message. This mitigation aligns the logic with a generic class of “insufficient liquidity mint” bugs, where rounding errors lead to zero‑output operations and potential denial‑of‑service.
+
+## Recommendation
+Just like in the DecentralizedIndex, consider rewards only if they exceed a given minimum.

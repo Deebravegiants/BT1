@@ -1,0 +1,18 @@
+# [H] Server-Side Request Forgery in DataHub
+
+## Summary
+Severity: High
+Advisory: CVE-2023-25557
+Aliases: GHSA-5w2h-q83m-65xg
+CVSS: 7.5 (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N)
+Published: 2023-02-10
+Source: https://osv.dev/vulnerability/CVE-2023-25557
+Type: osv
+
+## Details
+DataHub is an open-source metadata platform. The DataHub frontend acts as a proxy able to forward any REST or GraphQL requests to the backend. The goal of this proxy is to perform authentication if needed and forward HTTP requests to the DataHub Metadata Store (GMS). It has been discovered that the proxy does not adequately construct the URL when forwarding data to GMS, allowing external users to reroute requests from the DataHub Frontend to any arbitrary hosts. As a result attackers may be able to reroute a request from originating from the frontend proxy to any other server and return the result. This vulnerability was discovered and reported by the GitHub Security lab and is tracked as GHSL-2022-076.
+
+## References
+- https://github.com/CVEProject/cvelistV5/tree/main/cves/2023/25xxx/CVE-2023-25557.json
+- https://github.com/datahub-project/datahub/security/advisories/GHSA-5w2h-q83m-65xg
+- https://nvd.nist.gov/vuln/detail/CVE-2023-25557

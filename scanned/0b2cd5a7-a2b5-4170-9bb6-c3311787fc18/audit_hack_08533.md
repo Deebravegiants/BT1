@@ -1,0 +1,37 @@
+# [M] tokens like usdt must approve 0 first
+
+## Summary
+Severity: Medium
+Reporter: PRAISE
+Source: https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/liquidators/NotionalV2BaseLiquidator.sol#L69
+Type: audit-issue
+
+## Details
+# tokens like usdt must approve 0 first
+
+## Summary
+some tokens like USDT must approve 0 first.
+
+I know that currently USDT isn't used... but i think this should be corrected so that the protocol and the users won't have issues with tokens like USDT when it is later introduced.
+I also confirmed from Jeff wu and he gave me a go ahead.
+
+## Vulnerability Detail
+Some tokens (like USDT) do not work when changing the allowance from an existing non-zero allowance value. They must first be approved by zero and then the actual allowance must be approved.
+
+## Impact
+due to the function approving max multiple times, certain tokens, that only allow a non-zero allowance to be set starting from zero, could revert.
+
+Because this depends on the token implementation, like USDT and similar tokens.
+
+## Code Snippet
+https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/liquidators/NotionalV2BaseLiquidator.sol#L69
+
+https://github.com/sherlock-audit/2023-03-notional/blob/main/contracts-v2/contracts/external/liquidators/NotionalV2BaseLiquidator.sol#L59
+
+
+## Tool used
+
+Manual Review
+
+## Recommendation
+Approve zero first

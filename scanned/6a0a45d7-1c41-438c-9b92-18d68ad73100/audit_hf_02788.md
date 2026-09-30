@@ -1,0 +1,14 @@
+# [H] CurveAssetManagerHelper::_validateAssets() should check that the number of assets provided is smaller than the maximum of the pool
+
+## Summary
+Severity: High
+Contest weight: 0.0658
+Dataset id: 15192
+Source: https://huggingface.co/datasets/Zaevlad/audit-findings-dataset
+Type: audit-finding
+
+## Details
+The vulnerability resides in the helper contract that validates asset arrays before they are forwarded to a Curve pool. The function only checks that the array length is non‑zero but does not verify that each asset index is less than the pool's declared number of coins (num_coins). Because the pool stores assets in a fixed‑size array indexed from 0 to num_coins‑1, providing an index equal to or greater than num_coins causes the contract to read or write outside the intended storage region. The root cause is a missing bounds check on the asset indexes supplied by the caller. An attacker can craft a transaction that includes an asset with an out‑of‑range index; the contract will accept the input and later attempt to transfer tokens according to the supplied index. Since the pool does not have a corresponding token slot, the transfer either fails silently, results in a zero‑address transfer, or overwrites unrelated storage, effectively causing the user’s tokens to be locked, burned, or sent to an unintended address. The impact is loss of user funds and disruption of the pool’s accounting, which may also affect other participants that rely on correct asset balances. The condition occurs whenever a user calls a function that ultimately invokes _validateAssets with a custom asset list, such as adding liquidity or swapping, and the caller supplies more assets than the pool supports. The vulnerability was discovered during a manual audit of the contract’s input‑validation logic, where the auditor noticed that the function comment mentioned a maximum but the code omitted the check. Because the failure manifests only when an out‑of‑range index is used, normal usage with correct inputs does not raise an alarm, making the bug easy to miss in testing. To remediate, the contract should enforce that the length of the assets array does not exceed num_coins and that each supplied index is strictly less than num_coins before any token transfer is performed. This belongs to the class of “unchecked array index” or “insufficient input validation” bugs that break accounting invariants. From a user’s perspective, a transaction that appears to add liquidity may complete, but the expected token balance does not increase, or the user sees a sudden reduction of their holdings, leading to confusion and potential loss of funds. The bug violates the business rule that a pool can only manage a predefined set of assets, and any deviation should be rejected.
+
+## Recommendation
+Validate that the number of assets sent is at most num_coins.
