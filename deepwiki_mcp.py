@@ -15,6 +15,10 @@ class DeepWikiMCPError(Exception):
     pass
 
 
+class DeepWikiRateLimited(DeepWikiMCPError):
+    """Still getting HTTP 429 after all retries; the caller should stop and try again later."""
+
+
 def repo_from_url(url):
     """'https://deepwiki.com/owner/repo' -> 'owner/repo'"""
     match = re.search(r"deepwiki\.com/([^/]+/[^/?#]+)", url)
@@ -50,7 +54,12 @@ def ask_wiki_question(repo_name, question, timeout=300, retries=3):
             response = requests.post(MCP_URL, headers=HEADERS, json=payload, timeout=timeout)
 
             if response.status_code == 429 or response.status_code >= 500:
-                wait = 30 * attempt
+                if attempt == retries:
+                    if response.status_code == 429:
+                        raise DeepWikiRateLimited(f"HTTP 429 after {retries} attempts")
+                    raise DeepWikiMCPError(f"HTTP {response.status_code} after {retries} attempts")
+                retry_after = response.headers.get("Retry-After", "")
+                wait = int(retry_after) if retry_after.isdigit() else 30 * attempt
                 print(f"[MCP] HTTP {response.status_code}, retrying in {wait}s ({attempt}/{retries})")
                 time.sleep(wait)
                 continue

@@ -8,7 +8,7 @@ from pathlib import Path
 
 from decouple import config
 
-from deepwiki_mcp import ask_wiki_question, extract_search_url, repo_from_url
+from deepwiki_mcp import DeepWikiRateLimited, ask_wiki_question, extract_search_url, repo_from_url
 from questions import BASE_URL, audit_format, scan_format, validation_format
 
 MAX_RUNTIME_SECONDS = 20 * 60
@@ -46,6 +46,32 @@ def format_question(filename, content):
     if base_filename.startswith("validation"):
         return validation_format(content)
     return audit_format(content)
+
+
+def top_up_pending(processed_files):
+    """Move one scanned folder into pending, but only once everything already pending is done."""
+    if any(f.name not in processed_files for f in get_audits_reports()):
+        return
+    from audit_validation import generate_scanned_questions_for_ask
+    try:
+        generate_scanned_questions_for_ask()
+    except FileNotFoundError:
+        print("No scanned folders left to move into pending")
+
+
+def has_scanned_folders():
+    scanned = Path(os.environ.get("SCANNED_DIR", "scanned"))
+    return scanned.is_dir() and any(d.is_dir() for d in scanned.iterdir())
+
+
+def write_github_output(**values):
+    """Tell the workflow whether to dispatch another run."""
+    path = os.environ.get("GITHUB_OUTPUT")
+    if not path:
+        return
+    with open(path, "a") as f:
+        for key, value in values.items():
+            f.write(f"{key}={str(value).lower()}\n")
 
 
 def save_answer(answer):
@@ -91,15 +117,17 @@ def main():
     start = time.monotonic()
     repo_name = os.environ.get("DEEPWIKI_REPO") or repo_from_url(BASE_URL)
 
+    processed_files = load_processed_reports()
+    top_up_pending(processed_files)
     audit_files = get_audits_reports()
     total = len(audit_files)
-    processed_files = load_processed_reports()
 
     print(f"Repo: {repo_name}")
     print(f"Found {total} audit files to process")
     print(f"Already processed: {len(processed_files)}")
 
     processed_count = skipped_count = failed_count = found_count = 0
+    rate_limited = False
 
     for i, audit_file in enumerate(audit_files, 1):
         if time.monotonic() - start > MAX_RUNTIME_SECONDS:
@@ -134,6 +162,11 @@ def main():
             processed_files.add(audit_file.name)
             processed_count += 1
 
+        except DeepWikiRateLimited as e:
+            rate_limited = True
+            print(f"Rate limited by DeepWiki, stopping this run: {e}")
+            break
+
         except Exception as e:
             failed_count += 1
             print(f"Error processing {audit_file.name}: {e}")
@@ -147,6 +180,11 @@ def main():
     print(f"Failed: {failed_count}")
     print(f"Skipped: {skipped_count}")
     print(f"Elapsed: {(time.monotonic() - start) / 60:.1f} min")
+    if rate_limited:
+        print("Stopped early: rate limited")
+
+    remaining = any(f.name not in processed_files for f in get_audits_reports())
+    write_github_output(more_work=remaining or has_scanned_folders(), rate_limited=rate_limited)
 
 
 if __name__ == "__main__":
