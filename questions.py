@@ -8,7 +8,7 @@ MAX_REPO = 25
 # todo: the path from https://github.com/rsksmart/rsk-powhsm
 SOURCE_REPO = "AuditingProject/AllProjects"
 # todo: the name of the repository
-REPO_NAME = "rsk-powhsm"
+REPO_NAME = "AllProjects"
 run_number = os.environ.get('GITHUB_RUN_NUMBER') or os.environ.get('CI_PIPELINE_IID', '0')
 
 
